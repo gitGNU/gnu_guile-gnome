@@ -25,7 +25,7 @@
 ;;
 ;;; Code:
 
-(define-module (gnome gw libwnck-spec)
+(define-module (gnome gw wnck-spec)
   #:use-module (oop goops)
   #:use-module (g-wrap)
   #:use-module (g-wrap guile)
@@ -35,7 +35,7 @@
   #:use-module (gnome gobject defs-support))
 
 (define-class <wnck-wrapset> (<gobject-wrapset-base>)
-  guile #:id 'gnome-libwnck)
+  guile #:id 'gnome-wnck)
 
 (define-method (global-declarations-cg (self <gobject-wrapset-base>))
   (list
@@ -46,7 +46,7 @@
 "))
   
 (define-method (initialize (ws <wnck-wrapset>) initargs)
-  (next-method ws (cons #:module (cons '(gnome gw libwnck) initargs)))
+  (next-method ws (cons #:module (cons '(gnome gw wnck) initargs)))
 
   (depends-on! ws 'standard 'gnome-glib 'gnome-gobject)
   

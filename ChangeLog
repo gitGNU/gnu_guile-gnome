@@ -1,0 +1,8 @@
+2004-06-13  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* gnome/gw/Makefile.am: Update.
+
+	* gnome/gw/wnck-spec.scm: New name (WAS: libwnck-spec.scm).
+
+	* New file.
+
