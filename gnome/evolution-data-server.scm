@@ -1,4 +1,3 @@
-;; -*- scheme -*-
 ;; guile-gnome
 ;; Copyright (C) 2004 Free Software Foundation, Inc.
 
@@ -21,18 +20,14 @@
 
 ;;; Commentary:
 ;;
-;;Custom wrapper definitions.
+;; Evolution data server bindings.
 ;;
 ;;; Code:
 
-(ignore-glob  "*_get_type"
-              "_*"
-              "*_ref"
-              "*_unref"
-              "*_copy"
-              "*_free"
-              "*_newv"
-              "*_valist"
-              "*_setv"
-              "*_foreach"
-              "*_valist")
+(define-module (gnome evolution-data-server)
+  #:use-module (srfi srfi-19)
+  #:use-module (gnome gw evolution-data-server)
+  #:use-module (gnome gw support modules))
+
+(re-export-modules (gnome gw evolution-data-server)
+                   (srfi srfi-19))

@@ -1,3 +1,4 @@
+;; -*- scheme -*-
 ;; guile-gnome
 ;; Copyright (C) 2004 Free Software Foundation, Inc.
 
@@ -20,15 +21,32 @@
 
 ;;; Commentary:
 ;;
-;;Template bindings.
-;;
-;;[...]
+;;Custom wrapper definitions.
 ;;
 ;;; Code:
 
-(define-module (gnome template)
-  #:use-module (gnome gtk)
-  #:use-module (gnome gw template)
-  #:use-module (gnome gw support modules))
+(define-method peek_sources
+  (of-object "ESourceGroup")
+  (c-name "e_source_group_peek_sources")
+  (overrides "e_source_group_peek_sources")
+  (return-type "GSList*-of-ESource*")
+)
 
-(re-export-modules (gnome gw template))
+(define-method peek_groups
+  (of-object "ESourceList")
+  (c-name "e_source_list_peek_groups")
+  (overrides "e_source_list_peek_groups")
+  (return-type "GSList*-of-ESourceGroup*")
+)
+
+(ignore-glob  "*_get_type"
+              "_*"
+              "*_ref"
+              "*_unref"
+              "*_copy"
+              "*_free"
+              "*_newv"
+              "*_valist"
+              "*_setv"
+              "*_foreach"
+              "*_valist")

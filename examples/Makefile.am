@@ -1,1 +1,1 @@
-SUBDIRS = template
+SUBDIRS = evolution-data-server

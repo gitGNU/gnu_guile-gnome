@@ -1,7 +1,7 @@
 /* guile-gnome
  * Copyright (C) 2004 Free Software Foundation, Inc.
  *
- * template-support.c: Support routines for the template wrapper
+ * ical-support.c: Support routines for the evolution-data-server wrapper
  *
  * This program is free software; you can redistribute it and/or    
  * modify it under the terms of the GNU General Public License as   
@@ -21,12 +21,11 @@
  * Boston, MA  02111-1307,  USA       gnu@gnu.org
  */
 
-#include "template-support.h"
+#include <libical/ical.h>
 #include "guile-gnome-gobject.h"
 
-#define GRUNTIME_ERROR(format, func_name, args...) \
-  scm_error_scm (scm_str2symbol ("gruntime-error"), scm_makfrom0str (func_name), \
-                 scm_simple_format (SCM_BOOL_F, scm_makfrom0str (format), \
-                                    scm_list_n (args, SCM_UNDEFINED)), \
-                 SCM_EOL, SCM_EOL)
+GType icaltimetype_get_gtype (void);
+struct icaltimetype* scm_date_to_icaltimetype (SCM date);
+SCM scm_icaltimetype_to_date (struct icaltimetype *t);
 
+SCM scm_c_module_ref (SCM module, const char *sym);

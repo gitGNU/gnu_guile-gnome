@@ -1,0 +1,478 @@
+;; -*- scheme -*-
+;; guile-gnome
+;; Copyright (C) 2004 Free Software Foundation, Inc.
+
+;; This program is free software; you can redistribute it and/or    
+;; modify it under the terms of the GNU General Public License as   
+;; published by the Free Software Foundation; either version 2 of   
+;; the License, or (at your option) any later version.              
+;;                                                                  
+;; This program is distributed in the hope that it will be useful,  
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of   
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the    
+;; GNU General Public License for more details.                     
+;;                                                                  
+;; You should have received a copy of the GNU General Public License
+;; along with this program; if not, contact:
+;;
+;; Free Software Foundation           Voice:  +1-617-542-5942
+;; 59 Temple Place - Suite 330        Fax:    +1-617-542-2652
+;; Boston, MA  02111-1307,  USA       gnu@gnu.org
+
+;;; Commentary:
+;;
+;;Custom wrapper definitions.
+;;
+;;; Code:
+
+(define-enum CalPropertyStatus
+  (in-module "I")
+  (c-name "icalproperty_status")
+  (values
+   '("x" "ICAL_STATUS_X")
+   '("tentative" "ICAL_STATUS_TENTATIVE")
+   '("confirmed" "ICAL_STATUS_CONFIRMED")
+   '("completed" "ICAL_STATUS_COMPLETED")
+   '("needsaction" "ICAL_STATUS_NEEDSACTION")
+   '("cancelled" "ICAL_STATUS_CANCELLED")
+   '("inprocess" "ICAL_STATUS_INPROCESS")
+   '("draft" "ICAL_STATUS_DRAFT")
+   '("final" "ICAL_STATUS_FINAL")
+   '("none" "ICAL_STATUS_NONE")
+  )
+)
+
+(define-function e_cal_open_default
+  (is-constructor-of "ECal")
+  (c-name "wrap_e_cal_open_default")
+  (overrides "e_cal_open_default")
+  (return-type "ECal*")
+  (parameters
+   '("ECalSourceType" "type")
+   '("SCM" "auth_proc")
+   '("GError**" "error")))
+
+(define-method generate-instances
+  (of-object "ECal")
+  (c-name "wrap_e_cal_generate_instances")
+  (overrides "e_cal_generate_instances")
+  (return-type "void")
+  (parameters
+   '("SCM" "start_time")
+   '("SCM" "end_time")
+   '("SCM" "recur_instances_proc")))
+
+;; This is a really shite API.
+
+(define-method get_categories_list
+  (of-object "ECalComponent")
+  (c-name "wrap_e_cal_component_get_categories_list")
+  (overrides "e_cal_component_get_categories_list")
+  (return-type "GSList*-of-ECalComponentText*"))
+
+(define-method set_categories_list
+  (of-object "ECalComponent")
+  (c-name "e_cal_component_set_categories_list")
+  (overrides "e_cal_component_set_categories_list")
+  (return-type "none")
+  (parameters
+    '("GSList*-of-ECalComponentText*" "categ_list") ;; conservative
+  )
+)
+
+(define-method get_comment_list
+  (of-object "ECalComponent")
+  (c-name "wrap_e_cal_component_get_comment_list")
+  (overrides "e_cal_component_get_comment_list")
+  (return-type "GSList*-of-const-ECalComponentText*"))
+(define-method set_comment_list
+  (of-object "ECalComponent")
+  (c-name "e_cal_component_set_comment_list")
+  (overrides "e_cal_component_set_comment_list")
+  (return-type "none")
+  (parameters
+    '("GSList*-of-ECalComponentText*" "text_list")
+  )
+)
+
+(define-method get_contact_list
+  (of-object "ECalComponent")
+  (c-name "wrap_e_cal_component_get_contact_list")
+  (overrides "e_cal_component_get_contact_list")
+  (return-type "GSList*-of-const-ECalComponentText*"))
+(define-method set_contact_list
+  (of-object "ECalComponent")
+  (c-name "e_cal_component_set_contact_list")
+  (overrides "e_cal_component_set_contact_list")
+  (return-type "none")
+  (parameters
+    '("GSList*-of-ECalComponentText*" "text_list")
+  )
+)
+
+(define-method get_description_list
+  (of-object "ECalComponent")
+  (c-name "wrap_e_cal_component_get_description_list")
+  (overrides "e_cal_component_get_description_list")
+  (return-type "GSList*-of-const-ECalComponentText*"))
+(define-method set_description_list
+  (of-object "ECalComponent")
+  (c-name "e_cal_component_set_description_list")
+  (overrides "e_cal_component_set_description_list")
+  (return-type "none")
+  (parameters
+    '("GSList*-of-ECalComponentText*" "text_list")
+  )
+)
+
+(define-method get_uid
+  (of-object "ECalComponent")
+  (c-name "wrap_e_cal_component_get_uid")
+  (overrides "e_cal_component_get_uid")
+  (return-type "const-char*"))
+(define-method get_categories
+  (of-object "ECalComponent")
+  (c-name "wrap_e_cal_component_get_categories")
+  (overrides "e_cal_component_get_categories")
+  (return-type "const-char*"))
+(define-method get_dtend
+  (of-object "ECalComponent")
+  (c-name "wrap_e_cal_component_get_dtend")
+  (overrides "e_cal_component_get_dtend")
+  (return-type "ECalComponentDateTime*"))
+(define-method get_dtstamp
+  (of-object "ECalComponent")
+  (c-name "wrap_e_cal_component_get_dtstamp")
+  (overrides "e_cal_component_get_dtstamp")
+  (return-type "struct-icaltimetype*"))
+(define-method get_dtstart
+  (of-object "ECalComponent")
+  (c-name "wrap_e_cal_component_get_dtstart")
+  (overrides "e_cal_component_get_dtstart")
+  (return-type "ECalComponentDateTime*"))
+(define-method get_due
+  (of-object "ECalComponent")
+  (c-name "wrap_e_cal_component_get_due")
+  (overrides "e_cal_component_get_due")
+  (return-type "ECalComponentDateTime*"))
+(define-method get_summary
+  (of-object "ECalComponent")
+  (c-name "wrap_e_cal_component_get_summary")
+  (overrides "e_cal_component_get_summary")
+  (return-type "ECalComponentText*"))
+(define-method get_url
+  (of-object "ECalComponent")
+  (c-name "wrap_e_cal_component_get_url")
+  (overrides "e_cal_component_get_url")
+  (return-type "const-char*"))
+(define-method get_location
+  (of-object "ECalComponent")
+  (c-name "wrap_e_cal_component_get_location")
+  (overrides "e_cal_component_get_location")
+  (return-type "const-char*"))
+
+; (define-method get_exdate_list
+;   (of-object "ECalComponent")
+;   (c-name "e_cal_component_get_exdate_list")
+;   (return-type "none")
+;   (parameters
+;     '("GSList**" "exdate_list")
+;   )
+; )
+
+; (define-method set_exdate_list
+;   (of-object "ECalComponent")
+;   (c-name "e_cal_component_set_exdate_list")
+;   (return-type "none")
+;   (parameters
+;     '("GSList*" "exdate_list")
+;   )
+; )
+; (define-method get_exrule_list
+;   (of-object "ECalComponent")
+;   (c-name "e_cal_component_get_exrule_list")
+;   (return-type "none")
+;   (parameters
+;     '("GSList**" "recur_list")
+;   )
+; )
+
+; (define-method get_exrule_property_list
+;   (of-object "ECalComponent")
+;   (c-name "e_cal_component_get_exrule_property_list")
+;   (return-type "none")
+;   (parameters
+;     '("GSList**" "recur_list")
+;   )
+; )
+
+; (define-method set_exrule_list
+;   (of-object "ECalComponent")
+;   (c-name "e_cal_component_set_exrule_list")
+;   (return-type "none")
+;   (parameters
+;     '("GSList*" "recur_list")
+;   )
+; )
+
+; (define-method get_rdate_list
+;   (of-object "ECalComponent")
+;   (c-name "e_cal_component_get_rdate_list")
+;   (return-type "none")
+;   (parameters
+;     '("GSList**" "period_list")
+;   )
+; )
+
+; (define-method set_rdate_list
+;   (of-object "ECalComponent")
+;   (c-name "e_cal_component_set_rdate_list")
+;   (return-type "none")
+;   (parameters
+;     '("GSList*" "period_list")
+;   )
+; )
+; (define-method get_rrule_list
+;   (of-object "ECalComponent")
+;   (c-name "e_cal_component_get_rrule_list")
+;   (return-type "none")
+;   (parameters
+;     '("GSList**" "recur_list")
+;   )
+; )
+
+; (define-method get_rrule_property_list
+;   (of-object "ECalComponent")
+;   (c-name "e_cal_component_get_rrule_property_list")
+;   (return-type "none")
+;   (parameters
+;     '("GSList**" "recur_list")
+;   )
+; )
+
+; (define-method set_rrule_list
+;   (of-object "ECalComponent")
+;   (c-name "e_cal_component_set_rrule_list")
+;   (return-type "none")
+;   (parameters
+;     '("GSList*" "recur_list")
+;   )
+; )
+; (define-method get_attendee_list
+;   (of-object "ECalComponent")
+;   (c-name "e_cal_component_get_attendee_list")
+;   (return-type "none")
+;   (parameters
+;     '("GSList**" "attendee_list")
+;   )
+; )
+
+; (define-method set_attendee_list
+;   (of-object "ECalComponent")
+;   (c-name "e_cal_component_set_attendee_list")
+;   (return-type "none")
+;   (parameters
+;     '("GSList*" "attendee_list")
+;   )
+; )
+
+; (define-method get_alarm_uids
+;   (of-object "ECalComponent")
+;   (c-name "e_cal_component_get_alarm_uids")
+;   (return-type "GList*")
+; )
+
+; (define-method get_attendee_list
+;   (of-object "ECalComponentAlarm")
+;   (c-name "e_cal_component_alarm_get_attendee_list")
+;   (return-type "none")
+;   (parameters
+;     '("GSList**" "attendee_list")
+;   )
+; )
+
+; (define-method set_attendee_list
+;   (of-object "ECalComponentAlarm")
+;   (c-name "e_cal_component_alarm_set_attendee_list")
+;   (return-type "none")
+;   (parameters
+;     '("GSList*" "attendee_list")
+;   )
+; )
+; (define-method uri_list
+;   (of-object "ECal")
+;   (c-name "e_cal_uri_list")
+;   (return-type "GList*")
+;   (parameters
+;     '("CalMode" "mode")
+;   )
+; )
+; (define-method get_changes
+;   (of-object "ECal")
+;   (c-name "e_cal_get_changes")
+;   (return-type "gboolean")
+;   (parameters
+;     '("const-char*" "change_id")
+;     '("GList**" "changes")
+;     '("GError**" "error")
+;   )
+; )
+
+; (define-function e_cal_free_change_list
+;   (c-name "e_cal_free_change_list")
+;   (return-type "none")
+;   (parameters
+;     '("GList*" "list")
+;   )
+; )
+; (define-method get_object_list
+;   (of-object "ECal")
+;   (c-name "e_cal_get_object_list")
+;   (return-type "gboolean")
+;   (parameters
+;     '("const-char*" "query")
+;     '("GList**" "objects")
+;     '("GError**" "error")
+;   )
+; )
+
+; (define-method get_object_list_as_comp
+;   (of-object "ECal")
+;   (c-name "e_cal_get_object_list_as_comp")
+;   (return-type "gboolean")
+;   (parameters
+;     '("const-char*" "query")
+;     '("GList**" "objects")
+;     '("GError**" "error")
+;   )
+; )
+
+; (define-function e_cal_free_object_list
+;   (c-name "e_cal_free_object_list")
+;   (return-type "none")
+;   (parameters
+;     '("GList*" "objects")
+;   )
+; )
+
+; (define-method get_free_busy
+;   (of-object "ECal")
+;   (c-name "e_cal_get_free_busy")
+;   (return-type "gboolean")
+;   (parameters
+;     '("GList*" "users")
+;     '("time_t" "start")
+;     '("time_t" "end")
+;     '("GList**" "freebusy")
+;     '("GError**" "error")
+;   )
+; )
+; (define-method get_alarms_in_range
+;   (of-object "ECal")
+;   (c-name "e_cal_get_alarms_in_range")
+;   (return-type "GSList*")
+;   (parameters
+;     '("time_t" "start")
+;     '("time_t" "end")
+;   )
+; )
+
+; (define-function e_cal_free_alarms
+;   (c-name "e_cal_free_alarms")
+;   (return-type "none")
+;   (parameters
+;     '("GSList*" "comp_alarms")
+;   )
+; )
+; (define-method send_objects
+;   (of-object "ECal")
+;   (c-name "e_cal_send_objects")
+;   (return-type "gboolean")
+;   (parameters
+;     '("icalcomponent*" "icalcomp")
+;     '("GList**" "users")
+;     '("icalcomponent**" "modified_icalcomp")
+;     '("GError**" "error")
+;   )
+; )
+
+; (define-function e_cal_util_generate_alarms_for_list
+;   (c-name "e_cal_util_generate_alarms_for_list")
+;   (return-type "int")
+;   (parameters
+;     '("GList*" "comps")
+;     '("time_t" "start")
+;     '("time_t" "end")
+;     '("ECalComponentAlarmAction*" "omit")
+;     '("GSList**" "comp_alarms")
+;     '("ECalRecurResolveTimezoneFn" "resolve_tzid")
+;     '("gpointer" "user_data")
+;     '("icaltimezone*" "default_timezone")
+;   )
+; )
+; (define-method uri_list
+;   (of-object "ECal")
+;   (c-name "e_cal_uri_list")
+;   (return-type "GList*")
+;   (parameters
+;     '("CalMode" "mode")
+;   )
+; )
+; (define-method get_alarms_in_range
+;   (of-object "ECal")
+;   (c-name "e_cal_get_alarms_in_range")
+;   (return-type "GSList*")
+;   (parameters
+;     '("time_t" "start")
+;     '("time_t" "end")
+;   )
+; )
+
+;; Lazy, lazy...
+(ignore
+  "e_cal_uri_list"
+  "e_cal_get_alarms_in_range"
+  "e_cal_component_get_exdate_list"
+  "e_cal_component_set_exdate_list"
+  "e_cal_component_get_exrule_list"
+  "e_cal_component_get_exrule_property_list"
+  "e_cal_component_set_exrule_list"
+  "e_cal_component_get_rdate_list"
+  "e_cal_component_set_rdate_list"
+  "e_cal_component_get_rrule_list"
+  "e_cal_component_get_rrule_property_list"
+  "e_cal_component_set_rrule_list"
+  "e_cal_component_get_attendee_list"
+  "e_cal_component_set_attendee_list"
+  "e_cal_component_get_alarm_uids"
+  "e_cal_component_alarm_get_attendee_list"
+  "e_cal_component_alarm_set_attendee_list"
+  "e_cal_util_generate_alarms_for_list")
+
+(ignore-glob
+ "e_cal_component_alarm_*_repeat"
+ "e_cal_component_alarm_*_trigger"
+ "e_cal_listener_*"
+ "e_cal_view_*"
+ )
+
+(ignore-glob  "*_get_type"
+              "*_get_gtype"
+              "_*"
+              "*_free*"
+              "*_ref"
+              "*_unref"
+              "*_copy"
+              "*_free"
+              "*_newv"
+              "*_valist"
+              "*_setv"
+              "*_foreach"
+              "*_valist"
+              "cal_*" ;; not namespaced -- what's up with these?
+              "isodate_*"
+              "e_cal_util_*" ;; out of laziness
+              "*_generate_instances*"
+              "e_cal_get_alarms*"
+              "e_cal_get_free_busy"
+              "time_*")

@@ -3,12 +3,14 @@ Maintainers of GNU Software" (maintain.texi), the section called
 "Recording Changes".
 
 
-<Name>:
+Andy Wingo:
 In the directory gnome/gw, wrote:
-    template-spec.scm template-support.c template-support.h
+    evolution-data-server-spec.scm evolution-data-server-support.c
+    evolution-data-server-support.h ical-support.c ical-support.h
 In the directory gnome/overrides, wrote:
-    template.defs
+    evolution-data-server.defs evolution-data-server.defs-overrides-eds
+    evolution-data-server.defs-overrides-ecal
 In the directory gnome, wrote:
-    template.scm
-In the directory examples/template, wrote:
+    evolution-data-server.scm
+In the directory examples/evolution-data-server, wrote:
     ...
