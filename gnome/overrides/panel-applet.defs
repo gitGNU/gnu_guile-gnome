@@ -1,0 +1,68 @@
+;; -*- scheme -*-
+;; guile-gnome
+;; Copyright (C) 2004 Free Software Foundation, Inc.
+
+;; This program is free software; you can redistribute it and/or    
+;; modify it under the terms of the GNU General Public License as   
+;; published by the Free Software Foundation; either version 2 of   
+;; the License, or (at your option) any later version.              
+;;                                                                  
+;; This program is distributed in the hope that it will be useful,  
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of   
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the    
+;; GNU General Public License for more details.                     
+;;                                                                  
+;; You should have received a copy of the GNU General Public License
+;; along with this program; if not, contact:
+;;
+;; Free Software Foundation           Voice:  +1-617-542-5942
+;; 59 Temple Place - Suite 330        Fax:    +1-617-542-2652
+;; Boston, MA  02111-1307,  USA       gnu@gnu.org
+
+;;; Commentary:
+;;
+;;Custom wrapper definitions.
+;;
+;;; Code:
+
+(define-enum PanelAppletOrient
+  (c-name "PanelAppletOrient")
+  (values
+   '("up" "PANEL_APPLET_ORIENT_UP")
+   '("down" "PANEL_APPLET_ORIENT_DOWN")
+   '("left" "PANEL_APPLET_ORIENT_LEFT")
+   '("right" "PANEL_APPLET_ORIENT_RIGHT")))
+
+(define-function panel-applet-factory-main
+  (c-name "panel_applet_factory_main_closure")
+  (overrides "panel_applet_factory_main")
+  (return-type "int")
+  (parameters
+    '("const-gchar*" "iid")
+    '("GType" "applet_type")
+    '("GClosure*" "closure")
+  )
+)
+
+(ignore-glob "panel_applet_gconf_*_bool"
+             "panel_applet_gconf_*_int"
+             "panel_applet_gconf_*_string"
+             "panel_applet_gconf_*_float"
+             "panel_applet_gconf_*_list"
+             "panel_applet_get_control"
+             "panel_applet_get_popup_component"
+             "panel_applet_setup_menu*"
+             "panel_applet_factory_main_closure"
+             "panel_applet_shlib_*")
+
+(ignore-glob  "*_get_type"
+              "_*"
+              "*_ref"
+              "*_unref"
+              "*_copy"
+              "*_free"
+              "*_newv"
+              "*_valist"
+              "*_setv"
+              "*_foreach"
+              "*_valist")

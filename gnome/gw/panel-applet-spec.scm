@@ -20,15 +20,31 @@
 
 ;;; Commentary:
 ;;
-;;Template bindings.
-;;
-;;[...]
+;;g-wrap specification for panel-applet.
 ;;
 ;;; Code:
 
-(define-module (gnome template)
-  #:use-module (gnome gtk)
-  #:use-module (gnome gw template)
-  #:use-module (gnome gw support modules))
+(define-module (gnome gw panel-applet-spec)
+  #:use-module (oop goops)
+  #:use-module (g-wrap)
+  #:use-module (g-wrap guile)
+  #:use-module (gnome gw gobject-spec)
+  #:use-module (gnome gw gtk-spec)
+  #:use-module (gnome gw support defs)
+  #:use-module (gnome gw support gobject))
 
-(re-export-modules (gnome gw template))
+(define-class <panel-applet-wrapset> (<gobject-wrapset-base>)
+  #:id 'gnome-panel-applet
+  #:dependencies '(standard gnome-glib gnome-gobject gnome-gtk))
+
+(define-method (initialize (ws <panel-applet-wrapset>) initargs)
+  (next-method ws (cons #:module (cons '(gnome gw panel-applet) initargs)))
+  
+  (load-defs-with-overrides ws "gnome/defs/panel-applet.defs"))
+
+(define-method (global-declarations-cg (self <panel-applet-wrapset>))
+  (list (next-method)
+        "#include <panel-applet.h>\n"
+        "#include <panel-applet-enums.h>\n"
+        "#include <panel-applet-gconf.h>\n"
+        "#include \"panel-applet-support.h\"\n"))

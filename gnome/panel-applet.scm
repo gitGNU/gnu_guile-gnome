@@ -1,4 +1,3 @@
-;; -*- scheme -*-
 ;; guile-gnome
 ;; Copyright (C) 2004 Free Software Foundation, Inc.
 
@@ -21,18 +20,13 @@
 
 ;;; Commentary:
 ;;
-;;Custom wrapper definitions.
+;; libpanel-applet bindings.
 ;;
 ;;; Code:
 
-(ignore-glob  "*_get_type"
-              "_*"
-              "*_ref"
-              "*_unref"
-              "*_copy"
-              "*_free"
-              "*_newv"
-              "*_valist"
-              "*_setv"
-              "*_foreach"
-              "*_valist")
+(define-module (gnome panel-applet)
+  #:use-module (gnome gtk)
+  #:use-module (gnome gw panel-applet)
+  #:use-module (gnome gw support modules))
+
+(re-export-modules (gnome gw panel-applet))

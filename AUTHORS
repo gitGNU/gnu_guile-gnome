@@ -5,10 +5,10 @@ Maintainers of GNU Software" (maintain.texi), the section called
 
 <Name>:
 In the directory gnome/gw, wrote:
-    template-spec.scm template-support.c template-support.h
+    panel-applet-spec.scm panel-applet-support.c panel-applet-support.h
 In the directory gnome/overrides, wrote:
-    template.defs
+    panel-applet.defs
 In the directory gnome, wrote:
-    template.scm
-In the directory examples/template, wrote:
+    panel-applet.scm
+In the directory examples/panel-applet, wrote:
     ...
