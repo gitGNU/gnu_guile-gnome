@@ -1,5 +1,8 @@
 2004-09-27  Andy Wingo  <wingo@pobox.com>
 
+	* autogen-pkg.sh: Require g-wrap = 1.9.3. g-wrap is in unstable
+	releases, and as such we require specific micro versions.
+
 	* autogen-support.sh: sed character range fix.
 
 2004-09-22  Andy Wingo  <wingo@pobox.com>
