@@ -1,3 +1,8 @@
+2004-09-05  Andy Wingo  <wingo@pobox.com>
+
+	* autogen-pkg.sh: No more m4/ dir, it was empty anyway. Use
+	AC_PROG_LIBTOOL.
+
 2004-09-04  Andy Wingo  <wingo@pobox.com>
 
 	* autogen-pkg.sh (autogen_pkg): For the dev build-config, set

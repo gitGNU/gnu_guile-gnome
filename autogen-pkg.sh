@@ -69,7 +69,6 @@ AC_PREREQ(2.52)
 AC_INIT(autogen-pkg.sh)
 AM_CONFIG_HEADER(config.h)
 AM_INIT_AUTOMAKE($package, $version)
-AC_CONFIG_MACRO_DIR(m4)
 
 AC_SUBST(VERSION,$version)
 
@@ -79,7 +78,7 @@ AC_DISABLE_STATIC
 AC_ISC_POSIX
 AC_PROG_CC
 AC_STDC_HEADERS
-AM_PROG_LIBTOOL
+AC_PROG_LIBTOOL
 
 AC_SUBST(AG_PKG_CONFIG_PATH, [$pkg_config_path])
 AG_PACKAGES="$packages"
@@ -170,6 +169,5 @@ EXTRA_DIST = RELEASE-NOTES-0.2.0.txt RELEASE-NOTES-0.5.0.txt \\
              dev-environ h2def.py \\
              autogen.sh autogen-pkg.sh autogen-support.sh
 
-ACLOCAL_AMFLAGS = -I m4
 EOF
 }
