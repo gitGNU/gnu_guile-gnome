@@ -1,3 +1,10 @@
-SUBDIRS = gnome examples
+include $(top_srcdir)/common.mk
 
-EXTRA_DIST = ChangeLog NEWS README AUTHORS $(wildcard *.ac) $(wildcard *.pc.in)
+SUBDIRS = gnome examples 
+
+EXTRA_DIST = ChangeLog NEWS AUTHORS README $(wildcard *.ac)
+
+#all-local: $(pcifiles) $(pcufiles)
+#pkgconfigdir = $(libdir)/pkgconfig
+#pkgconfig_DATA = $(pcifiles)
+#CLEANFILES = $(pcifiles) $(pcufiles)

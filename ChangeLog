@@ -1,3 +1,13 @@
+2004-11-07  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gw/Makefile.am (guilegnomelib_LTLIBRARIES): Install to
+	versioned dir.
+
+2004-11-06  Andy Wingo  <wingo@pobox.com>
+
+	* glib-checks.ac: 
+	* defs-extra-checks.ac: Versioned pkg-config files.
+
 2004-09-30  Andy Wingo  <wingo@pobox.com>
 
 	* package.ac: Require libgda < 1.1.
