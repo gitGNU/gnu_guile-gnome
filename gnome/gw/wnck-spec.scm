@@ -21,7 +21,7 @@
 
 ;;; Commentary:
 ;;
-;;g-wrap specification for Wnck.
+;;g-wrap specification for libwnk.
 ;;
 ;;; Code:
 
@@ -31,14 +31,15 @@
   #:use-module (g-wrap guile)
   #:use-module (gnome gw glib-spec)
   #:use-module (gnome gw gobject-spec)
+  #:use-module (gnome gw gdk-spec)
   #:use-module (gnome gobject gw-spec-utils)
   #:use-module (gnome gobject defs-support))
 
 (define-class <wnck-wrapset> (<gobject-wrapset-base>)
   #:id 'gnome-wnck
-  #:dependencies '(standard gnome-glib gnome-gobject))
+  #:dependencies '(standard gnome-glib gnome-gobject gnome-gdk))
 
-(define-method (global-declarations-cg (self <gobject-wrapset-base>))
+(define-method (global-declarations-cg (self <wnck-wrapset>))
   (list
    (next-method)
    "#define WNCK_I_KNOW_THIS_IS_UNSTABLE
@@ -48,8 +49,6 @@
   
 (define-method (initialize (ws <wnck-wrapset>) initargs)
   (next-method ws (cons #:module (cons '(gnome gw wnck) initargs)))
-
-  ;; (add-type-alias! ws "WnckGlyph" 'unsigned-long)
 
   (load-defs ws "gnome/defs/libwnck.defs"))
 

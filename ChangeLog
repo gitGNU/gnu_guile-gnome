@@ -1,6 +1,8 @@
 2004-06-29  Jan Nieuwenhuizen  <janneke@gnu.org>
 
-	* gnome/gw/wnck-spec.scm (<wnck-wrapset>): fix dependency list.
+	* gnome/gw/wnck-spec.scm (<wnck-wrapset>): Fix dependency list.
+	(define-module): Add dependency on gdk, fixes wrapset objects.
+	(global-declarations-cg): Fix SELF parameter's class.
 
 2004-06-26  Jan Nieuwenhuizen  <janneke@gnu.org>
 
