@@ -13,7 +13,8 @@ lib_LTLIBRARIES = libgw-guile-gnome-gstreamer.la
 
 ########################################################################
 ## gstreamer
-libgw_guile_gnome_gstreamer_la_SOURCES = guile-gnome-gw-gstreamer.c \
+nodist_libgw_guile_gnome_gstreamer_la_SOURCES = guile-gnome-gw-gstreamer.c
+libgw_guile_gnome_gstreamer_la_SOURCES = \
 	gstreamer-support.c gstreamer-support.h
 
 libgw_guile_gnome_gstreamer_la_CFLAGS = $(GUILE_GLIB_CFLAGS) \

@@ -1,3 +1,19 @@
+2004-09-14  Andy Wingo  <wingo@pobox.com>
+
+	* package.ac: Some fixups.
+
+	* docs/: Deleted. No more XML crap.
+
+	* TODO, README, AUTHORS, NEWS: Freshly written.
+
+	* files.ac: New file.
+
+	* gnome/gw/gstreamer-spec.scm (initialize): Adapt for module name
+	changes. Use load-defs-with-overrides.
+
+	* gnome/gw/Makefile.am (libgw_guile_gnome_gstreamer_la_SOURCES):
+	Don't dist the generated files.
+
 2004-07-18  Andy Wingo  <wingo@pobox.com>
 
 	* gnome/gstreamer.scm (with-gst-debug): New macro, sets specific

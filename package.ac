@@ -1,18 +1,15 @@
-dnl Now we're ready to ask for gstreamer libs and cflags
-dnl And we can also ask for the right version of gstreamer
-HAVE_GSTREAMER=false
+# HAVE_GSTREAMER=false
+# dnl start with 0.9
+# GST_MAJORMINOR=0.9
+# PKG_CHECK_MODULES(GST, gstreamer-$GST_MAJORMINOR,
+# 	HAVE_GSTREAMER=true,HAVE_GSTREAMER=false)
 
-dnl start with 0.9
-GST_MAJORMINOR=0.9
-PKG_CHECK_MODULES(GST, gstreamer-$GST_MAJORMINOR,
-	HAVE_GSTREAMER=true,HAVE_GSTREAMER=false)
-
-dnl try 0.8
-if test "$HAVE_GSTREAMER" = "false"; then
-	GST_MAJORMINOR=0.8
-	PKG_CHECK_MODULES(GST, gstreamer-$GST_MAJORMINOR,
-		HAVE_GSTREAMER=true,HAVE_GSTREAMER=false)
-fi
+# dnl try 0.8
+# if test "$HAVE_GSTREAMER" = "false"; then
+ 	GST_MAJORMINOR=0.8
+ 	PKG_CHECK_MODULES(GST, gstreamer-$GST_MAJORMINOR,
+ 		HAVE_GSTREAMER=true,HAVE_GSTREAMER=false)
+# fi
 
 AC_SUBST(GST_LIBS)
 AC_SUBST(GST_CFLAGS)
@@ -21,9 +18,3 @@ AC_SUBST(GST_MAJORMINOR)
 AC_SUBST(GUILE_GSTREAMER_VERSION,0.8.0.4)
 
 AM_CONDITIONAL(HAVE_GSTREAMER,$HAVE_GSTREAMER)
-
-AC_CONFIG_FILES([
-        gstreamer/gnome/gstreamer/config.scm
-        gstreamer/guile-gstreamer.pc
-        gstreamer/guile-gstreamer-uninstalled.pc
-])
