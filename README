@@ -26,7 +26,8 @@ Build-Dependencies:
 --------------------
 
 * Guile 1.6.4 or newer.
-* G-Wrap 1.3.4, available from http://www.gnucash.org/pub/g-wrap/source/.
+* G-Wrap TNG, available from 
+  http://www.nongnu.org/g-wrap/TheNextGeneration.html
 
 Installation Quickstart:
 ------------------------

@@ -61,4 +61,10 @@ if [ $mirror = y ]; then
     tla archive-mirror $(tla parse-package-name --arch "$tree_version")
 fi
 
-echo star-merge "$tree_version" "$(cat '{arch}/+upstream')" | agpg --clearsign | mail -s "PQM-REQUEST $msg" rotty@debian.org
+if [ -n "$DISPLAY" ] && command -v gnome-gpg > /dev/null; then
+  GPG=gnome-gpg
+else
+  GPG=gpg
+fi
+
+echo star-merge "$tree_version" "$(cat '{arch}/+upstream')" | $GPG --clearsign | mail -s "PQM-REQUEST $msg" rotty@debian.org
