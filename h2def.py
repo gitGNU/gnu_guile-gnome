@@ -280,9 +280,10 @@ def clean_func(buf):
 
 proto_pat=re.compile(r"""
 (?P<ret>(-|\w|\&|\*)+\s*)  # return type
-\s+                   # skip whitespace
-(?P<func>\w+)\s*[(]   # match the function name until the opening (
-(?P<args>.*?)[)]     # group the function arguments
+\s+                        # skip whitespace
+(?P<func>\w+)\s*[(]        # match the function name until the opening (
+\s*                        # skip any whitespace
+(?P<args>.*?)\s*[)]        # group the function arguments
 """, re.IGNORECASE|re.VERBOSE)
 #"""
 arg_split_pat = re.compile("\s*,\s*")
@@ -421,7 +422,7 @@ if __name__ == '__main__':
         if o == '-v':
             verbose = 1
         elif o == '--all':
-            do_types = with_c_enums = do_procs = 1
+            do_types = do_procs = 1
         elif o == '--types':
             do_types = 1
         elif o == '--c-enums':

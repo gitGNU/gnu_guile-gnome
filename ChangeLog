@@ -1,3 +1,8 @@
+2004-10-12  Andy Wingo  <wingo@pobox.com>
+
+	* h2def.py (proto_pat): Accept whitespace between the parens and
+	the arguments.
+
 2004-10-06  Andy Wingo  <wingo@pobox.com>
 
 	* h2def.py: Make sure the emacs typecode is always first in the
