@@ -1,3 +1,23 @@
+# guile-gnome
+# Copyright (C) 2002 Thomas Vander Stichele
+
+# This program is free software; you can redistribute it and/or    
+# modify it under the terms of the GNU General Public License as   
+# published by the Free Software Foundation; either version 2 of   
+# the License, or (at your option) any later version.              
+                                                                 
+# This program is distributed in the hope that it will be useful,  
+# but WITHOUT ANY WARRANTY; without even the implied warranty of   
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the    
+# GNU General Public License for more details.                     
+                                                                 
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, contact:
+
+# Free Software Foundation           Voice:  +1-617-542-5942
+# 59 Temple Place - Suite 330        Fax:    +1-617-542-2652
+# Boston, MA  02111-1307,  USA       gnu@gnu.org
+
 # a silly hack that generates autoregen.sh but it's handy
 echo "#!/bin/sh" > autoregen.sh
 echo "./autogen.sh $@ \$@" >> autoregen.sh
@@ -171,7 +191,7 @@ autoconf_2_52d_check ()
   # autoconf 2.52d has a weird issue involving a yes:no error
   # so don't allow it's use
   test -z "$NOCHECK" && {
-    ac_version=`$autoconf --version|head -n 1|sed 's/^[a-zA-z\.\ ()]*//;s/ .*$//'`
+    ac_version=`$autoconf --version|head -n 1|sed 's/^[a-zA-Z\.\ ()]*//;s/ .*$//'`
     if test "$ac_version" = "2.52d"; then
       echo "autoconf 2.52d has an issue with our current build."
       echo "We don't know who's to blame however.  So until we do, get a"
