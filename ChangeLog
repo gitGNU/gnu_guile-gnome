@@ -1,3 +1,11 @@
+2005-01-11  Andy Wingo  <wingo@pobox.com>
+
+	* scripts/add-changelog-entry: 
+	* scripts/changelog-log-release: 
+	* scripts/prepare-news-entry:
+	* scripts/prepare-release: 
+	* scripts/commit-release: New helper scripts.
+
 2004-11-15  Andy Wingo  <wingo@pobox.com>
 
 	* Makefile.am.bottom (dist-gzip, dist, dist-all): Create ustar

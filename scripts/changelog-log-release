@@ -1,0 +1,20 @@
+#!/bin/sh
+
+dir=$1
+package=$2
+version=$3
+
+if test -z "$dir" -o -z "$package" -o -z "$version"; then
+    echo "usage: $0 DIR PACKAGE VERSION" >&2
+    exit 1
+fi
+
+cd $dir || ( echo "dir does not exist: $dir">&2; exit 1 )
+test -f NEWS || ( echo "no NEWS in $dir">&2; exit 1 )
+
+mv NEWS NEWS.old
+echo -n `date +"%Y-%m-%d"` > NEWS
+echo "  `tla my-id | sed -e 's,<, <,'`" >> NEWS
+echo >> NEWS
+echo -e "\t* == Released $package version $version ==\n" >> NEWS
+cat NEWS.old >> NEWS
