@@ -1,5 +1,8 @@
 2004-11-13  Andy Wingo  <wingo@pobox.com>
 
+	* Makefile.am (EXTRA_DIST): Dist VERSION.
+	* VERSION: New file.
+
 	* gnome/Makefile.am: Recurse into defs/.
 
 	* defs-extra-checks.ac: Deleted.
