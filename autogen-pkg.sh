@@ -176,6 +176,11 @@ AC_ARG_ENABLE([debug], AC_HELP_STRING([--disable-debug],[Disable debugging infor
         [], DEBUG_CFLAGS=-g)
 AC_SUBST(DEBUG_CFLAGS)
 
+DISABLE_DEPRECATED=false
+AC_ARG_ENABLE([deprecated],
+AC_HELP_STRING([--disable-deprecated],[Disable wrapping of functions deprecated upstream]),
+        DISABLE_DEPRECATED=true, DISABLE_DEPRECATED=false)
+
 # Optimize the DSO symbol hash table -- see ulrich drepper's paper,
 # "how to write shared libraries"
 GNULD_LDFLAGS=-Wl,-O1
@@ -217,7 +222,7 @@ AC_MSG_RESULT(yes)
 
 # Check for g-wrap
 
-PKG_CHECK_MODULES(G_WRAP, g-wrap-2.0-guile = 1.9.3)
+PKG_CHECK_MODULES(G_WRAP, g-wrap-2.0-guile >= 1.9.4)
 AC_SUBST(G_WRAP_CFLAGS)
 AC_SUBST(G_WRAP_LIBS)
 AC_SUBST(G_WRAP_MODULE_DIR, `${PKG_CONFIG} --variable=module_directory g-wrap-2.0-guile`)
