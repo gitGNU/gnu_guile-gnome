@@ -1,31 +1,28 @@
-GNU guile-gnome-gstreamer README
-Copyright (C) 2004  Free Software Foundation, Inc.
-See the end for copying conditions.
+guile-gnome-gstreamer README
+Copyright (C) 2004 Free Software Foundation, Inc.
+See the end for copying conditions of this file.
+Last updated 16 September 2004.
 
 
-About GNU guile-gnome-gstreamer
-===============================
+About guile-gnome-gstreamer
+===========================
 
 guile-gnome-gstreamer contains the Guile wrappers for GStreamer, a
-streaming-media framework. It is a part of GNU guile-gnome, the project
-aiming to wrap all of the Gnome libraries for the Guile programming
-language.
+streaming-media framework. It is a part of GNU guile-gnome, although it
+is not part of the GNOME platform. See the README file in the toplevel
+source directory for more information.
 
-http://home.gna.org/guile-gnome/
 http://gstreamer.net/
-http://gnu.org/
-http://gnome.org/
 
 
-Building and Using
+Build dependencies
 ==================
 
-Please see the INSTALL file. Note that installation is not necessary;
-one can use the wrapset from the source directory with the included
-`dev-environ' script. For example:
+Besides the base guile-gnome requirements given in ../README,
+guile-gnome-gstreamer requires GStreamer development packages.
 
-$ ./dev-environ guile -s examples/gstreamer/vorbisplay.scm \
-     <an Ogg Vorbis file>
+guile-gnome-gstreamer depends on the following guile-gnome modules: glib,
+defs-extra.
 
 
 Documentation
@@ -52,11 +49,11 @@ You might also try asking on the #guile or #gstreamer channels on the
 irc.freenode.net IRC server.
 
 
-----------------------------------------------------------------------
-Copyright information:
+Copying this file
+=================
 
-Copyright (C) 2004  Free Software Foundation, Inc.
+Copyright (C) 2004 Free Software Foundation, Inc.
 
-Copying and distribution of this file, with or without
-modification, are permitted in any medium without royalty provided
-the copyright notice and this notice are preserved.
+Copying and distribution of this file, with or without modification, are
+permitted in any medium without royalty provided the copyright notice
+and this notice are preserved.

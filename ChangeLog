@@ -1,3 +1,27 @@
+2004-09-27  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gstreamer.scm: Add license block, avoid deprecated
+	modules.
+
+	* examples/gstreamer/vorbisplay.scm
+	* examples/gstreamer/threads.scm
+	* examples/gstreamer/test-sinesrc.scm
+	* examples/gstreamer/sinesrc.scm
+	* examples/gstreamer/chain-function.scm
+	* examples/gstreamer/caps.scm: Added license blocks.
+
+2004-09-19  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gw/Makefile.am (libgw_guile_gnome_gstreamer_la_LIBADD):
+	Not G_WRAP_LINK_ARGS, it's G_WRAP_LIBS.
+
+	* package.ac: No more GUILE_GSTREAMER_VERSION, just use the
+	guile-gnome-extra version.
+
+2004-09-17  Andy Wingo  <wingo@pobox.com>
+
+	* NEWS, README: Adapted a bit.
+
 2004-09-15  Andy Wingo  <wingo@pobox.com>
 
 	* gnome/gstreamer/Makefile.am (module_DATA): Dist fixes.

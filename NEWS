@@ -1,18 +1,22 @@
-guile-gnome-gstreamer NEWS -- history of user-visible changes.
-Copyright (C) 2004  Free Software Foundation, Inc.
-
-Copying and distribution of this file, with or without
-modification, are permitted in any medium without royalty provided
-the copyright notice and this notice are preserved.
+guile-gnome-gstreamer NEWS --- history of user-visible changes.
+Copyright (C) 2004 Free Software Foundation, Inc.
+See the end for copying conditions of this file.
+Last updated 16 September 2004.
 
 
-guile-gnome-gstreamer contains the Guile wrappers for GStreamer, a
-streaming-media framework.
+guile-gnome-gstreamer is a Guile binding for GStreamer. It is part of
+GNU guile-gnome. This file documents the user-visible changes in
+guile-gnome-gstreamer only.
 
 
-
-guile-gnome-gstreamer 2.6.0 -- Andy Wingo, XX September 2004
+guile-gnome-gstreamer 2.6.0 - Andy Wingo, 2004-09-XX
+====================================================
 
-* Wraps GStreamer 0.8.4.
+* Initial release
 
-* Initial release of guile-gnome-gstreamer.
+
+Copyright (C) 2004 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification, are
+permitted in any medium without royalty provided the copyright notice
+and this notice are preserved.
