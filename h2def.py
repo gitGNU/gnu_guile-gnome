@@ -412,6 +412,7 @@ if __name__ == '__main__':
     do_types = 0
     with_c_enums = 0
     do_procs = 0
+    header = 0
     
     opts, args = getopt.getopt(sys.argv[1:], 'v',
                                ['types', 'c-enums', 'procs',
@@ -430,7 +431,7 @@ if __name__ == '__main__':
         elif o == '--type-postfix':
             typecode = typecode_postfix
         elif o == '--with-header':
-            print v
+            header = v
         
     if not args[0:1]:
         print 'Must specify at least one input file name'
@@ -439,6 +440,9 @@ if __name__ == '__main__':
     if not (do_types or do_procs): 
         print 'Must say --types, --procs, or --all'
         sys.exit(-1) 
+
+    print ';; -*- scheme -*-'
+    if header: print header
 
     # read all the object definitions in
     objdefs = []

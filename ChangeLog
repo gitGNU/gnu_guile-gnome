@@ -1,5 +1,10 @@
 2004-10-06  Andy Wingo  <wingo@pobox.com>
 
+	* h2def.py: Make sure the emacs typecode is always first in the
+	output.
+	
+2004-10-06  Andy Wingo  <wingo@pobox.com>
+
 	* h2def.py: Change so we require one of --types, --procs, or
 	--all. Change --enums-without-gtype to --c-enums. Add optional
 	--with-header= option. Adjust logic to match.
