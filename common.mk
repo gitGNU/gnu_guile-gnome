@@ -23,11 +23,11 @@
 # Makefile snippet
 #
 
-schemelibdir = $(pkgdatadir)/$(VERSION)
+guilegnomedir = $(datadir)/guile-gnome-@API_VERSION@
+guilemoduledir = $(guilegnomedir)/gnome
+guilegwmoduledir = $(guilegnomedir)/gnome/gw
 
-# guiledir comes from --with-guiledir=
-guilemoduledir = $(guiledir)/gnome
-guilegwmoduledir = $(guiledir)/gnome/gw
+guilegnomelibdir = $(libdir)/guile-gnome-@API_VERSION@
 
 AM_CFLAGS = -I. -I$(srcdir) $(WARN_CFLAGS) $(DEBUG_CFLAGS)
 

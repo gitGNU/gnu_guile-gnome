@@ -95,6 +95,16 @@ AM_INIT_AUTOMAKE($package, $version)
 
 AC_SUBST(VERSION,$version)
 
+# Meaning of the API version
+# --------------------------
+#
+# If 0, guile-gnome is unstable, and the API might change anytime.
+# Otherwise, guile-gnome is stable. Future incompatible releases will
+# bump this number so as to allow parallel, incompatible versions to
+# coexist.
+API_VERSION=0
+AC_SUBST(API_VERSION)
+
 AM_MAINTAINER_MODE
 AC_DISABLE_STATIC
 
@@ -127,12 +137,6 @@ GNULD_LDFLAGS=-Wl,-O1
 AC_SUBST(GNULD_LDFLAGS)
 AM_LDFLAGS='$(GNULD_LDFLAGS)'
 AC_SUBST(AM_LDFLAGS)
-
-AC_ARG_WITH(guiledir, 
-   AC_HELP_STRING([--with-guiledir=DIR],
-                  [Path to install guile modules @<:@default=PREFIX/share/guile/site@:>@]),
-   [AC_SUBST(guiledir,${withval})],
-   [AC_SUBST(guiledir,'${prefix}/share/guile/site')])
 
 #
 # Check for Guile

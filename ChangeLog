@@ -1,3 +1,15 @@
+2004-10-26  Andy Wingo  <wingo@pobox.com>
+
+	* common.mk: No more $guiledir, but there is $guilegnomedir, which
+	is $datadir/guile-gnome-$apiversion. Adapt guilemoduledir ad
+	guilegwmoduledir accordingly.
+
+	* autogen-pkg.sh: No more --with-guiledir, we install to
+	$datadir/guile-gnome-$apiversion.
+	(API_VERSION): New substituted variable, the API version. Constant
+	iff a release is backward compatible with the previous one. Starts
+	at 0.
+
 2004-10-17  Andy Wingo  <wingo@pobox.com>
 
 	* common.mk (guilemoduledir, guilegwmoduledir): Get $guiledir from
