@@ -1,9 +1,8 @@
 (define-module (gnome gda)
   #:use-module (oop goops)
   #:use-module (gnome gobject)
-  #:use-module (gnome gobject primitives)
   #:use-module (gnome gobject gw-utils)
-  #:use-module (gnome gda gw-gda)
+  #:use-module (gnome gw libgda)
   
   #:export (value))
 
@@ -61,6 +60,5 @@
                (slot-ref (gda-command-new text type options)
                          'gtype-primitive))))
 
-(re-export-bindings (oop goops))
-(re-export-bindings (gnome gda gw-gda))
-
+(re-export-modules (oop goops))
+(re-export-modules (gnome gw libgda))
