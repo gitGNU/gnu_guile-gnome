@@ -1,0 +1,32 @@
+#!/bin/sh
+
+set -e
+
+if [ -z "$1" ]; then
+  echo Usage: submit-merge "message"
+  exit 1
+fi
+
+if [ ! -e '{arch}/+upstream' ]; then
+  echo "Must create {arch}/+upstream"
+  exit 1
+fi
+
+tree_version=$(tla tree-version)
+
+answer=invalid
+while [ "$answer" = invalid ]; do
+    echo -n "mirror [Y/n]? "; read answer
+    if [ -z "$answer" ]; then
+	answer=y
+    fi
+    if [ ! "$answer" = y -a ! "$answer" = n ]; then
+	answer=invalid
+	echo "please answer y or n"
+    fi
+done
+if [ $answer = y ]; then
+    tla archive-mirror $(tla parse-package-name --arch "$tree_version")
+fi
+
+echo star-merge "$tree_version" "$(cat '{arch}/+upstream')" | agpg --clearsign | mail -s "PQM-REQUEST $1" rotty@debian.org

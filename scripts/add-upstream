@@ -1,0 +1,18 @@
+#!/bin/sh
+
+if [ ! -d src -o ! -d configs/gnu.org ]; then
+  echo "must call add-upstream from top-level project directory"
+  exit 1
+fi
+
+for f in src src/*; do
+  if [ -d $f/{arch} ]; then
+    upstream=$f/{arch}/+upstream
+    if [ -f $upstream ]; then
+      echo "not adding $upstream; already there"
+    else
+      pkg=`basename $f`
+      echo guile-gnome-devel@gnu.org--2004/$pkg--dev--0 > $upstream
+    fi
+  fi
+done

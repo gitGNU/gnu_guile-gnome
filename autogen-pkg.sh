@@ -17,9 +17,9 @@ autogen_pkg()
 	    package=`echo $pkg | sed -e 's/\.dev$//'`
 	    version="`date +%Y%m%d`+$source"
 	    ;;
-	*.*)
-	    package=`echo $pkg | sed -e 's/\..*$//'`
-	    version=`echo $pkg | sed -e 's/^[^.]*\.$//'`
+	*-*.*.*)
+	    package=`echo $pkg | sed -e 's/-.*\..*\..*$//'`
+	    version=`echo $pkg | sed -e 's/^.*-//'`
 	    ;;
 	*)
 	    echo "unable to parse config file name"
