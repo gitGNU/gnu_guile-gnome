@@ -20,6 +20,63 @@
 (use-modules (gnome gobject gw-utils)
              (gnome gstreamer config))
 
+(define (construct-levels-list specifier)
+  (or (and (list? specifier) (and-map list? specifier))
+      (error "invalid debug specifier"))
+  (let ((categories (map (lambda (c)
+                           (cons
+                            (string->symbol
+                             (gst-debug-category-get-name c))
+                            c))
+                         (gst-debug-get-all-categories))))
+    (map (lambda (s)
+           (cond
+            ((eq? (car s) '*all*)
+             (list '*all* #f (cadr s) (gst-debug-get-default-threshold)))
+            ((assq-ref categories (car s))
+             => (lambda (c) (list (car s) c (cadr s)
+                                  (gst-debug-category-get-threshold c))))
+            (else
+             (error "unknown debugging category" s))))
+         specifier)))
+
+(define-macro (with-gst-debug specifier . body)
+  (let* ((levels (construct-levels-list specifier))
+         (default-level (and=> (assq '*all* levels)
+                               (lambda (x) `(quote ,x)))))
+    `(dynamic-wind
+         (lambda () ;; pre
+           (if ,default-level
+               (gst-debug-set-default-threshold (caddr ,default-level)))
+           (for-each
+            (lambda (l)
+              (if (not (eq? (car l) '*all*))
+                  (gst-debug-category-set-threshold (cadr l) (caddr l))))
+            ',levels))
+         
+         (lambda () ,@body)
+         
+         (lambda () ;; post
+           (if ,default-level
+               (gst-debug-set-default-threshold (cadddr ,default-level)))
+           (for-each
+            (lambda (l)
+              (if (not (eq? (car l) '*all*))
+                  (gst-debug-category-set-threshold (cadr l) (cadddr l))))
+            ',levels)))))
+(set-object-property! with-gst-debug 'documentation
+                      "Usage:
+@example
+(with-gst-debug ((@var{category1} #var{level1}) (@var{category2} @var{level2}) ...)
+  @var{body}
+@end example
+
+Execute @var{body} with GStreamer debugging. The debugging thresholds
+for categories named @var{category1}, @var{category2}, etc. will be set
+to the specified values during the dynamic extent of @var{body}. As a
+special case, @code{*all*} is interpreted to be the default threshold.")
+(export with-gst-debug)
+
 (define gtype:gst-list (gtype-from-name "GstValueList"))
 (define gtype:gst-fourcc (gtype-from-name "GstFourcc"))
 (define gtype:gst-int-range (gtype-from-name "GstIntRange"))

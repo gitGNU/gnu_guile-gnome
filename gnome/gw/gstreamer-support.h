@@ -12,9 +12,11 @@ void		_wrap_gst_buffer_set_data (GstBuffer *buf, SCM uvect);
 GstClockReturn 	_wrap_gst_clock_id_wait_async (GstClockID id,
                                                SCM callback);
 
-void		_wrap_gst_pad_set_chain_function (SCM pad, SCM chain_function);
-void		_wrap_gst_pad_set_link_function (SCM pad, SCM link_function);
-void		_wrap_gst_pad_set_get_function (SCM pad, SCM get_function);
+void		gst_debug_use_custom_handler (void);
+
+void		_wrap_gst_pad_set_chain_function (GstPad *pad, SCM chain_function);
+void		_wrap_gst_pad_set_link_function (GstPad *pad, SCM link_function);
+void		_wrap_gst_pad_set_get_function (GstPad *pad, SCM get_function);
 
 /* Macro helpers */
 GstPad*		gst_pad_realize (GstPad *pad);

@@ -1,3 +1,18 @@
+2004-07-18  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gstreamer.scm (with-gst-debug): New macro, sets specific
+	debugging thresholds during the dynamic extent of its body.
+
+2004-07-15  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gw/gstreamer-support.[ch]: Fix to take a GstPad* when
+	setting chain/link/get functions, add debug handlers.
+
+2004-07-07  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gw/gstreamer-spec.scm (<gstreamer-wrapset>): Fix
+	depends-on!. (It was sitting in my tree uncommitted!)
+
 2004-05-19  Andy Wingo  <wingo@pobox.com>
 
 	* *: Split into its own arch category. Lots of deletions and
