@@ -30,8 +30,8 @@
   #:use-module (g-wrap guile)
   #:use-module (gnome gw glib-spec)
   #:use-module (gnome gw gobject-spec)
-  #:use-module (gnome gobject defs-support)
-  #:use-module (gnome gobject gw-spec-utils))
+  #:use-module (gnome gw support defs)
+  #:use-module (gnome gw support gobject))
 
 (define-class <dbus-wrapset> (<gobject-wrapset-base>)
   #:id 'gnome-dbus
@@ -62,7 +62,7 @@
   (add-type-rule! ws '(("dbus_uint32_t*" "*")) '(unsigned-int32 out))
   ;; (add-type-rule! ws '(("DBusPendingCall**" "*")) '(<d-bus-pending-call*> out))
 
-  (load-defs ws "gnome/defs/dbus.defs"))
+  (load-defs-with-overrides ws "gnome/defs/dbus.defs"))
 
 (define-method (global-declarations-cg (self <dbus-wrapset>))
   (list (next-method)

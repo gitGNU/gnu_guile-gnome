@@ -1,3 +1,40 @@
+2004-09-27  Andy Wingo  <wingo@pobox.com>
+
+	* Makefile.am (EXTRA_DIST): Dist the new files.
+
+2004-09-19  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gw/Makefile.am (libgw_guile_gnome_dbus_la_LIBADD): Not
+	G_WRAP_LINK_ARGS, it's G_WRAP_LIBS.
+
+2004-09-17  Andy Wingo  <wingo@pobox.com>
+
+	* NEWS: Added.
+
+	* README: Added.
+
+	* AUTHORS: Added.
+
+2004-09-15  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/Makefile.am: Dist fixes.
+
+	* glib-checks.ac: Check the proper package.
+
+	* gnome/gw/dbus-spec.scm (initialize): Use
+	load-defs-with-overrides.
+
+2004-09-14  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gw/dbus-spec.scm: Adapt for module name changes.
+
+	* gnome/gw/Makefile.am (libgw_guile_gnome_dbus_la_SOURCES): Don't
+	dist the generated wrapper files.
+
+	* gnome/Makefile.am: Dist fixes.
+
+	* examples/Makefile.am: This isn't libglade...
+
 2004-09-12  Andy Wingo  <wingo@pobox.com>
 
 	* gnome/overrides/dbus.defs: Don't wrap GProxy any more, it's

@@ -1,1 +1,1 @@
-EXTRA_DIST = test.glade test.scm
+# EXTRA_DIST = 
