@@ -1,5 +1,7 @@
 2004-09-30  Andy Wingo  <wingo@pobox.com>
 
+	* package.ac: Require libgda < 1.1.
+
 	* defs-extra-checks.ac: New file.
 
 	* Makefile.am (EXTRA_DIST): Dist the .ac files.
