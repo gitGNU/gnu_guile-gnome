@@ -28,9 +28,9 @@
   #:use-module (oop goops)
   #:use-module (g-wrap)
   #:use-module (g-wrap guile)
-  #:use-module (gnome gobject gw-spec-utils)
   #:use-module (gnome gw gobject-spec)
-  #:use-module (gnome gobject defs-support))
+  #:use-module (gnome gw support gobject)
+  #:use-module (gnome gw support defs))
 
 (define-class <gstreamer-wrapset> (<gobject-wrapset-base>)
   #:id 'gnome-gstreamer
@@ -59,4 +59,4 @@
   
   (wrap-gobject-class! ws #:ctype "GstElementClass" #:gtype-id "GST_TYPE_ELEMENT")
 
-  (load-defs ws "gnome/defs/gstreamer.defs"))
+  (load-defs-with-overrides ws "gnome/defs/gstreamer.defs"))

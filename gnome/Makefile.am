@@ -1,7 +1,7 @@
 include $(top_srcdir)/common.mk
 
-SUBDIRS = defs gstreamer
-DIST_SUBDIRS = gw defs gstreamer
+SUBDIRS = gstreamer overrides
+DIST_SUBDIRS = gw gstreamer overrides
 
 guilemodule_DATA = 
 
