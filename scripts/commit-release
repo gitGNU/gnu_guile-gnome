@@ -29,5 +29,5 @@ packages="$packages ."
 
 for i in $packages; do
     ./scripts/changelog-log-release $i $package $version
-    baz commit -s "Released $package $version"
+    baz commit -d $i -s "Released $package $version"
 done

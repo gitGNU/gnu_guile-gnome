@@ -1,5 +1,9 @@
 2005-01-11  Andy Wingo  <wingo@pobox.com>
 
+	* == Released platform version 2.7.98 ==
+
+2005-01-11  Andy Wingo  <wingo@pobox.com>
+
 	* scripts/add-changelog-entry: 
 	* scripts/changelog-log-release: 
 	* scripts/prepare-news-entry:

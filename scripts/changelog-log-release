@@ -18,3 +18,4 @@ echo "  `tla my-id | sed -e 's,<, <,'`" >> ChangeLog
 echo >> ChangeLog
 echo -e "\t* == Released $package version $version ==\n" >> ChangeLog
 cat ChangeLog.old >> ChangeLog
+rm ChangeLog.old
