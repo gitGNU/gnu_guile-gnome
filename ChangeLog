@@ -1,5 +1,12 @@
 2004-09-19  Andy Wingo  <wingo@pobox.com>
 
+	* Makefile.am.bottom: Added. Dist HACKING.
+
+	* autogen-pkg.sh: Only generate the SUBDIRS part of Makefile.am;
+	append Makefile.am.bottom to the end.
+
+	* HACKING: Added.
+
 	* scripts/tla-for-each: New script, does a tla command for all
 	arch subdirs of the toplevel dir.
 

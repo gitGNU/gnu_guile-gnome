@@ -1,0 +1,126 @@
+guile-gnome HACKING
+Copyright (C) 2004 Free Software Foundation, Inc.
+See the end for copying conditions of this file.
+Last updated 16 September 2004.
+
+
+So, you want to hack guile-gnome?
+=================================
+
+Ah, good. Join the mailing list, guile-gtk-devel@gnu.org, and fire up
+your emacs.
+
+
+We use arch
+===========
+
+GNU arch is a source management tool that is particularly well-suited to
+modular, decentralized hacking. It is what we use to manage our code.
+The canonical source for guile-gnome is our arch archive,
+guile-gnome-devel@gnu.org--2004:
+
+   $ tla register-archive guile-gnome-devel@gnu.org--2004 \
+       http://download.gna.org/guile-gnome/archive-2004
+
+guile-gnome is developed as a set of modular source packages. To check
+out guile-gnome, the first thing you will need to do is to check out the
+`dists' package:
+
+   $ tla get guile-gnome-devel@gnu.org--2004/dists--dev--0 \
+       guile-gnome-dists
+
+This will check out the `dists' category into the guile-gnome-dists
+directory. The next step is to configure the source tree for a given set
+of wrapsets. Build configurations are kept in configs/gnu.org. There is
+a `dev' configuration for bleeding-edge hacking, and versioned
+categories for releases that have already been made. For example, to
+check out the 2.6.0 platform release, you could do the following:
+
+   $ tla build-config -r configs/gnu.org/guile-gnome-platform-2.6.0
+
+That will check out the GNOME platform modules into the platform/
+directory. The platform/ directory itself is the `pkg' module, an
+umbrella package that detects packages in its subdirectories, modifying
+the build system as appropriate. All subdirectories of platform/ are
+their own packages, with the exception of scripts/. For example, the
+version of package/glib for the 2.6.0 platform release is
+glib--release--0.
+
+If you want to submit a patch for inclusion in guile-gnome, there are
+two ways you can do it. The first is to hack in the upstream directory,
+as shown above. Then you call `tla what-changed -o PATCH-DIR', tar up
+the patch dir, and send it to the list.
+
+The better way to hack guile-gnome is to make your own branches of the
+upstream guile-gnome archive. Set up an archive as described in the arch
+tutorial. You can then fork the upstream packages with the
+`fork-archive-pkgs' program in package/scripts. For example, if you are
+in the package/ directory, containing subpackages "defs docs glib atk
+pango gtk libgnome libglade libgnomecanvas libgnomeui corba", the
+"guile-gnome-defs--dev--0 guile-gnome-docs--dev--0 ..." versions will be
+created in your archive, branching from the latest upstream versions.
+
+At that point, you will need to check out your branches instead of the
+upstream branches. The best way to do that is to branch the `dists'
+package, and then to add a configuration that checks out of your archive
+instead of the upstream archive. You can use configs/gnu.org as an
+example.
+
+Your branches will then be logically derivative of the "upstream"
+branches. It is useful to explicitly state the name of the upstream
+package in each working copy. For that, you can use the
+scripts/add-upstream program, which will add {arch}/+upstream files for
+each subpackage of the umbrella package.
+
+To merge with the main archive, call the following:
+
+  $ tla star-merge `cat {arch}/+upstream`
+
+`tla-commit-merge' from tla-tools is extremely useful, along with its
+`tla-fix-changelog-conflicts'. Check it out.
+
+To request a merge from your archive, mail the list. Someone will commit
+priviledges will take a look at your request.
+
+
+We are wildebeests
+==================
+
+guile-gnome is part of the GNU project. As such, it is very important to
+us to keep our software Free. From perspective of you, the potential
+contributor, this entails a number of things:
+
+  * It is important to keep the AUTHORS files up-to-date. For each file
+    that you add, modify significantly (more than 10 lines), or change
+    the name of, please update the AUTHORS file in the appropriate
+    package. Thanks.
+
+  * Give a complete ChangeLog entry for every change. Use your ChangeLog
+    entry for the arch commit log.
+
+  * If your change is visible to a user of the package, update the
+    appropriate NEWS file.
+
+  * In order to defend the freedom of users, the Free Software
+    Foundation needs to hold the copyright on guile-gnome. If you have
+    not signed a copyright assignment form for guile-gnome, you will
+    need to do so. Please contact me at wingo@pobox.com for more
+    information.
+
+  * Each file should have a standard GPL copyright header. If you change
+    a file, be sure it has a header, and that the copyright years are up
+    to date. Don't hyphenate a year range; e.g., say 2004,2005 rather
+    than 2004-5.
+
+  * Finally, if you've never seen a wildebeest before, they're pretty
+    fucking crazy! You should definitely go to Africa sometime.
+
+
+Copying this file
+=================
+
+Copyright (C) 2004 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification, are
+permitted in any medium without royalty provided the copyright notice
+and this notice are preserved.
