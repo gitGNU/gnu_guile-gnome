@@ -13,14 +13,14 @@ lib_LTLIBRARIES = libgw-guile-gnome-wnck.la
 
 ########################################################################
 ## libwnck
-libgw_guile_gnome_wnck_la_SOURCES = guile-gnome-gw-wnck.c 
+nodist_libgw_guile_gnome_wnck_la_SOURCES = guile-gnome-gw-wnck.c 
 
 libgw_guile_gnome_wnck_la_CFLAGS = $(GUILE_GLIB_CFLAGS) \
 	$(AM_CFLAGS) $(WNCK_CFLAGS) $(GUILE_CFLAGS) \
 	$(G_WRAP_CFLAGS) -DGTK_DISABLE_DEPRECATED
 
 libgw_guile_gnome_wnck_la_LIBADD = $(WNCK_LIBS) $(GUILE_GLIB_LIBS) \
-	$(GUILE_LIBS) $(G_WRAP_LINK_ARGS) 
+	$(GUILE_LIBS) $(G_WRAP_LIBS) 
 
 libgw_guile_gnome_wnck_la_LDFLAGS = -module
 
