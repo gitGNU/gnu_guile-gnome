@@ -1,5 +1,8 @@
 2005-03-06  Andy Wingo  <wingo@pobox.com>
 
+	* scripts/make-release-note: Tweak evil regexps to correctly parse
+	the NEWS files.
+
 	* == Released guile-gnome-platform version 2.7.99 ==
 
 2005-02-17  Andy Wingo  <wingo@pobox.com>
