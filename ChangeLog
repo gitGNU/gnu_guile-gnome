@@ -1,3 +1,23 @@
+2004-09-08  Andy Wingo  <wingo@pobox.com>
+
+	* NEWS: Initial version, still needs to be filled in.
+
+	* AUTHORS: Updated.
+
+2004-09-05  Andy Wingo  <wingo@pobox.com>
+
+	* autogen-pkg.sh: No more m4/ dir, it was empty anyway. Use
+	AC_PROG_LIBTOOL.
+
+2004-09-04  Andy Wingo  <wingo@pobox.com>
+
+	* autogen-pkg.sh (autogen_pkg): For the dev build-config, set
+	package=guile-gnome-dev, so that no dev distribution tarball
+	escapes into the wild with the name `guile-gnome'. Print out the
+	package name and version. Just print the sorted dependency list,
+	not the progress of the sort.
+	(GUILE_LIBS): Require g-wrap 1.9.1 or greater.
+
 2004-06-27  Andy Wingo  <wingo@pobox.com>
 
 	* autogen-pkg.sh (ensure_dependencies): New function, taken from

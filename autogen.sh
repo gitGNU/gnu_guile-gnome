@@ -9,7 +9,6 @@ srcfile=autogen-pkg.sh
 . autogen-pkg.sh
 
 CONFIGURE_DEF_OPT='--enable-maintainer-mode'
-ACLOCAL_FLAGS="-I m4 $ACLOCAL_FLAGS"
 
 autogen_options $@
 
