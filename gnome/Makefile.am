@@ -1,6 +1,6 @@
 include $(top_srcdir)/common.mk
 
-SUBDIRS = overrides
+SUBDIRS = defs overrides
 guilemodule_DATA =
 
 if HAVE_PANEL_APPLET
@@ -9,4 +9,4 @@ guilemodule_DATA += panel-applet.scm
 endif
 
 EXTRA_DIST = panel-applet.scm
-DIST_SUBDIRS = gw overrides
+DIST_SUBDIRS = defs gw overrides
