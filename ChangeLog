@@ -1,3 +1,10 @@
+2004-11-11  Andy Wingo  <wingo@pobox.com>
+
+	* common.mk (%.scm guile-gnome-gw-%.c): Before loading g-wrap,
+	load (gnome-@API_VERSION@). This will make sure that, when
+	building against an installed guile-gnome, guile-gnome of the
+	right version is available. My English sucks!
+
 2004-10-29  Andy Wingo  <wingo@pobox.com>
 
 	* common.mk: pkg-config versioning voodoo.
