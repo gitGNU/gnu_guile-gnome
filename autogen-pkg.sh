@@ -53,10 +53,6 @@ autogen_pkg()
     pkg=`echo $pkg_source | awk '{ print $1 }'`
     source=`echo $pkg_source | awk '{ print $2 }'`
     case $pkg in
-	dev) 
-	    package=guile-gnome-dev
-	    version="`date +%Y%m%d`+$source"
-	    ;;
 	*.dev)
 	    package=`echo $pkg | sed -e 's/\.dev$//'`
 	    version="`date +%Y%m%d`+$source"
@@ -65,9 +61,9 @@ autogen_pkg()
 	    package=`echo $pkg | sed -e 's/-[^.-]*\.[^.]*\.[^.]*$//'`
 	    version=`echo $pkg | sed -e 's/^.*-//'`
 	    ;;
-	*)
-	    echo "unable to parse config file name"
-	    exit 1
+	*) 
+	    package="guile-gnome-$pkg"
+	    version="`date +%Y%m%d`+$source"
 	    ;;
     esac
     
