@@ -1,3 +1,9 @@
+2004-10-06  Andy Wingo  <wingo@pobox.com>
+
+	* h2def.py: Change so we require one of --types, --procs, or
+	--all. Change --enums-without-gtype to --c-enums. Add optional
+	--with-header= option. Adjust logic to match.
+
 2004-09-30  Andy Wingo  <wingo@pobox.com>
 
 	* autogen-pkg.sh (autogen_pkg): An unrecognized config $i becomes

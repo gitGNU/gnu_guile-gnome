@@ -409,32 +409,36 @@ typecode = typecode_prefix # default
 if __name__ == '__main__':
     import getopt
 
-    onlyenums = 0
-    onlyobjdefs = 0
-    enums_without_gtype = 0
-    onlydefs = 0
+    do_types = 0
+    with_c_enums = 0
+    do_procs = 0
     
     opts, args = getopt.getopt(sys.argv[1:], 'v',
-                               ['onlyenums', 'onlyobjdefs', 'onlydefs',
-                                'enums-without-gtype',
-                                'type-postfix'])
+                               ['types', 'c-enums', 'procs',
+                                'type-postfix', 'all', 'with-header='])
     for o, v in opts:
         if o == '-v':
             verbose = 1
-        elif o == '--onlyenums':
-            onlyenums = 1
-        elif o == '--onlyobjdefs':
-            onlyobjdefs = 1
-        elif o == '--onlydefs':
-            onlydefs = 1
-        elif o == '--enums-without-gtype':
-            enums_without_gtype = 1
+        elif o == '--all':
+            do_types = with_c_enums = do_procs = 1
+        elif o == '--types':
+            do_types = 1
+        elif o == '--c-enums':
+            with_c_enums = 1
+        elif o == '--procs':
+            do_procs = 1
         elif o == '--type-postfix':
             typecode = typecode_postfix
+        elif o == '--with-header':
+            print v
         
     if not args[0:1]:
         print 'Must specify at least one input file name'
         sys.exit(-1)
+
+    if not (do_types or do_procs): 
+        print 'Must say --types, --procs, or --all'
+        sys.exit(-1) 
 
     # read all the object definitions in
     objdefs = []
@@ -444,16 +448,9 @@ if __name__ == '__main__':
         find_obj_defs(buf, objdefs)
         find_enum_defs(buf, enums)
     objdefs = sort_obj_defs(objdefs)
-    if onlyenums:
-        write_enum_defs(enums,None, without_gtype = enums_without_gtype)
-    elif onlyobjdefs:
+    if do_types:
+        write_enum_defs(enums,None, without_gtype = with_c_enums)
         write_obj_defs(objdefs,None)
-    elif onlydefs:
-        for filename in args:
-            write_def(filename,None)
-    else:
-        write_obj_defs(objdefs,None)
-        write_enum_defs(enums,None, without_gtype = enums_without_gtype)
-
+    if do_procs:
         for filename in args:
             write_def(filename,None)
