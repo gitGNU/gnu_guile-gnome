@@ -1,4 +1,16 @@
+2004-09-15  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gstreamer/Makefile.am (module_DATA): Dist fixes.
+
+	* gnome/Makefile.am: Dist fixes.
+
+	* glib-checks.ac: Check the right pkg-config file.
+
+	* files.ac: Refer to the right files.
+
 2004-09-14  Andy Wingo  <wingo@pobox.com>
+
+	* Makefile.am: Dist and install the pkg-config files.
 
 	* package.ac: Some fixups.
 
