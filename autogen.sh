@@ -9,6 +9,7 @@ srcfile=autogen-pkg.sh
 . autogen-pkg.sh
 
 CONFIGURE_DEF_OPT='--enable-maintainer-mode'
+ACLOCAL_FLAGS="-I m4 $ACLOCAL_FLAGS"
 
 autogen_options $@
 
@@ -44,10 +45,11 @@ autogen_pkg
 
 toplevel_check $srcfile
 
+tool_run "$libtoolize" "--copy --force"
+
 if test -f acinclude.m4; then rm acinclude.m4; fi
 tool_run "$aclocal" "$ACLOCAL_FLAGS"
 
-tool_run "$libtoolize" "--copy --force"
 tool_run "$autoheader"
 
 tool_run "$autoconf"

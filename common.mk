@@ -34,9 +34,8 @@ export GUILE_LOAD_PATH
 
 %.scm guile-gnome-gw-%.c: %-spec.scm
 	guile $(GUILE_FLAGS) -c \
-	  "(debug-set! stack 100000) \
+	  "(debug-set! stack 200000) \
 	   (use-modules (g-wrap)) \
-	   (use-modules (g-wrap guile)) \
 	   (use-modules (gnome gw $*-spec)) \
-	   (generate-wrapset guile 'gnome-$* \"guile-gnome-gw-$*\")"
+	   (generate-wrapset 'guile 'gnome-$* \"guile-gnome-gw-$*\")"
 	mv guile-gnome-gw-$*.scm $*.scm

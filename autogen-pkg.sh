@@ -42,6 +42,7 @@ AC_PREREQ(2.52)
 AC_INIT(autogen-pkg.sh)
 AM_CONFIG_HEADER(config.h)
 AM_INIT_AUTOMAKE($package, $version)
+AC_CONFIG_MACRO_DIR(m4)
 
 AC_SUBST(VERSION,$version)
 
@@ -131,7 +132,17 @@ EOF
     (
 	echo
 	echo "AC_CONFIG_FILES(dev-environ, [chmod +x ./dev-environ])"
-	echo "AC_CONFIG_FILES(Makefile" `find $packages -name Makefile.am | sed -e 's/\.am$//'` `find $packages -name "*.pc.in" | sed -e 's/\.in$//'` ")"
+	echo "AC_CONFIG_FILES("
+	echo "Makefile"
+	find $packages -name Makefile.am | sed -e 's/\.am$//'
+	for pkg in $packages; do
+	  if [ -f $pkg/files.ac ]; then
+	    while read file; do
+	      echo "$pkg/$file"
+	    done < $pkg/files.ac
+	  fi
+	done
+	echo ")"
 	echo "AC_OUTPUT" 
     ) >> configure.ac
 
@@ -141,5 +152,7 @@ SUBDIRS = $pkgs_ordered
 EXTRA_DIST = RELEASE-NOTES-0.2.0.txt RELEASE-NOTES-0.5.0.txt \\
              dev-environ h2def.py \\
              autogen.sh autogen-pkg.sh autogen-support.sh
+
+ACLOCAL_AMFLAGS = -I m4
 EOF
 }
