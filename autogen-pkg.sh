@@ -1,3 +1,28 @@
+pkgs_ordered=""
+checks_catted=""
+
+ensure_dependencies()
+{
+    local pkg=$1
+    for check in $pkg/*-checks.ac; do
+        if [ -f $check ]; then
+            dep_pkg=`echo $check | sed -e "s,^$pkg/\(.*\)-checks\.ac$,\1,"`
+            echo "$pkg depends on $dep_pkg"
+            if [ -d $dep_pkg ]; then
+                pkgs_ordered=`echo "$pkgs_ordered" | sed -e "s,$dep_pkg,," -e "s,  , ,"`
+                pkgs_ordered="$dep_pkg $pkgs_ordered"
+                ensure_dependencies $dep_pkg # recurse
+            else
+                echo "$checks_catted" | grep -q $dep_pkg;
+                if test $? -eq 1; then
+                    cat $check >> configure.ac
+                    checks_catted="$checks_catted $dep_pkg"
+                fi
+            fi
+        fi
+    done
+}
+
 autogen_pkg()
 {
     # Check and parse release ID
@@ -111,29 +136,10 @@ EOF
 
     # package checks
     pkgs_ordered="$packages"
-    depends=""
     for pkg in $packages; do
 	echo "# $pkg" >> configure.ac
 	cat $pkg/package.ac >> configure.ac
-	
-        # Check for package dependencies
-	for check in $pkg/*-checks.ac; do
-	    if [ -f $check ]; then
-		dep_pkg=`echo $check | sed -e "s,^$pkg/\(.*\)-checks\.ac$,\1,"`
-		if echo "$depends" | grep -q $dep_pkg; then
-		    echo "$pkg depends on $dep_pkg"
-		else
-		    echo "$pkg depends on $dep_pkg (new dependency)"
-		    depends="$depends $dep_pkg"
-		    if [ -d $dep_pkg ]; then
-			pkgs_ordered=`echo "$pkgs_ordered" | sed -e "s,$dep_pkg,,"`
-			pkgs_ordered="$dep_pkg $pkgs_ordered"
-		    else
-			cat $check >> configure.ac
-		    fi
-		fi
-	    fi
-	done
+        ensure_dependencies $pkg
     done
     
     # postlude
