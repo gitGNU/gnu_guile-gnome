@@ -33,7 +33,8 @@
   #:use-module (gnome gobject defs-support))
 
 (define-class <gstreamer-wrapset> (<gobject-wrapset-base>)
-  #:id 'gnome-gstreamer)
+  #:id 'gnome-gstreamer
+  #:dependencies '(standard gnome-glib gnome-gobject))
 
 (define-method (global-declarations-cg (self <gstreamer-wrapset>))
   (list (next-method)
@@ -53,8 +54,6 @@
 
   (next-method ws (append '(#:module (gnome gw gstreamer)) initargs))
 
-  (depends-on! ws 'standard 'gnome-glib 'gnome-gobject)
-  
   (add-type-alias! ws "GstClockTime" 'unsigned-long-long)
   (add-type-alias! ws "GstClockTimeDiff" 'unsigned-long-long)
   
