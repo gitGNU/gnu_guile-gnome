@@ -35,7 +35,8 @@
   #:use-module (gnome gobject defs-support))
 
 (define-class <wnck-wrapset> (<gobject-wrapset-base>)
-  guile #:id 'gnome-wnck)
+  #:id 'gnome-wnck
+  #:dependencies 'standard 'gnome-glib 'gnome-gobject)
 
 (define-method (global-declarations-cg (self <gobject-wrapset-base>))
   (list
@@ -48,8 +49,6 @@
 (define-method (initialize (ws <wnck-wrapset>) initargs)
   (next-method ws (cons #:module (cons '(gnome gw wnck) initargs)))
 
-  (depends-on! ws 'standard 'gnome-glib 'gnome-gobject)
-  
   ;; (add-type-alias! ws "WnckGlyph" 'unsigned-long)
 
   (load-defs ws "gnome/defs/libwnck.defs"))
