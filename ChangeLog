@@ -1,3 +1,8 @@
+2004-06-27  Andy Wingo  <wingo@pobox.com>
+
+	* autogen-pkg.sh (ensure_dependencies): New function, taken from
+	the main function because it needs to recurse.
+
 2004-04-15  Andreas Rottmann  <a.rottmann@gmx.at>
 
 	* [guile-gnome started]
