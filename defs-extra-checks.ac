@@ -1,0 +1,1 @@
+PKG_CHECK_MODULES(GUILE_GNOME_DEFS_EXTRA, guile-gnome-defs-extra)
