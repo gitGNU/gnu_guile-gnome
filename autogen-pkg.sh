@@ -142,9 +142,25 @@ AC_PROG_CC
 AC_STDC_HEADERS
 AC_PROG_LIBTOOL
 
-AC_SUBST(AG_PKG_CONFIG_PATH, [$pkg_config_path])
+AC_SUBST(AG_PKG_CONFIG_PATH, [\$pkg_config_path])
 AG_PACKAGES="$packages"
 AC_SUBST(AG_PACKAGES)
+
+if test "x\$prefix" = xNONE; then
+   AC_MSG_ERROR([No explicit prefix given.
+
+Guile-GNOME requires you to explicitly enter in a prefix when
+configuring. This is because the default prefix, /usr/local, is not in
+the default guile load path. What you probably want to do is to run
+
+  \$0 --prefix=/usr
+
+so that guile can find the guile-gnome modules when they are installed.
+
+If you choose to install to a prefix that is not in guile's load path,
+you will need to modify GUILE_LOAD_PATH and LD_LIBRARY_PATH every time
+you run guile. (Which is a pain.)])
+fi
 
 MK=""; AC_SUBST(MK)
 EOF
@@ -229,7 +245,7 @@ record_check()
             fi
             ;;
         *)
-            echo "bad report_check value: $buildp (for package \"$package\")"
+            echo "bad record_check value: \"$buildp\" (for package \"$package\")"
             exit 1
             ;;
     esac

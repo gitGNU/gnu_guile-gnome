@@ -269,12 +269,18 @@ autogen_options ()
           echo " --nocheck                don't do version checks"
           echo " --debug                  debug the autogen process"
 	  echo " --prefix		  will be passed on to configure"
+          echo " --only-genconfigure      only make ./configure, no automake"
           echo
           echo " --with-autoconf PATH     use autoconf in PATH"
           echo " --with-automake PATH     use automake in PATH"
           echo
           echo "to pass options to configure, put them as arguments after -- "
 	  exit 1
+          ;;
+      --only-genconfigure)
+          ONLY_GENCONFIGURE=defined
+          echo "+ only remaking the configure script"
+          shift
           ;;
       --with-automake=*)
           AUTOMAKE=$optarg

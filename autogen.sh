@@ -54,13 +54,15 @@ version_check "pkg-config" "" \
 
 die_check $DIE
 
-aclocal_check || DIE=1
-autoheader_check || DIE=1
+if test -z "$ONLY_GENCONFIGURE"; then
+  aclocal_check || DIE=1
+  autoheader_check || DIE=1
+fi
 
 die_check $DIE
 
 # if no arguments specified then this will be printed
-if test -z "$*"; then
+if test -z "$*" -a -z "$ONLY_GENCONFIGURE" ; then
   echo "+ checking for autogen.sh options"
   echo "  This autogen script will automatically run ./configure as:"
   echo "  ./configure $CONFIGURE_DEF_OPT"
@@ -73,14 +75,20 @@ autogen_pkg
 
 toplevel_check $srcfile
 
-tool_run "$libtoolize" "--copy --force"
+if test -z "$ONLY_GENCONFIGURE"; then
+  tool_run "$libtoolize" "--copy --force"
 
-if test -f acinclude.m4; then rm acinclude.m4; fi
-tool_run "$aclocal" "$ACLOCAL_FLAGS"
+  if test -f acinclude.m4; then rm acinclude.m4; fi
+  tool_run "$aclocal" "$ACLOCAL_FLAGS"
 
-tool_run "$autoheader"
+  tool_run "$autoheader"
+fi
 
 tool_run "$autoconf"
+if test -n "$ONLY_GENCONFIGURE"; then
+  exit 0
+fi
+
 debug "automake: $automake"
 tool_run "$automake" "-a -c"
 
