@@ -13,14 +13,15 @@ lib_LTLIBRARIES = libgw-guile-gnome-gstreamer.la
 
 ########################################################################
 ## gstreamer
-libgw_guile_gnome_gstreamer_la_SOURCES = guile-gnome-gw-gstreamer.c \
+nodist_libgw_guile_gnome_gstreamer_la_SOURCES = guile-gnome-gw-gstreamer.c
+libgw_guile_gnome_gstreamer_la_SOURCES = \
 	gstreamer-support.c gstreamer-support.h
 
 libgw_guile_gnome_gstreamer_la_CFLAGS = $(GUILE_GLIB_CFLAGS) \
 	$(AM_CFLAGS) $(GST_CFLAGS) $(GUILE_CFLAGS) \
 	$(G_WRAP_CFLAGS)
 libgw_guile_gnome_gstreamer_la_LIBADD = $(GST_LIBS) $(GUILE_LIBS) \
-	$(G_WRAP_LINK_ARGS) $(GUILE_GLIB_LIBS)
+	$(G_WRAP_LIBS) $(GUILE_GLIB_LIBS)
 libgw_guile_gnome_gstreamer_la_LDFLAGS = -module
 
 CLEANFILES += $(wildcard guile-gnome-gw-gstreamer.*) gstreamer.scm
