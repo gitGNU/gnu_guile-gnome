@@ -1,5 +1,11 @@
 2004-11-15  Andy Wingo  <wingo@pobox.com>
 
+	* Makefile.am.bottom (dist-gzip, dist, dist-all): Create ustar
+	archives, because evolution-data-server manages to exceed the
+	maximum path length.
+
+2004-11-15  Andy Wingo  <wingo@pobox.com>
+
 	* autogen-pkg.sh (record_check): Quote the bad value.
 	Check for --prefix; if none is given, barf. People should be aware
 	of guile's deficiencies.
