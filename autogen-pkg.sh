@@ -126,7 +126,7 @@ AC_MSG_RESULT(yes)
 
 # Check for g-wrap
 
-PKG_CHECK_MODULES(G_WRAP, g-wrap-2.0-guile)
+PKG_CHECK_MODULES(G_WRAP, g-wrap-2.0-guile >= 1.9.1)
 AC_SUBST(G_WRAP_CFLAGS)
 AC_SUBST(G_WRAP_LIBS)
 AC_SUBST(G_WRAP_MODULE_DIR, `${PKG_CONFIG} --variable=module_directory g-wrap`)

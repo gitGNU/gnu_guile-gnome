@@ -5,6 +5,7 @@
 	escapes into the wild with the name `guile-gnome'. Print out the
 	package name and version. Just print the sorted dependency list,
 	not the progress of the sort.
+	(GUILE_LIBS): Require g-wrap 1.9.1 or greater.
 
 2004-06-27  Andy Wingo  <wingo@pobox.com>
 
