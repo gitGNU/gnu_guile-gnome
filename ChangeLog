@@ -1,5 +1,9 @@
 2004-10-12  Andreas Rottmann  <a.rottmann@gmx.at>
 
+	* autogen-pkg.sh: Use tsort instead of hand-built package
+	sorter. This fixes a bug when defs and defs-extra are both
+	present.
+
 	* autogen.sh: Fix sourcing for shells that don't search the
 	current directory.
 
