@@ -1,6 +1,6 @@
 include $(top_srcdir)/common.mk
 
-SUBDIRS = overrides
+SUBDIRS = defs overrides
 guilemodule_DATA = dbus.scm
 
 if HAVE_DBUS
@@ -9,4 +9,4 @@ guilemodule_DATA += dbus.scm
 endif
 
 EXTRA_DIST = dbus.scm
-DIST_SUBDIRS = gw overrides
+DIST_SUBDIRS = defs gw overrides
