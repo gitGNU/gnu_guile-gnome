@@ -35,9 +35,18 @@
   (gtype-id "DBUS_TYPE_MESSAGE")
 )
 
-(define-object BusGProxy
-  (c-name "DBusGProxy")
-  (gtype-id "DBUS_TYPE_GPROXY")
+;; pending call should be boxed
+
+;(define-object BusGProxy
+;  (c-name "DBusGProxy")
+;  (gtype-id "DBUS_TYPE_GPROXY")
+;)
+
+(define-method pop_message
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_pop_message")
+  (return-type "DBusMessage*")
+  (caller-owns-return #t)
 )
 
 (define-method get
@@ -71,17 +80,42 @@
   (overrides "dbus_connection_get_unix_user")
   (return-type "SCM"))
 
+;; should wrap connection filters.
+;; should wrap free_data_slot better.
+;; REALLY need to handle register_object_path, register_fallback.
+
 (ignore-glob  "_*"
               "*_copy"
               "*_newv"
               "*_ref"
-              "*_untref"
+              "*_unref"
               "*_valist"
               "*_setv"
-              "*_user_data"
-              "*_func"
+              "*_get_data"
+              "*_set_data"
+              "*_function"
+              "*_functions"
+              "*preallocate*"
+              "dbus_*error*"
+              "dbus_watch_*" ; useless without the WatchFunctions
+              "dbus_timeout_*" ; useless without the TimeoutFunctions
               "dbus_message_iter_get_*"
-              "dbus_message_iter_append_*")
+              "dbus_message_iter_append_*"
+              "dbus_gproxy_*"
+              "dbus_message_iter_init*"
+              "dbus_mutex*"
+              "dbus_condvar*"
+              )
 
-(ignore       "dbus_message_iter_init"
+(ignore       "dbus_connection_add_filter"
+              "dbus_connection_remove_filter"
+              "dbus_message_append_iter_init"
+              "dbus_g_object_class_install_info"
+              "dbus_connection_register_g_object"
+              "dbus_malloc"
+              "dbus_malloc0"
+              "dbus_free"
+              "dbus_free_string_array"
+              "dbus_shutdown"
+              "dbus_threads_init"
               )

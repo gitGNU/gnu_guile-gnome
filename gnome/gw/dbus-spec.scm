@@ -60,6 +60,7 @@
   ;; copying from glib.scm
   (add-type-rule! ws '(("dbus_int32_t*" "*")) '(int32 out))
   (add-type-rule! ws '(("dbus_uint32_t*" "*")) '(unsigned-int32 out))
+  ;; (add-type-rule! ws '(("DBusPendingCall**" "*")) '(<d-bus-pending-call*> out))
 
   (load-defs ws "gnome/defs/dbus.defs"))
 

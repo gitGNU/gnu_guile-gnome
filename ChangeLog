@@ -1,3 +1,13 @@
+2004-09-12  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/overrides/dbus.defs: Don't wrap GProxy any more, it's
+	effectively the same as a remote object. The caller of pop-message
+	owns the result. Add a short TODO, and ignore about 70 procedures
+	(101 left).
+
+	* gnome/gw/dbus-spec.scm (initialize): Add a type rule for
+	DBusPendingCall**. Doesn't work though.
+
 2004-09-11  Andy Wingo  <wingo@pobox.com>
 
 	* gnome/overrides/dbus.defs: Add wrappings for DBusConnection,
