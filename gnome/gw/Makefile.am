@@ -13,7 +13,7 @@ lib_LTLIBRARIES = libgw-guile-gnome-wnck.la
 
 ########################################################################
 ## libwnck
-libgw_guile_gnome_wnck_la_SOURCES = guile-gnome-gw-wnck.c 
+nodist_libgw_guile_gnome_wnck_la_SOURCES = guile-gnome-gw-wnck.c 
 
 libgw_guile_gnome_wnck_la_CFLAGS = $(GUILE_GLIB_CFLAGS) \
 	$(AM_CFLAGS) $(WNCK_CFLAGS) $(GUILE_CFLAGS) \

@@ -1,6 +1,5 @@
 ;; guile-gnome
-;; Copyright (C) 2004 Jan Nieuwenhuizen <janneke@gnu.org>
-;;                    Andy Wingo <wingo at pobox dot com>
+;; Copyright (C) 2004 Jan Nieuwenhuizen <janneke at gnu.org>
 
 ;; This program is free software; you can redistribute it and/or    
 ;; modify it under the terms of the GNU General Public License as   
@@ -21,34 +20,12 @@
 
 ;;; Commentary:
 ;;
-;;g-wrap specification for libwnk.
+;;libwnck bindings.
 ;;
 ;;; Code:
 
-(define-module (gnome gw wnck-spec)
-  #:use-module (oop goops)
-  #:use-module (g-wrap)
-  #:use-module (g-wrap guile)
-  #:use-module (gnome gw glib-spec)
-  #:use-module (gnome gw gobject-spec)
-  #:use-module (gnome gw gdk-spec)
-  #:use-module (gnome gw support gobject)
-  #:use-module (gnome gw support defs))
+(define-module (gnome wnck)
+  #:use-module (gnome gw wnck)
+  #:use-module (gnome gw support modules))
 
-(define-class <wnck-wrapset> (<gobject-wrapset-base>)
-  #:id 'gnome-wnck
-  #:dependencies '(standard gnome-glib gnome-gobject gnome-gdk))
-
-(define-method (global-declarations-cg (self <wnck-wrapset>))
-  (list
-   (next-method)
-   "#define WNCK_I_KNOW_THIS_IS_UNSTABLE
-#include <libwnck/libwnck.h>
-#include <libwnck/class-group.h>
-"))
-  
-(define-method (initialize (ws <wnck-wrapset>) initargs)
-  (next-method ws (cons #:module (cons '(gnome gw wnck) initargs)))
-
-  (load-defs ws "gnome/defs/libwnck.defs"))
-
+(re-export-modules (gnome gw wnck))
