@@ -2,7 +2,6 @@
 
 year=`date +%Y`
 while [ -n "$1" ]; do
-  tla archive-setup "guile-gnome-$1--dev--0"
-  tla tag "guile-gnome-devel@gnu.org--$year/$1--dev--0" "guile-gnome-$1--dev--0"
+  tla tag -S "guile-gnome-devel@gnu.org--$year/$1--dev--0" "guile-gnome-$1--dev--0"
   shift
 done

@@ -1,3 +1,17 @@
+2005-01-25  Andreas Rottmann  <a.rottmann@gmx.at>
+
+	* configure.ac: Require G-Wrap >= 1.9.4.
+
+	* h2def.py (proto_pat): Fix for return types with spaces,
+	e.g. unsigned long.
+
+	* common.mk (packages): Make out-of-tree-build-safe.
+
+2004-10-13  Andreas Rottmann  <a.rottmann@gmx.at>
+
+	* scripts/fork-archive-pkgs: Use -S option to "tla tag" instead of
+	seperate archive-setup.
+
 2004-10-29  Andy Wingo  <wingo@pobox.com>
 
 	* common.mk: pkg-config versioning voodoo.
