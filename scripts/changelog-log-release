@@ -1,0 +1,21 @@
+#!/bin/sh
+
+dir=$1
+package=$2
+version=$3
+
+if test -z "$dir" -o -z "$package" -o -z "$version"; then
+    echo "usage: $0 DIR PACKAGE VERSION" >&2
+    exit 1
+fi
+
+cd $dir || ( echo "dir does not exist: $dir">&2; exit 1 )
+test -f ChangeLog || ( echo "no ChangeLog in $dir">&2; exit 1 )
+
+mv ChangeLog ChangeLog.old
+echo -n `date +"%Y-%m-%d"` > ChangeLog
+echo "  `tla my-id | sed -e 's,<, <,'`" >> ChangeLog
+echo >> ChangeLog
+echo -e "\t* == Released $package version $version ==\n" >> ChangeLog
+cat ChangeLog.old >> ChangeLog
+rm ChangeLog.old

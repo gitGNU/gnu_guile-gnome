@@ -7,6 +7,68 @@
 
 	* common.mk (packages): Make out-of-tree-build-safe.
 
+2005-02-17  Andy Wingo  <wingo@pobox.com>
+
+	* autogen-pkg.sh (GUILE_LIBS): Require g-wrap >= 1.9.4.
+	(DISABLE_DEPRECATED): Add a general option to disable deprecated
+	cflags.
+
+2005-01-12  Andy Wingo  <wingo@pobox.com>
+
+	* == Released platform version 2.7.98 ==
+
+2005-01-12  Andy Wingo  <wingo@pobox.com>
+
+	* scripts/release-config:
+	* scripts/make-release-note: New files.
+
+2005-01-11  Andy Wingo  <wingo@pobox.com>
+
+	* scripts/add-changelog-entry: 
+	* scripts/changelog-log-release: 
+	* scripts/prepare-news-entry:
+	* scripts/prepare-release: 
+	* scripts/commit-release: New helper scripts.
+
+2004-11-15  Andy Wingo  <wingo@pobox.com>
+
+	* Makefile.am.bottom (dist-gzip, dist, dist-all): Create ustar
+	archives, because evolution-data-server manages to exceed the
+	maximum path length.
+
+2004-11-15  Andy Wingo  <wingo@pobox.com>
+
+	* autogen-pkg.sh (record_check): Quote the bad value.
+	Check for --prefix; if none is given, barf. People should be aware
+	of guile's deficiencies.
+
+	* autogen.sh: 
+	* autogen-support.sh (--only-genconfigure): New option.
+
+2004-11-13  Andy Wingo  <wingo@pobox.com>
+
+	* autogen-pkg.sh (record_check): New function, should be called
+	from within package.ac files to report whether a wrapper can be
+	built or not.
+	(report_checks): New function, called after the packages have made
+	their checks. Will report which wrappers can be built and which
+	are missing prereqs, and error out if no package can be built.
+	(release_manager): New global, defines the subdir of configs/ from
+	which the official releases come.
+	(get_version): New function, computes the version of a package. If
+	no VERSION file is present in a subpackage, or more than one is
+	present, default to a timestamp.
+	(autogen_pkg): Always use guile-gnome-$pkg as the package name.
+	Append +$source to the version if the source is not the
+	$release_manager.
+
+2004-11-11  Andy Wingo  <wingo@pobox.com>
+
+	* common.mk (%.scm guile-gnome-gw-%.c): Before loading g-wrap,
+	load (gnome-@API_VERSION@). This will make sure that, when
+	building against an installed guile-gnome, guile-gnome of the
+	right version is available. My English sucks!
+
 2004-10-13  Andreas Rottmann  <a.rottmann@gmx.at>
 
 	* scripts/fork-archive-pkgs: Use -S option to "tla tag" instead of

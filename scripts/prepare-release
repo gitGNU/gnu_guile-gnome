@@ -1,0 +1,26 @@
+#!/bin/sh
+
+package=$1
+version=$2
+
+if test -z "$package" -o -z "$version"; then
+    echo "usage: $0 PACKAGE VERSION" >&2
+    exit 1
+fi
+
+dir=$(cd `dirname $0`/.. && pwd)
+echo "* prepare-release in $dir"
+cd $dir
+
+for i in *; do
+    if test -d $i/{arch}; then
+       packages="$packages $i";
+    fi
+done
+
+# include pkg in the list
+packages="$packages ."
+
+for i in $packages; do
+    ./scripts/prepare-news-entry $i $package $version
+done
