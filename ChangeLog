@@ -1,3 +1,11 @@
+2004-10-17  Andy Wingo  <wingo@pobox.com>
+
+	* common.mk (guilemoduledir, guilegwmoduledir): Get $guiledir from
+	--with-guile-dir.
+
+	* autogen-pkg.sh: Add --with-guiledir option to control install
+	location of guile modules. Default PREFIX/share/guile/site.
+
 2004-10-24  Andy Wingo  <wingo@pobox.com>
 
 	* autogen-pkg.sh (sort_pkgs): Fix it right this time.

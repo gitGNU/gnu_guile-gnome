@@ -25,8 +25,9 @@
 
 schemelibdir = $(pkgdatadir)/$(VERSION)
 
-guilemoduledir = $(datadir)/guile/gnome
-guilegwmoduledir = $(datadir)/guile/gnome/gw
+# guiledir comes from --with-guiledir=
+guilemoduledir = $(guiledir)/gnome
+guilegwmoduledir = $(guiledir)/gnome/gw
 
 AM_CFLAGS = -I. -I$(srcdir) $(WARN_CFLAGS) $(DEBUG_CFLAGS)
 

@@ -128,6 +128,12 @@ AC_SUBST(GNULD_LDFLAGS)
 AM_LDFLAGS='$(GNULD_LDFLAGS)'
 AC_SUBST(AM_LDFLAGS)
 
+AC_ARG_WITH(guiledir, 
+   AC_HELP_STRING([--with-guiledir=DIR],
+                  [Path to install guile modules @<:@default=PREFIX/share/guile/site@:>@]),
+   [AC_SUBST(guiledir,${withval})],
+   [AC_SUBST(guiledir,'${prefix}/share/guile/site')])
+
 #
 # Check for Guile
 #
@@ -149,7 +155,7 @@ AC_MSG_RESULT(yes)
 # The defs generator uses slib for globbing and printf
 AC_MSG_CHECKING(for SLIB)
 if ! guile -c '(use-modules (ice-9 slib))' >/dev/null 2>&1; then
-   AC_MSG_ERROR([guile-gnome needs SLIB to run.
+   AC_MSG_ERROR([guile-gnome needs SLIB to build.
 
 Most distributions ship a guile-slib package, for example guile-1.6-slib
 on Debian. Otherwise, you can install it yourself by downloading it
