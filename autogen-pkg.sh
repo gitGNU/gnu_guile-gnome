@@ -72,6 +72,13 @@ AC_ARG_ENABLE([debug], AC_HELP_STRING([--disable-debug],[Disable debugging infor
         [], DEBUG_CFLAGS=-g)
 AC_SUBST(DEBUG_CFLAGS)
 
+# Optimize the DSO symbol hash table -- see ulrich drepper's paper,
+# "how to write shared libraries"
+GNULD_LDFLAGS=-Wl,-O1
+AC_SUBST(GNULD_LDFLAGS)
+AM_LDFLAGS='$(GNULD_LDFLAGS)'
+AC_SUBST(AM_LDFLAGS)
+
 #
 # Check for Guile
 #
@@ -134,7 +141,7 @@ EOF
 	echo "AC_CONFIG_FILES(dev-environ, [chmod +x ./dev-environ])"
 	echo "AC_CONFIG_FILES("
 	echo "Makefile"
-	find $packages -name Makefile.am | sed -e 's/\.am$//'
+	find $packages -name Makefile.am | egrep -v '{arch}|\+\+|,,' | sed -e 's/\.am$//'
 	for pkg in $packages; do
 	  if [ -f $pkg/files.ac ]; then
 	    while read file; do

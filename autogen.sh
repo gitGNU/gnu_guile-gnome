@@ -13,6 +13,12 @@ ACLOCAL_FLAGS="-I m4 $ACLOCAL_FLAGS"
 
 autogen_options $@
 
+# OK now this is seriously broken. Autoconf gives two different
+# versions, depending on whether there's a configure.ac file in the
+# current directory. Although we're generating ours, touch it first so
+# we get the right version.
+touch configure.ac
+
 echo -n "+ check for build tools"
 if test ! -z "$NOCHECK"; then echo ": skipped version checks"; else  echo; fi
 version_check "autoconf" "$AUTOCONF autoconf autoconf-2.54 autoconf-2.53 autoconf-2.52" \
