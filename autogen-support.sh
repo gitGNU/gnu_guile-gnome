@@ -217,6 +217,12 @@ autogen_options ()
           echo "+ autotools version check disabled"
           shift
           ;;
+      --notools)
+	  NOTOOLS=defined
+	  echo "+ will not run autotools"
+	  shift
+	  ;;
+
       --debug)
           DEBUG=defined
 	  AUTOGEN_EXT_OPT="$AUTOGEN_EXT_OPT --debug"
@@ -293,10 +299,12 @@ tool_run ()
 {
   tool=$1
   options=$2
-  echo "+ running $tool $options..."
-  $tool $options || {
-    echo
-    echo $tool failed
-    exit 1
-  }
+  if [ -z "$NOTOOLS" ]; then
+    echo "+ running $tool $options..."
+    $tool $options || {
+      echo
+      echo $tool failed
+      exit 1
+    }
+  fi
 }

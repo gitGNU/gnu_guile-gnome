@@ -39,10 +39,10 @@ if test -z "$*"; then
   echo "  command line."
 fi
 
-toplevel_check $srcfile
-
 echo "+ creating configure.ac and top-level Makefile.am"
 autogen_pkg
+
+toplevel_check $srcfile
 
 if test -f acinclude.m4; then rm acinclude.m4; fi
 tool_run "$aclocal" "$ACLOCAL_FLAGS"

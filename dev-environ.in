@@ -8,13 +8,13 @@ cd $this_dir
 src_dir=`readlink -f $src_dir`
 cd $pwd
 
-export GUILE_LOAD_PATH=$src_dir:$this_dir:$GUILE_LOAD_PATH
-export LD_LIBRARY_PATH=$this_dir/gnome/gobject:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=$this_dir/gnome/gtk:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=$this_dir/gnome/gnome:$LD_LIBRARY_PATH
-export PKG_CONFIG_PATH=$this_dir:$PKG_CONFIG_PATH
-export CFLAGS="-I$src_dir/gnome/gobject $CFLAGS"
+for pkg in glib atk pango gtk; do
+  if [ -d $src_dir/$pkg ]; then
+    GUILE_LOAD_PATH=$src_dir/$pkg:$this_dir/$pkg:$GUILE_LOAD_PATH
+    LD_LIBRARY_PATH=$this_dir/$pkg/gnome/gw:$LD_LIBRARY_PATH
+  fi
+done
 
-#export LD_LIBRARY_PATH=$this_dir/gnome/corba:$LD_LIBRARY_PATH
+export GUILE_LOAD_PATH LD_LIBRARY_PATH
 
 exec "$@"
