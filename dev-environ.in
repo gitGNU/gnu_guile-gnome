@@ -8,7 +8,7 @@ cd $this_dir
 src_dir=`readlink -f $src_dir`
 cd $pwd
 
-ALL_PKGS="glib atk pango gtk libgda"
+ALL_PKGS="glib atk pango gtk libglade gtksourceview libgnome libgnomeui libgda libwnck"
 
 for pkg in $ALL_PKGS; do
   if [ -d $src_dir/$pkg ]; then
