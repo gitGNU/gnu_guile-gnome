@@ -1,3 +1,39 @@
+2004-10-29  Andy Wingo  <wingo@pobox.com>
+
+	* common.mk: pkg-config versioning voodoo.
+
+2004-10-26  Andy Wingo  <wingo@pobox.com>
+
+	* common.mk: No more $guiledir, but there is $guilegnomedir, which
+	is $datadir/guile-gnome-$apiversion. Adapt guilemoduledir ad
+	guilegwmoduledir accordingly.
+
+	* autogen-pkg.sh: No more --with-guiledir, we install to
+	$datadir/guile-gnome-$apiversion.
+	(API_VERSION): New substituted variable, the API version. Constant
+	iff a release is backward compatible with the previous one. Starts
+	at 0.
+
+2004-10-17  Andy Wingo  <wingo@pobox.com>
+
+	* common.mk (guilemoduledir, guilegwmoduledir): Get $guiledir from
+	--with-guile-dir.
+
+	* autogen-pkg.sh: Add --with-guiledir option to control install
+	location of guile modules. Default PREFIX/share/guile/site.
+
+2004-10-24  Andy Wingo  <wingo@pobox.com>
+
+	* autogen-pkg.sh (sort_pkgs): Fix it right this time.
+
+2004-10-16  Andy Wingo  <wingo@pobox.com>
+
+	* autogen-pkg.sh: Get the module_directory for g-wrap from the
+	right pkg-config file.
+	(sort_pkgs): Echo the package into tsort even if it has no deps
+	(e.g. docs/).
+	Add a check for slib.
+
 2004-10-12  Andreas Rottmann  <a.rottmann@gmx.at>
 
 	* autogen-pkg.sh: Use tsort instead of hand-built package
@@ -9,6 +45,11 @@
 
 	* dev-environ.in: Remove special casing of glib for setting
 	$LD_LIBRARY_PATH, use a new control file shlib-dirs.ac instead.
+
+2004-10-12  Andy Wingo  <wingo@pobox.com>
+
+	* h2def.py (proto_pat): Accept whitespace between the parens and
+	the arguments.
 
 2004-10-06  Andy Wingo  <wingo@pobox.com>
 

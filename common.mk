@@ -23,10 +23,11 @@
 # Makefile snippet
 #
 
-schemelibdir = $(pkgdatadir)/$(VERSION)
+guilegnomedir = $(datadir)/guile-gnome-@API_VERSION@
+guilemoduledir = $(guilegnomedir)/gnome
+guilegwmoduledir = $(guilegnomedir)/gnome/gw
 
-guilemoduledir = $(datadir)/guile/gnome
-guilegwmoduledir = $(datadir)/guile/gnome/gw
+guilegnomelibdir = $(libdir)/guile-gnome-@API_VERSION@
 
 AM_CFLAGS = -I. -I$(srcdir) $(WARN_CFLAGS) $(DEBUG_CFLAGS)
 
@@ -60,3 +61,13 @@ export GUILE_LOAD_PATH
 	   (use-modules (gnome gw $*-spec)) \
 	   (generate-wrapset 'guile 'gnome-$* \"guile-gnome-gw-$*\")"
 	mv guile-gnome-gw-$*.scm $*.scm
+
+%-@API_VERSION@.pc: %.pc
+	cp $< $@
+%-@API_VERSION@-uninstalled.pc: %-uninstalled.pc
+	cp $< $@
+
+# Real gnu make foo
+packages = $(filter-out %-uninstalled,$(patsubst %.pc.in,%,$(wildcard *.pc.in)))
+pcifiles = $(patsubst %,%-@API_VERSION@.pc,$(packages))
+pcufiles = $(patsubst %,%-@API_VERSION@-uninstalled.pc,$(packages))

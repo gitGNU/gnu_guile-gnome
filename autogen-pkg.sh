@@ -26,22 +26,27 @@ sort_pkgs()
   local packages="$@"
   ( 
     for pkg in $packages; do
+      in_graph=0
       for check in $pkg/*-checks.ac; do
 	if [ -f $check ]; then
 	  dep_pkg=`echo $check | sed -e "s,^$pkg/\(.*\)-checks\.ac$,\1,"`
 	  if [ -d $dep_pkg ]; then
+            in_graph=1
 	    echo "$pkg $dep_pkg"
 	  else
-	    echo "$checks_catted" | grep -q $dep_pkg;
+            echo "$checks_catted" | grep -q $dep_pkg;
 	    if test $? -eq 1; then
 	      cat $check >> configure.ac
 	      checks_catted="$checks_catted $dep_pkg"
 	    fi
 	  fi
-	fi
+        fi
       done
+      if test $in_graph -eq 0; then
+        echo "$pkg null"
+      fi
     done 
-  ) | tsort | tac | tr '\n' ' '
+  ) | tsort | tac | grep -v '^null$' | tr '\n' ' '
 }
 
 autogen_pkg()
@@ -89,6 +94,16 @@ AM_CONFIG_HEADER(config.h)
 AM_INIT_AUTOMAKE($package, $version)
 
 AC_SUBST(VERSION,$version)
+
+# Meaning of the API version
+# --------------------------
+#
+# If 0, guile-gnome is unstable, and the API might change anytime.
+# Otherwise, guile-gnome is stable. Future incompatible releases will
+# bump this number so as to allow parallel, incompatible versions to
+# coexist.
+API_VERSION=0
+AC_SUBST(API_VERSION)
 
 AM_MAINTAINER_MODE
 AC_DISABLE_STATIC
@@ -141,12 +156,26 @@ AC_SUBST(GUILE_CFLAGS)
 AC_SUBST(GUILE_LIBS)
 AC_MSG_RESULT(yes)
 
+# The defs generator uses slib for globbing and printf
+AC_MSG_CHECKING(for SLIB)
+if ! guile -c '(use-modules (ice-9 slib))' >/dev/null 2>&1; then
+   AC_MSG_ERROR([guile-gnome needs SLIB to build.
+
+Most distributions ship a guile-slib package, for example guile-1.6-slib
+on Debian. Otherwise, you can install it yourself by downloading it
+from http://swissnet.ai.mit.edu/~jaffer/SLIB.html and install it via the
+method detailed in the SLIB Installation node of the guile info manual.
+Sucks for you!
+])
+fi
+AC_MSG_RESULT(yes)
+
 # Check for g-wrap
 
 PKG_CHECK_MODULES(G_WRAP, g-wrap-2.0-guile = 1.9.3)
 AC_SUBST(G_WRAP_CFLAGS)
 AC_SUBST(G_WRAP_LIBS)
-AC_SUBST(G_WRAP_MODULE_DIR, `${PKG_CONFIG} --variable=module_directory g-wrap`)
+AC_SUBST(G_WRAP_MODULE_DIR, `${PKG_CONFIG} --variable=module_directory g-wrap-2.0-guile`)
 AC_SUBST(G_WRAP_LIB_DIR, `echo $G_WRAP_MODULE_DIR | sed -e 's|share/guile|lib|'`)
 
 # Per-package checks follow
