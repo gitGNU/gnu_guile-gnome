@@ -11,8 +11,8 @@ lib_LTLIBRARIES = libgw-guile-gnome-dbus.la
 
 ########################################################################
 ## dbus
-libgw_guile_gnome_dbus_la_SOURCES = guile-gnome-gw-dbus.c \
-	dbus-support.c dbus-support.h
+nodist_libgw_guile_gnome_dbus_la_SOURCES = guile-gnome-gw-dbus.c
+libgw_guile_gnome_dbus_la_SOURCES = dbus-support.c dbus-support.h
 
 libgw_guile_gnome_dbus_la_CFLAGS = $(GUILE_GLIB_CFLAGS) \
 	$(AM_CFLAGS) $(DBUS_CFLAGS) $(GUILE_CFLAGS) \

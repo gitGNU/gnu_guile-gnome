@@ -1,3 +1,14 @@
+2004-09-14  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gw/dbus-spec.scm: Adapt for module name changes.
+
+	* gnome/gw/Makefile.am (libgw_guile_gnome_dbus_la_SOURCES): Don't
+	dist the generated wrapper files.
+
+	* gnome/Makefile.am: Dist fixes.
+
+	* examples/Makefile.am: This isn't libglade...
+
 2004-09-12  Andy Wingo  <wingo@pobox.com>
 
 	* gnome/overrides/dbus.defs: Don't wrap GProxy any more, it's

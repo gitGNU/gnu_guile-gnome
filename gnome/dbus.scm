@@ -114,7 +114,7 @@
 (define-module (gnome dbus)
   #:use-module (oop goops)
   #:use-module (gnome gw dbus)
-  #:use-module (gnome gobject gw-utils)
+  #:use-module (gnome gw support modules)
   #:export (<dbus-service>
             dbus-connection-get-service
             <dbus-remote-object>
