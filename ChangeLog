@@ -1,5 +1,8 @@
 2005-02-24  Andreas Rottmann  <a.rottmann@gmx.at>
 
+	* scripts/commit-all: Only commit when ChangeLog has been touched,
+	thus avoiding arch-log-only commits.
+	
 	* scripts/commit-all, scripts/merge-all: New helper scripts.
 
 2005-01-25  Andreas Rottmann  <a.rottmann@gmx.at>

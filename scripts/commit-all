@@ -13,7 +13,7 @@ done
 packages="$packages ."
 
 for i in $packages; do
-  if (cd $i; tla changes -q > /dev/null; [ $? = 1 ]); then
+  if (cd $i && tla changes | grep -q ChangeLog); then
     echo "* $i: tla commit $@"
     (cd $i && tla commit "$@")
   fi
