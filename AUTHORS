@@ -29,7 +29,7 @@ In the toplevel directory, wrote:
 In the toplevel directory, changes to:
     autogen-pkg.sh
 In the directory scripts/, wrote:
-    update-inventories
+    update-inventories tla-for-each
 
 Thomas Van der Stichele:
 In the toplevel directory, wrote:

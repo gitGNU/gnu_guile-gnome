@@ -1,3 +1,8 @@
+2004-09-19  Andy Wingo  <wingo@pobox.com>
+
+	* scripts/tla-for-each: New script, does a tla command for all
+	arch subdirs of the toplevel dir.
+
 2004-09-17  Andy Wingo  <wingo@pobox.com>
 
 	* autogen-pkg.sh (EXTRA_DIST): No more old release notes.
