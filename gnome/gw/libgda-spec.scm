@@ -8,7 +8,7 @@
 
 
 (define-class <gnome-gda-wrapset> (<gobject-wrapset-base>)
-  #:id 'gnome-libgda)
+  #:id 'gnome-libgda #:dependencies '(standard gnome-gobject gnome-glib))
 
 (define-method (global-declarations-cg (self <gobject-wrapset-base>))
   (list (next-method)
@@ -27,8 +27,6 @@
 (define-method (initialize (ws <gnome-gda-wrapset>) initargs)
   (next-method ws (append '(#:module (gnome gw libgda)) initargs))
   
-  (depends-on! ws 'standard 'gnome-gobject 'gnome-glib)
-
   (add-type! ws (make <gda-classed-type>
                   #:ctype "GdaValue"
                   #:gtype-id "GDA_TYPE_VALUE"))
