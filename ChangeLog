@@ -1,3 +1,7 @@
+2004-10-29  Andy Wingo  <wingo@pobox.com>
+
+	* common.mk: pkg-config versioning voodoo.
+
 2004-10-26  Andy Wingo  <wingo@pobox.com>
 
 	* common.mk: No more $guiledir, but there is $guilegnomedir, which

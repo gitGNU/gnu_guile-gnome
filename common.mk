@@ -61,3 +61,13 @@ export GUILE_LOAD_PATH
 	   (use-modules (gnome gw $*-spec)) \
 	   (generate-wrapset 'guile 'gnome-$* \"guile-gnome-gw-$*\")"
 	mv guile-gnome-gw-$*.scm $*.scm
+
+%-@API_VERSION@.pc: %.pc
+	cp $< $@
+%-@API_VERSION@-uninstalled.pc: %-uninstalled.pc
+	cp $< $@
+
+# Real gnu make foo
+packages = $(filter-out %-uninstalled,$(patsubst %.pc.in,%,$(wildcard *.pc.in)))
+pcifiles = $(patsubst %,%-@API_VERSION@.pc,$(packages))
+pcufiles = $(patsubst %,%-@API_VERSION@-uninstalled.pc,$(packages))
