@@ -1,7 +1,13 @@
-SUBDIRS=gstreamer defs
+include $(top_srcdir)/common.mk
 
-guilemoduledir = $(datadir)/guile/gnome
+SUBDIRS = defs gstreamer
+DIST_SUBDIRS = gw defs gstreamer
 
-guilemodule_DATA = gstreamer.scm
+guilemodule_DATA = 
 
-EXTRA_DIST = $(guilemodule_DATA)
+if HAVE_GSTREAMER
+guilemodule_DATA += gstreamer.scm
+SUBDIRS += gw
+endif
+
+EXTRA_DIST = gstreamer.scm

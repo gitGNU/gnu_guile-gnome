@@ -342,65 +342,43 @@
 
 (define-method realize
   (of-object "GstPad")
-  (c-name "GST_PAD_REALIZE")
-  (overrides "gst_pad_realize") ; hack
+  (c-name "gst_pad_realize")
   (return-type "GstRealPad*"))
 
-(gw:wrap-function
- ws 'gst-pad-set-chain-function
- '<gw:void>
- "_wrap_gst_pad_set_chain_function"
- '((<gw:scm> pad) (<gw:scm> chain-function)))
-(add-method-property-with-generic-name
- "gst-pad-set-chain-function" "set-chain-function"
- "<gst-pad>")
+(define-method set-chain-function
+  (of-object "GstPad")
+  (c-name "_wrap_gst_pad_set_chain_function")
+  (overrides "gst_pad_set_chain_function")
+  (parameters '("SCM" "pad") '("SCM" "chain-function")))
 
-(gw:wrap-function
- ws 'gst-pad-set-get-function
- '<gw:void>
- "_wrap_gst_pad_set_get_function"
- '((<gw:scm> pad) (<gw:scm> get-function)))
-(add-method-property-with-generic-name
- "gst-pad-set-get-function" "set-get-function"
- "<gst-pad>")
+(define-method set-get-function
+  (of-object "GstPad")
+  (c-name "_wrap_gst_pad_set_get_function")
+  (overrides "gst_pad_set_get_function")
+  (parameters '("SCM" "pad") '("SCM" "get-function")))
 
-(gw:wrap-function
- ws 'gst-pad-set-link-function
- '<gw:void>
- "_wrap_gst_pad_set_link_function"
- '((<gw:scm> pad) (<gw:scm> link-function)))
-(add-method-property-with-generic-name
- "gst-pad-set-link-function" "set-link-function"
- "<gst-pad>")
+(define-method set-link-function
+  (of-object "GstPad")
+  (c-name "_wrap_gst_pad_set_link_function")
+  (overrides "gst_pad_set_link_function")
+  (parameters '("SCM" "pad") '("SCM" "link-function")))
 
 ;; GstPadTemplate
 
-(gw:wrap-function
- ws 'gst-pad-template-get-name-template
- '(<gw:mchars> callee-owned)
- "GST_PAD_TEMPLATE_NAME_TEMPLATE"
- '((<gst-pad-template> template)))
-(add-method-property-with-generic-name
- "gst-pad-template-get-name-template" "get-name-template"
- "<gst-pad-template>")
+(define-method get-name-template
+  (of-object "GstPadTemplate")
+  (c-name "gst_pad_template_get_name_template")
+  (return-type "const-gchar*"))
 
-(gw:wrap-function
- ws 'gst-pad-template-get-direction
- '<gst-pad-direction>
- "GST_PAD_TEMPLATE_DIRECTION"
- '((<gst-pad-template> template)))
-(add-method-property-with-generic-name
- "gst-pad-template-get-direction" "get-direction"
- "<gst-pad-template>")
+(define-method get-direction
+  (of-object "GstPadTemplate")
+  (c-name "gst_pad_template_get_direction")
+  (return-type "GstPadDirection"))
 
-(gw:wrap-function
- ws 'gst-pad-template-get-presence
- '<gst-pad-presence>
- "GST_PAD_TEMPLATE_PRESENCE"
- '((<gst-pad-template> template)))
-(add-method-property-with-generic-name
- "gst-pad-template-get-presence" "get-presence"
- "<gst-pad-template>")
+(define-method get-presence
+  (of-object "GstPadTemplate")
+  (c-name "gst_pad_template_get_presence")
+  (return-type "GstPadPresence"))
 
 (define-function gst_pad_template_new
   (c-name "gst_pad_template_new")
@@ -416,14 +394,10 @@
 )
 ;; GstPluginFeature
 
-(gw:wrap-function
- ws 'gst-plugin-feature-get-name
- '(<gw:mchars> callee-owned)
- "GST_PLUGIN_FEATURE_NAME"
- '((<gst-plugin-feature> feature)))
-(add-method-property-with-generic-name
- "gst-plugin-feature-get-name" "get-name"
- "<gst-plugin-feature>")
+(define-method get-name
+  (of-object "GstPluginFeature")
+  (c-name "gst_plugin_feature_get_name")
+  (return-type "const-gchar*"))
 
 (define-method feature_filter
   (of-object "GstPlugin")

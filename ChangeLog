@@ -1,9 +1,75 @@
+2004-05-19  Andy Wingo  <wingo@pobox.com>
+
+	* *: Split into its own arch category. Lots of deletions and
+	moving around.
+
+	* glib-checks.ac, gnome/gw, gnome/gw/Makefile.am: New files.
+
+	* gnome/gstreamer/gw-gstreamer-spec.scm: Moved to
+	gnome/gw/gstreamer-spec.scm.
+
+	* gnome/gstreamer/gstreamer-support.[ch]: Moved to gnome/gw.
+
+	* gnome/gstreamer/gstreamer-support.[ch],
+	gnome/defs/gstreamer-overrides.defs: Macros wrapped as functions
+	so the new libffi-based wrappers will work.
+
+	* gnome/gstreamer/gstreamer-support.c: Remove legacy 0.6 code
+	regarding GstData/GstBuffer.
+	
+	* gnome/gstreamer.scm: Show more detailed startup info.
+
+2004-05-16  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/defs/gstreamer-overrides.defs: Update to remove all use of
+	g-wrap API.
+
+	* gnome/gstreamer/generics.scm: Deleted, it hasn't been used in a
+	long time.
+
+	* ChangeLog: Merged gnome/ChangeLog, gnome/gstreamer/ChangeLog,
+	and gnome/defs/ChangeLog to this one.
+
+2004-02-22  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/defs/gstreamer-overrides.defs (realize): New method on
+	GstPad.
+
+	* gnome/gstreamer.scm (unlink, remove): New methods taking many
+	args.
+
+2004-02-08  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/defs/gstreamer-overrides.defs (append, append_structure):
+	These methods on GstCaps take ownership of their arguments, so
+	they're
+	(callee-owned).
+
+2004-01-29  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/defs/gstreamer-overrides.defs (gst_pad_template_new):
+	Lot's of changes, really, but this one makes gst_pad_template_new
+	receive a copied GstCaps.
+
+2004-01-28  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/defs/gstreamer.defs (get_version): removed
+
+	* gnome/gstreamer.scm (gst-caps-new, gst-structure-new): Add new
+	wrappers for creating the new caps.
+
 2003-05-25  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gstreamer.scm: Rename link-many and add-many to link and
+	add.
 
 	* examples/gstreamer/vorbisplay.scm: s/add-many/add/,
 	s/link-many/link/
 
 	* examples/gstreamer/chain-function.scm: s/add-may/add/
+
+	* gnome/gstreamer/debug.scm (debug-notify-handler): New file,
+	contains some debugging routines.
 
 2003-05-08  Andy Wingo  <wingo@pobox.com>
 

@@ -16,4 +16,11 @@ void		_wrap_gst_pad_set_chain_function (SCM pad, SCM chain_function);
 void		_wrap_gst_pad_set_link_function (SCM pad, SCM link_function);
 void		_wrap_gst_pad_set_get_function (SCM pad, SCM get_function);
 
+/* Macro helpers */
+GstPad*		gst_pad_realize (GstPad *pad);
+const gchar*	gst_pad_template_get_name_template (GstPadTemplate *templ);
+GstPadDirection	gst_pad_template_get_direction (GstPadTemplate *templ);
+GstPadPresence	gst_pad_template_get_presence (GstPadTemplate *templ);
+const gchar*	gst_plugin_feature_get_name (GstPluginFeature *feature);
+
 void		_wrap_gst_structure_for_each (GstStructure *str, SCM proc);

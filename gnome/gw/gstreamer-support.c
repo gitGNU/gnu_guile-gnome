@@ -261,14 +261,8 @@ pad_private(GstPad *gpad, SCM pad)
   return private;
 }
 
-#if GST_VERSION_MINOR < 7
-#define PAD_DATA GstBuffer*
-#else
-#define PAD_DATA GstData*
-#endif
-
 static void
-call_chain_function(GstPad *pad, PAD_DATA data)
+call_chain_function(GstPad *pad, GstData* data)
 {
   SCM scm_data;
   GuileGstPadPrivate *private;
@@ -304,12 +298,11 @@ _wrap_gst_pad_set_chain_function (SCM pad, SCM chain_function)
 #undef FUNC_NAME
 }
 
-static PAD_DATA
+static GstData*
 call_get_function (GstPad *pad)
 {
   SCM ret;
   GuileGstPadPrivate *private;
-  GstBuffer *buffer;
   
   private = pad_private (pad, SCM_BOOL_F);
 
@@ -319,7 +312,7 @@ call_get_function (GstPad *pad)
          anything about inheritance */
       && (G_VALUE_HOLDS ((GValue*)SCM_SMOB_DATA (ret), GST_TYPE_BUFFER)
           || G_VALUE_HOLDS ((GValue*)SCM_SMOB_DATA (ret), GST_TYPE_EVENT)))
-    return (PAD_DATA) (g_value_get_boxed ((GValue*)SCM_SMOB_DATA (ret)));
+    return (GstData*) (g_value_get_boxed ((GValue*)SCM_SMOB_DATA (ret)));
   
   GRUNTIME_ERROR ("Return from pad's get function should be a GstBuffer or a GstEvent",
                   "%gst-pad-get-function", ret);
@@ -396,6 +389,33 @@ _wrap_gst_pad_set_link_function (SCM pad, SCM link_function)
 
   gst_pad_set_link_function ((GstPad*)gpad, call_link_function);
 #undef FUNC_NAME
+}
+
+/* Macro helpers */
+GstPad*
+gst_pad_realize (GstPad *pad)
+{
+  return (GstPad*)GST_PAD_REALIZE (pad);
+}
+const gchar*
+gst_pad_template_get_name_template (GstPadTemplate *templ)
+{
+  return GST_PAD_TEMPLATE_NAME_TEMPLATE (templ);
+}
+GstPadDirection
+gst_pad_template_get_direction (GstPadTemplate *templ)
+{
+  return GST_PAD_TEMPLATE_DIRECTION (templ);
+}
+GstPadPresence
+gst_pad_template_get_presence (GstPadTemplate *templ)
+{
+  return GST_PAD_TEMPLATE_PRESENCE (templ);
+}
+const gchar*
+gst_plugin_feature_get_name (GstPluginFeature *feature)
+{
+  return GST_PLUGIN_FEATURE_NAME (feature);
 }
 
 static void
