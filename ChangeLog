@@ -1,3 +1,7 @@
+2004-09-27  Andy Wingo  <wingo@pobox.com>
+
+	* autogen-support.sh: sed character range fix.
+
 2004-09-22  Andy Wingo  <wingo@pobox.com>
 
 	* autogen-pkg.sh, autogen-support.sh, autogen.sh, common.mk,
