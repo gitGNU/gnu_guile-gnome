@@ -1,3 +1,7 @@
+2004-06-29  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* gnome/gw/wnck-spec.scm (<wnck-wrapset>): fix dependency list.
+
 2004-06-26  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* gnome/gw/wnck-spec.scm (<wnck-wrapset>): Add #:dependencies.

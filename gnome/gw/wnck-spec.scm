@@ -36,7 +36,7 @@
 
 (define-class <wnck-wrapset> (<gobject-wrapset-base>)
   #:id 'gnome-wnck
-  #:dependencies 'standard 'gnome-glib 'gnome-gobject)
+  #:dependencies '(standard gnome-glib gnome-gobject))
 
 (define-method (global-declarations-cg (self <gobject-wrapset-base>))
   (list
