@@ -1,6 +1,12 @@
-SUBDIRS = gnome examples
+include $(top_srcdir)/common.mk
 
-EXTRA_DIST = ChangeLog NEWS README AUTHORS $(wildcard *.ac) $(wildcard *.pc.in)
+SUBDIRS = gnome examples 
 
+EXTRA_DIST = ChangeLog NEWS AUTHORS README $(wildcard *.ac)
+
+if HAVE_GSTREAMER
+all-local: $(pcifiles) $(pcufiles)
 pkgconfigdir = $(libdir)/pkgconfig
-pkgconfig_DATA = guile-gnome-gstreamer.pc
+pkgconfig_DATA = $(pcifiles)
+endif
+CLEANFILES = $(pcifiles) $(pcufiles)
