@@ -9,3 +9,4 @@ guilemodule_DATA += dbus.scm
 endif
 
 EXTRA_DIST = dbus.scm
+DIST_SUBDIRS = gw overrides

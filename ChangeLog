@@ -1,3 +1,12 @@
+2004-09-15  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/Makefile.am: Dist fixes.
+
+	* glib-checks.ac: Check the proper package.
+
+	* gnome/gw/dbus-spec.scm (initialize): Use
+	load-defs-with-overrides.
+
 2004-09-14  Andy Wingo  <wingo@pobox.com>
 
 	* gnome/gw/dbus-spec.scm: Adapt for module name changes.

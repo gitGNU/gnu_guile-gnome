@@ -62,7 +62,7 @@
   (add-type-rule! ws '(("dbus_uint32_t*" "*")) '(unsigned-int32 out))
   ;; (add-type-rule! ws '(("DBusPendingCall**" "*")) '(<d-bus-pending-call*> out))
 
-  (load-defs ws "gnome/defs/dbus.defs"))
+  (load-defs-with-overrides ws "gnome/defs/dbus.defs"))
 
 (define-method (global-declarations-cg (self <dbus-wrapset>))
   (list (next-method)
