@@ -1,6 +1,6 @@
 include $(top_srcdir)/common.mk
 
-SUBDIRS =
+SUBDIRS = defs
 
 guilemodule_DATA = 
 
@@ -10,4 +10,4 @@ SUBDIRS += gw
 endif
 
 EXTRA_DIST = wnck.scm
-DIST_SUBDIRS = gw
+DIST_SUBDIRS = defs gw
