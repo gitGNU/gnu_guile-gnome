@@ -1,3 +1,8 @@
+2004-07-18  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gstreamer.scm (with-gst-debug): New macro, sets specific
+	debugging thresholds during the dynamic extent of its body.
+
 2004-07-15  Andy Wingo  <wingo@pobox.com>
 
 	* gnome/gw/gstreamer-support.[ch]: Fix to take a GstPad* when
