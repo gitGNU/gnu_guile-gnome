@@ -21,6 +21,11 @@
 pkgs_ordered=""
 checks_catted=""
 
+# Defines the subdir of ../configs/ from which releases are made.
+# Packages that aren't from these configs will carry a date and releaser
+# stamp.
+release_manager="wingo"
+
 sort_pkgs()
 {
   local packages="$@"
@@ -49,6 +54,37 @@ sort_pkgs()
   ) | tsort | tac | grep -v '^null$' | tr '\n' ' '
 }
 
+get_version()
+{
+    local packages="$@"
+    version_pkgs=""
+
+    for i in $packages; do
+        if test -f $i/VERSION; then
+            if test -z "$version_pkgs"; then
+                version_pkgs=$i
+            else
+                version_pkgs="$i $version_pkgs"
+            fi
+        fi
+    done
+
+    case `echo "$version_pkgs" | wc -w` in
+        0)  
+	    version=`date +%Y%m%d`
+            echo "+ warning: no subpackage has a VERSION"
+            ;;
+        1)  
+            version=`head -n 1 $version_pkgs/VERSION`
+            echo "+ using VERSION $version from $version_pkgs"
+            ;;
+        *)  
+	    version=`date +%Y%m%d`
+            echo "+ warning: multiple subpackages with VERSION: $version_pkgs"
+            ;;
+    esac
+}
+
 autogen_pkg()
 {
     # Check and parse release ID
@@ -59,22 +95,7 @@ autogen_pkg()
     pkg_source=`awk 'BEGIN { FS = "[()]"; } /.*@.*\/.*\(.*\)/ { n = split($2, parts, "/"); print parts[n] " " parts[n - 1]; }' < ../=RELEASE-ID`
     pkg=`echo $pkg_source | awk '{ print $1 }'`
     source=`echo $pkg_source | awk '{ print $2 }'`
-    case $pkg in
-	*.dev)
-	    package=`echo $pkg | sed -e 's/\.dev$//'`
-	    version="`date +%Y%m%d`+$source"
-	    ;;
-	*-*.*.*)
-	    package=`echo $pkg | sed -e 's/-[^.-]*\.[^.]*\.[^.]*$//'`
-	    version=`echo $pkg | sed -e 's/^.*-//'`
-	    ;;
-	*) 
-	    package="guile-gnome-$pkg"
-	    version="`date +%Y%m%d`+$source"
-	    ;;
-    esac
-    
-    echo "+ configuring tree as $package, version $version"
+    package="guile-gnome-$pkg";
 
     # Figure out list of packages
     packages=""
@@ -84,6 +105,14 @@ autogen_pkg()
 	    packages="$packages $dir"
 	fi
     done
+
+    # versioning
+    get_version $packages
+    if test "$source" != "$release_manager"; then
+        version="$version+$source";
+    fi
+    
+    echo "+ configuring tree as $package, version $version"
 
     # prelude of configure.ac
     cat > configure.ac <<EOF
@@ -178,6 +207,66 @@ AC_SUBST(G_WRAP_LIBS)
 AC_SUBST(G_WRAP_MODULE_DIR, `${PKG_CONFIG} --variable=module_directory g-wrap-2.0-guile`)
 AC_SUBST(G_WRAP_LIB_DIR, `echo $G_WRAP_MODULE_DIR | sed -e 's|share/guile|lib|'`)
 
+PACKAGES_TO_BUILD=""
+PACKAGES_NOT_BUILT=""
+record_check()
+{
+    local package=$1;
+    local buildp=$2;
+    case $buildp in
+        yes|true)
+            if test -z "$PACKAGES_TO_BUILD"; then
+                PACKAGES_TO_BUILD="$package"
+            else
+                PACKAGES_TO_BUILD="$package $PACKAGES_TO_BUILD"
+            fi
+            ;;
+        no|false)
+            if test -z "$PACKAGES_NOT_BUILT"; then
+                PACKAGES_NOT_BUILT="$package"
+            else
+                PACKAGES_NOT_BUILT="$package $PACKAGES_NOT_BUILT"
+            fi
+            ;;
+        *)
+            echo "bad report_check value: $buildp (for package \"$package\")"
+            exit 1
+            ;;
+    esac
+}
+
+report_checks()
+{
+    if test -z "$PACKAGES_TO_BUILD"; then
+        AC_MSG_ERROR([All wrappers failed their prerequisites.
+
+These following wrappers cannot be built:
+  $PACKAGES_NOT_BUILT
+
+Check the README files in the above subdirectories, install the necessary
+packages, and try again.
+])
+    elif test -z "$PACKAGES_NOT_BUILT"; then
+        AC_MSG_NOTICE([
+All available wrappers will be built:
+  $PACKAGES_TO_BUILD
+
+])
+    else
+        AC_MSG_NOTICE([Some packages will not be built.
+
+These wrappers will be built:
+  $PACKAGES_TO_BUILD
+
+These wrappers failed their prerequisites and will NOT be built:
+  $PACKAGES_NOT_TO_BUILD
+
+Check the README files in the above subdirectories for more information
+on the prerequisites of a package.
+])
+    fi
+}
+
 # Per-package checks follow
 EOF
 
@@ -193,6 +282,7 @@ EOF
     
     # postlude
     (
+        echo report_checks
 	echo
 	echo "AC_CONFIG_FILES(dev-environ, [chmod +x ./dev-environ])"
 	echo "AC_CONFIG_FILES("

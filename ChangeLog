@@ -1,3 +1,20 @@
+2004-11-13  Andy Wingo  <wingo@pobox.com>
+
+	* autogen-pkg.sh (record_check): New function, should be called
+	from within package.ac files to report whether a wrapper can be
+	built or not.
+	(report_checks): New function, called after the packages have made
+	their checks. Will report which wrappers can be built and which
+	are missing prereqs, and error out if no package can be built.
+	(release_manager): New global, defines the subdir of configs/ from
+	which the official releases come.
+	(get_version): New function, computes the version of a package. If
+	no VERSION file is present in a subpackage, or more than one is
+	present, default to a timestamp.
+	(autogen_pkg): Always use guile-gnome-$pkg as the package name.
+	Append +$source to the version if the source is not the
+	$release_manager.
+
 2004-11-11  Andy Wingo  <wingo@pobox.com>
 
 	* common.mk (%.scm guile-gnome-gw-%.c): Before loading g-wrap,
