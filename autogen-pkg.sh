@@ -7,10 +7,9 @@ ensure_dependencies()
     for check in $pkg/*-checks.ac; do
         if [ -f $check ]; then
             dep_pkg=`echo $check | sed -e "s,^$pkg/\(.*\)-checks\.ac$,\1,"`
-            echo "$pkg depends on $dep_pkg"
+            # echo "$pkg depends on $dep_pkg"
             if [ -d $dep_pkg ]; then
-                pkgs_ordered=`echo "$pkgs_ordered" | sed -e "s,$dep_pkg,," -e "s,  , ,"`
-                pkgs_ordered="$dep_pkg $pkgs_ordered"
+                pkgs_ordered=`echo "$pkgs_ordered" | sed -e "s,$dep_pkg,," -e "s,^,$dep_pkg ," -e 's,  , ,'`
                 ensure_dependencies $dep_pkg # recurse
             else
                 echo "$checks_catted" | grep -q $dep_pkg;
@@ -35,7 +34,7 @@ autogen_pkg()
     source=`echo $pkg_source | awk '{ print $2 }'`
     case $pkg in
 	dev) 
-	    package=guile-gnome
+	    package=guile-gnome-dev
 	    version="`date +%Y%m%d`+$source"
 	    ;;
 	*.dev)
@@ -43,7 +42,7 @@ autogen_pkg()
 	    version="`date +%Y%m%d`+$source"
 	    ;;
 	*-*.*.*)
-	    package=`echo $pkg | sed -e 's/-.*\..*\..*$//'`
+	    package=`echo $pkg | sed -e 's/-[^.-]*\.[^.]*\.[^.]*$//'`
 	    version=`echo $pkg | sed -e 's/^.*-//'`
 	    ;;
 	*)
@@ -52,6 +51,8 @@ autogen_pkg()
 	    ;;
     esac
     
+    echo "+ configuring tree as $package, version $version"
+
     # Figure out list of packages
     packages=""
     pkgs_path="."
@@ -136,11 +137,13 @@ EOF
 
     # package checks
     pkgs_ordered="$packages"
+    echo "+ sorting package dependencies..."
     for pkg in $packages; do
 	echo "# $pkg" >> configure.ac
 	cat $pkg/package.ac >> configure.ac
         ensure_dependencies $pkg
     done
+    echo "  $pkgs_ordered"
     
     # postlude
     (
