@@ -60,6 +60,7 @@
   ;; copying from glib.scm
   (add-type-rule! ws '(("dbus_int32_t*" "*")) '(int32 out))
   (add-type-rule! ws '(("dbus_uint32_t*" "*")) '(unsigned-int32 out))
+  (add-type-rule! ws '(("unsigned-long*" "*")) '(unsigned-long out))
   ;; (add-type-rule! ws '(("DBusPendingCall**" "*")) '(<d-bus-pending-call*> out))
 
   (load-defs-with-overrides ws "gnome/defs/dbus.defs"))
@@ -67,7 +68,7 @@
 (define-method (global-declarations-cg (self <dbus-wrapset>))
   (list (next-method)
         "#include <dbus/dbus.h>\n"
-        "#include <dbus/dbus-glib.h>\n"
+        "#include <dbus/dbus-glib-lowlevel.h>\n"
         "#include \"dbus-support.h\"\n"))
 
 ;;; DBusError

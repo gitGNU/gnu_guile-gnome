@@ -23,13 +23,34 @@
 
 #include "dbus-support.h"
 
+GType
+dbus_pending_call_get_gtype (void)
+{
+    static GType type = 0;
+    if (!type)
+        type = g_boxed_type_register_static ("DBusPendingCall",
+                                             (GBoxedCopyFunc)dbus_pending_call_ref,
+                                             (GBoxedFreeFunc)dbus_pending_call_unref);
+    return type;
+}
+GType
+dbus_server_get_gtype (void)
+{
+    static GType type = 0;
+    if (!type)
+        type = g_boxed_type_register_static ("DBusServer",
+                                             (GBoxedCopyFunc)dbus_server_ref,
+                                             (GBoxedFreeFunc)dbus_server_unref);
+    return type;
+}
+
 SCM
 dbus_message_iter_get (DBusMessageIter *iter)
 #define FUNC_NAME "dbus-message-iter-get"
 {
     switch (dbus_message_iter_get_arg_type (iter)) {
     case DBUS_TYPE_INVALID:
-        scm_misc_error (FUNC_NAME, "Invalid DBus message iter (message has no args?)", SCM_EOL);
+        scm_misc_error (FUNC_NAME, "Invalid DBus message iter", SCM_EOL);
         return SCM_UNSPECIFIED; /* shouldn't be reached */
         
     case DBUS_TYPE_NIL:
@@ -177,11 +198,10 @@ dbus_message_iter_get (DBusMessageIter *iter)
                 SCM ret = SCM_EOL;
                 int type = DBUS_TYPE_INVALID;
                 
-                dbus_message_iter_init_array_iterator (iter, &aiter, &type);
-                if (type == DBUS_TYPE_INVALID)
-                    scm_misc_error (FUNC_NAME, "Internal DBus error A7", SCM_EOL);
-                if (type != dbus_message_iter_get_arg_type (&aiter))
+                if (!dbus_message_iter_init_array_iterator (iter, &aiter, &type))
                     return SCM_EOL; /* empty array */
+                else if (type == DBUS_TYPE_INVALID)
+                    scm_misc_error (FUNC_NAME, "Internal DBus error A7", SCM_EOL);
                 
                 while (1) {
                     ret = scm_cons (dbus_message_iter_get (&aiter), ret);
@@ -199,8 +219,7 @@ dbus_message_iter_get (DBusMessageIter *iter)
             DBusMessageIter diter;
             SCM ret = SCM_EOL;
                 
-            dbus_message_iter_init_dict_iterator (iter, &diter);
-            if (dbus_message_iter_get_arg_type (&diter) == DBUS_TYPE_INVALID)
+            if (!dbus_message_iter_init_dict_iterator (iter, &diter))
                 return SCM_EOL; /* empty dict */
                 
             while (1) {
@@ -584,8 +603,12 @@ DBusMessageIter*
 dbus_message_get_iter (DBusMessage *message) 
 {
     DBusMessageIter *ret = g_new (DBusMessageIter, 1);
-    dbus_message_iter_init (message, ret);
-    return ret;
+
+    if (dbus_message_iter_init (message, ret))
+        return ret;
+
+    g_free (ret);
+    return NULL;
 }
 
 DBusMessageIter*

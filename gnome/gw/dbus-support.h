@@ -25,6 +25,11 @@
 #include <dbus/dbus-glib.h>
 #include <libguile.h>
 
+GType dbus_pending_call_get_gtype (void);
+GType dbus_server_get_gtype (void);
+#define DBUS_TYPE_PENDING_CALL (dbus_pending_call_get_gtype ())
+#define DBUS_TYPE_SERVER (dbus_server_get_gtype ())
+
 SCM _wrap_dbus_connection_get_unix_user (DBusConnection *connection);
 
 SCM dbus_message_iter_get (DBusMessageIter *iter);

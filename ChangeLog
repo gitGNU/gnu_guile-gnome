@@ -1,5 +1,20 @@
 2004-09-30  Andy Wingo  <wingo@pobox.com>
 
+	* gnome/overrides/dbus.defs: Update to ignore all high-level GLib
+	things, define boxed types for pending calls and servers,
+	specifically define dbus_g_threads_init.
+
+	* gnome/gw/dbus-spec.scm (initialize): Add type rule for
+	unsigned-long* out. 
+	(global-declarations-cg): Include dbus-glib-lowlevel.h, not
+	dbus-glib.h.
+
+	* gnome/gw/dbus-support.c (dbus-message-iter-get): Use 0.22 API to
+	check for empty arrays and dicts.
+	(dbus_message_get_iter): Use 0.22 API to check for empty messages.
+	(dbus_mending_call_get_gtype): New function. Public.
+	(dbus_server_get_gtype): New function. Public.
+
 	* defs-extra-checks.ac: New file.
 
 2004-09-27  Andy Wingo  <wingo@pobox.com>

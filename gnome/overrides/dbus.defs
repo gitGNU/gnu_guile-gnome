@@ -35,12 +35,20 @@
   (gtype-id "DBUS_TYPE_MESSAGE")
 )
 
-;; pending call should be boxed
+(define-boxed BusPendingCall
+  (c-name "DBusPendingCall")
+  (gtype-id "DBUS_TYPE_PENDING_CALL")
+)
 
-;(define-object BusGProxy
-;  (c-name "DBusGProxy")
-;  (gtype-id "DBUS_TYPE_GPROXY")
-;)
+(define-boxed BusServer
+  (c-name "DBusServer")
+  (gtype-id "DBUS_TYPE_SERVER")
+)
+
+(define-function dbus_g_thread_init
+  (c-name "dbus_g_thread_init")
+  (return-type "none")
+)
 
 (define-method pop_message
   (of-object "DBusConnection")
@@ -101,7 +109,7 @@
               "dbus_timeout_*" ; useless without the TimeoutFunctions
               "dbus_message_iter_get_*"
               "dbus_message_iter_append_*"
-              "dbus_gproxy_*"
+              "dbus_g_*"
               "dbus_message_iter_init*"
               "dbus_mutex*"
               "dbus_condvar*"
