@@ -17,7 +17,8 @@ lib_LTLIBRARIES = libgw-guile-gnome-libgda.la
 ########################################################################
 ## gda
 libgw_guile_gnome_libgda_la_SOURCES = \
-	gda-support.c gda-support.h \
+	gda-support.c gda-support.h
+nodist_libgw_guile_gnome_libgda_la_SOURCES = \
 	guile-gnome-gw-libgda.c
 
 libgw_guile_gnome_libgda_la_CFLAGS = $(GUILE_GLIB_CFLAGS) \
