@@ -1,0 +1,18 @@
+#!/bin/sh
+
+dir=$(cd `dirname $0`/.. && pwd)
+package=`basename $dir`
+
+# get the pkg tree
+echo -n -e "./$package\t"
+baz logs --full --reverse | head -1
+
+for i in *; do
+    if test -d $i/{arch}; then
+        (
+          cd $i
+          echo -n -e "./$package/$i\t"
+          baz logs --full --reverse | head -1
+        )
+    fi
+done
