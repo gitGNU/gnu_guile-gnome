@@ -12,12 +12,13 @@ ALL_PKGS="@AG_PACKAGES@"
 
 for pkg in $ALL_PKGS; do
   if [ -d $src_dir/$pkg ]; then
-    if [ -$src_dir != $this_dir ]; then
+    if [ $src_dir != $this_dir ]; then
       GUILE_LOAD_PATH=$src_dir/$pkg:$this_dir/$pkg:$GUILE_LOAD_PATH
     else
       GUILE_LOAD_PATH=$this_dir/$pkg:$GUILE_LOAD_PATH
     fi
     LD_LIBRARY_PATH=$this_dir/$pkg/gnome/gw:$LD_LIBRARY_PATH
+    PKG_CONFIG_PATH=$this_dir/$pkg:$PKG_CONFIG_PATH
   fi
 done
 
@@ -26,6 +27,6 @@ if [ -d $src_dir/glib ]; then
 fi
 
 
-export GUILE_LOAD_PATH LD_LIBRARY_PATH
+export GUILE_LOAD_PATH LD_LIBRARY_PATH PKG_CONFIG_PATH
 
 exec "$@"
