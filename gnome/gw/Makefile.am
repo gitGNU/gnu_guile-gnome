@@ -16,7 +16,7 @@ libgw_guile_gnome_dbus_la_SOURCES = guile-gnome-gw-dbus.c \
 
 libgw_guile_gnome_dbus_la_CFLAGS = $(GUILE_GLIB_CFLAGS) \
 	$(AM_CFLAGS) $(DBUS_CFLAGS) $(GUILE_CFLAGS) \
-	$(G_WRAP_CFLAGS)
+	$(G_WRAP_CFLAGS) -DDBUS_API_SUBJECT_TO_CHANGE
 
 libgw_guile_gnome_dbus_la_LIBADD = $(DBUS_LIBS) $(GUILE_LIBS) \
 	$(G_WRAP_LINK_ARGS) $(GUILE_GLIB_LIBS)

@@ -1,3 +1,20 @@
+2004-09-11  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/overrides/dbus.defs: Add wrappings for DBusConnection,
+	DBusMessage, DBusGProxy. Ignore some functions.
+
+	* gnome/dbus.scm: Added helper "service" and "remote object"
+	classes, along with some helper methods:
+	dbus-connection-get-service, get-object, invoke.
+
+	* gnome/gw/dbus-support.[ch]: Implemented Guile-specific functions
+	dbus-message-iter-get, dbus-message-iter-append,
+	dbus-message-get-iter, dbus-message-get-append-iter. Wrapped
+	dbus-connection-get-unix-user.
+
+	* gnome/dbus.scm: Documented dbus-message-iter-get and
+	dbus-message-iter-append, which are provided by the Guile wrapper.
+
 2004-09-09  Andy Wingo  <wingo@pobox.com>
 
 	* Initial import.

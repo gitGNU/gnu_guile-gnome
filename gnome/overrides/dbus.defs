@@ -25,39 +25,63 @@
 ;;
 ;;; Code:
 
-;; use our version that processes interrupts
-(define-method run
-  (of-object "GMainLoop")
-  (c-name "_wrap_g_main_loop_run")
-  (overrides "g_main_loop_run")
-  (return-type "none"))
+(define-boxed BusConnection
+  (c-name "DBusConnection")
+  (gtype-id "DBUS_TYPE_CONNECTION")
+)
 
-(define-method string
-  (of-object "GString")
-  (c-name "_wrap_g_string_get_str")
+(define-boxed BusMessage
+  (c-name "DBusMessage")
+  (gtype-id "DBUS_TYPE_MESSAGE")
+)
+
+(define-object BusGProxy
+  (c-name "DBusGProxy")
+  (gtype-id "DBUS_TYPE_GPROXY")
+)
+
+(define-method get
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_get")
+  (return-type "SCM"))
+
+(define-method get
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_append")
+  (return-type "dbus_bool_t")
+  (parameters
+   '("SCM" "arg")
+   '("SCM" "type" (default "SCM_BOOL_F"))))
+
+(define-method get_iter
+  (of-object "DBusMessage")
+  (c-name "dbus_message_get_iter")
+  (caller-owns-return #t)
+  (return-type "DBusMessageIter*"))
+
+(define-method get_append_iter
+  (of-object "DBusMessage")
+  (c-name "dbus_message_get_append_iter")
+  (caller-owns-return #t)
+  (return-type "DBusMessageIter*"))
+
+(define-method get_unix_user
+  (of-object "DBusConnection")
+  (c-name "_wrap_dbus_connection_get_unix_user")
+  (overrides "dbus_connection_get_unix_user")
   (return-type "SCM"))
 
 (ignore-glob  "_*"
               "*_copy"
               "*_newv"
+              "*_ref"
+              "*_untref"
               "*_valist"
               "*_setv"
               "*_user_data"
               "*_func"
-              "g_source_set_callback*"
-              "g_timeout_add*"
-              "g_timeout_remove*"
-              "g_idle_add*"
-              "g_idle_remove*"
-              "g_error_*"
-              "g_child_watch_add*"
-              "g_parse_debug_string"
-              "g_snprintf"
-              "g_vsnprintf"
-              "g_atexit"
-              "*win32*")
+              "dbus_message_iter_get_*"
+              "dbus_message_iter_append_*")
 
-(ignore "g_main_context_wait"
-        "g_propagate_error"
-        "g_set_error"
-        "g_clear_error")
+(ignore       "dbus_message_iter_init"
+              )
