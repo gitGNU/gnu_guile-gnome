@@ -1,3 +1,20 @@
+2004-09-27  Andy Wingo  <wingo@pobox.com>
+
+	* Makefile.am (EXTRA_DIST): Dist the new files.
+
+2004-09-19  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gw/Makefile.am (libgw_guile_gnome_dbus_la_LIBADD): Not
+	G_WRAP_LINK_ARGS, it's G_WRAP_LIBS.
+
+2004-09-17  Andy Wingo  <wingo@pobox.com>
+
+	* NEWS: Added.
+
+	* README: Added.
+
+	* AUTHORS: Added.
+
 2004-09-15  Andy Wingo  <wingo@pobox.com>
 
 	* gnome/Makefile.am: Dist fixes.

@@ -1,0 +1,12 @@
+To find out what should go in this file, see "Information For
+Maintainers of GNU Software" (maintain.texi), the section called
+"Recording Changes".
+
+
+Andy Wingo:
+In the directory gnome/gw, wrote:
+    dbus-spec.scm dbus-support.c dbus-support.h
+In the directory gnome, wrote:
+    dbus.scm
+In the directory gnome/overrides, wrote:
+    dbus.defs
