@@ -1,3 +1,7 @@
+2004-11-15  Andy Wingo  <wingo@pobox.com>
+
+	* VERSION: Give it a micro: 1.0.0.
+
 2004-11-13  Andy Wingo  <wingo@pobox.com>
 
 	* Makefile.am: Dist VERSION.
