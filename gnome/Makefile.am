@@ -1,6 +1,6 @@
 include $(top_srcdir)/common.mk
 
-SUBDIRS = overrides
+SUBDIRS = defs overrides
 guilemodule_DATA =
 
 if HAVE_EVOLUTION_DATA_SERVER
@@ -9,4 +9,4 @@ guilemodule_DATA += evolution-data-server.scm
 endif
 
 EXTRA_DIST = evolution-data-server.scm
-DIST_SUBDIRS = gw overrides
+DIST_SUBDIRS = defs gw overrides

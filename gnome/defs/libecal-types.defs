@@ -1,0 +1,230 @@
+;; -*- scheme -*-
+;; Enumerations and flags ...
+
+(define-enum CalComponentVType
+  (in-module "E")
+  (c-name "ECalComponentVType")
+  (values
+    '("no-type" "E_CAL_COMPONENT_NO_TYPE")
+    '("event" "E_CAL_COMPONENT_EVENT")
+    '("todo" "E_CAL_COMPONENT_TODO")
+    '("journal" "E_CAL_COMPONENT_JOURNAL")
+    '("freebusy" "E_CAL_COMPONENT_FREEBUSY")
+    '("timezone" "E_CAL_COMPONENT_TIMEZONE")
+  )
+)
+
+(define-enum CalComponentField
+  (in-module "E")
+  (c-name "ECalComponentField")
+  (values
+    '("categories" "E_CAL_COMPONENT_FIELD_CATEGORIES")
+    '("classification" "E_CAL_COMPONENT_FIELD_CLASSIFICATION")
+    '("completed" "E_CAL_COMPONENT_FIELD_COMPLETED")
+    '("dtend" "E_CAL_COMPONENT_FIELD_DTEND")
+    '("dtstart" "E_CAL_COMPONENT_FIELD_DTSTART")
+    '("due" "E_CAL_COMPONENT_FIELD_DUE")
+    '("geo" "E_CAL_COMPONENT_FIELD_GEO")
+    '("percent" "E_CAL_COMPONENT_FIELD_PERCENT")
+    '("priority" "E_CAL_COMPONENT_FIELD_PRIORITY")
+    '("summary" "E_CAL_COMPONENT_FIELD_SUMMARY")
+    '("transparency" "E_CAL_COMPONENT_FIELD_TRANSPARENCY")
+    '("url" "E_CAL_COMPONENT_FIELD_URL")
+    '("has-alarms" "E_CAL_COMPONENT_FIELD_HAS_ALARMS")
+    '("icon" "E_CAL_COMPONENT_FIELD_ICON")
+    '("complete" "E_CAL_COMPONENT_FIELD_COMPLETE")
+    '("recurring" "E_CAL_COMPONENT_FIELD_RECURRING")
+    '("overdue" "E_CAL_COMPONENT_FIELD_OVERDUE")
+    '("color" "E_CAL_COMPONENT_FIELD_COLOR")
+    '("status" "E_CAL_COMPONENT_FIELD_STATUS")
+    '("component" "E_CAL_COMPONENT_FIELD_COMPONENT")
+    '("location" "E_CAL_COMPONENT_FIELD_LOCATION")
+    '("num-fields" "E_CAL_COMPONENT_FIELD_NUM_FIELDS")
+  )
+)
+
+(define-enum CalComponentClassification
+  (in-module "E")
+  (c-name "ECalComponentClassification")
+  (values
+    '("none" "E_CAL_COMPONENT_CLASS_NONE")
+    '("public" "E_CAL_COMPONENT_CLASS_PUBLIC")
+    '("private" "E_CAL_COMPONENT_CLASS_PRIVATE")
+    '("confidential" "E_CAL_COMPONENT_CLASS_CONFIDENTIAL")
+    '("unknown" "E_CAL_COMPONENT_CLASS_UNKNOWN")
+  )
+)
+
+(define-enum CalComponentPeriodType
+  (in-module "E")
+  (c-name "ECalComponentPeriodType")
+  (values
+    '("atetime" "E_CAL_COMPONENT_PERIOD_DATETIME")
+    '("uration" "E_CAL_COMPONENT_PERIOD_DURATION")
+  )
+)
+
+(define-enum CalComponentRangeType
+  (in-module "E")
+  (c-name "ECalComponentRangeType")
+  (values
+    '("single" "E_CAL_COMPONENT_RANGE_SINGLE")
+    '("thisprior" "E_CAL_COMPONENT_RANGE_THISPRIOR")
+    '("thisfuture" "E_CAL_COMPONENT_RANGE_THISFUTURE")
+  )
+)
+
+(define-enum CalComponentTransparency
+  (in-module "E")
+  (c-name "ECalComponentTransparency")
+  (values
+    '("none" "E_CAL_COMPONENT_TRANSP_NONE")
+    '("transparent" "E_CAL_COMPONENT_TRANSP_TRANSPARENT")
+    '("opaque" "E_CAL_COMPONENT_TRANSP_OPAQUE")
+    '("unknown" "E_CAL_COMPONENT_TRANSP_UNKNOWN")
+  )
+)
+
+(define-enum CalComponentAlarmAction
+  (in-module "E")
+  (c-name "ECalComponentAlarmAction")
+  (values
+    '("none" "E_CAL_COMPONENT_ALARM_NONE")
+    '("audio" "E_CAL_COMPONENT_ALARM_AUDIO")
+    '("display" "E_CAL_COMPONENT_ALARM_DISPLAY")
+    '("email" "E_CAL_COMPONENT_ALARM_EMAIL")
+    '("procedure" "E_CAL_COMPONENT_ALARM_PROCEDURE")
+    '("unknown" "E_CAL_COMPONENT_ALARM_UNKNOWN")
+  )
+)
+
+(define-enum CalComponentAlarmTriggerType
+  (in-module "E")
+  (c-name "ECalComponentAlarmTriggerType")
+  (values
+    '("none" "E_CAL_COMPONENT_ALARM_TRIGGER_NONE")
+    '("relative-start" "E_CAL_COMPONENT_ALARM_TRIGGER_RELATIVE_START")
+    '("relative-end" "E_CAL_COMPONENT_ALARM_TRIGGER_RELATIVE_END")
+    '("absolute" "E_CAL_COMPONENT_ALARM_TRIGGER_ABSOLUTE")
+  )
+)
+
+(define-enum CalSourceType
+  (in-module "E")
+  (c-name "ECalSourceType")
+  (values
+    '("event" "E_CAL_SOURCE_TYPE_EVENT")
+    '("todo" "E_CAL_SOURCE_TYPE_TODO")
+    '("journal" "E_CAL_SOURCE_TYPE_JOURNAL")
+    '("last" "E_CAL_SOURCE_TYPE_LAST")
+  )
+)
+
+(define-enum CalSetModeStatus
+  (in-module "E")
+  (c-name "ECalSetModeStatus")
+  (values
+    '("success" "E_CAL_SET_MODE_SUCCESS")
+    '("error" "E_CAL_SET_MODE_ERROR")
+    '("not-supported" "E_CAL_SET_MODE_NOT_SUPPORTED")
+  )
+)
+
+(define-enum CalLoadState
+  (in-module "E")
+  (c-name "ECalLoadState")
+  (values
+    '("not-loaded" "E_CAL_LOAD_NOT_LOADED")
+    '("authenticating" "E_CAL_LOAD_AUTHENTICATING")
+    '("loading" "E_CAL_LOAD_LOADING")
+    '("loaded" "E_CAL_LOAD_LOADED")
+  )
+)
+
+(define-flags CalChangeType
+  (in-module "E")
+  (c-name "ECalChangeType")
+  (values
+    '("added" "E_CAL_CHANGE_ADDED")
+    '("modified" "E_CAL_CHANGE_MODIFIED")
+    '("deleted" "E_CAL_CHANGE_DELETED")
+  )
+)
+
+(define-enum CalendarStatus
+  (in-module "E")
+  (c-name "ECalendarStatus")
+  (values
+    '("ok" "E_CALENDAR_STATUS_OK")
+    '("invalid-arg" "E_CALENDAR_STATUS_INVALID_ARG")
+    '("busy" "E_CALENDAR_STATUS_BUSY")
+    '("repository-offline" "E_CALENDAR_STATUS_REPOSITORY_OFFLINE")
+    '("no-such-calendar" "E_CALENDAR_STATUS_NO_SUCH_CALENDAR")
+    '("object-not-found" "E_CALENDAR_STATUS_OBJECT_NOT_FOUND")
+    '("invalid-object" "E_CALENDAR_STATUS_INVALID_OBJECT")
+    '("uri-not-loaded" "E_CALENDAR_STATUS_URI_NOT_LOADED")
+    '("uri-already-loaded" "E_CALENDAR_STATUS_URI_ALREADY_LOADED")
+    '("permission-denied" "E_CALENDAR_STATUS_PERMISSION_DENIED")
+    '("object-id-already-exists" "E_CALENDAR_STATUS_OBJECT_ID_ALREADY_EXISTS")
+    '("protocol-not-supported" "E_CALENDAR_STATUS_PROTOCOL_NOT_SUPPORTED")
+    '("cancelled" "E_CALENDAR_STATUS_CANCELLED")
+    '("could-not-cancel" "E_CALENDAR_STATUS_COULD_NOT_CANCEL")
+    '("authentication-failed" "E_CALENDAR_STATUS_AUTHENTICATION_FAILED")
+    '("authentication-required" "E_CALENDAR_STATUS_AUTHENTICATION_REQUIRED")
+    '("corba-exception" "E_CALENDAR_STATUS_CORBA_EXCEPTION")
+    '("other-error" "E_CALENDAR_STATUS_OTHER_ERROR")
+  )
+)
+
+(define-flags ObjModType
+  (in-module "Cal")
+  (c-name "CalObjModType")
+  (values
+    '("this" "CALOBJ_MOD_THIS")
+    '("thisandprior" "CALOBJ_MOD_THISANDPRIOR")
+    '("thisandfuture" "CALOBJ_MOD_THISANDFUTURE")
+    '("all" "CALOBJ_MOD_ALL")
+  )
+)
+
+(define-flags Mode
+  (in-module "Cal")
+  (c-name "CalMode")
+  (values
+    '("invalid" "CAL_MODE_INVALID")
+    '("local" "CAL_MODE_LOCAL")
+    '("remote" "CAL_MODE_REMOTE")
+    '("any" "CAL_MODE_ANY")
+  )
+)
+
+;; -*- scheme -*-
+; object definitions ...
+(define-object Cal
+  (in-module "E")
+  (parent "GObject")
+  (c-name "ECal")
+  (gtype-id "E_TYPE_CAL")
+)
+
+(define-object CalComponent
+  (in-module "E")
+  (parent "GObject")
+  (c-name "ECalComponent")
+  (gtype-id "E_TYPE_CAL_COMPONENT")
+)
+
+(define-object CalView
+  (in-module "E")
+  (parent "GObject")
+  (c-name "ECalView")
+  (gtype-id "E_TYPE_CAL_VIEW")
+)
+
+(define-object CalViewListener
+  (in-module "E")
+  (parent "BonoboObject")
+  (c-name "ECalViewListener")
+  (gtype-id "E_TYPE_CAL_VIEW_LISTENER")
+)
+
