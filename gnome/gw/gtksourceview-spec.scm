@@ -38,7 +38,7 @@
                    gnome-atk gnome-gdk gnome-pango gnome-gtk))
 
 (define-method (initialize (ws <gnome-source-view-wrapset>) initargs)
-  (next-method ws (append '(#:module (gnome gnome gw-source-view)) initargs))
+  (next-method ws (append '(#:module (gnome gw gtksourceview)) initargs))
 
 
   (add-item! ws (make <client-item>))
