@@ -1,5 +1,7 @@
 #include "gstreamer-support.h"
 
+#include <unistd.h> /* getpid */
+
 #define GRUNTIME_ERROR(format, func_name, args...) \
   scm_error (scm_str2symbol ("gruntime-error"), func_name, format, \
              ##args, SCM_EOL)
@@ -229,33 +231,150 @@ _wrap_gst_clock_id_wait_async (GstClockID id,
 
 
 /***********************************************************************
+ * GstDebug
+ */
+
+/* temporary hack until gst_debug_print_object */
+static gchar *
+gst_debug_print_object (gpointer ptr)
+{
+  GObject *object = (GObject *) ptr;
+
+#ifdef unused
+  /* This is a cute trick to detect unmapped memory, but is unportable,
+   * slow, screws around with madvise, and not actually that useful. */
+  {
+    int ret;
+
+    ret = madvise ((void *) ((unsigned long) ptr & (~0xfff)), 4096, 0);
+    if (ret == -1 && errno == ENOMEM) {
+      buffer = g_strdup_printf ("%p (unmapped memory)", ptr);
+    }
+  }
+#endif
+
+  /* nicely printed object */
+  if (object == NULL) {
+    return g_strdup ("(NULL)");
+  }
+  if (*(GType *) ptr == GST_TYPE_CAPS) {
+    return gst_caps_to_string ((GstCaps *) ptr);
+  }
+  if (*(GType *) ptr == GST_TYPE_STRUCTURE) {
+    return gst_structure_to_string ((GstStructure *) ptr);
+  }
+#ifdef USE_POISONING
+  if (*(guint32 *) ptr == 0xffffffff) {
+    return g_strdup_printf ("<poisoned@%p>", ptr);
+  }
+#endif
+  if (GST_IS_PAD (object) && GST_OBJECT_NAME (object)) {
+    return g_strdup_printf ("<%s:%s>", GST_DEBUG_PAD_NAME (object));
+  }
+  if (GST_IS_OBJECT (object) && GST_OBJECT_NAME (object)) {
+    return g_strdup_printf ("<%s>", GST_OBJECT_NAME (object));
+  }
+  if (G_IS_OBJECT (object)) {
+    return g_strdup_printf ("<%s@%p>", G_OBJECT_TYPE_NAME (object), object);
+  }
+
+  return g_strdup_printf ("%p", ptr);
+}
+
+/* define our own custom handler so that we can tweak it. knobs to come
+ * later. */
+void
+gst_guile_debug_logger (GstDebugCategory * category, GstDebugLevel level,
+    const gchar * file, const gchar * function, gint line,
+    GObject * object, GstDebugMessage * message, gpointer unused)
+{
+  gboolean verbose = FALSE;
+  gchar *color;
+  gchar *clear;
+  gchar *obj;
+  gchar *pidcolor;
+  gint pid;
+  GTimeVal now;
+
+  if (level > gst_debug_category_get_threshold (category))
+    return;
+
+  /* color info */
+  if (gst_debug_is_colored ()) {
+    color =
+        gst_debug_construct_term_color (gst_debug_category_get_color
+        (category));
+    clear = "\033[00m";
+    if (verbose)
+      pidcolor = g_strdup_printf ("\033[3%1dm", pid % 6 + 31);
+  } else {
+    color = g_strdup ("");
+    clear = "";
+    if (verbose)
+      pidcolor = g_strdup ("");
+  }
+
+  obj = object ? gst_debug_print_object (object) : g_strdup ("");
+
+  if (verbose) {
+    pid = getpid ();
+    g_get_current_time (&now);
+    g_printerr ("%s (%p - %" GST_TIME_FORMAT
+                ") %s%15s%s(%s%5d%s) %s%s(%d):%s:%s%s %s\n",
+                gst_debug_level_get_name (level), g_thread_self (),
+                GST_TIME_ARGS (GST_TIMEVAL_TO_TIME (now)),
+                color, gst_debug_category_get_name (category), clear,
+                pidcolor, pid, clear,
+                color, file, line, function, obj, clear,
+                gst_debug_message_get (message));
+  } else {
+    g_printerr ("%s%15.15s%s %-30.30s %s %s\n",
+                color, gst_debug_category_get_name (category), clear,
+                function, obj,
+                gst_debug_message_get (message));
+  }
+    
+  g_free (color);
+  if (verbose)
+    g_free (pidcolor);
+  g_free (obj);
+}
+
+void
+gst_debug_use_custom_handler (void)
+{
+  static gboolean customized = FALSE;
+  if (!customized) {
+    customized = TRUE;
+    gst_debug_remove_log_function (gst_debug_log_default);
+    gst_debug_add_log_function (gst_guile_debug_logger, NULL);
+  }
+}
+
+/***********************************************************************
  * GstPad
  */
 
 typedef struct {
-  SCM pad;
   SCM link_function;
   SCM chain_function;
   SCM get_function;
 } GuileGstPadPrivate;
 
 static GuileGstPadPrivate*
-pad_private(GstPad *gpad, SCM pad)
+pad_private(GstPad *pad)
 {
   GuileGstPadPrivate* private;
 
-  private = (GuileGstPadPrivate*)gst_pad_get_element_private (gpad);
+  private = (GuileGstPadPrivate*)gst_pad_get_element_private (pad);
 
   if (!private) {
-    g_assert (SCM_NFALSEP (pad));
-
     /* FIXME free me sometime... */
     private = g_new (GuileGstPadPrivate, 1);
-    private->pad = scm_gc_protect_object (pad);
     private->link_function = SCM_BOOL_F;
     private->chain_function = SCM_BOOL_F;
     private->get_function = SCM_BOOL_F;
-    gst_pad_set_element_private (gpad, private);
+    gst_pad_set_element_private (pad, private);
   }
 
   return private;
@@ -267,34 +386,32 @@ call_chain_function(GstPad *pad, GstData* data)
   SCM scm_data;
   GuileGstPadPrivate *private;
   
-  private = pad_private (pad, SCM_BOOL_F);
+  private = pad_private (pad);
   /* even though it's really a GstData, there's no GstData type (right now, at
      least) */
   scm_data = scm_c_make_gvalue (GST_TYPE_BUFFER);
   g_value_set_boxed ((GValue*)SCM_SMOB_DATA (scm_data), data);
 
-  scm_call_2 (private->chain_function, private->pad,
+  scm_call_2 (private->chain_function,
+              scm_c_gtype_instance_to_scm ((GTypeInstance*)pad),
               scm_data);
 }
 
 void
-_wrap_gst_pad_set_chain_function (SCM pad, SCM chain_function)
+_wrap_gst_pad_set_chain_function (GstPad *pad, SCM chain_function)
 {
 #define FUNC_NAME "gst-pad-set-chain-function"
-  GObject *gpad;
   GuileGstPadPrivate *private;
   
-  SCM_VALIDATE_GOBJECT_COPY (1, pad, gpad);
-  SCM_ASSERT (GST_IS_PAD (gpad), pad, 1, FUNC_NAME);
   SCM_VALIDATE_PROC (2, chain_function);
 
-  private = pad_private ((GstPad*)gpad, pad);
+  private = pad_private (pad);
   if (SCM_NFALSEP (private->chain_function))
     scm_gc_unprotect_object (private->chain_function);
 
   private->chain_function = scm_gc_protect_object (chain_function);
 
-  gst_pad_set_chain_function ((GstPad*)gpad, call_chain_function);
+  gst_pad_set_chain_function ((GstPad*)pad, call_chain_function);
 #undef FUNC_NAME
 }
 
@@ -304,9 +421,10 @@ call_get_function (GstPad *pad)
   SCM ret;
   GuileGstPadPrivate *private;
   
-  private = pad_private (pad, SCM_BOOL_F);
+  private = pad_private (pad);
 
-  ret = scm_call_1 (private->get_function, private->pad);
+  ret = scm_call_1 (private->get_function,
+                    scm_c_gtype_instance_to_scm ((GTypeInstance*)pad));
   if (SCM_TYP16_PREDICATE (scm_tc16_gvalue, ret)
       /* we check specifically for buffers and events, as boxed types don't know
          anything about inheritance */
@@ -320,23 +438,20 @@ call_get_function (GstPad *pad)
 }
 
 void
-_wrap_gst_pad_set_get_function (SCM pad, SCM get_function)
+_wrap_gst_pad_set_get_function (GstPad* pad, SCM get_function)
 {
 #define FUNC_NAME "gst-pad-set-chain-function"
-  GObject *gpad;
   GuileGstPadPrivate *private;
   
-  SCM_VALIDATE_GOBJECT_COPY (1, pad, gpad);
-  SCM_ASSERT (GST_IS_PAD (gpad), pad, 1, FUNC_NAME);
   SCM_VALIDATE_PROC (2, get_function);
 
-  private = pad_private ((GstPad*)gpad, pad);
+  private = pad_private (pad);
   if (SCM_NFALSEP (private->get_function))
     scm_gc_unprotect_object (private->get_function);
 
   private->get_function = scm_gc_protect_object (get_function);
 
-  gst_pad_set_get_function ((GstPad*)gpad, call_get_function);
+  gst_pad_set_get_function (pad, call_get_function);
 #undef FUNC_NAME
 }
 
@@ -344,12 +459,13 @@ static GstPadLinkReturn
 call_link_function(GstPad *pad, const GstCaps *caps)
 {
   SCM scm_caps, ret;
-  GuileGstPadPrivate *private = pad_private (pad, SCM_BOOL_F);
+  GuileGstPadPrivate *private = pad_private (pad);
   
   scm_caps = scm_c_make_gvalue (GST_TYPE_CAPS);
   g_value_set_boxed ((GValue*)SCM_SMOB_DATA (scm_caps), caps);
 
-  ret = scm_call_2 (private->link_function, private->pad,
+  ret = scm_call_2 (private->link_function,
+                    scm_c_gtype_instance_to_scm ((GTypeInstance*)pad),
                     scm_caps);
 
   if (SCM_INUMP (ret))
@@ -371,23 +487,20 @@ call_link_function(GstPad *pad, const GstCaps *caps)
 }
 
 void
-_wrap_gst_pad_set_link_function (SCM pad, SCM link_function)
+_wrap_gst_pad_set_link_function (GstPad *pad, SCM link_function)
 {
 #define FUNC_NAME "gst-pad-set-link-function"
-  GObject *gpad;
   GuileGstPadPrivate *private;
   
-  SCM_VALIDATE_GOBJECT_COPY (1, pad, gpad);
-  SCM_ASSERT (GST_IS_PAD (gpad), pad, 1, FUNC_NAME);
   SCM_VALIDATE_PROC (2, link_function);
 
-  private = pad_private ((GstPad*)gpad, pad);
+  private = pad_private (pad);
   if (SCM_NFALSEP (private->link_function))
     scm_gc_unprotect_object (private->link_function);
 
   private->link_function = scm_gc_protect_object (link_function);
 
-  gst_pad_set_link_function ((GstPad*)gpad, call_link_function);
+  gst_pad_set_link_function (pad, call_link_function);
 #undef FUNC_NAME
 }
 
