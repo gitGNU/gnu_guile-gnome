@@ -29,8 +29,8 @@
   :use-module (g-wrap)
   :use-module (gnome gw gobject-spec)
   :use-module (gnome gw gtk-spec)
-  :use-module (gnome gobject gw-spec-utils)
-  :use-module (gnome gobject defs-support))
+  :use-module (gnome gw support gobject)
+  :use-module (gnome gw support defs))
 
 (define-class <gnome-source-view-wrapset> (<gobject-wrapset-base>)
   #:id 'gnome-gtksourceview
@@ -40,10 +40,9 @@
 (define-method (initialize (ws <gnome-source-view-wrapset>) initargs)
   (next-method ws (append '(#:module (gnome gw gtksourceview)) initargs))
 
-
   (add-item! ws (make <client-item>))
 
-  (load-defs ws "gnome/defs/gtksourceview.defs"))
+  (load-defs-with-overrides ws "gnome/defs/gtksourceview.defs"))
 
 (define-class <client-item> (<gw-item>))
 

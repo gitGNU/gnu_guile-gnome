@@ -25,8 +25,7 @@
 ;;; Code:
 
 (define-module (gnome source-view)
-  #:use-module (gnome gtk)
   #:use-module (gnome gw gtksourceview)
-  #:use-module (gnome gobject gw-utils))
+  #:use-module (gnome gw support modules))
 
 (re-export-modules (gnome gw gtksourceview))

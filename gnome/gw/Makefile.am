@@ -11,8 +11,9 @@ lib_LTLIBRARIES = libgw-guile-gnome-gtksourceview.la
 
 ########################################################################
 ## GtkSourceView
+nodist_libgw_guile_gnome_gtksourceview_la_SOURCES = \
+	guile-gnome-gw-gtksourceview.c
 libgw_guile_gnome_gtksourceview_la_SOURCES = \
-	guile-gnome-gw-gtksourceview.c \
 	source-view-support.c source-view-support.h
 
 libgw_guile_gnome_gtksourceview_la_CFLAGS = $(GUILE_GLIB_CFLAGS) \
@@ -20,7 +21,7 @@ libgw_guile_gnome_gtksourceview_la_CFLAGS = $(GUILE_GLIB_CFLAGS) \
 	$(G_WRAP_CFLAGS)
 
 libgw_guile_gnome_gtksourceview_la_LIBADD = $(GTKSOURCEVIEW_LIBS) \
-	$(GUILE_LIBS) $(G_WRAP_LINK_ARGS) $(GUILE_GLIB_LIBS)
+	$(GUILE_LIBS) $(G_WRAP_LIBS) $(GUILE_GLIB_LIBS)
 
 libgw_guile_gnome_gtksourceview_la_LDFLAGS = -module
 
