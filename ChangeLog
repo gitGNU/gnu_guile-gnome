@@ -1,3 +1,9 @@
+2004-09-15  Andy Wingo  <wingo@pobox.com>
+
+	* scripts/update-inventories: New script, will create
+	arch-inventory entries for any untagged-source files. Useful for
+	when you build in the source tree.
+
 2004-09-08  Andy Wingo  <wingo@pobox.com>
 
 	* NEWS: Initial version, still needs to be filled in.
