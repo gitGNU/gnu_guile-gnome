@@ -1,0 +1,14 @@
+To find out what should go in this file, see "Information For
+Maintainers of GNU Software" (maintain.texi), the section called
+"Recording Changes".
+
+
+Jan Nieuwenhuizen:
+In the directory gnome/gw, wrote:
+    wnck-spec.scm
+In the directory gnome/overrides, wrote:
+    wnck.defs
+
+Andy Wingo:
+In the directory gnome, wrote:
+    wnck.scm
