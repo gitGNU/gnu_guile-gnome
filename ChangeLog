@@ -1,3 +1,9 @@
+2004-09-15  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/Makefile.am: Dist the overrides dir.
+
+	* glib-checks.ac: Check the right module.
+
 2004-09-14  Andy Wingo  <wingo@pobox.com>
 
 	* gnome/gw/libgda-spec.scm: Add copyright block. Adapt to newer
