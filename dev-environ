@@ -1,0 +1,9 @@
+#!/bin/sh
+
+this_dir=`dirname $0`
+
+export GUILE_LOAD_PATH=$this_dir:$GUILE_LOAD_PATH
+export LD_LIBRARY_PATH=$this_dir/gnome/gstreamer:$LD_LIBRARY_PATH
+export PKG_CONFIG_PATH=$this_dir:$PKG_CONFIG_PATH
+
+exec "$@"

@@ -1,0 +1,21 @@
+2004-02-22  Andy Wingo  <wingo@pobox.com>
+
+	* gstreamer-overrides.defs (realize): New method on GstPad.
+
+2004-02-08  Andy Wingo  <wingo@pobox.com>
+
+	* gstreamer-overrides.defs (append, append_structure): These
+	methods on GstCaps take ownership of their arguments, so they're
+	(callee-owned).
+
+2004-01-29  Andy Wingo  <wingo@pobox.com>
+
+	* gstreamer-overrides.defs (gst_pad_template_new): Lot's of
+	changes, really, but this one makes gst_pad_template_new receive a
+	copied GstCaps.
+
+2004-01-28  Andy Wingo  <wingo@pobox.com>
+
+	* gstreamer.defs (get_version): removed
+
+

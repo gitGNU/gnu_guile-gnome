@@ -1,0 +1,13 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@/guile-gobject
+toolsdir=${exec_prefix}/bin
+gstreamer_majorminor=@GST_MAJORMINOR@
+
+Name: (gnome gstreamer)
+Description: Guile bindings for GStreamer
+Requires: guile-gobject
+Version: @VERSION@
+Libs: -L${libdir} -lguile-gnome-gw-gstreamer
+Cflags: -I${includedir}

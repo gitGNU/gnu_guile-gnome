@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE article PUBLIC "-//OASIS//DTD DocBook XML V4.2//EN"
+    "http://www.oasis-open.org/docbook/xml/4.2/docbookx.dtd" [
+  <!ENTITY % ents SYSTEM "gst-guile.ent">
+  %ents;
+]>
+
+<article id="gst-guile-news">
+
+<!--=====================================================================-->
+
+<articleinfo>
+  <title>Gst-Guile &version; News</title>
+  <copyright><year>2003</year><holder>Andy Wingo</holder></copyright>
+  <pubdate>&pubdate;</pubdate>
+  <authorgroup>
+    <author>
+      <firstname>Andy</firstname>
+      <surname>Wingo</surname>
+      <email>wingo pobox com</email>
+    </author>
+  </authorgroup>
+</articleinfo>
+
+<!--=====================================================================-->
+
+<section id="news">
+<title>News</title>
+
+<section role="notintoc" id="release-0.1.0">
+  <title>2003-09-XX - 0.1.0 - Andy Wingo <email>wingo pobox com</email></title>
+  <para>
+    <itemizedlist>
+      <listitem><para>Not actually released yet, but coming soon...</para></listitem>
+      <listitem><para>First release</para></listitem>
+      <listitem><para>Supports either GStreamer 0.6.x or 0.7.x</para></listitem>
+    </itemizedlist>
+  </para>
+</section>
+
+</section>
+
+<!--=====================================================================-->
+
+</article>

@@ -1,0 +1,13 @@
+2004-02-22  Andy Wingo  <wingo@pobox.com>
+
+	* gstreamer.scm (unlink, remove): New methods taking many args.
+
+2004-01-28  Andy Wingo  <wingo@pobox.com>
+
+	* gstreamer.scm (gst-caps-new, gst-structure-new): Add new
+	wrappers for creating the new caps.
+
+2003-05-25  Andy Wingo  <wingo@pobox.com>
+
+	* gstreamer.scm: Rename link-many and add-many to link and add.
+

@@ -1,0 +1,12 @@
+2003-05-25  Andy Wingo  <wingo@pobox.com>
+
+	* examples/gstreamer/vorbisplay.scm: s/add-many/add/,
+	s/link-many/link/
+
+	* examples/gstreamer/chain-function.scm: s/add-may/add/
+
+2003-05-08  Andy Wingo  <wingo@pobox.com>
+
+	* Initial import.
+	
+

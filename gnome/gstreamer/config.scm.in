@@ -1,0 +1,7 @@
+;; -*- scheme -*-
+(define-module (gnome gstreamer config))
+
+(define-public %gnome-gstreamer-build-info
+  (cons* (cons 'gstreamer-version "@GST_MAJORMINOR@")
+         ;; fill me
+         '()))
