@@ -32,7 +32,7 @@ Build dependencies
 
 * Guile 1.6.4 or newer
   http://www.gnu.org/software/guile/
-* G-Wrap 1.9.1
+* G-Wrap 1.9.1 or above, but not 1.9.2
   http://www.nongnu.org/g-wrap/
 * Development packages for individual wrapsets
   See README files in the wrapset subdirectories for more information.

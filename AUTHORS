@@ -5,7 +5,7 @@ Maintainers of GNU Software" (maintain.texi), the section called
 
 Martin Baulig:
 In the toplevel directory, wrote the initial versions of configure.ac,
-which live on inside autogen-pkg.sh. Wrote RELEASE-NOTES-0.2.0.txt.
+which live on inside autogen-pkg.sh.
 
 Andreas Rottmann:
 In the toplevel directory, wrote:
@@ -25,12 +25,12 @@ In the toplevel directory, changes to:
 
 Andy Wingo:
 In the toplevel directory, wrote:
-    autogen.sh dev-environ.in RELEASE-NOTES-0.5.0.txt
+    autogen.sh dev-environ.in
 In the toplevel directory, changes to:
     autogen-pkg.sh
 In the directory scripts/, wrote:
     update-inventories tla-for-each
 
-Thomas Van der Stichele:
+Thomas Vander Stichele:
 In the toplevel directory, wrote:
     autogen-support.sh
