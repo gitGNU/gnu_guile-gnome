@@ -26,24 +26,27 @@ sort_pkgs()
   local packages="$@"
   ( 
     for pkg in $packages; do
+      in_graph=0
       for check in $pkg/*-checks.ac; do
 	if [ -f $check ]; then
 	  dep_pkg=`echo $check | sed -e "s,^$pkg/\(.*\)-checks\.ac$,\1,"`
 	  if [ -d $dep_pkg ]; then
+            in_graph=1
 	    echo "$pkg $dep_pkg"
 	  else
-	    echo "$checks_catted" | grep -q $dep_pkg;
+            echo "$checks_catted" | grep -q $dep_pkg;
 	    if test $? -eq 1; then
 	      cat $check >> configure.ac
 	      checks_catted="$checks_catted $dep_pkg"
 	    fi
 	  fi
-	else
-          echo "$pkg"
         fi
       done
+      if test $in_graph -eq 0; then
+        echo "$pkg null"
+      fi
     done 
-  ) | tsort | tac | tr '\n' ' '
+  ) | tsort | tac | grep -v '^null$' | tr '\n' ' '
 }
 
 autogen_pkg()

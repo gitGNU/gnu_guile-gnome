@@ -1,3 +1,7 @@
+2004-10-24  Andy Wingo  <wingo@pobox.com>
+
+	* autogen-pkg.sh (sort_pkgs): Fix it right this time.
+
 2004-10-16  Andy Wingo  <wingo@pobox.com>
 
 	* autogen-pkg.sh: Get the module_directory for g-wrap from the
