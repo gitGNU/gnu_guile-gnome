@@ -1,3 +1,24 @@
+2004-09-27  Andy Wingo  <wingo@pobox.com>
+
+	* Makefile.am (EXTRA_DIST): Dist the new files, and *.ac.
+
+2004-09-19  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gw/gtksourceview-spec.scm (initialize): Use the proper
+	name for the g-wrapped module.
+
+	* gnome/gw/Makefile.am
+	(libgw_guile_gnome_gtksourceview_la_LIBADD): Not G_WRAP_LINK_ARGS,
+	it's G_WRAP_LIBS.
+
+2004-09-17  Andy Wingo  <wingo@pobox.com>
+
+	* NEWS: Added.
+
+	* README: Added.
+
+	* AUTHORS: Added.
+
 2004-09-15  Andy Wingo  <wingo@pobox.com>
 
 	* glib-checks.ac: Check the right module.
