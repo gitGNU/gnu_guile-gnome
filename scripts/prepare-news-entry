@@ -40,3 +40,5 @@ echo >> NEWS.new
 echo >> NEWS.new
 # old news
 perl -e 'local $/; $_=<>; ($foo) = /([^=\n]*\n=+\n.*)/s; print $foo;' < NEWS >> NEWS.new
+
+mv NEWS.new NEWS

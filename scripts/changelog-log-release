@@ -10,11 +10,11 @@ if test -z "$dir" -o -z "$package" -o -z "$version"; then
 fi
 
 cd $dir || ( echo "dir does not exist: $dir">&2; exit 1 )
-test -f NEWS || ( echo "no NEWS in $dir">&2; exit 1 )
+test -f ChangeLog || ( echo "no ChangeLog in $dir">&2; exit 1 )
 
-mv NEWS NEWS.old
-echo -n `date +"%Y-%m-%d"` > NEWS
-echo "  `tla my-id | sed -e 's,<, <,'`" >> NEWS
-echo >> NEWS
-echo -e "\t* == Released $package version $version ==\n" >> NEWS
-cat NEWS.old >> NEWS
+mv ChangeLog ChangeLog.old
+echo -n `date +"%Y-%m-%d"` > ChangeLog
+echo "  `tla my-id | sed -e 's,<, <,'`" >> ChangeLog
+echo >> ChangeLog
+echo -e "\t* == Released $package version $version ==\n" >> ChangeLog
+cat ChangeLog.old >> ChangeLog

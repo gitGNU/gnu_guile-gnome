@@ -1,11 +1,16 @@
-guile-gnome-pkg NEWS --- history of user-visible changes.
-Copyright (C) 2004 Free Software Foundation, Inc.
-See the end for copying conditions of this file.
+
+Last updated 11 Jan 2005.
 
 
 guile-gnome-pkg is the umbrella package for guile-gnome, which can
 contain any number of sub-packages. This file documents the user-visible
 changes in guile-gnome-pkg only.
+
+
+guile-gnome-pkg 2.7.98 - Andy Wingo, 2005-01-11
+===============================================
+
+* ChangeLog diff (process this into NEWS):
 
 
 guile-gnome-pkg 2.6.0 - Andy Wingo, 2004-09-XX
