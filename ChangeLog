@@ -1,3 +1,11 @@
+2004-10-12  Andreas Rottmann  <a.rottmann@gmx.at>
+
+	* autogen.sh: Fix sourcing for shells that don't search the
+	current directory.
+
+	* dev-environ.in: Remove special casing of glib for setting
+	$LD_LIBRARY_PATH, use a new control file shlib-dirs.ac instead.
+
 2004-10-06  Andy Wingo  <wingo@pobox.com>
 
 	* h2def.py: Make sure the emacs typecode is always first in the
