@@ -33,14 +33,13 @@
   :use-module (gnome gobject defs-support))
 
 (define-class <gnome-source-view-wrapset> (<gobject-wrapset-base>)
-  #:id 'gnome-gtksourceview)
+  #:id 'gnome-gtksourceview
+  #:dependencies '(standard gnome-glib gnome-gobject
+                   gnome-atk gnome-gdk gnome-pango gnome-gtk))
 
 (define-method (initialize (ws <gnome-source-view-wrapset>) initargs)
   (next-method ws (append '(#:module (gnome gnome gw-source-view)) initargs))
 
-  (depends-on! ws
-               'standard 'gnome-glib 'gnome-gobject
-               'gnome-atk 'gnome-gdk 'gnome-pango 'gnome-gtk)
 
   (add-item! ws (make <client-item>))
 
