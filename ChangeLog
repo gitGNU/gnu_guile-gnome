@@ -1,4 +1,10 @@
+2004-09-15  Andy Wingo  <wingo@pobox.com>
+
+	* glib-checks.ac: Check the right module.
+
 2004-09-14  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/Makefile.am: This is not GtkSourceView...
 
 	* gnome/gw/wnck-spec.scm: Adopt for new module locations.
 

@@ -4,7 +4,7 @@ SUBDIRS =
 
 guilemodule_DATA = 
 
-if HAVE_GTKSOURCEVIEW
+if HAVE_WNCK
 guilemodule_DATA += wnck.scm
 SUBDIRS += gw
 endif
