@@ -1,3 +1,7 @@
+2005-02-24  Andreas Rottmann  <a.rottmann@gmx.at>
+
+	* scripts/commit-all, scripts/merge-all: New helper scripts.
+
 2005-01-25  Andreas Rottmann  <a.rottmann@gmx.at>
 
 	* configure.ac: Require G-Wrap >= 1.9.4.
