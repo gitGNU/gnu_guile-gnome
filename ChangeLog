@@ -1,3 +1,8 @@
+2004-09-30  Andy Wingo  <wingo@pobox.com>
+
+	* autogen-pkg.sh (autogen_pkg): An unrecognized config $i becomes
+	guile-gnome-$i-YYYYMMDD+$source.
+
 2004-09-27  Andy Wingo  <wingo@pobox.com>
 
 	* autogen-pkg.sh: Require g-wrap = 1.9.3. g-wrap is in unstable
