@@ -1,3 +1,11 @@
+2004-10-16  Andy Wingo  <wingo@pobox.com>
+
+	* autogen-pkg.sh: Get the module_directory for g-wrap from the
+	right pkg-config file.
+	(sort_pkgs): Echo the package into tsort even if it has no deps
+	(e.g. docs/).
+	Add a check for slib.
+
 2004-10-12  Andreas Rottmann  <a.rottmann@gmx.at>
 
 	* autogen-pkg.sh: Use tsort instead of hand-built package

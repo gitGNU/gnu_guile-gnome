@@ -38,7 +38,9 @@ sort_pkgs()
 	      checks_catted="$checks_catted $dep_pkg"
 	    fi
 	  fi
-	fi
+	else
+          echo "$pkg"
+        fi
       done
     done 
   ) | tsort | tac | tr '\n' ' '
@@ -141,12 +143,26 @@ AC_SUBST(GUILE_CFLAGS)
 AC_SUBST(GUILE_LIBS)
 AC_MSG_RESULT(yes)
 
+# The defs generator uses slib for globbing and printf
+AC_MSG_CHECKING(for SLIB)
+if ! guile -c '(use-modules (ice-9 slib))' >/dev/null 2>&1; then
+   AC_MSG_ERROR([guile-gnome needs SLIB to run.
+
+Most distributions ship a guile-slib package, for example guile-1.6-slib
+on Debian. Otherwise, you can install it yourself by downloading it
+from http://swissnet.ai.mit.edu/~jaffer/SLIB.html and install it via the
+method detailed in the SLIB Installation node of the guile info manual.
+Sucks for you!
+])
+fi
+AC_MSG_RESULT(yes)
+
 # Check for g-wrap
 
 PKG_CHECK_MODULES(G_WRAP, g-wrap-2.0-guile = 1.9.3)
 AC_SUBST(G_WRAP_CFLAGS)
 AC_SUBST(G_WRAP_LIBS)
-AC_SUBST(G_WRAP_MODULE_DIR, `${PKG_CONFIG} --variable=module_directory g-wrap`)
+AC_SUBST(G_WRAP_MODULE_DIR, `${PKG_CONFIG} --variable=module_directory g-wrap-2.0-guile`)
 AC_SUBST(G_WRAP_LIB_DIR, `echo $G_WRAP_MODULE_DIR | sed -e 's|share/guile|lib|'`)
 
 # Per-package checks follow
