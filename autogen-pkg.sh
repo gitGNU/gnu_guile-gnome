@@ -21,25 +21,27 @@
 pkgs_ordered=""
 checks_catted=""
 
-ensure_dependencies()
+sort_pkgs()
 {
-    local pkg=$1
-    for check in $pkg/*-checks.ac; do
-        if [ -f $check ]; then
-            dep_pkg=`echo $check | sed -e "s,^$pkg/\(.*\)-checks\.ac$,\1,"`
-            # echo "$pkg depends on $dep_pkg"
-            if [ -d $dep_pkg ]; then
-                pkgs_ordered=`echo "$pkgs_ordered" | sed -e "s,$dep_pkg,," -e "s,^,$dep_pkg ," -e 's,  , ,'`
-                ensure_dependencies $dep_pkg # recurse
-            else
-                echo "$checks_catted" | grep -q $dep_pkg;
-                if test $? -eq 1; then
-                    cat $check >> configure.ac
-                    checks_catted="$checks_catted $dep_pkg"
-                fi
-            fi
-        fi
-    done
+  local packages="$@"
+  ( 
+    for pkg in $packages; do
+      for check in $pkg/*-checks.ac; do
+	if [ -f $check ]; then
+	  dep_pkg=`echo $check | sed -e "s,^$pkg/\(.*\)-checks\.ac$,\1,"`
+	  if [ -d $dep_pkg ]; then
+	    echo "$pkg $dep_pkg"
+	  else
+	    echo "$checks_catted" | grep -q $dep_pkg;
+	    if test $? -eq 1; then
+	      cat $check >> configure.ac
+	      checks_catted="$checks_catted $dep_pkg"
+	    fi
+	  fi
+	fi
+      done
+    done 
+  ) | tsort | tac | tr '\n' ' '
 }
 
 autogen_pkg()
@@ -151,13 +153,13 @@ AC_SUBST(G_WRAP_LIB_DIR, `echo $G_WRAP_MODULE_DIR | sed -e 's|share/guile|lib|'`
 EOF
 
     # package checks
-    pkgs_ordered="$packages"
-    echo "+ sorting package dependencies..."
     for pkg in $packages; do
-	echo "# $pkg" >> configure.ac
-	cat $pkg/package.ac >> configure.ac
-        ensure_dependencies $pkg
+      echo "# $pkg" >> configure.ac
+      cat $pkg/package.ac >> configure.ac
     done
+    
+    echo "+ sorting package dependencies..."
+    pkgs_ordered=`sort_pkgs $packages`
     echo "  $pkgs_ordered"
     
     # postlude

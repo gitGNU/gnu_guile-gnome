@@ -1,3 +1,15 @@
+2004-10-12  Andreas Rottmann  <a.rottmann@gmx.at>
+
+	* autogen-pkg.sh: Use tsort instead of hand-built package
+	sorter. This fixes a bug when defs and defs-extra are both
+	present.
+
+	* autogen.sh: Fix sourcing for shells that don't search the
+	current directory.
+
+	* dev-environ.in: Remove special casing of glib for setting
+	$LD_LIBRARY_PATH, use a new control file shlib-dirs.ac instead.
+
 2004-10-12  Andy Wingo  <wingo@pobox.com>
 
 	* h2def.py (proto_pat): Accept whitespace between the parens and

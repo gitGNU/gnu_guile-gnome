@@ -28,8 +28,8 @@ DIE=0
 package=guile-gobject
 srcfile=autogen-pkg.sh
 
-. autogen-support.sh
-. autogen-pkg.sh
+. ./autogen-support.sh
+. ./autogen-pkg.sh
 
 CONFIGURE_DEF_OPT='--enable-maintainer-mode'
 
