@@ -1,3 +1,16 @@
+2004-09-16  Andy Wingo  <wingo@pobox.com>
+
+	* AUTHORS: Add update-inventories to my AUTHORS list.
+
+	* Makefile.am (EXTRA_DIST): No more old release notes.
+
+	* RELEASE-NOTES-0.2.0.txt, RELEASE-NOTES-0.5.0.txt: Moved to the
+	docs category.
+
+	* NEWS: Distilled.
+
+	* README: Updated.
+
 2004-09-15  Andy Wingo  <wingo@pobox.com>
 
 	* scripts/update-inventories: New script, will create

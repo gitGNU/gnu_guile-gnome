@@ -28,6 +28,8 @@ In the toplevel directory, wrote:
     autogen.sh dev-environ.in RELEASE-NOTES-0.5.0.txt
 In the toplevel directory, changes to:
     autogen-pkg.sh
+In the directory scripts/, wrote:
+    update-inventories
 
 Thomas Van der Stichele:
 In the toplevel directory, wrote:
