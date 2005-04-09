@@ -1,3 +1,10 @@
+2005-04-09  Andreas Rottmann  <a.rottmann@gmx.at>
+
+	* dev-environ.in: Set LTDL_LIBRARY_PATH instead of
+	LD_LIBRARY_PATH.
+
+	* h2def.py (find_enum_defs): Allow digits in enum names.
+
 2005-02-24  Andreas Rottmann  <a.rottmann@gmx.at>
 
 	* scripts/commit-all: Only commit when ChangeLog has been touched,

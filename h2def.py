@@ -170,7 +170,7 @@ def find_enum_defs(buf, enums=[]):
 
     buf = re.sub('\n', ' ', buf)
     
-    enum_pat = re.compile(r'enum\s*{([^}]*)}\s*([A-Z][A-Za-z]*)(\s|;)')
+    enum_pat = re.compile(r'enum\s*{([^}]*)}\s*([A-Z][A-Za-z0-9]*)(\s|;)')
     splitter = re.compile(r'\s*,\s', re.MULTILINE)
     pos = 0
     while pos < len(buf):
