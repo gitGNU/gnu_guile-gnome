@@ -1,12 +1,20 @@
 guile-gnome-pkg NEWS --- history of user-visible changes.
 Copyright (C) 2004,2005 Free Software Foundation, Inc.
 See the end for copying conditions of this file.
-Last updated 11 Jan 2005.
+Last updated 06 Mar 2005.
 
 
 guile-gnome-pkg is the umbrella package for guile-gnome, which can
 contain any number of sub-packages. This file documents the user-visible
 changes in guile-gnome-pkg only.
+
+
+guile-gnome-pkg 2.7.99 - Andy Wingo, 2005-03-06
+===============================================
+
+* Require g-wrap >= 1.9.4.
+
+* Add a general option to disable wrapping deprecated functions.
 
 
 guile-gnome-pkg 2.7.98 - Andy Wingo, 2005-01-11

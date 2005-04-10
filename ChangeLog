@@ -5,6 +5,19 @@
 
 	* h2def.py (find_enum_defs): Allow digits in enum names.
 
+2005-03-06  Andy Wingo  <wingo@pobox.com>
+
+	* scripts/make-release-note: Tweak evil regexps to correctly parse
+	the NEWS files.
+
+	* == Released guile-gnome-platform version 2.7.99 ==
+
+2005-02-17  Andy Wingo  <wingo@pobox.com>
+
+	* autogen-pkg.sh (GUILE_LIBS): Require g-wrap >= 1.9.4.
+	(DISABLE_DEPRECATED): Add a general option to disable deprecated
+	cflags.
+
 2005-02-24  Andreas Rottmann  <a.rottmann@gmx.at>
 
 	* scripts/commit-all: Only commit when ChangeLog has been touched,
@@ -20,12 +33,6 @@
 	e.g. unsigned long.
 
 	* common.mk (packages): Make out-of-tree-build-safe.
-
-2005-02-17  Andy Wingo  <wingo@pobox.com>
-
-	* autogen-pkg.sh (GUILE_LIBS): Require g-wrap >= 1.9.4.
-	(DISABLE_DEPRECATED): Add a general option to disable deprecated
-	cflags.
 
 2005-01-12  Andy Wingo  <wingo@pobox.com>
 
