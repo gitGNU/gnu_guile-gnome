@@ -1,8 +1,12 @@
 #!/bin/sh
 
+if test -n "$TLA";
+  TLA=tla
+fi
+
 year=`date +%Y`
 while [ -n "$1" ]; do
-  tla archive-setup "guile-gnome-$1--dev--0"
-  tla tag "guile-gnome-devel@gnu.org--$year/$1--dev--0" "guile-gnome-$1--dev--0"
+  $TLA archive-setup "guile-gnome-$1--dev--0"
+  $TLA tag "guile-gnome-devel@gnu.org--$year/$1--dev--0" "guile-gnome-$1--dev--0"
   shift
 done

@@ -1,0 +1,47 @@
+#!/bin/sh
+
+set -e
+
+if test -z "$TLA"; then
+  TLA=`which tla || which baz`
+fi
+
+usage() {
+  echo "usage: $0 [--full] ARCHIVE-NAME" >&2
+  echo >&2
+  echo "Prints the patches from the current tree missing in ARCHIVE-NAME." >&2
+  exit 1
+}
+
+if test $# -eq 0; then
+  usage
+fi
+
+if test $1 = "--full"; then
+  full=true
+  shift
+else
+  full=false
+fi
+
+test $# -eq 1 || usage
+
+archive=$1
+version=`$TLA parse-package-name $($TLA tree-version)`
+dir=`mktemp -d`
+cwd=`pwd`
+logs1=`mktemp`
+logs2=`mktemp`
+
+$TLA get -s $archive/$version $dir/working-copy
+$TLA logs -f --merges -d $dir/working-copy | grep -v 'merges in' | tr -d ' ' > $logs1
+$TLA logs -f --merges -d . | grep -v 'merges in' | tr -d ' ' > $logs2
+
+if `$full`; then
+  diff -u10000 $logs1 $logs2 | egrep -v '^(@|\+\+\+ |---)' | grep -v 'base-0'
+else
+  diff -u0 $logs1 $logs2 | egrep -v '^(@|\+\+\+ |---)' | grep -v 'base-0'
+fi
+
+rm -f $logs1 $logs2
+rm -rf $dir

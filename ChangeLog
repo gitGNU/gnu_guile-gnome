@@ -1,3 +1,10 @@
+2005-11-04  Andy Wingo  <wingo@pobox.com>
+
+	* scripts/fork-archive-pkgs: Support baz.
+
+	* scripts/patches-missing: New file, prints a list of patches
+	missing from this version in another archive.
+
 2005-03-06  Andy Wingo  <wingo@pobox.com>
 
 	* scripts/make-release-note: Tweak evil regexps to correctly parse
