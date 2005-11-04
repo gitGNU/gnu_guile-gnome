@@ -1,5 +1,9 @@
 2005-11-04  Andy Wingo  <wingo@pobox.com>
 
+	* scripts/patches-missing: Use {arch}/+upstream if available.
+	Don't print diffs any more, just show the patches that are
+	missing. Let --full do a cat-archive-log on the patch.
+
 	* scripts/fork-archive-pkgs: Support baz.
 
 	* scripts/patches-missing: New file, prints a list of patches
