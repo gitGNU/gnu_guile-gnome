@@ -52,7 +52,7 @@ $TLA logs -f --merges -d . | grep -v 'merges in' | tr -d ' ' > $logs2
 diff -u0 $logs1 $logs2 | tee $out >/dev/null
 
 patches=$(cat $out \
-    | egrep -v '^(@|\+\+\+ |---)' \
+    | egrep -v '^(@|\+\+\+ |-)' \
     | grep -v 'base-0' \
     | sed -e 's/^\+//')
 
@@ -61,7 +61,7 @@ if `$full`; then
     $TLA cat-archive-log $i
   done
 else
-  echo $patches
+  for i in $patches; do echo $i; done
 fi
 
 rm -f $logs1 $logs2 $out
