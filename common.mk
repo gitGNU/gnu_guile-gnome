@@ -69,6 +69,6 @@ export GUILE_LOAD_PATH
 	cp $< $@
 
 # Real gnu make foo
-packages = $(filter-out %-uninstalled,$(patsubst %.pc.in,%,$(wildcard *.pc.in)))
+packages = $(filter-out %-uninstalled,$(patsubst %.pc.in,%,$(notdir $(wildcard $(srcdir)/*.pc.in))))
 pcifiles = $(patsubst %,%-@API_VERSION@.pc,$(packages))
 pcufiles = $(patsubst %,%-@API_VERSION@-uninstalled.pc,$(packages))

@@ -170,7 +170,7 @@ def find_enum_defs(buf, enums=[]):
 
     buf = re.sub('\n', ' ', buf)
     
-    enum_pat = re.compile(r'enum\s*{([^}]*)}\s*([A-Z][A-Za-z]*)(\s|;)')
+    enum_pat = re.compile(r'enum\s*{([^}]*)}\s*([A-Z][A-Za-z0-9]*)(\s|;)')
     splitter = re.compile(r'\s*,\s', re.MULTILINE)
     pos = 0
     while pos < len(buf):
@@ -279,7 +279,7 @@ def clean_func(buf):
     return buf
 
 proto_pat=re.compile(r"""
-(?P<ret>(-|\w|\&|\*)+\s*)  # return type
+(?P<ret>(\s|-|\w|\&|\*)+\s*)  # return type
 \s+                        # skip whitespace
 (?P<func>\w+)\s*[(]        # match the function name until the opening (
 \s*                        # skip any whitespace
@@ -299,7 +299,7 @@ def define_func(buf,fp):
                 sys.stderr.write('No match:|%s|\n'%p)
             continue
         func = m.group('func')
-        ret = m.group('ret')
+        ret = string.join(m.group('ret').split() ,"-")
         args=m.group('args')
         args=arg_split_pat.split(args)
         for i in range(len(args)):

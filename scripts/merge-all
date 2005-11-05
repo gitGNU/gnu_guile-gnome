@@ -1,0 +1,28 @@
+#!/bin/sh
+
+archive=$1
+
+# heuristics for category prefix
+if echo $archive | grep -E -q 'guile-gnome'; then
+  cat_prefix=""
+else
+  cat_prefix="guile-gnome-"
+fi
+
+dir=$(cd `dirname $0`/.. && pwd)
+cd $dir
+
+for i in *; do
+    if test -d $i/{arch}; then
+       packages="$packages $i";
+    fi
+done
+
+# include pkg in the list
+packages="$packages ."
+
+for i in $packages; do
+  cat=$(cd $i && tla parse-package-name -c $(tla tree-version))
+  echo "* $i: tla star-merge -t $archive/$cat_prefix$cat--dev--0"
+  (cd $i && tla star-merge -t $archive/$cat_prefix$cat--dev--0)
+done

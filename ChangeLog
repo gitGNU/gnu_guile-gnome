@@ -1,5 +1,7 @@
 2005-11-05  Andy Wingo  <wingo@pobox.com>
 
+	* scripts/fork-archive-pkgs: Work with tla or baz. I think.
+
 	* scripts/upstream-missing: Change to use baz missing, doh.
 	Renamed from patches-missing.
 
@@ -18,6 +20,13 @@
 	* scripts/patches-missing: New file, prints a list of patches
 	missing from this version in another archive.
 
+2005-04-09  Andreas Rottmann  <a.rottmann@gmx.at>
+
+	* dev-environ.in: Set LTDL_LIBRARY_PATH instead of
+	LD_LIBRARY_PATH.
+
+	* h2def.py (find_enum_defs): Allow digits in enum names.
+
 2005-03-06  Andy Wingo  <wingo@pobox.com>
 
 	* scripts/make-release-note: Tweak evil regexps to correctly parse
@@ -30,6 +39,22 @@
 	* autogen-pkg.sh (GUILE_LIBS): Require g-wrap >= 1.9.4.
 	(DISABLE_DEPRECATED): Add a general option to disable deprecated
 	cflags.
+
+2005-02-24  Andreas Rottmann  <a.rottmann@gmx.at>
+
+	* scripts/commit-all: Only commit when ChangeLog has been touched,
+	thus avoiding arch-log-only commits.
+	
+	* scripts/commit-all, scripts/merge-all: New helper scripts.
+
+2005-01-25  Andreas Rottmann  <a.rottmann@gmx.at>
+
+	* configure.ac: Require G-Wrap >= 1.9.4.
+
+	* h2def.py (proto_pat): Fix for return types with spaces,
+	e.g. unsigned long.
+
+	* common.mk (packages): Make out-of-tree-build-safe.
 
 2005-01-12  Andy Wingo  <wingo@pobox.com>
 
@@ -86,6 +111,11 @@
 	load (gnome-@API_VERSION@). This will make sure that, when
 	building against an installed guile-gnome, guile-gnome of the
 	right version is available. My English sucks!
+
+2004-10-13  Andreas Rottmann  <a.rottmann@gmx.at>
+
+	* scripts/fork-archive-pkgs: Use -S option to "tla tag" instead of
+	seperate archive-setup.
 
 2004-10-29  Andy Wingo  <wingo@pobox.com>
 
