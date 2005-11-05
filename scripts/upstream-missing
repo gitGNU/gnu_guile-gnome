@@ -39,30 +39,17 @@ else
 fi
 
 dir=`mktemp -d`
-cwd=`pwd`
-logs1=`mktemp`
-logs2=`mktemp`
-out=`mktemp`
+version=`$TLA tree-version`
 
 $TLA get -s $upstream $dir/working-copy
-$TLA logs -f --merges -d $dir/working-copy | grep -v 'merges in' | tr -d ' ' > $logs1
-$TLA logs -f --merges -d . | grep -v 'merges in' | tr -d ' ' > $logs2
-
-# no idea why i have to use tee here
-diff -u0 $logs1 $logs2 | tee $out >/dev/null
-
-patches=$(cat $out \
-    | egrep -v '^(@|\+\+\+ |-)' \
-    | grep -v 'base-0' \
-    | sed -e 's/^\+//')
+missing=`$TLA missing -d $dir/working-copy $version`
 
 if `$full`; then
-  for i in $patches; do
+  for i in $missing; do
     $TLA cat-archive-log $i
   done
 else
-  for i in $patches; do echo $i; done
+  for i in $missing; do echo $i; done
 fi
 
-rm -f $logs1 $logs2 $out
 rm -rf $dir
