@@ -16,7 +16,7 @@ for f in . *; do
       else
 	pkg="$f"
       fi
-      echo guile-gnome-devel@gnu.org--2004/$pkg--dev--0 > $upstream
+      echo guile-gnome-devel@gnu.org--2005/$pkg--dev--0 > $upstream
     fi
   fi
 done
