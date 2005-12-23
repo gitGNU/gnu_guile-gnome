@@ -1,3 +1,9 @@
+2005-12-22  Andy Wingo  <wingo@pobox.com>
+
+	* scripts/update-inventories: Make tla-agnostic.
+
+	* autogen-pkg.sh: Remove build-dep on SLIB.
+
 2005-11-05  Andy Wingo  <wingo@pobox.com>
 
 	* scripts/fork-archive-pkgs: Work with tla or baz. I think.
