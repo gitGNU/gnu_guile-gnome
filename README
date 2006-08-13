@@ -1,7 +1,7 @@
 guile-gnome-pkg README
-Copyright (C) 2004 Free Software Foundation, Inc.
+Copyright (C) 2004,2006 Free Software Foundation, Inc.
 See the end for copying conditions of this file.
-Last updated 16 September 2004.
+Last updated 13 August 2006.
 
 
 About guile-gnome
@@ -23,8 +23,8 @@ Contact info
 ============
 
   Mailing List: guile-gtk-general@gnu.org
-  Homepage:     http://home.gna.org/guile-gnome/
-  Download:     http://home.gna.org/guile-gnome/download/
+  Homepage:     http://www.gnu.org/software/guile-gnome/
+  Download:     http://www.gnu.org/software/guile-gnome/download/
 
 
 Build dependencies
@@ -65,7 +65,7 @@ see the documentation in the subdirectories.
 Copying this file
 =================
 
-Copyright (C) 2004 Free Software Foundation, Inc.
+Copyright (C) 2004,2006 Free Software Foundation, Inc.
 
 Copying and distribution of this file, with or without modification, are
 permitted in any medium without royalty provided the copyright notice
