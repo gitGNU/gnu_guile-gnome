@@ -1,6 +1,6 @@
 include $(top_srcdir)/common.mk
 
-SUBDIRS = overrides
+SUBDIRS = defs overrides
 
 guilemodule_DATA = 
 
@@ -10,4 +10,4 @@ SUBDIRS += gw
 endif
 
 EXTRA_DIST = source-view.scm
-DIST_SUBDIRS = gw overrides
+DIST_SUBDIRS = defs gw overrides
