@@ -128,7 +128,7 @@ autogen_pkg()
         echo "For example, to check out the source packages for "
         echo "guile-gnome-platform, try:"
         echo
-        echo "  ./scripts/pull-packages guile-gnome-platform"
+        echo "  ./scripts/get-packages guile-gnome-platform"
         echo
         exit 1
     fi

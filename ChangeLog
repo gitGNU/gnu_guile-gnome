@@ -1,5 +1,9 @@
 2006-08-13  Andy Wingo  <wingo@pobox.com>
 
+	* HACKING: 
+	* autogen-pkg.sh (release_manager): It's get-packages, not
+	pull-packages.
+
 	* README: 
 	* HACKING: Updated.
 

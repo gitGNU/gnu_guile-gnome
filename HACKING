@@ -30,7 +30,7 @@ To configure the directory you just fetched as guile-gnome-platform, try
 the following script:
 
    $ cd guile-gnome
-   $ scripts/fetch-packages guile-gnome-platform
+   $ scripts/get-packages guile-gnome-platform
 
 That will check out the GNOME platform modules into the guile-gnome/
 directory. At that point you can run `./autogen.sh --prefix=/usr &&
