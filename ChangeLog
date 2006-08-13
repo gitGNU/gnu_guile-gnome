@@ -1,5 +1,8 @@
 2006-08-13  Andy Wingo  <wingo@pobox.com>
 
+	* PACKAGES (guile-gnome-evolution-data-server): Add some more
+	packages.
+
 	* HACKING: 
 	* autogen-pkg.sh (release_manager): It's get-packages, not
 	pull-packages.
