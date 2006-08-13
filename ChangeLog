@@ -1,5 +1,11 @@
 2006-08-13  Andy Wingo  <wingo@pobox.com>
 
+	* scripts/push-packages: New scripts, pushes all your packages
+	somewhere.
+	* scripts/pull-packages: New script, does bzr merge for all
+	branches.
+	* scripts/get-packages: Moved here from pull-packages.
+
 	* PACKAGES: New file, lists what packages can be built.
 
 	* scripts/pull-packages: New script, pulls in sub-packages.
