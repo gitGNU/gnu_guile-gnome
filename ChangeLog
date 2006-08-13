@@ -1,3 +1,31 @@
+2005-12-22  Andy Wingo  <wingo@pobox.com>
+
+	* scripts/update-inventories: Make tla-agnostic.
+
+	* autogen-pkg.sh: Remove build-dep on SLIB.
+
+2005-11-05  Andy Wingo  <wingo@pobox.com>
+
+	* scripts/fork-archive-pkgs: Work with tla or baz. I think.
+
+	* scripts/upstream-missing: Change to use baz missing, doh.
+	Renamed from patches-missing.
+
+2005-11-04  Andy Wingo  <wingo@pobox.com>
+
+	* scripts/patches-missing: Don't do anything about patches in
+	upstream but not in the local copy. Handle the no-diff case
+	better. Better non-full output.
+
+	* scripts/patches-missing: Use {arch}/+upstream if available.
+	Don't print diffs any more, just show the patches that are
+	missing. Let --full do a cat-archive-log on the patch.
+
+	* scripts/fork-archive-pkgs: Support baz.
+
+	* scripts/patches-missing: New file, prints a list of patches
+	missing from this version in another archive.
+
 2005-04-09  Andreas Rottmann  <a.rottmann@gmx.at>
 
 	* dev-environ.in: Set LTDL_LIBRARY_PATH instead of
