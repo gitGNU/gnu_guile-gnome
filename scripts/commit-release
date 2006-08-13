@@ -19,7 +19,7 @@ for i in `find . -name VERSION`; do
 done
 
 for i in *; do
-    if test -d $i/{arch}; then
+    if test -d $i/.bzr; then
        packages="$packages $i";
     fi
 done
@@ -29,5 +29,5 @@ packages="$packages ."
 
 for i in $packages; do
     ./scripts/changelog-log-release $i $package $version
-    baz commit -d $i -s "Released $package $version"
+    (cd $i && bzr commit -m "Released $package $version")
 done

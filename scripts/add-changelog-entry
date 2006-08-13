@@ -25,7 +25,7 @@ changelog=$changelog_path/ChangeLog
 
 mv $changelog ${changelog}.old
 echo -n `date +"%Y-%m-%d"` > $changelog
-echo "  `tla my-id | sed -e 's,<, <,'`" >> $changelog
+echo "  `bzr whoami | sed -e 's,<, <,'`" >> $changelog
 echo >> $changelog
 IFS="
 "

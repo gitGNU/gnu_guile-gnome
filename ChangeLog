@@ -1,5 +1,25 @@
 2006-08-13  Andy Wingo  <wingo@pobox.com>
 
+	* scripts/upstream-missing:
+	* scripts/update-inventories: 
+	* scripts/submit-merge: Removed.
+
+	* scripts/release-config: Removed, but we don't have anything to
+	replace it yet; perhaps branch-mark is what we need?
+
+	* scripts/merge-all: 
+	* scripts/fork-archive-pkgs: Removed, thank god.
+	* scripts/commit-all-merges: 
+	* scripts/commit-all: Removed.
+
+	* scripts/prepare-release:
+	* scripts/prepare-news-entry:
+	* scripts/make-release-note:
+	* scripts/for-each-pkg:
+	* scripts/commit-release:
+	* scripts/changelog-log-release:
+	* scripts/add-changelog-entry: tla->bzr.
+
 	* scripts/push-packages: New scripts, pushes all your packages
 	somewhere.
 	* scripts/pull-packages: New script, does bzr merge for all

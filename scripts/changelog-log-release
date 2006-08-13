@@ -14,7 +14,7 @@ test -f ChangeLog || ( echo "no ChangeLog in $dir">&2; exit 1 )
 
 mv ChangeLog ChangeLog.old
 echo -n `date +"%Y-%m-%d"` > ChangeLog
-echo "  `tla my-id | sed -e 's,<, <,'`" >> ChangeLog
+echo "  `bzr whoami | sed -e 's,<, <,'`" >> ChangeLog
 echo >> ChangeLog
 echo -e "\t* == Released $package version $version ==\n" >> ChangeLog
 cat ChangeLog.old >> ChangeLog

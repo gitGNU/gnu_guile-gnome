@@ -8,7 +8,7 @@ echo "* for-each-pkg in $dir"
 cd $dir
 
 for i in *; do
-    if test -d $i/{arch}; then
+    if test -d $i/.bzr; then
        packages="$packages $i";
     fi
 done
