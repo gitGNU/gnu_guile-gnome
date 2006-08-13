@@ -1,3 +1,13 @@
+2006-08-13  Andy Wingo  <wingo@pobox.com>
+
+	* PACKAGES: New file, lists what packages can be built.
+
+	* scripts/pull-packages: New script, pulls in sub-packages.
+
+	* autogen-pkg.sh (determine_package, autogen_pkg): Figure out our
+	configuration from the directories in ./, not from ../=RELEASE-ID.
+	We are free of tla, yay.
+
 2005-12-22  Andy Wingo  <wingo@pobox.com>
 
 	* scripts/update-inventories: Make tla-agnostic.

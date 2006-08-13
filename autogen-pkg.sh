@@ -21,10 +21,9 @@
 pkgs_ordered=""
 checks_catted=""
 
-# Defines the subdir of ../configs/ from which releases are made.
-# Packages that aren't from these configs will carry a date and releaser
-# stamp.
-release_manager="wingo"
+# Defines the release manager. Packages from someone else will carry a
+# date and releaser stamp.
+release_manager="Andy Wingo"
 
 sort_pkgs()
 {
@@ -85,18 +84,31 @@ get_version()
     esac
 }
 
+determine_package()
+{
+    local packages="$@"
+
+    while read line; do
+        if echo $line | egrep -q '^(#.*|[[:space:]]*)$'; then
+            continue
+        elif echo $line | egrep -qv '^[[:space:]]*[[:alnum:]_-]+:.*$'; then
+            echo "Warning: bad PACKAGES statement: $line">&2
+            continue
+        fi
+        package=`echo $line|sed -re 's/^[[:space:]]*([[:alnum:]_-]+):.*$/\\1/'`
+        subpackages=`echo $line|sed -re 's/^[^:]*:(.*)$/\\1/'`
+        subpackages=`for p in $subpackages; do echo $p; done | sort | xargs echo`
+        if test "$packages" = "$subpackages"; then
+            return
+        fi
+    done < PACKAGES
+    echo "Warning: package set '$packages' does not form a source package; configuring as guile-gnome-custom"
+    package=guile-gnome-custom
+}
+    
 autogen_pkg()
 {
     # Check and parse release ID
-    if [ ! -f ../=RELEASE-ID ]; then
-	echo "no ../=RELEASE-ID file - you must run tla build-config -r"
-	exit 1
-    fi
-    pkg_source=`awk 'BEGIN { FS = "[()]"; } /.*@.*\/.*\(.*\)/ { n = split($2, parts, "/"); print parts[n] " " parts[n - 1]; }' < ../=RELEASE-ID`
-    pkg=`echo $pkg_source | awk '{ print $1 }'`
-    source=`echo $pkg_source | awk '{ print $2 }'`
-    package="guile-gnome-$pkg";
-
     # Figure out list of packages
     packages=""
     pkgs_path="."
@@ -105,10 +117,27 @@ autogen_pkg()
 	    packages="$packages $dir"
 	fi
     done
+    if test -z "$packages"; then
+        echo "No sub-packages present in source tree."
+        echo
+        echo "You probably just pulled this branch from bzr. Guile-GNOME can"
+        echo "be configured to build many different packages, as listed in"
+        echo "PACKAGES. To pull those packages from the net, try the scripts"
+        echo "in ./scripts/."
+        echo
+        echo "For example, to check out the source packages for "
+        echo "guile-gnome-platform, try:"
+        echo
+        echo "  ./scripts/pull-packages guile-gnome-platform"
+        echo
+        exit 1
+    fi
+    packages=`for p in $packages; do echo $p; done | sort | xargs echo`
+    determine_package $packages
 
     # versioning
     get_version $packages
-    if test "$source" != "$release_manager"; then
+    if bzr whoami | grep -qv "$release_manager"; then
         version="$version+$source";
     fi
     

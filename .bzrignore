@@ -1,6 +1,7 @@
 ./Makefile.am
 Makefile.in
-autoregen.sh
+Makefile
+./autoregen.sh
 ./compile
 ./config.guess
 ./configure
@@ -10,3 +11,4 @@ autoregen.sh
 ./libtool
 ./ltmain.sh
 ./missing
+./dev-environ
