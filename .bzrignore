@@ -1,0 +1,12 @@
+./Makefile.am
+Makefile.in
+autoregen.sh
+./compile
+./config.guess
+./configure
+./configure.ac
+./depcomp
+./install-sh
+./libtool
+./ltmain.sh
+./missing
