@@ -1,5 +1,15 @@
 2006-08-13  Andy Wingo  <wingo@pobox.com>
 
+	* scripts/prepare-release:
+	* scripts/prepare-news-entry:
+	* scripts/make-release-note:
+	* scripts/for-each-pkg:
+	* scripts/commit-release:
+	* scripts/changelog-log-release:
+	* scripts/add-changelog-entry: Moved to scripts/maint/.
+
+2006-08-13  Andy Wingo  <wingo@pobox.com>
+
 	* scripts/upstream-missing:
 	* scripts/update-inventories: 
 	* scripts/submit-merge: Removed.
