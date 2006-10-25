@@ -1,3 +1,7 @@
+2006-10-26  Andy Wingo  <wingo@pobox.com>
+
+	* autogen.sh: We seem to require bash for the moment.
+
 2006-08-13  Andy Wingo  <wingo@pobox.com>
 
 	* PACKAGES (guile-gnome-evolution-data-server): Add some more
