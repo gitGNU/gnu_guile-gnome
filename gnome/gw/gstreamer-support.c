@@ -8,204 +8,79 @@
 
 
 /***********************************************************************
- * GstBin
- */
-
-static GQuark quark_iterator = 0;
-
-void
-gst_bin_attach_iterator (GstBin *bin) 
-{
-  if (!quark_iterator)
-    quark_iterator = g_quark_from_static_string ("%bin-iterator");
-
-  /* FIXME: do I need to ref the bin? */
-  g_object_set_qdata_full ((GObject*)bin,
-                           quark_iterator,
-                           GINT_TO_POINTER (g_idle_add ((GSourceFunc)gst_bin_iterate,
-                                                        bin)),
-                           (GDestroyNotify)g_source_remove);
-}
-
-void
-gst_bin_remove_iterator (GstBin *bin) 
-{
-  guint source_id = 0;
-
-  if (quark_iterator)
-    source_id = GPOINTER_TO_INT (g_object_get_qdata ((GObject*)bin, quark_iterator));
-
-  if (!source_id)
-    GRUNTIME_ERROR ("Bin has no iterator attached", "gst-bin-remove-iterator",
-                    SCM_BOOL_F);
-
-  g_object_set_qdata ((GObject*)bin, quark_iterator, NULL);
-}
-
-
-/***********************************************************************
  * GstBuffer
  */
 
-/* Silly function used not to modify the semantics of the silly
- * prototype system in order to be backward compatible.
- */
-static int
-singp (SCM obj)
-{
-  if (!SCM_SLOPPY_REALP (obj))
-    return 0;
-  else
-    {
-      double x = SCM_REAL_VALUE (obj);
-      float fx = x;
-      return (- SCM_FLTMAX < x) && (x < SCM_FLTMAX) && (fx == x);
-    }
-}
+typedef SCM (*uvec_proc)(void*data, size_t n);
+struct uvec_wrapper {
+  const char *sym;
+  uvec_proc proc;
+  int bits;
+};
+
+static const struct uvec_wrapper uvec_wrappers[] =
+{{"u8", (uvec_proc)scm_take_u8vector, 8},
+ {"s8", (uvec_proc)scm_take_s8vector, 8},
+ {"u16", (uvec_proc)scm_take_u16vector, 16},
+ {"s16", (uvec_proc)scm_take_s16vector, 16},
+ {"u32", (uvec_proc)scm_take_u32vector, 32},
+ {"s32", (uvec_proc)scm_take_s32vector, 32},
+ {"u64", (uvec_proc)scm_take_u64vector, 64},
+ {"s64", (uvec_proc)scm_take_s64vector, 64},
+ {"f32", (uvec_proc)scm_take_f32vector, 32},
+ {"f64", (uvec_proc)scm_take_f64vector, 64}};
 
 /* code stolen from unif.c:scm_make_uve */
 SCM
 _wrap_gst_buffer_get_data (GstBuffer *buf, SCM prot)
 #define FUNC_NAME "gst-buffer-get-data"
 {
-  SCM v;
-  long i, type, k;
+  guint size, i;
+  void *data;
 
   if (GST_BUFFER_SIZE (buf) == 0 || GST_BUFFER_DATA (buf) == NULL)
     return SCM_BOOL_F;
 
-  i = GST_BUFFER_SIZE (buf);
+  
+  size = GST_BUFFER_SIZE (buf);
+  data = GST_BUFFER_DATA (buf);
+  
+  for (i=0; i<G_N_ELEMENTS(uvec_wrappers); i++) {
+    struct uvec_wrapper wrapper = uvec_wrappers[i];
+    if (scm_is_eq (prot, scm_from_locale_symbol (wrapper.sym)))
+      /* copy :-( */
+      return wrapper.proc (data, i / (wrapper.bits/8));
+  }
 
-  if (SCM_EQ_P (prot, SCM_BOOL_T))
-    {
-      GRUNTIME_ERROR ("Sorry, can't represent a GstBuffer as a bit vector.",
-                      "gst-buffer-get-data", SCM_EOL);
-    }
-  else if (SCM_CHARP (prot))
-    {
-      k = i / sizeof (char);
-      type = scm_tc7_byvect;
-    }
-  else if (SCM_INUMP (prot))
-    {
-      k = i / sizeof (long);
-      if (SCM_INUM (prot) > 0)
-	type = scm_tc7_uvect;
-      else
-	type = scm_tc7_ivect;
-    }
-  else if (SCM_SYMBOLP (prot) && (1 == SCM_SYMBOL_LENGTH (prot)))
-    {
-      char s;
-
-      s = SCM_SYMBOL_CHARS (prot)[0];
-      if (s == 's')
-	{
-	  k = i / sizeof (short);
-	  type = scm_tc7_svect;
-	}
-      else if (s == 'l')
-	{
-	  k = i / sizeof (long long);
-	  type = scm_tc7_llvect;
-	}
-      else
-	{
-          GRUNTIME_ERROR ("Sorry, non-uniform vectors are not supported.",
-                          "gst-buffer-get-data", SCM_EOL);
-	}
-    }
-  else if (!SCM_INEXACTP (prot))
-    {
-      GRUNTIME_ERROR ("Sorry, non-uniform vectors are not supported.",
-                      "gst-buffer-get-data", SCM_EOL);
-    }
-  else if (singp (prot))
-    {
-      k = i / sizeof (float);
-      type = scm_tc7_fvect;
-    }
-  else if (SCM_COMPLEXP (prot))
-    {
-      k = i / 2 / sizeof (double);
-      type = scm_tc7_cvect;
-    }
-  else
-    {
-      k = i / sizeof (double);
-      type = scm_tc7_dvect;
-    }
-
-  SCM_ASSERT_RANGE (1, scm_long2num (k), k <= SCM_UVECTOR_MAX_LENGTH);
-
-  if (i % k)
-    GRUNTIME_ERROR ("The length of this buffer is not cleanly divisable by the specified prototype.",
-                    "gst-buffer-get-data", scm_long2num (i));
-
-  SCM_NEWCELL (v);
-  SCM_DEFER_INTS;
-  SCM_SET_UVECTOR_BASE (v, GST_BUFFER_DATA (buf));
-  SCM_SET_UVECTOR_LENGTH (v, k, type);
-  SCM_ALLOW_INTS;
-  return scm_gc_protect_object (v); /* a hack memleak until other issues are
-                                     * solved */
-
-  /* memory management issues:
-     1) need to protect the data from being freed -- it does not belong to the
-        vector.
-     2) the vector may not be accessed after gst_pad_push is called.
-  */
+  GRUNTIME_ERROR ("Unrecognized format specifier.",
+                  "gst-buffer-get-data", SCM_EOL);
 }
 #undef FUNC_NAME
 
 void
 _wrap_gst_buffer_set_data (GstBuffer *buf, SCM uvect)
 {
-  long width;
+  scm_t_array_handle handle;
+  const void *data = NULL;
+  size_t len = 0;
+  ssize_t inc = 0;
   
-  switch (SCM_TYP7 (uvect)) {
-  case scm_tc7_byvect:
-    width = sizeof (char);
-    break;
-  case scm_tc7_uvect:
-  case scm_tc7_ivect:
-    width = sizeof (long);
-    break;
-  case scm_tc7_svect:
-    width = sizeof (short);
-    break;
-  case scm_tc7_llvect:
-    width = sizeof (long long);
-    break;
-  case scm_tc7_fvect:
-    width = sizeof (float);
-    break;
-  case scm_tc7_dvect:
-    width = sizeof (double);
-    break;
-  case scm_tc7_cvect:
-    width = 2 * sizeof (double);
-    break;
-  default:
-    GRUNTIME_ERROR ("Invalid uniform vector type.", "gst-buffer-set-data", uvect);
-  }
+  if (!scm_is_uniform_vector (uvect))
+    GRUNTIME_ERROR ("Data must be a uniform vector.",
+                    "gst-buffer-set-data", uvect);
 
-  GST_BUFFER_DATA (buf) = SCM_UVECTOR_BASE (uvect);
-  GST_BUFFER_SIZE (buf) = SCM_UVECTOR_LENGTH (uvect) * width;
-  /* temporary hack: we need our own bufferpool really */
-  GST_BUFFER_FLAG_SET (buf, GST_BUFFER_DONTFREE);
-  /* memory management issues:
-     either we
-       1) hold a reference on the vector passed in until the buffer is unreffed
-       2) forget about the vector itself, just protect the data so it can be
-          freed by gstreamer
-     
-     i guess it really depends on where the data comes from, whether it's
-     originating in C or scheme. not sure what to do on this one.
+  data = scm_uniform_vector_elements (uvect, &handle, &len, &inc);
 
-     for now we can hack in a memleak and keep a hold on the vector.
-  */
-  scm_gc_protect_object (uvect);
+  if (GST_BUFFER_MALLOCDATA (buf))
+    g_free (GST_BUFFER_MALLOCDATA (buf));
+
+  if (data && len)
+    GST_BUFFER_DATA (buf) = g_memdup (data, (guint)(len * inc));
+  else
+    GST_BUFFER_DATA (buf) = NULL;
+  
+  GST_BUFFER_MALLOCDATA (buf) = GST_BUFFER_DATA (buf);
+  GST_BUFFER_SIZE (buf) = (guint)(len * inc);
 }
 
 
@@ -217,7 +92,7 @@ static gboolean
 call_async_clock_wait (GstClock *clock, GstClockTime time, GstClockID id, SCM closure)
 {
   /* should pass the clock as well... */
-  return SCM_NFALSEP (scm_call_1 (scm_gc_unprotect_object (closure),
+  return SCM_NFALSEP (scm_call_1 (scm_glib_gc_unprotect_object (closure),
                                   scm_ulong_long2num (time)));
 }
 
@@ -226,7 +101,7 @@ _wrap_gst_clock_id_wait_async (GstClockID id,
                                SCM callback)
 {
   return gst_clock_id_wait_async (id, (GstClockCallback)call_async_clock_wait,
-                                  SCM_PACK (scm_gc_protect_object (callback)));
+                                  SCM_PACK (scm_glib_gc_protect_object (callback)));
 }
 
 
@@ -357,45 +232,68 @@ gst_debug_use_custom_handler (void)
  */
 
 typedef struct {
-  SCM link_function;
+  SCM setcaps_function;
   SCM chain_function;
-  SCM get_function;
+  SCM getrange_function;
 } GuileGstPadPrivate;
+
+static void
+free_pad_private (gpointer data)
+{
+  GuileGstPadPrivate *private = data;
+
+  if (scm_is_true (private->setcaps_function))
+    scm_glib_gc_unprotect_object (private->setcaps_function);
+  
+  if (scm_is_true (private->getrange_function))
+    scm_glib_gc_unprotect_object (private->getrange_function);
+  
+  if (scm_is_true (private->chain_function))
+    scm_glib_gc_unprotect_object (private->chain_function);
+}
 
 static GuileGstPadPrivate*
 pad_private(GstPad *pad)
 {
   GuileGstPadPrivate* private;
+  static GQuark padprivate = 0;
 
-  private = (GuileGstPadPrivate*)gst_pad_get_element_private (pad);
-
-  if (!private) {
-    /* FIXME free me sometime... */
+  if (!padprivate)
+    padprivate = g_quark_from_static_string ("%guile-pad-private");
+  
+  private = g_object_get_qdata (G_OBJECT (pad), padprivate);
+  if (private == NULL) {
     private = g_new (GuileGstPadPrivate, 1);
-    private->link_function = SCM_BOOL_F;
+    private->setcaps_function = SCM_BOOL_F;
     private->chain_function = SCM_BOOL_F;
-    private->get_function = SCM_BOOL_F;
-    gst_pad_set_element_private (pad, private);
+    private->getrange_function = SCM_BOOL_F;
+    g_object_set_qdata_full (G_OBJECT (pad), padprivate, private,
+                             free_pad_private);
   }
 
   return private;
 }
 
-static void
-call_chain_function(GstPad *pad, GstData* data)
+static GstFlowReturn
+call_chain_function (GstPad *pad, GstBuffer* buf)
 {
-  SCM scm_data;
+  SCM scm_buf, ret;
   GuileGstPadPrivate *private;
+  GValue *tmp;
+  GstFlowReturn fret;
   
   private = pad_private (pad);
-  /* even though it's really a GstData, there's no GstData type (right now, at
-     least) */
-  scm_data = scm_c_make_gvalue (GST_TYPE_BUFFER);
-  g_value_set_boxed ((GValue*)SCM_SMOB_DATA (scm_data), data);
+  scm_buf = scm_c_make_gvalue (GST_TYPE_BUFFER);
+  g_value_set_boxed ((GValue*)SCM_SMOB_DATA (scm_buf), buf);
 
-  scm_call_2 (private->chain_function,
-              scm_c_gtype_instance_to_scm ((GTypeInstance*)pad),
-              scm_data);
+  ret = scm_call_2 (private->chain_function,
+                    scm_c_gtype_instance_to_scm ((GTypeInstance*)pad),
+                    scm_buf);
+  tmp = scm_c_scm_to_gvalue (GST_TYPE_FLOW_RETURN, ret);
+  fret = g_value_get_enum (tmp);
+  g_value_unset (tmp);
+  g_free (tmp);
+  return fret;
 }
 
 void
@@ -408,56 +306,59 @@ _wrap_gst_pad_set_chain_function (GstPad *pad, SCM chain_function)
 
   private = pad_private (pad);
   if (SCM_NFALSEP (private->chain_function))
-    scm_gc_unprotect_object (private->chain_function);
+    scm_glib_gc_unprotect_object (private->chain_function);
 
-  private->chain_function = scm_gc_protect_object (chain_function);
+  private->chain_function = scm_glib_gc_protect_object (chain_function);
 
   gst_pad_set_chain_function ((GstPad*)pad, call_chain_function);
 #undef FUNC_NAME
 }
 
-static GstData*
-call_get_function (GstPad *pad)
+static GstFlowReturn
+call_getrange_function (GstPad *pad, guint64 offset, guint len, GstBuffer **buf)
 {
   SCM ret;
   GuileGstPadPrivate *private;
+  GValue *tmp;
+  GstFlowReturn fret;
   
   private = pad_private (pad);
-
-  ret = scm_call_1 (private->get_function,
-                    scm_c_gtype_instance_to_scm ((GTypeInstance*)pad));
-  if (SCM_TYP16_PREDICATE (scm_tc16_gvalue, ret)
-      /* we check specifically for buffers and events, as boxed types don't know
-         anything about inheritance */
-      && (G_VALUE_HOLDS ((GValue*)SCM_SMOB_DATA (ret), GST_TYPE_BUFFER)
-          || G_VALUE_HOLDS ((GValue*)SCM_SMOB_DATA (ret), GST_TYPE_EVENT)))
-    return (GstData*) (g_value_get_boxed ((GValue*)SCM_SMOB_DATA (ret)));
-  
-  GRUNTIME_ERROR ("Return from pad's get function should be a GstBuffer or a GstEvent",
-                  "%gst-pad-get-function", ret);
-  return NULL;
+  ret = scm_call_2 (private->getrange_function,
+                    scm_from_uint64 (offset),
+                    scm_from_uint (len));
+  if (SCM_TYP16_PREDICATE (scm_tc16_gtype_instance, ret)) {
+    GTypeInstance *tbuf = (GTypeInstance*)SCM_SMOB_DATA (ret);
+    *buf = (GstBuffer*) tbuf;
+    return GST_FLOW_OK;
+  } else {
+    tmp = scm_c_scm_to_gvalue (GST_TYPE_FLOW_RETURN, ret);
+    fret = g_value_get_enum (tmp);
+    g_value_unset (tmp);
+    g_free (tmp);
+    return fret;
+  }
 }
 
 void
-_wrap_gst_pad_set_get_function (GstPad* pad, SCM get_function)
+_wrap_gst_pad_set_getrange_function (GstPad* pad, SCM getrange_function)
 {
-#define FUNC_NAME "gst-pad-set-chain-function"
+#define FUNC_NAME "gst-pad-set-getrange-function"
   GuileGstPadPrivate *private;
   
-  SCM_VALIDATE_PROC (2, get_function);
+  SCM_VALIDATE_PROC (2, getrange_function);
 
   private = pad_private (pad);
-  if (SCM_NFALSEP (private->get_function))
-    scm_gc_unprotect_object (private->get_function);
+  if (SCM_NFALSEP (private->getrange_function))
+    scm_glib_gc_unprotect_object (private->getrange_function);
 
-  private->get_function = scm_gc_protect_object (get_function);
+  private->getrange_function = scm_glib_gc_protect_object (getrange_function);
 
-  gst_pad_set_get_function (pad, call_get_function);
+  gst_pad_set_getrange_function (pad, call_getrange_function);
 #undef FUNC_NAME
 }
 
-static GstPadLinkReturn
-call_link_function(GstPad *pad, const GstCaps *caps)
+static gboolean
+call_setcaps_function(GstPad *pad, GstCaps *caps)
 {
   SCM scm_caps, ret;
   GuileGstPadPrivate *private = pad_private (pad);
@@ -465,52 +366,32 @@ call_link_function(GstPad *pad, const GstCaps *caps)
   scm_caps = scm_c_make_gvalue (GST_TYPE_CAPS);
   g_value_set_boxed ((GValue*)SCM_SMOB_DATA (scm_caps), caps);
 
-  ret = scm_call_2 (private->link_function,
+  ret = scm_call_2 (private->setcaps_function,
                     scm_c_gtype_instance_to_scm ((GTypeInstance*)pad),
                     scm_caps);
 
-  if (SCM_INUMP (ret))
-    return scm_num2int (ret, 0, "(pad link function)");
-  else if (SCM_SYMBOLP (ret)) {
-    GstPadLinkReturn r;
-    GEnumValue *v = g_enum_get_value_by_name (g_type_class_peek (GST_TYPE_PAD_LINK_RETURN),
-                                              SCM_SYMBOL_CHARS (ret));
-    r = v->value;
-    g_free (v);
-    return r;
-  } else
-    scm_error (scm_str2symbol ("gruntime-error"), "(pad link function)",
-               "Bad link function ~A return value: ~A (should be a symbol or number)",
-               SCM_LIST2 (private->link_function, ret),
-               SCM_EOL);
-
-  return GST_PAD_LINK_REFUSED;
+  return scm_is_true (ret);
 }
 
 void
-_wrap_gst_pad_set_link_function (GstPad *pad, SCM link_function)
+_wrap_gst_pad_set_setcaps_function (GstPad *pad, SCM setcaps_function)
 {
-#define FUNC_NAME "gst-pad-set-link-function"
+#define FUNC_NAME "gst-pad-set-setcaps-function"
   GuileGstPadPrivate *private;
   
-  SCM_VALIDATE_PROC (2, link_function);
+  SCM_VALIDATE_PROC (2, setcaps_function);
 
   private = pad_private (pad);
-  if (SCM_NFALSEP (private->link_function))
-    scm_gc_unprotect_object (private->link_function);
+  if (SCM_NFALSEP (private->setcaps_function))
+    scm_glib_gc_unprotect_object (private->setcaps_function);
 
-  private->link_function = scm_gc_protect_object (link_function);
+  private->setcaps_function = scm_glib_gc_protect_object (setcaps_function);
 
-  gst_pad_set_link_function (pad, call_link_function);
+  gst_pad_set_setcaps_function (pad, call_setcaps_function);
 #undef FUNC_NAME
 }
 
 /* Macro helpers */
-GstPad*
-gst_pad_realize (GstPad *pad)
-{
-  return (GstPad*)GST_PAD_REALIZE (pad);
-}
 const gchar*
 gst_pad_template_get_name_template (GstPadTemplate *templ)
 {

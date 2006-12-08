@@ -1,5 +1,26 @@
 2006-12-08  Andy Wingo  <wingo@pobox.com>
 
+	* gnome/overrides/gstreamer.defs: Remove crufty overrides, add a
+	couple of new ones. Still have a ways to go here, but the wrapper
+	compiles.
+
+	* gnome/gw/gstreamer-support.h: 
+	* gnome/gw/gstreamer-support.c: Remove old cruft; use
+	guile-gobject's gc protect code.
+	(_wrap_gst_buffer_get_data, _wrap_gst_buffer_set_data): Wrap
+	buffers with the new uvects. Requires Guile 1.8.
+	(free_pad_private, pad_private): Set a setcaps and getrange
+	function instead of link and get. Update all to the new
+	prototypes. Make the padprivate a freeable structure.
+
+	* gnome/gw/gstreamer-spec.scm: Update for changes in g-wrap.
+
+	* gnome/defs/gstreamer.defs:
+	* gnome/defs/gstreamer-types.defs: Regenerated defs against
+	GStreamer core 0.10.10.
+
+	* gnome/defs/Makefile.am: Add rule to regen defs.
+
 	* package.ac: Replace 0.8/0.10 infrastructure with 0.10/0.12.
 
 	* guile-gnome-gstreamer.pc.in (Requires):
