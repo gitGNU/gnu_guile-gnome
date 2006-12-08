@@ -299,6 +299,8 @@ gst_guile_debug_logger (GstDebugCategory * category, GstDebugLevel level,
   if (level > gst_debug_category_get_threshold (category))
     return;
 
+  pid = getpid ();
+
   /* color info */
   if (gst_debug_is_colored ()) {
     color =
@@ -317,7 +319,6 @@ gst_guile_debug_logger (GstDebugCategory * category, GstDebugLevel level,
   obj = object ? gst_debug_print_object (object) : g_strdup ("");
 
   if (verbose) {
-    pid = getpid ();
     g_get_current_time (&now);
     g_printerr ("%s (%p - %" GST_TIME_FORMAT
                 ") %s%15s%s(%s%5d%s) %s%s(%d):%s:%s%s %s\n",

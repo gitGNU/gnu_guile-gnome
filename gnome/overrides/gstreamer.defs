@@ -655,4 +655,6 @@
         "gst_props_entry_get"
         "gst_props_get"
         "gst_props_get_safe"
-        "gst_props_entry_new")
+        "gst_props_entry_new"
+        "gst_tag_setter_add_valist_values"
+        "gst_tag_list_add_valist_values")

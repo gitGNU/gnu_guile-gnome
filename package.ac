@@ -1,12 +1,12 @@
 # HAVE_GSTREAMER=false
-# dnl start with 0.9
-# GST_MAJORMINOR=0.9
+# dnl start with 0.11
+# GST_MAJORMINOR=0.11
 # PKG_CHECK_MODULES(GST, gstreamer-$GST_MAJORMINOR,
 # 	HAVE_GSTREAMER=true,HAVE_GSTREAMER=false)
 
-# dnl try 0.8
+# dnl try 0.10
 # if test "$HAVE_GSTREAMER" = "false"; then
- 	GST_MAJORMINOR=0.8
+ 	GST_MAJORMINOR=0.10
  	PKG_CHECK_MODULES(GST, gstreamer-$GST_MAJORMINOR,
  		HAVE_GSTREAMER=true,HAVE_GSTREAMER=false)
 # fi

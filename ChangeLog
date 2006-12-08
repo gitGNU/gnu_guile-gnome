@@ -1,3 +1,23 @@
+2006-12-08  Andy Wingo  <wingo@pobox.com>
+
+	* package.ac: Replace 0.8/0.10 infrastructure with 0.10/0.12.
+
+	* guile-gnome-gstreamer.pc.in (Requires):
+	* guile-gnome-gstreamer-uninstalled.pc.in (Requires): Up
+	guile-gnome version req.
+
+	* gnome/overrides/gstreamer.defs: Add a couple of ignores.
+
+	* gnome/gw/gstreamer-support.c (gst_guile_debug_logger): Fix
+	compile warning.
+
+	* VERSION: Mark as 0.9.90, unstable until we can release 0.10.11
+	or so.
+
+	* TODO: 
+	* README: 
+	* NEWS: Update a bit.
+
 2004-11-13  Andy Wingo  <wingo@pobox.com>
 
 	* Makefile.am: Dist VERSION.

@@ -1,5 +1,5 @@
 guile-gnome-gstreamer NEWS --- history of user-visible changes.
-Copyright (C) 2004 Free Software Foundation, Inc.
+Copyright (C) 2004,2006 Free Software Foundation, Inc.
 See the end for copying conditions of this file.
 Last updated 16 September 2004.
 
@@ -15,7 +15,7 @@ guile-gnome-gstreamer 2.6.0 - Andy Wingo, 2004-09-XX
 * Initial release
 
 
-Copyright (C) 2004 Free Software Foundation, Inc.
+Copyright (C) 2004,2006 Free Software Foundation, Inc.
 
 Copying and distribution of this file, with or without modification, are
 permitted in any medium without royalty provided the copyright notice

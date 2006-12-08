@@ -1,7 +1,0 @@
-
-* wrap gst-caps-get-structure properly (with g_value_set_boxed_static on
-the return val)
-
-* wrap more common widgets (e.g. video widgets, etc)
-
-* wrap gst-editor?
