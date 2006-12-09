@@ -1,3 +1,31 @@
+2006-12-09  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/overrides/gstreamer.defs (gst_caps_new_empty)
+	(gst_caps_new_any): These construct GstCaps, so we take their ref.
+	(set-get-function, set-link-function): => set-getrange-function,
+	set-setcaps-function.
+	(gst-structure-from-string): Wrap without the pointer-to-finish
+	argument, which doesn't map well to scheme.
+
+	* gnome/gw/gstreamer-support.h: 
+	* gnome/gw/gstreamer-support.c: 
+	* gnome/gw/gstreamer-spec.scm (initialize): Add wrap/unwrappers
+	for fourcc, fractions, lists, arrays, and ranges of doubles, ints,
+	and fractions.
+	
+	* gnome/gw/gstreamer-spec.scm (initializations-cg): No more
+	cothreads, no need to muck with the stack setting.
+
+	* gnome/gstreamer.scm (scheme-elements): Use autosizing hash
+	tables.
+	
+	* gnome/gstreamer/debug.scm (debug-caps): 
+	* gnome/gstreamer.scm (make-value, gst-structure-new)
+	(gst-caps-new): 
+	* examples/gstreamer/caps.scm (gst-caps-new): Rework the
+	gst-structure-new minilanguage so it uses gvalue classes and
+	conversions instead of a second namespace.
+
 2006-12-08  Andy Wingo  <wingo@pobox.com>
 
 	* gnome/overrides/gstreamer.defs: Remove crufty overrides, add a

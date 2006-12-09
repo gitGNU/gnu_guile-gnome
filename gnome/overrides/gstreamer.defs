@@ -45,6 +45,20 @@
 
 ;; GstCaps
 
+(define-function gst_caps_new_empty
+  (c-name "gst_caps_new_empty")
+  (overrides "gst_caps_new_empty")
+  (is-constructor-of "GstCaps")
+  (return-type "GstCaps*")
+)
+
+(define-function gst_caps_new_any
+  (c-name "gst_caps_new_any")
+  (overrides "gst_caps_new_any")
+  (is-constructor-of "GstCaps")
+  (return-type "GstCaps*")
+)
+
 (define-method append
   (of-object "GstCaps")
   (c-name "gst_caps_append")
@@ -255,21 +269,21 @@
 
 (define-method set-get-function
   (of-object "GstPad")
-  (c-name "_wrap_gst_pad_set_get_function")
-  (overrides "gst_pad_set_get_function")
+  (c-name "_wrap_gst_pad_set_getrange_function")
+  (overrides "gst_pad_set_getrange_function")
   (return-type "none")
   (parameters
     '("SCM" "get-function")
   )
 )
 
-(define-method set-link-function
+(define-method set-setcaps-function
   (of-object "GstPad")
-  (c-name "_wrap_gst_pad_set_link_function")
-  (overrides "gst_pad_set_link_function")
+  (c-name "_wrap_gst_pad_set_setcaps_function")
+  (overrides "gst_pad_set_setcaps_function")
   (return-type "none")
   (parameters
-    '("SCM" "link-function")
+    '("SCM" "setcaps-function")
   )
 )
 
@@ -382,6 +396,13 @@
   (overrides "gst_structure_foreach")
   (return-type "none")
   (parameters '("SCM" "proc")))
+
+(define-function gst-structure-from-string
+  (c-name "_wrap_gst_structure_from_string")
+  (overrides "gst_structure_from_string")
+  (is-constructor-of "GstStructure")
+  (return-type "GstStructure*")
+  (parameters '("const-gchar*" "string")))
 
 (define-method fixate_field_nearest_fraction
   (of-object "GstStructure")

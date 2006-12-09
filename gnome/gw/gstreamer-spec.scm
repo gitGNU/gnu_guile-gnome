@@ -45,8 +45,6 @@
         "g_log_set_handler (\"GStreamer\", G_LOG_LEVEL_MASK | G_LOG_FLAG_FATAL\n"
         "                   | G_LOG_FLAG_RECURSION, guile_gobject_log_handler,\n"
         "                   NULL);\n"
-        "/* because of gstreamer's cothreads, we have to disable stack checking */\n"
-        (inline-scheme self '(debug-set! stack 0))
         "gst_init (NULL, NULL);\n"))
 
 (define-method (initialize (ws <gstreamer-wrapset>) initargs)
@@ -57,5 +55,22 @@
   (add-type-alias! ws "GstClockTimeDiff" 'unsigned-long-long)
   
   (wrap-gobject-class! ws #:ctype "GstElementClass" #:gtype-id "GST_TYPE_ELEMENT")
+
+  (wrap-custom-gvalue! "GstFourcc" "GST_TYPE_FOURCC"
+                       "scm_from_gst_fourcc" "scm_to_gst_fraction")
+  (wrap-custom-gvalue! "GstFraction" "GST_TYPE_FRACTION"
+                       "scm_from_gst_fraction" "scm_to_gst_fraction")
+
+  (wrap-custom-gvalue! "GstIntRange" "GST_TYPE_INT_RANGE"
+                       "scm_from_gst_int_range" "scm_to_gst_int_range")
+  (wrap-custom-gvalue! "GstDoubleRange" "GST_TYPE_DOUBLE_RANGE"
+                       "scm_from_gst_double_range" "scm_to_gst_double_range")
+  (wrap-custom-gvalue! "GstFractionRange" "GST_TYPE_FRACTION_RANGE"
+                       "scm_from_gst_fraction_range" "scm_to_gst_fraction_range")
+
+  (wrap-custom-gvalue! "GstValueList" "GST_TYPE_LIST"
+                       "scm_from_gst_list" "scm_to_gst_list")
+  (wrap-custom-gvalue! "GstValueArray" "GST_TYPE_ARRAY"
+                       "scm_from_gst_array" "scm_to_gst_array")
 
   (load-defs-with-overrides ws "gnome/defs/gstreamer.defs"))

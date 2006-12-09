@@ -102,104 +102,38 @@ to the specified values during the dynamic extent of @var{body}. As a
 special case, @code{*all*} is interpreted to be the default threshold.")
 (export with-gst-debug)
 
-(define gtype:gst-list (gtype-from-name "GstValueList"))
-(define gtype:gst-fourcc (gtype-from-name "GstFourcc"))
-(define gtype:gst-int-range (gtype-from-name "GstIntRange"))
-(define gtype:gst-double-range (gtype-from-name "GstDoubleRange"))
-;;(gtype->class gtype:gst-list)
-;;(gtype->class gtype:gst-fourcc)
-;;(gtype->class gtype:gst-int-range)
-;;(gtype->class gtype:gst-double-range)
-
-(define simple-types-alist `((int . ,gtype:gint)
-                             (float . ,gtype:gfloat)
-                             (double . ,gtype:gdouble)
-                             (boolean . ,gtype:gboolean)
-                             (string . ,gtype:gchararray)))
-(define custom-types-alist `((fourcc . ,gtype:gst-fourcc)
-                             (int-range . ,gtype:gst-int-range)
-                             (double-range . ,gtype:gst-double-range)))
-(define (make-value cdr-prop)
-  (let ((kind (car cdr-prop))
-        (args (cdr cdr-prop)))
-    (cond
-     ((assq kind simple-types-alist)
-      => (lambda (pair) (apply scm->gvalue (cdr pair) args)))
-     ((assq kind custom-types-alist)
-      => (lambda (pair)
-           (let* ((type (cdr pair))
-                  (ret (gtype-primitive-create-basic-instance type)))
-             (case kind
-               ((fourcc)
-                (apply gst-value-set-fourcc ret args))
-               ((int-range)
-                (apply gst-value-set-int-range ret args))
-               ((double-range)
-                (apply gst-value-set-double-range ret args)))
-             ret)))
-     ((list? kind)
-      ;; The whole thing is a list
-      (let ((ret (gtype-primitive-create-basic-instance gtype:gst-list)))
-        (for-each
-         (lambda (arg)
-           (gst-value-list-append-value ret (make-value arg)))
-         cdr-prop)
-        ret))
-     (else
-      (error "Unknown structure field type: " cdr-prop)))))
+(define (make-value kind arg)
+  (cond
+   ((memv kind (list <gint> <gfloat> <gdouble> <gboolean> <gchararray>
+                     <gst-fourcc> <gst-int-range> <gst-double-range>
+                     <gst-fraction> <gst-fraction-range>))
+    (scm->gvalue (gtype-class->type kind) arg))
+   ((memv kind (list <gst-value-list> <gst-value-array>))
+    (scm->gvalue (gtype-class->type kind)
+                 (map (lambda (x) (make-value (car arg) x)) (cdr arg))))
+   (else
+    (error "Unknown structure field type: " kind))))
     
-(define-public (gst-structure-new name . props)
+(define-public (gst-structure-new name props)
   (let ((struct (gst-structure-empty-new name)))
     (for-each
-     (lambda (prop)
-       (gst-structure-set-value struct (car prop) (make-value (cdr prop))))
+     (lambda (args)
+       (apply
+        (lambda (symname class value)
+          (gst-structure-set-value
+           struct
+           (symbol->string symname)
+           (make-value class value)))
+        args))
      props)
     struct))
 
-(define-public (gst-caps-new mime-type . props)
+(define-public (gst-caps-new mime-type props)
   (let ((caps (gst-caps-new-empty)))
     (gst-caps-append-structure
      caps
-     (apply gst-structure-new mime-type props))
+     (gst-structure-new mime-type props))
     caps))
-
-(define-public (gst-structure->spec structure)
-  (define (find-kind type)
-    (let loop ((pairs (append simple-types-alist
-                              custom-types-alist)))
-      (cond
-       ((null? pairs) 'unknown)
-       ((eq? (cdar pairs) type) (caar pairs))
-       (else (loop (cdr pairs))))))
-  (define (gst-value-list-map proc val)
-    (let loop ((i 0) (ret '()))
-      (if (< i (gst-value-list-get-size val))
-          (loop (1+ i) (cons (process-value (gst-value-list-get-value val i)) ret))
-          (reverse ret))))
-  (define (process-value val)
-    (let* ((type (gvalue->type val))
-           (kind (find-kind type)))
-       (if (eq? type gtype:gst-list)
-           (gst-value-list-map process-value val)
-           (cons
-            kind
-            (case kind
-              ((int-range) (list (gst-value-get-int-range-min val)
-                                 (gst-value-get-int-range-max val)))
-              ((double-range) (list (gst-value-get-double-range-min val)
-                                    (gst-value-get-double-range-max val)))
-              ((fourcc) (list (gst-value-get-fourcc)))
-              (else (list (gvalue->scm val))))))))
-  ;; Hack!
-  (let ((ret '()))
-    (gst-structure-foreach
-     structure
-     (lambda (name val)
-       (let* ((type (gvalue->type val))
-              (kind (find-kind type)))
-         (set! ret (cons (cons name (process-value val))
-                         ret)))))
-    (reverse ret)))
 
 (define-method (add (bin <gst-bin>) . args)
   (for-each (lambda (element) (gst-bin-add bin element)) args))
@@ -225,7 +159,7 @@ special case, @code{*all*} is interpreted to be the default threshold.")
   (let ((peer (get-peer pad)))
     (if peer (unlink pad peer))))
 
-(define scheme-elements (make-hash-table 31))
+(define scheme-elements (make-hash-table))
 
 (define-public (register-new-element class name)
   (hash-create-handle! scheme-elements name class))

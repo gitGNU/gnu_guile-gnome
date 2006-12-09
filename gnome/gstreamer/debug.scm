@@ -1,40 +1,19 @@
 (define-module (gnome gstreamer debug)
   :use-module (gnome gstreamer)
-  ;:use-module (gnome gstreamer config)
-  :use-module (gnome gobject primitives)
+  :use-module (gnome gobject)
   :export     (debug-caps
                debug-notify-handler
                debug-deep-notify-handler))
-
-(define (display-prop prop level)
-  (define (display-value name cdr-prop indent)
-    (format #t "~A~A (~A) ~A\n"
-            indent
-            (if name (string-append name ":") "")
-            (if (list? (car cdr-prop)) "list" (car cdr-prop))
-            (cond
-             ((list? (car cdr-prop)) "(")
-             ((null? (cddr cdr-prop)) (cadr cdr-prop))
-             (else (cdr cdr-prop))))
-    (if (list? (car cdr-prop))
-        (begin
-          (for-each
-           (lambda (cdr-prop)
-             (display-value #f cdr-prop (string-append " " indent)))
-           cdr-prop)
-          (format #t "~A)\n" indent))))
-  (display-value (car prop) (cdr prop)
-                 (apply string-append (make-list level "    "))))
 
 (define (debug-caps caps)
   (let loop ((i 0))
     (if (< i (gst-caps-get-size caps))
         (let ((struct (gst-caps-get-structure caps i)))
           (format #t "mime-type: ~A\n" (gst-structure-get-name struct))
-          (for-each
-           (lambda (prop)
-             (display-prop prop 1))
-           (gst-structure->spec struct))
+          (gst-structure-foreach
+           struct
+           (lambda (k v)
+             (format #t "  ~a: ~a ~a\n" k (gvalue->type v) (gvalue->scm v))))
           (loop (1+ i))))))
 
 (define (debug-notify-handler sender param)

@@ -32,12 +32,12 @@
 (debug-caps
  (gst-caps-new
   "audio/x-raw-int"
-  '("channels" int-range 1 2)
-  '("rate" int-range 8000 192000)
-  '("endianness" (int 1234) (int 4321))
-  '("signed" (boolean #f) (boolean #t))
-  '("depth" int-range 1 32)
-  '("width" (int 8) (int 16) (int 24) (int 32))))
+  `((channels   ,<gst-int-range>  (1 . 2))
+    (rate       ,<gst-int-range>  (8000 . 192000))
+    (endianness ,<gst-value-list> (,<gint> 1234 4321))
+    (signed     ,<gst-value-list> (,<gboolean> #f #t))
+    (depth      ,<gst-int-range>  (1 . 32))
+    (signed     ,<gst-value-list> (,<gint> 8 16 24 32)))))
 
 (newline)
 

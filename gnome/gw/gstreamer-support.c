@@ -1,5 +1,6 @@
 #include "gstreamer-support.h"
 
+#include <string.h> /* strlen */
 #include <unistd.h> /* getpid */
 
 #define GRUNTIME_ERROR(format, func_name, args...) \
@@ -436,3 +437,173 @@ _wrap_gst_structure_for_each (GstStructure *str, SCM proc)
   gst_structure_foreach (str, (GstStructureForeachFunc)struct_for_each_func, proc);
 }
 #undef FUNC_NAME
+
+GstStructure*
+_wrap_gst_structure_from_string (const gchar *str)
+{
+  return gst_structure_from_string (str, NULL);
+}
+
+SCM
+scm_from_gst_fourcc (const GValue *value)
+{
+  return scm_take_locale_string
+    (g_strdup_printf ("%"GST_FOURCC_FORMAT,
+                      GST_FOURCC_ARGS (gst_value_get_fourcc (value))));
+}
+
+void
+scm_to_gst_fourcc (SCM scm, GValue *value)
+{
+  char *str = scm_to_locale_string (scm);
+  g_value_init (value, GST_TYPE_FOURCC);
+  if (strlen (str) >= 4) {
+    gst_value_set_fourcc (value,
+                        GST_STR_FOURCC (str));
+    free (scm);
+  }
+}
+  
+SCM
+scm_from_gst_fraction (const GValue *value)
+{
+  return scm_divide (scm_from_int (gst_value_get_fraction_numerator (value)),
+                     scm_from_int (gst_value_get_fraction_denominator (value)));
+}
+
+void
+scm_to_gst_fraction (SCM scm, GValue *value)
+{
+  g_value_init (value, GST_TYPE_FRACTION);
+  gst_value_set_fraction (value,
+                          scm_to_int (scm_numerator (scm)),
+                          scm_to_int (scm_denominator (scm)));
+}
+  
+SCM
+scm_from_gst_int_range (const GValue *value)
+{
+  return scm_cons (scm_from_int (gst_value_get_int_range_min (value)),
+                   scm_from_int (gst_value_get_int_range_max (value)));
+}
+
+void
+scm_to_gst_int_range (SCM scm, GValue *value)
+{
+  g_value_init (value, GST_TYPE_INT_RANGE);
+  gst_value_set_int_range (value,
+                           scm_to_int (scm_car (scm)),
+                           scm_to_int (scm_cdr (scm)));
+}
+  
+SCM
+scm_from_gst_double_range (const GValue *value)
+{
+  return scm_cons (scm_from_double (gst_value_get_double_range_min (value)),
+                   scm_from_double (gst_value_get_double_range_max (value)));
+}
+
+void
+scm_to_gst_double_range (SCM scm, GValue *value)
+{
+  g_value_init (value, GST_TYPE_DOUBLE_RANGE);
+  gst_value_set_double_range (value,
+                              scm_to_double (scm_car (scm)),
+                              scm_to_double (scm_cdr (scm)));
+}
+  
+SCM
+scm_from_gst_fraction_range (const GValue *value)
+{
+  return scm_cons (scm_from_gst_fraction (gst_value_get_fraction_range_min (value)),
+                   scm_from_gst_fraction (gst_value_get_fraction_range_max (value)));
+}
+
+void
+scm_to_gst_fraction_range (SCM scm, GValue *value)
+{
+  g_value_init (value, GST_TYPE_FRACTION_RANGE);
+  gst_value_set_fraction_range_full (value,
+                                     scm_to_int (scm_numerator (scm_car (scm))),
+                                     scm_to_int (scm_denominator (scm_car (scm))),
+                                     scm_to_int (scm_numerator (scm_cdr (scm))),
+                                     scm_to_int (scm_denominator (scm_cdr (scm))));
+}
+  
+SCM
+scm_from_gst_list (const GValue *value)
+{
+  SCM ret = SCM_EOL;
+  guint i;
+  for (i = gst_value_list_get_size (value); i > 0; i--) {
+    ret = scm_cons (scm_c_gvalue_to_scm (gst_value_list_get_value (value, i-1)),
+                    ret);
+  }
+  return ret;
+}
+
+void
+scm_to_gst_list (SCM scm, GValue *value)
+{
+  SCM head = scm;
+
+  g_value_init (value, GST_TYPE_LIST);
+
+  for (scm = head; !scm_is_null (scm); scm = scm_cdr (scm)) {
+    if (scm_is_false (scm_gvalue_p (scm_car (scm))))
+      /* we require all values in a list to already have been coerced; otherwise
+         there's no sane way to sniff the types... */
+      return;
+  }
+  
+  for (scm = head; !scm_is_null (scm); scm = scm_cdr (scm)) {
+    GValue *v = NULL;
+    /* note: this does *not* actually copy the value. good in this case but a
+     * crack api... */
+#define FUNC_NAME "%scm->gst-list"
+    SCM_VALIDATE_GVALUE_COPY (0, scm_car (scm), v);
+#undef FUNC_NAME
+    gst_value_list_append_value (value, v);
+  }
+}
+  
+SCM
+scm_from_gst_array (const GValue *value)
+{
+  SCM ret;
+  guint i, size = gst_value_array_get_size (value);
+
+  ret = scm_c_make_vector (size, SCM_EOL);
+  
+  for (i = 0; i < size; i++) {
+    scm_c_vector_set_x (ret, i,
+                        scm_c_gvalue_to_scm (gst_value_array_get_value (value, i)));
+  }
+  return ret;
+}
+
+void
+scm_to_gst_array (SCM scm, GValue *value)
+{
+  guint i, size = scm_c_vector_length (scm);
+  
+  g_value_init (value, GST_TYPE_ARRAY);
+
+  for (i = 0; i < size; i++) {
+    if (scm_is_false (scm_gvalue_p (scm_c_vector_ref (scm, i))))
+      /* we require all values in a list to already have been coerced; otherwise
+         there's no sane way to sniff the types... */
+      return;
+  }
+  
+  for (i = 0; i < size; i++) {
+    GValue *v = NULL;
+    /* note: this does *not* actually copy the value. good in this case but a
+     * crack api... */
+#define FUNC_NAME "%scm->gst-array"
+    SCM_VALIDATE_GVALUE_COPY (0, scm_c_vector_ref (scm, i), v);
+#undef FUNC_NAME
+    gst_value_array_append_value (value, v);
+  }
+}
+  
