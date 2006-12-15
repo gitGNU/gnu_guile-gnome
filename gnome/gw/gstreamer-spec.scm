@@ -42,10 +42,7 @@
   
 (define-method (initializations-cg (self <gstreamer-wrapset>) err)
   (list (next-method)
-        "g_log_set_handler (\"GStreamer\", G_LOG_LEVEL_MASK | G_LOG_FLAG_FATAL\n"
-        "                   | G_LOG_FLAG_RECURSION, guile_gobject_log_handler,\n"
-        "                   NULL);\n"
-        "gst_init (NULL, NULL);\n"))
+        "scm_init_gstreamer ();\n"))
 
 (define-method (initialize (ws <gstreamer-wrapset>) initargs)
 

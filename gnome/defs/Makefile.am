@@ -12,5 +12,5 @@ gstreamer:
 	../../../h2def.py --types \
 	   /usr/include/gstreamer-0.10/gst/gst*.h > gstreamer-types.defs
 	../../../h2def.py --procs \
-	   --with-header='(include "gstreamer-types.defs") (include overrides)' \
+	   --with-header='(include type-ignores) (include "gstreamer-types.defs") (include overrides)' \
 	   /usr/include/gstreamer-0.10/gst/gst*.h > gstreamer.defs

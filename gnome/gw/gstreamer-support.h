@@ -38,3 +38,5 @@ SCM		scm_from_gst_list (const GValue *value);
 void		scm_to_gst_list (SCM scm, GValue *value);
 SCM		scm_from_gst_array (const GValue *value);
 void		scm_to_gst_array (SCM scm, GValue *value);
+
+void		scm_init_gstreamer (void);

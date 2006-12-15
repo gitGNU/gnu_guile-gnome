@@ -1,5 +1,5 @@
 ;; -*- scheme -*-
-(include "gstreamer-types.defs") (include overrides)
+(include type-ignores) (include "gstreamer-types.defs") (include overrides)
 
 ;; From /usr/include/gstreamer-0.10/gst/gstbin.h
 

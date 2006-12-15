@@ -1,3 +1,25 @@
+2006-12-15  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gw/gstreamer-support.h
+	* gnome/gw/gstreamer-support.c
+	(scm_gst_mini_object_primitive_create): New function, used in
+	<gst-mini-object>'s initialize method.
+	(scm_init_gstreamer): Register miniobject ref/unref functions, and
+	do the work that was in initializations-cg.
+
+	* gnome/gw/gstreamer-spec.scm (initializations-cg): Instead of
+	putting a lot of C code here, just call scm_init_gstreamer in the
+	support file.
+
+	* gnome/gstreamer.scm (initialize): Define the initialize method
+	on miniobjects, allowing you to (make <gst-buffer>), which is
+	neat.
+
+	* gnome/defs/gstreamer.defs (type-ignores): 
+	* gnome/defs/Makefile.am (gstreamer):
+	* gnome/overrides/gstreamer.defs-type-ignores: Add type-ignores
+	file, but empty for now.
+
 2006-12-09  Andy Wingo  <wingo@pobox.com>
 
 	* gnome/overrides/gstreamer.defs (gst_caps_new_empty)

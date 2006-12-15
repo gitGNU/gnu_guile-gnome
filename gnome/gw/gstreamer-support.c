@@ -607,3 +607,61 @@ scm_to_gst_array (SCM scm, GValue *value)
   }
 }
   
+static /*can't be const*/ scm_t_gtype_instance_funcs miniobject_funcs = {
+  0 /* GST_TYPE_MINI_OBJECT, init this at runtime */,
+  (scm_t_gtype_instance_ref)gst_mini_object_ref,
+  (scm_t_gtype_instance_unref)gst_mini_object_unref,
+  NULL,
+  NULL
+};
+
+#ifndef GST_TYPE_IS_MINI_OBJECT
+#define GST_TYPE_IS_MINI_OBJECT(t) (g_type_is_a ((t), GST_TYPE_MINI_OBJECT))
+#endif
+
+static SCM
+scm_gst_mini_object_primitive_create (SCM class, SCM type, SCM object)
+#define s_scm_gst_mini_object_primitive_create "gst-mini-object-primitive-create"
+#define FUNC_NAME s_scm_gst_mini_object_primitive_create
+{
+  GstMiniObject *mini = NULL;
+  GType gtype;
+  SCM smob;
+  
+  SCM_VALIDATE_GTYPE_CLASS (1, class);
+  SCM_VALIDATE_GTYPE_COPY (2, type, gtype);
+  SCM_ASSERT (SCM_IS_A_P (SCM_CLASS_OF (object), scm_class_gtype_class), object, 3, FUNC_NAME);
+  SCM_ASSERT (GST_TYPE_IS_MINI_OBJECT (gtype), type, 2, FUNC_NAME);
+
+  mini = gst_mini_object_new (gtype);
+
+  if (!mini)
+    scm_c_gruntime_error (FUNC_NAME, "gst_mini_object_new() failed: ~S line ~S: ~A", \
+                          SCM_LIST3 (scm_makfrom0str (__FILE__), SCM_MAKINUM (__LINE__), type));
+
+  smob = scm_c_make_gtype_instance ((GTypeInstance *) mini);
+
+  scm_slot_set_x (object, scm_from_locale_symbol ("gtype-instance"), smob);
+
+  return object;
+}
+#undef FUNC_NAME
+
+void
+scm_init_gstreamer (void)
+{
+  g_log_set_handler ("GStreamer",
+                     G_LOG_LEVEL_MASK | G_LOG_FLAG_FATAL | G_LOG_FLAG_RECURSION,
+                     guile_gobject_log_handler,
+                     NULL);
+  gst_init (NULL, NULL);
+  miniobject_funcs.type = GST_TYPE_MINI_OBJECT;
+  scm_register_gtype_instance_funcs (&miniobject_funcs);
+  scm_c_define ("<gst-mini-object>",
+                scm_c_gtype_to_class (GST_TYPE_MINI_OBJECT));
+  scm_c_export ("<gst-mini-object>", NULL);
+  scm_c_define_gsubr (s_scm_gst_mini_object_primitive_create, 3, 0, 0,
+                      (SCM (*)()) scm_gst_mini_object_primitive_create);
+  scm_c_export (s_scm_gst_mini_object_primitive_create, NULL);
+}
+

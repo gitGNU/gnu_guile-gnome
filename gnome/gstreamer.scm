@@ -45,6 +45,19 @@
 (display "support")
 (use-modules (gnome gw support modules))
 
+(define-method (initialize (instance <gst-mini-object>) initargs)
+  (cond
+   ((get-keyword #:%real-instance initargs #f)
+    => (lambda (gtype-instance)
+         (slot-set! instance 'gtype-instance gtype-instance)))
+   (else
+    ;; nothing for next-method to do
+    (let* ((class (class-of instance))
+           (type (gtype-class->type class)))
+      (or (null? initargs)
+          (gruntime-error "Unexpected initargs: ~a" initargs))
+      (gst-mini-object-primitive-create class type instance)))))
+
 (define (construct-levels-list specifier)
   (or (and (list? specifier) (and-map list? specifier))
       (error "invalid debug specifier"))
