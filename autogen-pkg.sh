@@ -138,7 +138,7 @@ autogen_pkg()
     # versioning
     get_version $packages
     if bzr whoami | grep -qv "$release_manager"; then
-        version="$version+$source";
+        version="$version+unofficial";
     fi
     
     echo "+ configuring tree as $package, version $version"

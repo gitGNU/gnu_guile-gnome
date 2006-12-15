@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/bin/bash
+
+set -e
 
 package=$1
 version=$2
@@ -8,14 +10,14 @@ if test -z "$package" -o -z "$version"; then
     exit 1
 fi
 
-dir=$(cd `dirname $0`/.. && pwd)
+dir=$(cd `dirname $0`/../.. && pwd)
 echo "* commit-release in $dir"
 cd $dir
 
 for i in `find . -name VERSION`; do
     echo "* setting $i to $version"
     echo $version > $i
-    ./scripts/add-changelog-entry $i "Bumped to $version."
+    ./scripts/maint/add-changelog-entry $i "Bumped to $version."
 done
 
 for i in *; do
@@ -28,6 +30,6 @@ done
 packages="$packages ."
 
 for i in $packages; do
-    ./scripts/changelog-log-release $i $package $version
+    ./scripts/maint/changelog-log-release $i $package $version
     (cd $i && bzr commit -m "Released $package $version")
 done
