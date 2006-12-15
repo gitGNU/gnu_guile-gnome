@@ -7,7 +7,7 @@ if test -z "$package" -o -z "$version"; then
     exit 1
 fi
 
-dir=$(cd `dirname $0`/.. && pwd)
+dir=$(cd `dirname $0`/../.. && pwd)
 cd $dir
 
 cat <<EOF

@@ -8,7 +8,7 @@ if test -z "$package" -o -z "$version"; then
     exit 1
 fi
 
-dir=$(cd `dirname $0`/.. && pwd)
+dir=$(cd `dirname $0`/../.. && pwd)
 echo "* prepare-release in $dir"
 cd $dir
 
@@ -22,5 +22,5 @@ done
 packages="$packages ."
 
 for i in $packages; do
-    ./scripts/prepare-news-entry $i $package $version
+    ./scripts/maint/prepare-news-entry $i $package $version
 done
