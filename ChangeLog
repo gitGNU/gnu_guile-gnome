@@ -1,5 +1,9 @@
 2006-12-15  Andy Wingo  <wingo@pobox.com>
 
+	* == Released guile-gnome-platform version 2.15.90 ==
+
+2006-12-15  Andy Wingo  <wingo@pobox.com>
+
 	* scripts/maint/prepare-release:
 	* scripts/maint/make-release-note:
 	* scripts/maint/commit-release: 
