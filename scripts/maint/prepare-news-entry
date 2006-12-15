@@ -26,7 +26,7 @@ echo >> NEWS.new
 echo >> NEWS.new
 echo >> NEWS.new
 # new news
-heading="$package $version - `tla whoami | sed -e 's, <.*,,'`, `date +'%Y-%m-%d'`"
+heading="$package $version - `bzr whoami | sed -e 's, <.*,,'`, `date +'%Y-%m-%d'`"
 echo $heading >> NEWS.new
 len=`echo $heading | wc -m`
 for ((i=1; i<$len; i=$i+1)); do
