@@ -182,8 +182,8 @@ special case, @code{*all*} is interpreted to be the default threshold.")
   (let ((factory (gst-element-factory-find name)))
     (cond
      (factory
-      (gst-plugin-feature-ensure-loaded factory)
-      (gst-element-factory-create factory #f))
+      (gst-element-factory-create
+       (gst-plugin-feature-load factory) #f))
      ((hash-ref scheme-elements name #f)
       (let ((element (make (hash-ref scheme-elements name #f))))
         (set-name element #f)

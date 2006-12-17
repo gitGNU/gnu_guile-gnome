@@ -1,3 +1,15 @@
+2006-12-17  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/overrides/Makefile.am (module_DATA): Add the type-ignores
+	to the dist.
+
+	* gnome/gstreamer.scm (make): Update for new 0.10 plugin/registry
+	API.
+
+	* examples/gstreamer/vorbisplay.scm: Updated for newer API. Works
+	with newest guile-gnome from bzr and g-wrap with an extra-special
+	patch.
+
 2006-12-15  Andy Wingo  <wingo@pobox.com>
 
 	* gnome/gw/gstreamer-support.h

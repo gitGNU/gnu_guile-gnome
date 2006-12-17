@@ -1,4 +1,6 @@
-#! /usr/bin/guile -s
+#! /bin/sh
+# -*- scheme -*-
+exec guile-gnome-0 -e main -s $0 "$@"
 !#
 ;; guile-gnome
 ;; Copyright (C) 2003,2004 Free Software Foundation, Inc.
@@ -21,44 +23,31 @@
 ;; Boston, MA  02111-1307,  USA       gnu@gnu.org
 
 
-;; This file is intended to be analogous to vorbisplay.py in the
-;; gst-python distribution.
-;;
-;; Andy Wingo, 12 May 2003
+(use-modules (gnome gstreamer))
 
-(use-modules (gnome gstreamer debug) ; debug-notify-handler
-             (gnome gstreamer)) ; for some ungodly reason this must be
-			        ; after debug -- don't know why yet
+(define (main args)
+  (if (not (eq? (length args) 2))
+      (begin (format #t "usage: ~A VORBISFILE" (car (program-arguments)))
+             (exit 1)))
 
-(if (not (eq? (length (program-arguments)) 2))
-    (begin (format #t "usage: ~A VORBISFILE" (car (program-arguments)))
-           (exit 1)))
+  (let ((pipeline (make "pipeline"))
+        (filesrc (make "filesrc"))
+        (oggdemux (make "oggdemux"))
+        (vorbisdec (make "vorbisdec"))
+        (audioconvert (make "audioconvert"))
+        (alsasink (make "alsasink")))
 
-;;(gst-debug-set-threshold 4)
+    (define (pad-added element pad)
+      (link (pk pad) (get-pad vorbisdec "sink")))
 
-(let ((pipeline (make "pipeline"))
-      (filesrc (make "filesrc"))
-      (vorbisfile (make "vorbisfile"))
-      (osssink (make "osssink"))
-      (main-loop (g-main-loop-new #f #f)))
+    (add pipeline filesrc oggdemux vorbisdec audioconvert alsasink)
+    (link filesrc oggdemux)
+    (link vorbisdec audioconvert alsasink)
 
-  (add pipeline filesrc vorbisfile osssink)
-  (link filesrc vorbisfile osssink)
+    (set filesrc 'location (cadr args))
+    (connect oggdemux 'pad-added pad-added)
 
-  (set filesrc 'location (cadr (program-arguments)))
-  (connect vorbisfile 'notify debug-notify-handler)
-  (connect osssink 'eos (lambda (p) 
-                          (display "osssink: EOS event received\n")
-                          (g-main-loop-quit main-loop)))
+    (set-state pipeline 'playing)
+    (poll (get-bus pipeline) '(eos error) gparameter:uint64-max)
+    (set-state pipeline 'null)))
 
-  ;; just a demo of how to do things at certain times in the stream
-  (gst-clock-id-wait-async
-   (new-single-shot-id (get-clock osssink) 5000000000)
-   (lambda (time) (format #t "OSS clock has passed five seconds -- current time ~A\n"
-                          time) #t))
-
-  (set-state pipeline 'playing)
-
-  (attach-iterator pipeline)
-
-  (g-main-loop-run main-loop))
