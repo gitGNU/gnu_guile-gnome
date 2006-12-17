@@ -7,7 +7,7 @@ gstreamer_majorminor=@GST_MAJORMINOR@
 
 Name: (gnome gstreamer)
 Description: Guile bindings for GStreamer
-Requires: guile-gnome-glib-@API_VERSION@ >= 2.7.99
+Requires: guile-gnome-glib-@API_VERSION@ >= 2.15.90
 Version: @VERSION@
 Libs: -L${libdir} -lguile-gnome-gw-gstreamer
 Cflags: -I${includedir}

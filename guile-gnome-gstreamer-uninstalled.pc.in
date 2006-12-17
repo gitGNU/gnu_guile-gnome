@@ -8,6 +8,6 @@ gstreamer_majorminor=@GST_MAJORMINOR@
 Name: (gnome gstreamer), Uninstalled
 Description: Guile bindings for GStreamer, Not Installed
 Version: @VERSION@
-Requires: guile-gnome-glib-@API_VERSION@ >= 2.7.99
+Requires: guile-gnome-glib-@API_VERSION@ >= 2.15.90
 Libs: ${libdir}/gnome/gstreamer/libguile-gnome-gw-gstreamer.la
 Cflags: -I${includedir}/gnome/gstreamer

@@ -1,5 +1,9 @@
 2006-12-17  Andy Wingo  <wingo@pobox.com>
 
+	* guile-gnome-gstreamer.pc.in (Requires): 
+	* guile-gnome-gstreamer-uninstalled.pc.in (Requires): Updates
+	platform requirement, but not sure where this gets used.
+
 	* gnome/overrides/Makefile.am (module_DATA): Add the type-ignores
 	to the dist.
 
