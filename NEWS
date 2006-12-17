@@ -1,7 +1,7 @@
 guile-gnome-gstreamer NEWS --- history of user-visible changes.
 Copyright (C) 2004,2006 Free Software Foundation, Inc.
 See the end for copying conditions of this file.
-Last updated 16 September 2004.
+Last updated 17 Dec 2006.
 
 
 guile-gnome-gstreamer is a Guile binding for GStreamer. It is part of
@@ -9,8 +9,8 @@ GNU guile-gnome. This file documents the user-visible changes in
 guile-gnome-gstreamer only.
 
 
-guile-gnome-gstreamer 2.6.0 - Andy Wingo, 2004-09-XX
-====================================================
+guile-gnome-gstreamer 0.9.90 - Andy Wingo, 2006-12-17
+=====================================================
 
 * Initial release
 
