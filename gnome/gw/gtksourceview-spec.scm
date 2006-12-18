@@ -26,11 +26,10 @@
 
 (define-module (gnome gw gtksourceview-spec)
   :use-module (oop goops)
-  :use-module (g-wrap)
-  :use-module (gnome gw gobject-spec)
-  :use-module (gnome gw gtk-spec)
+  :use-module (gnome gw support g-wrap)
   :use-module (gnome gw support gobject)
-  :use-module (gnome gw support defs))
+  :use-module (gnome gw support defs)
+  :use-module (gnome gw gtk-spec))
 
 (define-class <gnome-source-view-wrapset> (<gobject-wrapset-base>)
   #:id 'gnome-gtksourceview

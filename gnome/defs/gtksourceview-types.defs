@@ -1,0 +1,68 @@
+;; -*- scheme -*-
+;; Enumerations and flags ...
+
+(define-flags SourceSearchFlags
+  (in-module "Gtk")
+  (c-name "GtkSourceSearchFlags")
+  (gtype-id "GTK_TYPE_SOURCE_SEARCH_FLAGS")
+  (values
+    '("visible-only" "GTK_SOURCE_SEARCH_VISIBLE_ONLY")
+    '("text-only" "GTK_SOURCE_SEARCH_TEXT_ONLY")
+    '("case-insensitive" "GTK_SOURCE_SEARCH_CASE_INSENSITIVE")
+  )
+)
+
+(define-flags SourceTagStyleMask
+  (in-module "Gtk")
+  (c-name "GtkSourceTagStyleMask")
+  (gtype-id "GTK_TYPE_SOURCE_TAG_STYLE_MASK")
+  (values
+    '("background" "GTK_SOURCE_TAG_STYLE_USE_BACKGROUND")
+    '("foreground" "GTK_SOURCE_TAG_STYLE_USE_FOREGROUND")
+  )
+)
+
+;; -*- scheme -*-
+; object definitions ...
+(define-object SourceBuffer
+  (in-module "Gtk")
+  (parent "GtkTextBuffer")
+  (c-name "GtkSourceBuffer")
+  (gtype-id "GTK_TYPE_SOURCE_BUFFER")
+)
+
+(define-object SourceLanguage
+  (in-module "Gtk")
+  (parent "GObject")
+  (c-name "GtkSourceLanguage")
+  (gtype-id "GTK_TYPE_SOURCE_LANGUAGE")
+)
+
+(define-object SourceLanguagesManager
+  (in-module "Gtk")
+  (parent "GObject")
+  (c-name "GtkSourceLanguagesManager")
+  (gtype-id "GTK_TYPE_SOURCE_LANGUAGES_MANAGER")
+)
+
+(define-object SourcePrintJob
+  (in-module "Gtk")
+  (parent "GObject")
+  (c-name "GtkSourcePrintJob")
+  (gtype-id "GTK_TYPE_SOURCE_PRINT_JOB")
+)
+
+(define-object SourceTagTable
+  (in-module "Gtk")
+  (parent "GtkTextTagTable")
+  (c-name "GtkSourceTagTable")
+  (gtype-id "GTK_TYPE_SOURCE_TAG_TABLE")
+)
+
+(define-object SourceView
+  (in-module "Gtk")
+  (parent "GtkTextView")
+  (c-name "GtkSourceView")
+  (gtype-id "GTK_TYPE_SOURCE_VIEW")
+)
+

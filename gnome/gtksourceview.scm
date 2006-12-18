@@ -1,5 +1,5 @@
 ;; guile-gnome
-;; Copyright (C) 2003,2004 Andy Wingo <wingo at pobox dot com>
+;; Copyright (C) 2003,2004,2006 Andy Wingo <wingo at pobox dot com>
 
 ;; This program is free software; you can redistribute it and/or    
 ;; modify it under the terms of the GNU General Public License as   
@@ -24,7 +24,7 @@
 ;;
 ;;; Code:
 
-(define-module (gnome source-view)
+(define-module (gnome gtksourceview)
   #:use-module (gnome gw gtksourceview)
   #:use-module (gnome gw support modules))
 

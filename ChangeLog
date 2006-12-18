@@ -1,3 +1,18 @@
+2006-12-18  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/overrides/gtksourceview.defs: Update for functions
+	trafficking in GSList*.
+
+	* gnome/gw/gtksourceview-spec.scm: Update for g-wrap changes.
+
+	* gnome/defs/gtksourceview.defs: 
+	* gnome/defs/gtksourceview-types.defs: Regenerated against 1.8.
+
+	* gnome/defs/Makefile.am (gtksourceview): Add a target to
+	regenerate the defs.
+
+	* gnome/gtksourceview.scm: Moved from source-view.scm.
+
 2004-11-15  Andy Wingo  <wingo@pobox.com>
 
 	* VERSION: Give it a micro: 1.0.0.
