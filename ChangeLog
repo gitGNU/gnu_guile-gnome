@@ -1,5 +1,7 @@
 2006-12-18  Andy Wingo  <wingo@pobox.com>
 
+	* package.ac: Up the version req to 1.8.
+
 	* gnome/overrides/gtksourceview.defs: Update for functions
 	trafficking in GSList*.
 
