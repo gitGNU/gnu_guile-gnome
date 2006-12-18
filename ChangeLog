@@ -1,5 +1,13 @@
 2006-12-18  Andy Wingo  <wingo@pobox.com>
 
+	* == Released guile-gnome-gtksourceview version 1.8.0 ==
+
+2006-12-18  Andy Wingo  <wingo@pobox.com>
+
+	* VERSION: Bumped to 1.8.0.
+
+2006-12-18  Andy Wingo  <wingo@pobox.com>
+
 	* gnome/Makefile.am (EXTRA_DIST, guilemodule_DATA): Finish the
 	source-view->gtksourceview name change.
 
