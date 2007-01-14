@@ -229,6 +229,21 @@ gst_debug_use_custom_handler (void)
 }
 
 /***********************************************************************
+ * GstMessage
+ */
+GstMessageType
+_wrap_gst_message_get_type (GstMessage *msg)
+{
+  return GST_MESSAGE_TYPE (msg);
+}
+
+GstObject*
+_wrap_gst_message_get_src (GstMessage *msg)
+{
+  return GST_MESSAGE_SRC (msg);
+}
+
+/***********************************************************************
  * GstPad
  */
 

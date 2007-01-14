@@ -11,6 +11,9 @@ GstClockReturn 	_wrap_gst_clock_id_wait_async (GstClockID id,
 
 void		gst_debug_use_custom_handler (void);
 
+GstMessageType	_wrap_gst_message_get_type (GstMessage *msg);
+GstObject*	_wrap_gst_message_get_src (GstMessage *msg);
+
 void		_wrap_gst_pad_set_chain_function (GstPad *pad, SCM chain_function);
 void		_wrap_gst_pad_set_setcaps_function (GstPad *pad, SCM setcaps_function);
 void		_wrap_gst_pad_set_getrange_function (GstPad *pad, SCM getrange_function);

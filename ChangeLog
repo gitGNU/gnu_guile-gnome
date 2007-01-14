@@ -1,3 +1,12 @@
+2007-01-14  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/overrides/gstreamer.defs:
+	* gnome/gw/gstreamer-support.h: 
+	* gnome/gw/gstreamer-support.c (_wrap_gst_message_get_src)
+	(_wrap_gst_message_get_type): Ignore the gst_message_parse_*
+	functions. Make wrappers for GST_MESSAGE_TYPE and GST_MESSAGE_SRC,
+	as gst-message-get-type and gst-message-get-src.
+
 2006-12-17  Andy Wingo  <wingo@pobox.com>
 
 	* == Released guile-gnome-gstreamer version 0.9.90 ==
