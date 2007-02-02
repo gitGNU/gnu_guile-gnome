@@ -665,10 +665,6 @@ scm_gst_mini_object_primitive_create (SCM class, SCM type, SCM object)
 void
 scm_init_gstreamer (void)
 {
-  g_log_set_handler ("GStreamer",
-                     G_LOG_LEVEL_MASK | G_LOG_FLAG_FATAL | G_LOG_FLAG_RECURSION,
-                     guile_gobject_log_handler,
-                     NULL);
   gst_init (NULL, NULL);
   miniobject_funcs.type = GST_TYPE_MINI_OBJECT;
   scm_register_gtype_instance_funcs (&miniobject_funcs);
