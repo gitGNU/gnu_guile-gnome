@@ -50,6 +50,7 @@
   (c-name "_wrap_gtk_source_iter_backward_search")
   (overrides "gtk_source_iter_backward_search")
   (return-type "SCM")
+  (leave-guile-mode #f)
   (parameters
     '("const-GtkTextIter*" "iter")
     '("const-gchar*" "str")
