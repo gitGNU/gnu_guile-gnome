@@ -674,5 +674,10 @@ scm_init_gstreamer (void)
   scm_c_define_gsubr (s_scm_gst_mini_object_primitive_create, 3, 0, 0,
                       (SCM (*)()) scm_gst_mini_object_primitive_create);
   scm_c_export (s_scm_gst_mini_object_primitive_create, NULL);
+
+  scm_c_register_gtype_instance_gvalue_wrappers
+    (GST_TYPE_MINI_OBJECT,
+     (SCMGValueGetTypeInstanceFunc)gst_value_get_mini_object,
+     (SCMGValueSetTypeInstanceFunc)gst_value_set_mini_object);
 }
 
