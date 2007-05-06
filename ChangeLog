@@ -1,3 +1,8 @@
+2007-05-06  Andy Wingo  <wingo@pobox.com>
+
+	* common.mk (PKG_PATH): Fix PKG_PATH statement, pointed out by
+	Mark Flacy.
+
 2007-05-05  Andy Wingo  <wingo@pobox.com>
 
 	* autogen-pkg.sh: Depend on g-wrap >= 1.9.8.
