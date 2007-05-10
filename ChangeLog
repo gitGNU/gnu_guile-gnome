@@ -1,3 +1,9 @@
+2007-05-10  Andy Wingo  <wingo@pobox.com>
+
+	* scripts/maint/prepare-news-entry (len): Use minimal matching on
+	the changelog diff so that we just return the most recent
+	changelog entries.
+
 2007-05-06  Andy Wingo  <wingo@pobox.com>
 
 	* common.mk (PKG_PATH): Fix PKG_PATH statement, pointed out by
