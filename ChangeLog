@@ -1,5 +1,9 @@
 2007-05-10  Andy Wingo  <wingo@pobox.com>
 
+	* == Released guile-gnome-platform version 2.15.91 ==
+
+2007-05-10  Andy Wingo  <wingo@pobox.com>
+
 	* scripts/maint/prepare-news-entry (len): Use minimal matching on
 	the changelog diff so that we just return the most recent
 	changelog entries.
