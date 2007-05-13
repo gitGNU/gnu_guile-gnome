@@ -288,7 +288,7 @@ proto_pat=re.compile(r"""
 #"""
 arg_split_pat = re.compile("\s*,\s*")
 
-def define_func(buf,fp):
+def define_func(buf, fp, detect_methods):
     buf=clean_func(buf)
     buf=string.split(buf,'\n')
     for p in buf:
@@ -307,14 +307,14 @@ def define_func(buf,fp):
             if spaces > 1:
                 args[i] = string.replace(args[i], ' ', '-', spaces - 1)
             
-        write_func(fp, func, ret, args)
+        write_func(fp, func, ret, args, detect_methods)
 
 get_type_pat = re.compile(r'(const-)?([A-Za-z0-9]+)\*?\s+')
 pointer_pat = re.compile('.*\*$')
 func_new_pat = re.compile('(\w+)_new$')
 
-def write_func(fp, name, ret, args):
-    if len(args) >= 1:
+def write_func(fp, name, ret, args, detect_methods):
+    if detect_methods and len(args) >= 1:
         # methods must have at least one argument
         munged_name = string.replace(name, '_', '')
         m = get_type_pat.match(args[0])
@@ -386,7 +386,7 @@ def write_func(fp, name, ret, args):
         fp.write('  (varargs #t)\n')
     fp.write(')\n\n')
 
-def write_def(input,output=None):
+def write_def(input, output, detect_methods):
     fp = open(input)
     buf = fp.read()
     fp.close()
@@ -399,7 +399,7 @@ def write_def(input,output=None):
         fp = sys.stdout
 
     fp.write('\n;; From %s\n\n' % input)
-    buf = define_func(buf, fp)
+    buf = define_func(buf, fp, detect_methods)
     fp.write('\n')
 
 # ------------------ Main function -----------------
@@ -414,10 +414,12 @@ if __name__ == '__main__':
     with_c_enums = 0
     do_procs = 0
     header = 0
+    detect_methods = True
     
     opts, args = getopt.getopt(sys.argv[1:], 'v',
                                ['types', 'c-enums', 'procs',
-                                'type-postfix', 'all', 'with-header='])
+                                'type-postfix', 'all', 'with-header=',
+                                'no-methods'])
     for o, v in opts:
         if o == '-v':
             verbose = 1
@@ -433,6 +435,8 @@ if __name__ == '__main__':
             typecode = typecode_postfix
         elif o == '--with-header':
             header = v
+        elif o == '--no-methods':
+            detect_methods = False
         
     if not args[0:1]:
         print 'Must specify at least one input file name'
@@ -458,4 +462,4 @@ if __name__ == '__main__':
         write_obj_defs(objdefs,None)
     if do_procs:
         for filename in args:
-            write_def(filename,None)
+            write_def(filename,None, detect_methods)
