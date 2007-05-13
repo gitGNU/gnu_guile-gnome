@@ -1,5 +1,9 @@
 2007-05-10  Andy Wingo  <wingo@pobox.com>
 
+	* h2def.py: Add a command line argument --no-methods to disable
+	the code that automatically tries to detect methods. Useful for
+	example when generating glib defs.
+
 	* == Released guile-gnome-platform version 2.15.91 ==
 
 2007-05-10  Andy Wingo  <wingo@pobox.com>
