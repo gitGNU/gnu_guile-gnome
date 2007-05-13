@@ -1,5 +1,10 @@
 2007-05-13  Andy Wingo  <wingo@pobox.com>
 
+	* h2def.py (get_type_pat): In method detection, require that the
+	"object" type have a trailing *. Fixes incorrect detection of e.g.
+	atk_role_get_name as a method wrapper, because otherwise you can't
+	tell a difference between a pointer type and a scalar.
+
 	* h2def.py: Add a command line argument --no-methods to disable
 	the code that automatically tries to detect methods. Useful for
 	example when generating glib defs.

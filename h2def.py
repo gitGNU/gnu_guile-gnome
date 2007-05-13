@@ -309,7 +309,7 @@ def define_func(buf, fp, detect_methods):
             
         write_func(fp, func, ret, args, detect_methods)
 
-get_type_pat = re.compile(r'(const-)?([A-Za-z0-9]+)\*?\s+')
+get_type_pat = re.compile(r'(const-)?([A-Za-z0-9]+)\*\s+')
 pointer_pat = re.compile('.*\*$')
 func_new_pat = re.compile('(\w+)_new$')
 
