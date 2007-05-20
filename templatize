@@ -8,35 +8,31 @@ if [ -z "$1" ]; then
 fi
 
 package=$1
+thisdir=$(cd $(dirname $0) && pwd)
 
-echo "* setting up guile-gnome-$package--dev--0"
-tla archive-setup guile-gnome-$package--dev--0
-
-echo "* branching guile-gnome-$package--dev--0 from $(tla tree-version)"
-tla tag `tla tree-version` guile-gnome-$package--dev--0
-
-echo "* fetching guile-gnome-$package--dev--0 into ../$package"
-cd ..
-tla get guile-gnome-$package--dev--0 $package
+echo "* branching $package"
+bzr branch $thisdir $package
 cd $package
 
 package_uc=$(echo $package | tr '[:lower:]-' '[:upper:]_')
 package_un=$(echo $package | tr '-' '_')
+year=$(date +%Y)
 
-for i in `tla inventory -s -f`; do
+for i in `bzr inventory --kind file`; do
     echo "* templatizing $i"
     perl -i -p -e "s/_template/_${package_un}/g" $i
     perl -i -p -e "s/template_/${package_un}_/g" $i
     perl -i -p -e "s/template/$package/g" $i
     perl -i -p -e "s/TEMPLATE/$package_uc/g" $i
+    perl -i -p -e "s/2004/$year/g" $i
     if basename $i | grep -q template; then
         newname="$(dirname $i)/$(echo $(basename $i) | sed -e "s/template/$package/")"
         echo "* moving file $i to $newname"
-        tla mv $i $newname
+        bzr mv $i $newname
     fi
 done
 
-for i in `tla inventory -s -d`; do
+for i in `bzr inventory --kind directory`; do
     if echo $i | grep -q template; then
         newname=$(echo $i | sed -e "s/template/$package/")
         echo "* moving directory $i to $newname"
@@ -45,5 +41,4 @@ for i in `tla inventory -s -d`; do
 done
 
 echo "* removing templatize script"
-tla rm templatize
-
+rm templatize
