@@ -254,14 +254,14 @@ record_check()
             if test -z "$PACKAGES_TO_BUILD"; then
                 PACKAGES_TO_BUILD="$package"
             else
-                PACKAGES_TO_BUILD="$package $PACKAGES_TO_BUILD"
+                PACKAGES_TO_BUILD="$PACKAGES_TO_BUILD $package"
             fi
             ;;
         no|false)
             if test -z "$PACKAGES_NOT_BUILT"; then
                 PACKAGES_NOT_BUILT="$package"
             else
-                PACKAGES_NOT_BUILT="$package $PACKAGES_NOT_BUILT"
+                PACKAGES_NOT_BUILT="$PACKAGES_NOT_BUILT $package"
             fi
             ;;
         *)
@@ -295,7 +295,7 @@ These wrappers will be built:
   $PACKAGES_TO_BUILD
 
 These wrappers failed their prerequisites and will NOT be built:
-  $PACKAGES_NOT_TO_BUILD
+  $PACKAGES_NOT_BUILT
 
 Check the README files in the above subdirectories for more information
 on the prerequisites of a package.

@@ -1,3 +1,11 @@
+2007-05-20  Andy Wingo  <wingo@pobox.com>
+
+	* autogen-pkg.sh: Fix some aesthetics if a package is not going to
+	be built.
+
+	* PACKAGES (guile-gnome-platform): Add cairo to
+	guile-gnome-platform.
+
 2007-05-13  Andy Wingo  <wingo@pobox.com>
 
 	* h2def.py (get_type_pat): In method detection, require that the

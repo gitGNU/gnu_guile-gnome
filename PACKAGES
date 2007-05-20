@@ -8,7 +8,7 @@
 # it syntactically correct.
 
 guile-gnome-glib: defs glib
-guile-gnome-platform: atk corba defs docs gconf glib gnome-vfs gtk libglade libgnome libgnomecanvas libgnomeui pango	
+guile-gnome-platform: atk cairo corba defs docs gconf glib gnome-vfs gtk libglade libgnome libgnomecanvas libgnomeui pango
 guile-gnome-gstreamer: gstreamer
 guile-gnome-evolution-data-server: evolution-data-server
 guile-gnome-gtksourceview: gtksourceview
