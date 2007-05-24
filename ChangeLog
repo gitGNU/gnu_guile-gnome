@@ -1,5 +1,8 @@
 2007-05-24  Andy Wingo  <wingo@pobox.com>
 
+	* scripts/maint/upload-to-ftp.gnu.org: Actually upload the file if
+	we are given a URL.
+
 	* == Released guile-gnome-platform version 2.15.92 ==
 
 2007-05-24  Andy Wingo  <wingo@pobox.com>

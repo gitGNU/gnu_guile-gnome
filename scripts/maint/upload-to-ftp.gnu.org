@@ -19,3 +19,11 @@ filename: $file
 comment: new version of $package
 EOF
 gpg --clearsign $file.directive
+
+# e.g. ftp://anonymous@ftp-upload.gnu.org/incoming/ftp
+url=$2
+if test -n "$url"; then
+    for i in $file.directive.asc $file.sig $file; do
+        gnomevfs-copy file://`pwd`/$i $url/$i
+    done
+fi
