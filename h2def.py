@@ -35,6 +35,16 @@ def typecode_postfix(typename):
     """create a typecode (eg. GST_MEDIA_INFO_TYPE) from a typename"""
     return to_upper_str(typename) + '_TYPE'
 
+def typecode_re(regex):
+    """create a typecode from a regex"""
+    assert regex[0] == 's'
+    delim = regex[1]
+    s, pat, sub, null = regex.split(delim)
+    assert null == ''
+    def typecode(typename):
+        return re.sub(pat, sub, to_upper_str(typename))
+    return typecode
+
 # ------------------ Find object definitions -----------------
 
 def strip_comments(buf):
@@ -418,8 +428,8 @@ if __name__ == '__main__':
     
     opts, args = getopt.getopt(sys.argv[1:], 'v',
                                ['types', 'c-enums', 'procs',
-                                'type-postfix', 'all', 'with-header=',
-                                'no-methods'])
+                                'type-postfix', 'type-re=', 'all',
+                                'with-header=', 'no-methods'])
     for o, v in opts:
         if o == '-v':
             verbose = 1
@@ -433,6 +443,8 @@ if __name__ == '__main__':
             do_procs = 1
         elif o == '--type-postfix':
             typecode = typecode_postfix
+        elif o == '--type-re':
+            typecode = typecode_re(v)
         elif o == '--with-header':
             header = v
         elif o == '--no-methods':

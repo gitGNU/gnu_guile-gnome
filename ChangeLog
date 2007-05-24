@@ -1,3 +1,9 @@
+2007-05-24  Andy Wingo  <wingo@pobox.com>
+
+	* h2def.py: Add new options --type-re, to specify a regular
+	expression to transform a type name into a gtype-id macro. See
+	defs/gnome/defs/Makefile.am for a use example.
+
 2007-05-20  Andy Wingo  <wingo@pobox.com>
 
 	* autogen-pkg.sh: Fix some aesthetics if a package is not going to
