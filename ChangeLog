@@ -1,5 +1,13 @@
 2007-06-15  Andy Wingo  <wingo@pobox.com>
 
+	* == Released guile-gnome-gstreamer version 0.9.91 ==
+
+2007-06-15  Andy Wingo  <wingo@pobox.com>
+
+	* VERSION: Bumped to 0.9.91.
+
+2007-06-15  Andy Wingo  <wingo@pobox.com>
+
 	* glib-checks.ac: Bump required guile-gnome-glib-0 version to
 	2.15.93, for the (callee-owned) fix.
 
