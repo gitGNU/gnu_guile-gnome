@@ -1,5 +1,5 @@
 ;; guile-gnome
-;; Copyright (C) 2003,2004 Andy Wingo <wingo at pobox dot com>
+;; Copyright (C) 2003,2004,2007 Andy Wingo <wingo at pobox dot com>
 
 ;; This program is free software; you can redistribute it and/or    
 ;; modify it under the terms of the GNU General Public License as   
@@ -24,26 +24,12 @@
 ;;
 ;;; Code:
 
-(define-module (gnome gstreamer))
-
-;; 'link' is so important to gstreamer that I think it can shadow
-;; (guile)'s definition. That's my opinion, though.
-
-(module-define! the-root-module 'oldlink link)
-(module-remove! the-root-module 'link)
-
-(display "(gnome gstreamer): [")
-
-(display "goops ")
-(use-modules (oop goops))
-(display "gobject ")
-(use-modules (gnome gobject))
-(display "glib ")
-(use-modules (gnome glib))
-(display "gstreamer ")
-(use-modules (gnome gw gstreamer))
-(display "support")
-(use-modules (gnome gw support modules))
+(define-module (gnome gstreamer)
+  :use-module (oop goops)
+  :use-module (gnome gobject)
+  :use-module (gnome glib)
+  :use-module (gnome gw gstreamer)
+  :use-module (gnome gw support modules))
 
 (define-method (initialize (instance <gst-mini-object>) initargs)
   (cond
@@ -226,5 +212,3 @@ special case, @code{*all*} is interpreted to be the default threshold.")
                    (gnome gobject generics)
                    (gnome gw gstreamer)
                    (oop goops))
-
-(display "]\n")
