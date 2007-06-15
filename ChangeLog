@@ -1,5 +1,8 @@
 2007-06-15  Andy Wingo  <wingo@pobox.com>
 
+	* glib-checks.ac: Bump required guile-gnome-glib-0 version to
+	2.15.93, for the (callee-owned) fix.
+
 	* gnome/gstreamer.scm: Remove printouts, as loading is now faster
 	with guile-gnome-platform 2.15.93 and Guile 1.8 CVS. Remove
 	terrible hack involving `link', there seems to be no need.
