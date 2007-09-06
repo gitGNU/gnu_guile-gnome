@@ -1,3 +1,8 @@
+2007-09-07  Andy Wingo  <wingo@pobox.com>
+
+	* generate-docs.mk: New common makefile snippet for generated
+	docs.
+
 2007-08-25  Andy Wingo  <wingo@pobox.com>
 
 	* common.mk (.c.doc): Update so that making .doc files works;
