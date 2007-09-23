@@ -1,6 +1,6 @@
 ;; guile-gnome
-;; Copyright (C) 2004 Jan Nieuwenhuizen <janneke@gnu.org>
-;;                    Andy Wingo <wingo at pobox dot com>
+;; Copyright (C) 2004,2007 Jan Nieuwenhuizen <janneke@gnu.org>
+;;                    	   Andy Wingo <wingo at pobox dot com>
 
 ;; This program is free software; you can redistribute it and/or    
 ;; modify it under the terms of the GNU General Public License as   
@@ -27,13 +27,12 @@
 
 (define-module (gnome gw wnck-spec)
   #:use-module (oop goops)
-  #:use-module (g-wrap)
-  #:use-module (g-wrap guile)
+  #:use-module (gnome gw support g-wrap)
   #:use-module (gnome gw glib-spec)
   #:use-module (gnome gw gobject-spec)
   #:use-module (gnome gw gdk-spec)
-  #:use-module (gnome gw support gobject)
-  #:use-module (gnome gw support defs))
+  #:use-module (gnome gobject gw-spec-utils)
+  #:use-module (gnome gobject defs-support))
 
 (define-class <wnck-wrapset> (<gobject-wrapset-base>)
   #:id 'gnome-wnck
@@ -45,6 +44,7 @@
    "#define WNCK_I_KNOW_THIS_IS_UNSTABLE
 #include <libwnck/libwnck.h>
 #include <libwnck/class-group.h>
+#include <libwnck/window-action-menu.h>
 "))
   
 (define-method (initialize (ws <wnck-wrapset>) initargs)
