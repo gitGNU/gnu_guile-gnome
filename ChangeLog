@@ -1,3 +1,7 @@
+2007-09-24  Andy Wingo  <wingo@pobox.com>
+
+	* generate-docs.mk: Rework to deal with new gtk-doc.scm interface.
+
 2007-09-07  Andy Wingo  <wingo@pobox.com>
 
 	* generate-docs.mk: New common makefile snippet for generated

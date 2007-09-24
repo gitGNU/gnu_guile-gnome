@@ -23,14 +23,20 @@
 # Makefile snippet
 #
 
-wrapset_module = "(gnome gw $(wrapset_stem)-spec)"
-wrapset_name = "gnome-$(wrapset_stem)"
-GTK_DOC_TO_TEXI_STUBS := '((@ (gnome gw support gtk-doc) gtk-doc->texi-stubs) (cdr (program-arguments)))'
-GTK_DOC_TO_TEXI_DEFUNS := '(apply (@ (gnome gw support gtk-doc) gtk-doc->texi-defuns) (cdr (program-arguments)))'
+wrapset_module = (gnome gw $(wrapset_stem)-spec)
+wrapset_name = gnome-$(wrapset_stem)
+GTK_DOC_TO_TEXI_STUBS = '((@ (gnome gw support gtk-doc) gtk-doc->texi-stubs) (cdr (program-arguments)))'
+GTK_DOC_DEFUN_HEURISTICS_METHOD = heuristics
+GTK_DOC_DEFUN_HEURISTICS_ARGS = (your-module-here)
+GTK_DOC_DEFUN_GWRAP_METHOD = g-wrap
+GTK_DOC_DEFUN_GWRAP_ARGS = $(wrapset_module) $(wrapset_name)
+GTK_DOC_DEFUN_METHOD = $(GTK_DOC_DEFUN_GWRAP_METHOD)
+GTK_DOC_DEFUN_ARGS = $(GTK_DOC_DEFUN_GWRAP_ARGS)
+GTK_DOC_TO_TEXI_DEFUNS = "(apply (@ (gnome gw support gtk-doc) gtk-doc->texi-defuns) (cadr (program-arguments)) '$(GTK_DOC_DEFUN_METHOD) '($(GTK_DOC_DEFUN_ARGS)) (cddr (program-arguments)))"
+GUILE = $(top_builddir)/dev-environ guile
 
 generate-stubs:
-	$(top_builddir)/dev-environ guile -c $(GTK_DOC_TO_TEXI_STUBS) $(docbook_xml_files)
+	$(GUILE) $(GUILE_FLAGS) -c $(GTK_DOC_TO_TEXI_STUBS) $(docbook_xml_files)
 
 generate-defuns:
-	$(top_builddir)/dev-environ guile -c $(GTK_DOC_TO_TEXI_DEFUNS) ./overrides.texi \
-	     $(wrapset_module) $(wrapset_name) $(docbook_xml_files)
+	$(GUILE) $(GUILE_FLAGS) -c $(GTK_DOC_TO_TEXI_DEFUNS) ./overrides.texi $(docbook_xml_files)
