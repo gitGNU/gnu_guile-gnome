@@ -22,7 +22,7 @@
 #
 # Makefile snippet
 #
-EXTRA_DIST = wrapset.api
+EXTRA_DIST = wrapset.api wrapset.scm
 
 wrapset_stem = set-wrapset_stem-in-your-makefile
 
