@@ -33,6 +33,9 @@ GTK_DOC_DEFUN_GWRAP_ARGS = $(wrapset_module) $(wrapset_name)
 GTK_DOC_DEFUN_METHOD = $(GTK_DOC_DEFUN_GWRAP_METHOD)
 GTK_DOC_DEFUN_ARGS = $(GTK_DOC_DEFUN_GWRAP_ARGS)
 GTK_DOC_TO_TEXI_DEFUNS = "(apply (@ (gnome gw support gtk-doc) gtk-doc->texi-defuns) (cadr (program-arguments)) '$(GTK_DOC_DEFUN_METHOD) '($(GTK_DOC_DEFUN_ARGS)) (cddr (program-arguments)))"
+GTK_DOC_COVERAGE_MODULES = (gnome $(wrapset_stem)) (gnome gw $(wrapset_stem))
+GTK_DOC_COVERAGE_TEXI = $(info_TEXINFOS)
+GTK_DOC_CHECK_COVERAGE = "((@ (gnome gw support gtk-doc) check-documentation-coverage) '($(GTK_DOC_COVERAGE_MODULES)) \"$(GTK_DOC_COVERAGE_TEXI)\")"
 GUILE = $(top_builddir)/dev-environ guile
 
 generate-stubs:
@@ -40,3 +43,6 @@ generate-stubs:
 
 generate-defuns:
 	$(GUILE) $(GUILE_FLAGS) -c $(GTK_DOC_TO_TEXI_DEFUNS) ./overrides.texi $(docbook_xml_files)
+
+check-coverage:
+	$(GUILE) $(GUILE_FLAGS) -c $(GTK_DOC_CHECK_COVERAGE)

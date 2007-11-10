@@ -1,3 +1,8 @@
+2007-11-10  Andy Wingo  <wingo@pobox.com>
+
+	* generate-docs.mk (check-coverage): New target, checks the
+	coverage of the documentation.
+
 2007-09-25  Andy Wingo  <wingo@pobox.com>
 
 	* == Released guile-gnome-platform version 2.15.94 ==
