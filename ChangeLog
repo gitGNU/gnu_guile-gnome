@@ -1,5 +1,8 @@
 2007-11-10  Andy Wingo  <wingo@pobox.com>
 
+	* tests.mk: New file, common makefile snippets for running API
+	regression suites.
+
 	* generate-docs.mk (check-coverage): New target, checks the
 	coverage of the documentation.
 
