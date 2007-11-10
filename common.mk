@@ -50,9 +50,8 @@ export GUILE_LOAD_PATH
 	guile-snarf $(GUILE_SNARF_CFLAGS) $< > $@ \
 	|| { rm $@; false; }
 .c.doc:
-	-(guile-func-name-check $<)
-	(guile-snarf-docs $(GUILE_SNARF_CFLAGS) $< | \
-	guile_filter_doc_snarfage --filter-snarfage) > $@ || { rm $@; false; }
+	$(CPP) -DSCM_MAGIC_SNARF_DOCS $(GUILE_SNARF_CFLAGS) $< \
+	  | grep -E '^\^\^ {.*\^\^ }' > $@ || { rm $@; false; }
 
 %.scm guile-gnome-gw-%.c: %-spec.scm
 	guile $(GUILE_FLAGS) -c \

@@ -1,3 +1,41 @@
+2007-11-10  Andy Wingo  <wingo@pobox.com>
+
+	* == Released guile-gnome-platform version 2.15.95 ==
+
+2007-11-10  Andy Wingo  <wingo@pobox.com>
+
+	* tests.mk: New file, common makefile snippets for running API
+	regression suites.
+
+	* generate-docs.mk (check-coverage): New target, checks the
+	coverage of the documentation.
+
+2007-09-25  Andy Wingo  <wingo@pobox.com>
+
+	* == Released guile-gnome-platform version 2.15.94 ==
+
+2007-09-25  Andy Wingo  <wingo@pobox.com>
+
+	* NEWS: Updated.
+
+2007-09-25  Andy Wingo  <wingo@pobox.com>
+
+	* NEWS: Updated.
+
+2007-09-24  Andy Wingo  <wingo@pobox.com>
+
+	* generate-docs.mk: Rework to deal with new gtk-doc.scm interface.
+
+2007-09-07  Andy Wingo  <wingo@pobox.com>
+
+	* generate-docs.mk: New common makefile snippet for generated
+	docs.
+
+2007-08-25  Andy Wingo  <wingo@pobox.com>
+
+	* common.mk (.c.doc): Update so that making .doc files works;
+	still needs some filtering though.
+
 2007-06-15  Andy Wingo  <wingo@pobox.com>
 
 	* == Released guile-gnome-gstreamer version 0.9.91 ==
