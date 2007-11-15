@@ -1,0 +1,227 @@
+
+@c %start of fragment
+
+@deftp Class <gst-buffer>
+@end deftp
+
+@deffn Function gst-buffer-new  @result{}@tie{} (ret@tie{}@code{<gst-buffer>})
+Creates a newly allocated buffer without any data.
+
+MT safe.
+
+@table @var
+@item ret
+the new @code{<gst-buffer>}.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-buffer-make-metadata-writable  (self@tie{}@code{<gst-buffer>}) @result{}@tie{} (ret@tie{}@code{<gst-buffer>})
+@deffnx Method make-metadata-writable
+Similar to gst_buffer_make_writable, but does not ensure that the buffer data
+array is writable. Instead, this just ensures that the returned buffer is solely
+owned by the caller, by creating a subbuffer of the original buffer if
+necessary.
+
+After calling this function, @var{buf} should not be referenced anymore. The
+result of this function has guaranteed writable metadata.
+
+@table @var
+@item buf
+a @code{<gst-buffer>}
+
+@item ret
+A new @code{<gst-buffer>} with writable metadata.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-buffer-get-caps  (self@tie{}@code{<gst-buffer>}) @result{}@tie{} (ret@tie{}@code{<gst-caps>})
+@deffnx Method get-caps
+Gets the media type of the buffer. This can be NULL if there is no media type
+attached to this buffer.
+
+Returns: a reference to the @code{<gst-caps>}. unref after usage.
+
+@table @var
+@item buffer
+a @code{<gst-buffer>}.
+
+@item ret
+NULL if there were no caps on this buffer.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-buffer-set-caps  (self@tie{}@code{<gst-buffer>}) (caps@tie{}@code{<gst-caps>})
+@deffnx Method set-caps
+Sets the media type on the buffer. The refcount of the caps will be increased
+and any previous caps on the buffer will be unreffed.
+
+@table @var
+@item buffer
+a @code{<gst-buffer>}.
+
+@item caps
+a @code{<gst-caps>}.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-buffer-create-sub  (self@tie{}@code{<gst-buffer>}) (offset@tie{}@code{unsigned-int}) (size@tie{}@code{unsigned-int}) @result{}@tie{} (ret@tie{}@code{<gst-buffer>})
+@deffnx Method create-sub
+Creates a sub-buffer from @var{parent} at @var{offset} and @var{size}. This
+sub-buffer uses the actual memory space of the parent buffer. This function will
+copy the offset and timestamp fields when the offset is 0. If not, they will be
+set to @code{<gst-clock-time-none>} and @code{<gst-buffer-offset-none>}. If
+@var{offset} equals 0 and @var{size} equals the total size of @var{buffer}, the
+duration and offset end fields are also copied. If not they will be set to
+@code{<gst-clock-time-none>} and @code{<gst-buffer-offset-none>}.
+
+MT safe. Returns: the new @code{<gst-buffer>}.
+
+@table @var
+@item parent
+a @code{<gst-buffer>}.
+
+@item offset
+the offset into parent @code{<gst-buffer>} at which the new sub-buffer begins.
+
+@item size
+the size of the new @code{<gst-buffer>} sub-buffer, in bytes.
+
+@item ret
+NULL if the arguments were invalid.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-buffer-is-span-fast  (self@tie{}@code{<gst-buffer>}) (buf2@tie{}@code{<gst-buffer>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method is-span-fast
+Determines whether a @code{gst-buffer-span} can be done without copying the
+contents, that is, whether the data areas are contiguous sub-buffers of the same
+buffer.
+
+MT safe.
+
+@table @var
+@item buf1
+the first @code{<gst-buffer>}.
+
+@item buf2
+the second @code{<gst-buffer>}.
+
+@item ret
+TRUE if the buffers are contiguous, FALSE if a copy would be required.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-buffer-span  (self@tie{}@code{<gst-buffer>}) (offset@tie{}@code{unsigned-int32}) (buf2@tie{}@code{<gst-buffer>}) (len@tie{}@code{unsigned-int32}) @result{}@tie{} (ret@tie{}@code{<gst-buffer>})
+@deffnx Method span
+Creates a new buffer that consists of part of buf1 and buf2. Logically, buf1 and
+buf2 are concatenated into a single larger buffer, and a new buffer is created
+at the given offset inside this space, with a given length.
+
+If the two source buffers are children of the same larger buffer, and are
+contiguous, the new buffer will be a child of the shared parent, and thus no
+copying is necessary. you can use @code{gst-buffer-is-span-fast} to determine if
+a memcpy will be needed.
+
+MT safe. Returns: the new @code{<gst-buffer>} that spans the two source buffers.
+
+@table @var
+@item buf1
+the first source @code{<gst-buffer>} to merge.
+
+@item offset
+the offset in the first buffer from where the new buffer should start.
+
+@item buf2
+the second source @code{<gst-buffer>} to merge.
+
+@item len
+the total length of the new buffer.
+
+@item ret
+NULL if the arguments are invalid.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-buffer-stamp  (self@tie{}@code{<gst-buffer>}) (src@tie{}@code{<gst-buffer>})
+@deffnx Method stamp
+@samp{gst_buffer_stamp} is deprecated and should not be used in newly-written
+code. use @code{gst-buffer-copy-metadata} instead, it provides more control.
+
+Copies additional information (the timestamp, duration, and offset start and
+end) from one buffer to the other.
+
+This function does not copy any buffer flags or caps and is equivalent to
+gst_buffer_copy_metadata(@var{dest}, @var{src}, GST_BUFFER_COPY_TIMESTAMPS).
+
+@table @var
+@item dest
+buffer to stamp
+
+@item src
+buffer to stamp from
+
+@end table
+
+@end deffn
+
+@deffn Function gst-buffer-join  (self@tie{}@code{<gst-buffer>}) (buf2@tie{}@code{<gst-buffer>}) @result{}@tie{} (ret@tie{}@code{<gst-buffer>})
+@deffnx Method join
+Create a new buffer that is the concatenation of the two source buffers, and
+unrefs the original source buffers.
+
+If the buffers point to contiguous areas of memory, the buffer is created
+without copying the data.
+
+@table @var
+@item buf1
+the first source @code{<gst-buffer>}.
+
+@item buf2
+the second source @code{<gst-buffer>}.
+
+@item ret
+the new @code{<gst-buffer>} which is the concatenation of the source buffers.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-buffer-merge  (self@tie{}@code{<gst-buffer>}) (buf2@tie{}@code{<gst-buffer>}) @result{}@tie{} (ret@tie{}@code{<gst-buffer>})
+@deffnx Method merge
+Create a new buffer that is the concatenation of the two source buffers. The
+original source buffers will not be modified or unref'd. Make sure you unref the
+source buffers if they are not used anymore afterwards.
+
+If the buffers point to contiguous areas of memory, the buffer is created
+without copying the data.
+
+@table @var
+@item buf1
+the first source @code{<gst-buffer>} to merge.
+
+@item buf2
+the second source @code{<gst-buffer>} to merge.
+
+@item ret
+the new @code{<gst-buffer>} which is the concatenation of the source buffers.
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

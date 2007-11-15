@@ -1,0 +1,69 @@
+
+@c %start of fragment
+
+@node GstObject
+@chapter GstObject
+Base class for the GStreamer object hierarchy
+
+@section Overview
+@code{<gst-object>} provides a root for the object hierarchy tree filed in by
+the GStreamer library. It is currently a thin wrapper on top of
+@code{<gobject>}. It is an abstract class that is not very usable on its own.
+
+@code{<gst-object>} gives us basic refcounting, parenting functionality and
+locking. Most of the function are just extended for special GStreamer needs and
+can be found under the same name in the base class of @code{<gst-object>} which
+is @code{<gobject>} (e.g. @code{g-object-ref} becomes @code{gst-object-ref}).
+
+The most interesting difference between @code{<gst-object>} and @code{<gobject>}
+is the "floating" reference count. A @code{<gobject>} is created with a
+reference count of 1, owned by the creator of the @code{<gobject>}. (The owner
+of a reference is the code section that has the right to call
+@code{gst-object-unref} in order to remove that reference.) A
+@code{<gst-object>} is created with a reference count of 1 also, but it isn't
+owned by anyone; Instead, the initial reference count of a @code{<gst-object>}
+is "floating". The floating reference can be removed by anyone at any time, by
+calling @code{gst-object-sink}. @code{gst-object-sink} does nothing if an object
+is already sunk (has no floating reference).
+
+When you add a @code{<gst-element>} to its parent container, the parent
+container will do this: This means that the container now owns a reference to
+the child element (since it called @code{gst-object-ref}), and the child element
+has no floating reference.
+
+@example 
+
+  gst_object_ref (GST_OBJECT (child_element));
+  gst_object_sink (GST_OBJECT (child_element));
+@end example
+
+The purpose of the floating reference is to keep the child element alive until
+you add it to a parent container, which then manages the lifetime of the object
+itself:
+
+@example 
+
+   element = gst_element_factory_make (factoryname, name);
+   // element has one floating reference to keep it alive
+   gst_bin_add (GST_BIN (bin), element);
+   // element has one non-floating reference owned by the container
+@end example
+
+Another effect of this is, that calling @code{gst-object-unref} on a bin object,
+will also destoy all the @code{<gst-element>} objects in it. The same is true
+for calling @code{gst-bin-remove}.
+
+Special care has to be taken for all methods that @code{gst-object-sink} an
+object since if the caller of those functions had a floating reference to the
+object, the object reference is now invalid.
+
+In contrast to @code{<gobject>} instances, @code{<gst-object>} adds a name
+property. The functions @code{gst-object-set-name} and
+@code{gst-object-get-name} are used to set/get the name of the object.
+
+Last reviewed on 2005-11-09 (0.9.4)
+
+@section Usage
+@include defuns-gstobject.xml.texi
+
+@c %end of fragment

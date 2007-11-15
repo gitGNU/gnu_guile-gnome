@@ -1,0 +1,176 @@
+
+@c %start of fragment
+
+@deffn Function gst-trace-new  (filename@tie{}@code{mchars}) (size@tie{}@code{int}) @result{}@tie{} (ret@tie{}@code{<gst-trace*>})
+Create a ringbuffer of @var{size} in the file with @var{filename} to store trace
+results in.
+
+@table @var
+@item filename
+a filename
+
+@item size
+the max size of the file
+
+@item ret
+a new @code{<gst-trace>}.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-trace-destroy  (self@tie{}@code{<gst-trace*>})
+Flush an close the previously allocated @var{trace}.
+
+@table @var
+@item trace
+the @code{<gst-trace>} to destroy
+
+@end table
+
+@end deffn
+
+@deffn Function gst-trace-flush  (self@tie{}@code{<gst-trace*>})
+Flush any pending trace entries in @var{trace} to the trace file. @var{trace}
+can be NULL in which case the default @code{<gst-trace>} will be flushed.
+
+@table @var
+@item trace
+the @code{<gst-trace>} to flush.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-trace-text-flush  (self@tie{}@code{<gst-trace*>})
+Flush any pending trace entries in @var{trace} to the trace file, formatted as a
+text line with timestamp and sequence numbers. @var{trace} can be NULL in which
+case the default @code{<gst-trace>} will be flushed.
+
+@table @var
+@item trace
+the @code{<gst-trace>} to flush.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-trace-set-default  (self@tie{}@code{<gst-trace*>})
+Set the default @code{<gst-trace>} to @var{trace}.
+
+@table @var
+@item trace
+the @code{<gst-trace>} to set as the default.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-trace-read-tsc  @result{}@tie{} (dst@tie{}@code{int64})
+Read a platform independent timer value that can be used in benchmarks.
+
+@table @var
+@item dst
+pointer to hold the result.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-alloc-trace-available  @result{}@tie{} (ret@tie{}@code{bool})
+Check if alloc tracing was compiled into the core
+
+@table @var
+@item ret
+TRUE if the core was compiled with alloc tracing enabled.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-alloc-trace-list  @result{}@tie{} (ret@tie{}@code{glist-of})
+Get a list of all registered alloc trace objects.
+
+@table @var
+@item ret
+a GList of GstAllocTrace objects.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-alloc-trace-live-all  @result{}@tie{} (ret@tie{}@code{int})
+Get the total number of live registered alloc trace objects.
+
+@table @var
+@item ret
+the total number of live registered alloc trace objects.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-alloc-trace-print-all 
+Print the status of all registered alloc trace objects.
+
+@end deffn
+
+@deffn Function gst-alloc-trace-set-flags-all  (flags@tie{}@code{<gst-alloc-trace-flags>})
+Enable the specified options on all registered alloc trace objects.
+
+@table @var
+@item flags
+the options to enable
+
+@end table
+
+@end deffn
+
+@deffn Function gst-alloc-trace-get  (name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gst-alloc-trace*>})
+Get the named alloc trace object.
+
+@table @var
+@item name
+the name of the alloc trace object
+
+@item ret
+a GstAllocTrace with the given name or NULL when no alloc tracer was registered
+with that name.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-alloc-trace-print  (self@tie{}@code{<gst-alloc-trace*>})
+Print the status of the given GstAllocTrace.
+
+@table @var
+@item trace
+the GstAllocTrace to print
+
+@end table
+
+@end deffn
+
+@deffn Function gst-alloc-trace-print-live 
+Print the status of all registered alloc trace objects, ignoring those without
+live objects.
+
+@end deffn
+
+@deffn Function gst-alloc-trace-set-flags  (self@tie{}@code{<gst-alloc-trace*>}) (flags@tie{}@code{<gst-alloc-trace-flags>})
+Enable the given features on the given GstAllocTrace object.
+
+@table @var
+@item trace
+the GstAllocTrace
+
+@item flags
+flags to set
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

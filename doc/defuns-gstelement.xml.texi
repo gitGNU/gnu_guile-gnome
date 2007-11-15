@@ -1,0 +1,1258 @@
+
+@c %start of fragment
+
+@deftp Class <gst-element>
+This @code{<gobject>} class defines no properties, other than those defined by
+its superclasses.
+
+@end deftp
+
+@defop Signal <gst-element> pad-added  (arg0@tie{}@code{<gst-pad>})
+a new @code{<gst-pad>} has been added to the element.
+
+@end defop
+
+@defop Signal <gst-element> pad-removed  (arg0@tie{}@code{<gst-pad>})
+a @code{<gst-pad>} has been removed from the element
+
+@end defop
+
+@defop Signal <gst-element> no-more-pads 
+This signals that the element will not generate more dynamic pads.
+
+@end defop
+
+@deffn Function gst-element-class-add-pad-template  (klass@tie{}@code{<gst-element-class>}) (templ@tie{}@code{<gst-pad-template>})
+Adds a padtemplate to an element class. This is mainly used in the _base_init
+functions of classes.
+
+@table @var
+@item klass
+the @code{<gst-element-class>} to add the pad template to.
+
+@item templ
+a @code{<gst-pad-template>} to add to the element class.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-class-get-pad-template  (klass@tie{}@code{<gst-element-class>}) (klass@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gst-pad-template>})
+Retrieves a padtemplate from @var{element-class} with the given name.
+
+@cartouche 
+If you use this function in the @code{<g-instance-init-func>} of an object class
+that has subclasses, make sure to pass the g_class parameter of the
+@code{<g-instance-init-func>} here.
+@end cartouche
+
+@table @var
+@item element-class
+a @code{<gst-element-class>} to get the pad template of.
+
+@item name
+the name of the @code{<gst-pad-template>} to get.
+
+@item ret
+the @code{<gst-pad-template>} with the given name, or @samp{@code{#f}} if none
+was found. No unreferencing is necessary.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-class-set-details  (klass@tie{}@code{<gst-element-class>}) (details@tie{}@code{<gst-element-details*>})
+Sets the detailed information for a @code{<gst-element-class>}.
+
+@cartouche 
+This function is for use in _base_init functions only.
+@end cartouche
+
+The @var{details} are copied.
+
+@table @var
+@item klass
+class to set details for
+
+@item details
+details to set
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-add-pad  (self@tie{}@code{<gst-element>}) (pad@tie{}@code{<gst-pad>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method add-pad
+Adds a pad (link point) to @var{element}. @var{pad}'s parent will be set to
+@var{element}; see @code{gst-object-set-parent} for refcounting information.
+
+Pads are not automatically activated so elements should perform the needed steps
+to activate the pad in case this pad is added in the PAUSED or PLAYING state.
+See @code{gst-pad-set-active} for more information about activating pads.
+
+The pad and the element should be unlocked when calling this function.
+
+This function will emit the @code{<gst-element::pad-added>} signal on the
+element.
+
+@table @var
+@item element
+a @code{<gst-element>} to add the pad to.
+
+@item pad
+the @code{<gst-pad>} to add to the element.
+
+@item ret
+@samp{@code{#t}} if the pad could be added. This function can fail when a pad
+with the same name already existed or the pad already had another parent. MT
+safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-get-pad  (self@tie{}@code{<gst-element>}) (name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gst-pad>})
+@deffnx Method get-pad
+Retrieves a pad from @var{element} by name. Tries
+@code{gst-element-get-static-pad} first, then
+@code{gst-element-get-request-pad}.
+
+@cartouche 
+Usage of this function is not recommended as it is unclear if the reference
+to the result pad should be released with @code{gst-object-unref} in case of a static pad
+or @code{gst-element-release-request-pad} in case of a request pad.
+@end cartouche
+
+@table @var
+@item element
+a @code{<gst-element>}.
+
+@item name
+the name of the pad to retrieve.
+
+@item ret
+the @code{<gst-pad>} if found, otherwise @samp{@code{#f}}. Unref or Release
+after usage, depending on the type of the pad.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-create-all-pads  (self@tie{}@code{<gst-element>})
+@deffnx Method create-all-pads
+Creates a pad for each pad template that is always available. This function is
+only useful during object intialization of subclasses of @code{<gst-element>}.
+
+@table @var
+@item element
+a @code{<gst-element>} to create pads for
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-get-compatible-pad  (self@tie{}@code{<gst-element>}) (pad@tie{}@code{<gst-pad>}) (caps@tie{}@code{<gst-caps>}) @result{}@tie{} (ret@tie{}@code{<gst-pad>})
+@deffnx Method get-compatible-pad
+Looks for an unlinked pad to which the given pad can link. It is not guaranteed
+that linking the pads will work, though it should work in most cases.
+
+@table @var
+@item element
+a @code{<gst-element>} in which the pad should be found.
+
+@item pad
+the @code{<gst-pad>} to find a compatible one for.
+
+@item caps
+the @code{<gst-caps>} to use as a filter.
+
+@item ret
+the @code{<gst-pad>} to which a link can be made, or @samp{@code{#f}} if one
+cannot be found.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-get-request-pad  (self@tie{}@code{<gst-element>}) (name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gst-pad>})
+@deffnx Method get-request-pad
+Retrieves a pad from the element by name. This version only retrieves request
+pads. The pad should be released with @code{gst-element-release-request-pad}.
+
+@table @var
+@item element
+a @code{<gst-element>} to find a request pad of.
+
+@item name
+the name of the request @code{<gst-pad>} to retrieve.
+
+@item ret
+requested @code{<gst-pad>} if found, otherwise @samp{@code{#f}}. Release after
+usage.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-get-static-pad  (self@tie{}@code{<gst-element>}) (name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gst-pad>})
+@deffnx Method get-static-pad
+Retrieves a pad from @var{element} by name. This version only retrieves
+already-existing (i.e. 'static') pads.
+
+@table @var
+@item element
+a @code{<gst-element>} to find a static pad of.
+
+@item name
+the name of the static @code{<gst-pad>} to retrieve.
+
+@item ret
+the requested @code{<gst-pad>} if found, otherwise @samp{@code{#f}}. unref after
+usage. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-no-more-pads  (self@tie{}@code{<gst-element>})
+@deffnx Method no-more-pads
+Use this function to signal that the element does not expect any more pads to
+show up in the current pipeline. This function should be called whenever pads
+have been added by the element itself. Elements with @code{<gst-pad-sometimes>}
+pad templates use this in combination with autopluggers to figure out that the
+element is done initializing its pads.
+
+This function emits the @code{<gst-element::no-more-pads>} signal.
+
+MT safe.
+
+@table @var
+@item element
+a @code{<gst-element>}
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-release-request-pad  (self@tie{}@code{<gst-element>}) (pad@tie{}@code{<gst-pad>})
+@deffnx Method release-request-pad
+Makes the element free the previously requested pad as obtained with
+@code{gst-element-get-request-pad}.
+
+MT safe.
+
+@table @var
+@item element
+a @code{<gst-element>} to release the request pad of.
+
+@item pad
+the @code{<gst-pad>} to release.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-remove-pad  (self@tie{}@code{<gst-element>}) (pad@tie{}@code{<gst-pad>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method remove-pad
+Removes @var{pad} from @var{element}. @var{pad} will be destroyed if it has not
+been referenced elsewhere using @code{gst-object-unparent}.
+
+This function is used by plugin developers and should not be used by
+applications. Pads that were dynamically requested from elements with
+@code{gst-element-get-request-pad} should be released with the
+@code{gst-element-release-request-pad} function instead.
+
+Pads are not automatically deactivated so elements should perform the needed
+steps to deactivate the pad in case this pad is removed in the PAUSED or PLAYING
+state. See @code{gst-pad-set-active} for more information about deactivating
+pads.
+
+The pad and the element should be unlocked when calling this function.
+
+This function will emit the @code{<gst-element::pad-removed>} signal on the
+element.
+
+@table @var
+@item element
+a @code{<gst-element>} to remove pad from.
+
+@item pad
+the @code{<gst-pad>} to remove from the element.
+
+@item ret
+@samp{@code{#t}} if the pad could be removed. Can return @samp{@code{#f}} if the
+pad does not belong to the provided element. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-iterate-pads  (self@tie{}@code{<gst-element>}) @result{}@tie{} (ret@tie{}@code{<gst-iterator*>})
+@deffnx Method iterate-pads
+Retrieves an iterattor of @var{element}'s pads. The iterator should be freed
+after usage.
+
+@table @var
+@item element
+a @code{<gst-element>} to iterate pads of.
+
+@item ret
+the @code{<gst-iterator>} of @code{<gst-pad>}. Unref each pad after use. MT
+safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-iterate-sink-pads  (self@tie{}@code{<gst-element>}) @result{}@tie{} (ret@tie{}@code{<gst-iterator*>})
+@deffnx Method iterate-sink-pads
+Retrieves an iterator of @var{element}'s sink pads.
+
+@table @var
+@item element
+a @code{<gst-element>}.
+
+@item ret
+the @code{<gst-iterator>} of @code{<gst-pad>}. Unref each pad after use. MT
+safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-iterate-src-pads  (self@tie{}@code{<gst-element>}) @result{}@tie{} (ret@tie{}@code{<gst-iterator*>})
+@deffnx Method iterate-src-pads
+Retrieves an iterator of @var{element}'s source pads.
+
+@table @var
+@item element
+a @code{<gst-element>}.
+
+@item ret
+the @code{<gst-iterator>} of @code{<gst-pad>}. Unref each pad after use. MT
+safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-link  (self@tie{}@code{<gst-element>}) (dest@tie{}@code{<gst-element>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method link
+Links @var{src} to @var{dest}. The link must be from source to destination; the
+other direction will not be tried. The function looks for existing pads that
+aren't linked yet. It will request new pads if necessary. Such pads need to be
+released manualy when unlinking. If multiple links are possible, only one is
+established.
+
+Make sure you have added your elements to a bin or pipeline with
+@code{gst-bin-add} before trying to link them.
+
+@table @var
+@item src
+a @code{<gst-element>} containing the source pad.
+
+@item dest
+the @code{<gst-element>} containing the destination pad.
+
+@item ret
+TRUE if the elements could be linked, FALSE otherwise.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-unlink  (self@tie{}@code{<gst-element>}) (dest@tie{}@code{<gst-element>})
+@deffnx Method unlink
+Unlinks all source pads of the source element with all sink pads of the sink
+element to which they are linked.
+
+If the link has been made using @code{gst-element-link}, it could have created
+an requestpad, which has to be released using
+@code{gst-element-release-request-pad}.
+
+@table @var
+@item src
+the source @code{<gst-element>} to unlink.
+
+@item dest
+the sink @code{<gst-element>} to unlink.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-link-pads  (self@tie{}@code{<gst-element>}) (srcpadname@tie{}@code{mchars}) (dest@tie{}@code{<gst-element>}) (destpadname@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method link-pads
+Links the two named pads of the source and destination elements. Side effect is
+that if one of the pads has no parent, it becomes a child of the parent of the
+other element. If they have different parents, the link fails.
+
+@table @var
+@item src
+a @code{<gst-element>} containing the source pad.
+
+@item srcpadname
+the name of the @code{<gst-pad>} in source element or NULL for any pad.
+
+@item dest
+the @code{<gst-element>} containing the destination pad.
+
+@item destpadname
+the name of the @code{<gst-pad>} in destination element, or NULL for any pad.
+
+@item ret
+TRUE if the pads could be linked, FALSE otherwise.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-unlink-pads  (self@tie{}@code{<gst-element>}) (srcpadname@tie{}@code{mchars}) (dest@tie{}@code{<gst-element>}) (destpadname@tie{}@code{mchars})
+@deffnx Method unlink-pads
+Unlinks the two named pads of the source and destination elements.
+
+@table @var
+@item src
+a @code{<gst-element>} containing the source pad.
+
+@item srcpadname
+the name of the @code{<gst-pad>} in source element.
+
+@item dest
+a @code{<gst-element>} containing the destination pad.
+
+@item destpadname
+the name of the @code{<gst-pad>} in destination element.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-link-pads-filtered  (self@tie{}@code{<gst-element>}) (srcpadname@tie{}@code{mchars}) (dest@tie{}@code{<gst-element>}) (destpadname@tie{}@code{mchars}) (filter@tie{}@code{<gst-caps>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method link-pads-filtered
+Links the two named pads of the source and destination elements. Side effect is
+that if one of the pads has no parent, it becomes a child of the parent of the
+other element. If they have different parents, the link fails. If @var{caps} is
+not @code{@code{#f}}, makes sure that the caps of the link is a subset of
+@var{caps}.
+
+@table @var
+@item src
+a @code{<gst-element>} containing the source pad.
+
+@item srcpadname
+the name of the @code{<gst-pad>} in source element or NULL for any pad.
+
+@item dest
+the @code{<gst-element>} containing the destination pad.
+
+@item destpadname
+the name of the @code{<gst-pad>} in destination element or NULL for any pad.
+
+@item filter
+the @code{<gst-caps>} to filter the link, or @code{@code{#f}} for no filter.
+
+@item ret
+TRUE if the pads could be linked, FALSE otherwise.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-link-filtered  (self@tie{}@code{<gst-element>}) (dest@tie{}@code{<gst-element>}) (filter@tie{}@code{<gst-caps>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method link-filtered
+Links @var{src} to @var{dest} using the given caps as filtercaps. The link must
+be from source to destination; the other direction will not be tried. The
+function looks for existing pads that aren't linked yet. It will request new
+pads if necessary. If multiple links are possible, only one is established.
+
+Make sure you have added your elements to a bin or pipeline with
+@code{gst-bin-add} before trying to link them.
+
+@table @var
+@item src
+a @code{<gst-element>} containing the source pad.
+
+@item dest
+the @code{<gst-element>} containing the destination pad.
+
+@item filter
+the @code{<gst-caps>} to filter the link, or @code{@code{#f}} for no filter.
+
+@item ret
+TRUE if the pads could be linked, FALSE otherwise.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-set-base-time  (self@tie{}@code{<gst-element>}) (time@tie{}@code{unsigned-long-long})
+@deffnx Method set-base-time
+Set the base time of an element. See @code{gst-element-get-base-time}.
+
+MT safe.
+
+@table @var
+@item element
+a @code{<gst-element>}.
+
+@item time
+the base time to set.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-get-base-time  (self@tie{}@code{<gst-element>}) @result{}@tie{} (ret@tie{}@code{unsigned-long-long})
+@deffnx Method get-base-time
+Returns the base time of the element. The base time is the absolute time of the
+clock when this element was last put to PLAYING. Subtracting the base time from
+the clock time gives the stream time of the element.
+
+@table @var
+@item element
+a @code{<gst-element>}.
+
+@item ret
+the base time of the element. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-set-bus  (self@tie{}@code{<gst-element>}) (bus@tie{}@code{<gst-bus>})
+@deffnx Method set-bus
+Sets the bus of the element. Increases the refcount on the bus. For internal use
+only, unless you're testing elements.
+
+MT safe.
+
+@table @var
+@item element
+a @code{<gst-element>} to set the bus of.
+
+@item bus
+the @code{<gst-bus>} to set.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-get-bus  (self@tie{}@code{<gst-element>}) @result{}@tie{} (ret@tie{}@code{<gst-bus>})
+@deffnx Method get-bus
+Returns the bus of the element. Note that only a @code{<gst-pipeline>} will
+provide a bus for the application.
+
+@table @var
+@item element
+a @code{<gst-element>} to get the bus of.
+
+@item ret
+the element's @code{<gst-bus>}. unref after usage. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-get-factory  (self@tie{}@code{<gst-element>}) @result{}@tie{} (ret@tie{}@code{<gst-element-factory>})
+@deffnx Method get-factory
+Retrieves the factory that was used to create this element.
+
+@table @var
+@item element
+a @code{<gst-element>} to request the element factory of.
+
+@item ret
+the @code{<gst-element-factory>} used for creating this element. no refcounting
+is needed.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-set-index  (self@tie{}@code{<gst-element>}) (index@tie{}@code{<gst-index>})
+@deffnx Method set-index
+Set @var{index} on the element. The refcount of the index will be increased, any
+previously set index is unreffed.
+
+MT safe.
+
+@table @var
+@item element
+a @code{<gst-element>}.
+
+@item index
+a @code{<gst-index>}.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-get-index  (self@tie{}@code{<gst-element>}) @result{}@tie{} (ret@tie{}@code{<gst-index>})
+@deffnx Method get-index
+Gets the index from the element.
+
+@table @var
+@item element
+a @code{<gst-element>}.
+
+@item ret
+a @code{<gst-index>} or @samp{@code{#f}} when no index was set on the element.
+unref after usage. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-is-indexable  (self@tie{}@code{<gst-element>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method is-indexable
+Queries if the element can be indexed.
+
+@table @var
+@item element
+a @code{<gst-element>}.
+
+@item ret
+TRUE if the element can be indexed. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-requires-clock  (self@tie{}@code{<gst-element>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method requires-clock
+Query if the element requires a clock.
+
+@table @var
+@item element
+a @code{<gst-element>} to query
+
+@item ret
+@samp{@code{#t}} if the element requires a clock MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-set-clock  (self@tie{}@code{<gst-element>}) (clock@tie{}@code{<gst-clock>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method set-clock
+Sets the clock for the element. This function increases the refcount on the
+clock. Any previously set clock on the object is unreffed.
+
+@table @var
+@item element
+a @code{<gst-element>} to set the clock for.
+
+@item clock
+the @code{<gst-clock>} to set for the element.
+
+@item ret
+@samp{@code{#t}} if the element accepted the clock. An element can refuse a
+clock when it, for example, is not able to slave its internal clock to the
+@var{clock} or when it requires a specific clock to operate. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-get-clock  (self@tie{}@code{<gst-element>}) @result{}@tie{} (ret@tie{}@code{<gst-clock>})
+@deffnx Method get-clock
+Gets the currently configured clock of the element. This is the clock as was
+last set with @code{gst-element-set-clock}.
+
+@table @var
+@item element
+a @code{<gst-element>} to get the clock of.
+
+@item ret
+the @code{<gst-clock>} of the element. unref after usage. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-provides-clock  (self@tie{}@code{<gst-element>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method provides-clock
+Query if the element provides a clock. A @code{<gst-clock>} provided by an
+element can be used as the global @code{<gst-clock>} for the pipeline. An
+element that can provide a clock is only required to do so in the PAUSED state,
+this means when it is fully negotiated and has allocated the resources to
+operate the clock.
+
+@table @var
+@item element
+a @code{<gst-element>} to query
+
+@item ret
+@samp{@code{#t}} if the element provides a clock MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-provide-clock  (self@tie{}@code{<gst-element>}) @result{}@tie{} (ret@tie{}@code{<gst-clock>})
+@deffnx Method provide-clock
+Get the clock provided by the given element.
+
+@cartouche 
+An element is only required to provide a clock in the PAUSED
+state. Some elements can provide a clock in other states.
+@end cartouche
+
+@table @var
+@item element
+a @code{<gst-element>} to query
+
+@item ret
+the GstClock provided by the element or @samp{@code{#f}} if no clock could be
+provided. Unref after usage. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-set-state  (self@tie{}@code{<gst-element>}) (state@tie{}@code{<gst-state>}) @result{}@tie{} (ret@tie{}@code{<gst-state-change-return>})
+@deffnx Method set-state
+Sets the state of the element. This function will try to set the requested state
+by going through all the intermediary states and calling the class's state
+change function for each.
+
+This function can return @code{<gst-state-change-async>}, in which case the
+element will perform the remainder of the state change asynchronously in another
+thread. An application can use @code{gst-element-get-state} to wait for the
+completion of the state change or it can wait for a state change message on the
+bus.
+
+@table @var
+@item element
+a @code{<gst-element>} to change state of.
+
+@item state
+the element's new @code{<gst-state>}.
+
+@item ret
+Result of the state change using @code{<gst-state-change-return>}. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-get-state  (self@tie{}@code{<gst-element>}) (state@tie{}@code{<gst-state*>}) (pending@tie{}@code{<gst-state*>}) (timeout@tie{}@code{unsigned-long-long}) @result{}@tie{} (ret@tie{}@code{<gst-state-change-return>})
+@deffnx Method get-state
+Gets the state of the element.
+
+For elements that performed an ASYNC state change, as reported by
+@code{gst-element-set-state}, this function will block up to the specified
+timeout value for the state change to complete. If the element completes the
+state change or goes into an error, this function returns immediately with a
+return value of @samp{GST_STATE_CHANGE_SUCCESS} or
+@samp{GST_STATE_CHANGE_FAILURE} respectively.
+
+For elements that did not return @samp{GST_STATE_CHANGE_ASYNC}, this function
+returns the current and pending state immediately.
+
+This function returns @samp{GST_STATE_CHANGE_NO_PREROLL} if the element
+successfully changed its state but is not able to provide data yet. This mostly
+happens for live sources that only produce data in the PLAYING state. While the
+state change return is equivalent to @samp{GST_STATE_CHANGE_SUCCESS}, it is
+returned to the application to signal that some sink elements might not be able
+to complete their state change because an element is not producing data to
+complete the preroll. When setting the element to playing, the preroll will
+complete and playback will start.
+
+@table @var
+@item element
+a @code{<gst-element>} to get the state of.
+
+@item state
+a pointer to @code{<gst-state>} to hold the state. Can be @samp{@code{#f}}.
+
+@item pending
+a pointer to @code{<gst-state>} to hold the pending state. Can be
+@samp{@code{#f}}.
+
+@item timeout
+a @code{<gst-clock-time>} to specify the timeout for an async state change or
+@samp{GST_CLOCK_TIME_NONE} for infinite timeout.
+
+@item ret
+@samp{GST_STATE_CHANGE_SUCCESS} if the element has no more pending state and the
+last state change succeeded, @samp{GST_STATE_CHANGE_ASYNC} if the element is
+still performing a state change or @samp{GST_STATE_CHANGE_FAILURE} if the last
+state change failed. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-set-locked-state  (self@tie{}@code{<gst-element>}) (locked_state@tie{}@code{bool}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method set-locked-state
+Locks the state of an element, so state changes of the parent don't affect this
+element anymore.
+
+MT safe.
+
+@table @var
+@item element
+a @code{<gst-element>}
+
+@item locked-state
+TRUE to lock the element's state
+
+@item ret
+TRUE if the state was changed, FALSE if bad parameters were given or the
+elements state-locking needed no change.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-is-locked-state  (self@tie{}@code{<gst-element>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method is-locked-state
+Checks if the state of an element is locked. If the state of an element is
+locked, state changes of the parent don't affect the element. This way you can
+leave currently unused elements inside bins. Just lock their state before
+changing the state from @code{<gst-state-null>}.
+
+MT safe.
+
+@table @var
+@item element
+a @code{<gst-element>}.
+
+@item ret
+TRUE, if the element's state is locked.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-abort-state  (self@tie{}@code{<gst-element>})
+@deffnx Method abort-state
+Abort the state change of the element. This function is used by elements that do
+asynchronous state changes and find out something is wrong.
+
+This function should be called with the STATE_LOCK held.
+
+MT safe.
+
+@table @var
+@item element
+a @code{<gst-element>} to abort the state of.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-continue-state  (self@tie{}@code{<gst-element>}) (ret@tie{}@code{<gst-state-change-return>}) @result{}@tie{} (ret@tie{}@code{<gst-state-change-return>})
+@deffnx Method continue-state
+Commit the state change of the element and proceed to the next pending state if
+any. This function is used by elements that do asynchronous state changes. The
+core will normally call this method automatically when an element returned
+@samp{GST_STATE_CHANGE_SUCCESS} from the state change function.
+
+If after calling this method the element still has not reached the pending
+state, the next state change is performed.
+
+This method is used internally and should normally not be called by plugins or
+applications.
+
+@table @var
+@item element
+a @code{<gst-element>} to continue the state change of.
+
+@item ret
+The previous state return value
+
+@item ret
+The result of the commit state change. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-lost-state  (self@tie{}@code{<gst-element>})
+@deffnx Method lost-state
+Brings the element to the lost state. The current state of the element is copied
+to the pending state so that any call to @code{gst-element-get-state} will
+return @samp{GST_STATE_CHANGE_ASYNC}.
+
+An ASYNC_START message is posted with an indication to distribute a new
+base_time to the element. If the element was PLAYING, it will go to PAUSED. The
+element will be restored to its PLAYING state by the parent pipeline when it
+prerolls again.
+
+This is mostly used for elements that lost their preroll buffer in the
+@samp{GST_STATE_PAUSED} or @samp{GST_STATE_PLAYING} state after a flush, they
+will go to their pending state again when a new preroll buffer is queued. This
+function can only be called when the element is currently not in error or an
+async state change.
+
+This function is used internally and should normally not be called from plugins
+or applications.
+
+MT safe.
+
+@table @var
+@item element
+a @code{<gst-element>} the state is lost of
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-state-get-name  (state@tie{}@code{<gst-state>}) @result{}@tie{} (ret@tie{}@code{mchars})
+Gets a string representing the given state.
+
+@table @var
+@item state
+a @code{<gst-state>} to get the name of.
+
+@item ret
+a string with the name of the state.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-sync-state-with-parent  (self@tie{}@code{<gst-element>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method sync-state-with-parent
+Tries to change the state of the element to the same as its parent. If this
+function returns FALSE, the state of element is undefined.
+
+@table @var
+@item element
+a @code{<gst-element>}.
+
+@item ret
+TRUE, if the element's state could be synced to the parent's state. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-found-tags  (self@tie{}@code{<gst-element>}) (list@tie{}@code{<gst-tag-list*>})
+@deffnx Method found-tags
+Posts a message to the bus that new tags were found, and pushes an event to all
+sourcepads. Takes ownership of the @var{list}.
+
+This is a utility method for elements. Applications should use the
+@code{<gst-tag-setter>} interface.
+
+@table @var
+@item element
+element for which we found the tags.
+
+@item list
+list of tags.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-found-tags-for-pad  (self@tie{}@code{<gst-element>}) (pad@tie{}@code{<gst-pad>}) (list@tie{}@code{<gst-tag-list*>})
+@deffnx Method found-tags-for-pad
+Posts a message to the bus that new tags were found and pushes the tags as
+event. Takes ownership of the @var{list}.
+
+This is a utility method for elements. Applications should use the
+@code{<gst-tag-setter>} interface.
+
+@table @var
+@item element
+element for which to post taglist to bus.
+
+@item pad
+pad on which to push tag-event.
+
+@item list
+the taglist to post on the bus and create event from.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-message-full  (self@tie{}@code{<gst-element>}) (type@tie{}@code{<gst-message-type>}) (domain@tie{}@code{unsigned-int}) (code@tie{}@code{int}) (text@tie{}@code{mchars}) (debug@tie{}@code{mchars}) (file@tie{}@code{mchars}) (function@tie{}@code{mchars}) (line@tie{}@code{int})
+@deffnx Method message-full
+Post an error, warning or info message on the bus from inside an element.
+
+@var{type} must be of @code{<gst-message-error>}, @code{<gst-message-warning>}
+or @code{<gst-message-info>}.
+
+MT safe.
+
+@table @var
+@item element
+a @code{<gst-element>} to send message from
+
+@item type
+the @code{<gst-message-type>}
+
+@item domain
+the GStreamer GError domain this message belongs to
+
+@item code
+the GError code belonging to the domain
+
+@item text
+an allocated text string to be used as a replacement for the default message
+connected to code, or @samp{@code{#f}}
+
+@item debug
+an allocated debug message to be used as a replacement for the default debugging
+information, or @samp{@code{#f}}
+
+@item file
+the source code file where the error was generated
+
+@item function
+the source code function where the error was generated
+
+@item line
+the source code line where the error was generated
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-post-message  (self@tie{}@code{<gst-element>}) (message@tie{}@code{<gst-message>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method post-message
+Post a message on the element's @code{<gst-bus>}. This function takes ownership
+of the message; if you want to access the message after this call, you should
+add an additional reference before calling.
+
+@table @var
+@item element
+a @code{<gst-element>} posting the message
+
+@item message
+a @code{<gst-message>} to post
+
+@item ret
+@samp{@code{#t}} if the message was successfully posted. The function returns
+@samp{@code{#f}} if the element did not have a bus. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-get-query-types  (self@tie{}@code{<gst-element>}) @result{}@tie{} (ret@tie{}@code{<gst-query-type*>})
+@deffnx Method get-query-types
+Get an array of query types from the element. If the element doesn't implement a
+query types function, the query will be forwarded to the peer of a random linked
+sink pad.
+
+@table @var
+@item element
+a @code{<gst-element>} to query
+
+@item ret
+An array of @code{<gst-query-type>} elements that should not be freed or
+modified. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-query  (self@tie{}@code{<gst-element>}) (query@tie{}@code{<gst-query>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method query
+Performs a query on the given element.
+
+For elements that don't implement a query handler, this function forwards the
+query to a random srcpad or to the peer of a random linked sinkpad of this
+element.
+
+@table @var
+@item element
+a @code{<gst-element>} to perform the query on.
+
+@item query
+the @code{<gst-query>}.
+
+@item ret
+TRUE if the query could be performed. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-query-convert  (self@tie{}@code{<gst-element>}) (src_format@tie{}@code{<gst-format>}) (src_val@tie{}@code{int64}) (dest_format@tie{}@code{<gst-format*>}) @result{}@tie{} (ret@tie{}@code{bool}) (dest_val@tie{}@code{int64})
+@deffnx Method query-convert
+Queries an element to convert @var{src-val} in @var{src-format} to
+@var{dest-format}.
+
+@table @var
+@item element
+a @code{<gst-element>} to invoke the convert query on.
+
+@item src-format
+a @code{<gst-format>} to convert from.
+
+@item src-val
+a value to convert.
+
+@item dest-format
+a pointer to the @code{<gst-format>} to convert to.
+
+@item dest-val
+a pointer to the result.
+
+@item ret
+TRUE if the query could be performed.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-query-position  (self@tie{}@code{<gst-element>}) (format@tie{}@code{<gst-format*>}) @result{}@tie{} (ret@tie{}@code{bool}) (cur@tie{}@code{int64})
+@deffnx Method query-position
+Queries an element for the stream position.
+
+@table @var
+@item element
+a @code{<gst-element>} to invoke the position query on.
+
+@item format
+a pointer to the @code{<gst-format>} asked for. On return contains the
+@code{<gst-format>} used.
+
+@item cur
+A location in which to store the current position, or NULL.
+
+@item ret
+TRUE if the query could be performed.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-query-duration  (self@tie{}@code{<gst-element>}) (format@tie{}@code{<gst-format*>}) @result{}@tie{} (ret@tie{}@code{bool}) (duration@tie{}@code{int64})
+@deffnx Method query-duration
+Queries an element for the total stream duration.
+
+@table @var
+@item element
+a @code{<gst-element>} to invoke the duration query on.
+
+@item format
+a pointer to the @code{<gst-format>} asked for. On return contains the
+@code{<gst-format>} used.
+
+@item duration
+A location in which to store the total duration, or NULL.
+
+@item ret
+TRUE if the query could be performed.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-send-event  (self@tie{}@code{<gst-element>}) (event@tie{}@code{<gst-event>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method send-event
+Sends an event to an element. If the element doesn't implement an event handler,
+the event will be pushed on a random linked sink pad for upstream events or a
+random linked source pad for downstream events.
+
+This function takes owership of the provided event so you should
+@code{gst-event-ref} it if you want to reuse the event after this call.
+
+@table @var
+@item element
+a @code{<gst-element>} to send the event to.
+
+@item event
+the @code{<gst-event>} to send to the element.
+
+@item ret
+@samp{@code{#t}} if the event was handled. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-seek-simple  (self@tie{}@code{<gst-element>}) (format@tie{}@code{<gst-format>}) (seek_flags@tie{}@code{<gst-seek-flags>}) (seek_pos@tie{}@code{int64}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method seek-simple
+Simple API to perform a seek on the given element, meaning it just seeks to the
+given position relative to the start of the stream. For more complex operations
+like segment seeks (e.g. for looping) or changing the playback rate or seeking
+relative to the last configured playback segment you should use
+@code{gst-element-seek}.
+
+In a completely prerolled PAUSED or PLAYING pipeline, seeking is always
+guaranteed to return @samp{@code{#t}} on a seekable media type or
+@samp{@code{#f}} when the media type is certainly not seekable (such as a live
+stream).
+
+Some elements allow for seeking in the READY state, in this case they will store
+the seek event and execute it when they are put to PAUSED. If the element
+supports seek in READY, it will always return @samp{@code{#t}} when it receives
+the event in the READY state.
+
+@table @var
+@item element
+a @code{<gst-element>} to seek on
+
+@item format
+a @code{<gst-format>} to execute the seek in, such as @code{<gst-format-time>}
+
+@item seek-flags
+seek options; playback applications will usually want to use GST_SEEK_FLAG_FLUSH
+| GST_SEEK_FLAG_KEY_UNIT here
+
+@item seek-pos
+position to seek to (relative to the start); if you are doing a seek in
+@code{<gst-format-time>} this value is in nanoseconds - multiply with
+@code{<gst-second>} to convert seconds to nanoseconds or with
+@code{<gst-msecond>} to convert milliseconds to nanoseconds.
+
+@item ret
+@samp{@code{#t}} if the seek operation succeeded (the seek might not always be
+executed instantly though)
+
+@end table
+
+Since 0.10.7
+
+@end deffn
+
+@deffn Function gst-element-seek  (self@tie{}@code{<gst-element>}) (rate@tie{}@code{double}) (format@tie{}@code{<gst-format>}) (flags@tie{}@code{<gst-seek-flags>}) (cur_type@tie{}@code{<gst-seek-type>}) (cur@tie{}@code{int64}) (stop_type@tie{}@code{<gst-seek-type>}) (stop@tie{}@code{int64}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method seek
+Sends a seek event to an element. See @code{gst-event-new-seek} for the details
+of the parameters. The seek event is sent to the element using
+@code{gst-element-send-event}.
+
+@table @var
+@item element
+a @code{<gst-element>} to send the event to.
+
+@item rate
+The new playback rate
+
+@item format
+The format of the seek values
+
+@item flags
+The optional seek flags.
+
+@item cur-type
+The type and flags for the new current position
+
+@item cur
+The value of the new current position
+
+@item stop-type
+The type and flags for the new stop position
+
+@item stop
+The value of the new stop position
+
+@item ret
+@samp{@code{#t}} if the event was handled. MT safe.
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

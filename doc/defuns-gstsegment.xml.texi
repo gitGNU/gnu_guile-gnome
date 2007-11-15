@@ -1,0 +1,300 @@
+
+@c %start of fragment
+
+@deffn Function gst-segment-clip  (self@tie{}@code{<gst-segment*>}) (format@tie{}@code{<gst-format>}) (start@tie{}@code{int64}) (stop@tie{}@code{int64}) @result{}@tie{} (ret@tie{}@code{bool}) (clip_start@tie{}@code{int64}) (clip_stop@tie{}@code{int64})
+Clip the given @var{start} and @var{stop} values to the segment boundaries given
+in @var{segment}. @var{start} and @var{stop} are compared and clipped to
+@var{segment} start and stop values.
+
+If the function returns FALSE, @var{start} and @var{stop} are known to fall
+outside of @var{segment} and @var{clip-start} and @var{clip-stop} are not
+updated.
+
+When the function returns TRUE, @var{clip-start} and @var{clip-stop} will be
+updated. If @var{clip-start} or @var{clip-stop} are different from @var{start}
+or @var{stop} respectively, the region fell partially in the segment.
+
+Note that when @var{stop} is -1, @var{clip-stop} will be set to the end of the
+segment. Depending on the use case, this may or may not be what you want.
+
+@table @var
+@item segment
+a @code{<gst-segment>} structure.
+
+@item format
+the format of the segment.
+
+@item start
+the start position in the segment
+
+@item stop
+the stop position in the segment
+
+@item clip-start
+the clipped start position in the segment
+
+@item clip-stop
+the clipped stop position in the segment
+
+@item ret
+TRUE if the given @var{start} and @var{stop} times fall partially or completely
+in @var{segment}, FALSE if the values are completely outside of the segment.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-segment-init  (self@tie{}@code{<gst-segment*>}) (format@tie{}@code{<gst-format>})
+The start/last_stop positions are set to 0 and the stop/duration fields are set
+to -1 (unknown). The default rate of 1.0 and no flags are set.
+
+Initialize @var{segment} to its default values.
+
+@table @var
+@item segment
+a @code{<gst-segment>} structure.
+
+@item format
+the format of the segment.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-segment-new  @result{}@tie{} (ret@tie{}@code{<gst-segment*>})
+Allocate a new @code{<gst-segment>} structure and initialize it using
+@code{gst-segment-init}.
+
+@table @var
+@item ret
+a new @code{<gst-segment>}, free with @code{gst-segment-free}.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-segment-set-duration  (self@tie{}@code{<gst-segment*>}) (format@tie{}@code{<gst-format>}) (duration@tie{}@code{int64})
+Set the duration of the segment to @var{duration}. This function is mainly used
+by elements that perform seeking and know the total duration of the segment.
+
+This field should be set to allow seeking requests relative to the duration.
+
+@table @var
+@item segment
+a @code{<gst-segment>} structure.
+
+@item format
+the format of the segment.
+
+@item duration
+the duration of the segment info or -1 if unknown.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-segment-set-last-stop  (self@tie{}@code{<gst-segment*>}) (format@tie{}@code{<gst-format>}) (position@tie{}@code{int64})
+Set the last observed stop position in the segment to @var{position}.
+
+This field should be set to allow seeking requests relative to the current
+playing position.
+
+@table @var
+@item segment
+a @code{<gst-segment>} structure.
+
+@item format
+the format of the segment.
+
+@item position
+the position
+
+@end table
+
+@end deffn
+
+@deffn Function gst-segment-set-newsegment  (self@tie{}@code{<gst-segment*>}) (update@tie{}@code{bool}) (rate@tie{}@code{double}) (format@tie{}@code{<gst-format>}) (start@tie{}@code{int64}) (stop@tie{}@code{int64}) (time@tie{}@code{int64})
+Update the segment structure with the field values of a new segment event and
+with a default applied_rate of 1.0.
+
+@table @var
+@item segment
+a @code{<gst-segment>} structure.
+
+@item update
+flag indicating a new segment is started or updated
+
+@item rate
+the rate of the segment.
+
+@item format
+the format of the segment.
+
+@item start
+the new start value
+
+@item stop
+the new stop value
+
+@item time
+the new stream time
+
+@end table
+
+Since 0.10.6
+
+@end deffn
+
+@deffn Function gst-segment-set-newsegment-full  (self@tie{}@code{<gst-segment*>}) (update@tie{}@code{bool}) (rate@tie{}@code{double}) (applied_rate@tie{}@code{double}) (format@tie{}@code{<gst-format>}) (start@tie{}@code{int64}) (stop@tie{}@code{int64}) (time@tie{}@code{int64})
+Update the segment structure with the field values of a new segment event.
+
+@table @var
+@item segment
+a @code{<gst-segment>} structure.
+
+@item update
+flag indicating a new segment is started or updated
+
+@item rate
+the rate of the segment.
+
+@item applied-rate
+the applied rate of the segment.
+
+@item format
+the format of the segment.
+
+@item start
+the new start value
+
+@item stop
+the new stop value
+
+@item time
+the new stream time
+
+@end table
+
+@end deffn
+
+@deffn Function gst-segment-set-seek  (self@tie{}@code{<gst-segment*>}) (rate@tie{}@code{double}) (format@tie{}@code{<gst-format>}) (flags@tie{}@code{<gst-seek-flags>}) (cur_type@tie{}@code{<gst-seek-type>}) (cur@tie{}@code{int64}) (stop_type@tie{}@code{<gst-seek-type>}) (stop@tie{}@code{int64}) @result{}@tie{} (update@tie{}@code{bool})
+Update the segment structure with the field values of a seek event (see
+@code{gst-event-new-seek}).
+
+After calling this method, the segment field last_stop and time will contain the
+requested new position in the segment. The new requested position in the segment
+depends on @var{rate} and @var{start-type} and @var{stop-type}.
+
+For positive @var{rate}, the new position in the segment is the new
+@var{segment} start field when it was updated with a @var{start-type} different
+from @code{<gst-seek-type-none>}. If no update was performed on @var{segment}
+start position (@code{<gst-seek-type-none>}), @var{start} is ignored and
+@var{segment} last_stop is unmodified.
+
+For negative @var{rate}, the new position in the segment is the new
+@var{segment} stop field when it was updated with a @var{stop-type} different
+from @code{<gst-seek-type-none>}. If no stop was previously configured in the
+segment, the duration of the segment will be used to update the stop position.
+If no update was performed on @var{segment} stop position
+(@code{<gst-seek-type-none>}), @var{stop} is ignored and @var{segment} last_stop
+is unmodified.
+
+The applied rate of the segment will be set to 1.0 by default. If the caller can
+apply a rate change, it should update @var{segment} rate and applied_rate after
+calling this function.
+
+@var{update} will be set to TRUE if a seek should be performed to the segment
+last_stop field. This field can be FALSE if, for example, only the @var{rate}
+has been changed but not the playback position.
+
+@table @var
+@item segment
+a @code{<gst-segment>} structure.
+
+@item rate
+the rate of the segment.
+
+@item format
+the format of the segment.
+
+@item flags
+the seek flags for the segment
+
+@item start-type
+the seek method
+
+@item start
+the seek start value
+
+@item stop-type
+the seek method
+
+@item stop
+the seek stop value
+
+@item update
+boolean holding whether last_stop was updated.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-segment-to-running-time  (self@tie{}@code{<gst-segment*>}) (format@tie{}@code{<gst-format>}) (position@tie{}@code{int64}) @result{}@tie{} (ret@tie{}@code{int64})
+Translate @var{position} to the total running time using the currently
+configured and previously accumulated segments. Position is a value between
+@var{segment} start and stop time.
+
+This function is typically used by elements that need to synchronize to the
+global clock in a pipeline. The runnning time is a constantly increasing value
+starting from 0. When @code{gst-segment-init} is called, this value will reset
+to 0.
+
+This function returns -1 if the position is outside of @var{segment} start and
+stop.
+
+@table @var
+@item segment
+a @code{<gst-segment>} structure.
+
+@item format
+the format of the segment.
+
+@item position
+the position in the segment
+
+@item ret
+the position as the total running time or -1 when an invalid position was given.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-segment-to-stream-time  (self@tie{}@code{<gst-segment*>}) (format@tie{}@code{<gst-format>}) (position@tie{}@code{int64}) @result{}@tie{} (ret@tie{}@code{int64})
+Translate @var{position} to stream time using the currently configured segment.
+The @var{position} value must be between @var{segment} start and stop value.
+
+This function is typically used by elements that need to operate on the stream
+time of the buffers it receives, such as effect plugins. In those use cases,
+@var{position} is typically the buffer timestamp or clock time that one wants to
+convert to the stream time. The stream time is always between 0 and the total
+duration of the media stream.
+
+@table @var
+@item segment
+a @code{<gst-segment>} structure.
+
+@item format
+the format of the segment.
+
+@item position
+the position in the segment
+
+@item ret
+the position in stream_time or -1 when an invalid position was given.
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

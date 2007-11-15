@@ -205,10 +205,4 @@ special case, @code{*all*} is interpreted to be the default threshold.")
    (else
     (get-pad-template (cdr pad-list) name))))
 
-;; re-export everything you need to have a nice gst session...
-
-(re-export-modules (gnome glib)
-                   (gnome gobject)
-                   (gnome gobject generics)
-                   (gnome gw gstreamer)
-                   (oop goops))
+(re-export-modules (gnome gw gstreamer))

@@ -1,0 +1,86 @@
+
+@c %start of fragment
+
+@deftp Class <gst-pad-template>
+This @code{<gobject>} class defines no properties, other than those defined by
+its superclasses.
+
+@end deftp
+
+@defop Signal <gst-pad-template> pad-created  (arg0@tie{}@code{<gst-pad>})
+This signal is fired when an element creates a pad from this template.
+
+@end defop
+
+@deffn Function gst-static-pad-template-get  (self@tie{}@code{<gst-static-pad-template*>}) @result{}@tie{} (ret@tie{}@code{<gst-pad-template>})
+Converts a @code{<gst-static-pad-template>} into a @code{<gst-pad-template>}.
+
+@table @var
+@item pad-template
+the static pad template
+
+@item ret
+a new @code{<gst-pad-template>}.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-static-pad-template-get-caps  (self@tie{}@code{<gst-static-pad-template*>}) @result{}@tie{} (ret@tie{}@code{<gst-caps>})
+Gets the capabilities of the static pad template.
+
+@table @var
+@item templ
+a @code{<gst-static-pad-template>} to get capabilities of.
+
+@item ret
+the @code{<gst-caps>} of the static pad template. If you need to keep a
+reference to the caps, take a ref (see @code{gst-caps-ref}).
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-template-new  (name_template@tie{}@code{mchars}) (direction@tie{}@code{<gst-pad-direction>}) (presence@tie{}@code{<gst-pad-presence>}) (caps@tie{}@code{<gst-caps>}) @result{}@tie{} (ret@tie{}@code{<gst-pad-template>})
+Creates a new pad template with a name according to the given template and with
+the given arguments. This functions takes ownership of the provided caps, so be
+sure to not use them afterwards.
+
+@table @var
+@item name-template
+the name template.
+
+@item direction
+the @code{<gst-pad-direction>} of the template.
+
+@item presence
+the @code{<gst-pad-presence>} of the pad.
+
+@item caps
+a @code{<gst-caps>} set for the template. The caps are taken ownership of.
+
+@item ret
+a new @code{<gst-pad-template>}.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-template-get-caps  (self@tie{}@code{<gst-pad-template>}) @result{}@tie{} (ret@tie{}@code{<gst-caps>})
+@deffnx Method get-caps
+Gets the capabilities of the pad template.
+
+@table @var
+@item templ
+a @code{<gst-pad-template>} to get capabilities of.
+
+@item ret
+the @code{<gst-caps>} of the pad template. If you need to keep a reference to
+the caps, take a ref (see @code{gst-caps-ref}).
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

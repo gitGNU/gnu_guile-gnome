@@ -1,0 +1,627 @@
+
+@c %start of fragment
+
+@deftp Class <gst-structure>
+@end deftp
+
+@deffn Function gst-structure-empty-new  (name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gst-structure>})
+Creates a new, empty @code{<gst-structure>} with the given @var{name}.
+
+See @code{gst-structure-set-name} for constraints on the @var{name} parameter.
+
+@table @var
+@item name
+name of new structure
+
+@item ret
+a new, empty @code{<gst-structure>}
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-id-empty-new  (quark@tie{}@code{unsigned-int}) @result{}@tie{} (ret@tie{}@code{<gst-structure>})
+Creates a new, empty @code{<gst-structure>} with the given name as a GQuark.
+
+@table @var
+@item quark
+name of new structure
+
+@item ret
+a new, empty @code{<gst-structure>}
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-get-name  (self@tie{}@code{<gst-structure>}) @result{}@tie{} (ret@tie{}@code{mchars})
+Get the name of @var{structure} as a string.
+
+@table @var
+@item structure
+a @code{<gst-structure>}
+
+@item ret
+the name of the structure.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-has-name  (self@tie{}@code{<gst-structure>}) (name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool})
+Checks if the structure has the given name
+
+@table @var
+@item structure
+a @code{<gst-structure>}
+
+@item name
+structure name to check for
+
+@item ret
+TRUE if @var{name} matches the name of the structure.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-set-name  (self@tie{}@code{<gst-structure>}) (name@tie{}@code{mchars})
+Sets the name of the structure to the given @var{name}. The string provided is
+copied before being used. It must not be empty, start with a letter and can be
+followed by letters, numbers and any of "/-_.:".
+
+@table @var
+@item structure
+a @code{<gst-structure>}
+
+@item name
+the new name of the structure
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-get-name-id  (self@tie{}@code{<gst-structure>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+Get the name of @var{structure} as a GQuark.
+
+@table @var
+@item structure
+a @code{<gst-structure>}
+
+@item ret
+the quark representing the name of the structure.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-id-get-value  (self@tie{}@code{<gst-structure>}) (field@tie{}@code{unsigned-int}) @result{}@tie{} (ret@tie{}@code{<gvalue>})
+Get the value of the field with GQuark @var{field}.
+
+@table @var
+@item structure
+a @code{<gst-structure>}
+
+@item field
+the @code{<g-quark>} of the field to get
+
+@item ret
+the @code{<gvalue>} corresponding to the field with the given name identifier.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-id-set-value  (self@tie{}@code{<gst-structure>}) (field@tie{}@code{unsigned-int}) (value@tie{}@code{<gvalue>})
+Sets the field with the given GQuark @var{field} to @var{value}. If the field
+does not exist, it is created. If the field exists, the previous value is
+replaced and freed.
+
+@table @var
+@item structure
+a @code{<gst-structure>}
+
+@item field
+a @code{<g-quark>} representing a field
+
+@item value
+the new value of the field
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-get-value  (self@tie{}@code{<gst-structure>}) (fieldname@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gvalue>})
+Get the value of the field with name @var{fieldname}.
+
+@table @var
+@item structure
+a @code{<gst-structure>}
+
+@item fieldname
+the name of the field to get
+
+@item ret
+the @code{<gvalue>} corresponding to the field with the given name.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-set-value  (self@tie{}@code{<gst-structure>}) (fieldname@tie{}@code{mchars}) (value@tie{}@code{<gvalue>})
+Sets the field with the given name @var{field} to @var{value}. If the field does
+not exist, it is created. If the field exists, the previous value is replaced
+and freed.
+
+@table @var
+@item structure
+a @code{<gst-structure>}
+
+@item fieldname
+the name of the field to set
+
+@item value
+the new value of the field
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-remove-field  (self@tie{}@code{<gst-structure>}) (fieldname@tie{}@code{mchars})
+Removes the field with the given name. If the field with the given name does not
+exist, the structure is unchanged.
+
+@table @var
+@item structure
+a @code{<gst-structure>}
+
+@item fieldname
+the name of the field to remove
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-remove-all-fields  (self@tie{}@code{<gst-structure>})
+Removes all fields in a GstStructure.
+
+@table @var
+@item structure
+a @code{<gst-structure>}
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-get-field-type  (self@tie{}@code{<gst-structure>}) (fieldname@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gtype>})
+Finds the field with the given name, and returns the type of the value it
+contains. If the field is not found, G_TYPE_INVALID is returned.
+
+@table @var
+@item structure
+a @code{<gst-structure>}
+
+@item fieldname
+the name of the field
+
+@item ret
+the @code{<gvalue>} of the field
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-foreach  (self@tie{}@code{<gst-structure>}) (proc@tie{}@code{scm})
+Calls the provided function once for each field in the @code{<gst-structure>}.
+The function must not modify the fields. Also see
+@code{gst-structure-map-in-place}.
+
+@table @var
+@item structure
+a @code{<gst-structure>}
+
+@item func
+a function to call for each field
+
+@item user-data
+private data
+
+@item ret
+TRUE if the supplied function returns TRUE For each of the fields, FALSE
+otherwise.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-n-fields  (self@tie{}@code{<gst-structure>}) @result{}@tie{} (ret@tie{}@code{int})
+Get the number of fields in the structure.
+
+@table @var
+@item structure
+a @code{<gst-structure>}
+
+@item ret
+the number of fields in the structure
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-has-field  (self@tie{}@code{<gst-structure>}) (fieldname@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool})
+Check if @var{structure} contains a field named @var{fieldname}.
+
+@table @var
+@item structure
+a @code{<gst-structure>}
+
+@item fieldname
+the name of a field
+
+@item ret
+TRUE if the structure contains a field with the given name
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-has-field-typed  (self@tie{}@code{<gst-structure>}) (fieldname@tie{}@code{mchars}) (type@tie{}@code{<gtype>}) @result{}@tie{} (ret@tie{}@code{bool})
+Check if @var{structure} contains a field named @var{fieldname} and with GType
+@var{type}.
+
+@table @var
+@item structure
+a @code{<gst-structure>}
+
+@item fieldname
+the name of a field
+
+@item type
+the type of a value
+
+@item ret
+TRUE if the structure contains a field with the given name and type
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-get-boolean  (self@tie{}@code{<gst-structure>}) (fieldname@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool}) (value@tie{}@code{bool})
+Sets the boolean pointed to by @var{value} corresponding to the value of the
+given field. Caller is responsible for making sure the field exists and has the
+correct type.
+
+@table @var
+@item structure
+a @code{<gst-structure>}
+
+@item fieldname
+the name of a field
+
+@item value
+a pointer to a @code{<gboolean>} to set
+
+@item ret
+TRUE if the value could be set correctly. If there was no field with
+@var{fieldname} or the existing field did not contain a boolean, this function
+returns FALSE.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-get-int  (self@tie{}@code{<gst-structure>}) (fieldname@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool}) (value@tie{}@code{int})
+Sets the int pointed to by @var{value} corresponding to the value of the given
+field. Caller is responsible for making sure the field exists and has the
+correct type.
+
+Returns: @samp{@code{#t}} if the value could be set correctly. If there was no
+field with @var{fieldname} or the existing field did not contain an int, this
+function
+
+@table @var
+@item structure
+a @code{<gst-structure>}
+
+@item fieldname
+the name of a field
+
+@item value
+a pointer to an int to set
+
+@item ret
+@samp{@code{#f}}.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-get-fourcc  (self@tie{}@code{<gst-structure>}) (fieldname@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool}) (value@tie{}@code{unsigned-int32})
+Sets the @code{<gst-fourcc>} pointed to by @var{value} corresponding to the
+value of the given field. Caller is responsible for making sure the field exists
+and has the correct type.
+
+Returns: TRUE if the value could be set correctly. If there was no field with
+@var{fieldname} or the existing field did not contain a fourcc, this function
+
+@table @var
+@item structure
+a @code{<gst-structure>}
+
+@item fieldname
+the name of a field
+
+@item value
+a pointer to a @code{<gst-fourcc>} to set
+
+@item ret
+FALSE.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-get-double  (self@tie{}@code{<gst-structure>}) (fieldname@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool}) (value@tie{}@code{double})
+Sets the double pointed to by @var{value} corresponding to the value of the
+given field. Caller is responsible for making sure the field exists and has the
+correct type.
+
+@table @var
+@item structure
+a @code{<gst-structure>}
+
+@item fieldname
+the name of a field
+
+@item value
+a pointer to a @code{<gst-fourcc>} to set
+
+@item ret
+TRUE if the value could be set correctly. If there was no field with
+@var{fieldname} or the existing field did not contain a double, this function
+returns FALSE.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-get-string  (self@tie{}@code{<gst-structure>}) (fieldname@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{mchars})
+Finds the field corresponding to @var{fieldname}, and returns the string
+contained in the field's value. Caller is responsible for making sure the field
+exists and has the correct type.
+
+The string should not be modified, and remains valid until the next call to a
+gst_structure_*() function with the given structure.
+
+@table @var
+@item structure
+a @code{<gst-structure>}
+
+@item fieldname
+the name of a field
+
+@item ret
+a pointer to the string or NULL when the field did not exist or did not contain
+a string.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-get-date  (self@tie{}@code{<gst-structure>}) (fieldname@tie{}@code{mchars}) (value@tie{}@code{<g-date**>}) @result{}@tie{} (ret@tie{}@code{bool})
+Sets the date pointed to by @var{value} corresponding to the date of the given
+field. Caller is responsible for making sure the field exists and has the
+correct type.
+
+Returns: TRUE if the value could be set correctly. If there was no field with
+@var{fieldname} or the existing field did not contain a data, this function
+
+@table @var
+@item structure
+a @code{<gst-structure>}
+
+@item fieldname
+the name of a field
+
+@item value
+a pointer to a @code{<g-date>} to set
+
+@item ret
+FALSE.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-get-clock-time  (self@tie{}@code{<gst-structure>}) (fieldname@tie{}@code{mchars}) (value@tie{}@code{<gst-clock-time*>}) @result{}@tie{} (ret@tie{}@code{bool})
+Sets the clock time pointed to by @var{value} corresponding to the clock time of
+the given field. Caller is responsible for making sure the field exists and has
+the correct type.
+
+@table @var
+@item structure
+a @code{<gst-structure>}
+
+@item fieldname
+the name of a field
+
+@item value
+a pointer to a @code{<gst-clock-time>} to set
+
+@item ret
+TRUE if the value could be set correctly. If there was no field with
+@var{fieldname} or the existing field did not contain a @code{<gst-clock-time>},
+this function returns FALSE.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-get-enum  (self@tie{}@code{<gst-structure>}) (fieldname@tie{}@code{mchars}) (enumtype@tie{}@code{<gtype>}) @result{}@tie{} (ret@tie{}@code{bool}) (value@tie{}@code{int})
+Sets the int pointed to by @var{value} corresponding to the value of the given
+field. Caller is responsible for making sure the field exists, has the correct
+type and that the enumtype is correct.
+
+@table @var
+@item structure
+a @code{<gst-structure>}
+
+@item fieldname
+the name of a field
+
+@item enumtype
+the enum type of a field
+
+@item value
+a pointer to an int to set
+
+@item ret
+TRUE if the value could be set correctly. If there was no field with
+@var{fieldname} or the existing field did not contain an enum of the given type,
+this function returns FALSE.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-get-fraction  (self@tie{}@code{<gst-structure>}) (fieldname@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool}) (value_numerator@tie{}@code{int}) (value_denominator@tie{}@code{int})
+Sets the integers pointed to by @var{value-numerator} and
+@var{value-denominator} corresponding to the value of the given field. Caller is
+responsible for making sure the field exists and has the correct type.
+
+@table @var
+@item structure
+a @code{<gst-structure>}
+
+@item fieldname
+the name of a field
+
+@item value-numerator
+a pointer to an int to set
+
+@item value-denominator
+a pointer to an int to set
+
+@item ret
+TRUE if the values could be set correctly. If there was no field with
+@var{fieldname} or the existing field did not contain a GstFraction, this
+function returns FALSE.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-map-in-place  (self@tie{}@code{<gst-structure>}) (func@tie{}@code{<gst-structure-map-func>}) (user_data@tie{}@code{<gpointer>}) @result{}@tie{} (ret@tie{}@code{bool})
+Calls the provided function once for each field in the @code{<gst-structure>}.
+In contrast to @code{gst-structure-foreach}, the function may modify but not
+delete the fields. The structure must be mutable.
+
+@table @var
+@item structure
+a @code{<gst-structure>}
+
+@item func
+a function to call for each field
+
+@item user-data
+private data
+
+@item ret
+TRUE if the supplied function returns TRUE For each of the fields, FALSE
+otherwise.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-nth-field-name  (self@tie{}@code{<gst-structure>}) (index@tie{}@code{unsigned-int}) @result{}@tie{} (ret@tie{}@code{mchars})
+Get the name of the given field number, counting from 0 onwards.
+
+@table @var
+@item structure
+a @code{<gst-structure>}
+
+@item index
+the index to get the name of
+
+@item ret
+the name of the given field number
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-set-parent-refcount  (self@tie{}@code{<gst-structure>}) @result{}@tie{} (refcount@tie{}@code{int})
+Sets the parent_refcount field of @code{<gst-structure>}. This field is used to
+determine whether a structure is mutable or not. This function should only be
+called by code implementing parent objects of @code{<gst-structure>}, as
+described in the MT Refcounting section of the design documents.
+
+@table @var
+@item structure
+a @code{<gst-structure>}
+
+@item refcount
+a pointer to the parent's refcount
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-to-string  (self@tie{}@code{<gst-structure>}) @result{}@tie{} (ret@tie{}@code{mchars})
+Converts @var{structure} to a human-readable string representation.
+
+@table @var
+@item structure
+a @code{<gst-structure>}
+
+@item ret
+a pointer to string allocated by @code{g-malloc}. @code{g-free} after usage.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-from-string  (string@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gst-structure>})
+Creates a @code{<gst-structure>} from a string representation. If end is not
+NULL, a pointer to the place inside the given string where parsing ended will be
+returned.
+
+@table @var
+@item string
+a string representation of a @code{<gst-structure>}.
+
+@item end
+pointer to store the end of the string in.
+
+@item ret
+a new @code{<gst-structure>} or NULL when the string could not be parsed. Free
+after usage.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-structure-fixate-field-boolean  (self@tie{}@code{<gst-structure>}) (field_name@tie{}@code{mchars}) (target@tie{}@code{bool}) @result{}@tie{} (ret@tie{}@code{bool})
+Fixates a @code{<gst-structure>} by changing the given @var{field-name} field to
+the given @var{target} boolean if that field is not fixed yet.
+
+@table @var
+@item structure
+a @code{<gst-structure>}
+
+@item field-name
+a field in @var{structure}
+
+@item target
+the target value of the fixation
+
+@item ret
+TRUE if the structure could be fixated
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

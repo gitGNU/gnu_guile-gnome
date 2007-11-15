@@ -1,0 +1,240 @@
+
+@c %start of fragment
+
+@deffn Function gst-iterator-new  (size@tie{}@code{unsigned-int}) (type@tie{}@code{<gtype>}) (lock@tie{}@code{<g-mutex*>}) (next@tie{}@code{<gst-iterator-next-function>}) (item@tie{}@code{<gst-iterator-item-function>}) (resync@tie{}@code{<gst-iterator-resync-function>}) (free@tie{}@code{<gst-iterator-free-function>}) @result{}@tie{} (ret@tie{}@code{<gst-iterator*>}) (master_cookie@tie{}@code{unsigned-int32})
+Create a new iterator. This function is mainly used for objects implementing the
+next/resync/free function to iterate a data structure.
+
+For each item retrieved, the @var{item} function is called with the lock held.
+The @var{free} function is called when the iterator is freed.
+
+@table @var
+@item size
+the size of the iterator structure
+
+@item type
+@code{<g-type>} of children
+
+@item lock
+pointer to a @code{<g-mutex>}.
+
+@item master-cookie
+pointer to a guint32 to protect the iterated object.
+
+@item next
+function to get next item
+
+@item item
+function to call on each item retrieved
+
+@item resync
+function to resync the iterator
+
+@item free
+function to free the iterator
+
+@item ret
+the new @code{<gst-iterator>}. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-iterator-new-list  (type@tie{}@code{<gtype>}) (lock@tie{}@code{<g-mutex*>}) (list@tie{}@code{<g-list**>}) (owner@tie{}@code{<gpointer>}) (item@tie{}@code{<gst-iterator-item-function>}) (free@tie{}@code{<gst-iterator-dispose-function>}) @result{}@tie{} (ret@tie{}@code{<gst-iterator*>}) (master_cookie@tie{}@code{unsigned-int32})
+Create a new iterator designed for iterating @var{list}.
+
+@table @var
+@item type
+@code{<g-type>} of elements
+
+@item lock
+pointer to a @code{<g-mutex>} protecting the list.
+
+@item master-cookie
+pointer to a guint32 to protect the list.
+
+@item list
+pointer to the list
+
+@item owner
+object owning the list
+
+@item item
+function to call for each item
+
+@item free
+function to call when the iterator is freed
+
+@item ret
+the new @code{<gst-iterator>} for @var{list}. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-iterator-next  (self@tie{}@code{<gst-iterator*>}) (elem@tie{}@code{<gpointer*>}) @result{}@tie{} (ret@tie{}@code{<gst-iterator-result>})
+Get the next item from the iterator. For iterators that return refcounted
+objects, the returned object will have its refcount increased and should
+therefore be unreffed after usage.
+
+@table @var
+@item it
+The @code{<gst-iterator>} to iterate
+
+@item elem
+pointer to hold next element
+
+@item ret
+The result of the iteration. Unref after usage if this is a refcounted object.
+MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-iterator-resync  (self@tie{}@code{<gst-iterator*>})
+Resync the iterator. this function is mostly called after
+@code{gst-iterator-next} returned @samp{GST_ITERATOR_RESYNC}.
+
+MT safe.
+
+@table @var
+@item it
+The @code{<gst-iterator>} to resync
+
+@end table
+
+@end deffn
+
+@deffn Function gst-iterator-push  (self@tie{}@code{<gst-iterator*>}) (other@tie{}@code{<gst-iterator*>})
+Pushes @var{other} iterator onto @var{it}. All calls performed on @var{it} are
+forwarded tot @var{other}. If @var{other} returns @code{<gst-iterator-done>}, it
+is popped again and calls are handled by @var{it} again.
+
+This function is mainly used by objects implementing the iterator next function
+to recurse into substructures.
+
+MT safe.
+
+@table @var
+@item it
+The @code{<gst-iterator>} to use
+
+@item other
+The @code{<gst-iterator>} to push
+
+@end table
+
+@end deffn
+
+@deffn Function gst-iterator-filter  (self@tie{}@code{<gst-iterator*>}) (func@tie{}@code{<g-compare-func>}) (user_data@tie{}@code{<gpointer>}) @result{}@tie{} (ret@tie{}@code{<gst-iterator*>})
+Create a new iterator from an existing iterator. The new iterator will only
+return those elements that match the given compare function @var{func}.
+@var{func} should return 0 for elements that should be included in the iterator.
+
+When this iterator is freed, @var{it} will also be freed.
+
+@table @var
+@item it
+The @code{<gst-iterator>} to filter
+
+@item func
+the compare function to select elements
+
+@item user-data
+user data passed to the compare function
+
+@item ret
+a new @code{<gst-iterator>}. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-iterator-fold  (self@tie{}@code{<gst-iterator*>}) (func@tie{}@code{<gst-iterator-fold-function>}) (ret@tie{}@code{<gvalue>}) (user_data@tie{}@code{<gpointer>}) @result{}@tie{} (ret@tie{}@code{<gst-iterator-result>})
+Folds @var{func} over the elements of @var{iter}. That is to say, @var{proc}
+will be called as @var{proc} (object, @var{ret}, @var{user-data}) for each
+object in @var{iter}. The normal use of this procedure is to accumulate the
+results of operating on the objects in @var{ret}.
+
+This procedure can be used (and is used internally) to implement the foreach and
+find_custom operations.
+
+The fold will proceed as long as @var{func} returns TRUE. When the iterator has
+no more arguments, @code{<gst-iterator-done>} will be returned. If @var{func}
+returns FALSE, the fold will stop, and @code{<gst-iterator-ok>} will be
+returned. Errors or resyncs will cause fold to return
+@code{<gst-iterator-error>} or @code{<gst-iterator-resync>} as appropriate.
+
+The iterator will not be freed.
+
+@table @var
+@item it
+The @code{<gst-iterator>} to fold over
+
+@item func
+the fold function
+
+@item ret
+the seed value passed to the fold function
+
+@item user-data
+user data passed to the fold function
+
+@item ret
+A @code{<gst-iterator-result>}, as described above. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-iterator-foreach  (self@tie{}@code{<gst-iterator*>}) (func@tie{}@code{<g-func>}) (user_data@tie{}@code{<gpointer>}) @result{}@tie{} (ret@tie{}@code{<gst-iterator-result>})
+Iterate over all element of @var{it} and call the given function @var{func} for
+each element.
+
+@table @var
+@item it
+The @code{<gst-iterator>} to iterate
+
+@item func
+the function to call for each element.
+
+@item user-data
+user data passed to the function
+
+@item ret
+the result call to @code{gst-iterator-fold}. The iterator will not be freed. MT
+safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-iterator-find-custom  (self@tie{}@code{<gst-iterator*>}) (func@tie{}@code{<g-compare-func>}) (user_data@tie{}@code{<gpointer>}) @result{}@tie{} (ret@tie{}@code{<gpointer>})
+Find the first element in @var{it} that matches the compare function @var{func}.
+@var{func} should return 0 when the element is found.
+
+The iterator will not be freed.
+
+This function will return NULL if an error or resync happened to the iterator.
+
+@table @var
+@item it
+The @code{<gst-iterator>} to iterate
+
+@item func
+the compare function to use
+
+@item user-data
+user data passed to the compare function
+
+@item ret
+The element in the iterator that matches the compare function or NULL when no
+element matched. MT safe.
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

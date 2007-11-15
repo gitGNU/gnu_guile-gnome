@@ -1,0 +1,103 @@
+
+@c %start of fragment
+
+@node GstBuffer
+@chapter GstBuffer
+Data-passing buffer type, supporting sub-buffers.
+
+@section Overview
+Buffers are the basic unit of data transfer in GStreamer. The
+@code{<gst-buffer>} type provides all the state necessary to define a region of
+memory as part of a stream. Sub-buffers are also supported, allowing a smaller
+region of a buffer to become its own buffer, with mechanisms in place to ensure
+that neither memory space goes away prematurely.
+
+Buffers are usually created with @code{gst-buffer-new}. After a buffer has been
+created one will typically allocate memory for it and set the size of the buffer
+data. The following example creates a buffer that can hold a given video frame
+with a given width, height and bits per plane.
+
+@c (title "Creating a buffer for a video frame")
+@example 
+
+  GstBuffer *buffer;
+  gint size, width, height, bpp;
+  ...
+  size = width * height * bpp;
+  buffer = gst_buffer_new ();
+  GST_BUFFER_SIZE (buffer) = size;
+  GST_BUFFER_MALLOCDATA (buffer) = g_malloc (size);
+  GST_BUFFER_DATA (buffer) = GST_BUFFER_MALLOCDATA (buffer);
+  ...
+  
+@end example
+
+Alternatively, use @code{gst-buffer-new-and-alloc} to create a buffer with
+preallocated data of a given size.
+
+The data pointed to by the buffer can be retrieved with the
+@code{gst-buffer-data} macro. The size of the data can be found with
+@code{gst-buffer-size}. For buffers of size 0, the data pointer is undefined
+(usually NULL) and should never be used.
+
+If an element knows what pad you will push the buffer out on, it should use
+@code{gst-pad-alloc-buffer} instead to create a buffer. This allows downstream
+elements to provide special buffers to write in, like hardware buffers.
+
+A buffer has a pointer to a @code{<gst-caps>} describing the media type of the
+data in the buffer. Attach caps to the buffer with @code{gst-buffer-set-caps};
+this is typically done before pushing out a buffer using @code{gst-pad-push} so
+that the downstream element knows the type of the buffer.
+
+A buffer will usually have a timestamp, and a duration, but neither of these are
+guaranteed (they may be set to @code{<gst-clock-time-none>}). Whenever a
+meaningful value can be given for these, they should be set. The timestamp and
+duration are measured in nanoseconds (they are @code{<gst-clock-time>} values).
+
+A buffer can also have one or both of a start and an end offset. These are
+media-type specific. For video buffers, the start offset will generally be the
+frame number. For audio buffers, it will be the number of samples produced so
+far. For compressed data, it could be the byte offset in a source or destination
+file. Likewise, the end offset will be the offset of the end of the buffer.
+These can only be meaningfully interpreted if you know the media type of the
+buffer (the @code{<gst-caps>} set on it). Either or both can be set to
+@code{<gst-buffer-offset-none>}.
+
+@code{gst-buffer-ref} is used to increase the refcount of a buffer. This must be
+done when you want to keep a handle to the buffer after pushing it to the next
+element.
+
+To efficiently create a smaller buffer out of an existing one, you can use
+@code{gst-buffer-create-sub}.
+
+If a plug-in wants to modify the buffer data in-place, it should first obtain a
+buffer that is safe to modify by using @code{gst-buffer-make-writable}. This
+function is optimized so that a copy will only be made when it is necessary.
+
+A plugin that only wishes to modify the metadata of a buffer, such as the
+offset, timestamp or caps, should use @code{gst-buffer-make-metadata-writable},
+which will create a subbuffer of the original buffer to ensure the caller has
+sole ownership, and not copy the buffer data.
+
+Several flags of the buffer can be set and unset with the
+@code{gst-buffer-flag-set} and @code{gst-buffer-flag-unset} macros. Use
+@code{gst-buffer-flag-is-set} to test if a certain @code{<gst-buffer-flag>} is
+set.
+
+Buffers can be efficiently merged into a larger buffer with
+@code{gst-buffer-merge} and @code{gst-buffer-span} if the
+@code{gst-buffer-is-span-fast} function returns TRUE.
+
+An element should either unref the buffer or push it out on a src pad using
+@code{gst-pad-push} (see @code{<gst-pad>}).
+
+Buffers are usually freed by unreffing them with @code{gst-buffer-unref}. When
+the refcount drops to 0, any data pointed to by @code{gst-buffer-mallocdata}
+will also be freed.
+
+Last reviewed on August 11th, 2006 (0.10.10)
+
+@section Usage
+@include defuns-gstbuffer.xml.texi
+
+@c %end of fragment

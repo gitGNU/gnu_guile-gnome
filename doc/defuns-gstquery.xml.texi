@@ -1,0 +1,526 @@
+
+@c %start of fragment
+
+@deftp Class <gst-query>
+@end deftp
+
+@deffn Function gst-query-type-get-name  (self@tie{}@code{<gst-query-type*>}) @result{}@tie{} (ret@tie{}@code{mchars})
+Get a printable name for the given query type. Do not modify or free.
+
+@table @var
+@item query
+the query type
+
+@item ret
+a reference to the static name of the query.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-query-type-to-quark  (self@tie{}@code{<gst-query-type*>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+Get the unique quark for the given query type.
+
+@table @var
+@item query
+the query type
+
+@item ret
+the quark associated with the query type
+
+@end table
+
+@end deffn
+
+@deffn Function gst-query-type-register  (nick@tie{}@code{mchars}) (description@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gst-query-type>})
+Create a new GstQueryType based on the nick or return an already registered
+query with that nick
+
+@table @var
+@item nick
+The nick of the new query
+
+@item description
+The description of the new query
+
+@item ret
+A new GstQueryType or an already registered query with the same nick.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-query-type-get-by-nick  (nick@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gst-query-type>})
+Get the query type registered with @var{nick}.
+
+@table @var
+@item nick
+The nick of the query
+
+@item ret
+The query registered with @var{nick} or @code{<gst-query-none>} if the query was
+not registered.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-query-types-contains  (self@tie{}@code{<gst-query-type*>}) (type@tie{}@code{<gst-query-type>}) @result{}@tie{} (ret@tie{}@code{bool})
+See if the given @code{<gst-query-type>} is inside the @var{types} query types
+array.
+
+@table @var
+@item types
+The query array to search
+
+@item type
+the @code{<gst-query-type>} to find
+
+@item ret
+TRUE if the type is found inside the array
+
+@end table
+
+@end deffn
+
+@deffn Function gst-query-type-iterate-definitions  @result{}@tie{} (ret@tie{}@code{<gst-iterator*>})
+Get a @code{<gst-iterator>} of all the registered query types. The definitions
+iterated over are read only.
+
+@table @var
+@item ret
+A @code{<gst-iterator>} of @code{<gst-query-type-definition>}.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-query-new-application  (type@tie{}@code{<gst-query-type>}) (structure@tie{}@code{<gst-structure>}) @result{}@tie{} (ret@tie{}@code{<gst-query>})
+Constructs a new custom application query object. Use @code{gst-query-unref}
+when done with it.
+
+@table @var
+@item type
+the query type
+
+@item structure
+a structure for the query
+
+@item ret
+a @code{<gst-query>}
+
+@end table
+
+@end deffn
+
+@deffn Function gst-query-get-structure  (self@tie{}@code{<gst-query>}) @result{}@tie{} (ret@tie{}@code{<gst-structure>})
+@deffnx Method get-structure
+Get the structure of a query.
+
+@table @var
+@item query
+a @code{<gst-query>}
+
+@item ret
+The @code{<gst-structure>} of the query. The structure is still owned by the
+query and will therefore be freed when the query is unreffed.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-query-new-convert  (src_format@tie{}@code{<gst-format>}) (value@tie{}@code{int64}) (dest_format@tie{}@code{<gst-format>}) @result{}@tie{} (ret@tie{}@code{<gst-query>})
+Constructs a new convert query object. Use @code{gst-query-unref} when done with
+it. A convert query is used to ask for a conversion between one format and
+another.
+
+@table @var
+@item src-format
+the source @code{<gst-format>} for the new query
+
+@item value
+the value to convert
+
+@item dest-format
+the target @code{<gst-format>}
+
+@item ret
+A @code{<gst-query>}
+
+@end table
+
+@end deffn
+
+@deffn Function gst-query-set-convert  (self@tie{}@code{<gst-query>}) (src_format@tie{}@code{<gst-format>}) (src_value@tie{}@code{int64}) (dest_format@tie{}@code{<gst-format>}) (dest_value@tie{}@code{int64})
+@deffnx Method set-convert
+Answer a convert query by setting the requested values.
+
+@table @var
+@item query
+a @code{<gst-query>}
+
+@item src-format
+the source @code{<gst-format>}
+
+@item src-value
+the source value
+
+@item dest-format
+the destination @code{<gst-format>}
+
+@item dest-value
+the destination value
+
+@end table
+
+@end deffn
+
+@deffn Function gst-query-parse-convert  (self@tie{}@code{<gst-query>}) (src_format@tie{}@code{<gst-format*>}) (dest_format@tie{}@code{<gst-format*>}) @result{}@tie{} (src_value@tie{}@code{int64}) (dest_value@tie{}@code{int64})
+@deffnx Method parse-convert
+Parse a convert query answer. Any of @var{src-format}, @var{src-value},
+@var{dest-format}, and @var{dest-value} may be NULL, in which case that value is
+omitted.
+
+@table @var
+@item query
+a @code{<gst-query>}
+
+@item src-format
+the storage for the @code{<gst-format>} of the source value, or NULL
+
+@item src-value
+the storage for the source value, or NULL
+
+@item dest-format
+the storage for the @code{<gst-format>} of the destination value, or NULL
+
+@item dest-value
+the storage for the destination value, or NULL
+
+@end table
+
+@end deffn
+
+@deffn Function gst-query-new-position  (format@tie{}@code{<gst-format>}) @result{}@tie{} (ret@tie{}@code{<gst-query>})
+Constructs a new query stream position query object. Use @code{gst-query-unref}
+when done with it. A position query is used to query the current position of
+playback in the streams, in some format.
+
+@table @var
+@item format
+the default @code{<gst-format>} for the new query
+
+@item ret
+A @code{<gst-query>}
+
+@end table
+
+@end deffn
+
+@deffn Function gst-query-set-position  (self@tie{}@code{<gst-query>}) (format@tie{}@code{<gst-format>}) (cur@tie{}@code{int64})
+@deffnx Method set-position
+Answer a position query by setting the requested value in the given format.
+
+@table @var
+@item query
+a @code{<gst-query>} with query type GST_QUERY_POSITION
+
+@item format
+the requested @code{<gst-format>}
+
+@item cur
+the position to set
+
+@end table
+
+@end deffn
+
+@deffn Function gst-query-parse-position  (self@tie{}@code{<gst-query>}) (format@tie{}@code{<gst-format*>}) @result{}@tie{} (cur@tie{}@code{int64})
+@deffnx Method parse-position
+Parse a position query, writing the format into @var{format}, and the position
+into @var{cur}, if the respective parameters are non-NULL.
+
+@table @var
+@item query
+a @code{<gst-query>}
+
+@item format
+the storage for the @code{<gst-format>} of the position values (may be NULL)
+
+@item cur
+the storage for the current position (may be NULL)
+
+@end table
+
+@end deffn
+
+@deffn Function gst-query-new-duration  (format@tie{}@code{<gst-format>}) @result{}@tie{} (ret@tie{}@code{<gst-query>})
+Constructs a new stream duration query object to query in the given format. Use
+@code{gst-query-unref} when done with it. A duration query will give the total
+length of the stream.
+
+@table @var
+@item format
+the @code{<gst-format>} for this duration query
+
+@item ret
+A @code{<gst-query>}
+
+@end table
+
+@end deffn
+
+@deffn Function gst-query-set-duration  (self@tie{}@code{<gst-query>}) (format@tie{}@code{<gst-format>}) (duration@tie{}@code{int64})
+@deffnx Method set-duration
+Answer a duration query by setting the requested value in the given format.
+
+@table @var
+@item query
+a @code{<gst-query>}
+
+@item format
+the @code{<gst-format>} for the duration
+
+@item duration
+the duration of the stream
+
+@end table
+
+@end deffn
+
+@deffn Function gst-query-parse-duration  (self@tie{}@code{<gst-query>}) (format@tie{}@code{<gst-format*>}) @result{}@tie{} (duration@tie{}@code{int64})
+@deffnx Method parse-duration
+Parse a duration query answer. Write the format of the duration into
+@var{format}, and the value into @var{duration}, if the respective variables are
+non-NULL.
+
+@table @var
+@item query
+a @code{<gst-query>}
+
+@item format
+the storage for the @code{<gst-format>} of the duration value, or NULL.
+
+@item duration
+the storage for the total duration, or NULL.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-query-new-seeking  (format@tie{}@code{<gst-format>}) @result{}@tie{} (ret@tie{}@code{<gst-query>})
+Constructs a new query object for querying seeking properties of the stream.
+
+@table @var
+@item format
+the default @code{<gst-format>} for the new query
+
+@item ret
+A @code{<gst-query>}
+
+@end table
+
+@end deffn
+
+@deffn Function gst-query-set-seeking  (self@tie{}@code{<gst-query>}) (format@tie{}@code{<gst-format>}) (seekable@tie{}@code{bool}) (segment_start@tie{}@code{int64}) (segment_end@tie{}@code{int64})
+@deffnx Method set-seeking
+Set the seeking query result fields in @var{query}.
+
+@table @var
+@item query
+a @code{<gst-query>}
+
+@item format
+the format to set for the @var{segment-start} and @var{segment-end} values
+
+@item seekable
+the seekable flag to set
+
+@item segment-start
+the segment_start to set
+
+@item segment-end
+the segment_end to set
+
+@end table
+
+@end deffn
+
+@deffn Function gst-query-parse-seeking  (self@tie{}@code{<gst-query>}) (format@tie{}@code{<gst-format*>}) @result{}@tie{} (seekable@tie{}@code{bool}) (segment_start@tie{}@code{int64}) (segment_end@tie{}@code{int64})
+@deffnx Method parse-seeking
+Parse a seeking query, writing the format into @var{format}, and other results
+into the passed parameters, if the respective parameters are non-NULL
+
+@table @var
+@item query
+a GST_QUERY_SEEKING type query @code{<gst-query>}
+
+@item format
+the format to set for the @var{segment-start} and @var{segment-end} values
+
+@item seekable
+the seekable flag to set
+
+@item segment-start
+the segment_start to set
+
+@item segment-end
+the segment_end to set
+
+@end table
+
+@end deffn
+
+@deffn Function gst-query-new-formats  @result{}@tie{} (ret@tie{}@code{<gst-query>})
+Constructs a new query object for querying formats of the stream.
+
+@table @var
+@item ret
+A @code{<gst-query>}
+
+@end table
+
+Since 0.10.4
+
+@end deffn
+
+@deffn Function gst-query-set-formatsv  (self@tie{}@code{<gst-query>}) (n_formats@tie{}@code{int}) (formats@tie{}@code{<gst-format*>})
+@deffnx Method set-formatsv
+Set the formats query result fields in @var{query}. The number of formats passed
+in the @var{formats} array must be equal to @var{n-formats}.
+
+@table @var
+@item query
+a @code{<gst-query>}
+
+@item n-formats
+the number of formats to set.
+
+@item formats
+An array containing @var{n-formats}@var{gst-format} values.
+
+@end table
+
+Since 0.10.4
+
+@end deffn
+
+@deffn Function gst-query-parse-formats-length  (self@tie{}@code{<gst-query>}) @result{}@tie{} (n_formats@tie{}@code{unsigned-int})
+@deffnx Method parse-formats-length
+Parse the number of formats in the formats @var{query}.
+
+@table @var
+@item query
+a @code{<gst-query>}
+
+@item n-formats
+the number of formats in this query.
+
+@end table
+
+Since 0.10.4
+
+@end deffn
+
+@deffn Function gst-query-parse-formats-nth  (self@tie{}@code{<gst-query>}) (nth@tie{}@code{unsigned-int}) (format@tie{}@code{<gst-format*>})
+@deffnx Method parse-formats-nth
+Parse the format query and retrieve the @var{nth} format from it into
+@var{format}. If the list contains less elements than @var{nth}, @var{format}
+will be set to GST_FORMAT_UNDEFINED.
+
+@table @var
+@item query
+a @code{<gst-query>}
+
+@item nth
+the nth format to retrieve.
+
+@item format
+a pointer to store the nth format
+
+@end table
+
+Since 0.10.4
+
+@end deffn
+
+@deffn Function gst-query-new-segment  (format@tie{}@code{<gst-format>}) @result{}@tie{} (ret@tie{}@code{<gst-query>})
+Constructs a new segment query object. Use @code{gst-query-unref} when done with
+it. A segment query is used to discover information about the currently
+configured segment for playback.
+
+@table @var
+@item format
+the @code{<gst-format>} for the new query
+
+@item ret
+a @code{<gst-query>}
+
+@end table
+
+@end deffn
+
+@deffn Function gst-query-set-segment  (self@tie{}@code{<gst-query>}) (rate@tie{}@code{double}) (format@tie{}@code{<gst-format>}) (start_value@tie{}@code{int64}) (stop_value@tie{}@code{int64})
+@deffnx Method set-segment
+Answer a segment query by setting the requested values. The normal playback
+segment of a pipeline is 0 to duration at the default rate of 1.0. If a seek was
+performed on the pipeline to play a different segment, this query will return
+the range specified in the last seek.
+
+@var{start-value} and @var{stop-value} will respectively contain the configured
+playback range start and stop values expressed in @var{format}. The values are
+always between 0 and the duration of the media and @var{start-value} <=
+@var{stop-value}. @var{rate} will contain the playback rate. For negative rates,
+playback will actually happen from @var{stop-value} to @var{start-value}.
+
+@table @var
+@item query
+a @code{<gst-query>}
+
+@item rate
+the rate of the segment
+
+@item format
+the @code{<gst-format>} of the segment values (@var{start-value} and
+@var{stop-value})
+
+@item start-value
+the start value
+
+@item stop-value
+the stop value
+
+@end table
+
+@end deffn
+
+@deffn Function gst-query-parse-segment  (self@tie{}@code{<gst-query>}) (format@tie{}@code{<gst-format*>}) @result{}@tie{} (rate@tie{}@code{double}) (start_value@tie{}@code{int64}) (stop_value@tie{}@code{int64})
+@deffnx Method parse-segment
+Parse a segment query answer. Any of @var{rate}, @var{format},
+@var{start-value}, and @var{stop-value} may be NULL, which will cause this value
+to be omitted.
+
+See @code{gst-query-set-segment} for an explanation of the function arguments.
+
+@table @var
+@item query
+a @code{<gst-query>}
+
+@item rate
+the storage for the rate of the segment, or NULL
+
+@item format
+the storage for the @code{<gst-format>} of the values, or NULL
+
+@item start-value
+the storage for the start value, or NULL
+
+@item stop-value
+the storage for the stop value, or NULL
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

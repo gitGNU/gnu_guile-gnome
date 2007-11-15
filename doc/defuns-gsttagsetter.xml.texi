@@ -1,0 +1,68 @@
+
+@c %start of fragment
+
+@deffn Function gst-tag-setter-merge-tags  (self@tie{}@code{<gst-tag-setter*>}) (list@tie{}@code{<gst-tag-list*>}) (mode@tie{}@code{<gst-tag-merge-mode>})
+Merges the given list into the setter's list using the given mode.
+
+@table @var
+@item setter
+a @code{<gst-tag-setter>}
+
+@item list
+a tag list to merge from
+
+@item mode
+the mode to merge with
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-setter-get-tag-list  (self@tie{}@code{<gst-tag-setter*>}) @result{}@tie{} (ret@tie{}@code{<gst-tag-list*>})
+Returns the current list of tags the setter uses. The list should not be
+modified or freed.
+
+@table @var
+@item setter
+a @code{<gst-tag-setter>}
+
+@item ret
+a current snapshot of the taglist used in the setter or NULL if none is used.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-setter-set-tag-merge-mode  (self@tie{}@code{<gst-tag-setter*>}) (mode@tie{}@code{<gst-tag-merge-mode>})
+Sets the given merge mode that is used for adding tags from events to tags
+specified by this interface. The default is @code{<gst-tag-merge-keep>}, which
+keeps the tags set with this interface and discards tags from events.
+
+@table @var
+@item setter
+a @code{<gst-tag-setter>}
+
+@item mode
+The mode with which tags are added
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-setter-get-tag-merge-mode  (self@tie{}@code{<gst-tag-setter*>}) @result{}@tie{} (ret@tie{}@code{<gst-tag-merge-mode>})
+Queries the mode by which tags inside the setter are overwritten by tags from
+events
+
+@table @var
+@item setter
+a @code{<gst-tag-setter>}
+
+@item ret
+the merge mode used inside the element.
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

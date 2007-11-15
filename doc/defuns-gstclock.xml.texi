@@ -1,0 +1,422 @@
+
+@c %start of fragment
+
+@deftp Class <gst-clock>
+This @code{<gobject>} class defines the following properties:
+
+@table @code
+@item stats
+Enable clock stats (unimplemented)
+
+@item window-size
+The size of the window used to calculate rate and offset
+
+@item window-threshold
+The threshold to start calculating rate and offset
+
+@item timeout
+The amount of time, in nanoseconds, to sample master and slave clocks
+
+@end table
+
+@end deftp
+
+@deffn Function gst-clock-add-observation  (self@tie{}@code{<gst-clock>}) (slave@tie{}@code{unsigned-long-long}) (master@tie{}@code{unsigned-long-long}) @result{}@tie{} (ret@tie{}@code{bool}) (r_squared@tie{}@code{double})
+@deffnx Method add-observation
+The time @var{master} of the master clock and the time @var{slave} of the slave
+clock are added to the list of observations. If enough observations are
+available, a linear regression algorithm is run on the observations and
+@var{clock} is recalibrated.
+
+If this functions returns @samp{@code{#t}}, @var{r-squared} will contain the
+correlation coefficient of the interpollation. A value of 1.0 means a perfect
+regression was performed. This value can be used to control the sampling
+frequency of the master and slave clocks.
+
+@table @var
+@item clock
+a @code{<gst-clock>}
+
+@item slave
+a time on the slave
+
+@item master
+a time on the master
+
+@item r-squared
+a pointer to hold the result
+
+@item ret
+TRUE if enough observations were added to run the regression algorithm. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-clock-set-master  (self@tie{}@code{<gst-clock>}) (master@tie{}@code{<gst-clock>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method set-master
+Set @var{master} as the master clock for @var{clock}. @var{clock} will be
+automatically calibrated so that @code{gst-clock-get-time} reports the same time
+as the master clock.
+
+A clock provider that slaves its clock to a master can get the current
+calibration values with @code{gst-clock-get-calibration}.
+
+@var{master} can be NULL in which case @var{clock} will not be slaved anymore.
+It will however keep reporting its time adjusted with the last configured rate
+and time offsets.
+
+@table @var
+@item clock
+a @code{<gst-clock>}
+
+@item master
+a master @code{<gst-clock>}
+
+@item ret
+TRUE if the clock is capable of being slaved to a master clock. Trying to set a
+master on a clock without the GST_CLOCK_FLAG_CAN_SET_MASTER flag will make this
+function return FALSE. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-clock-get-master  (self@tie{}@code{<gst-clock>}) @result{}@tie{} (ret@tie{}@code{<gst-clock>})
+@deffnx Method get-master
+Get the master clock that @var{clock} is slaved to or NULL when the clock is not
+slaved to any master clock.
+
+@table @var
+@item clock
+a @code{<gst-clock>}
+
+@item ret
+a master @code{<gst-clock>} or NULL when this clock is not slaved to a master
+clock. Unref after usage. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-clock-set-resolution  (self@tie{}@code{<gst-clock>}) (resolution@tie{}@code{unsigned-long-long}) @result{}@tie{} (ret@tie{}@code{unsigned-long-long})
+@deffnx Method set-resolution
+Set the accuracy of the clock. Some clocks have the possibility to operate with
+different accuracy at the expense of more resource usage. There is normally no
+need to change the default resolution of a clock. The resolution of a clock can
+only be changed if the clock has the @code{<gst-clock-flag-can-set-resolution>}
+flag set.
+
+@table @var
+@item clock
+a @code{<gst-clock>}
+
+@item resolution
+The resolution to set
+
+@item ret
+the new resolution of the clock.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-clock-get-resolution  (self@tie{}@code{<gst-clock>}) @result{}@tie{} (ret@tie{}@code{unsigned-long-long})
+@deffnx Method get-resolution
+Get the accuracy of the clock. The accuracy of the clock is the granularity of
+the values returned by @code{gst-clock-get-time}.
+
+@table @var
+@item clock
+a @code{<gst-clock>}
+
+@item ret
+the resolution of the clock in units of @code{<gst-clock-time>}. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-clock-get-time  (self@tie{}@code{<gst-clock>}) @result{}@tie{} (ret@tie{}@code{unsigned-long-long})
+@deffnx Method get-time
+Gets the current time of the given clock. The time is always monotonically
+increasing and adjusted according to the current offset and rate.
+
+@table @var
+@item clock
+a @code{<gst-clock>} to query
+
+@item ret
+the time of the clock. Or GST_CLOCK_TIME_NONE when giving wrong input. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-clock-new-single-shot-id  (self@tie{}@code{<gst-clock>}) (time@tie{}@code{unsigned-long-long}) @result{}@tie{} (ret@tie{}@code{<gst-clock-id>})
+@deffnx Method new-single-shot-id
+Get a @code{<gst-clock-id>} from @var{clock} to trigger a single shot
+notification at the requested time. The single shot id should be unreffed after
+usage.
+
+@table @var
+@item clock
+The @code{<gst-clock-id>} to get a single shot notification from
+
+@item time
+the requested time
+
+@item ret
+A @code{<gst-clock-id>} that can be used to request the time notification. MT
+safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-clock-new-periodic-id  (self@tie{}@code{<gst-clock>}) (start_time@tie{}@code{unsigned-long-long}) (interval@tie{}@code{unsigned-long-long}) @result{}@tie{} (ret@tie{}@code{<gst-clock-id>})
+@deffnx Method new-periodic-id
+Get an ID from @var{clock} to trigger a periodic notification. The periodeic
+notifications will be start at time start_time and will then be fired with the
+given interval. @var{id} should be unreffed after usage.
+
+@table @var
+@item clock
+The @code{<gst-clock-id>} to get a periodic notification id from
+
+@item start-time
+the requested start time
+
+@item interval
+the requested interval
+
+@item ret
+A @code{<gst-clock-id>} that can be used to request the time notification. MT
+safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-clock-get-internal-time  (self@tie{}@code{<gst-clock>}) @result{}@tie{} (ret@tie{}@code{unsigned-long-long})
+@deffnx Method get-internal-time
+Gets the current internal time of the given clock. The time is returned
+unadjusted for the offset and the rate.
+
+@table @var
+@item clock
+a @code{<gst-clock>} to query
+
+@item ret
+the internal time of the clock. Or GST_CLOCK_TIME_NONE when giving wrong input.
+MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-clock-adjust-unlocked  (self@tie{}@code{<gst-clock>}) (internal@tie{}@code{unsigned-long-long}) @result{}@tie{} (ret@tie{}@code{unsigned-long-long})
+@deffnx Method adjust-unlocked
+Converts the given @var{internal} clock time to the external time, adjusting for
+the rate and reference time set with @code{gst-clock-set-calibration} and making
+sure that the returned time is increasing. This function should be called with
+the clock's OBJECT_LOCK held and is mainly used by clock subclasses.
+
+This function is te reverse of @code{gst-clock-unadjust-unlocked}.
+
+@table @var
+@item clock
+a @code{<gst-clock>} to use
+
+@item internal
+a clock time
+
+@item ret
+the converted time of the clock.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-clock-get-calibration  (self@tie{}@code{<gst-clock>}) (internal@tie{}@code{<gst-clock-time*>}) (external@tie{}@code{<gst-clock-time*>}) (rate_num@tie{}@code{<gst-clock-time*>}) (rate_denom@tie{}@code{<gst-clock-time*>})
+@deffnx Method get-calibration
+Gets the internal rate and reference time of @var{clock}. See
+@code{gst-clock-set-calibration} for more information.
+
+@var{internal}, @var{external}, @var{rate-num}, and @var{rate-denom} can be left
+NULL if the caller is not interested in the values.
+
+MT safe.
+
+@table @var
+@item clock
+a @code{<gst-clock>}
+
+@item internal
+a location to store the internal time
+
+@item external
+a location to store the external time
+
+@item rate-num
+a location to store the rate numerator
+
+@item rate-denom
+a location to store the rate denominator
+
+@end table
+
+@end deffn
+
+@deffn Function gst-clock-set-calibration  (self@tie{}@code{<gst-clock>}) (internal@tie{}@code{unsigned-long-long}) (external@tie{}@code{unsigned-long-long}) (rate_num@tie{}@code{unsigned-long-long}) (rate_denom@tie{}@code{unsigned-long-long})
+@deffnx Method set-calibration
+Adjusts the rate and time of @var{clock}. A rate of 1/1 is the normal speed of
+the clock. Values bigger than 1/1 make the clock go faster.
+
+@var{internal} and @var{external} are calibration parameters that arrange that
+@code{gst-clock-get-time} should have been @var{external} at internal time
+@var{internal}. This internal time should not be in the future; that is, it
+should be less than the value of @code{gst-clock-get-internal-time} when this
+function is called.
+
+Subsequent calls to @code{gst-clock-get-time} will return clock times computed
+as follows:
+
+@example 
+
+  time = (internal_time - @@internal) * @@rate_num / @@rate_denom + @@external
+@end example
+
+This formula is implemented in @code{gst-clock-adjust-unlocked}. Of course, it
+tries to do the integer arithmetic as precisely as possible.
+
+Note that @code{gst-clock-get-time} always returns increasing values so when you
+move the clock backwards, @code{gst-clock-get-time} will report the previous
+value until the clock catches up.
+
+MT safe.
+
+@table @var
+@item clock
+a @code{<gst-clock>} to calibrate
+
+@item internal
+a reference internal time
+
+@item external
+a reference external time
+
+@item rate-num
+the numerator of the rate of the clock relative to its internal time
+
+@item rate-denom
+the denominator of the rate of the clock
+
+@end table
+
+@end deffn
+
+@deffn Function gst-clock-id-get-time  (id@tie{}@code{<gst-clock-id>}) @result{}@tie{} (ret@tie{}@code{unsigned-long-long})
+Get the time of the clock ID
+
+@table @var
+@item id
+The @code{<gst-clock-id>} to query
+
+@item ret
+the time of the given clock id. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-clock-id-wait  (id@tie{}@code{<gst-clock-id>}) (jitter@tie{}@code{<gst-clock-time-diff*>}) @result{}@tie{} (ret@tie{}@code{<gst-clock-return>})
+Perform a blocking wait on @var{id}. @var{id} should have been created with
+@code{gst-clock-new-single-shot-id} or @code{gst-clock-new-periodic-id} and
+should not have been unscheduled with a call to @code{gst-clock-id-unschedule}.
+
+If the @var{jitter} argument is not NULL and this function returns
+@code{<gst-clock-ok>} or @code{<gst-clock-early>}, it will contain the
+difference against the clock and the time of @var{id} when this method was
+called. Positive values indicate how late @var{id} was relative to the clock (in
+which case this function will return @code{<gst-clock-early>}). Negative values
+indicate how much time was spent waiting on the clock before this function
+returned.
+
+@table @var
+@item id
+The @code{<gst-clock-id>} to wait on
+
+@item jitter
+A pointer that will contain the jitter, can be NULL.
+
+@item ret
+the result of the blocking wait. @code{<gst-clock-early>} will be returned if
+the current clock time is past the time of @var{id}, @code{<gst-clock-ok>} if
+@var{id} was scheduled in time. @code{<gst-clock-unscheduled>} if @var{id} was
+unscheduled with @code{gst-clock-id-unschedule}. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-clock-id-wait-async  (id@tie{}@code{<gst-clock-id>}) (callback@tie{}@code{scm}) @result{}@tie{} (ret@tie{}@code{<gst-clock-return>})
+Register a callback on the given @code{<gst-clock-id>}@var{id} with the given
+function and user_data. When passing a @code{<gst-clock-id>} with an invalid
+time to this function, the callback will be called immediatly with a time set to
+GST_CLOCK_TIME_NONE. The callback will be called when the time of @var{id} has
+been reached.
+
+@table @var
+@item id
+a @code{<gst-clock-id>} to wait on
+
+@item func
+The callback function
+
+@item user-data
+User data passed in the calback
+
+@item ret
+the result of the non blocking wait. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-clock-id-unschedule  (id@tie{}@code{<gst-clock-id>})
+Cancel an outstanding request with @var{id}. This can either be an outstanding
+async notification or a pending sync notification. After this call, @var{id}
+cannot be used anymore to receive sync or async notifications, you need to
+create a new @code{<gst-clock-id>}.
+
+MT safe.
+
+@table @var
+@item id
+The id to unschedule
+
+@end table
+
+@end deffn
+
+@deffn Function gst-clock-id-compare-func  (id1@tie{}@code{<gconstpointer>}) (id2@tie{}@code{<gconstpointer>}) @result{}@tie{} (ret@tie{}@code{int})
+Compares the two @code{<gst-clock-id>} instances. This function can be used as a
+GCompareFunc when sorting ids.
+
+@table @var
+@item id1
+A @code{<gst-clock-id>}
+
+@item id2
+A @code{<gst-clock-id>} to compare with
+
+@item ret
+negative value if a < b; zero if a = b; positive value if a > b MT safe.
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

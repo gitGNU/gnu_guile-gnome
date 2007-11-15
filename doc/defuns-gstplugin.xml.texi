@@ -1,0 +1,249 @@
+
+@c %start of fragment
+
+@deftp Class <gst-plugin>
+This @code{<gobject>} class defines no properties, other than those defined by
+its superclasses.
+
+@end deftp
+
+@deffn Function gst-plugin-error-quark  @result{}@tie{} (ret@tie{}@code{unsigned-int})
+Get the error quark.
+
+@table @var
+@item ret
+The error quark used in GError messages
+
+@end table
+
+@end deffn
+
+@deffn Function gst-plugin-get-name  (self@tie{}@code{<gst-plugin>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-name
+Get the short name of the plugin
+
+@table @var
+@item plugin
+plugin to get the name of
+
+@item ret
+the name of the plugin
+
+@end table
+
+@end deffn
+
+@deffn Function gst-plugin-get-description  (self@tie{}@code{<gst-plugin>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-description
+Get the long descriptive name of the plugin
+
+@table @var
+@item plugin
+plugin to get long name of
+
+@item ret
+the long name of the plugin
+
+@end table
+
+@end deffn
+
+@deffn Function gst-plugin-get-filename  (self@tie{}@code{<gst-plugin>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-filename
+get the filename of the plugin
+
+@table @var
+@item plugin
+plugin to get the filename of
+
+@item ret
+the filename of the plugin
+
+@end table
+
+@end deffn
+
+@deffn Function gst-plugin-get-license  (self@tie{}@code{<gst-plugin>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-license
+get the license of the plugin
+
+@table @var
+@item plugin
+plugin to get the license of
+
+@item ret
+the license of the plugin
+
+@end table
+
+@end deffn
+
+@deffn Function gst-plugin-get-package  (self@tie{}@code{<gst-plugin>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-package
+get the package the plugin belongs to.
+
+@table @var
+@item plugin
+plugin to get the package of
+
+@item ret
+the package of the plugin
+
+@end table
+
+@end deffn
+
+@deffn Function gst-plugin-get-origin  (self@tie{}@code{<gst-plugin>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-origin
+get the URL where the plugin comes from
+
+@table @var
+@item plugin
+plugin to get the origin of
+
+@item ret
+the origin of the plugin
+
+@end table
+
+@end deffn
+
+@deffn Function gst-plugin-get-source  (self@tie{}@code{<gst-plugin>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-source
+get the source module the plugin belongs to.
+
+@table @var
+@item plugin
+plugin to get the source of
+
+@item ret
+the source of the plugin
+
+@end table
+
+@end deffn
+
+@deffn Function gst-plugin-get-version  (self@tie{}@code{<gst-plugin>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-version
+get the version of the plugin
+
+@table @var
+@item plugin
+plugin to get the version of
+
+@item ret
+the version of the plugin
+
+@end table
+
+@end deffn
+
+@deffn Function gst-plugin-get-module  (self@tie{}@code{<gst-plugin>}) @result{}@tie{} (ret@tie{}@code{<g-module*>})
+@deffnx Method get-module
+Gets the @code{<g-module>} of the plugin. If the plugin isn't loaded yet, NULL
+is returned.
+
+@table @var
+@item plugin
+plugin to query
+
+@item ret
+module belonging to the plugin or NULL if the plugin isn't loaded yet.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-plugin-is-loaded  (self@tie{}@code{<gst-plugin>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method is-loaded
+queries if the plugin is loaded into memory
+
+@table @var
+@item plugin
+plugin to query
+
+@item ret
+TRUE is loaded, FALSE otherwise
+
+@end table
+
+@end deffn
+
+@deffn Function gst-plugin-name-filter  (self@tie{}@code{<gst-plugin>}) (name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method name-filter
+A standard filter that returns TRUE when the plugin is of the given name.
+
+@table @var
+@item plugin
+the plugin to check
+
+@item name
+the name of the plugin
+
+@item ret
+TRUE if the plugin is of the given name.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-plugin-load-file  (filename@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gst-plugin>})
+Loads the given plugin and refs it. Caller needs to unref after use.
+
+@table @var
+@item filename
+the plugin filename to load
+
+@item error
+pointer to a NULL-valued GError
+
+@item ret
+a reference to the existing loaded GstPlugin, a reference to the newly-loaded
+GstPlugin, or NULL if an error occurred.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-plugin-load  (self@tie{}@code{<gst-plugin>}) @result{}@tie{} (ret@tie{}@code{<gst-plugin>})
+@deffnx Method load
+Loads @var{plugin}. Note that the *return value* is the loaded plugin;
+@var{plugin} is untouched. The normal use pattern of this function goes like
+this:
+
+@example 
+
+GstPlugin *loaded_plugin;
+loaded_plugin = gst_plugin_load (plugin);
+// presumably, we're no longer interested in the potentially-unloaded plugin
+gst_object_unref (plugin);
+plugin = loaded_plugin;
+@end example
+
+@table @var
+@item plugin
+plugin to load
+
+@item ret
+A reference to a loaded plugin, or NULL on error.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-plugin-load-by-name  (name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gst-plugin>})
+Load the named plugin. Refs the plugin.
+
+@table @var
+@item name
+name of plugin to load
+
+@item ret
+A reference to a loaded plugin, or NULL on error.
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

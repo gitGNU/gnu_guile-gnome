@@ -1,0 +1,60 @@
+
+@c %start of fragment
+
+@deffn Function gst-element-implements-interface  (self@tie{}@code{<gst-element>}) (iface_type@tie{}@code{<gtype>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method implements-interface
+Test whether the given element implements a certain interface of type
+iface_type, and test whether it is supported for this specific instance.
+
+@table @var
+@item element
+@code{<gst-element>} to check for the implementation of the interface
+
+@item iface-type
+(final) type of the interface which we want to be implemented
+
+@item ret
+whether or not the element implements the interface.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-implements-interface-cast  (from@tie{}@code{<gpointer>}) (type@tie{}@code{<gtype>}) @result{}@tie{} (ret@tie{}@code{<gpointer>})
+cast a given object to an interface type, and check whether this interface is
+supported for this specific instance.
+
+@table @var
+@item from
+the object (any sort) from which to cast to the interface
+
+@item type
+the interface type to cast to
+
+@item ret
+a gpointer to the interface type
+
+@end table
+
+@end deffn
+
+@deffn Function gst-implements-interface-check  (from@tie{}@code{<gpointer>}) (type@tie{}@code{<gtype>}) @result{}@tie{} (ret@tie{}@code{bool})
+check a given object for an interface implementation, and check whether this
+interface is supported for this specific instance.
+
+@table @var
+@item from
+the object (any sort) from which to check from for the interface
+
+@item type
+the interface type to check for
+
+@item ret
+whether or not the object implements the given interface
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

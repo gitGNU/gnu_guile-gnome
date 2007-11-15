@@ -1,0 +1,349 @@
+
+@c %start of fragment
+
+@deftp Class <gst-registry>
+This @code{<gobject>} class defines no properties, other than those defined by
+its superclasses.
+
+@end deftp
+
+@defop Signal <gst-registry> plugin-added  (arg0@tie{}@code{<gpointer>})
+Signals that a plugin has been added to the registry (possibly replacing a
+previously-added one by the same name)
+
+@end defop
+
+@defop Signal <gst-registry> feature-added  (arg0@tie{}@code{<gpointer>})
+Signals that a feature has been added to the registry (possibly replacing a
+previously-added one by the same name)
+
+@end defop
+
+@deffn Function gst-registry-get-default  @result{}@tie{} (ret@tie{}@code{<gst-registry>})
+Retrieves the default registry. The caller does not own a reference on the
+registry, as it is alive as long as GStreamer is initialized.
+
+@table @var
+@item ret
+The default @code{<gst-registry>}.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-registry-get-feature-list  (self@tie{}@code{<gst-registry>}) (type@tie{}@code{<gtype>}) @result{}@tie{} (ret@tie{}@code{glist-of})
+@deffnx Method get-feature-list
+Retrieves a @code{<g-list>} of @code{<gst-plugin-feature>} of @var{type}.
+
+@table @var
+@item registry
+a @code{<gst-registry>}
+
+@item type
+a @code{<g-type>}.
+
+@item ret
+a @code{<g-list>} of @code{<gst-plugin-feature>} of @var{type}.
+gst_plugin_feature_list_free after usage. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-registry-get-path-list  (self@tie{}@code{<gst-registry>}) @result{}@tie{} (ret@tie{}@code{glist-of})
+@deffnx Method get-path-list
+Get the list of paths for the given registry.
+
+@table @var
+@item registry
+the registry to get the pathlist of
+
+@item ret
+A Glist of paths as strings. g_list_free after use. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-registry-get-plugin-list  (self@tie{}@code{<gst-registry>}) @result{}@tie{} (ret@tie{}@code{glist-of})
+@deffnx Method get-plugin-list
+Get a copy of all plugins registered in the given registry. The refcount of each
+element in the list in incremented.
+
+@table @var
+@item registry
+the registry to search
+
+@item ret
+a @code{<g-list>} of @code{<gst-plugin>}. gst_plugin_list_free after use. MT
+safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-registry-add-plugin  (self@tie{}@code{<gst-registry>}) (plugin@tie{}@code{<gst-plugin>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method add-plugin
+Add the plugin to the registry. The plugin-added signal will be emitted. This
+function will sink @var{plugin}.
+
+@table @var
+@item registry
+the registry to add the plugin to
+
+@item plugin
+the plugin to add
+
+@item ret
+TRUE on success. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-registry-remove-plugin  (self@tie{}@code{<gst-registry>}) (plugin@tie{}@code{<gst-plugin>})
+@deffnx Method remove-plugin
+Remove the plugin from the registry.
+
+MT safe.
+
+@table @var
+@item registry
+the registry to remove the plugin from
+
+@item plugin
+the plugin to remove
+
+@end table
+
+@end deffn
+
+@deffn Function gst-registry-plugin-filter  (self@tie{}@code{<gst-registry>}) (filter@tie{}@code{<gst-plugin-filter>}) (first@tie{}@code{bool}) (user_data@tie{}@code{<gpointer>}) @result{}@tie{} (ret@tie{}@code{glist-of})
+@deffnx Method plugin-filter
+Runs a filter against all plugins in the registry and returns a @code{<g-list>}
+with the results. If the first flag is set, only the first match is returned (as
+a list with a single object). Every plugin is reffed; use
+@code{gst-plugin-list-free} after use, which will unref again.
+
+@table @var
+@item registry
+registry to query
+
+@item filter
+the filter to use
+
+@item first
+only return first match
+
+@item user-data
+user data passed to the filter function
+
+@item ret
+a @code{<g-list>} of @code{<gst-plugin>}. Use @code{gst-plugin-list-free} after
+usage. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-registry-feature-filter  (self@tie{}@code{<gst-registry>}) (filter@tie{}@code{<gst-plugin-feature-filter>}) (first@tie{}@code{bool}) (user_data@tie{}@code{<gpointer>}) @result{}@tie{} (ret@tie{}@code{glist-of})
+@deffnx Method feature-filter
+Runs a filter against all features of the plugins in the registry and returns a
+GList with the results. If the first flag is set, only the first match is
+returned (as a list with a single object).
+
+@table @var
+@item registry
+registry to query
+
+@item filter
+the filter to use
+
+@item first
+only return first match
+
+@item user-data
+user data passed to the filter function
+
+@item ret
+a GList of plugin features, gst_plugin_feature_list_free after use. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-registry-find-plugin  (self@tie{}@code{<gst-registry>}) (name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gst-plugin>})
+@deffnx Method find-plugin
+Find the plugin with the given name in the registry. The plugin will be reffed;
+caller is responsible for unreffing.
+
+@table @var
+@item registry
+the registry to search
+
+@item name
+the plugin name to find
+
+@item ret
+The plugin with the given name or NULL if the plugin was not found.
+@code{gst-object-unref} after usage. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-registry-find-feature  (self@tie{}@code{<gst-registry>}) (name@tie{}@code{mchars}) (type@tie{}@code{<gtype>}) @result{}@tie{} (ret@tie{}@code{<gst-plugin-feature>})
+@deffnx Method find-feature
+Find the pluginfeature with the given name and type in the registry.
+
+@table @var
+@item registry
+the registry to search
+
+@item name
+the pluginfeature name to find
+
+@item type
+the pluginfeature type to find
+
+@item ret
+The pluginfeature with the given name and type or NULL if the plugin was not
+found. @code{gst-object-unref} after usage. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-registry-lookup-feature  (self@tie{}@code{<gst-registry>}) (name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gst-plugin-feature>})
+@deffnx Method lookup-feature
+Find a @code{<gst-plugin-feature>} with @var{name} in @var{registry}.
+
+@table @var
+@item registry
+a @code{<gst-registry>}
+
+@item name
+a @code{<gst-plugin-feature>} name
+
+@item ret
+a @code{<gst-plugin-feature>} with its refcount incremented, use
+@code{gst-object-unref} after usage. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-registry-scan-path  (self@tie{}@code{<gst-registry>}) (path@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method scan-path
+Add the given path to the registry. The syntax of the path is specific to the
+registry. If the path has already been added, do nothing.
+
+@table @var
+@item registry
+the registry to add the path to
+
+@item path
+the path to add to the registry
+
+@item ret
+@samp{@code{#t}} if registry changed
+
+@end table
+
+@end deffn
+
+@deffn Function gst-registry-xml-read-cache  (self@tie{}@code{<gst-registry>}) (location@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method xml-read-cache
+Read the contents of the XML cache file at @var{location} into @var{registry}.
+
+@table @var
+@item registry
+a @code{<gst-registry>}
+
+@item location
+a filename
+
+@item ret
+@samp{@code{#t}} on success.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-registry-xml-write-cache  (self@tie{}@code{<gst-registry>}) (location@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method xml-write-cache
+Write @var{registry} in an XML format at the location given by @var{location}.
+Directories are automatically created.
+
+@table @var
+@item registry
+a @code{<gst-registry>}
+
+@item location
+a filename
+
+@item ret
+TRUE on success.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-registry-lookup  (self@tie{}@code{<gst-registry>}) (filename@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gst-plugin>})
+@deffnx Method lookup
+Look up a plugin in the given registry with the given filename. If found, plugin
+is reffed.
+
+@table @var
+@item registry
+the registry to look up in
+
+@item filename
+the name of the file to look up
+
+@item ret
+the @code{<gst-plugin>} if found, or NULL if not. @code{gst-object-unref} after
+usage.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-registry-remove-feature  (self@tie{}@code{<gst-registry>}) (feature@tie{}@code{<gst-plugin-feature>})
+@deffnx Method remove-feature
+Remove the feature from the registry.
+
+MT safe.
+
+@table @var
+@item registry
+the registry to remove the feature from
+
+@item feature
+the feature to remove
+
+@end table
+
+@end deffn
+
+@deffn Function gst-registry-add-feature  (self@tie{}@code{<gst-registry>}) (feature@tie{}@code{<gst-plugin-feature>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method add-feature
+Add the feature to the registry. The feature-added signal will be emitted. This
+function sinks @var{feature}.
+
+@table @var
+@item registry
+the registry to add the plugin to
+
+@item feature
+the feature to add
+
+@item ret
+TRUE on success. MT safe.
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

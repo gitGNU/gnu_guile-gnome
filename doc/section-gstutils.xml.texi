@@ -1,0 +1,14 @@
+
+@c %start of fragment
+
+@node GstUtils
+@chapter GstUtils
+Various utility functions
+
+@section Overview
+When defining own plugins, use the GST_BOILERPLATE ease gobject creation.
+
+@section Usage
+@include defuns-gstutils.xml.texi
+
+@c %end of fragment

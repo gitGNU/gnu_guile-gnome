@@ -1,3 +1,12 @@
+2007-11-15  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gstreamer.scm: Just re-export (gnome gw gstreamer), it's
+	not our business to export GObject things.
+
+	* Makefile.am:
+	* doc/*:
+	* tests/*: Add documentation and API regression unit test.
+
 2007-06-15  Andy Wingo  <wingo@pobox.com>
 
 	* == Released guile-gnome-gstreamer version 0.9.91 ==

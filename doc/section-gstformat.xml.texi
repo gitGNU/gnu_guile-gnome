@@ -1,0 +1,15 @@
+
+@c %start of fragment
+
+@node GstFormat
+@chapter GstFormat
+Dynamically register new data formats
+
+@section Overview
+GstFormats functions are used to register a new format to the gstreamer core.
+Formats can be used to perform seeking or conversions/query operations.
+
+@section Usage
+@include defuns-gstformat.xml.texi
+
+@c %end of fragment

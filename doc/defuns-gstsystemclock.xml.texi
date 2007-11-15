@@ -1,0 +1,23 @@
+
+@c %start of fragment
+
+@deftp Class <gst-system-clock>
+This @code{<gobject>} class defines no properties, other than those defined by
+its superclasses.
+
+@end deftp
+
+@deffn Function gst-system-clock-obtain  @result{}@tie{} (ret@tie{}@code{<gst-clock>})
+Get a handle to the default system clock. The refcount of the clock will be
+increased so you need to unref the clock after usage.
+
+@table @var
+@item ret
+the default clock. MT safe.
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

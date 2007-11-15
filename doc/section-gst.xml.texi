@@ -1,0 +1,84 @@
+
+@c %start of fragment
+
+@node Gst
+@chapter Gst
+Media library supporting arbitrary formats and filter graphs.
+
+@section Overview
+GStreamer is a framework for constructing graphs of various filters (termed
+elements here) that will handle streaming media. Any discreet (packetizable)
+media type is supported, with provisions for automatically determining source
+type. Formatting/framing information is provided with a powerful negotiation
+framework. Plugins are heavily used to provide for all elements, allowing one to
+construct plugins outside of the GST library, even released binary-only if
+license require (please don't).
+
+GStreamer borrows heavily from both the @uref{http://www.cse.ogi.edu/sysl/,OGI
+media pipeline} and Microsoft's DirectShow, hopefully taking the best of both
+and leaving the cruft behind. Its interface is slowly getting stable.
+
+The @cite{GStreamer} library should be initialized with @code{gst-init} before
+it can be used. You should pass pointers to the main argc and argv variables so
+that GStreamer can process its own command line options, as shown in the
+following example.
+
+@c (title "Initializing the gstreamer library")
+@example 
+
+int
+main (int argc, char *argv[])
+@{
+  // initialize the GStreamer library
+  gst_init (&argc, &argv);
+  ...
+@}
+@end example
+
+It's allowed to pass two NULL pointers to @code{gst-init} in case you don't want
+to pass the command line args to GStreamer.
+
+You can also use GOption to initialize your own parameters as shown in the next
+code fragment:
+
+@c (title "Initializing own parameters when initializing gstreamer")
+@example 
+
+static gboolean stats = FALSE;
+...
+int
+main (int argc, char *argv[])
+@{
+ GOptionEntry options[] = @{
+  @{"tags", 't', 0, G_OPTION_ARG_NONE, &tags,
+      N_("Output tags (also known as metadata)"), NULL@},
+  @{NULL@}
+ @};
+ // must initialise the threading system before using any other GLib funtion
+ if (!g_thread_supported ())
+   g_thread_init (NULL);
+ ctx = g_option_context_new ("[ADDITIONAL ARGUMENTS]");
+ g_option_context_add_main_entries (ctx, options, GETTEXT_PACKAGE);
+ g_option_context_add_group (ctx, gst_init_get_option_group ());
+ if (!g_option_context_parse (ctx, &argc, &argv, &err)) @{
+   g_print ("Error initializing: %s\n", GST_STR_NULL (err->message));
+   exit (1);
+ @}
+ g_option_context_free (ctx);
+...
+@}
+@end example
+
+Use @code{gst-version} to query the library version at runtime or use the
+GST_VERSION_* macros to find the version at compile time. Optionally
+@code{gst-version-string} returns a printable string.
+
+The @code{gst-deinit} call is used to clean up all internal resources used by
+@cite{GStreamer}. It is mostly used in unit tests to check for leaks.
+
+Last reviewed on 2006-08-11 (0.10.10)
+
+@section Usage
+@include defuns-gst.xml.texi
+
+@c %end of fragment

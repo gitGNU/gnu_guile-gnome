@@ -1,0 +1,16 @@
+
+@c %start of fragment
+
+@node GstImplementsInterface
+@chapter GstImplementsInterface
+Core interface implemented by instances that allows runtime querying of
+interface availabillity
+
+@section Overview
+Provides interface functionality on per instance basis and not per class basis,
+which is the case for gobject.
+
+@section Usage
+@include defuns-gstimplementsinterface.xml.texi
+
+@c %end of fragment

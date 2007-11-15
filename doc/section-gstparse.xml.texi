@@ -1,0 +1,15 @@
+
+@c %start of fragment
+
+@node GstParse
+@chapter GstParse
+Get a pipeline from a text pipeline description
+
+@section Overview
+These function allow to create a pipeline based on the syntax used in the
+gst-launch utillity.
+
+@section Usage
+@include defuns-gstparse.xml.texi
+
+@c %end of fragment

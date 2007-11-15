@@ -1,0 +1,147 @@
+
+@c %start of fragment
+
+@deftp Class <gst-task>
+This @code{<gobject>} class defines no properties, other than those defined by
+its superclasses.
+
+@end deftp
+
+@deffn Function gst-task-cleanup-all 
+Wait for all tasks to be stopped. This is mainly used internally to ensure
+proper cleanup of internal datastructures in testsuites.
+
+MT safe.
+
+@end deffn
+
+@deffn Function gst-task-create  (func@tie{}@code{<gst-task-function>}) (data@tie{}@code{<gpointer>}) @result{}@tie{} (ret@tie{}@code{<gst-task>})
+Create a new Task that will repeadedly call the provided @var{func} with
+@var{data} as a parameter. Typically the task will run in a new thread.
+
+The function cannot be changed after the task has been created. You must create
+a new GstTask to change the function.
+
+@table @var
+@item func
+The @code{<gst-task-function>} to use
+
+@item data
+User data to pass to @var{func}
+
+@item ret
+A new @code{<gst-task>}. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-task-get-state  (self@tie{}@code{<gst-task>}) @result{}@tie{} (ret@tie{}@code{<gst-task-state>})
+@deffnx Method get-state
+Get the current state of the task.
+
+@table @var
+@item task
+The @code{<gst-task>} to query
+
+@item ret
+The @code{<gst-task-state>} of the task MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-task-join  (self@tie{}@code{<gst-task>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method join
+Joins @var{task}. After this call, it is safe to unref the task and clean up the
+lock set with @code{gst-task-set-lock}.
+
+The task will automatically be stopped with this call.
+
+This function cannot be called from within a task function as this would cause a
+deadlock. The function will detect this and print a g_warning.
+
+@table @var
+@item task
+The @code{<gst-task>} to join
+
+@item ret
+TRUE if the task could be joined. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-task-pause  (self@tie{}@code{<gst-task>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method pause
+Pauses @var{task}. This method can also be called on a task in the stopped
+state, in which case a thread will be started and will remain in the paused
+state. This function does not wait for the task to complete the paused state.
+
+@table @var
+@item task
+The @code{<gst-task>} to pause
+
+@item ret
+TRUE if the task could be paused. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-task-set-lock  (self@tie{}@code{<gst-task>}) (mutex@tie{}@code{<g-static-rec-mutex*>})
+@deffnx Method set-lock
+Set the mutex used by the task. The mutex will be acquired before calling the
+@code{<gst-task-function>}.
+
+This function has to be called before calling @code{gst-task-pause} or
+@code{gst-task-start}.
+
+MT safe.
+
+@table @var
+@item task
+The @code{<gst-task>} to use
+
+@item mutex
+The GMutex to use
+
+@end table
+
+@end deffn
+
+@deffn Function gst-task-start  (self@tie{}@code{<gst-task>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method start
+Starts @var{task}. The @var{task} must have a lock associated with it using
+@code{gst-task-set-lock} or thsi function will return FALSE.
+
+@table @var
+@item task
+The @code{<gst-task>} to start
+
+@item ret
+TRUE if the task could be started. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-task-stop  (self@tie{}@code{<gst-task>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method stop
+Stops @var{task}. This method merely schedules the task to stop and will not
+wait for the task to have completely stopped. Use @code{gst-task-join} to stop
+and wait for completion.
+
+@table @var
+@item task
+The @code{<gst-task>} to stop
+
+@item ret
+TRUE if the task could be stopped. MT safe.
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

@@ -1,0 +1,69 @@
+
+@c %start of fragment
+
+@node GstSegment
+@chapter GstSegment
+Structure describing the configured region of interest in a media file.
+
+@section Overview
+This helper structure holds the relevant values for tracking the region of
+interest in a media file, called a segment.
+
+The structure can be used for two purposes:
+
+@itemize 
+@item
+performing seeks (handling seek events)
+
+@item
+tracking playback regions (handling newsegment events)
+@end itemize
+
+The segment is usually configured by the application with a seek event which is
+propagated upstream and eventually handled by an element that performs the seek.
+
+The configured segment is then propagated back downstream with a newsegment
+event. This information is then used to clip media to the segment boundaries.
+
+A segment structure is initialized with @code{gst-segment-init}, which takes a
+@code{<gst-format>} that will be used as the format of the segment values. The
+segment will be configured with a start value of 0 and a stop/duration of -1,
+which is undefined. The default rate and applied_rate is 1.0.
+
+If the segment is used for managing seeks, the segment duration should be set
+with @code{gst-segment-set-duration}. The public duration field contains the
+duration of the segment. When using the segment for seeking, the start and time
+members should normally be left to their default 0 value. The stop position is
+left to -1 unless explicitly configured to a different value after a seek event.
+
+The current position in the segment should be set with the
+@code{gst-segment-set-last-stop}. The public last_stop field contains the last
+set stop position in the segment.
+
+For elements that perform seeks, the current segment should be updated with the
+@code{gst-segment-set-seek} and the values from the seek event. This method will
+update all the segment fields. The last_stop field will contain the new playback
+position. If the cur_type was different from GST_SEEK_TYPE_NONE, playback
+continues from the last_stop position, possibly with updated flags or rate.
+
+For elements that want to use @code{<gst-segment>} to track the playback region,
+use @code{gst-segment-set-newsegment} to update the segment fields with the
+information from the newsegment event. The @code{gst-segment-clip} method can be
+used to check and clip the media data to the segment boundaries.
+
+For elements that want to synchronize to the pipeline clock,
+@code{gst-segment-to-running-time} can be used to convert a timestamp to a value
+that can be used to synchronize to the clock. This function takes into account
+all accumulated segments as well as any rate or applied_rate conversions.
+
+For elements that need to perform operations on media data in stream_time,
+@code{gst-segment-to-stream-time} can be used to convert a timestamp and the
+segment info to stream time (which is always between 0 and the duration of the
+stream).
+
+Last reviewed on 2007-05-17 (0.10.13)
+
+@section Usage
+@include defuns-gstsegment.xml.texi
+
+@c %end of fragment

@@ -1,0 +1,59 @@
+
+@c %start of fragment
+
+@node GstElement
+@chapter GstElement
+Abstract base class for all pipeline elements
+
+@section Overview
+GstElement is the abstract base class needed to construct an element that can be
+used in a GStreamer pipeline. Please refer to the plugin writers guide for more
+information on creating @code{<gst-element>} subclasses.
+
+The name of a @code{<gst-element>} can be get with @code{gst-element-get-name}
+and set with @code{gst-element-set-name}. For speed, @code{gst-element-name} can
+be used in the core when using the appropriate locking. Do not use this in
+plug-ins or applications in order to retain ABI compatibility.
+
+All elements have pads (of the type @code{<gst-pad>}). These pads link to pads
+on other elements. @code{<gst-buffer>} flow between these linked pads. A
+@code{<gst-element>} has a @code{<g-list>} of @code{<gst-pad>} structures for
+all their input (or sink) and output (or source) pads. Core and plug-in writers
+can add and remove pads with @code{gst-element-add-pad} and
+@code{gst-element-remove-pad}.
+
+A pad of an element can be retrieved by name with @code{gst-element-get-pad}. An
+iterator of all pads can be retrieved with @code{gst-element-iterate-pads}.
+
+Elements can be linked through their pads. If the link is straightforward, use
+the @code{gst-element-link} convenience function to link two elements, or
+@code{gst-element-link-many} for more elements in a row. Use
+@code{gst-element-link-filtered} to link two elements constrained by a specified
+set of @code{<gst-caps>}. For finer control, use @code{gst-element-link-pads}
+and @code{gst-element-link-pads-filtered} to specify the pads to link on each
+element by name.
+
+Each element has a state (see @code{<gst-state>}). You can get and set the state
+of an element with @code{gst-element-get-state} and
+@code{gst-element-set-state}. To get a string representation of a
+@code{<gst-state>}, use @code{gst-element-state-get-name}.
+
+You can get and set a @code{<gst-clock>} on an element using
+@code{gst-element-get-clock} and @code{gst-element-set-clock}. Some elements can
+provide a clock for the pipeline if @code{gst-element-provides-clock} returns
+@samp{@code{#t}}. With the @code{gst-element-provide-clock} method one can
+retrieve the clock provided by such an element. Not all elements require a clock
+to operate correctly. If @code{gst-element-requires-clock} returns
+@samp{@code{#t}}, a clock should be set on the element with
+@code{gst-element-set-clock}.
+
+Note that clock slection and distribution is normally handled by the toplevel
+@code{<gst-pipeline>} so the clock functions are only to be used in very
+specific situations.
+
+Last reviewed on 2006-03-12 (0.10.5)
+
+@section Usage
+@include defuns-gstelement.xml.texi
+
+@c %end of fragment

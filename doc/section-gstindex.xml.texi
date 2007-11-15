@@ -1,0 +1,15 @@
+
+@c %start of fragment
+
+@node GstIndex
+@chapter GstIndex
+Generate indexes on objects
+
+@section Overview
+GstIndex is used to generate a stream index of one or more elements in a
+pipeline.
+
+@section Usage
+@include defuns-gstindex.xml.texi
+
+@c %end of fragment

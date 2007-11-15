@@ -1,0 +1,146 @@
+
+@c %start of fragment
+
+@deftp Class <gst-plugin-feature>
+This @code{<gobject>} class defines no properties, other than those defined by
+its superclasses.
+
+@end deftp
+
+@deffn Function gst-plugin-feature-type-name-filter  (self@tie{}@code{<gst-plugin-feature>}) (data@tie{}@code{<gst-type-name-data*>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method type-name-filter
+Compares type and name of plugin feature. Can be used with
+@code{gst-filter-run}.
+
+@table @var
+@item feature
+the @code{<gst-plugin-feature>}
+
+@item data
+the type and name to check against
+
+@item ret
+TRUE if equal.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-plugin-feature-set-rank  (self@tie{}@code{<gst-plugin-feature>}) (rank@tie{}@code{unsigned-int})
+@deffnx Method set-rank
+Specifies a rank for a plugin feature, so that autoplugging uses the most
+appropriate feature.
+
+@table @var
+@item feature
+feature to rank
+
+@item rank
+rank value - higher number means more priority rank
+
+@end table
+
+@end deffn
+
+@deffn Function gst-plugin-feature-set-name  (self@tie{}@code{<gst-plugin-feature>}) (name@tie{}@code{mchars})
+@deffnx Method set-name
+Sets the name of a plugin feature. The name uniquely identifies a feature within
+all features of the same type. Renaming a plugin feature is not allowed. A copy
+is made of the name so you should free the supplied @var{name} after calling
+this function.
+
+@table @var
+@item feature
+a feature
+
+@item name
+the name to set
+
+@end table
+
+@end deffn
+
+@deffn Function gst-plugin-feature-get-rank  (self@tie{}@code{<gst-plugin-feature>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+@deffnx Method get-rank
+Gets the rank of a plugin feature.
+
+@table @var
+@item feature
+a feature
+
+@item ret
+The rank of the feature
+
+@end table
+
+@end deffn
+
+@deffn Function gst-plugin-feature-get-name  (self@tie{}@code{<gst-plugin-feature>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-name
+Gets the name of a plugin feature.
+
+@table @var
+@item feature
+a feature
+
+@item ret
+the name
+
+@end table
+
+@end deffn
+
+@deffn Function gst-plugin-feature-load  (self@tie{}@code{<gst-plugin-feature>}) @result{}@tie{} (ret@tie{}@code{<gst-plugin-feature>})
+@deffnx Method load
+Loads the plugin containing @var{feature} if it's not already loaded.
+@var{feature} is unaffected; use the return value instead.
+
+Normally this function is used like this:
+
+@example 
+
+GstPluginFeature *loaded_feature;
+loaded_feature = gst_plugin_feature_load (feature);
+// presumably, we're no longer interested in the potentially-unloaded feature
+gst_object_unref (feature);
+feature = loaded_feature;
+@end example
+
+@table @var
+@item feature
+the plugin feature to check
+
+@item ret
+A reference to the loaded feature, or NULL on error.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-plugin-feature-check-version  (self@tie{}@code{<gst-plugin-feature>}) (min_major@tie{}@code{unsigned-int}) (min_minor@tie{}@code{unsigned-int}) (min_micro@tie{}@code{unsigned-int}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method check-version
+Checks whether the given plugin feature is at least the required version
+
+@table @var
+@item feature
+a feature
+
+@item min-major
+minimum required major version
+
+@item min-minor
+minimum required minor version
+
+@item min-micro
+minimum required micro version
+
+@item ret
+@code{@code{#t}} if the plugin feature has at least the required version,
+otherwise @code{@code{#f}}.
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

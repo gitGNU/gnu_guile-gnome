@@ -1,0 +1,45 @@
+
+@c %start of fragment
+
+@node GstPad
+@chapter GstPad
+Object contained by elements that allows links to other elements
+
+@section Overview
+A @code{<gst-element>} is linked to other elements via "pads", which are
+extremely light-weight generic link points. After two pads are retrieved from an
+element with @code{gst-element-get-pad}, the pads can be link with
+@code{gst-pad-link}. (For quick links, you can also use @code{gst-element-link},
+which will make the obvious link for you if it's straightforward.)
+
+Pads are typically created from a @code{<gst-pad-template>} with
+@code{gst-pad-new-from-template}.
+
+Pads have @code{<gst-caps>} attached to it to describe the media type they are
+capable of dealing with. @code{gst-pad-get-caps} and @code{gst-pad-set-caps} are
+used to manipulate the caps of the pads. Pads created from a pad template cannot
+set capabilities that are incompatible with the pad template capabilities.
+
+Pads without pad templates can be created with @code{gst-pad-new}, which takes a
+direction and a name as an argument. If the name is NULL, then a guaranteed
+unique name will be assigned to it.
+
+@code{gst-pad-get-parent} will retrieve the @code{<gst-element>} that owns the
+pad.
+
+A @code{<gst-element>} creating a pad will typically use the various
+gst_pad_set_*@code{-function} calls to register callbacks for various events on
+the pads.
+
+GstElements will use @code{gst-pad-push} and @code{gst-pad-pull-range} to push
+out or pull in a buffer.
+
+To send a @code{<gst-event>} on a pad, use @code{gst-pad-send-event} and
+@code{gst-pad-push-event}.
+
+Last reviewed on 2006-07-06 (0.10.9)
+
+@section Usage
+@include defuns-gstpad.xml.texi
+
+@c %end of fragment

@@ -1,0 +1,32 @@
+
+@c %start of fragment
+
+@node GstTrace
+@chapter GstTrace
+Tracing functionality
+
+@section Overview
+Traces allows to track object allocation. They provide a instance counter per
+@code{<g-type>}. The counter is incremented for each object allocated and
+decremented it when it's freed.
+
+@c (title "Tracing object instances")
+@example 
+
+    // trace un-freed object instances
+    gst_alloc_trace_set_flags_all (GST_ALLOC_TRACE_LIVE);
+    if (!gst_alloc_trace_available ()) @{
+      g_warning ("Trace not available (recompile with trace enabled).");
+    @}
+    gst_alloc_trace_print_live ();
+    // do something here
+    gst_alloc_trace_print_live ();
+  
+@end example
+
+Last reviewed on 2005-11-21 (0.9.5)
+
+@section Usage
+@include defuns-gsttrace.xml.texi
+
+@c %end of fragment

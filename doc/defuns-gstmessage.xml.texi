@@ -1,0 +1,350 @@
+
+@c %start of fragment
+
+@deftp Class <gst-message>
+@end deftp
+
+@deffn Function gst-message-type-to-quark  (self@tie{}@code{<gst-message-type*>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+Get the unique quark for the given message type.
+
+@table @var
+@item type
+the message type
+
+@item ret
+the quark associated with the message type
+
+@end table
+
+@end deffn
+
+@deffn Function gst-message-type-get-name  (self@tie{}@code{<gst-message-type*>}) @result{}@tie{} (ret@tie{}@code{mchars})
+Get a printable name for the given message type. Do not modify or free.
+
+@table @var
+@item type
+the message type
+
+@item ret
+a reference to the static name of the message.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-message-get-structure  (self@tie{}@code{<gst-message>}) @result{}@tie{} (ret@tie{}@code{<gst-structure>})
+@deffnx Method get-structure
+Access the structure of the message.
+
+@table @var
+@item message
+The @code{<gst-message>}.
+
+@item ret
+The structure of the message. The structure is still owned by the message, which
+means that you should not free it and that the pointer becomes invalid when you
+free the message. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-message-new-application  (src@tie{}@code{<gst-object>}) (structure@tie{}@code{<gst-structure>}) @result{}@tie{} (ret@tie{}@code{<gst-message>})
+Create a new application-typed message. GStreamer will never create these
+messages; they are a gift from us to you. Enjoy.
+
+@table @var
+@item src
+The object originating the message.
+
+@item structure
+The structure for the message. The message will take ownership of the structure.
+
+@item ret
+The new application message. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-message-new-clock-provide  (src@tie{}@code{<gst-object>}) (clock@tie{}@code{<gst-clock>}) (ready@tie{}@code{bool}) @result{}@tie{} (ret@tie{}@code{<gst-message>})
+Create a clock provide message. This message is posted whenever an element is
+ready to provide a clock or lost its ability to provide a clock (maybe because
+it paused or became EOS).
+
+This message is mainly used internally to manage the clock selection.
+
+@table @var
+@item src
+The object originating the message.
+
+@item clock
+The clock it provides
+
+@item ready
+TRUE if the sender can provide a clock
+
+@item ret
+The new provide clock message. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-message-new-clock-lost  (src@tie{}@code{<gst-object>}) (clock@tie{}@code{<gst-clock>}) @result{}@tie{} (ret@tie{}@code{<gst-message>})
+Create a clock lost message. This message is posted whenever the clock is not
+valid anymore.
+
+If this message is posted by the pipeline, the pipeline will select a new clock
+again when it goes to PLAYING. It might therefore be needed to set the pipeline
+to PAUSED and PLAYING again.
+
+@table @var
+@item src
+The object originating the message.
+
+@item clock
+the clock that was lost
+
+@item ret
+The new clock lost message. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-message-new-custom  (type@tie{}@code{<gst-message-type>}) (src@tie{}@code{<gst-object>}) (structure@tie{}@code{<gst-structure>}) @result{}@tie{} (ret@tie{}@code{<gst-message>})
+Create a new custom-typed message. This can be used for anything not handled by
+other message-specific functions to pass a message to the app. The structure
+field can be NULL.
+
+@table @var
+@item type
+The @code{<gst-message-type>} to distinguish messages
+
+@item src
+The object originating the message.
+
+@item structure
+The structure for the message. The message will take ownership of the structure.
+
+@item ret
+The new message. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-message-new-element  (src@tie{}@code{<gst-object>}) (structure@tie{}@code{<gst-structure>}) @result{}@tie{} (ret@tie{}@code{<gst-message>})
+Create a new element-specific message. This is meant as a generic way of
+allowing one-way communication from an element to an application, for example
+"the firewire cable was unplugged". The format of the message should be
+documented in the element's documentation. The structure field can be NULL.
+
+@table @var
+@item src
+The object originating the message.
+
+@item structure
+The structure for the message. The message will take ownership of the structure.
+
+@item ret
+The new element message. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-message-new-error  (src@tie{}@code{<gst-object>}) (error@tie{}@code{<g-error*>}) (debug@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gst-message>})
+Create a new error message. The message will copy @var{error} and @var{debug}.
+This message is posted by element when a fatal event occured. The pipeline will
+probably (partially) stop. The application receiving this message should stop
+the pipeline.
+
+@table @var
+@item src
+The object originating the message.
+
+@item error
+The GError for this message.
+
+@item debug
+A debugging string for something or other.
+
+@item ret
+The new error message. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-message-new-new-clock  (src@tie{}@code{<gst-object>}) (clock@tie{}@code{<gst-clock>}) @result{}@tie{} (ret@tie{}@code{<gst-message>})
+Create a new clock message. This message is posted whenever the pipeline
+selectes a new clock for the pipeline.
+
+@table @var
+@item src
+The object originating the message.
+
+@item clock
+the new selected clock
+
+@item ret
+The new new clock message. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-message-new-segment-done  (src@tie{}@code{<gst-object>}) (format@tie{}@code{<gst-format>}) (position@tie{}@code{int64}) @result{}@tie{} (ret@tie{}@code{<gst-message>})
+Create a new segment done message. This message is posted by elements that
+finish playback of a segment as a result of a segment seek. This message is
+received by the application after all elements that posted a segment_start have
+posted the segment_done.
+
+@table @var
+@item src
+The object originating the message.
+
+@item format
+The format of the position being done
+
+@item position
+The position of the segment being done
+
+@item ret
+The new segment done message. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-message-new-segment-start  (src@tie{}@code{<gst-object>}) (format@tie{}@code{<gst-format>}) (position@tie{}@code{int64}) @result{}@tie{} (ret@tie{}@code{<gst-message>})
+Create a new segment message. This message is posted by elements that start
+playback of a segment as a result of a segment seek. This message is not
+received by the application but is used for maintenance reasons in container
+elements.
+
+@table @var
+@item src
+The object originating the message.
+
+@item format
+The format of the position being played
+
+@item position
+The position of the segment being played
+
+@item ret
+The new segment start message. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-message-new-state-changed  (src@tie{}@code{<gst-object>}) (oldstate@tie{}@code{<gst-state>}) (newstate@tie{}@code{<gst-state>}) (pending@tie{}@code{<gst-state>}) @result{}@tie{} (ret@tie{}@code{<gst-message>})
+Create a state change message. This message is posted whenever an element
+changed its state.
+
+@table @var
+@item src
+the object originating the message
+
+@item oldstate
+the previous state
+
+@item newstate
+the new (current) state
+
+@item pending
+the pending (target) state
+
+@item ret
+The new state change message. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-message-new-tag  (src@tie{}@code{<gst-object>}) (tag_list@tie{}@code{<gst-tag-list*>}) @result{}@tie{} (ret@tie{}@code{<gst-message>})
+Create a new tag message. The message will take ownership of the tag list. The
+message is posted by elements that discovered a new taglist.
+
+@table @var
+@item src
+The object originating the message.
+
+@item tag-list
+The tag list for the message.
+
+@item ret
+The new tag message. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-message-new-warning  (src@tie{}@code{<gst-object>}) (error@tie{}@code{<g-error*>}) (debug@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gst-message>})
+Create a new warning message. The message will make copies of @var{error} and
+@var{debug}.
+
+@table @var
+@item src
+The object originating the message.
+
+@item error
+The GError for this message.
+
+@item debug
+A debugging string for something or other.
+
+@item ret
+The new warning message. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-message-new-duration  (src@tie{}@code{<gst-object>}) (format@tie{}@code{<gst-format>}) (duration@tie{}@code{int64}) @result{}@tie{} (ret@tie{}@code{<gst-message>})
+Create a new duration message. This message is posted by elements that know the
+duration of a stream in a specific format. This message is received by bins and
+is used to calculate the total duration of a pipeline. Elements may post a
+duration message with a duration of GST_CLOCK_TIME_NONE to indicate that the
+duration has changed and the cached duration should be discarded. The new
+duration can then be retrieved via a query.
+
+@table @var
+@item src
+The object originating the message.
+
+@item format
+The format of the duration
+
+@item duration
+The new duration
+
+@item ret
+The new duration message. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-message-new-state-dirty  (src@tie{}@code{<gst-object>}) @result{}@tie{} (ret@tie{}@code{<gst-message>})
+Create a state dirty message. This message is posted whenever an element changed
+its state asynchronously and is used internally to update the states of
+container objects.
+
+@table @var
+@item src
+the object originating the message
+
+@item ret
+The new state dirty message. MT safe.
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

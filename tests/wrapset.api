@@ -1,0 +1,1428 @@
+(module-api
+  (version 1 0)
+  ((gnome gobject generics)
+   (uses-interfaces)
+   (typed-exports
+     (block generic (<gtype-instance> <top>))
+     (connect
+       generic
+       <top>
+       (<gtype-instance> <symbol> <procedure>))
+     (connect-after
+       generic
+       (<gtype-instance> <symbol> <procedure>))
+     (connected? generic (<gtype-instance> <top>))
+     (create-signal
+       generic
+       (<gtype-class> <symbol> <top> <top>))
+     (disconnect generic (<gtype-instance> <top>))
+     (emit generic
+           (<gtype-instance> <symbol> . <top>))
+     (find-property generic (<gtype-class> <symbol>))
+     (get generic (<gobject> <symbol>))
+     (get-properties generic (<gtype-class>))
+     (get-property-names generic (<gtype-class>))
+     (get-signals generic (<gtype-class>))
+     (invoke generic (<gclosure> . <top>))
+     (set generic (<gobject> <symbol> <top>))
+     (unblock generic (<gtype-instance> <top>))))
+  ((gnome gstreamer)
+   (uses-interfaces (gnome gw gstreamer))
+   (typed-exports
+     (add-pad-template
+       generic
+       (<gobject-class> <top>))
+     (gst-caps-new procedure (arity 2 0 #f))
+     (gst-structure-new procedure (arity 2 0 #f))
+     (register-new-element procedure (arity 2 0 #f))
+     (with-gst-debug macro)))
+  ((gnome gw generics)
+   (uses-interfaces (gnome gobject generics))
+   (typed-exports
+     (add generic
+          (<gst-bin> . <top>)
+          (<gst-bin> <gst-element>))
+     (get-pad-template
+       generic
+       (<gobject-class> <top>)
+       (<gst-pad>)
+       (<list> <top>))
+     (link generic
+           <top>
+           (<gst-element> <gst-element>)
+           (<gst-element> <gst-element> . <top>)
+           (<gst-pad> <gst-pad>))
+     (remove
+       generic
+       (<gst-bin> . <top>)
+       (<gst-bin> <gst-element>))
+     (unlink
+       generic
+       (<gst-element> <gst-element>)
+       (<gst-element> <gst-element> . <top>)
+       (<gst-pad>)
+       (<gst-pad> <gst-pad>))))
+  ((gnome gw gstreamer)
+   (uses-interfaces (gnome gw generics))
+   (typed-exports
+     (<char***> <gw:wct>)
+     (<file*> <gw:wct>)
+     (<g-callback> <gw:wct>)
+     (<g-compare-data-func> <gw:wct>)
+     (<g-compare-func> <gw:wct>)
+     (<g-date**> <gw:wct>)
+     (<g-destroy-notify> <gw:wct>)
+     (<g-error*> <gw:wct>)
+     (<g-func> <gw:wct>)
+     (<g-list**> <gw:wct>)
+     (<g-module*> <gw:wct>)
+     (<g-mutex*> <gw:wct>)
+     (<g-option-group*> <gw:wct>)
+     (<g-param-spec**> <gw:wct>)
+     (<g-static-rec-mutex*> <gw:wct>)
+     (<gconstpointer> <gw:wct>)
+     (<gpointer> <gw:wct>)
+     (<gst-alloc-trace*> <gw:wct>)
+     (<gst-bin> class)
+     (<gst-buffer**> <gw:wct>)
+     (<gst-bus-func> <gw:wct>)
+     (<gst-bus-sync-handler> <gw:wct>)
+     (<gst-caps**> <gw:wct>)
+     (<gst-child-proxy*> <gw:wct>)
+     (<gst-clock-id> <gw:wct>)
+     (<gst-clock-time*> <gw:wct>)
+     (<gst-clock-time-diff*> <gw:wct>)
+     (<gst-debug-category*> <gw:wct>)
+     (<gst-debug-message*> <gw:wct>)
+     (<gst-element-details*> <gw:wct>)
+     (<gst-element> class)
+     (<gst-event-type*> <gw:wct>)
+     (<gst-format*> <gw:wct>)
+     (<gst-format-definition*> <gw:wct>)
+     (<gst-ghost-pad*> <gw:wct>)
+     (<gst-index-association*> <gw:wct>)
+     (<gst-index-entry*> <gw:wct>)
+     (<gst-index-filter> <gw:wct>)
+     (<gst-iterator*> <gw:wct>)
+     (<gst-iterator-dispose-function> <gw:wct>)
+     (<gst-iterator-fold-function> <gw:wct>)
+     (<gst-iterator-free-function> <gw:wct>)
+     (<gst-iterator-item-function> <gw:wct>)
+     (<gst-iterator-next-function> <gw:wct>)
+     (<gst-iterator-resync-function> <gw:wct>)
+     (<gst-message-type*> <gw:wct>)
+     (<gst-mini-object> class)
+     (<gst-object**> <gw:wct>)
+     (<gst-pad-block-callback> <gw:wct>)
+     (<gst-pad-dispatcher-function> <gw:wct>)
+     (<gst-pad> class)
+     (<gst-plugin-feature-filter> <gw:wct>)
+     (<gst-plugin-filter> <gw:wct>)
+     (<gst-query-type*> <gw:wct>)
+     (<gst-query-type-definition*> <gw:wct>)
+     (<gst-seek-flags*> <gw:wct>)
+     (<gst-seek-type*> <gw:wct>)
+     (<gst-segment*> <gw:wct>)
+     (<gst-state*> <gw:wct>)
+     (<gst-static-caps*> <gw:wct>)
+     (<gst-static-pad-template*> <gw:wct>)
+     (<gst-structure-map-func> <gw:wct>)
+     (<gst-tag-foreach-func> <gw:wct>)
+     (<gst-tag-list**> <gw:wct>)
+     (<gst-tag-list*> <gw:wct>)
+     (<gst-tag-merge-func> <gw:wct>)
+     (<gst-tag-setter*> <gw:wct>)
+     (<gst-task-function> <gw:wct>)
+     (<gst-trace*> <gw:wct>)
+     (<gst-type-find*> <gw:wct>)
+     (<gst-type-find-function> <gw:wct>)
+     (<gst-type-name-data*> <gw:wct>)
+     (<gst-uri-handler*> <gw:wct>)
+     (<guint8*> <gw:wct>)
+     (<xml-doc-ptr> <gw:wct>)
+     (<xml-node-ptr> <gw:wct>)
+     (gst-alloc-trace-available
+       procedure
+       (arity 0 0 #t))
+     (gst-alloc-trace-get procedure (arity 0 0 #t))
+     (gst-alloc-trace-list procedure (arity 0 0 #f))
+     (gst-alloc-trace-live-all
+       procedure
+       (arity 0 0 #t))
+     (gst-alloc-trace-print procedure (arity 0 0 #t))
+     (gst-alloc-trace-print-all
+       procedure
+       (arity 0 0 #t))
+     (gst-alloc-trace-print-live
+       procedure
+       (arity 0 0 #t))
+     (gst-alloc-trace-set-flags
+       procedure
+       (arity 0 0 #t))
+     (gst-alloc-trace-set-flags-all
+       procedure
+       (arity 0 0 #t))
+     (gst-atomic-int-set procedure (arity 1 0 #f))
+     (gst-bin-add procedure (arity 0 0 #t))
+     (gst-bin-find-unconnected-pad
+       procedure
+       (arity 0 0 #t))
+     (gst-bin-get-by-interface
+       procedure
+       (arity 2 0 #f))
+     (gst-bin-get-by-name procedure (arity 0 0 #t))
+     (gst-bin-get-by-name-recurse-up
+       procedure
+       (arity 0 0 #t))
+     (gst-bin-iterate-all-by-interface
+       procedure
+       (arity 2 0 #f))
+     (gst-bin-iterate-elements
+       procedure
+       (arity 0 0 #t))
+     (gst-bin-iterate-recurse
+       procedure
+       (arity 0 0 #t))
+     (gst-bin-iterate-sinks procedure (arity 0 0 #t))
+     (gst-bin-iterate-sorted procedure (arity 0 0 #t))
+     (gst-bin-iterate-sources
+       procedure
+       (arity 0 0 #t))
+     (gst-bin-new procedure (arity 0 0 #t))
+     (gst-bin-remove procedure (arity 0 0 #t))
+     (gst-buffer-create-sub procedure (arity 0 0 #t))
+     (gst-buffer-get-caps procedure (arity 0 0 #t))
+     (gst-buffer-get-data procedure (arity 0 0 #t))
+     (gst-buffer-is-span-fast
+       procedure
+       (arity 0 0 #t))
+     (gst-buffer-join procedure (arity 0 0 #t))
+     (gst-buffer-make-metadata-writable
+       procedure
+       (arity 0 0 #t))
+     (gst-buffer-merge procedure (arity 0 0 #t))
+     (gst-buffer-new procedure (arity 0 0 #t))
+     (gst-buffer-set-caps procedure (arity 0 0 #t))
+     (gst-buffer-set-data procedure (arity 0 0 #t))
+     (gst-buffer-span procedure (arity 0 0 #t))
+     (gst-buffer-stamp procedure (arity 0 0 #t))
+     (gst-bus-add-signal-watch
+       procedure
+       (arity 0 0 #t))
+     (gst-bus-add-signal-watch-full
+       procedure
+       (arity 0 0 #t))
+     (gst-bus-add-watch procedure (arity 0 0 #t))
+     (gst-bus-add-watch-full procedure (arity 0 0 #t))
+     (gst-bus-async-signal-func
+       procedure
+       (arity 0 0 #t))
+     (gst-bus-create-watch procedure (arity 0 0 #t))
+     (gst-bus-disable-sync-message-emission
+       procedure
+       (arity 0 0 #t))
+     (gst-bus-enable-sync-message-emission
+       procedure
+       (arity 0 0 #t))
+     (gst-bus-have-pending procedure (arity 0 0 #t))
+     (gst-bus-new procedure (arity 0 0 #t))
+     (gst-bus-peek procedure (arity 0 0 #t))
+     (gst-bus-poll procedure (arity 0 0 #t))
+     (gst-bus-pop procedure (arity 0 0 #t))
+     (gst-bus-post procedure (arity 0 0 #t))
+     (gst-bus-remove-signal-watch
+       procedure
+       (arity 0 0 #t))
+     (gst-bus-set-flushing procedure (arity 0 0 #t))
+     (gst-bus-set-sync-handler
+       procedure
+       (arity 0 0 #t))
+     (gst-bus-sync-signal-handler
+       procedure
+       (arity 0 0 #t))
+     (gst-caps-append procedure (arity 0 0 #t))
+     (gst-caps-append-structure
+       procedure
+       (arity 0 0 #t))
+     (gst-caps-copy-nth procedure (arity 0 0 #t))
+     (gst-caps-do-simplify procedure (arity 0 0 #t))
+     (gst-caps-from-string procedure (arity 0 0 #t))
+     (gst-caps-get-size procedure (arity 0 0 #t))
+     (gst-caps-get-structure procedure (arity 0 0 #t))
+     (gst-caps-intersect procedure (arity 0 0 #t))
+     (gst-caps-is-always-compatible
+       procedure
+       (arity 0 0 #t))
+     (gst-caps-is-any procedure (arity 0 0 #t))
+     (gst-caps-is-empty procedure (arity 0 0 #t))
+     (gst-caps-is-equal procedure (arity 0 0 #t))
+     (gst-caps-is-equal-fixed
+       procedure
+       (arity 0 0 #t))
+     (gst-caps-is-fixed procedure (arity 0 0 #t))
+     (gst-caps-is-subset procedure (arity 0 0 #t))
+     (gst-caps-load-thyself procedure (arity 0 0 #t))
+     (gst-caps-make-writable procedure (arity 0 0 #t))
+     (gst-caps-merge procedure (arity 0 0 #t))
+     (gst-caps-merge-structure
+       procedure
+       (arity 0 0 #t))
+     (gst-caps-new-any procedure (arity 0 0 #t))
+     (gst-caps-new-empty procedure (arity 0 0 #t))
+     (gst-caps-normalize procedure (arity 0 0 #t))
+     (gst-caps-remove-structure
+       procedure
+       (arity 0 0 #t))
+     (gst-caps-replace procedure (arity 0 0 #t))
+     (gst-caps-save-thyself procedure (arity 0 0 #t))
+     (gst-caps-subtract procedure (arity 0 0 #t))
+     (gst-caps-to-string procedure (arity 0 0 #t))
+     (gst-caps-truncate procedure (arity 0 0 #t))
+     (gst-caps-union procedure (arity 0 0 #t))
+     (gst-child-proxy-child-added
+       procedure
+       (arity 0 0 #t))
+     (gst-child-proxy-child-removed
+       procedure
+       (arity 0 0 #t))
+     (gst-child-proxy-get-child-by-index
+       procedure
+       (arity 0 0 #t))
+     (gst-child-proxy-get-child-by-name
+       procedure
+       (arity 0 0 #t))
+     (gst-child-proxy-get-children-count
+       procedure
+       (arity 0 0 #t))
+     (gst-child-proxy-get-property
+       procedure
+       (arity 0 0 #t))
+     (gst-child-proxy-lookup procedure (arity 0 0 #t))
+     (gst-child-proxy-set-property
+       procedure
+       (arity 0 0 #t))
+     (gst-clock-add-observation
+       procedure
+       (arity 3 0 #f))
+     (gst-clock-adjust-unlocked
+       procedure
+       (arity 0 0 #t))
+     (gst-clock-get-calibration
+       procedure
+       (arity 0 0 #t))
+     (gst-clock-get-internal-time
+       procedure
+       (arity 0 0 #t))
+     (gst-clock-get-master procedure (arity 0 0 #t))
+     (gst-clock-get-resolution
+       procedure
+       (arity 0 0 #t))
+     (gst-clock-get-time procedure (arity 0 0 #t))
+     (gst-clock-id-compare-func
+       procedure
+       (arity 0 0 #t))
+     (gst-clock-id-get-time procedure (arity 0 0 #t))
+     (gst-clock-id-unschedule
+       procedure
+       (arity 0 0 #t))
+     (gst-clock-id-wait procedure (arity 0 0 #t))
+     (gst-clock-id-wait-async
+       procedure
+       (arity 0 0 #t))
+     (gst-clock-new-periodic-id
+       procedure
+       (arity 0 0 #t))
+     (gst-clock-new-single-shot-id
+       procedure
+       (arity 0 0 #t))
+     (gst-clock-set-calibration
+       procedure
+       (arity 0 0 #t))
+     (gst-clock-set-master procedure (arity 0 0 #t))
+     (gst-clock-set-resolution
+       procedure
+       (arity 0 0 #t))
+     (gst-core-error-quark procedure (arity 0 0 #t))
+     (gst-debug-category-get-color
+       procedure
+       (arity 0 0 #t))
+     (gst-debug-category-get-description
+       procedure
+       (arity 0 0 #t))
+     (gst-debug-category-get-name
+       procedure
+       (arity 0 0 #t))
+     (gst-debug-category-get-threshold
+       procedure
+       (arity 0 0 #t))
+     (gst-debug-category-reset-threshold
+       procedure
+       (arity 0 0 #t))
+     (gst-debug-category-set-threshold
+       procedure
+       (arity 0 0 #t))
+     (gst-debug-construct-term-color
+       procedure
+       (arity 0 0 #t))
+     (gst-debug-get-all-categories
+       procedure
+       (arity 0 0 #f))
+     (gst-debug-get-default-threshold
+       procedure
+       (arity 0 0 #t))
+     (gst-debug-is-active procedure (arity 0 0 #t))
+     (gst-debug-is-colored procedure (arity 0 0 #t))
+     (gst-debug-level-get-name
+       procedure
+       (arity 0 0 #t))
+     (gst-debug-log-default procedure (arity 0 0 #t))
+     (gst-debug-message-get procedure (arity 0 0 #t))
+     (gst-debug-remove-log-function-by-data
+       procedure
+       (arity 0 0 #t))
+     (gst-debug-set-active procedure (arity 0 0 #t))
+     (gst-debug-set-colored procedure (arity 0 0 #t))
+     (gst-debug-set-default-threshold
+       procedure
+       (arity 0 0 #t))
+     (gst-debug-set-threshold-for-name
+       procedure
+       (arity 0 0 #t))
+     (gst-debug-unset-threshold-for-name
+       procedure
+       (arity 0 0 #t))
+     (gst-debug-use-custom-handler!
+       procedure
+       (arity 0 0 #t))
+     (gst-default-registry-check-feature-version
+       procedure
+       (arity 0 0 #t))
+     (gst-deinit procedure (arity 0 0 #t))
+     (gst-element-abort-state
+       procedure
+       (arity 0 0 #t))
+     (gst-element-add-pad procedure (arity 0 0 #t))
+     (gst-element-class-add-pad-template
+       procedure
+       (arity 0 0 #t))
+     (gst-element-class-get-pad-template
+       procedure
+       (arity 0 0 #t))
+     (gst-element-class-get-pad-template-list
+       procedure
+       (arity 1 0 #f))
+     (gst-element-class-set-details
+       procedure
+       (arity 0 0 #t))
+     (gst-element-continue-state
+       procedure
+       (arity 0 0 #t))
+     (gst-element-create-all-pads
+       procedure
+       (arity 0 0 #t))
+     (gst-element-factory-can-sink-caps
+       procedure
+       (arity 0 0 #t))
+     (gst-element-factory-can-src-caps
+       procedure
+       (arity 0 0 #t))
+     (gst-element-factory-create
+       procedure
+       (arity 0 0 #t))
+     (gst-element-factory-find
+       procedure
+       (arity 0 0 #t))
+     (gst-element-factory-get-author
+       procedure
+       (arity 0 0 #t))
+     (gst-element-factory-get-description
+       procedure
+       (arity 0 0 #t))
+     (gst-element-factory-get-element-type
+       procedure
+       (arity 1 0 #f))
+     (gst-element-factory-get-klass
+       procedure
+       (arity 0 0 #t))
+     (gst-element-factory-get-longname
+       procedure
+       (arity 0 0 #t))
+     (gst-element-factory-get-num-pad-templates
+       procedure
+       (arity 0 0 #t))
+     (gst-element-factory-get-static-pad-templates
+       procedure
+       (arity 1 0 #f))
+     (gst-element-factory-get-uri-protocols
+       procedure
+       (arity 0 0 #t))
+     (gst-element-factory-get-uri-type
+       procedure
+       (arity 0 0 #t))
+     (gst-element-factory-make
+       procedure
+       (arity 0 0 #t))
+     (gst-element-found-tags procedure (arity 0 0 #t))
+     (gst-element-found-tags-for-pad
+       procedure
+       (arity 0 0 #t))
+     (gst-element-get-base-time
+       procedure
+       (arity 0 0 #t))
+     (gst-element-get-bus procedure (arity 0 0 #t))
+     (gst-element-get-clock procedure (arity 0 0 #t))
+     (gst-element-get-compatible-pad
+       procedure
+       (arity 0 0 #t))
+     (gst-element-get-compatible-pad-template
+       procedure
+       (arity 0 0 #t))
+     (gst-element-get-factory
+       procedure
+       (arity 0 0 #t))
+     (gst-element-get-index procedure (arity 0 0 #t))
+     (gst-element-get-pad procedure (arity 0 0 #t))
+     (gst-element-get-query-types
+       procedure
+       (arity 0 0 #t))
+     (gst-element-get-request-pad
+       procedure
+       (arity 0 0 #t))
+     (gst-element-get-state procedure (arity 0 0 #t))
+     (gst-element-get-static-pad
+       procedure
+       (arity 0 0 #t))
+     (gst-element-implements-interface
+       procedure
+       (arity 2 0 #f))
+     (gst-element-is-indexable
+       procedure
+       (arity 0 0 #t))
+     (gst-element-is-locked-state
+       procedure
+       (arity 0 0 #t))
+     (gst-element-iterate-pads
+       procedure
+       (arity 0 0 #t))
+     (gst-element-iterate-sink-pads
+       procedure
+       (arity 0 0 #t))
+     (gst-element-iterate-src-pads
+       procedure
+       (arity 0 0 #t))
+     (gst-element-link procedure (arity 0 0 #t))
+     (gst-element-link-filtered
+       procedure
+       (arity 0 0 #t))
+     (gst-element-link-pads procedure (arity 0 0 #t))
+     (gst-element-link-pads-filtered
+       procedure
+       (arity 0 0 #t))
+     (gst-element-lost-state procedure (arity 0 0 #t))
+     (gst-element-make-from-uri
+       procedure
+       (arity 0 0 #t))
+     (gst-element-message-full
+       procedure
+       (arity 0 0 #t))
+     (gst-element-no-more-pads
+       procedure
+       (arity 0 0 #t))
+     (gst-element-post-message
+       procedure
+       (arity 0 0 #t))
+     (gst-element-provide-clock
+       procedure
+       (arity 0 0 #t))
+     (gst-element-provides-clock
+       procedure
+       (arity 0 0 #t))
+     (gst-element-query procedure (arity 0 0 #t))
+     (gst-element-query-convert
+       procedure
+       (arity 4 0 #f))
+     (gst-element-query-duration
+       procedure
+       (arity 2 0 #f))
+     (gst-element-query-position
+       procedure
+       (arity 2 0 #f))
+     (gst-element-register procedure (arity 4 0 #f))
+     (gst-element-release-request-pad
+       procedure
+       (arity 0 0 #t))
+     (gst-element-remove-pad procedure (arity 0 0 #t))
+     (gst-element-requires-clock
+       procedure
+       (arity 0 0 #t))
+     (gst-element-seek procedure (arity 0 0 #t))
+     (gst-element-seek-simple
+       procedure
+       (arity 0 0 #t))
+     (gst-element-send-event procedure (arity 0 0 #t))
+     (gst-element-set-base-time
+       procedure
+       (arity 0 0 #t))
+     (gst-element-set-bus procedure (arity 0 0 #t))
+     (gst-element-set-clock procedure (arity 0 0 #t))
+     (gst-element-set-index procedure (arity 0 0 #t))
+     (gst-element-set-locked-state
+       procedure
+       (arity 0 0 #t))
+     (gst-element-set-state procedure (arity 0 0 #t))
+     (gst-element-state-get-name
+       procedure
+       (arity 0 0 #t))
+     (gst-element-sync-state-with-parent
+       procedure
+       (arity 0 0 #t))
+     (gst-element-unlink procedure (arity 0 0 #t))
+     (gst-element-unlink-pads
+       procedure
+       (arity 0 0 #t))
+     (gst-error-get-message procedure (arity 0 0 #t))
+     (gst-event-get-structure
+       procedure
+       (arity 0 0 #t))
+     (gst-event-new-buffer-size
+       procedure
+       (arity 0 0 #t))
+     (gst-event-new-eos procedure (arity 0 0 #t))
+     (gst-event-new-flush-start
+       procedure
+       (arity 0 0 #t))
+     (gst-event-new-flush-stop
+       procedure
+       (arity 0 0 #t))
+     (gst-event-new-navigation
+       procedure
+       (arity 0 0 #t))
+     (gst-event-new-new-segment
+       procedure
+       (arity 0 0 #t))
+     (gst-event-new-new-segment-full
+       procedure
+       (arity 0 0 #t))
+     (gst-event-new-qos procedure (arity 0 0 #t))
+     (gst-event-new-seek procedure (arity 0 0 #t))
+     (gst-event-new-tag procedure (arity 0 0 #t))
+     (gst-event-parse-buffer-size
+       procedure
+       (arity 2 0 #f))
+     (gst-event-parse-new-segment
+       procedure
+       (arity 2 0 #f))
+     (gst-event-parse-new-segment-full
+       procedure
+       (arity 2 0 #f))
+     (gst-event-parse-qos procedure (arity 3 0 #f))
+     (gst-event-parse-seek procedure (arity 5 0 #f))
+     (gst-event-parse-tag procedure (arity 0 0 #t))
+     (gst-event-type-get-flags
+       procedure
+       (arity 0 0 #t))
+     (gst-event-type-get-name
+       procedure
+       (arity 0 0 #t))
+     (gst-event-type-to-quark
+       procedure
+       (arity 0 0 #t))
+     (gst-flow-get-name procedure (arity 0 0 #t))
+     (gst-flow-to-quark procedure (arity 0 0 #t))
+     (gst-format-get-by-nick procedure (arity 0 0 #t))
+     (gst-format-get-details procedure (arity 0 0 #t))
+     (gst-format-get-name procedure (arity 0 0 #t))
+     (gst-format-iterate-definitions
+       procedure
+       (arity 0 0 #t))
+     (gst-format-register procedure (arity 0 0 #t))
+     (gst-format-to-quark procedure (arity 0 0 #t))
+     (gst-formats-contains procedure (arity 0 0 #t))
+     (gst-ghost-pad-get-target
+       procedure
+       (arity 0 0 #t))
+     (gst-ghost-pad-new procedure (arity 0 0 #t))
+     (gst-ghost-pad-new-from-template
+       procedure
+       (arity 0 0 #t))
+     (gst-ghost-pad-new-no-target
+       procedure
+       (arity 0 0 #t))
+     (gst-ghost-pad-new-no-target-from-template
+       procedure
+       (arity 0 0 #t))
+     (gst-ghost-pad-set-target
+       procedure
+       (arity 0 0 #t))
+     (gst-implements-interface-cast
+       procedure
+       (arity 2 0 #f))
+     (gst-implements-interface-check
+       procedure
+       (arity 2 0 #f))
+     (gst-index-add-associationv
+       procedure
+       (arity 0 0 #t))
+     (gst-index-add-format procedure (arity 0 0 #t))
+     (gst-index-add-id procedure (arity 0 0 #t))
+     (gst-index-add-object procedure (arity 5 0 #f))
+     (gst-index-commit procedure (arity 0 0 #t))
+     (gst-index-entry-assoc-map
+       procedure
+       (arity 2 0 #f))
+     (gst-index-factory-create
+       procedure
+       (arity 0 0 #t))
+     (gst-index-factory-destroy
+       procedure
+       (arity 0 0 #t))
+     (gst-index-factory-find procedure (arity 0 0 #t))
+     (gst-index-factory-make procedure (arity 0 0 #t))
+     (gst-index-factory-new procedure (arity 3 0 #f))
+     (gst-index-get-assoc-entry
+       procedure
+       (arity 0 0 #t))
+     (gst-index-get-assoc-entry-full
+       procedure
+       (arity 0 0 #t))
+     (gst-index-get-certainty
+       procedure
+       (arity 0 0 #t))
+     (gst-index-get-group procedure (arity 0 0 #t))
+     (gst-index-get-writer-id
+       procedure
+       (arity 2 0 #f))
+     (gst-index-new procedure (arity 0 0 #t))
+     (gst-index-new-group procedure (arity 0 0 #t))
+     (gst-index-set-certainty
+       procedure
+       (arity 0 0 #t))
+     (gst-index-set-filter-full
+       procedure
+       (arity 0 0 #t))
+     (gst-index-set-group procedure (arity 0 0 #t))
+     (gst-init procedure (arity 1 0 #f))
+     (gst-init-check procedure (arity 1 0 #f))
+     (gst-init-get-option-group
+       procedure
+       (arity 0 0 #t))
+     (gst-is-tag-list procedure (arity 0 0 #t))
+     (gst-iterator-filter procedure (arity 0 0 #t))
+     (gst-iterator-find-custom
+       procedure
+       (arity 0 0 #t))
+     (gst-iterator-fold procedure (arity 0 0 #t))
+     (gst-iterator-foreach procedure (arity 0 0 #t))
+     (gst-iterator-new procedure (arity 7 0 #f))
+     (gst-iterator-new-list procedure (arity 6 0 #f))
+     (gst-iterator-next procedure (arity 0 0 #t))
+     (gst-iterator-push procedure (arity 0 0 #t))
+     (gst-iterator-resync procedure (arity 0 0 #t))
+     (gst-library-error-quark
+       procedure
+       (arity 0 0 #t))
+     (gst-message-get-src procedure (arity 0 0 #t))
+     (gst-message-get-structure
+       procedure
+       (arity 0 0 #t))
+     (gst-message-get-type procedure (arity 0 0 #t))
+     (gst-message-new-application
+       procedure
+       (arity 0 0 #t))
+     (gst-message-new-clock-lost
+       procedure
+       (arity 0 0 #t))
+     (gst-message-new-clock-provide
+       procedure
+       (arity 0 0 #t))
+     (gst-message-new-custom procedure (arity 0 0 #t))
+     (gst-message-new-duration
+       procedure
+       (arity 0 0 #t))
+     (gst-message-new-element
+       procedure
+       (arity 0 0 #t))
+     (gst-message-new-error procedure (arity 0 0 #t))
+     (gst-message-new-new-clock
+       procedure
+       (arity 0 0 #t))
+     (gst-message-new-segment-done
+       procedure
+       (arity 0 0 #t))
+     (gst-message-new-segment-start
+       procedure
+       (arity 0 0 #t))
+     (gst-message-new-state-changed
+       procedure
+       (arity 0 0 #t))
+     (gst-message-new-state-dirty
+       procedure
+       (arity 0 0 #t))
+     (gst-message-new-tag procedure (arity 0 0 #t))
+     (gst-message-new-warning
+       procedure
+       (arity 0 0 #t))
+     (gst-message-type-get-name
+       procedure
+       (arity 0 0 #t))
+     (gst-message-type-to-quark
+       procedure
+       (arity 0 0 #t))
+     (gst-mini-object-primitive-create
+       procedure
+       (arity 3 0 #f))
+     (gst-object-check-uniqueness
+       procedure
+       (arity 2 0 #f))
+     (gst-object-default-error
+       procedure
+       (arity 0 0 #t))
+     (gst-object-get-name procedure (arity 0 0 #t))
+     (gst-object-get-name-prefix
+       procedure
+       (arity 0 0 #t))
+     (gst-object-get-parent procedure (arity 0 0 #t))
+     (gst-object-get-path-string
+       procedure
+       (arity 0 0 #t))
+     (gst-object-has-ancestor
+       procedure
+       (arity 0 0 #t))
+     (gst-object-restore-thyself
+       procedure
+       (arity 0 0 #t))
+     (gst-object-save-thyself
+       procedure
+       (arity 0 0 #t))
+     (gst-object-set-name procedure (arity 0 0 #t))
+     (gst-object-set-name-prefix
+       procedure
+       (arity 0 0 #t))
+     (gst-object-set-parent procedure (arity 0 0 #t))
+     (gst-object-unparent procedure (arity 0 0 #t))
+     (gst-pad-accept-caps procedure (arity 0 0 #t))
+     (gst-pad-activate-pull procedure (arity 0 0 #t))
+     (gst-pad-activate-push procedure (arity 0 0 #t))
+     (gst-pad-add-buffer-probe
+       procedure
+       (arity 0 0 #t))
+     (gst-pad-add-data-probe procedure (arity 0 0 #t))
+     (gst-pad-add-event-probe
+       procedure
+       (arity 0 0 #t))
+     (gst-pad-alloc-buffer procedure (arity 0 0 #t))
+     (gst-pad-alloc-buffer-and-set-caps
+       procedure
+       (arity 0 0 #t))
+     (gst-pad-can-link procedure (arity 0 0 #t))
+     (gst-pad-chain procedure (arity 0 0 #t))
+     (gst-pad-check-pull-range
+       procedure
+       (arity 0 0 #t))
+     (gst-pad-dispatcher procedure (arity 0 0 #t))
+     (gst-pad-event-default procedure (arity 0 0 #t))
+     (gst-pad-fixate-caps procedure (arity 0 0 #t))
+     (gst-pad-get-allowed-caps
+       procedure
+       (arity 0 0 #t))
+     (gst-pad-get-caps procedure (arity 0 0 #t))
+     (gst-pad-get-direction procedure (arity 0 0 #t))
+     (gst-pad-get-fixed-caps-func
+       procedure
+       (arity 0 0 #t))
+     (gst-pad-get-internal-links
+       procedure
+       (arity 1 0 #f))
+     (gst-pad-get-internal-links-default
+       procedure
+       (arity 1 0 #f))
+     (gst-pad-get-negotiated-caps
+       procedure
+       (arity 0 0 #t))
+     (gst-pad-get-pad-template
+       procedure
+       (arity 0 0 #t))
+     (gst-pad-get-pad-template-caps
+       procedure
+       (arity 0 0 #t))
+     (gst-pad-get-parent-element
+       procedure
+       (arity 0 0 #t))
+     (gst-pad-get-peer procedure (arity 0 0 #t))
+     (gst-pad-get-query-types
+       procedure
+       (arity 0 0 #t))
+     (gst-pad-get-query-types-default
+       procedure
+       (arity 0 0 #t))
+     (gst-pad-get-range procedure (arity 0 0 #t))
+     (gst-pad-is-active procedure (arity 0 0 #t))
+     (gst-pad-is-blocked procedure (arity 0 0 #t))
+     (gst-pad-is-linked procedure (arity 0 0 #t))
+     (gst-pad-link procedure (arity 0 0 #t))
+     (gst-pad-load-and-link procedure (arity 0 0 #t))
+     (gst-pad-new procedure (arity 0 0 #t))
+     (gst-pad-new-from-static-template
+       procedure
+       (arity 0 0 #t))
+     (gst-pad-new-from-template
+       procedure
+       (arity 0 0 #t))
+     (gst-pad-pause-task procedure (arity 0 0 #t))
+     (gst-pad-peer-accept-caps
+       procedure
+       (arity 0 0 #t))
+     (gst-pad-peer-get-caps procedure (arity 0 0 #t))
+     (gst-pad-proxy-getcaps procedure (arity 0 0 #t))
+     (gst-pad-proxy-setcaps procedure (arity 0 0 #t))
+     (gst-pad-pull-range procedure (arity 0 0 #t))
+     (gst-pad-push procedure (arity 0 0 #t))
+     (gst-pad-push-event procedure (arity 0 0 #t))
+     (gst-pad-query procedure (arity 0 0 #t))
+     (gst-pad-query-convert procedure (arity 4 0 #f))
+     (gst-pad-query-default procedure (arity 0 0 #t))
+     (gst-pad-query-duration procedure (arity 2 0 #f))
+     (gst-pad-query-peer-convert
+       procedure
+       (arity 4 0 #f))
+     (gst-pad-query-peer-duration
+       procedure
+       (arity 2 0 #f))
+     (gst-pad-query-peer-position
+       procedure
+       (arity 2 0 #f))
+     (gst-pad-query-position procedure (arity 2 0 #f))
+     (gst-pad-remove-buffer-probe
+       procedure
+       (arity 0 0 #t))
+     (gst-pad-remove-data-probe
+       procedure
+       (arity 0 0 #t))
+     (gst-pad-remove-event-probe
+       procedure
+       (arity 0 0 #t))
+     (gst-pad-send-event procedure (arity 0 0 #t))
+     (gst-pad-set-active procedure (arity 0 0 #t))
+     (gst-pad-set-blocked procedure (arity 0 0 #t))
+     (gst-pad-set-blocked-async
+       procedure
+       (arity 0 0 #t))
+     (gst-pad-set-caps procedure (arity 0 0 #t))
+     (gst-pad-set-chain-function
+       procedure
+       (arity 0 0 #t))
+     (gst-pad-set-getrange-function
+       procedure
+       (arity 0 0 #t))
+     (gst-pad-set-setcaps-function
+       procedure
+       (arity 0 0 #t))
+     (gst-pad-start-task procedure (arity 0 0 #t))
+     (gst-pad-stop-task procedure (arity 0 0 #t))
+     (gst-pad-template-get-caps
+       procedure
+       (arity 0 0 #t))
+     (gst-pad-template-get-direction
+       procedure
+       (arity 0 0 #t))
+     (gst-pad-template-get-name-template
+       procedure
+       (arity 0 0 #t))
+     (gst-pad-template-get-presence
+       procedure
+       (arity 0 0 #t))
+     (gst-pad-template-new procedure (arity 0 0 #t))
+     (gst-pad-template-pad-created
+       procedure
+       (arity 0 0 #t))
+     (gst-pad-unlink procedure (arity 0 0 #t))
+     (gst-pad-use-fixed-caps procedure (arity 0 0 #t))
+     (gst-parse-bin-from-description
+       procedure
+       (arity 2 0 #f))
+     (gst-parse-error-quark procedure (arity 0 0 #t))
+     (gst-parse-launch procedure (arity 1 0 #f))
+     (gst-pipeline-auto-clock
+       procedure
+       (arity 0 0 #t))
+     (gst-pipeline-get-auto-flush-bus
+       procedure
+       (arity 0 0 #t))
+     (gst-pipeline-get-bus procedure (arity 0 0 #t))
+     (gst-pipeline-get-clock procedure (arity 0 0 #t))
+     (gst-pipeline-get-delay procedure (arity 0 0 #t))
+     (gst-pipeline-get-last-stream-time
+       procedure
+       (arity 0 0 #t))
+     (gst-pipeline-new procedure (arity 0 0 #t))
+     (gst-pipeline-set-auto-flush-bus
+       procedure
+       (arity 0 0 #t))
+     (gst-pipeline-set-clock procedure (arity 0 0 #t))
+     (gst-pipeline-set-delay procedure (arity 0 0 #t))
+     (gst-pipeline-set-new-stream-time
+       procedure
+       (arity 0 0 #t))
+     (gst-pipeline-use-clock procedure (arity 0 0 #t))
+     (gst-plugin-error-quark procedure (arity 0 0 #t))
+     (gst-plugin-feature-check-version
+       procedure
+       (arity 0 0 #t))
+     (gst-plugin-feature-get-name
+       procedure
+       (arity 0 0 #t))
+     (gst-plugin-feature-get-rank
+       procedure
+       (arity 0 0 #t))
+     (gst-plugin-feature-load
+       procedure
+       (arity 0 0 #t))
+     (gst-plugin-feature-set-name
+       procedure
+       (arity 0 0 #t))
+     (gst-plugin-feature-set-rank
+       procedure
+       (arity 0 0 #t))
+     (gst-plugin-feature-type-name-filter
+       procedure
+       (arity 0 0 #t))
+     (gst-plugin-get-description
+       procedure
+       (arity 0 0 #t))
+     (gst-plugin-get-filename
+       procedure
+       (arity 0 0 #t))
+     (gst-plugin-get-license procedure (arity 0 0 #t))
+     (gst-plugin-get-module procedure (arity 0 0 #t))
+     (gst-plugin-get-name procedure (arity 0 0 #t))
+     (gst-plugin-get-origin procedure (arity 0 0 #t))
+     (gst-plugin-get-package procedure (arity 0 0 #t))
+     (gst-plugin-get-source procedure (arity 0 0 #t))
+     (gst-plugin-get-version procedure (arity 0 0 #t))
+     (gst-plugin-is-loaded procedure (arity 0 0 #t))
+     (gst-plugin-load procedure (arity 0 0 #t))
+     (gst-plugin-load-by-name
+       procedure
+       (arity 0 0 #t))
+     (gst-plugin-load-file procedure (arity 1 0 #f))
+     (gst-plugin-name-filter procedure (arity 0 0 #t))
+     (gst-print-element-args procedure (arity 0 0 #t))
+     (gst-print-pad-caps procedure (arity 0 0 #t))
+     (gst-query-get-structure
+       procedure
+       (arity 0 0 #t))
+     (gst-query-new-application
+       procedure
+       (arity 0 0 #t))
+     (gst-query-new-convert procedure (arity 0 0 #t))
+     (gst-query-new-duration procedure (arity 0 0 #t))
+     (gst-query-new-formats procedure (arity 0 0 #t))
+     (gst-query-new-position procedure (arity 0 0 #t))
+     (gst-query-new-seeking procedure (arity 0 0 #t))
+     (gst-query-new-segment procedure (arity 0 0 #t))
+     (gst-query-parse-convert
+       procedure
+       (arity 3 0 #f))
+     (gst-query-parse-duration
+       procedure
+       (arity 2 0 #f))
+     (gst-query-parse-formats-length
+       procedure
+       (arity 1 0 #f))
+     (gst-query-parse-formats-nth
+       procedure
+       (arity 0 0 #t))
+     (gst-query-parse-position
+       procedure
+       (arity 2 0 #f))
+     (gst-query-parse-seeking
+       procedure
+       (arity 2 0 #f))
+     (gst-query-parse-segment
+       procedure
+       (arity 2 0 #f))
+     (gst-query-set-convert procedure (arity 0 0 #t))
+     (gst-query-set-duration procedure (arity 0 0 #t))
+     (gst-query-set-formatsv procedure (arity 0 0 #t))
+     (gst-query-set-position procedure (arity 0 0 #t))
+     (gst-query-set-seeking procedure (arity 0 0 #t))
+     (gst-query-set-segment procedure (arity 0 0 #t))
+     (gst-query-type-get-by-nick
+       procedure
+       (arity 0 0 #t))
+     (gst-query-type-get-details
+       procedure
+       (arity 0 0 #t))
+     (gst-query-type-get-name
+       procedure
+       (arity 0 0 #t))
+     (gst-query-type-iterate-definitions
+       procedure
+       (arity 0 0 #t))
+     (gst-query-type-register
+       procedure
+       (arity 0 0 #t))
+     (gst-query-type-to-quark
+       procedure
+       (arity 0 0 #t))
+     (gst-query-types-contains
+       procedure
+       (arity 0 0 #t))
+     (gst-registry-add-feature
+       procedure
+       (arity 0 0 #t))
+     (gst-registry-add-plugin
+       procedure
+       (arity 0 0 #t))
+     (gst-registry-feature-filter
+       procedure
+       (arity 4 0 #f))
+     (gst-registry-find-feature
+       procedure
+       (arity 3 0 #f))
+     (gst-registry-find-plugin
+       procedure
+       (arity 0 0 #t))
+     (gst-registry-fork-is-enabled
+       procedure
+       (arity 0 0 #t))
+     (gst-registry-fork-set-enabled
+       procedure
+       (arity 0 0 #t))
+     (gst-registry-get-default
+       procedure
+       (arity 0 0 #t))
+     (gst-registry-get-feature-list
+       procedure
+       (arity 2 0 #f))
+     (gst-registry-get-feature-list-by-plugin
+       procedure
+       (arity 2 0 #f))
+     (gst-registry-get-path-list
+       procedure
+       (arity 1 0 #f))
+     (gst-registry-get-plugin-list
+       procedure
+       (arity 1 0 #f))
+     (gst-registry-lookup procedure (arity 0 0 #t))
+     (gst-registry-lookup-feature
+       procedure
+       (arity 0 0 #t))
+     (gst-registry-plugin-filter
+       procedure
+       (arity 4 0 #f))
+     (gst-registry-remove-feature
+       procedure
+       (arity 0 0 #t))
+     (gst-registry-remove-plugin
+       procedure
+       (arity 0 0 #t))
+     (gst-registry-scan-path procedure (arity 0 0 #t))
+     (gst-registry-xml-read-cache
+       procedure
+       (arity 0 0 #t))
+     (gst-registry-xml-write-cache
+       procedure
+       (arity 0 0 #t))
+     (gst-resource-error-quark
+       procedure
+       (arity 0 0 #t))
+     (gst-segment-clip procedure (arity 4 0 #f))
+     (gst-segment-init procedure (arity 0 0 #t))
+     (gst-segment-new procedure (arity 0 0 #t))
+     (gst-segment-set-duration
+       procedure
+       (arity 0 0 #t))
+     (gst-segment-set-last-stop
+       procedure
+       (arity 0 0 #t))
+     (gst-segment-set-newsegment
+       procedure
+       (arity 0 0 #t))
+     (gst-segment-set-newsegment-full
+       procedure
+       (arity 0 0 #t))
+     (gst-segment-set-seek procedure (arity 8 0 #f))
+     (gst-segment-to-running-time
+       procedure
+       (arity 0 0 #t))
+     (gst-segment-to-stream-time
+       procedure
+       (arity 0 0 #t))
+     (gst-segtrap-is-enabled procedure (arity 0 0 #t))
+     (gst-segtrap-set-enabled
+       procedure
+       (arity 0 0 #t))
+     (gst-static-caps-get procedure (arity 0 0 #t))
+     (gst-static-pad-template-get
+       procedure
+       (arity 0 0 #t))
+     (gst-static-pad-template-get-caps
+       procedure
+       (arity 0 0 #t))
+     (gst-stream-error-quark procedure (arity 0 0 #t))
+     (gst-structure-empty-new
+       procedure
+       (arity 0 0 #t))
+     (gst-structure-fixate-field-boolean
+       procedure
+       (arity 0 0 #t))
+     (gst-structure-fixate-field-nearest-double
+       procedure
+       (arity 0 0 #t))
+     (gst-structure-fixate-field-nearest-fraction
+       procedure
+       (arity 0 0 #t))
+     (gst-structure-fixate-field-nearest-int
+       procedure
+       (arity 0 0 #t))
+     (gst-structure-foreach procedure (arity 0 0 #t))
+     (gst-structure-from-string
+       procedure
+       (arity 0 0 #t))
+     (gst-structure-get-boolean
+       procedure
+       (arity 2 0 #f))
+     (gst-structure-get-clock-time
+       procedure
+       (arity 0 0 #t))
+     (gst-structure-get-date procedure (arity 0 0 #t))
+     (gst-structure-get-double
+       procedure
+       (arity 2 0 #f))
+     (gst-structure-get-enum procedure (arity 3 0 #f))
+     (gst-structure-get-field-type
+       procedure
+       (arity 2 0 #f))
+     (gst-structure-get-fourcc
+       procedure
+       (arity 2 0 #f))
+     (gst-structure-get-fraction
+       procedure
+       (arity 2 0 #f))
+     (gst-structure-get-int procedure (arity 2 0 #f))
+     (gst-structure-get-name procedure (arity 0 0 #t))
+     (gst-structure-get-name-id
+       procedure
+       (arity 0 0 #t))
+     (gst-structure-get-string
+       procedure
+       (arity 0 0 #t))
+     (gst-structure-get-value
+       procedure
+       (arity 0 0 #t))
+     (gst-structure-has-field
+       procedure
+       (arity 0 0 #t))
+     (gst-structure-has-field-typed
+       procedure
+       (arity 3 0 #f))
+     (gst-structure-has-name procedure (arity 0 0 #t))
+     (gst-structure-id-empty-new
+       procedure
+       (arity 0 0 #t))
+     (gst-structure-id-get-value
+       procedure
+       (arity 0 0 #t))
+     (gst-structure-id-set-value
+       procedure
+       (arity 0 0 #t))
+     (gst-structure-map-in-place
+       procedure
+       (arity 0 0 #t))
+     (gst-structure-n-fields procedure (arity 0 0 #t))
+     (gst-structure-nth-field-name
+       procedure
+       (arity 0 0 #t))
+     (gst-structure-remove-all-fields
+       procedure
+       (arity 0 0 #t))
+     (gst-structure-remove-field
+       procedure
+       (arity 0 0 #t))
+     (gst-structure-set-name procedure (arity 0 0 #t))
+     (gst-structure-set-parent-refcount
+       procedure
+       (arity 1 0 #f))
+     (gst-structure-set-value
+       procedure
+       (arity 0 0 #t))
+     (gst-structure-to-string
+       procedure
+       (arity 0 0 #t))
+     (gst-system-clock-obtain
+       procedure
+       (arity 0 0 #t))
+     (gst-tag-exists procedure (arity 0 0 #t))
+     (gst-tag-get-description
+       procedure
+       (arity 0 0 #t))
+     (gst-tag-get-flag procedure (arity 0 0 #t))
+     (gst-tag-get-nick procedure (arity 0 0 #t))
+     (gst-tag-is-fixed procedure (arity 0 0 #t))
+     (gst-tag-list-copy-value
+       procedure
+       (arity 0 0 #t))
+     (gst-tag-list-foreach procedure (arity 0 0 #t))
+     (gst-tag-list-get-boolean
+       procedure
+       (arity 2 0 #f))
+     (gst-tag-list-get-boolean-index
+       procedure
+       (arity 3 0 #f))
+     (gst-tag-list-get-char procedure (arity 0 0 #t))
+     (gst-tag-list-get-char-index
+       procedure
+       (arity 0 0 #t))
+     (gst-tag-list-get-date procedure (arity 0 0 #t))
+     (gst-tag-list-get-date-index
+       procedure
+       (arity 0 0 #t))
+     (gst-tag-list-get-double
+       procedure
+       (arity 2 0 #f))
+     (gst-tag-list-get-double-index
+       procedure
+       (arity 3 0 #f))
+     (gst-tag-list-get-float procedure (arity 2 0 #f))
+     (gst-tag-list-get-float-index
+       procedure
+       (arity 3 0 #f))
+     (gst-tag-list-get-int procedure (arity 2 0 #f))
+     (gst-tag-list-get-int-index
+       procedure
+       (arity 3 0 #f))
+     (gst-tag-list-get-int64 procedure (arity 2 0 #f))
+     (gst-tag-list-get-int64-index
+       procedure
+       (arity 3 0 #f))
+     (gst-tag-list-get-long procedure (arity 2 0 #f))
+     (gst-tag-list-get-long-index
+       procedure
+       (arity 3 0 #f))
+     (gst-tag-list-get-pointer
+       procedure
+       (arity 0 0 #t))
+     (gst-tag-list-get-pointer-index
+       procedure
+       (arity 0 0 #t))
+     (gst-tag-list-get-string
+       procedure
+       (arity 2 0 #f))
+     (gst-tag-list-get-string-index
+       procedure
+       (arity 3 0 #f))
+     (gst-tag-list-get-tag-size
+       procedure
+       (arity 0 0 #t))
+     (gst-tag-list-get-uchar procedure (arity 0 0 #t))
+     (gst-tag-list-get-uchar-index
+       procedure
+       (arity 0 0 #t))
+     (gst-tag-list-get-uint procedure (arity 2 0 #f))
+     (gst-tag-list-get-uint-index
+       procedure
+       (arity 3 0 #f))
+     (gst-tag-list-get-uint64
+       procedure
+       (arity 2 0 #f))
+     (gst-tag-list-get-uint64-index
+       procedure
+       (arity 3 0 #f))
+     (gst-tag-list-get-ulong procedure (arity 2 0 #f))
+     (gst-tag-list-get-ulong-index
+       procedure
+       (arity 3 0 #f))
+     (gst-tag-list-get-value-index
+       procedure
+       (arity 0 0 #t))
+     (gst-tag-list-insert procedure (arity 0 0 #t))
+     (gst-tag-list-merge procedure (arity 0 0 #t))
+     (gst-tag-list-new procedure (arity 0 0 #t))
+     (gst-tag-list-remove-tag
+       procedure
+       (arity 0 0 #t))
+     (gst-tag-merge-strings-with-comma
+       procedure
+       (arity 0 0 #t))
+     (gst-tag-merge-use-first
+       procedure
+       (arity 0 0 #t))
+     (gst-tag-register procedure (arity 6 0 #f))
+     (gst-tag-setter-get-tag-list
+       procedure
+       (arity 0 0 #t))
+     (gst-tag-setter-get-tag-merge-mode
+       procedure
+       (arity 0 0 #t))
+     (gst-tag-setter-merge-tags
+       procedure
+       (arity 0 0 #t))
+     (gst-tag-setter-set-tag-merge-mode
+       procedure
+       (arity 0 0 #t))
+     (gst-task-cleanup-all procedure (arity 0 0 #t))
+     (gst-task-create procedure (arity 0 0 #t))
+     (gst-task-get-state procedure (arity 0 0 #t))
+     (gst-task-join procedure (arity 0 0 #t))
+     (gst-task-pause procedure (arity 0 0 #t))
+     (gst-task-set-lock procedure (arity 0 0 #t))
+     (gst-task-start procedure (arity 0 0 #t))
+     (gst-task-stop procedure (arity 0 0 #t))
+     (gst-trace-destroy procedure (arity 0 0 #t))
+     (gst-trace-flush procedure (arity 0 0 #t))
+     (gst-trace-new procedure (arity 0 0 #t))
+     (gst-trace-read-tsc procedure (arity 0 0 #f))
+     (gst-trace-set-default procedure (arity 0 0 #t))
+     (gst-trace-text-flush procedure (arity 0 0 #t))
+     (gst-type-find-factory-get-caps
+       procedure
+       (arity 0 0 #t))
+     (gst-type-find-factory-get-extensions
+       procedure
+       (arity 0 0 #t))
+     (gst-type-find-factory-get-list
+       procedure
+       (arity 0 0 #f))
+     (gst-type-find-get-length
+       procedure
+       (arity 0 0 #t))
+     (gst-type-find-peek procedure (arity 0 0 #t))
+     (gst-type-find-register procedure (arity 7 0 #f))
+     (gst-type-find-suggest procedure (arity 0 0 #t))
+     (gst-uri-construct procedure (arity 0 0 #t))
+     (gst-uri-get-location procedure (arity 0 0 #t))
+     (gst-uri-get-protocol procedure (arity 0 0 #t))
+     (gst-uri-handler-get-protocols
+       procedure
+       (arity 0 0 #t))
+     (gst-uri-handler-get-uri
+       procedure
+       (arity 0 0 #t))
+     (gst-uri-handler-get-uri-type
+       procedure
+       (arity 0 0 #t))
+     (gst-uri-handler-new-uri
+       procedure
+       (arity 0 0 #t))
+     (gst-uri-handler-set-uri
+       procedure
+       (arity 0 0 #t))
+     (gst-uri-has-protocol procedure (arity 0 0 #t))
+     (gst-uri-is-valid procedure (arity 0 0 #t))
+     (gst-uri-protocol-is-valid
+       procedure
+       (arity 0 0 #t))
+     (gst-version procedure (arity 0 0 #f))
+     (gst-version-string procedure (arity 0 0 #t))
+     (gst-xml-get-element procedure (arity 0 0 #t))
+     (gst-xml-get-topelements
+       procedure
+       (arity 1 0 #f))
+     (gst-xml-make-element procedure (arity 0 0 #t))
+     (gst-xml-new procedure (arity 0 0 #t))
+     (gst-xml-parse-doc procedure (arity 0 0 #t))
+     (gst-xml-parse-file procedure (arity 0 0 #t))
+     (gst-xml-parse-memory procedure (arity 0 0 #t))
+     (gst-xml-write procedure (arity 0 0 #t))
+     (gst-xml-write-file procedure (arity 0 0 #t)))))

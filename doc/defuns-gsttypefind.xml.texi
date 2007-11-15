@@ -1,0 +1,102 @@
+
+@c %start of fragment
+
+@deffn Function gst-type-find-peek  (self@tie{}@code{<gst-type-find*>}) (offset@tie{}@code{int64}) (size@tie{}@code{unsigned-int}) @result{}@tie{} (ret@tie{}@code{<guint8*>})
+Returns the @var{size} bytes of the stream to identify beginning at offset. If
+offset is a positive number, the offset is relative to the beginning of the
+stream, if offset is a negative number the offset is relative to the end of the
+stream. The returned memory is valid until the typefinding function returns and
+must not be freed.
+
+@table @var
+@item find
+The @code{<gst-type-find>} object the function was called with
+
+@item offset
+The offset
+
+@item size
+The number of bytes to return
+
+@item ret
+the requested data, or NULL if that data is not available.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-type-find-suggest  (self@tie{}@code{<gst-type-find*>}) (probability@tie{}@code{unsigned-int}) (caps@tie{}@code{<gst-caps>})
+If a @code{<gst-type-find-function>} calls this function it suggests the caps
+with the given probability. A @code{<gst-type-find-function>} may supply
+different suggestions in one call. It is up to the caller of the
+@code{<gst-type-find-function>} to interpret these values.
+
+@table @var
+@item find
+The @code{<gst-type-find>} object the function was called with
+
+@item probability
+The probability in percent that the suggestion is right
+
+@item caps
+The fixed @code{<gst-caps>} to suggest
+
+@end table
+
+@end deffn
+
+@deffn Function gst-type-find-get-length  (self@tie{}@code{<gst-type-find*>}) @result{}@tie{} (ret@tie{}@code{unsigned-int64})
+Get the length of the data stream.
+
+@table @var
+@item find
+The @code{<gst-type-find>} the function was called with
+
+@item ret
+The length of the data stream, or 0 if it is not available.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-type-find-register  (plugin@tie{}@code{<gst-plugin>}) (name@tie{}@code{mchars}) (rank@tie{}@code{unsigned-int}) (func@tie{}@code{<gst-type-find-function>}) (possible_caps@tie{}@code{<gst-caps>}) (data@tie{}@code{<gpointer>}) (data_notify@tie{}@code{<g-destroy-notify>}) @result{}@tie{} (ret@tie{}@code{bool}) (extensions@tie{}@code{mchars})
+Registers a new typefind function to be used for typefinding. After registering
+this function will be available for typefinding. This function is typically
+called during an element's plugin initialization.
+
+@table @var
+@item plugin
+A @code{<gst-plugin>}.
+
+@item name
+The name for registering
+
+@item rank
+The rank (or importance) of this typefind function
+
+@item func
+The @code{<gst-type-find-function>} to use
+
+@item extensions
+Optional extensions that could belong to this type
+
+@item possible-caps
+Optionally the caps that could be returned when typefinding succeeds
+
+@item data
+Optional user data. This user data must be available until the plugin is
+unloaded.
+
+@item data-notify
+a @code{<g-destroy-notify>} that will be called on @var{data} when the plugin is
+unloaded.
+
+@item ret
+TRUE on success, FALSE otherwise
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

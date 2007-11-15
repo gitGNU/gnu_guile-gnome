@@ -1,0 +1,14 @@
+
+@c %start of fragment
+
+@node GstIndexFactory
+@chapter GstIndexFactory
+Create GstIndexes from a factory
+
+@section Overview
+GstIndexFactory is used to dynamically create GstIndex implementations.
+
+@section Usage
+@include defuns-gstindexfactory.xml.texi
+
+@c %end of fragment

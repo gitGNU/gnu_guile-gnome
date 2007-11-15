@@ -1,0 +1,35 @@
+
+@c %start of fragment
+
+@node GstPlugin
+@chapter GstPlugin
+Container for features loaded from a shared object module
+
+@section Overview
+GStreamer is extensible, so @code{<gst-element>} instances can be loaded at
+runtime. A plugin system can provide one or more of the basic
+@cite{GStreamer}@code{<gst-plugin-feature>} subclasses.
+
+A plugin should export a symbol @code{gst_plugin_desc} that is a struct of type
+@code{<gst-plugin-desc>}. the plugin loader will check the version of the core
+library the plugin was linked against and will create a new @code{<gst-plugin>}.
+It will then call the @code{<gst-plugin-init-func>} function that was provided
+in the @code{gst_plugin_desc}.
+
+Once you have a handle to a @code{<gst-plugin>} (e.g. from the
+@code{<gst-registry-pool>}), you can add any object that subclasses
+@code{<gst-plugin-feature>}.
+
+Use @code{gst-plugin-find-feature} and @code{gst-plugin-get-feature-list} to
+find features in a plugin.
+
+Usually plugins are always automaticlly loaded so you don't need to call
+@code{gst-plugin-load} explicitly to bring it into memory. There are options to
+statically link plugins to an app or even use GStreamer without a plugin
+repository in which case @code{gst-plugin-load} can be needed to bring the
+plugin into memory.
+
+@section Usage
+@include defuns-gstplugin.xml.texi
+
+@c %end of fragment

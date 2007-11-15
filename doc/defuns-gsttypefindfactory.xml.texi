@@ -1,0 +1,38 @@
+
+@c %start of fragment
+
+@deftp Class <gst-type-find-factory>
+This @code{<gobject>} class defines no properties, other than those defined by
+its superclasses.
+
+@end deftp
+
+@deffn Function gst-type-find-factory-get-list  @result{}@tie{} (ret@tie{}@code{glist-of})
+Gets the list of all registered typefind factories. You must free the list using
+gst_plugin_feature_list_free.
+
+@table @var
+@item ret
+the list of all registered @code{<gst-type-find-factory>}.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-type-find-factory-get-caps  (self@tie{}@code{<gst-type-find-factory>}) @result{}@tie{} (ret@tie{}@code{<gst-caps>})
+@deffnx Method get-caps
+Gets the @code{<gst-caps>} associated with a typefind factory.
+
+@table @var
+@item factory
+A @code{<gst-type-find-factory>}
+
+@item ret
+The @code{<gst-caps>} associated with this factory
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment
