@@ -32,7 +32,7 @@ extra_module_names =
 wrapset_modules = ($(top_module_name) $(gw_module_name) $(extra_module_names))
 WRAPSET_TESTS_ENV = WRAPSET_MODULES="$(wrapset_modules)" WRAPSET_API_FILE=$(srcdir)/wrapset.api
 DEV_ENV = $(top_builddir)/dev-environ
-GUILE=guile --debug
+GUILE=guile-gnome-0 --debug
 
 TESTS_ENVIRONMENT=$(WRAPSET_TESTS_ENV) $(DEV_ENV) $(GUILE) -e main -s
 

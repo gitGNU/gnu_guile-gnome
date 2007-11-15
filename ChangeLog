@@ -1,3 +1,12 @@
+2007-11-15  Andy Wingo  <wingo@pobox.com>
+
+	* tests.mk (GUILE): 
+	* generate-docs.mk (GUILE): Use guile-gnome-0, because we want
+	(gnome-0) to have been loaded.
+
+	* scripts/review-api: New script, generates a minimal texinfo file
+	that one can use to review wrapped API.
+
 2007-11-10  Andy Wingo  <wingo@pobox.com>
 
 	* == Released guile-gnome-platform version 2.15.95 ==
