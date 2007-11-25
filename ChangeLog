@@ -1,3 +1,13 @@
+2007-11-25  Andy Wingo  <wingo@pobox.com>
+
+	* dev-environ.in (ALL_PKGS): Add bin/ to the path if the package
+	has one.
+
+	* tests.mk: 
+	* generate-docs.mk: So, just use guile-gnome-0 if glib is not in
+	the packages set, because if glib is in the set, then dev-environ
+	is sufficient for setting up the enviroment.
+
 2007-11-15  Andy Wingo  <wingo@pobox.com>
 
 	* tests.mk (GUILE): 

@@ -32,9 +32,9 @@ extra_module_names =
 wrapset_modules = ($(top_module_name) $(gw_module_name) $(extra_module_names))
 WRAPSET_TESTS_ENV = WRAPSET_MODULES="$(wrapset_modules)" WRAPSET_API_FILE=$(srcdir)/wrapset.api
 DEV_ENV = $(top_builddir)/dev-environ
-GUILE=guile-gnome-0 --debug
+GUILE=$(if $(findstring glib,$(AG_PACKAGES)),guile,guile-gnome-$(API_VERSION))
 
-TESTS_ENVIRONMENT=$(WRAPSET_TESTS_ENV) $(DEV_ENV) $(GUILE) -e main -s
+TESTS_ENVIRONMENT=$(WRAPSET_TESTS_ENV) $(DEV_ENV) $(GUILE) $(GUILE_FLAGS) -e main -s
 
 wrapset.api.update:
 	$(WRAPSET_TESTS_ENV) $(DEV_ENV)	$(GUILE) -e update-api -s $(srcdir)/wrapset.scm
