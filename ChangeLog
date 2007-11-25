@@ -1,5 +1,7 @@
 2007-11-25  Andy Wingo  <wingo@pobox.com>
 
+	* generate-docs.mk (GUILE): Fix a typo.
+
 	* dev-environ.in (ALL_PKGS): Add bin/ to the path if the package
 	has one.
 

@@ -36,7 +36,7 @@ GTK_DOC_TO_TEXI_DEFUNS = "(apply (@ (gnome gw support gtk-doc) gtk-doc->texi-def
 GTK_DOC_COVERAGE_MODULES = (gnome $(wrapset_stem)) (gnome gw $(wrapset_stem))
 GTK_DOC_COVERAGE_TEXI = $(info_TEXINFOS)
 GTK_DOC_CHECK_COVERAGE = "((@ (gnome gw support gtk-doc) check-documentation-coverage) '($(GTK_DOC_COVERAGE_MODULES)) \"$(GTK_DOC_COVERAGE_TEXI)\")"
-GUILE = $(top_builddir)/dev-environ GUILE=$(if $(findstring glib,$(AG_PACKAGES)),guile,guile-gnome-$(API_VERSION))
+GUILE = $(top_builddir)/dev-environ $(if $(findstring glib,$(AG_PACKAGES)),guile,guile-gnome-$(API_VERSION))
 
 generate-stubs:
 	$(GUILE) $(GUILE_FLAGS) -c $(GTK_DOC_TO_TEXI_STUBS) $(docbook_xml_files)
