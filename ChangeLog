@@ -1,3 +1,9 @@
+2007-12-06  Andy Wingo  <wingo@pobox.com>
+
+	* generate-docs.mk (GTK_DOC_GENERATE_UNDOCUMENTED): 
+	(generate-undocumented): Add targets to regenerate
+	undocumented.texi.
+
 2007-11-25  Andy Wingo  <wingo@pobox.com>
 
 	* generate-docs.mk (GUILE): Fix a typo.
