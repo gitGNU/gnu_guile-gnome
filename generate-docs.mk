@@ -49,4 +49,5 @@ check-coverage:
 	$(GUILE) $(GUILE_FLAGS) -c $(GTK_DOC_CHECK_COVERAGE)
 
 generate-undocumented:
+	rm -f undocumented.texi; touch undocumented.texi
 	$(GUILE) $(GUILE_FLAGS) -c $(GTK_DOC_GENERATE_UNDOCUMENTED)
