@@ -1,6 +1,5 @@
 ;; -*- scheme -*-
-
-(include "libwnck-types.defs")
+(include "common-ignores.defs")
 
 ;; From /usr/include/libwnck-1.0/libwnck/application.h
 
@@ -17,64 +16,84 @@
   )
 )
 
-(define-method get_xid
-  (of-object "WnckApplication")
+(define-function wnck_application_get_xid
   (c-name "wnck_application_get_xid")
   (return-type "gulong")
+  (parameters
+    '("WnckApplication*" "app")
+  )
 )
 
-(define-method get_windows
-  (of-object "WnckApplication")
+(define-function wnck_application_get_windows
   (c-name "wnck_application_get_windows")
-  (return-type "GList*-of-WnckWindow*")
+  (return-type "GList*")
+  (parameters
+    '("WnckApplication*" "app")
+  )
 )
 
-(define-method get_n_windows
-  (of-object "WnckApplication")
+(define-function wnck_application_get_n_windows
   (c-name "wnck_application_get_n_windows")
   (return-type "int")
+  (parameters
+    '("WnckApplication*" "app")
+  )
 )
 
-(define-method get_name
-  (of-object "WnckApplication")
+(define-function wnck_application_get_name
   (c-name "wnck_application_get_name")
   (return-type "const-char*")
+  (parameters
+    '("WnckApplication*" "app")
+  )
 )
 
-(define-method get_icon_name
-  (of-object "WnckApplication")
+(define-function wnck_application_get_icon_name
   (c-name "wnck_application_get_icon_name")
   (return-type "const-char*")
+  (parameters
+    '("WnckApplication*" "app")
+  )
 )
 
-(define-method get_pid
-  (of-object "WnckApplication")
+(define-function wnck_application_get_pid
   (c-name "wnck_application_get_pid")
   (return-type "int")
+  (parameters
+    '("WnckApplication*" "app")
+  )
 )
 
-(define-method get_icon
-  (of-object "WnckApplication")
+(define-function wnck_application_get_icon
   (c-name "wnck_application_get_icon")
   (return-type "GdkPixbuf*")
+  (parameters
+    '("WnckApplication*" "app")
+  )
 )
 
-(define-method get_mini_icon
-  (of-object "WnckApplication")
+(define-function wnck_application_get_mini_icon
   (c-name "wnck_application_get_mini_icon")
   (return-type "GdkPixbuf*")
+  (parameters
+    '("WnckApplication*" "app")
+  )
 )
 
-(define-method get_icon_is_fallback
-  (of-object "WnckApplication")
+(define-function wnck_application_get_icon_is_fallback
   (c-name "wnck_application_get_icon_is_fallback")
   (return-type "gboolean")
+  (parameters
+    '("WnckApplication*" "app")
+  )
 )
 
-(define-method get_startup_id
-  (of-object "WnckApplication")
+(define-function wnck_application_get_startup_id
   (c-name "wnck_application_get_startup_id")
   (return-type "const-char*")
+  (parameters
+    '("WnckApplication*" "app")
+  )
 )
 
 
@@ -94,34 +113,44 @@
   )
 )
 
-(define-method get_windows
-  (of-object "WnckClassGroup")
+(define-function wnck_class_group_get_windows
   (c-name "wnck_class_group_get_windows")
-  (return-type "GList*-of-WnckWindow*")
+  (return-type "GList*")
+  (parameters
+    '("WnckClassGroup*" "class_group")
+  )
 )
 
-(define-method get_res_class
-  (of-object "WnckClassGroup")
+(define-function wnck_class_group_get_res_class
   (c-name "wnck_class_group_get_res_class")
   (return-type "const-char*")
+  (parameters
+    '("WnckClassGroup*" "class_group")
+  )
 )
 
-(define-method get_name
-  (of-object "WnckClassGroup")
+(define-function wnck_class_group_get_name
   (c-name "wnck_class_group_get_name")
   (return-type "const-char*")
+  (parameters
+    '("WnckClassGroup*" "class_group")
+  )
 )
 
-(define-method get_icon
-  (of-object "WnckClassGroup")
+(define-function wnck_class_group_get_icon
   (c-name "wnck_class_group_get_icon")
   (return-type "GdkPixbuf*")
+  (parameters
+    '("WnckClassGroup*" "class_group")
+  )
 )
 
-(define-method get_mini_icon
-  (of-object "WnckClassGroup")
+(define-function wnck_class_group_get_mini_icon
   (c-name "wnck_class_group_get_mini_icon")
   (return-type "GdkPixbuf*")
+  (parameters
+    '("WnckClassGroup*" "class_group")
+  )
 )
 
 (define-function _wnck_class_group_create
@@ -132,26 +161,28 @@
   )
 )
 
-(define-method _destroy
-  (of-object "WnckClassGroup")
+(define-function _wnck_class_group_destroy
   (c-name "_wnck_class_group_destroy")
   (return-type "none")
+  (parameters
+    '("WnckClassGroup*" "class_group")
+  )
 )
 
-(define-method _add_window
-  (of-object "WnckClassGroup")
+(define-function _wnck_class_group_add_window
   (c-name "_wnck_class_group_add_window")
   (return-type "none")
   (parameters
+    '("WnckClassGroup*" "class_group")
     '("WnckWindow*" "window")
   )
 )
 
-(define-method _remove_window
-  (of-object "WnckClassGroup")
+(define-function _wnck_class_group_remove_window
   (c-name "_wnck_class_group_remove_window")
   (return-type "none")
   (parameters
+    '("WnckClassGroup*" "class_group")
     '("WnckWindow*" "window")
   )
 )
@@ -178,59 +209,59 @@
   )
 )
 
-(define-method set_screen
-  (of-object "WnckPager")
+(define-function wnck_pager_set_screen
   (c-name "wnck_pager_set_screen")
   (return-type "none")
   (parameters
+    '("WnckPager*" "pager")
     '("WnckScreen*" "screen")
   )
 )
 
-; (define-method set_orientation
-;   (of-object "WnckPager")
-;   (c-name "wnck_pager_set_orientation")
-;   (return-type "none")
-;   (parameters
-;     '("GtkOrientation" "orientation")
-;   )
-; )
+(define-function wnck_pager_set_orientation
+  (c-name "wnck_pager_set_orientation")
+  (return-type "none")
+  (parameters
+    '("WnckPager*" "pager")
+    '("GtkOrientation" "orientation")
+  )
+)
 
-(define-method set_n_rows
-  (of-object "WnckPager")
+(define-function wnck_pager_set_n_rows
   (c-name "wnck_pager_set_n_rows")
   (return-type "none")
   (parameters
+    '("WnckPager*" "pager")
     '("int" "n_rows")
   )
 )
 
-; (define-method set_display_mode
-;   (of-object "WnckPager")
-;   (c-name "wnck_pager_set_display_mode")
-;   (return-type "none")
-;   (parameters
-;     '("WnckPagerDisplayMode" "mode")
-;   )
-; )
+(define-function wnck_pager_set_display_mode
+  (c-name "wnck_pager_set_display_mode")
+  (return-type "none")
+  (parameters
+    '("WnckPager*" "pager")
+    '("WnckPagerDisplayMode" "mode")
+  )
+)
 
-(define-method set_show_all
-  (of-object "WnckPager")
+(define-function wnck_pager_set_show_all
   (c-name "wnck_pager_set_show_all")
   (return-type "none")
   (parameters
+    '("WnckPager*" "pager")
     '("gboolean" "show_all_workspaces")
   )
 )
 
-; (define-method set_shadow_type
-;   (of-object "WnckPager")
-;   (c-name "wnck_pager_set_shadow_type")
-;   (return-type "none")
-;   (parameters
-;     '("GtkShadowType" "shadow_type")
-;   )
-; )
+(define-function wnck_pager_set_shadow_type
+  (c-name "wnck_pager_set_shadow_type")
+  (return-type "none")
+  (parameters
+    '("WnckPager*" "pager")
+    '("GtkShadowType" "shadow_type")
+  )
+)
 
 
 
@@ -262,130 +293,214 @@
   )
 )
 
-(define-method get_workspace
-  (of-object "WnckScreen")
+(define-function wnck_screen_get_workspace
   (c-name "wnck_screen_get_workspace")
   (return-type "WnckWorkspace*")
   (parameters
+    '("WnckScreen*" "screen")
     '("int" "workspace")
   )
 )
 
-(define-method get_active_workspace
-  (of-object "WnckScreen")
+(define-function wnck_screen_get_workspace_index
+  (c-name "wnck_screen_get_workspace_index")
+  (return-type "int")
+  (parameters
+    '("WnckScreen*" "screen")
+    '("WnckWorkspace*" "workspace")
+  )
+)
+
+(define-function wnck_screen_get_workspace_neighbor
+  (c-name "wnck_screen_get_workspace_neighbor")
+  (return-type "WnckWorkspace*")
+  (parameters
+    '("WnckScreen*" "screen")
+    '("WnckWorkspace*" "workspace")
+    '("WnckMotionDirection" "direction")
+  )
+)
+
+(define-function wnck_screen_get_active_workspace
   (c-name "wnck_screen_get_active_workspace")
   (return-type "WnckWorkspace*")
+  (parameters
+    '("WnckScreen*" "screen")
+  )
 )
 
-(define-method get_active_window
-  (of-object "WnckScreen")
+(define-function wnck_screen_get_active_window
   (c-name "wnck_screen_get_active_window")
   (return-type "WnckWindow*")
+  (parameters
+    '("WnckScreen*" "screen")
+  )
 )
 
-(define-method get_windows
-  (of-object "WnckScreen")
+(define-function wnck_screen_get_previously_active_window
+  (c-name "wnck_screen_get_previously_active_window")
+  (return-type "WnckWindow*")
+  (parameters
+    '("WnckScreen*" "screen")
+  )
+)
+
+(define-function wnck_screen_get_windows
   (c-name "wnck_screen_get_windows")
-  (return-type "GList*-of-WnckWindow*")
+  (return-type "GList*")
+  (parameters
+    '("WnckScreen*" "screen")
+  )
 )
 
-(define-method get_windows_stacked
-  (of-object "WnckScreen")
+(define-function wnck_screen_get_windows_stacked
   (c-name "wnck_screen_get_windows_stacked")
-  (return-type "GList*-of-WnckWindow*")
+  (return-type "GList*")
+  (parameters
+    '("WnckScreen*" "screen")
+  )
 )
 
-(define-method force_update
-  (of-object "WnckScreen")
+(define-function wnck_screen_force_update
   (c-name "wnck_screen_force_update")
   (return-type "none")
+  (parameters
+    '("WnckScreen*" "screen")
+  )
 )
 
-(define-method get_workspace_count
-  (of-object "WnckScreen")
+(define-function wnck_screen_get_workspace_count
   (c-name "wnck_screen_get_workspace_count")
   (return-type "int")
+  (parameters
+    '("WnckScreen*" "screen")
+  )
 )
 
-(define-method change_workspace_count
-  (of-object "WnckScreen")
+(define-function wnck_screen_change_workspace_count
   (c-name "wnck_screen_change_workspace_count")
   (return-type "none")
   (parameters
+    '("WnckScreen*" "screen")
     '("int" "count")
   )
 )
 
-(define-method net_wm_supports
-  (of-object "WnckScreen")
+(define-function wnck_screen_net_wm_supports
   (c-name "wnck_screen_net_wm_supports")
   (return-type "gboolean")
   (parameters
+    '("WnckScreen*" "screen")
     '("const-char*" "atom")
   )
 )
 
-(define-method get_background_pixmap
-  (of-object "WnckScreen")
+(define-function wnck_screen_get_background_pixmap
   (c-name "wnck_screen_get_background_pixmap")
   (return-type "gulong")
+  (parameters
+    '("WnckScreen*" "screen")
+  )
 )
 
-(define-method get_width
-  (of-object "WnckScreen")
+(define-function wnck_screen_get_width
   (c-name "wnck_screen_get_width")
   (return-type "int")
+  (parameters
+    '("WnckScreen*" "screen")
+  )
 )
 
-(define-method get_height
-  (of-object "WnckScreen")
+(define-function wnck_screen_get_height
   (c-name "wnck_screen_get_height")
   (return-type "int")
+  (parameters
+    '("WnckScreen*" "screen")
+  )
 )
 
-(define-method get_showing_desktop
-  (of-object "WnckScreen")
+(define-function wnck_screen_get_showing_desktop
   (c-name "wnck_screen_get_showing_desktop")
   (return-type "gboolean")
+  (parameters
+    '("WnckScreen*" "screen")
+  )
 )
 
-(define-method toggle_showing_desktop
-  (of-object "WnckScreen")
+(define-function wnck_screen_toggle_showing_desktop
   (c-name "wnck_screen_toggle_showing_desktop")
   (return-type "none")
   (parameters
+    '("WnckScreen*" "screen")
     '("gboolean" "show")
   )
 )
 
-(define-method move_viewport
-  (of-object "WnckScreen")
+(define-function wnck_screen_move_viewport
   (c-name "wnck_screen_move_viewport")
   (return-type "none")
   (parameters
+    '("WnckScreen*" "screen")
     '("int" "x")
     '("int" "y")
   )
 )
 
-(define-method try_set_workspace_layout
-  (of-object "WnckScreen")
+(define-function wnck_screen_try_set_workspace_layout
   (c-name "wnck_screen_try_set_workspace_layout")
   (return-type "int")
   (parameters
+    '("WnckScreen*" "screen")
     '("int" "current_token")
     '("int" "rows")
     '("int" "columns")
   )
 )
 
-(define-method release_workspace_layout
-  (of-object "WnckScreen")
+(define-function wnck_screen_release_workspace_layout
   (c-name "wnck_screen_release_workspace_layout")
   (return-type "none")
   (parameters
+    '("WnckScreen*" "screen")
     '("int" "current_token")
   )
+)
+
+(define-function wnck_screen_calc_workspace_layout
+  (c-name "wnck_screen_calc_workspace_layout")
+  (return-type "none")
+  (parameters
+    '("WnckScreen*" "screen")
+    '("int" "num_workspaces")
+    '("int" "current_space")
+    '("WnckWorkspaceLayout*" "layout")
+  )
+)
+
+(define-function wnck_screen_free_workspace_layout
+  (c-name "wnck_screen_free_workspace_layout")
+  (return-type "none")
+  (parameters
+    '("WnckWorkspaceLayout*" "layout")
+  )
+)
+
+
+
+;; From /usr/include/libwnck-1.0/libwnck/selector.h
+
+(define-function wnck_selector_new
+  (c-name "wnck_selector_new")
+  (is-constructor-of "WnckSelector")
+  (return-type "GtkWidget*")
+  (parameters
+    '("WnckScreen*" "screen")
+  )
+)
+
+(define-function wnck_selector_get_type
+  (c-name "wnck_selector_get_type")
+  (return-type "GType")
 )
 
 
@@ -406,95 +521,108 @@
   )
 )
 
-(define-method set_screen
-  (of-object "WnckTasklist")
+(define-function wnck_tasklist_set_screen
   (c-name "wnck_tasklist_set_screen")
   (return-type "none")
   (parameters
+    '("WnckTasklist*" "tasklist")
     '("WnckScreen*" "screen")
   )
 )
 
-(define-method get_size_hint_list
-  (of-object "WnckTasklist")
+(define-function wnck_tasklist_get_size_hint_list
   (c-name "wnck_tasklist_get_size_hint_list")
   (return-type "const-int*")
   (parameters
+    '("WnckTasklist*" "tasklist")
     '("int*" "n_elements")
   )
 )
 
-; (define-method set_grouping
-;   (of-object "WnckTasklist")
-;   (c-name "wnck_tasklist_set_grouping")
-;   (return-type "none")
-;   (parameters
-;     '("WnckTasklistGroupingType" "grouping")
-;   )
-; )
+(define-function wnck_tasklist_set_grouping
+  (c-name "wnck_tasklist_set_grouping")
+  (return-type "none")
+  (parameters
+    '("WnckTasklist*" "tasklist")
+    '("WnckTasklistGroupingType" "grouping")
+  )
+)
 
-(define-method set_switch_workspace_on_unminimize
-  (of-object "WnckTasklist")
+(define-function wnck_tasklist_set_switch_workspace_on_unminimize
   (c-name "wnck_tasklist_set_switch_workspace_on_unminimize")
   (return-type "none")
   (parameters
+    '("WnckTasklist*" "tasklist")
     '("gboolean" "switch_workspace_on_unminimize")
   )
 )
 
-(define-method set_grouping_limit
-  (of-object "WnckTasklist")
+(define-function wnck_tasklist_set_grouping_limit
   (c-name "wnck_tasklist_set_grouping_limit")
   (return-type "none")
   (parameters
+    '("WnckTasklist*" "tasklist")
     '("gint" "limit")
   )
 )
 
-(define-method set_include_all_workspaces
-  (of-object "WnckTasklist")
+(define-function wnck_tasklist_set_include_all_workspaces
   (c-name "wnck_tasklist_set_include_all_workspaces")
   (return-type "none")
   (parameters
+    '("WnckTasklist*" "tasklist")
     '("gboolean" "include_all_workspaces")
   )
 )
 
-(define-method set_minimum_width
-  (of-object "WnckTasklist")
+(define-function wnck_tasklist_set_button_relief
+  (c-name "wnck_tasklist_set_button_relief")
+  (return-type "none")
+  (parameters
+    '("WnckTasklist*" "tasklist")
+    '("GtkReliefStyle" "relief")
+  )
+)
+
+(define-function wnck_tasklist_set_minimum_width
   (c-name "wnck_tasklist_set_minimum_width")
   (return-type "none")
   (parameters
+    '("WnckTasklist*" "tasklist")
     '("gint" "size")
   )
 )
 
-(define-method get_minimum_width
-  (of-object "WnckTasklist")
+(define-function wnck_tasklist_get_minimum_width
   (c-name "wnck_tasklist_get_minimum_width")
   (return-type "gint")
+  (parameters
+    '("WnckTasklist*" "tasklist")
+  )
 )
 
-(define-method set_minimum_height
-  (of-object "WnckTasklist")
+(define-function wnck_tasklist_set_minimum_height
   (c-name "wnck_tasklist_set_minimum_height")
   (return-type "none")
   (parameters
+    '("WnckTasklist*" "tasklist")
     '("gint" "size")
   )
 )
 
-(define-method get_minimum_height
-  (of-object "WnckTasklist")
+(define-function wnck_tasklist_get_minimum_height
   (c-name "wnck_tasklist_get_minimum_height")
   (return-type "gint")
+  (parameters
+    '("WnckTasklist*" "tasklist")
+  )
 )
 
-(define-method set_icon_loader
-  (of-object "WnckTasklist")
+(define-function wnck_tasklist_set_icon_loader
   (c-name "wnck_tasklist_set_icon_loader")
   (return-type "none")
   (parameters
+    '("WnckTasklist*" "tasklist")
     '("WnckLoadIconFunction" "load_icon_func")
     '("void*" "data")
     '("GDestroyNotify" "free_data_func")
@@ -510,6 +638,14 @@
   (return-type "none")
   (parameters
     '("GtkWindow*" "window")
+  )
+)
+
+(define-function wnck_set_client_type
+  (c-name "wnck_set_client_type")
+  (return-type "none")
+  (parameters
+    '("WnckClientType" "ewmh_sourceindication_client_type")
   )
 )
 
@@ -541,9 +677,9 @@
   (c-name "wnck_create_window_action_menu")
   (return-type "GtkWidget*")
   (parameters
-   '("WnckWindow*" "window")
-   )
+    '("WnckWindow*" "window")
   )
+)
 
 
 
@@ -562,302 +698,508 @@
   )
 )
 
-(define-method get_screen
-  (of-object "WnckWindow")
+(define-function wnck_window_get_screen
   (c-name "wnck_window_get_screen")
   (return-type "WnckScreen*")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method get_name
-  (of-object "WnckWindow")
+(define-function wnck_window_has_name
+  (c-name "wnck_window_has_name")
+  (return-type "gboolean")
+  (parameters
+    '("WnckWindow*" "window")
+  )
+)
+
+(define-function wnck_window_get_name
   (c-name "wnck_window_get_name")
   (return-type "const-char*")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method get_icon_name
-  (of-object "WnckWindow")
+(define-function wnck_window_has_icon_name
+  (c-name "wnck_window_has_icon_name")
+  (return-type "gboolean")
+  (parameters
+    '("WnckWindow*" "window")
+  )
+)
+
+(define-function wnck_window_get_icon_name
   (c-name "wnck_window_get_icon_name")
   (return-type "const-char*")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method get_application
-  (of-object "WnckWindow")
+(define-function wnck_window_get_application
   (c-name "wnck_window_get_application")
   (return-type "WnckApplication*")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method get_group_leader
-  (of-object "WnckWindow")
+(define-function wnck_window_get_transient
+  (c-name "wnck_window_get_transient")
+  (return-type "WnckWindow*")
+  (parameters
+    '("WnckWindow*" "window")
+  )
+)
+
+(define-function wnck_window_get_group_leader
   (c-name "wnck_window_get_group_leader")
   (return-type "gulong")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method get_xid
-  (of-object "WnckWindow")
+(define-function wnck_window_get_xid
   (c-name "wnck_window_get_xid")
   (return-type "gulong")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method get_class_group
-  (of-object "WnckWindow")
+(define-function wnck_window_get_class_group
   (c-name "wnck_window_get_class_group")
   (return-type "WnckClassGroup*")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method get_session_id
-  (of-object "WnckWindow")
+(define-function wnck_window_get_session_id
   (c-name "wnck_window_get_session_id")
   (return-type "const-char*")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method get_session_id_utf8
-  (of-object "WnckWindow")
+(define-function wnck_window_get_session_id_utf8
   (c-name "wnck_window_get_session_id_utf8")
   (return-type "const-char*")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method get_pid
-  (of-object "WnckWindow")
+(define-function wnck_window_get_pid
   (c-name "wnck_window_get_pid")
   (return-type "int")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-; (define-method get_window_type
-;   (of-object "WnckWindow")
-;   (c-name "wnck_window_get_window_type")
-;   (return-type "WnckWindowType")
-; )
+(define-function wnck_window_get_sort_order
+  (c-name "wnck_window_get_sort_order")
+  (return-type "gint")
+  (parameters
+    '("WnckWindow*" "window")
+  )
+)
 
-(define-method is_minimized
-  (of-object "WnckWindow")
+(define-function wnck_window_get_window_type
+  (c-name "wnck_window_get_window_type")
+  (return-type "WnckWindowType")
+  (parameters
+    '("WnckWindow*" "window")
+  )
+)
+
+(define-function wnck_window_set_window_type
+  (c-name "wnck_window_set_window_type")
+  (return-type "none")
+  (parameters
+    '("WnckWindow*" "window")
+    '("WnckWindowType" "wintype")
+  )
+)
+
+(define-function wnck_window_is_minimized
   (c-name "wnck_window_is_minimized")
   (return-type "gboolean")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method is_maximized_horizontally
-  (of-object "WnckWindow")
+(define-function wnck_window_is_maximized_horizontally
   (c-name "wnck_window_is_maximized_horizontally")
   (return-type "gboolean")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method is_maximized_vertically
-  (of-object "WnckWindow")
+(define-function wnck_window_is_maximized_vertically
   (c-name "wnck_window_is_maximized_vertically")
   (return-type "gboolean")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method is_maximized
-  (of-object "WnckWindow")
+(define-function wnck_window_is_maximized
   (c-name "wnck_window_is_maximized")
   (return-type "gboolean")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method is_shaded
-  (of-object "WnckWindow")
+(define-function wnck_window_is_shaded
   (c-name "wnck_window_is_shaded")
   (return-type "gboolean")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method is_skip_pager
-  (of-object "WnckWindow")
+(define-function wnck_window_is_above
+  (c-name "wnck_window_is_above")
+  (return-type "gboolean")
+  (parameters
+    '("WnckWindow*" "window")
+  )
+)
+
+(define-function wnck_window_is_skip_pager
   (c-name "wnck_window_is_skip_pager")
   (return-type "gboolean")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method is_skip_tasklist
-  (of-object "WnckWindow")
+(define-function wnck_window_is_skip_tasklist
   (c-name "wnck_window_is_skip_tasklist")
   (return-type "gboolean")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method is_sticky
-  (of-object "WnckWindow")
+(define-function wnck_window_is_fullscreen
+  (c-name "wnck_window_is_fullscreen")
+  (return-type "gboolean")
+  (parameters
+    '("WnckWindow*" "window")
+  )
+)
+
+(define-function wnck_window_is_sticky
   (c-name "wnck_window_is_sticky")
   (return-type "gboolean")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method set_skip_pager
-  (of-object "WnckWindow")
+(define-function wnck_window_needs_attention
+  (c-name "wnck_window_needs_attention")
+  (return-type "gboolean")
+  (parameters
+    '("WnckWindow*" "window")
+  )
+)
+
+(define-function wnck_window_or_transient_needs_attention
+  (c-name "wnck_window_or_transient_needs_attention")
+  (return-type "gboolean")
+  (parameters
+    '("WnckWindow*" "window")
+  )
+)
+
+(define-function wnck_window_set_skip_pager
   (c-name "wnck_window_set_skip_pager")
   (return-type "none")
   (parameters
+    '("WnckWindow*" "window")
     '("gboolean" "skip")
   )
 )
 
-(define-method set_skip_tasklist
-  (of-object "WnckWindow")
+(define-function wnck_window_set_skip_tasklist
   (c-name "wnck_window_set_skip_tasklist")
   (return-type "none")
   (parameters
+    '("WnckWindow*" "window")
     '("gboolean" "skip")
   )
 )
 
-(define-method close
-  (of-object "WnckWindow")
+(define-function wnck_window_set_fullscreen
+  (c-name "wnck_window_set_fullscreen")
+  (return-type "none")
+  (parameters
+    '("WnckWindow*" "window")
+    '("gboolean" "fullscreen")
+  )
+)
+
+(define-function wnck_window_close
   (c-name "wnck_window_close")
   (return-type "none")
+  (parameters
+    '("WnckWindow*" "window")
+    '("guint32" "timestamp")
+  )
 )
 
-(define-method minimize
-  (of-object "WnckWindow")
+(define-function wnck_window_minimize
   (c-name "wnck_window_minimize")
   (return-type "none")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method unminimize
-  (of-object "WnckWindow")
+(define-function wnck_window_unminimize
   (c-name "wnck_window_unminimize")
   (return-type "none")
+  (parameters
+    '("WnckWindow*" "window")
+    '("guint32" "timestamp")
+  )
 )
 
-(define-method maximize
-  (of-object "WnckWindow")
+(define-function wnck_window_maximize
   (c-name "wnck_window_maximize")
   (return-type "none")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method unmaximize
-  (of-object "WnckWindow")
+(define-function wnck_window_unmaximize
   (c-name "wnck_window_unmaximize")
   (return-type "none")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method maximize_horizontally
-  (of-object "WnckWindow")
+(define-function wnck_window_maximize_horizontally
   (c-name "wnck_window_maximize_horizontally")
   (return-type "none")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method unmaximize_horizontally
-  (of-object "WnckWindow")
+(define-function wnck_window_unmaximize_horizontally
   (c-name "wnck_window_unmaximize_horizontally")
   (return-type "none")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method maximize_vertically
-  (of-object "WnckWindow")
+(define-function wnck_window_maximize_vertically
   (c-name "wnck_window_maximize_vertically")
   (return-type "none")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method unmaximize_vertically
-  (of-object "WnckWindow")
+(define-function wnck_window_unmaximize_vertically
   (c-name "wnck_window_unmaximize_vertically")
   (return-type "none")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method shade
-  (of-object "WnckWindow")
+(define-function wnck_window_shade
   (c-name "wnck_window_shade")
   (return-type "none")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method unshade
-  (of-object "WnckWindow")
+(define-function wnck_window_unshade
   (c-name "wnck_window_unshade")
   (return-type "none")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method stick
-  (of-object "WnckWindow")
+(define-function wnck_window_make_above
+  (c-name "wnck_window_make_above")
+  (return-type "none")
+  (parameters
+    '("WnckWindow*" "window")
+  )
+)
+
+(define-function wnck_window_unmake_above
+  (c-name "wnck_window_unmake_above")
+  (return-type "none")
+  (parameters
+    '("WnckWindow*" "window")
+  )
+)
+
+(define-function wnck_window_stick
   (c-name "wnck_window_stick")
   (return-type "none")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method unstick
-  (of-object "WnckWindow")
+(define-function wnck_window_unstick
   (c-name "wnck_window_unstick")
   (return-type "none")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method keyboard_move
-  (of-object "WnckWindow")
+(define-function wnck_window_keyboard_move
   (c-name "wnck_window_keyboard_move")
   (return-type "none")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method keyboard_size
-  (of-object "WnckWindow")
+(define-function wnck_window_keyboard_size
   (c-name "wnck_window_keyboard_size")
   (return-type "none")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method get_workspace
-  (of-object "WnckWindow")
+(define-function wnck_window_get_workspace
   (c-name "wnck_window_get_workspace")
   (return-type "WnckWorkspace*")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method move_to_workspace
-  (of-object "WnckWindow")
+(define-function wnck_window_move_to_workspace
   (c-name "wnck_window_move_to_workspace")
   (return-type "none")
   (parameters
+    '("WnckWindow*" "window")
     '("WnckWorkspace*" "space")
   )
 )
 
-(define-method is_pinned
-  (of-object "WnckWindow")
+(define-function wnck_window_is_pinned
   (c-name "wnck_window_is_pinned")
   (return-type "gboolean")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method pin
-  (of-object "WnckWindow")
+(define-function wnck_window_pin
   (c-name "wnck_window_pin")
   (return-type "none")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method unpin
-  (of-object "WnckWindow")
+(define-function wnck_window_unpin
   (c-name "wnck_window_unpin")
   (return-type "none")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method activate
-  (of-object "WnckWindow")
+(define-function wnck_window_activate
   (c-name "wnck_window_activate")
   (return-type "none")
+  (parameters
+    '("WnckWindow*" "window")
+    '("guint32" "timestamp")
+  )
 )
 
-(define-method is_active
-  (of-object "WnckWindow")
+(define-function wnck_window_is_active
   (c-name "wnck_window_is_active")
   (return-type "gboolean")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method activate_transient
-  (of-object "WnckWindow")
+(define-function wnck_window_is_most_recently_activated
+  (c-name "wnck_window_is_most_recently_activated")
+  (return-type "gboolean")
+  (parameters
+    '("WnckWindow*" "window")
+  )
+)
+
+(define-function wnck_window_activate_transient
   (c-name "wnck_window_activate_transient")
   (return-type "none")
+  (parameters
+    '("WnckWindow*" "window")
+    '("guint32" "timestamp")
+  )
 )
 
-(define-method get_icon
-  (of-object "WnckWindow")
+(define-function wnck_window_transient_is_most_recently_activated
+  (c-name "wnck_window_transient_is_most_recently_activated")
+  (return-type "gboolean")
+  (parameters
+    '("WnckWindow*" "window")
+  )
+)
+
+(define-function wnck_window_get_icon
   (c-name "wnck_window_get_icon")
   (return-type "GdkPixbuf*")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method get_mini_icon
-  (of-object "WnckWindow")
+(define-function wnck_window_get_mini_icon
   (c-name "wnck_window_get_mini_icon")
   (return-type "GdkPixbuf*")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method get_icon_is_fallback
-  (of-object "WnckWindow")
+(define-function wnck_window_get_icon_is_fallback
   (c-name "wnck_window_get_icon_is_fallback")
   (return-type "gboolean")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method set_icon_geometry
-  (of-object "WnckWindow")
+(define-function wnck_window_set_icon_geometry
   (c-name "wnck_window_set_icon_geometry")
   (return-type "none")
   (parameters
+    '("WnckWindow*" "window")
     '("int" "x")
     '("int" "y")
     '("int" "width")
@@ -865,23 +1207,27 @@
   )
 )
 
-(define-method get_actions
-  (of-object "WnckWindow")
+(define-function wnck_window_get_actions
   (c-name "wnck_window_get_actions")
   (return-type "WnckWindowActions")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method get_state
-  (of-object "WnckWindow")
+(define-function wnck_window_get_state
   (c-name "wnck_window_get_state")
   (return-type "WnckWindowState")
+  (parameters
+    '("WnckWindow*" "window")
+  )
 )
 
-(define-method get_geometry
-  (of-object "WnckWindow")
+(define-function wnck_window_get_geometry
   (c-name "wnck_window_get_geometry")
   (return-type "none")
   (parameters
+    '("WnckWindow*" "window")
     '("int*" "xp")
     '("int*" "yp")
     '("int*" "widthp")
@@ -889,29 +1235,43 @@
   )
 )
 
-(define-method is_visible_on_workspace
-  (of-object "WnckWindow")
+(define-function wnck_window_set_geometry
+  (c-name "wnck_window_set_geometry")
+  (return-type "none")
+  (parameters
+    '("WnckWindow*" "window")
+    '("WnckWindowGravity" "gravity")
+    '("WnckWindowMoveResizeMask" "geometry_mask")
+    '("int" "x")
+    '("int" "y")
+    '("int" "width")
+    '("int" "height")
+  )
+)
+
+(define-function wnck_window_is_visible_on_workspace
   (c-name "wnck_window_is_visible_on_workspace")
   (return-type "gboolean")
   (parameters
+    '("WnckWindow*" "window")
     '("WnckWorkspace*" "workspace")
   )
 )
 
-(define-method is_on_workspace
-  (of-object "WnckWindow")
+(define-function wnck_window_is_on_workspace
   (c-name "wnck_window_is_on_workspace")
   (return-type "gboolean")
   (parameters
+    '("WnckWindow*" "window")
     '("WnckWorkspace*" "workspace")
   )
 )
 
-(define-method is_in_viewport
-  (of-object "WnckWindow")
+(define-function wnck_window_is_in_viewport
   (c-name "wnck_window_is_in_viewport")
   (return-type "gboolean")
   (parameters
+    '("WnckWindow*" "window")
     '("WnckWorkspace*" "workspace")
   )
 )
@@ -920,6 +1280,26 @@
 
 ;; From /usr/include/libwnck-1.0/libwnck/wnck-enum-types.h
 
+(define-function wnck_pager_display_mode_get_type
+  (c-name "wnck_pager_display_mode_get_type")
+  (return-type "GType")
+)
+
+(define-function wnck_motion_direction_get_type
+  (c-name "wnck_motion_direction_get_type")
+  (return-type "GType")
+)
+
+(define-function wnck_tasklist_grouping_type_get_type
+  (c-name "wnck_tasklist_grouping_type_get_type")
+  (return-type "GType")
+)
+
+(define-function wnck_client_type_get_type
+  (c-name "wnck_client_type_get_type")
+  (return-type "GType")
+)
+
 (define-function wnck_window_state_get_type
   (c-name "wnck_window_state_get_type")
   (return-type "GType")
@@ -927,6 +1307,21 @@
 
 (define-function wnck_window_actions_get_type
   (c-name "wnck_window_actions_get_type")
+  (return-type "GType")
+)
+
+(define-function wnck_window_type_get_type
+  (c-name "wnck_window_type_get_type")
+  (return-type "GType")
+)
+
+(define-function wnck_window_gravity_get_type
+  (c-name "wnck_window_gravity_get_type")
+  (return-type "GType")
+)
+
+(define-function wnck_window_move_resize_mask_get_type
+  (c-name "wnck_window_move_resize_mask_get_type")
   (return-type "GType")
 )
 
@@ -939,61 +1334,78 @@
   (return-type "GType")
 )
 
-(define-method get_number
-  (of-object "WnckWorkspace")
+(define-function wnck_workspace_get_number
   (c-name "wnck_workspace_get_number")
   (return-type "int")
+  (parameters
+    '("WnckWorkspace*" "space")
+  )
 )
 
-(define-method get_name
-  (of-object "WnckWorkspace")
+(define-function wnck_workspace_get_name
   (c-name "wnck_workspace_get_name")
   (return-type "const-char*")
+  (parameters
+    '("WnckWorkspace*" "space")
+  )
 )
 
-(define-method change_name
-  (of-object "WnckWorkspace")
+(define-function wnck_workspace_change_name
   (c-name "wnck_workspace_change_name")
   (return-type "none")
   (parameters
+    '("WnckWorkspace*" "space")
     '("const-char*" "name")
   )
 )
 
-(define-method activate
-  (of-object "WnckWorkspace")
+(define-function wnck_workspace_activate
   (c-name "wnck_workspace_activate")
   (return-type "none")
+  (parameters
+    '("WnckWorkspace*" "space")
+    '("guint32" "timestamp")
+  )
 )
 
-(define-method get_width
-  (of-object "WnckWorkspace")
+(define-function wnck_workspace_get_width
   (c-name "wnck_workspace_get_width")
   (return-type "int")
+  (parameters
+    '("WnckWorkspace*" "space")
+  )
 )
 
-(define-method get_height
-  (of-object "WnckWorkspace")
+(define-function wnck_workspace_get_height
   (c-name "wnck_workspace_get_height")
   (return-type "int")
+  (parameters
+    '("WnckWorkspace*" "space")
+  )
 )
 
-(define-method get_viewport_x
-  (of-object "WnckWorkspace")
+(define-function wnck_workspace_get_viewport_x
   (c-name "wnck_workspace_get_viewport_x")
   (return-type "int")
+  (parameters
+    '("WnckWorkspace*" "space")
+  )
 )
 
-(define-method get_viewport_y
-  (of-object "WnckWorkspace")
+(define-function wnck_workspace_get_viewport_y
   (c-name "wnck_workspace_get_viewport_y")
   (return-type "int")
+  (parameters
+    '("WnckWorkspace*" "space")
+  )
 )
 
-(define-method is_virtual
-  (of-object "WnckWorkspace")
+(define-function wnck_workspace_is_virtual
   (c-name "wnck_workspace_is_virtual")
   (return-type "gboolean")
+  (parameters
+    '("WnckWorkspace*" "space")
+  )
 )
 
 

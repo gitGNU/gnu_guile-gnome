@@ -1,3 +1,10 @@
+2007-12-17  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* gnome/defs/Makefile.am: Add rule to generate files.
+	* gnome/defs/common-ignores.defs: New file.
+	* gnome/defs/libwnck-types.defs:
+	* gnome/defs/libwnck.defs: Regenerate for 2.16.1.
+
 2007-09-15  Jan Nieuwenhuizen  <janneke@gnu.org>
 
 	* Resurrect from Attic and merge changes from
