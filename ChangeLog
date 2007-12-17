@@ -1,5 +1,8 @@
 2007-12-17  Jan Nieuwenhuizen  <janneke@gnu.org>
 
+	* scripts/push-packages: add --create-prefix, allowing easier
+	contributing.
+
 	* .bzrignore: Ignore temp files and packages.
 
 2007-12-10  Andy Wingo  <wingo@pobox.com>

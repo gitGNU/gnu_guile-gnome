@@ -12,8 +12,8 @@ for dir in $root/*; do
     if test -d $dir -a -d $dir/.bzr; then
         package=`basename $dir`
         echo "pushing $dir to $baseurl/$package"
-        ( cd $dir; bzr push $baseurl/$package )
+        ( cd $dir; bzr push --create-prefix $baseurl/$package )
     fi
 done
 echo "pushing $root to $baseurl/pkg"
-( cd $root; bzr push $baseurl/pkg )
+( cd $root; bzr push --create-prefix $baseurl/pkg )
