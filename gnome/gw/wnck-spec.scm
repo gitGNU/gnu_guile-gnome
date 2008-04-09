@@ -50,5 +50,5 @@
 (define-method (initialize (ws <wnck-wrapset>) initargs)
   (next-method ws (cons #:module (cons '(gnome gw wnck) initargs)))
 
-  (load-defs ws "gnome/defs/libwnck.defs"))
+  (load-defs-with-overrides ws "gnome/defs/libwnck.defs"))
 

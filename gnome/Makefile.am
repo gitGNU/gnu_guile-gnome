@@ -1,6 +1,6 @@
 include $(top_srcdir)/common.mk
 
-SUBDIRS = defs
+SUBDIRS = defs overrides
 
 guilemodule_DATA = 
 

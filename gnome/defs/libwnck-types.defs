@@ -4,6 +4,7 @@
 (define-enum PagerDisplayMode
   (in-module "Wnck")
   (c-name "WnckPagerDisplayMode")
+  (gtype-id "WNCK_TYPE_PAGER_DISPLAY_MODE")
   (values
     '("name" "WNCK_PAGER_DISPLAY_NAME")
     '("content" "WNCK_PAGER_DISPLAY_CONTENT")
@@ -13,6 +14,7 @@
 (define-enum MotionDirection
   (in-module "Wnck")
   (c-name "WnckMotionDirection")
+  (gtype-id "WNCK_TYPE_MOTION_DIRECTION")
   (values
     '("up" "WNCK_MOTION_UP")
     '("down" "WNCK_MOTION_DOWN")
@@ -24,6 +26,7 @@
 (define-enum TasklistGroupingType
   (in-module "Wnck")
   (c-name "WnckTasklistGroupingType")
+  (gtype-id "WNCK_TYPE_TASKLIST_GROUPING_TYPE")
   (values
     '("never-group" "WNCK_TASKLIST_NEVER_GROUP")
     '("auto-group" "WNCK_TASKLIST_AUTO_GROUP")
@@ -34,6 +37,7 @@
 (define-enum ClientType
   (in-module "Wnck")
   (c-name "WnckClientType")
+  (gtype-id "WNCK_TYPE_CLIENT_TYPE")
   (values
     '("application" "WNCK_CLIENT_TYPE_APPLICATION")
     '("pager" "WNCK_CLIENT_TYPE_PAGER")
@@ -43,6 +47,7 @@
 (define-flags WindowState
   (in-module "Wnck")
   (c-name "WnckWindowState")
+  (gtype-id "WNCK_TYPE_WINDOW_STATE")
   (values
     '("minimized" "WNCK_WINDOW_STATE_MINIMIZED")
     '("maximized-horizontally" "WNCK_WINDOW_STATE_MAXIMIZED_HORIZONTALLY")
@@ -62,6 +67,7 @@
 (define-flags WindowActions
   (in-module "Wnck")
   (c-name "WnckWindowActions")
+  (gtype-id "WNCK_TYPE_WINDOW_ACTIONS")
   (values
     '("move" "WNCK_WINDOW_ACTION_MOVE")
     '("resize" "WNCK_WINDOW_ACTION_RESIZE")
@@ -87,6 +93,7 @@
 (define-enum WindowType
   (in-module "Wnck")
   (c-name "WnckWindowType")
+  (gtype-id "WNCK_TYPE_WINDOW_TYPE")
   (values
     '("normal" "WNCK_WINDOW_NORMAL")
     '("desktop" "WNCK_WINDOW_DESKTOP")
@@ -103,6 +110,7 @@
 (define-enum WindowGravity
   (in-module "Wnck")
   (c-name "WnckWindowGravity")
+  (gtype-id "WNCK_TYPE_WINDOW_GRAVITY")
   (values
     '("current" "WNCK_WINDOW_GRAVITY_CURRENT")
     '("northwest" "WNCK_WINDOW_GRAVITY_NORTHWEST")
@@ -120,6 +128,7 @@
 (define-flags WindowMoveResizeMask
   (in-module "Wnck")
   (c-name "WnckWindowMoveResizeMask")
+  (gtype-id "WNCK_TYPE_WINDOW_MOVE_RESIZE_MASK")
   (values
     '("x" "WNCK_WINDOW_CHANGE_X")
     '("y" "WNCK_WINDOW_CHANGE_Y")
