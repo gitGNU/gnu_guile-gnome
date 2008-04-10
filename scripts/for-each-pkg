@@ -16,7 +16,11 @@ done
 # include pkg in the list
 packages="$packages ."
 
+for i in "$@"; do
+    command="$command '$i'"
+done
+
 for i in $packages; do
-    echo "* $i: $command $@"
-    ( cd $i; $command $@ )
+    echo "* $i: $command"
+    ( cd $i; eval $command )
 done

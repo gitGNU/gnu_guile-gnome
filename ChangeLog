@@ -1,3 +1,9 @@
+2008-04-10  Andy Wingo  <wingo@pobox.com>
+
+	* scripts/for-each-pkg (packages): Handle argv more sensibly, so
+	that multiple words in one arg get passed to the subcommand
+	correctly.
+
 2008-04-10  Andy Wingo  <wingo@unquote>
 
 	* NEWS: Update NEWS.
