@@ -1,12 +1,28 @@
 guile-gnome-pkg NEWS --- history of user-visible changes.
 Copyright (C) 2004,2005,2006,2007,2008 Free Software Foundation, Inc.
 See the end for copying conditions of this file.
-Last updated 10 Apr 2008.
+Last updated 25 Apr 2008.
 
 
 guile-gnome-pkg is the umbrella package for guile-gnome, which can
 contain any number of sub-packages. This file documents the user-visible
 changes in guile-gnome-pkg only.
+
+
+guile-gnome-pkg 2.15.98 - Andy Wingo, 2008-04-25
+================================================
+
+* Formally require Guile 1.8, as has been the case for a while now.
+
+* Bump the API_VERSION to 2, as a test before going stable.
+
+This will change all library names, pkg-config names, installed header
+names, etc. (use-modules (gnome-0)) in user code should be changed to
+(use-modules (gnome-2)). guile-gnome-0 is now guile-gnome-2.
+
+The purpose of this change is to shake out any bugs in the API_VERSION
+mechanism. The intention is for the next release to be 2.16.0, with
+API_VERSION=2.
 
 
 guile-gnome-pkg 2.15.97 - Andy Wingo, 2008-04-10

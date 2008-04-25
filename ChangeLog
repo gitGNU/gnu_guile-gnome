@@ -1,5 +1,9 @@
 2008-04-25  Andy Wingo  <wingo@pobox.com>
 
+	* == Released guile-gnome-platform version 2.15.98 ==
+
+2008-04-25  Andy Wingo  <wingo@pobox.com>
+
 	* autogen-pkg.sh (GUILE_VERSION): Formally require Guile 1.8, as
 	has been the case for a while now.
 	(API_VERSION): Bump API_VERSION to 2, as a test before going
