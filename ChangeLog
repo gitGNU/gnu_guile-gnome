@@ -2,6 +2,8 @@
 
 	* autogen-pkg.sh (GUILE_VERSION): Formally require Guile 1.8, as
 	has been the case for a while now.
+	(API_VERSION): Bump API_VERSION to 2, as a test before going
+	stable.
 
 2008-04-10  Andy Wingo  <wingo@unquote>
 

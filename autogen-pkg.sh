@@ -161,7 +161,7 @@ AC_SUBST(VERSION,$version)
 # Otherwise, guile-gnome is stable. Future incompatible releases will
 # bump this number so as to allow parallel, incompatible versions to
 # coexist.
-API_VERSION=0
+API_VERSION=2
 AC_SUBST(API_VERSION)
 
 AM_MAINTAINER_MODE
