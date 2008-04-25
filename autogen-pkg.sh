@@ -227,8 +227,8 @@ guile-config link > /dev/null || {
    exit 1
 }
 GUILE_VERSION=`guile-config info guileversion`
-if test "$GUILE_VERSION" \< 1.6.4; then
-   AC_MSG_ERROR([Guile 1.6.4 or newer is required, but you only have $GUILEVERSION.])
+if test "$GUILE_VERSION" \< 1.8.0; then
+   AC_MSG_ERROR([Guile 1.8.0 or newer is required, but you only have $GUILEVERSION.])
 fi
 GUILE_CFLAGS="`guile-config compile`"
 GUILE_LIBS="`guile-config link`"
