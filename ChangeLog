@@ -1,5 +1,8 @@
 2008-04-27  Andy Wingo  <wingo@pobox.com>
 
+	* docs/: Add, now that docs is out from the platform, containing
+	the release notes doc, and a couple of old release notes.
+
 	* PACKAGES (guile-gnome-platform): Remove docs from the platform
 	-- all of its contents have been folded into the reference for the
 	individual modules.
