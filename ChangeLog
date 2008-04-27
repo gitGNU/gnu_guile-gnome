@@ -1,3 +1,9 @@
+2008-04-27  Andy Wingo  <wingo@pobox.com>
+
+	* PACKAGES (guile-gnome-platform): Remove docs from the platform
+	-- all of its contents have been folded into the reference for the
+	individual modules.
+
 2008-04-25  Andy Wingo  <wingo@pobox.com>
 
 	* == Released guile-gnome-platform version 2.15.98 ==
