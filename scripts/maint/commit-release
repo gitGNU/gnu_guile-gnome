@@ -17,7 +17,7 @@ cd $dir
 for i in `find . -name VERSION`; do
     echo "* setting $i to $version"
     echo $version > $i
-    ./scripts/maint/add-changelog-entry $i "Bumped to $version."
+    ( cd $(dirname $i); bzr commit -m "Bumped to $version." VERSION )
 done
 
 for i in *; do
@@ -30,6 +30,5 @@ done
 packages="$packages ."
 
 for i in $packages; do
-    ./scripts/maint/changelog-log-release $i $package $version
-    (cd $i && bzr commit -m "Released $package $version")
+    (cd $i && bzr commit -m "Released $package $version" && bzr tag $version)
 done

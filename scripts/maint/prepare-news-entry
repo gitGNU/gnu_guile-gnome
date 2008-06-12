@@ -5,9 +5,10 @@ set -e
 dir=$1
 release=$2
 version=$3
+prev=$4
 
-if test -z "$dir" -o -z "$release" -o -z "$version"; then
-    echo "usage: $0 DIR RELEASE VERSION" >&2
+if test -z "$dir" -o -z "$release" -o -z "$version" -o -z "$prev"; then
+    echo "usage: $0 DIR RELEASE VERSION PREV-VERSIOn" >&2
     exit 1
 fi
 
@@ -37,7 +38,7 @@ done
 echo >> NEWS.new
 echo >> NEWS.new
 echo "* ChangeLog diff (process this into NEWS):" >> NEWS.new
-perl -e 'local $/; $_=<>; ($foo) = /^(.*?Released[^\n]+)/s; print $foo;' < ChangeLog >> NEWS.new
+bzr log --forward -rtag:$prev.. >>NEWS.new
 echo >> NEWS.new
 echo >> NEWS.new
 # old news

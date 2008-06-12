@@ -31,14 +31,14 @@ How
 2) Re-autogen and make distcheck to make sure everything works.
 
 3) Figure out the package name (e.g. guile-gnome-platform) and the new
-   version. Run scripts/maint/prepare-release PACKAGE VERSION. That will
-   prepare NEWS files for each package, which will include the
-   difference in the ChangeLogs for you to process into proper release
-   notes.
+   version. Run scripts/maint/prepare-release PACKAGE VERSION
+   PREV-VERSION. That will prepare NEWS files for each package, which
+   will include the difference in the ChangeLogs for you to process into
+   proper release notes.
 
 4) Edit the NEWS files. Don't forget the toplevel NEWS file.
 
-5) Run scripts/maint/commit-release.
+5) Run scripts/maint/commit-release PACKAGE VERSION.
 
 6) Re-autogen and make dist.
 
