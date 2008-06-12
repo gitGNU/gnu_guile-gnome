@@ -30,5 +30,5 @@ done
 packages="$packages ."
 
 for i in $packages; do
-    (cd $i && bzr commit -m "Released $package $version" && bzr tag $version)
+    (cd $i && bzr commit --unchanged -m "Released $package $version" && bzr tag $version)
 done
