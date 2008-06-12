@@ -150,7 +150,7 @@ AC_PREREQ(2.52)
 AC_INIT($package, $version)
 AC_CONFIG_SRCDIR(autogen-pkg.sh)
 AM_CONFIG_HEADER(config.h)
-AM_INIT_AUTOMAKE(-Wno-portability)
+AM_INIT_AUTOMAKE(-Wno-portability -Wno-syntax)
 
 AC_SUBST(VERSION,$version)
 
