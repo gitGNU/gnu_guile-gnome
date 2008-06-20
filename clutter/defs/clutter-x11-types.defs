@@ -1,0 +1,23 @@
+;; -*- scheme -*-
+;; Enumerations and flags ...
+
+(define-enum X11FilterReturn
+  (in-module "Clutter")
+  (c-name "ClutterX11FilterReturn")
+  (gtype-id "CLUTTER_TYPE_X11_FILTER_RETURN")
+  (values
+    '("continue" "CLUTTER_X11_FILTER_CONTINUE")
+    '("translate" "CLUTTER_X11_FILTER_TRANSLATE")
+    '("remove" "CLUTTER_X11_FILTER_REMOVE")
+  )
+)
+
+;; -*- scheme -*-
+; object definitions ...
+(define-object X11TexturePixmap
+  (in-module "Clutter")
+  (parent "ClutterTexture")
+  (c-name "ClutterX11TexturePixmap")
+  (gtype-id "CLUTTER_TYPE_X11_TEXTURE_PIXMAP")
+)
+
