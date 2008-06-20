@@ -20,14 +20,13 @@
 
 ;;; Commentary:
 ;;
-;;Template bindings.
+;;Clutter bindings.
 ;;
-;;[...]
+;;Example code goes here.
 ;;
 ;;; Code:
 
 (define-module (gnome clutter)
-  #:use-module (gnome gtk)
   #:use-module (gnome gw clutter)
   #:use-module (gnome gw support modules))
 

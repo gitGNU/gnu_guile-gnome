@@ -30,3 +30,52 @@
                                     scm_list_n (args, SCM_UNDEFINED)), \
                  SCM_EOL, SCM_EOL)
 
+SCM
+scm_clutter_knot_to_scm (ClutterKnot *k)
+{
+    return scm_cons (scm_from_int (k->x), scm_from_int (k->y));
+}
+
+ClutterKnot*
+scm_scm_to_clutter_knot (SCM scm)
+{
+    ClutterKnot *ret = g_new0 (ClutterKnot, 1);
+    
+    ret->x = scm_to_int (scm_car (scm));
+    ret->y = scm_to_int (scm_cdr (scm));
+    return ret;
+}
+
+SCM
+scm_clutter_color_to_scm (ClutterColor *c)
+{
+    return scm_list_4 (scm_from_uint8 (c->red),
+                       scm_from_uint8 (c->green),
+                       scm_from_uint8 (c->blue),
+                       scm_from_uint8 (c->alpha));
+}
+
+ClutterColor*
+scm_scm_to_clutter_color (SCM scm)
+{
+    ClutterColor *ret = g_new0 (ClutterColor, 1);
+    
+    ret->red = scm_to_uint8 (scm_car (scm));
+    ret->green = scm_to_uint8 (scm_cadr (scm));
+    ret->blue = scm_to_uint8 (scm_caddr (scm));
+    ret->alpha = scm_to_uint8 (scm_cadddr (scm));
+
+    return ret;
+}
+
+SCM
+scm_clutter_units_to_scm (ClutterUnit u)
+{
+    return scm_from_double (CLUTTER_UNITS_TO_FLOAT (u));
+}
+
+ClutterUnit
+scm_scm_to_clutter_units (SCM scm)
+{
+    return CLUTTER_UNITS_FROM_FLOAT (scm_to_double (scm));
+}

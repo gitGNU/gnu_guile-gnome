@@ -25,6 +25,12 @@
 ;;
 ;;; Code:
 
+(define-interface Container
+  (in-module "Clutter")
+  (c-name "ClutterContainer")
+  (gtype-id "CLUTTER_TYPE_CONTAINER")
+)
+
 (ignore-glob  "*_get_type"
               "_*"
               "*_ref"

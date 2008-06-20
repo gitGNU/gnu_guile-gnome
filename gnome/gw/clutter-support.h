@@ -25,3 +25,11 @@
 #include <libguile.h>
 #include "guile-gnome-gobject.h"
 
+SCM scm_clutter_knot_to_scm (ClutterKnot *k);
+ClutterKnot* scm_scm_to_clutter_knot (SCM scm);
+
+SCM scm_clutter_color_to_scm (ClutterColor *c);
+ClutterColor* scm_scm_to_clutter_color (SCM scm);
+
+SCM scm_clutter_units_to_scm (ClutterUnit u);
+ClutterUnit scm_scm_to_clutter_units (SCM scm);

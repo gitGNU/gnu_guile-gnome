@@ -25,6 +25,7 @@
 ;;; Code:
 
 (define-module (gnome gw clutter-spec)
+  #:use-module ((srfi srfi-1) :select (lset-difference))
   #:use-module (oop goops)
   #:use-module (gnome gw support g-wrap)
   #:use-module (gnome gw gobject-spec)
@@ -35,8 +36,45 @@
   #:id 'gnome-clutter
   #:dependencies '(standard gnome-glib gnome-gobject))
 
+(define-class <gw-guile-clutter-unit-type> (<gw-guile-simple-type>))
+
+(define-method (check-typespec-options (type <gw-guile-clutter-unit-type>) (options <list>))
+  (let ((remainder options))
+    (define (del*! . syms)
+      (set! remainder (lset-difference eq? remainder syms)))
+    (del*! 'const 'out 'unspecialized)
+    (apply del*! 'caller-owned 'callee-owned (slot-ref type 'allowed-options))
+    (if (not (null? remainder))
+        (raise-bad-typespec type options
+                            "spurious options in RTI type: ~S" remainder))))
+
 (define-method (initialize (ws <clutter-wrapset>) initargs)
   (next-method ws (cons #:module (cons '(gnome gw clutter) initargs)))
+  
+  (wrap-custom-boxed!
+   "ClutterKnot" "CLUTTER_TYPE_KNOT"
+   ;; wrap
+   (list scm-var " = " c-var " ? scm_clutter_knot_to_scm (" c-var ") : SCM_BOOL_F;\n")
+   ;; unwrap
+   (list c-var " = scm_scm_to_clutter_knot (" scm-var ");\n"))
+
+  (wrap-custom-boxed!
+   "ClutterColor" "CLUTTER_TYPE_COLOR"
+   ;; wrap
+   (list scm-var " = " c-var " ? scm_clutter_color_to_scm (" c-var ") : SCM_BOOL_F;\n")
+   ;; unwrap
+   (list c-var " = scm_scm_to_clutter_color (" scm-var ");\n"))
+
+  (add-type! ws (make <gw-guile-clutter-unit-type>
+                  #:name '<clutter-unit>
+                  #:c-type-name "ClutterUnit"
+                  #:type-check #f
+                  #:unwrap '(c-var " = scm_scm_to_clutter_units (" scm-var ");\n")
+                  #:wrap '(scm-var " = scm_clutter_units_to_scm (" c-var ");\n")
+                  #:allowed-options '(out)
+                  #:ffspec 'int32))
+  (add-type-alias! ws "ClutterUnit" '<clutter-unit>)
+  (add-type-rule! ws "ClutterUnit*" '(<clutter-unit> out))
   
   (load-defs-with-overrides ws "gnome/defs/clutter.defs"))
 
