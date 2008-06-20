@@ -44,3 +44,5 @@ SCM scm_clutter_vertex_to_scm (ClutterVertex *x);
 ClutterVertex* scm_scm_to_clutter_vertex (SCM scm);
 
 void clutter_alpha_set_stock_func (ClutterAlpha *a, const char *name);
+
+SCM _wrap_clutter_color_parse (const char *name);

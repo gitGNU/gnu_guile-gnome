@@ -1,6 +1,6 @@
 #! /bin/sh
 # -*- scheme -*-
-exec guile-gnome-2 -e main -s $0 "$@"
+exec guile -e main -s $0 "$@"
 !#
 ;; guile-gnome
 ;; Copyright (C) 2008 Free Software Foundation, Inc.
@@ -23,7 +23,8 @@ exec guile-gnome-2 -e main -s $0 "$@"
 ;; Boston, MA  02111-1307,  USA       gnu@gnu.org
 
 
-(use-modules (srfi srfi-11)
+(use-modules (gnome-2)
+             (srfi srfi-11)
              (oop goops)
              (gnome gobject)
              (gnome glib)
@@ -33,17 +34,20 @@ exec guile-gnome-2 -e main -s $0 "$@"
 (define *stage* #f)
 (define *color* '(#xff #xcc #xcc #xdd))
 
+(define (on-button-press stage event)
+  (pk 'button-pressed! stage event)
+  #t)
+
 (define (prep-stage)
   (set! *stage* (clutter-stage-get-default))
-  ;; FIXME!
-  ;;(set-color *stage* (clutter-color-parse "DarkSlateGrey"))
+  (set-color *stage* (pk (clutter-color-parse "DarkSlateGrey")))
   (set-size *stage* 800 600)
   (set-title *stage* "My First Clutter Application")
-  (connect *stage* 'key-press-event (lambda args (pk args) (clutter-main-quit) #t))
-)
-;;  (connect *stage* 'button-press-event (lambda args (pk args) (on-button-press))))
+  (connect *stage* 'key-press-event (lambda (s e) (clutter-main-quit) #t))
+  (connect *stage* 'button-press-event on-button-press))
 
 (define (fold-pack w h . procs)
+  (pk w h procs)
   (if (pair? procs)
       (let-values (((w h) ((car procs) w h)))
         (apply fold-pack w h (cdr procs)))))
@@ -51,15 +55,16 @@ exec guile-gnome-2 -e main -s $0 "$@"
 (define (show-message msg)
   (define (make-label sw sh)
     (let ((l (make <clutter-label>
-               #:font-name "Mono 32" #:text msg #:color *color*)))
-      (let-values (((h w) (get-size l)))
+               #:font-name "Mono 22" #:text msg #:color *color*)))
+      (let-values (((w h) (get-size l)))
+        (pk w h)
         (set-position l (- sw w 50) (- sh h))
         (add-actor *stage* l)
         (values sw (- sh h)))))
 
   (define (make-cursor sw sh)
     (let* ((c (make <clutter-rectangle>
-                #:color *color* #:width 20 #:height (- (get-height *stage*) sh)
+                #:color *color* #:width 20 #:height (pk (- (get-height *stage*) sh))
                 #:x (- sw 50) #:y sh))
            (t (make <clutter-timeline>
                 #:fps 30 #:num-frames 25 #:loop #t))
@@ -67,6 +72,7 @@ exec guile-gnome-2 -e main -s $0 "$@"
                 #:opacity-start #xdd #:opacity-end #x0
                 #:alpha (let ((a (clutter-alpha-new)))
                           (set-stock-func a "ramp")
+                          (set-timeline a t)
                           a))))
       (add-actor *stage* c)
       (apply b c)

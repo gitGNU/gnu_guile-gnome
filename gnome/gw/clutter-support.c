@@ -182,3 +182,13 @@ clutter_alpha_set_stock_func (ClutterAlpha *a, const char *name)
                    "clutter-alpha-set-stock-func",
                    scm_from_locale_string (name));
 }
+
+SCM
+_wrap_clutter_color_parse (const char *name)
+{
+    ClutterColor parsed;
+    if (clutter_color_parse (name, &parsed))
+        return scm_clutter_color_to_scm (&parsed);
+    else
+        return SCM_BOOL_F;
+}

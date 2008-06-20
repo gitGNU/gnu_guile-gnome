@@ -87,6 +87,14 @@
   )
 )
 
+(define-function clutter_color_parse
+  (c-name "_wrap_clutter_color_parse")
+  (overrides "clutter_color_parse")
+  (return-type "SCM")
+  (leave-guile-mode #f)
+  (parameters
+   '("const-char*" "name")))
+
 (ignore-glob  "*_get_type"
               "_*"
               "*_ref"
@@ -136,4 +144,5 @@
              "clutter_texture_get_cogl_texture"
              "clutter_timeline_list_markers"
              "clutter_timeout_pool*"
-             "clutter_param_spec_uint")
+             "clutter_param_spec_unit"
+             )
