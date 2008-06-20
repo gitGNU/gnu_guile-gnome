@@ -33,3 +33,14 @@ ClutterColor* scm_scm_to_clutter_color (SCM scm);
 
 SCM scm_clutter_units_to_scm (ClutterUnit u);
 ClutterUnit scm_scm_to_clutter_units (SCM scm);
+
+SCM scm_clutter_actor_box_to_scm (ClutterActorBox *a);
+ClutterActorBox* scm_scm_to_clutter_actor_box (SCM scm);
+
+SCM scm_clutter_geometry_to_scm (ClutterGeometry *g);
+ClutterGeometry* scm_scm_to_clutter_geometry (SCM scm);
+
+SCM scm_clutter_vertex_to_scm (ClutterVertex *x);
+ClutterVertex* scm_scm_to_clutter_vertex (SCM scm);
+
+void clutter_alpha_set_stock_func (ClutterAlpha *a, const char *name);

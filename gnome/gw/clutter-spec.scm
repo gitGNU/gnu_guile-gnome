@@ -30,14 +30,22 @@
   #:use-module (gnome gw support g-wrap)
   #:use-module (gnome gw gobject-spec)
   #:use-module (gnome gw support defs)
-  #:use-module (gnome gw support gobject))
+  #:use-module (gnome gw support gobject)
+  #:use-module (gnome gw cairo-spec)
+  #:use-module (gnome gw pango-spec))
 
 (define-class <clutter-wrapset> (<gobject-wrapset-base>)
   #:id 'gnome-clutter
-  #:dependencies '(standard gnome-glib gnome-gobject))
+  #:dependencies '(standard gnome-glib gnome-gobject gnome-cairo gnome-pango))
+
+(define-method (initializations-cg (self <clutter-wrapset>) err)
+  (list
+   (next-method)
+   "clutter_init (NULL, NULL);\n"
+   ;;; fixme: add sinkfunc for GInitiallyUnowned
+   ))
 
 (define-class <gw-guile-clutter-unit-type> (<gw-guile-simple-type>))
-
 (define-method (check-typespec-options (type <gw-guile-clutter-unit-type>) (options <list>))
   (let ((remainder options))
     (define (del*! . syms)
@@ -48,9 +56,54 @@
         (raise-bad-typespec type options
                             "spurious options in RTI type: ~S" remainder))))
 
+(define-class <clutter-event-type> (<gobject-classed-pointer-type>))
+(define-method (initialize (type <clutter-event-type>) initargs)
+  (next-method type (cons #:gtype-id (cons "CLUTTER_TYPE_EVENT" initargs))))
+(define-method (unwrap-value-cg (type <clutter-event-type>)
+                                (value <gw-value>)
+                                status-var)
+  (let ((c-var (var value))
+        (scm-var (scm-var value)))
+    (unwrap-null-checked
+     value status-var
+     (list
+      "if (scm_c_gvalue_holds (" scm-var ", CLUTTER_TYPE_EVENT))\n"
+      "  " c-var " = scm_c_gvalue_peek_boxed (" scm-var ");\n"
+      "else {\n"
+      "  " c-var " = NULL;\n"
+      `(gw:error ,status-var type ,(wrapped-var value))
+      "}\n"))))
+(define-method (wrap-value-cg (type <clutter-event-type>)
+                              (value <gw-value>)
+                              status-var)
+  (let ((c-var (var value))
+        (scm-var (scm-var value)))
+    (list
+     "if (" c-var " == NULL) {\n"
+     "  " scm-var " = SCM_BOOL_F;\n"
+     "} else {\n"
+     "  " scm-var " = scm_c_gvalue_new_from_boxed (CLUTTER_TYPE_EVENT, " c-var ");\n"
+     "}\n")))
+
 (define-method (initialize (ws <clutter-wrapset>) initargs)
   (next-method ws (cons #:module (cons '(gnome gw clutter) initargs)))
   
+  (for-each
+   (lambda (ctype)
+     (let ((event (make <clutter-event-type>
+                    #:ctype ctype
+                    #:c-type-name (string-append ctype "*"))))
+       (add-type! ws event)
+       (add-type-alias! ws (string-append ctype "*") (name event))))
+   '("ClutterEvent"
+     "ClutterAnyEvent"
+     "ClutterButtonEvent"
+     "ClutterKeyEvent"
+     "ClutterMotionEvent"
+     "ClutterScrollEvent"
+     "ClutterStageStateEvent"
+     "ClutterCrossingEvent"))
+
   (wrap-custom-boxed!
    "ClutterKnot" "CLUTTER_TYPE_KNOT"
    ;; wrap
@@ -64,6 +117,27 @@
    (list scm-var " = " c-var " ? scm_clutter_color_to_scm (" c-var ") : SCM_BOOL_F;\n")
    ;; unwrap
    (list c-var " = scm_scm_to_clutter_color (" scm-var ");\n"))
+
+  (wrap-custom-boxed!
+   "ClutterActorBox" "CLUTTER_TYPE_ACTOR_BOX"
+   ;; wrap
+   (list scm-var " = " c-var " ? scm_clutter_actor_box_to_scm (" c-var ") : SCM_BOOL_F;\n")
+   ;; unwrap
+   (list c-var " = scm_scm_to_clutter_actor_box (" scm-var ");\n"))
+
+  (wrap-custom-boxed!
+   "ClutterGeometry" "CLUTTER_TYPE_GEOMETRY"
+   ;; wrap
+   (list scm-var " = " c-var " ? scm_clutter_geometry_to_scm (" c-var ") : SCM_BOOL_F;\n")
+   ;; unwrap
+   (list c-var " = scm_scm_to_clutter_geometry (" scm-var ");\n"))
+
+  (wrap-custom-boxed!
+   "ClutterVertex" "CLUTTER_TYPE_VERTEX"
+   ;; wrap
+   (list scm-var " = " c-var " ? scm_clutter_vertex_to_scm (" c-var ") : SCM_BOOL_F;\n")
+   ;; unwrap
+   (list c-var " = scm_scm_to_clutter_vertex (" scm-var ");\n"))
 
   (add-type! ws (make <gw-guile-clutter-unit-type>
                   #:name '<clutter-unit>

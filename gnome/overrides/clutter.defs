@@ -31,17 +31,11 @@
   (gtype-id "CLUTTER_TYPE_CONTAINER")
 )
 
-(ignore-glob  "*_get_type"
-              "_*"
-              "*_ref"
-              "*_unref"
-              "*_copy"
-              "*_free"
-              "*_newv"
-              "*_valist"
-              "*_setv"
-              "*_foreach"
-              "*_valist")
+(define-interface Media
+  (in-module "Clutter")
+  (c-name "ClutterMedia")
+  (gtype-id "CLUTTER_TYPE_MEDIA")
+)
 
 (define-method get_children
   (of-object "ClutterContainer")
@@ -70,3 +64,54 @@
   (overrides "clutter_score_list_timelines")
   (return-type "GSList*-of-ClutterTimeline*")
 )
+
+(define-method set_stock_func
+  (of-object "ClutterAlpha")
+  (c-name "clutter_alpha_set_stock_func")
+  (return-type "none")
+  (parameters
+    '("const-char*" "name")
+  )
+)
+
+(ignore-glob  "*_get_type"
+              "_*"
+              "*_ref"
+              "*_unref"
+              "*_copy"
+              "*_free"
+              "*_newv"
+              "*_valist"
+              "*_setv"
+              "*_foreach"
+              "*_valist")
+
+(ignore-glob "clutter*vertices*"
+             "*_rotationx"
+             "*_scalex"
+             "*_newx"
+             "*_startx"
+             "*_endx"
+             "*_tiltx"
+             "*_boundsx"
+             "*_shadex"
+             "*_hlsx"
+             "*_perspectivex"
+             "*_fogx"
+             "*_resolutionx"
+             "*_progressx"
+             "clutter_alpha_new_full"
+             "clutter_container_class_find_child_property"
+             "clutter_container_class_list_child_properties"
+             "clutter_effect_*"
+             "clutter_frame_source_*"
+             "clutter_init*"
+             "clutter_init*"
+             "clutter_get_option_group"
+             "clutter_main*" ;; fixme: do i need to do something special with clutter-main?
+             "clutter_threads*"
+             "clutter_model*"
+             "clutter_list_model*"
+             "clutter_scriptable*"
+             "clutter_script_connect_signals*"
+             )
