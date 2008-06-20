@@ -38,7 +38,7 @@
 (define-method (initialize (ws <clutter-wrapset>) initargs)
   (next-method ws (cons #:module (cons '(gnome gw clutter) initargs)))
   
-  (load-defs-with-overrides ws "gnome/defs/clutter.defs"))
+  (load-defs-with-overrides ws "clutter/defs/clutter.defs"))
 
 (define-method (global-declarations-cg (self <clutter-wrapset>))
   (list (next-method)

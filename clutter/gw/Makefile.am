@@ -1,11 +1,9 @@
 include $(top_srcdir)/common.mk
 
+guilegwmoduledir=$(prefix)/share/guile/site/clutter/gw
 guilegwmodule_DATA = clutter-spec.scm clutter.scm
 
 EXTRA_DIST = clutter-spec.scm
-
-# There is one shared library for each wrapset. Each is produced by
-# g-wrap, but also may contain some hand-coded routines.
 
 lib_LTLIBRARIES = libgw-guile-gnome-clutter.la
 

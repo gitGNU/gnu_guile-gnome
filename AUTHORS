@@ -1,14 +1,2 @@
-To find out what should go in this file, see "Information For
-Maintainers of GNU Software" (maintain.texi), the section called
-"Recording Changes".
-
-
-<Name>:
-In the directory gnome/gw, wrote:
-    clutter-spec.scm clutter-support.c clutter-support.h
-In the directory gnome/overrides, wrote:
-    clutter.defs
-In the directory gnome, wrote:
-    clutter.scm
-In the directory examples/clutter, wrote:
-    ...
+Guile-Clutter was mostly written by Andy Wingo. Please see the revision
+control logs for more specific information.

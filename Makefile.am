@@ -1,3 +1,3 @@
-SUBDIRS = gnome examples 
+SUBDIRS = clutter examples 
 
 EXTRA_DIST = ChangeLog NEWS AUTHORS README $(wildcard *.ac)

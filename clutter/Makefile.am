@@ -1,6 +1,6 @@
 include $(top_srcdir)/common.mk
 
-SUBDIRS = overrides
+SUBDIRS = overrides defs
 guilemodule_DATA =
 
 if HAVE_CLUTTER
