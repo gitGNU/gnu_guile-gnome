@@ -1,6 +1,6 @@
 include $(top_srcdir)/common.mk
 
-defsdir=$(prefix)/share/guile/site/clutter/defs
+defsdir = $(guilemoduledir)/defs
 
 defs_DATA = 					\
 	clutter.defs				\
@@ -16,10 +16,10 @@ CLUTTER_PREFIX=/opt/clutter
 CLUTTER_INC_DIR=$(CLUTTER_PREFIX)/include/clutter-$(CLUTTER_MAJORMINOR)/clutter
 clutter:
 	../../../h2def.py --types \
-	   $(CLUTTER_INC_DIR)/clutter-*.h > clutter-types.defs
+	   $(shell ls $(CLUTTER_INC_DIR)/clutter-*.h | grep -v -- -fixed) > clutter-types.defs
 	../../../h2def.py --procs \
 	   --with-header='(include "clutter-types.defs") (include overrides)' \
-	   $(CLUTTER_INC_DIR)/clutter-*.h > clutter.defs
+	   $(shell ls $(CLUTTER_INC_DIR)/clutter-*.h | grep -v -- -fixed)> clutter.defs
 
 clutter-x11:
 	../../../h2def.py --types \

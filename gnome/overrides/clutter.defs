@@ -1,0 +1,66 @@
+;; -*- scheme -*-
+;; guile-gnome
+;; Copyright (C) 2008 Free Software Foundation, Inc.
+
+;; This program is free software; you can redistribute it and/or    
+;; modify it under the terms of the GNU General Public License as   
+;; published by the Free Software Foundation; either version 2 of   
+;; the License, or (at your option) any later version.              
+;;                                                                  
+;; This program is distributed in the hope that it will be useful,  
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of   
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the    
+;; GNU General Public License for more details.                     
+;;                                                                  
+;; You should have received a copy of the GNU General Public License
+;; along with this program; if not, contact:
+;;
+;; Free Software Foundation           Voice:  +1-617-542-5942
+;; 59 Temple Place - Suite 330        Fax:    +1-617-542-2652
+;; Boston, MA  02111-1307,  USA       gnu@gnu.org
+
+;;; Commentary:
+;;
+;;Custom wrapper definitions.
+;;
+;;; Code:
+
+(ignore-glob  "*_get_type"
+              "_*"
+              "*_ref"
+              "*_unref"
+              "*_copy"
+              "*_free"
+              "*_newv"
+              "*_valist"
+              "*_setv"
+              "*_foreach"
+              "*_valist")
+
+(define-method get_children
+  (of-object "ClutterContainer")
+  (c-name "clutter_container_get_children")
+  (overrides "clutter_container_get_children")
+  (return-type "GList*-of-ClutterActor*")
+)
+
+(define-method get_actors
+  (of-object "ClutterBehaviour")
+  (c-name "clutter_behaviour_get_actors")
+  (overrides "clutter_behaviour_get_actors")
+  (return-type "GSList*-of-ClutterActor*")
+)
+
+(define-method get_knots
+  (of-object "ClutterBehaviourPath")
+  (c-name "clutter_behaviour_path_get_knots")
+  (overrides "clutter_behaviour_path_get_knots")
+  (return-type "GSList*-of-ClutterKnot*")
+)
+
+(define-method list_timelines
+  (of-object "ClutterScore")
+  (c-name "clutter_score_list_timelines")
+  (overrides "clutter_score_list_timelines")
+  (return-type "GSList*-of-ClutterTimeline*")
+)

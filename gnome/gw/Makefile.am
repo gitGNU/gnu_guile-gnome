@@ -1,6 +1,5 @@
 include $(top_srcdir)/common.mk
 
-guilegwmoduledir=$(prefix)/share/guile/site/clutter/gw
 guilegwmodule_DATA = clutter-spec.scm clutter.scm
 
 EXTRA_DIST = clutter-spec.scm
