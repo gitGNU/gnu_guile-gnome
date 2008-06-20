@@ -122,7 +122,7 @@
              "clutter_init*"
              "clutter_init*"
              "clutter_get_option_group"
-             "clutter_main*" ;; fixme: do i need to do something special with clutter-main?
+             ;;"clutter_main*" ;; fixme: do i need to do something special with clutter-main?
              "clutter_threads*"
              "clutter_model*"
              "clutter_list_model*"
