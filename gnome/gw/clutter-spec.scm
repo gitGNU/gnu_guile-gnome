@@ -155,4 +155,6 @@
 (define-method (global-declarations-cg (self <clutter-wrapset>))
   (list (next-method)
         "#include <clutter/clutter.h>\n"
+        ;; FIXME: clutter should include this one
+        "#include <clutter/clutter-stage-manager.h>\n"
         "#include \"clutter-support.h\"\n"))

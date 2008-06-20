@@ -37,6 +37,12 @@
   (gtype-id "CLUTTER_TYPE_MEDIA")
 )
 
+(define-interface StageManager
+  (in-module "Clutter")
+  (c-name "ClutterStageManager")
+  (gtype-id "CLUTTER_TYPE_STAGE_MANAGER")
+)
+
 (define-method get_children
   (of-object "ClutterContainer")
   (c-name "clutter_container_get_children")
@@ -63,6 +69,13 @@
   (c-name "clutter_score_list_timelines")
   (overrides "clutter_score_list_timelines")
   (return-type "GSList*-of-ClutterTimeline*")
+)
+
+(define-method list_timelines
+  (of-object "ClutterStageManager")
+  (c-name "clutter_stage_manager_list_stages")
+  (overrides "clutter_stage_manager_list_stages")
+  (return-type "GSList*-of-ClutterStage*")
 )
 
 (define-method set_stock_func
@@ -100,6 +113,7 @@
              "*_fogx"
              "*_resolutionx"
              "*_progressx"
+             "*_func"
              "clutter_alpha_new_full"
              "clutter_container_class_find_child_property"
              "clutter_container_class_list_child_properties"
@@ -114,4 +128,12 @@
              "clutter_list_model*"
              "clutter_scriptable*"
              "clutter_script_connect_signals*"
-             )
+             "clutter_stage_read_pixels"
+             "clutter_texture_set_from_rgb_data"
+             "clutter_texture_set_from_yuv_data"
+             "clutter_texture_set_area_from_rgb_data"
+             "clutter_texture_set_cogl_texture"
+             "clutter_texture_get_cogl_texture"
+             "clutter_timeline_list_markers"
+             "clutter_timeout_pool*"
+             "clutter_param_spec_uint")
