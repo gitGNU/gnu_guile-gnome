@@ -16,3 +16,4 @@ guile-gnome-libwnck: libwnck
 guile-gnome-libgda: libgda
 guile-gnome-dbus: dbus
 guile-gnome-panel-applet: panel-applet
+guile-clutter: clutter
