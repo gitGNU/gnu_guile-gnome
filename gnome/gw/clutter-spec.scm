@@ -1,5 +1,5 @@
 ;; guile-gnome
-;; Copyright (C) 2004 Free Software Foundation, Inc.
+;; Copyright (C) 2008 Free Software Foundation, Inc.
 
 ;; This program is free software; you can redistribute it and/or    
 ;; modify it under the terms of the GNU General Public License as   
@@ -20,15 +20,27 @@
 
 ;;; Commentary:
 ;;
-;;Template bindings.
-;;
-;;[...]
+;;g-wrap specification for clutter.
 ;;
 ;;; Code:
 
-(define-module (gnome template)
-  #:use-module (gnome gtk)
-  #:use-module (gnome gw template)
-  #:use-module (gnome gw support modules))
+(define-module (gnome gw clutter-spec)
+  #:use-module (oop goops)
+  #:use-module (gnome gw support g-wrap)
+  #:use-module (gnome gw gobject-spec)
+  #:use-module (gnome gw support defs)
+  #:use-module (gnome gw support gobject))
 
-(re-export-modules (gnome gw template))
+(define-class <clutter-wrapset> (<gobject-wrapset-base>)
+  #:id 'gnome-clutter
+  #:dependencies '(standard gnome-glib gnome-gobject))
+
+(define-method (initialize (ws <clutter-wrapset>) initargs)
+  (next-method ws (cons #:module (cons '(gnome gw clutter) initargs)))
+  
+  (load-defs-with-overrides ws "gnome/defs/clutter.defs"))
+
+(define-method (global-declarations-cg (self <clutter-wrapset>))
+  (list (next-method)
+        "#include <clutter/clutter.h>\n"
+        "#include \"clutter-support.h\"\n"))
