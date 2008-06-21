@@ -43,7 +43,8 @@ exec guile -e main -s $0 "$@"
   (set-color *stage* (pk (clutter-color-parse "DarkSlateGrey")))
   (set-size *stage* 800 600)
   (set-title *stage* "My First Clutter Application")
-  (connect *stage* 'key-press-event (lambda (s e) (clutter-main-quit) #t))
+  (connect *stage* 'key-press-event
+           (lambda (s e) (g-main-loop-quit *loop*) #t))
   (connect *stage* 'button-press-event on-button-press))
 
 (define (fold-pack w h . procs)
@@ -88,5 +89,5 @@ exec guile -e main -s $0 "$@"
     (prep-stage)
     (show-message message)
     (show-all *stage*)
-    (clutter-main)
+    (g-main-loop-run *loop*)
     (exit 0)))
