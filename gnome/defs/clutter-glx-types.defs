@@ -7,6 +7,6 @@
   (in-module "Clutter")
   (parent "ClutterX11TexturePixmap")
   (c-name "ClutterGLXTexturePixmap")
-  (gtype-id "CLUTTER_TYPE_GLX_TEXTURE_PIXMAP")
+  (gtype-id "CLUTTER_GLX_TYPE_TEXTURE_PIXMAP")
 )
 

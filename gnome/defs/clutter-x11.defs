@@ -1,5 +1,5 @@
 ;; -*- scheme -*-
-(include "clutter-x11-types.defs") (include overrides)
+(include type-ignores) (include "clutter-x11-types.defs") (include overrides)
 
 ;; From /opt/clutter/include/clutter-0.7/clutter/x11/clutter-x11.h
 
