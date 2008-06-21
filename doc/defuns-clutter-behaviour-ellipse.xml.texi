@@ -1,0 +1,163 @@
+
+@c %start of fragment
+
+@deftp Class <clutter-behaviour-ellipse>
+Derives from @code{<clutter-behaviour>}.
+
+This class defines the following slots:
+
+@table @code
+@item center
+Center of ellipse
+
+@item width
+Width of ellipse
+
+@item height
+Height of ellipse
+
+@item angle-start
+Initial angle
+
+@item angle-end
+Final angle
+
+@item angle-tilt-x
+Tilt of the ellipse around x axis
+
+@item angle-tilt-y
+Tilt of the ellipse around y axis
+
+@item angle-tilt-z
+Tilt of the ellipse around z axis
+
+@item direction
+Direction of rotation
+
+@end table
+
+@end deftp
+
+@deffn Function clutter-behaviour-ellipse-new  (alpha@tie{}@code{<clutter-alpha>}) (x@tie{}@code{int}) (y@tie{}@code{int}) (width@tie{}@code{int}) (height@tie{}@code{int}) (direction@tie{}@code{<clutter-rotate-direction>}) (start@tie{}@code{double}) (end@tie{}@code{double}) @result{}@tie{} (ret@tie{}@code{<clutter-behaviour>})
+Creates a behaviour that drives actors along an elliptical path with given
+center, width and height; the movement starts at @var{angle-start} degrees (with
+0 corresponding to 12 o'clock) and ends at @var{angle-end} degrees. Angles >=
+360 degrees get clamped to the canonical interval <0, 360), if start == end, the
+behaviour will rotate by exacly 360 degrees.
+
+@table @var
+@item alpha
+a @code{<clutter-alpha>}, or @samp{@code{#f}}
+
+@item x
+x coordinace of the center
+
+@item y
+y coordiance of the center
+
+@item width
+width of the ellipse
+
+@item height
+height of the ellipse
+
+@item direction
+@code{<clutter-rotate-direction>} of rotation
+
+@item start
+angle in degrees at which movement starts, between 0 and 360
+
+@item end
+angle in degrees at which movement ends, between 0 and 360
+
+@item ret
+the newly created @code{<clutter-behaviour-ellipse>}
+
+@end table
+
+Since 0.4
+
+@end deffn
+
+@deffn Function clutter-behaviour-ellipse-set-width  (self@tie{}@code{<clutter-behaviour-ellipse>}) (width@tie{}@code{int})
+@deffnx Method set-width
+Sets the width of the elliptical path.
+
+@table @var
+@item self
+a @code{<clutter-behaviour-ellipse>}
+
+@item width
+width of the ellipse
+
+@end table
+
+Since 0.4
+
+@end deffn
+
+@deffn Function clutter-behaviour-ellipse-get-width  (self@tie{}@code{<clutter-behaviour-ellipse>}) @result{}@tie{} (ret@tie{}@code{int})
+@deffnx Method get-width
+Gets the width of the elliptical path.
+
+@table @var
+@item self
+a @code{<clutter-behaviour-ellipse>}
+
+@item ret
+the width of the path
+
+@end table
+
+Since 0.4
+
+@end deffn
+
+@deffn Function clutter-behaviour-ellipse-set-tilt  (self@tie{}@code{<clutter-behaviour-ellipse>}) (angle_tilt_x@tie{}@code{double}) (angle_tilt_y@tie{}@code{double}) (angle_tilt_z@tie{}@code{double})
+@deffnx Method set-tilt
+Sets the angles at which the ellipse should be tilted around it's center.
+
+@table @var
+@item self
+a @code{<clutter-behaviour-ellipse>}
+
+@item angle-tilt-x
+tilt of the elipse around the center in X axis in degrees.
+
+@item angle-tilt-y
+tilt of the elipse around the center in Y axis in degrees.
+
+@item angle-tilt-z
+tilt of the elipse around the center in Z axis in degrees.
+
+@end table
+
+Since 0.4
+
+@end deffn
+
+@deffn Function clutter-behaviour-ellipse-get-tilt  (self@tie{}@code{<clutter-behaviour-ellipse>}) @result{}@tie{} (angle_tilt_x@tie{}@code{double}) (angle_tilt_y@tie{}@code{double}) (angle_tilt_z@tie{}@code{double})
+@deffnx Method get-tilt
+Gets the tilt of the ellipse around the center in Y axis.
+
+@table @var
+@item self
+a @code{<clutter-behaviour-ellipse>}
+
+@item angle-tilt-x
+return location for tilt angle on the X axis, or @samp{@code{#f}}.
+
+@item angle-tilt-y
+return location for tilt angle on the Y axis, or @samp{@code{#f}}.
+
+@item angle-tilt-z
+return location for tilt angle on the Z axis, or @samp{@code{#f}}.
+
+@end table
+
+Since 0.4
+
+@end deffn
+
+
+@c %end of fragment

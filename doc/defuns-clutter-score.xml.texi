@@ -1,0 +1,315 @@
+
+@c %start of fragment
+
+@deftp Class <clutter-score>
+Derives from @code{<gobject>}.
+
+This class defines the following slots:
+
+@table @code
+@item loop
+Whether the score should restart once finished
+
+@end table
+
+@end deftp
+
+@defop Signal <clutter-score> completed 
+The ::completed signal is emitted each time a @code{<clutter-score>} terminates.
+
+Since 0.6
+
+@end defop
+
+@defop Signal <clutter-score> started 
+The ::started signal is emitted each time a @code{<clutter-score>} starts
+playing.
+
+Since 0.6
+
+@end defop
+
+@defop Signal <clutter-score> paused 
+The ::paused signal is emitted each time a @code{<clutter-score>} is paused.
+
+Since 0.6
+
+@end defop
+
+@defop Signal <clutter-score> timeline-started  (arg0@tie{}@code{<clutter-timeline>})
+The ::timeline-started signal is emitted each time a new timeline inside a
+@code{<clutter-score>} starts playing.
+
+Since 0.6
+
+@end defop
+
+@defop Signal <clutter-score> timeline-completed  (arg0@tie{}@code{<clutter-timeline>})
+The ::timeline-completed signal is emitted each time a timeline inside a
+@code{<clutter-score>} terminates.
+
+Since 0.6
+
+@end defop
+
+@deffn Function clutter-score-new  @result{}@tie{} (ret@tie{}@code{<clutter-score>})
+Creates a new @code{<clutter-score>}. A @code{<clutter-score>} is an object that
+can hold multiple @code{<clutter-timeline>}s in a sequential order.
+
+@table @var
+@item ret
+the newly created @code{<clutter-score>}. Use @code{g-object-unref} when done.
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-score-set-loop  (self@tie{}@code{<clutter-score>}) (loop@tie{}@code{bool})
+@deffnx Method set-loop
+Sets whether @var{score} should loop. A looping @code{<clutter-score>} will
+start from its initial state after the ::complete signal has been fired.
+
+@table @var
+@item score
+a @code{<clutter-score>}
+
+@item loop
+@samp{@code{#t}} for enable looping
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-score-get-loop  (self@tie{}@code{<clutter-score>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-loop
+Gets whether @var{score} is looping
+
+@table @var
+@item score
+a @code{<clutter-score>}
+
+@item ret
+@samp{@code{#t}} if the score is looping
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-score-append  (self@tie{}@code{<clutter-score>}) (parent@tie{}@code{<clutter-timeline>}) (timeline@tie{}@code{<clutter-timeline>}) @result{}@tie{} (ret@tie{}@code{unsigned-long})
+@deffnx Method append
+Appends a timeline to another one existing in the score; the newly appended
+timeline will be started when @var{parent} is complete.
+
+If @var{parent} is @samp{@code{#f}}, the new @code{<clutter-timeline>} will be
+started when @code{clutter-score-start} is called.
+
+@code{<clutter-score>} will take a reference on @var{timeline}.
+
+@table @var
+@item score
+a @code{<clutter-score>}
+
+@item parent
+a @code{<clutter-timeline>} in the score, or @samp{@code{#f}}
+
+@item timeline
+a @code{<clutter-timeline>}
+
+@item ret
+the id of the @code{<clutter-timeline>} inside the score, or 0 on failure. The
+returned id can be used with @code{clutter-score-remove} or
+@code{clutter-score-get-timeline}.
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-score-append-at-marker  (self@tie{}@code{<clutter-score>}) (parent@tie{}@code{<clutter-timeline>}) (marker_name@tie{}@code{mchars}) (timeline@tie{}@code{<clutter-timeline>}) @result{}@tie{} (ret@tie{}@code{unsigned-long})
+@deffnx Method append-at-marker
+Appends @var{timeline} at the given @var{marker-name} on the
+@var{parent}@code{<clutter-timeline>}.
+
+If you want to append @var{timeline} at the end of @var{parent}, use
+@code{clutter-score-append}.
+
+The @code{<clutter-score>} will take a reference on @var{timeline}.
+
+@table @var
+@item score
+a @code{<clutter-score>}
+
+@item parent
+the parent @code{<clutter-timeline>}
+
+@item marker-name
+the name of the marker to use
+
+@item timeline
+the @code{<clutter-timeline>} to append
+
+@item ret
+the id of the @code{<clutter-timeline>} inside the score, or 0 on failure. The
+returned id can be used with @code{clutter-score-remove} or
+@code{clutter-score-get-timeline}.
+
+@end table
+
+Since 0.8
+
+@end deffn
+
+@deffn Function clutter-score-remove  (self@tie{}@code{<clutter-score>}) (id@tie{}@code{unsigned-long})
+@deffnx Method remove
+Removes the @code{<clutter-timeline>} with the given id inside @var{score}. If
+the timeline has other timelines attached to it, those are removed as well.
+
+@table @var
+@item score
+a @code{<clutter-score>}
+
+@item id
+the id of the timeline to remove
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-score-remove-all  (self@tie{}@code{<clutter-score>})
+@deffnx Method remove-all
+Removes all the timelines inside @var{score}.
+
+@table @var
+@item score
+a @code{<clutter-score>}
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-score-get-timeline  (self@tie{}@code{<clutter-score>}) (id@tie{}@code{unsigned-long}) @result{}@tie{} (ret@tie{}@code{<clutter-timeline>})
+@deffnx Method get-timeline
+Retrieves the @code{<clutter-timeline>} for @var{id} inside @var{score}.
+
+@table @var
+@item score
+a @code{<clutter-score>}
+
+@item id
+the id of the timeline
+
+@item ret
+the requested timeline, or @samp{@code{#f}}. This function does not increase the
+reference count on the returned @code{<clutter-timeline>}
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-score-list-timelines  (self@tie{}@code{<clutter-score>}) @result{}@tie{} (ret@tie{}@code{gslist-of})
+@deffnx Method list-timelines
+Retrieves a list of all the @code{<clutter-timelines>} managed by @var{score}.
+
+@table @var
+@item score
+a @code{<clutter-score>}
+
+@item ret
+a @code{<gs-list>} containing all the timelines in the score. This function does
+not increase the reference count of the returned timelines. Use
+@code{g-slist-free} on the returned list to deallocate its resources.
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-score-start  (self@tie{}@code{<clutter-score>})
+@deffnx Method start
+Starts the score.
+
+@table @var
+@item score
+A @code{<clutter-score>}
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-score-pause  (self@tie{}@code{<clutter-score>})
+@deffnx Method pause
+Pauses a playing score @var{score}.
+
+@table @var
+@item score
+a @code{<clutter-score>}
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-score-stop  (self@tie{}@code{<clutter-score>})
+@deffnx Method stop
+Stops and rewinds a playing @code{<clutter-score>} instance.
+
+@table @var
+@item score
+A @code{<clutter-score>}
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-score-is-playing  (self@tie{}@code{<clutter-score>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method is-playing
+Query state of a @code{<clutter-score>} instance.
+
+@table @var
+@item score
+A @code{<clutter-score>}
+
+@item ret
+@samp{@code{#t}} if score is currently playing
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-score-rewind  (self@tie{}@code{<clutter-score>})
+@deffnx Method rewind
+Rewinds a @code{<clutter-score>} to its initial state.
+
+@table @var
+@item score
+A @code{<clutter-score>}
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+
+@c %end of fragment

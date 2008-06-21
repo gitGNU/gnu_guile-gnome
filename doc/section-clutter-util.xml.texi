@@ -1,0 +1,14 @@
+
+@c %start of fragment
+
+@node Utilities
+@chapter Utilities
+Misc utility functions.
+
+@section Overview
+Various misc utilility functions.
+
+@section Usage
+@include defuns-clutter-util.xml.texi
+
+@c %end of fragment

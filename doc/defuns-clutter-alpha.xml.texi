@@ -1,0 +1,109 @@
+
+@c %start of fragment
+
+@deftp Class <clutter-alpha>
+Derives from @code{<g-initially-unowned>}.
+
+This class defines the following slots:
+
+@table @code
+@item timeline
+Timeline
+
+@item alpha
+Alpha value
+
+@end table
+
+@end deftp
+
+@deffn Function clutter-alpha-new  @result{}@tie{} (ret@tie{}@code{<clutter-alpha>})
+Creates a new @code{<clutter-alpha>} instance. You must set a function to
+compute the alpha value using @code{clutter-alpha-set-func} and bind a
+@code{<clutter-timeline>} object to the @code{<clutter-alpha>} instance using
+@code{clutter-alpha-set-timeline}.
+
+You should use the newly created @code{<clutter-alpha>} instance inside a
+@code{<clutter-behaviour>} object.
+
+@table @var
+@item ret
+the newly created empty @code{<clutter-alpha>} instance.
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+@deffn Function clutter-alpha-get-alpha  (self@tie{}@code{<clutter-alpha>}) @result{}@tie{} (ret@tie{}@code{unsigned-int32})
+@deffnx Method get-alpha
+Query the current alpha value.
+
+@table @var
+@item alpha
+A @code{<clutter-alpha>}
+
+@item ret
+The current alpha value for the alpha
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+@deffn Function clutter-alpha-set-closure  (self@tie{}@code{<clutter-alpha>}) (closure@tie{}@code{<gclosure>})
+@deffnx Method set-closure
+Sets the @code{<gclosure>} used to compute the alpha value at each frame of the
+@code{<clutter-timeline>} bound to @var{alpha}.
+
+@table @var
+@item alpha
+A @code{<clutter-alpha>}
+
+@item closure
+A @code{<gclosure>}
+
+@end table
+
+Since 0.8
+
+@end deffn
+
+@deffn Function clutter-alpha-set-timeline  (self@tie{}@code{<clutter-alpha>}) (timeline@tie{}@code{<clutter-timeline>})
+@deffnx Method set-timeline
+Binds @var{alpha} to @var{timeline}.
+
+@table @var
+@item alpha
+A @code{<clutter-alpha>}
+
+@item timeline
+A @code{<clutter-timeline>}
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+@deffn Function clutter-alpha-get-timeline  (self@tie{}@code{<clutter-alpha>}) @result{}@tie{} (ret@tie{}@code{<clutter-timeline>})
+@deffnx Method get-timeline
+Gets the @code{<clutter-timeline>} bound to @var{alpha}.
+
+@table @var
+@item alpha
+A @code{<clutter-alpha>}
+
+@item ret
+a @code{<clutter-timeline>} instance
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+
+@c %end of fragment

@@ -1,0 +1,17 @@
+
+@c %start of fragment
+
+@node ClutterEntry
+@chapter ClutterEntry
+A single line text entry actor
+
+@section Overview
+@code{<clutter-entry>} is a @code{<clutter-texture>} that allows single line
+text entry.
+
+@code{<clutter-entry>} is available since Clutter 0.4.
+
+@section Usage
+@include defuns-clutter-entry.xml.texi
+
+@c %end of fragment

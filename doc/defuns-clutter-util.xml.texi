@@ -1,0 +1,19 @@
+
+@c %start of fragment
+
+@deffn Function clutter-util-next-p2  (a@tie{}@code{int}) @result{}@tie{} (ret@tie{}@code{int})
+Calculates the nearest power of two, greater than or equal to @var{a}.
+
+@table @var
+@item a
+Value to get the next power
+
+@item ret
+The nearest power of two, greater or equal to @var{a}.
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

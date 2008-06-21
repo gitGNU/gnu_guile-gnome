@@ -1,0 +1,17 @@
+
+@c %start of fragment
+
+@node ClutterBehaviourDepth
+@chapter ClutterBehaviourDepth
+A behaviour controlling the Z position
+
+@section Overview
+@code{<clutter-behaviour-depth>} is a simple @code{<clutter-behaviour>}
+controlling the depth of a set of actors between a start and end depth.
+
+@code{<clutter-behaviour-depth>} is available since Clutter 0.4.
+
+@section Usage
+@include defuns-clutter-behaviour-depth.xml.texi
+
+@c %end of fragment

@@ -1,0 +1,33 @@
+
+@c %start of fragment
+
+@node ClutterStage
+@chapter ClutterStage
+Top level visual element to which actors are placed.
+
+@section Overview
+@code{<clutter-stage>} is a top level 'window' on which child actors are placed
+and manipulated.
+
+Clutter creates a default stage upon initialization, which can be retrieved
+using @code{clutter-stage-get-default}. Clutter always provides the default
+stage, unless the backend is unable to create one. The stage returned by
+@code{clutter-stage-get-default} is guaranteed to always be the same.
+
+Backends might provide support for multiple stages. The support for this feature
+can be checked at run-time using the @code{clutter-feature-available} function
+and the @samp{CLUTTER_FEATURE_STAGE_MULTIPLE} flag. If the backend used supports
+multiple stages, new @code{<clutter-stage>} instances can be created using
+@code{clutter-stage-new}. These stages must be managed by the developer using
+@code{clutter-actor-destroy}, which will take care of destroying all the actors
+contained inside them.
+
+@code{<clutter-stage>} is a proxy actor, wrapping the backend-specific
+implementation of the windowing system. It is possible to subclass
+@code{<clutter-stage>}, as long as every overridden virtual function chains up
+to the parent class corresponding function.
+
+@section Usage
+@include defuns-clutter-stage.xml.texi
+
+@c %end of fragment

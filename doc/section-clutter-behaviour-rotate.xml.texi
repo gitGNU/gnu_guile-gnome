@@ -1,0 +1,17 @@
+
+@c %start of fragment
+
+@node ClutterBehaviourRotate
+@chapter ClutterBehaviourRotate
+A behaviour controlling rotation
+
+@section Overview
+A @code{<clutter-behaviour-rotate>} rotate actors between a starting and ending
+angle on a given axis.
+
+The @code{<clutter-behaviour-rotate>} is available since version 0.4.
+
+@section Usage
+@include defuns-clutter-behaviour-rotate.xml.texi
+
+@c %end of fragment

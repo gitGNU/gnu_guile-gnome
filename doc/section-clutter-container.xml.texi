@@ -1,0 +1,20 @@
+
+@c %start of fragment
+
+@node ClutterContainer
+@chapter ClutterContainer
+An interface for implementing container actors
+
+@section Overview
+@code{<clutter-container>} is an interface for writing actors containing other
+@code{<clutter-actor>}s. It provides a standard API for adding, removing and
+iterating on every contained actor.
+
+An actor implementing @code{<clutter-container>} is @code{<clutter-group>}.
+
+@code{<clutter-container>} is available since Clutter 0.4
+
+@section Usage
+@include defuns-clutter-container.xml.texi
+
+@c %end of fragment

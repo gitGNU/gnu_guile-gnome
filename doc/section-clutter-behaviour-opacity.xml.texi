@@ -1,0 +1,14 @@
+
+@c %start of fragment
+
+@node ClutterBehaviourOpacity
+@chapter ClutterBehaviourOpacity
+Behaviour controlling the opacity
+
+@section Overview
+@code{<clutter-behaviour-opacity>} controls the opacity of a set of actors.
+
+@section Usage
+@include defuns-clutter-behaviour-opacity.xml.texi
+
+@c %end of fragment

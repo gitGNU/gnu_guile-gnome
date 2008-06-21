@@ -1,0 +1,55 @@
+
+@c %start of fragment
+
+@deftp Class <clutter-child-meta>
+Derives from @code{<gobject>}.
+
+This class defines the following slots:
+
+@table @code
+@item container
+The container that created this data
+
+@item actor
+The actor wrapped by this data
+
+@end table
+
+@end deftp
+
+@deffn Function clutter-child-meta-get-container  (self@tie{}@code{<clutter-child-meta>}) @result{}@tie{} (ret@tie{}@code{<clutter-container>})
+@deffnx Method get-container
+Retrieves the container using @var{data}
+
+@table @var
+@item data
+a @code{<clutter-child-meta>}
+
+@item ret
+a @code{<clutter-container>}
+
+@end table
+
+Since 0.8
+
+@end deffn
+
+@deffn Function clutter-child-meta-get-actor  (self@tie{}@code{<clutter-child-meta>}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+@deffnx Method get-actor
+Retrieves the actor wrapped by @var{data}
+
+@table @var
+@item data
+a @code{<clutter-child-meta>}
+
+@item ret
+a @code{<clutter-actor>}
+
+@end table
+
+Since 0.8
+
+@end deffn
+
+
+@c %end of fragment

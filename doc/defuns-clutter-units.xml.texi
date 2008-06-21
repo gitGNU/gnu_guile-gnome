@@ -1,0 +1,37 @@
+
+@c %start of fragment
+
+@deffn Function clutter-value-set-unit  (value@tie{}@code{<gvalue>}) (units@tie{}@code{<clutter-unit>})
+Sets @var{value} to @var{units}
+
+@table @var
+@item value
+a @code{<gvalue>} initialized to @code{<clutter-type-unit>}
+
+@item units
+the units to set
+
+@end table
+
+Since 0.8
+
+@end deffn
+
+@deffn Function clutter-value-get-unit  (value@tie{}@code{<gvalue>}) @result{}@tie{} (ret@tie{}@code{<clutter-unit>})
+Gets the @code{<clutter-unit>}s contained in @var{value}.
+
+@table @var
+@item value
+a @code{<gvalue>} initialized to @code{<clutter-type-unit>}
+
+@item ret
+the units inside the passed @code{<gvalue>}
+
+@end table
+
+Since 0.8
+
+@end deffn
+
+
+@c %end of fragment

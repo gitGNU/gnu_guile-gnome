@@ -1,0 +1,140 @@
+
+@c %start of fragment
+
+@node ClutterScript
+@chapter ClutterScript
+Loads a scene from UI definition data
+
+@section Overview
+@code{<clutter-script>} is an object used for loading and building parts or a
+complete scenegraph from external definition data in forms of string buffers or
+files.
+
+The UI definition format is JSON, the JavaScript Object Notation as described by
+RFC 4627. @code{<clutter-script>} can load a JSON data stream, parse it and
+build all the objects defined into it. Each object must have an "id" and a
+"type" properties defining the name to be used to retrieve it from
+@code{<clutter-script>} with @code{clutter-script-get-object}, and the class
+type to be instanciated. Every other attribute will be mapped to the class
+properties.
+
+A @code{<clutter-script>} holds a reference on every object it creates from the
+definition data, except for the stage. Every non-actor object will be finalized
+when the @code{<clutter-script>} instance holding it will be finalized, so they
+need to be referenced using @code{g-object-ref} in order for them to survive.
+
+A simple object might be defined as:
+
+@example 
+
+@{
+  "id"     : "red-button",
+  "type"   : "ClutterRectangle",
+  "width"  : 100,
+  "height" : 100,
+  "color"  : "0xff0000ff"
+@}
+@end example
+
+This will produce a red @code{<clutter-rectangle>}, 100x100 pixels wide, and
+with a ClutterScript id of "red-button"; it can be retrieved by calling:
+
+@example 
+
+ClutterActor *red_button;
+
+red_button = CLUTTER_ACTOR (clutter_script_get_object (script, "red-button"));
+@end example
+
+and then manipulated with the Clutter API. For every object created using
+ClutterScript it is possible to check the id by calling
+@code{clutter-get-script-id}.
+
+Packing can be represented using the "children" member, and passing an array of
+objects or ids of objects already defined (but not packed: the packing rules of
+Clutter still apply, and an actor cannot be packed in multiple containers
+without unparenting it in between).
+
+Behaviours and timelines can also be defined inside a UI definition buffer:
+
+@example 
+
+@{
+  "id"          : "rotate-behaviour",
+  "type"        : "ClutterBehaviourRotate",
+  "angle-start" : 0.0,
+  "angle-end"   : 360.0,
+  "axis"        : "z-axis",
+  "alpha"       : @{
+    "timeline" : @{ "num-frames" : 240, "fps" : 60, "loop" : true @},
+    "function" : "sine"
+  @}
+@}
+@end example
+
+And then to apply a defined behaviour to an actor defined inside the definition
+of an actor, the "behaviour" member can be used:
+
+@example 
+
+@{
+  "id" : "my-rotating-actor",
+  "type" : "ClutterTexture",
+  ...
+  "behaviours" : [ "rotate-behaviour" ]
+@}
+@end example
+
+A @code{<clutter-alpha>} belonging to a @code{<clutter-behaviour>} can only be
+defined implicitely. A @code{<clutter-timeline>} belonging to a
+@code{<clutter-alpha>} can be either defined implicitely or explicitely.
+Implicitely defined @code{<clutter-alpha>}s and @code{<clutter-timeline>}s can
+omit the @c (varname "id") member, as well as the @c (varname "type") member,
+but will not be available using @code{clutter-script-get-object} (they can,
+however, be extracted using the @code{<clutter-behaviour>} and
+@code{<clutter-alpha>} API respectively).
+
+Signal handlers can be defined inside a Clutter UI definition file and then
+autoconnected to their respective signals using the
+@code{clutter-script-connect-signals} function:
+
+@example 
+
+  ...
+  "signals" : [
+    @{ "name" : "button-press-event", "handler" : "on_button_press" @},
+    @{
+      "name" : "foo-signal",
+      "handler" : "after_foo",
+      "after" : true
+    @},
+  ],
+  ...
+@end example
+
+Signal handler definitions must have a "name" and a "handler" members; they can
+also have the "after" and "swapped" boolean members (for the signal connection
+flags @samp{G_CONNECT_AFTER} and @samp{G_CONNECT_SWAPPED} respectively) and the
+"object" string member for calling @code{g-signal-connect-object} instead of
+@code{g-signal-connect}.
+
+Clutter reserves the following names, so classes defining properties through the
+usual GObject registration process should avoid using these names to avoid
+collisions:
+
+@example 
+
+  "id"         := the unique name of a ClutterScript object
+  "type"       := the class literal name, also used to infer the type function
+  "type_func"  := the GType function name, for non-standard classes
+  "children"   := an array of names or objects to add as children
+  "behaviours" := an array of names or objects to apply to an actor
+  "signals"    := an array of signal definitions to connect to an object
+@end example
+
+@code{<clutter-script>} is available since Clutter 0.6
+
+@section Usage
+@include defuns-clutter-script.xml.texi
+
+@c %end of fragment

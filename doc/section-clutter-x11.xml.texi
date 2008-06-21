@@ -1,0 +1,18 @@
+
+@c %start of fragment
+
+@node X11 Specific Support
+@chapter X11 Specific Support
+X11 specific API
+
+@section Overview
+The X11 backend for Clutter provides some specific API, allowing integration
+with the Xlibs API for embedding and manipulating the stage window, or for
+trapping X errors.
+
+The ClutterX11 API is available since Clutter 0.6
+
+@section Usage
+@include defuns-clutter-x11.xml.texi
+
+@c %end of fragment

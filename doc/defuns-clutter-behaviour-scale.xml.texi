@@ -1,0 +1,107 @@
+
+@c %start of fragment
+
+@deftp Class <clutter-behaviour-scale>
+Derives from @code{<clutter-behaviour>}.
+
+This class defines the following slots:
+
+@table @code
+@item x-scale-start
+Initial scale on the X axis
+
+@item y-scale-start
+Initial scale on the Y axis
+
+@item x-scale-end
+Final scale on the X axis
+
+@item y-scale-end
+Final scale on the Y axis
+
+@end table
+
+@end deftp
+
+@deffn Function clutter-behaviour-scale-new  (alpha@tie{}@code{<clutter-alpha>}) (x_scale_start@tie{}@code{double}) (y_scale_start@tie{}@code{double}) (x_scale_end@tie{}@code{double}) (y_scale_end@tie{}@code{double}) @result{}@tie{} (ret@tie{}@code{<clutter-behaviour>})
+Creates a new @code{<clutter-behaviour-scale>} instance.
+
+@table @var
+@item alpha
+a @code{<clutter-alpha>}
+
+@item x-scale-start
+initial scale factor on the X axis
+
+@item y-scale-start
+initial scale factor on the Y axis
+
+@item x-scale-end
+final scale factor on the X axis
+
+@item y-scale-end
+final scale factor on the Y axis
+
+@item ret
+the newly created @code{<clutter-behaviour-scale>}
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+@deffn Function clutter-behaviour-scale-set-bounds  (self@tie{}@code{<clutter-behaviour-scale>}) (x_scale_start@tie{}@code{double}) (y_scale_start@tie{}@code{double}) (x_scale_end@tie{}@code{double}) (y_scale_end@tie{}@code{double})
+@deffnx Method set-bounds
+Sets the bounds used by scale behaviour.
+
+@table @var
+@item scale
+a @code{<clutter-behaviour-scale>}
+
+@item x-scale-start
+initial scale factor on the X axis
+
+@item y-scale-start
+initial scale factor on the Y axis
+
+@item x-scale-end
+final scale factor on the X axis
+
+@item y-scale-end
+final scale factor on the Y axis
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-behaviour-scale-get-bounds  (self@tie{}@code{<clutter-behaviour-scale>}) @result{}@tie{} (x_scale_start@tie{}@code{double}) (y_scale_start@tie{}@code{double}) (x_scale_end@tie{}@code{double}) (y_scale_end@tie{}@code{double})
+@deffnx Method get-bounds
+Retrieves the bounds used by scale behaviour.
+
+@table @var
+@item scale
+a @code{<clutter-behaviour-scale>}
+
+@item x-scale-start
+return location for the initial scale factor on the X axis, or @samp{@code{#f}}
+
+@item y-scale-start
+return location for the initial scale factor on the Y axis, or @samp{@code{#f}}
+
+@item x-scale-end
+return location for the final scale factor on the X axis, or @samp{@code{#f}}
+
+@item y-scale-end
+return location for the final scale factor on the Y axis, or @samp{@code{#f}}
+
+@end table
+
+Since 0.4
+
+@end deffn
+
+
+@c %end of fragment

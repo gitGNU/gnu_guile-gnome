@@ -1,0 +1,151 @@
+
+@c %start of fragment
+
+@deftp Class <clutter-rectangle>
+Derives from @code{<clutter-actor>}.
+
+This class defines the following slots:
+
+@table @code
+@item color
+The color of the rectangle
+
+@item border-color
+The color of the border of the rectangle
+
+@item border-width
+The width of the border of the rectangle
+
+@item has-border
+Whether the rectangle should have a border
+
+@end table
+
+@end deftp
+
+@deffn Function clutter-rectangle-new  @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+Creates a new @code{<clutter-actor>} with a rectangular shape.
+
+@table @var
+@item ret
+a new @code{<clutter-actor>}
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-rectangle-new-with-color  (color@tie{}@code{<clutter-color>}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+Creates a new @code{<clutter-actor>} with a rectangular shape and of the given
+@var{color}.
+
+@table @var
+@item color
+a @code{<clutter-color>}
+
+@item ret
+a new @code{<clutter-actor>}
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-rectangle-get-color  (self@tie{}@code{<clutter-rectangle>}) (color@tie{}@code{<clutter-color>})
+@deffnx Method get-color
+Retrieves the color of @var{rectangle}.
+
+@table @var
+@item rectangle
+a @code{<clutter-rectangle>}
+
+@item color
+return location for a @code{<clutter-color>}
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-rectangle-set-color  (self@tie{}@code{<clutter-rectangle>}) (color@tie{}@code{<clutter-color>})
+@deffnx Method set-color
+Sets the color of @var{rectangle}.
+
+@table @var
+@item rectangle
+a @code{<clutter-rectangle>}
+
+@item color
+a @code{<clutter-color>}
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-rectangle-get-border-color  (self@tie{}@code{<clutter-rectangle>}) (color@tie{}@code{<clutter-color>})
+@deffnx Method get-border-color
+Gets the color of the border used by @var{rectangle} and places it into
+@var{color}.
+
+@table @var
+@item rectangle
+a @code{<clutter-rectangle>}
+
+@item color
+return location for a @code{<clutter-color>}
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+@deffn Function clutter-rectangle-set-border-color  (self@tie{}@code{<clutter-rectangle>}) (color@tie{}@code{<clutter-color>})
+@deffnx Method set-border-color
+Sets the color of the border used by @var{rectangle} using @var{color}
+
+@table @var
+@item rectangle
+a @code{<clutter-rectangle>}
+
+@item color
+the color of the border
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-rectangle-get-border-width  (self@tie{}@code{<clutter-rectangle>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+@deffnx Method get-border-width
+Gets the width (in pixels) of the border used by @var{rectangle}
+
+@table @var
+@item rectangle
+a @code{<clutter-rectangle>}
+
+@item ret
+the border's width
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+@deffn Function clutter-rectangle-set-border-width  (self@tie{}@code{<clutter-rectangle>}) (width@tie{}@code{unsigned-int})
+@deffnx Method set-border-width
+Sets the width (in pixel) of the border used by @var{rectangle}. A @var{width}
+of 0 will unset the border.
+
+@table @var
+@item rectangle
+a @code{<clutter-rectangle>}
+
+@item width
+the width of the border
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+
+@c %end of fragment

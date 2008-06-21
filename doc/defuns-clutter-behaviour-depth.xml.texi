@@ -1,0 +1,84 @@
+
+@c %start of fragment
+
+@deftp Class <clutter-behaviour-depth>
+Derives from @code{<clutter-behaviour>}.
+
+This class defines the following slots:
+
+@table @code
+@item depth-start
+Initial depth to apply
+
+@item depth-end
+Final depth to apply
+
+@end table
+
+@end deftp
+
+@deffn Function clutter-behaviour-depth-new  (alpha@tie{}@code{<clutter-alpha>}) (depth_start@tie{}@code{int}) (depth_end@tie{}@code{int}) @result{}@tie{} (ret@tie{}@code{<clutter-behaviour>})
+Creates a new @code{<clutter-behaviour-depth>} which can be used to control the
+ClutterActor:depth property of a set of @code{<clutter-actor>}s.
+
+@table @var
+@item alpha
+a @code{<clutter-alpha>} or @samp{@code{#f}}
+
+@item depth-start
+initial value of the depth
+
+@item depth-end
+final value of the depth
+
+@item ret
+the newly created behaviour
+
+@end table
+
+Since 0.4
+
+@end deffn
+
+@deffn Function clutter-behaviour-depth-set-bounds  (self@tie{}@code{<clutter-behaviour-depth>}) (depth_start@tie{}@code{int}) (depth_end@tie{}@code{int})
+@deffnx Method set-bounds
+Sets the boundaries of the @var{behaviour}.
+
+@table @var
+@item behaviour
+a @code{<clutter-behaviour-depth>}
+
+@item depth-start
+initial value of the depth
+
+@item depth-end
+final value of the depth
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-behaviour-depth-get-bounds  (self@tie{}@code{<clutter-behaviour-depth>}) @result{}@tie{} (depth_start@tie{}@code{int}) (depth_end@tie{}@code{int})
+@deffnx Method get-bounds
+Gets the boundaries of the @var{behaviour}
+
+@table @var
+@item behaviour
+a @code{<clutter-behaviour-depth>}
+
+@item depth-start
+return location for the initial depth value, or @samp{@code{#f}}
+
+@item depth-end
+return location for the final depth value, or @samp{@code{#f}}
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+
+@c %end of fragment

@@ -1,0 +1,21 @@
+
+@c %start of fragment
+
+@node ClutterChildMeta
+@chapter ClutterChildMeta
+Wrapper for actors inside a container
+
+@section Overview
+@code{<clutter-child-meta>} is a wrapper object created by
+@code{<clutter-container>} implementations in order to store child-specific data
+and properties.
+
+A @code{<clutter-child-meta>} wraps a @code{<clutter-actor>} inside a
+@code{<clutter-container>}.
+
+@code{<clutter-child-meta>} is available since Clutter 0.8
+
+@section Usage
+@include defuns-clutter-child-meta.xml.texi
+
+@c %end of fragment

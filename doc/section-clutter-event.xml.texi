@@ -1,0 +1,14 @@
+
+@c %start of fragment
+
+@node Events
+@chapter Events
+User and window system events
+
+@section Overview
+Windowing events handled by Clutter.
+
+@section Usage
+@include defuns-clutter-event.xml.texi
+
+@c %end of fragment

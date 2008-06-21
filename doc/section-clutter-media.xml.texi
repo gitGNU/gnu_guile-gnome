@@ -1,0 +1,14 @@
+
+@c %start of fragment
+
+@node ClutterMedia
+@chapter ClutterMedia
+An interface for controlling playback of media data.
+
+@section Overview
+@code{<clutter-media>} is an interface for controlling playback of media data.
+
+@section Usage
+@include defuns-clutter-media.xml.texi
+
+@c %end of fragment

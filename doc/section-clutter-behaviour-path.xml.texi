@@ -1,0 +1,33 @@
+
+@c %start of fragment
+
+@node ClutterBehaviourPath
+@chapter ClutterBehaviourPath
+A behaviour interpolating position along a path
+
+@section Overview
+@code{<clutter-behaviour-path>} interpolates actors along a defined path.
+
+A path is a set of @code{<clutter-knots>} object given when creating a new
+@code{<clutter-behaviour-path>} instance. Knots can be also added to the path
+using @code{clutter-behaviour-path-append-knot}. The whole path can be cleared
+using @code{clutter-behaviour-path-clear}. Each time the behaviour reaches a
+knot in the path, the "knot-reached" signal is emitted.
+
+This first knot in the path is reached with the lower bound value provided by
+the @code{<clutter-alpha>} objectused by the behaviour; the last knot in the
+path is reached with the upper bound value provided by the
+@code{<clutter-alpha>} object used by the behaviour.
+
+@cartouche 
+If the alpha function is a periodic function, i.e. it returns to
+0 after reaching @samp{CLUTTER_ALPHA_MAX_ALPHA}, then the actors will walk
+the path back to the starting @code{<clutter-knot>}.
+@end cartouche
+
+@code{<clutter-behaviour-path>} is available since Clutter 0.2
+
+@section Usage
+@include defuns-clutter-behaviour-path.xml.texi
+
+@c %end of fragment

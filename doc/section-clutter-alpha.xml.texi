@@ -1,0 +1,27 @@
+
+@c %start of fragment
+
+@node ClutterAlpha
+@chapter ClutterAlpha
+A class for calculating an alpha value as a function of time.
+
+@section Overview
+@code{<clutter-alpha>} is a class for calculating an integer value between 0 and
+@samp{CLUTTER_ALPHA_MAX_ALPHA} as a function of time. You should provide a
+@code{<clutter-timeline>} and bind it to the @code{<clutter-alpha>} object; you
+should also provide a function returning the alpha value depending on the
+position inside the timeline; this function will be executed each time a new
+frame in the @code{<clutter-timeline>} is reached. Since the alpha function is
+controlled by the timeline instance, you can pause or stop the
+@code{<clutter-alpha>} from calling the alpha function by controlling the
+@code{<clutter-timeline>} object.
+
+@code{<clutter-alpha>} is used to "drive" a @code{<clutter-behaviour>} instance.
+
+(The missing figure, alpha-functions
+
+@c (title "Graphic representation of some alpha functions")
+@section Usage
+@include defuns-clutter-alpha.xml.texi
+
+@c %end of fragment

@@ -1,0 +1,15 @@
+
+@c %start of fragment
+
+@node General
+@chapter General
+Various 'global' clutter functions.
+
+@section Overview
+Functions to retrieve various global Clutter resources and other utility
+functions for mainloops, events and threads
+
+@section Usage
+@include defuns-clutter-main.xml.texi
+
+@c %end of fragment

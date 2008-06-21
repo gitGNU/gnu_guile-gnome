@@ -1,0 +1,236 @@
+
+@c %start of fragment
+
+@deftp Class <clutter-color>
+Derives from @code{<gboxed>}.
+
+This class defines no direct slots.
+
+@end deftp
+
+@deffn Function clutter-color-parse  (name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{scm})
+Parses a string definition of a color, filling the @c (structfield "red") , @c
+(structfield "green") , @c (structfield "blue") and @c (structfield "alpha")
+channels of @var{dest}. If alpha is not specified it will be set full opaque.
+The color in @var{dest} is not allocated.
+
+The color may be defined by any of the formats understood by
+@code{pango-color-parse}; these include literal color names, like @samp{Red} or
+@samp{DarkSlateGray}, or hexadecimal specifications like @samp{&#x0023;3050b2}
+or @samp{&#x0023;333}.
+
+@table @var
+@item color
+a string specifiying a color (named color or @code{<rrggbbaa>})
+
+@item dest
+return location for a @code{<clutter-color>}
+
+@item ret
+@samp{@code{#t}} if parsing succeeded.
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+@deffn Function clutter-color-from-hls  (self@tie{}@code{<clutter-color>}) (hue@tie{}@code{unsigned-int8}) (luminance@tie{}@code{unsigned-int8}) (saturation@tie{}@code{unsigned-int8})
+Converts a color expressed in HLS (hue, luminance and saturation) values into a
+@code{<clutter-color>}.
+
+@table @var
+@item dest
+return location for a @code{<clutter-color>}
+
+@item hue
+hue value (0 .. 255)
+
+@item luminance
+luminance value (0 .. 255)
+
+@item saturation
+saturation value (0 .. 255)
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-color-from-pixel  (self@tie{}@code{<clutter-color>}) (pixel@tie{}@code{unsigned-int32})
+Converts @var{pixel} from the packed representation of a four 8 bit channel
+color to a @code{<clutter-color>}.
+
+@table @var
+@item dest
+return location for a @code{<clutter-color>}
+
+@item pixel
+a 32 bit packed integer containing a color
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-color-add  (self@tie{}@code{<clutter-color>}) (src2@tie{}@code{<clutter-color>}) (dest@tie{}@code{<clutter-color>})
+Adds @var{src2} to @var{src1} and saves the resulting color inside @var{dest}.
+
+The alpha channel of @var{dest} is as the maximum value between the alpha
+channels of @var{src1} and @var{src2}.
+
+@table @var
+@item src1
+a @code{<clutter-color>}
+
+@item src2
+a @code{<clutter-color>}
+
+@item dest
+return location for the result
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-color-subtract  (self@tie{}@code{<clutter-color>}) (src2@tie{}@code{<clutter-color>}) (dest@tie{}@code{<clutter-color>})
+Subtracts @var{src2} from @var{src1} and saves the resulting color inside
+@var{dest}. This function assumes that the components of @var{src1} are greater
+than the components of @var{src2}; the result is, otherwise, undefined.
+
+The alpha channel of @var{dest} is set as the minimum value between the alpha
+channels of @var{src1} and @var{src2}.
+
+@table @var
+@item src1
+a @code{<clutter-color>}
+
+@item src2
+a @code{<clutter-color>}
+
+@item dest
+return location for the result
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-color-equal  (self@tie{}@code{<clutter-color>}) (b@tie{}@code{<clutter-color>}) @result{}@tie{} (ret@tie{}@code{bool})
+Compares two @code{<clutter-color>}s and checks if they are the same.
+
+@table @var
+@item a
+a @code{<clutter-color>}
+
+@item b
+a @code{<clutter-color>}
+
+@item ret
+@samp{@code{#t}} if the two colors are the same.
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+@deffn Function clutter-color-lighten  (self@tie{}@code{<clutter-color>}) (dest@tie{}@code{<clutter-color>})
+Lightens @var{src} by a fixed amount, and saves the changed color in @var{dest}.
+
+@table @var
+@item src
+a @code{<clutter-color>}
+
+@item dest
+return location for the lighter color
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-color-darken  (self@tie{}@code{<clutter-color>}) (dest@tie{}@code{<clutter-color>})
+Darkens @var{src} by a fixed amount, and saves the changed color in @var{dest}.
+
+@table @var
+@item src
+a @code{<clutter-color>}
+
+@item dest
+return location for the darker color
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-color-shade  (self@tie{}@code{<clutter-color>}) (dest@tie{}@code{<clutter-color>}) (shade@tie{}@code{double})
+Shades @var{src} by the factor of @var{shade} and saves the modified color into
+@var{dest}.
+
+@table @var
+@item src
+a @code{<clutter-color>}
+
+@item dest
+return location for the shaded color
+
+@item shade
+the shade factor to apply
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-color-to-hls  (self@tie{}@code{<clutter-color>}) @result{}@tie{} (hue@tie{}@code{unsigned-int8}) (luminance@tie{}@code{unsigned-int8}) (saturation@tie{}@code{unsigned-int8})
+Converts @var{src} to the HLS format. Returned HLS values are from interval 0 ..
+255.
+
+@table @var
+@item src
+a @code{<clutter-color>}
+
+@item hue
+return location for the hue value or @samp{@code{#f}}
+
+@item luminance
+return location for the luminance value or @samp{@code{#f}}
+
+@item saturation
+return location for the saturation value or @samp{@code{#f}}
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-color-to-pixel  (self@tie{}@code{<clutter-color>}) @result{}@tie{} (ret@tie{}@code{unsigned-int32})
+Converts @var{src} into a packed 32 bit integer, containing all the four 8 bit
+channels used by @code{<clutter-color>}.
+
+@table @var
+@item src
+a @code{<clutter-color>}
+
+@item ret
+a packed color
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-color-to-string  (self@tie{}@code{<clutter-color>}) @result{}@tie{} (ret@tie{}@code{mchars})
+Returns a textual specification of @var{color} in the hexadecimal form
+@samp{&#x0023;rrggbbaa}, where @samp{r}, @samp{g}, @samp{b} and @samp{a} are hex
+digits representing the red, green, blue and alpha components respectively.
+
+@table @var
+@item color
+a @code{<clutter-color>}
+
+@item ret
+a newly-allocated text string
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+
+@c %end of fragment

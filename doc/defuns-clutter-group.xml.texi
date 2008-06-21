@@ -1,0 +1,169 @@
+
+@c %start of fragment
+
+@deftp Class <clutter-group>
+Derives from @code{<clutter-container>}, @code{<clutter-actor>}.
+
+This class defines no direct slots.
+
+@end deftp
+
+@defop Signal <clutter-group> add  (arg0@tie{}@code{<clutter-actor>})
+The ::add signal is emitted each time an actor has been added to the group.
+
+@var{deprecated}: 0.4: This signal is deprecated, you should connect to the
+ClutterContainer::actor-added signal instead.
+
+@end defop
+
+@defop Signal <clutter-group> remove  (arg0@tie{}@code{<clutter-actor>})
+The ::remove signal is emitted each time an actor has been removed from the
+group
+
+@var{deprecated}: 0.4: This signal is deprecated, you should connect to the
+ClutterContainer::actor-removed signal instead
+
+@end defop
+
+@deffn Function clutter-group-new  @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+Create a new @code{<clutter-group>}.
+
+@table @var
+@item ret
+the newly created @code{<clutter-group>} actor
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-group-remove  (self@tie{}@code{<clutter-group>}) (actor@tie{}@code{<clutter-actor>})
+@deffnx Method remove
+@samp{clutter_group_remove} is deprecated and should not be used in
+newly-written code.
+
+Removes a child @code{<clutter-actor>} from the parent @code{<clutter-group>}.
+
+@var{deprecated}: 0.4: This function is obsolete, use
+@code{clutter-container-remove-actor} instead.
+
+@table @var
+@item group
+A @code{<clutter-group>}
+
+@item actor
+A @code{<clutter-actor>}
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-group-remove-all  (self@tie{}@code{<clutter-group>})
+@deffnx Method remove-all
+Removes all children actors from the @code{<clutter-group>}.
+
+@table @var
+@item group
+A @code{<clutter-group>}
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-group-get-n-children  (self@tie{}@code{<clutter-group>}) @result{}@tie{} (ret@tie{}@code{int})
+@deffnx Method get-n-children
+Gets the number of actors held in the group.
+
+@table @var
+@item self
+A @code{<clutter-group>}
+
+@item ret
+The number of child actors held in the group.
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+@deffn Function clutter-group-get-nth-child  (self@tie{}@code{<clutter-group>}) (index_@tie{}@code{int}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+@deffnx Method get-nth-child
+Gets a groups child held at @var{index} in stack.
+
+@table @var
+@item self
+A @code{<clutter-group>}
+
+@item index
+the position of the requested actor.
+
+@item ret
+A Clutter actor or NULL if @var{index} is invalid.
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+@deffn Function clutter-group-raise  (self@tie{}@code{<clutter-group>}) (actor@tie{}@code{<clutter-actor>}) (sibling@tie{}@code{<clutter-actor>})
+@deffnx Method raise
+@samp{clutter_group_raise} has been deprecated since version 0.6 and should not
+be used in newly-written code. Use @code{clutter-container-raise-child} instead.
+
+Raises @var{actor} to @var{sibling} level in the depth ordering.
+
+@table @var
+@item self
+a @code{<clutter-group>}
+
+@item actor
+a @code{<clutter-actor>}
+
+@item sibling
+a @code{<clutter-actor>}
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-group-lower  (self@tie{}@code{<clutter-group>}) (actor@tie{}@code{<clutter-actor>}) (sibling@tie{}@code{<clutter-actor>})
+@deffnx Method lower
+@samp{clutter_group_lower} has been deprecated since version 0.6 and should not
+be used in newly-written code. Use @code{clutter-container-lower-child} instead
+
+Lowers @var{actor} to @var{sibling} level in the depth ordering.
+
+@table @var
+@item self
+a @code{<clutter-group>}
+
+@item actor
+a @code{<clutter-actor>}
+
+@item sibling
+a @code{<clutter-actor>}
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-group-sort-depth-order  (self@tie{}@code{<clutter-group>})
+@deffnx Method sort-depth-order
+@samp{clutter_group_sort_depth_order} has been deprecated since version 0.6 and
+should not be used in newly-written code. Use
+@code{clutter-container-sort-depth-order} instead.
+
+Sorts a @code{<clutter-group>}'s children by their depth value. This function
+should not be used by applications.
+
+@table @var
+@item self
+A @code{<clutter-group>}
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

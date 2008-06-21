@@ -1,0 +1,14 @@
+
+@c %start of fragment
+
+@node GL Features
+@chapter GL Features
+Query GL features at runtime
+
+@section Overview
+Functions to query available GL features ay runtime
+
+@section Usage
+@include defuns-clutter-feature.xml.texi
+
+@c %end of fragment

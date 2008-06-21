@@ -1,0 +1,249 @@
+
+@c %start of fragment
+
+@deftp Class <clutter-texture>
+Derives from @code{<clutter-actor>}.
+
+This class defines the following slots:
+
+@table @code
+@item disable-slicing
+Force the underlying texture to be singlularand not made of of smaller space
+saving inidivual textures.
+
+@item tile-waste
+Max wastage dimension of a texture when using sliced textures or -1 to disable
+slicing. Bigger values use less textures, smaller values less texture memory.
+
+@item pixel-format
+CoglPixelFormat to use.
+
+@item sync-size
+Auto sync size of actor to underlying pixbuf dimensions
+
+@item repeat-y
+Repeat underlying pixbuf rather than scale in y direction.
+
+@item repeat-x
+Repeat underlying pixbuf rather than scale in x direction.
+
+@item filter-quality
+Rendering quality used when drawing the texture.
+
+@item cogl-texture
+The underlying COGL texture handle used to draw this actor
+
+@item filename
+The full path of the file containing the texture
+
+@end table
+
+@end deftp
+
+@defop Signal <clutter-texture> size-change  (arg0@tie{}@code{<gint>}) (arg1@tie{}@code{<gint>})
+The ::size-change signal is emitted each time the size of the pixbuf used by
+@var{texture} changes. The new size is given as argument to the callback.
+
+@end defop
+
+@defop Signal <clutter-texture> pixbuf-change 
+The ::pixbuf-change signal is emitted each time the pixbuf used by @var{texture}
+changes.
+
+@end defop
+
+@deffn Function clutter-texture-new  @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+Creates a new empty @code{<clutter-texture>} object.
+
+@table @var
+@item ret
+A newly created @code{<clutter-texture>} object.
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-texture-new-from-file  (filename@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+Creates a new ClutterTexture actor to display the image contained a file. If the
+image failed to load then NULL is returned and @var{error} is set.
+
+@table @var
+@item filename
+The name of an image file to load.
+
+@item error
+Return locatoin for an error.
+
+@item ret
+A newly created @code{<clutter-texture>} object or NULL on error.
+
+@end table
+
+Since 0.8
+
+@end deffn
+
+@deffn Function clutter-texture-new-from-actor  (actor@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+Creates a new @code{<clutter-texture>} object with its source a prexisting actor
+(and associated children). The textures content will contain 'live' redirected
+output of the actors scene.
+
+Note this function is intented as a utility call for uniformly applying shaders
+to groups and other potential visual effects. It requires that the
+@samp{CLUTTER_FEATURE_OFFSCREEN} feature is supported by the current backend and
+the target system.
+
+Some tips on usage:
+
+@itemize 
+@item
+@item
+@item
+@item
+@item
+@item
+@end itemize
+
+The source actor must be made visible (i.e by calling
+@code{<clutter-actor-show>}). The source actor does not however have to have a
+parent.
+
+Avoid reparenting the source with the created texture.
+
+A group can be padded with a transparent rectangle as to provide a border to
+contents for shader output (blurring text for example).
+
+The texture will automatically resize to contain a further transformed source.
+However, this involves overhead and can be avoided by placing the source actor
+in a bounding group sized large enough to contain any child tranformations.
+
+Uploading pixel data to the texture (e.g by using
+@code{clutter-actor-set-from-file}) will destroy the offscreen texture data and
+end redirection.
+
+@code{cogl-texture-get-data} with the handle returned by
+@code{clutter-texture-get-cogl-texture} can be used to read the offscreen
+texture pixels into a pixbuf.
+
+@table @var
+@item actor
+A source @code{<clutter-actor>}
+
+@item ret
+A newly created @code{<clutter-texture>} object, or @samp{@code{#f}} on failure.
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-texture-set-from-file  (self@tie{}@code{<clutter-texture>}) (filename@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method set-from-file
+Sets the @code{<clutter-texture>} image data from an image file. In case of
+failure, @samp{@code{#f}} is returned and @var{error} is set.
+
+@table @var
+@item texture
+A @code{<clutter-texture>}
+
+@item filename
+The filename of the image in GLib file name encoding
+
+@item error
+Return location for a @code{<g-error>}, or @samp{@code{#f}}
+
+@item ret
+@samp{@code{#t}} if the image was successfully loaded and set
+
+@end table
+
+Since 0.8
+
+@end deffn
+
+@deffn Function clutter-texture-get-base-size  (self@tie{}@code{<clutter-texture>}) @result{}@tie{} (width@tie{}@code{int}) (height@tie{}@code{int})
+@deffnx Method get-base-size
+Gets the size in pixels of the untransformed underlying texture pixbuf data.
+
+@table @var
+@item texture
+A @code{<clutter-texture>}
+
+@item width
+Pointer to gint to be populated with width value if non NULL.
+
+@item height
+Pointer to gint to be populated with height value if non NULL.
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-texture-set-filter-quality  (self@tie{}@code{<clutter-texture>}) (filter_quality@tie{}@code{<clutter-texture-quality>})
+@deffnx Method set-filter-quality
+Sets the filter quality when scaling a texture. The quality is an enumeration
+currently the following values are supported: @samp{CLUTTER_TEXTURE_QUALITY_LOW}
+which is fast but only uses nearest neighbour interpolation.
+@samp{CLUTTER_TEXTURE_QUALITY_MEDIUM} which is computationally a bit more
+expensive (bilinear interpolation), and @samp{CLUTTER_TEXTURE_QUALITY_HIGH}
+which uses extra texture memory resources to improve scaled down rendering as
+well (by using mipmaps). The default value is
+@samp{CLUTTER_TEXTURE_QUALITY_MEDIUM}.
+
+@table @var
+@item texture
+a @code{<clutter-texture>}
+
+@item filter-quality
+new filter quality value
+
+@end table
+
+Since 0.8
+
+@end deffn
+
+@deffn Function clutter-texture-get-max-tile-waste  (self@tie{}@code{<clutter-texture>}) @result{}@tie{} (ret@tie{}@code{int})
+@deffnx Method get-max-tile-waste
+Gets the maximum waste that will be used when creating a texture or -1 if
+slicing is disabled.
+
+@table @var
+@item texture
+A @code{<clutter-texture>}
+
+@item ret
+The maximum waste or -1 if the texture waste is unlimited.
+
+@end table
+
+Since 0.8
+
+@end deffn
+
+@deffn Function clutter-texture-set-max-tile-waste  (self@tie{}@code{<clutter-texture>}) (max_tile_waste@tie{}@code{int})
+@deffnx Method set-max-tile-waste
+Sets the maximum number of pixels in either axis that can be wasted for an
+individual texture slice. If -1 is specified then the texture is forced not to
+be sliced and the texture creation will fail if the hardware can't create a
+texture large enough.
+
+The value is only used when first creating a texture so changing it after the
+texture data has been set has no effect.
+
+@table @var
+@item texture
+A @code{<clutter-texture>}
+
+@item max-tile-waste
+Maximum amount of waste in pixels or -1
+
+@end table
+
+Since 0.8
+
+@end deffn
+
+
+@c %end of fragment

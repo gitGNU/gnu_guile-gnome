@@ -1,0 +1,14 @@
+
+@c %start of fragment
+
+@node Colors
+@chapter Colors
+Color management and manipulation.
+
+@section Overview
+@code{<clutter-color>} is a simple type for representing colors.
+
+@section Usage
+@include defuns-clutter-color.xml.texi
+
+@c %end of fragment

@@ -1,0 +1,558 @@
+
+@c %start of fragment
+
+@deftp Class <clutter-stage>
+Derives from @code{<clutter-group>}.
+
+This class defines the following slots:
+
+@table @code
+@item color
+The color of the main stage
+
+@item fullscreen
+Whether the main stage is fullscreen
+
+@item offscreen
+Whether the main stage is renderer offscreen
+
+@item cursor-visible
+Whether the mouse pointer is visible on the main stage
+
+@item title
+Stage Title
+
+@item user-resizable
+Whether the stage is able to be resized via user interaction
+
+@item use-fog
+Whether to enable depth cueing
+
+@end table
+
+@end deftp
+
+@defop Signal <clutter-stage> fullscreen 
+The ::fullscreen signal is emitted when the stage is made fullscreen.
+
+Since 0.6
+
+@end defop
+
+@defop Signal <clutter-stage> unfullscreen 
+The ::unfullscreen signal is emitted when the stage leaves a fullscreen state.
+
+Since 0.6
+
+@end defop
+
+@defop Signal <clutter-stage> activate 
+The ::activate signal is emitted when the stage receives key focus from the
+underlying window system.
+
+Since 0.6
+
+@end defop
+
+@defop Signal <clutter-stage> deactivate 
+The ::activate signal is emitted when the stage loses key focus from the
+underlying window system.
+
+Since 0.6
+
+@end defop
+
+@deffn Function clutter-stage-get-default  @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+Returns the main stage. The default @code{<clutter-stage>} is a singleton, so
+the stage will be created the first time this function is called (typically,
+inside @code{clutter-init}); all the subsequent calls to
+@code{clutter-stage-get-default} will return the same instance.
+
+Clutter guarantess the existence of the default stage.
+
+@table @var
+@item ret
+the main @code{<clutter-stage>}. You should never destroy or unref the returned
+actor.
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-stage-new  @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+Creates a new, non-default stage. A non-default stage is a new top-level actor
+which can be used as another container. It works exactly like the default stage,
+but while @code{clutter-stage-get-default} will always return the same instance,
+you will have to keep a pointer to any @code{<clutter-stage>} returned by
+@code{clutter-stage-create}.
+
+The ability to support multiple stages depends on the current backend. Use
+@code{clutter-feature-available} and @samp{CLUTTER_FEATURE_STAGE_MULTIPLE} to
+check at runtime whether a backend supports multiple stages.
+
+@table @var
+@item ret
+a new stage, or @samp{@code{#f}} if the default backend does not support
+multiple stages. Use @code{clutter-actor-destroy} to programmatically close the
+returned stage.
+
+@end table
+
+Since 0.8
+
+@end deffn
+
+@deffn Function clutter-stage-is-default  (self@tie{}@code{<clutter-stage>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method is-default
+Checks if @var{stage} is the default stage, or an instance created using
+@code{clutter-stage-new} but internally using the same implementation.
+
+@table @var
+@item stage
+a @code{<clutter-stage>}
+
+@item ret
+@samp{@code{#t}} if the passed stage is the default one
+
+@end table
+
+Since 0.8
+
+@end deffn
+
+@deffn Function clutter-stage-set-color  (self@tie{}@code{<clutter-stage>}) (color@tie{}@code{<clutter-color>})
+@deffnx Method set-color
+Set the stage color.
+
+@table @var
+@item stage
+A @code{<clutter-stage>}
+
+@item color
+A @code{<clutter-color>}
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-stage-get-color  (self@tie{}@code{<clutter-stage>}) (color@tie{}@code{<clutter-color>})
+@deffnx Method get-color
+Retrieves the stage color.
+
+@table @var
+@item stage
+A @code{<clutter-stage>}
+
+@item color
+return location for a @code{<clutter-color>}
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-stage-fullscreen  (self@tie{}@code{<clutter-stage>})
+@deffnx Method fullscreen
+Asks to place the stage window in the fullscreen state. Note that you shouldn't
+assume the window is definitely full screen afterward, because other entities
+(e.g. the user or window manager) could unfullscreen it again, and not all
+window managers honor requests to fullscreen windows.
+
+@table @var
+@item stage
+a @code{<clutter-stage>}
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-stage-unfullscreen  (self@tie{}@code{<clutter-stage>})
+@deffnx Method unfullscreen
+Asks to toggle off the fullscreen state for the stage window. Note that you
+shouldn't assume the window is definitely not full screen afterward, because
+other entities (e.g. the user or window manager) could fullscreen it again, and
+not all window managers honor requests to unfullscreen windows.
+
+@table @var
+@item stage
+a @code{<clutter-stage>}
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-stage-show-cursor  (self@tie{}@code{<clutter-stage>})
+@deffnx Method show-cursor
+Shows the cursor on the stage window
+
+@table @var
+@item stage
+a @code{<clutter-stage>}
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-stage-hide-cursor  (self@tie{}@code{<clutter-stage>})
+@deffnx Method hide-cursor
+Makes the cursor invisible on the stage window
+
+@table @var
+@item stage
+a @code{<clutter-stage>}
+
+@end table
+
+Since 0.4
+
+@end deffn
+
+@deffn Function clutter-stage-get-actor-at-pos  (self@tie{}@code{<clutter-stage>}) (x@tie{}@code{int}) (y@tie{}@code{int}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+@deffnx Method get-actor-at-pos
+Checks the scene at the coordinates @var{x} and @var{y} and returns a pointer to
+the @code{<clutter-actor>} at those coordinates.
+
+@table @var
+@item stage
+a @code{<clutter-stage>}
+
+@item x
+X coordinate to check
+
+@item y
+Y coordinate to check
+
+@item ret
+the actor at the specified coordinates, if any
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-stage-ensure-current  (self@tie{}@code{<clutter-stage>})
+@deffnx Method ensure-current
+This function essentially makes sure the right GL context is current for the
+passed stage. It is not intended to be used by applications.
+
+@table @var
+@item stage
+the @code{<clutter-stage>}
+
+@end table
+
+Since 0.8
+
+@end deffn
+
+@deffn Function clutter-stage-queue-redraw  (self@tie{}@code{<clutter-stage>})
+@deffnx Method queue-redraw
+Queues a redraw for the passed stage.
+
+@cartouche 
+Applications should call @code{clutter-actor-queue-redraw} and not
+this function.
+@end cartouche
+
+@table @var
+@item stage
+the @code{<clutter-stage>}
+
+@end table
+
+Since 0.8
+
+@end deffn
+
+@deffn Function clutter-stage-event  (self@tie{}@code{<clutter-stage>}) (event@tie{}@code{<clutter-event>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method event
+This function is used to emit an event on the main stage.
+
+You should rarely need to use this function, except for synthetised events.
+
+@table @var
+@item stage
+a @code{<clutter-stage>}
+
+@item event
+a @code{<clutter-event>}
+
+@item ret
+the return value from the signal emission
+
+@end table
+
+Since 0.4
+
+@end deffn
+
+@deffn Function clutter-stage-set-key-focus  (self@tie{}@code{<clutter-stage>}) (actor@tie{}@code{<clutter-actor>})
+@deffnx Method set-key-focus
+Sets the key focus on @var{actor}. An actor with key focus will receive all the
+key events. If @var{actor} is @samp{@code{#f}}, the stage will receive focus.
+
+@table @var
+@item stage
+the @code{<clutter-stage>}
+
+@item actor
+the actor to set key focus to, or @samp{@code{#f}}
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-stage-get-key-focus  (self@tie{}@code{<clutter-stage>}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+@deffnx Method get-key-focus
+Retrieves the actor that is currently under key focus.
+
+@table @var
+@item stage
+the @code{<clutter-stage>}
+
+@item ret
+the actor with key focus, or the stage
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-stage-get-resolution  (self@tie{}@code{<clutter-stage>}) @result{}@tie{} (ret@tie{}@code{double})
+@deffnx Method get-resolution
+Retrieves the resolution (in DPI) of the stage from the default backend.
+
+@table @var
+@item stage
+the @code{<clutter-stage>}
+
+@item ret
+the resolution of the stage
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-stage-set-perspective  (self@tie{}@code{<clutter-stage>}) (fovy@tie{}@code{float}) (aspect@tie{}@code{float}) (z_near@tie{}@code{float}) (z_far@tie{}@code{float})
+@deffnx Method set-perspective
+Sets the stage perspective.
+
+@table @var
+@item stage
+A @code{<clutter-stage>}
+
+@item fovy
+the field of view angle, in degrees, in the y direction
+
+@item aspect
+the aspect ratio that determines the field of view in the x direction. The
+aspect ratio is the ratio of x (width) to y (height)
+
+@item z-near
+the distance from the viewer to the near clipping plane (always positive)
+
+@item z-far
+the distance from the viewer to the far clipping plane (always positive)
+
+@end table
+
+Since 0.4
+
+@end deffn
+
+@deffn Function clutter-stage-get-perspective  (self@tie{}@code{<clutter-stage>}) @result{}@tie{} (fovy@tie{}@code{float}) (aspect@tie{}@code{float}) (z_near@tie{}@code{float}) (z_far@tie{}@code{float})
+@deffnx Method get-perspective
+Retrieves the stage perspective.
+
+@table @var
+@item stage
+A @code{<clutter-stage>}
+
+@item fovy
+return location for the field of view, in degrees, or @samp{@code{#f}}
+
+@item aspect
+return location for the aspect ratio, or @samp{@code{#f}}
+
+@item z-near
+return location for the distance of the viewer from the near clipping plane, or
+@samp{@code{#f}}
+
+@item z-far
+return location for the distance of the viewer from the far clipping plane, or
+@samp{@code{#f}}
+
+@end table
+
+Since 0.4
+
+@end deffn
+
+@deffn Function clutter-stage-set-title  (self@tie{}@code{<clutter-stage>}) (title@tie{}@code{mchars})
+@deffnx Method set-title
+Sets the stage title.
+
+Since 0.4
+
+@table @var
+@item stage
+A @code{<clutter-stage>}
+
+@item title
+A utf8 string for the stage windows title.
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-stage-get-title  (self@tie{}@code{<clutter-stage>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-title
+Gets the stage title.
+
+@table @var
+@item stage
+A @code{<clutter-stage>}
+
+@item ret
+pointer to the title string for the stage. The returned string is owned by the
+actor and should not be modified or freed.
+
+@end table
+
+Since 0.4
+
+@end deffn
+
+@deffn Function clutter-stage-set-user-resizable  (self@tie{}@code{<clutter-stage>}) (resizable@tie{}@code{bool})
+@deffnx Method set-user-resizable
+Sets if the stage is resizable by user interaction (e.g. via window manager
+controls)
+
+@table @var
+@item stage
+a @code{<clutter-stage>}
+
+@item resizable
+whether the stage should be user resizable.
+
+@end table
+
+Since 0.4
+
+@end deffn
+
+@deffn Function clutter-stage-get-user-resizable  (self@tie{}@code{<clutter-stage>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-user-resizable
+Retrieves the value set with @code{clutter-stage-set-user-resizable}.
+
+@table @var
+@item stage
+a @code{<clutter-stage>}
+
+@item ret
+@samp{@code{#t}} if the stage is resizable by the user.
+
+@end table
+
+Since 0.4
+
+@end deffn
+
+@deffn Function clutter-stage-set-use-fog  (self@tie{}@code{<clutter-stage>}) (fog@tie{}@code{bool})
+@deffnx Method set-use-fog
+Sets whether the depth cueing effect on the stage should be enabled or not.
+
+Depth cueing is a 3D effect that makes actors farther away from the viewing
+point less opaque, by fading them with the stage color.
+
+The parameters of the GL fog used can be changed using the
+@code{clutter-stage-set-fog} function.
+
+@table @var
+@item stage
+the @code{<clutter-stage>}
+
+@item fog
+@samp{@code{#t}} for enabling the depth cueing effect
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-stage-get-use-fog  (self@tie{}@code{<clutter-stage>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-use-fog
+Gets whether the depth cueing effect is enabled on @var{stage}.
+
+@table @var
+@item stage
+the @code{<clutter-stage>}
+
+@item ret
+@samp{@code{#t}} if the the depth cueing effect is enabled
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-stage-set-fog  (self@tie{}@code{<clutter-stage>}) (density@tie{}@code{double}) (z_near@tie{}@code{double}) (z_far@tie{}@code{double})
+@deffnx Method set-fog
+Sets the GL fog settings used to create the depth cueing effect on the
+@var{stage}.
+
+If the actors are all near the view point you will need a higher @var{density}
+and a smaller interval between @var{z-near} and @var{z-far}. On the other hand,
+if actors are placed far away from the view point you will need a lower
+@var{density} but a bigger interval between @var{z-near} and @var{z-far}.
+
+@table @var
+@item stage
+the @code{<clutter-stage>}
+
+@item density
+density of the intensity dampening
+
+@item z-near
+starting point of the depth cueing
+
+@item z-far
+ending point of the depth cueing
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-stage-get-fog  (self@tie{}@code{<clutter-stage>}) @result{}@tie{} (density@tie{}@code{double}) (z_near@tie{}@code{double}) (z_far@tie{}@code{double})
+@deffnx Method get-fog
+Retrieves the settings used by the GL fog to create the depth cueing effect on
+the @var{stage}.
+
+@table @var
+@item stage
+a @code{<clutter-stage>}
+
+@item density
+return location for the intensity dampening
+
+@item z-near
+return location for the starting point of the depth cueing
+
+@item z-far
+return location for the ending point of the depth cueing
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+
+@c %end of fragment
