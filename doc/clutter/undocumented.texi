@@ -5,29 +5,155 @@
 @chapter Undocumented
 The following symbols, if any, have not been properly documented.
 
-@section (gnome gw atk)
-@defvar atk-component-ref-accessible-at-point
+@section (gnome gw clutter)
+@defvar clutter-actor-allocate-preferred-size
 @end defvar
 
-@defvar atk-object-factory-create-accessible
+@defvar clutter-actor-apply-relative-transform-to-point
 @end defvar
 
-@defun atk-object-factory-get-accessible-type 
+@defvar clutter-actor-apply-transform-to-point
+@end defvar
+
+@defvar clutter-actor-get-allocation-geometry
+@end defvar
+
+@defvar clutter-actor-get-fixed-position-set
+@end defvar
+
+@defun clutter-actor-get-transformed-position 
 @end defun
 
-@defvar atk-object-get-n-accessible-children
+@defun clutter-actor-get-transformed-positionu 
+@end defun
+
+@defvar clutter-actor-move-anchor-point-from-gravity
 @end defvar
 
-@defvar atk-relation-set-add-relation-by-type
+@defvar clutter-actor-set-anchor-point-from-gravity
 @end defvar
 
-@defvar atk-relation-set-get-relation-by-type
+@defvar clutter-actor-set-fixed-position-set
 @end defvar
 
-@defvar atk-streamable-content-get-mime-type
+@defvar clutter-alpha-set-stock-func
 @end defvar
 
-@defvar atk-streamable-content-get-n-mime-types
+@defvar clutter-backend-get-double-click-distance
+@end defvar
+
+@defvar clutter-backend-get-double-click-time
+@end defvar
+
+@defvar clutter-backend-set-double-click-distance
+@end defvar
+
+@defvar clutter-backend-set-double-click-time
+@end defvar
+
+@defvar clutter-base-init
+@end defvar
+
+@defvar clutter-behaviour-bspline-append-knot
+@end defvar
+
+@defvar clutter-behaviour-bspline-get-origin
+@end defvar
+
+@defvar clutter-behaviour-bspline-set-origin
+@end defvar
+
+@defvar clutter-behaviour-ellipse-get-angle-end
+@end defvar
+
+@defvar clutter-behaviour-ellipse-get-angle-start
+@end defvar
+
+@defvar clutter-behaviour-ellipse-get-angle-tilt
+@end defvar
+
+@defun clutter-behaviour-ellipse-get-center 
+@end defun
+
+@defvar clutter-behaviour-ellipse-get-direction
+@end defvar
+
+@defvar clutter-behaviour-ellipse-get-height
+@end defvar
+
+@defvar clutter-behaviour-ellipse-set-angle-end
+@end defvar
+
+@defvar clutter-behaviour-ellipse-set-angle-start
+@end defvar
+
+@defvar clutter-behaviour-ellipse-set-angle-tilt
+@end defvar
+
+@defvar clutter-behaviour-ellipse-set-center
+@end defvar
+
+@defvar clutter-behaviour-ellipse-set-direction
+@end defvar
+
+@defvar clutter-behaviour-ellipse-set-height
+@end defvar
+
+@defun clutter-behaviour-opacity-get-bounds 
+@end defun
+
+@defvar clutter-behaviour-opacity-set-bounds
+@end defvar
+
+@defvar clutter-behaviour-rotate-get-direction
+@end defvar
+
+@defvar clutter-behaviour-rotate-set-direction
+@end defvar
+
+@defvar clutter-clone-texture-get-parent-texture
+@end defvar
+
+@defvar clutter-clone-texture-set-parent-texture
+@end defvar
+
+@defvar clutter-container-child-get-property
+@end defvar
+
+@defvar clutter-container-child-set-property
+@end defvar
+
+@defvar clutter-container-find-child-by-name
+@end defvar
+
+@defvar clutter-redraw
+@end defvar
+
+@defvar clutter-script-error-quark
+@end defvar
+
+@defvar clutter-shader-error-quark
+@end defvar
+
+@defvar clutter-stage-manager-get-default
+@end defvar
+
+@defvar clutter-stage-manager-get-default-stage
+@end defvar
+
+@defun clutter-stage-manager-list-stages 
+@end defun
+
+@defvar clutter-stage-manager-set-default-stage
+@end defvar
+
+@defvar clutter-texture-error-quark
+@end defvar
+
+@defvar clutter-texture-get-filter-quality
+@end defvar
+
+@defvar clutter-timeline-add-marker-at-frame
 @end defvar
 
 

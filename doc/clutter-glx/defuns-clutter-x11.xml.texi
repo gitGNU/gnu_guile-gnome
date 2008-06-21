@@ -1,0 +1,102 @@
+
+@c %start of fragment
+
+@deffn Function clutter-x11-get-stage-from-window  (win@tie{}@code{unsigned-int32}) @result{}@tie{} (ret@tie{}@code{<clutter-stage>})
+Gets the stage for a particular X window.
+
+@table @var
+@item win
+an X Window ID
+
+@item ret
+The stage or NULL if a stage does not exist for the window.
+
+@end table
+
+Since 0.8
+
+@end deffn
+
+@deffn Function clutter-x11-get-default-screen  @result{}@tie{} (ret@tie{}@code{int})
+Gets the number of the default X Screen object.
+
+@table @var
+@item ret
+the number of the default screen
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-x11-get-root-window  @result{}@tie{} (ret@tie{}@code{unsigned-int32})
+Retrieves the root window.
+
+@table @var
+@item ret
+the id of the root window
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-x11-get-stage-window  (stage@tie{}@code{<clutter-stage>}) @result{}@tie{} (ret@tie{}@code{unsigned-int32})
+Gets the stages X Window.
+
+@table @var
+@item stage
+a @code{<clutter-stage>}
+
+@item ret
+An XID for the stage window.
+
+@end table
+
+Since 0.4
+
+@end deffn
+
+@deffn Function clutter-x11-set-stage-foreign  (stage@tie{}@code{<clutter-stage>}) (xwindow@tie{}@code{unsigned-int32}) @result{}@tie{} (ret@tie{}@code{bool})
+Target the @code{<clutter-stage>} to use an existing external X Window
+
+@table @var
+@item stage
+a @code{<clutter-stage>}
+
+@item xwindow
+an existing X Window id
+
+@item ret
+@samp{@code{#t}} if foreign window is valid
+
+@end table
+
+Since 0.4
+
+@end deffn
+
+@deffn Function clutter-x11-trap-x-errors 
+Traps every X error until @code{clutter-x11-untrap-x-errors} is called.
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-x11-untrap-x-errors  @result{}@tie{} (ret@tie{}@code{int})
+Removes the X error trap and returns the current status.
+
+@table @var
+@item ret
+the trapped error code, or 0 for success
+
+@end table
+
+Since 0.4
+
+@end deffn
+
+
+@c %end of fragment
