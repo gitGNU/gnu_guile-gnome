@@ -90,8 +90,6 @@ USA
 * Unit conversion:: A logical distance unit.
 * Utilities:: Misc utility functions.
 * Versioning Macros:: Versioning utility macros
-* Win32 Specific Support:: Win32 specific API
-* X11 Specific Support:: X11 specific API
 
 
 * Undocumented::           Undocumented functions.
@@ -146,8 +144,6 @@ USA
 @include section-clutter-units.xml.texi
 @include section-clutter-util.xml.texi
 @include section-clutter-version.xml.texi
-@include section-clutter-win32.xml.texi
-@include section-clutter-x11.xml.texi
 
 @include undocumented.texi
 
