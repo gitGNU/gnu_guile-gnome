@@ -298,5 +298,21 @@ character.
 
 @end deffn
 
+@deffn Function clutter-event-get-device-id  (self@tie{}@code{<clutter-event>}) @result{}@tie{} (ret@tie{}@code{int})
+@deffnx Method get-device-id
+Retrieves the events device id if set.
+
+@table @var
+@item event
+a clutter event
+
+@item ret
+A unique identifier for the device or -1 if the event has no specific device
+set.
+
+@end table
+
+@end deffn
+
 
 @c %end of fragment

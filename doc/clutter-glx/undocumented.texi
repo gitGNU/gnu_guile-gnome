@@ -12,6 +12,9 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-glx-texture-pixmap-new-with-pixmap
 @end defvar
 
+@defvar clutter-glx-texture-pixmap-new-with-window
+@end defvar
+
 @defvar clutter-glx-texture-pixmap-using-extension
 @end defvar
 
@@ -21,13 +24,22 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-x11-texture-pixmap-new-with-pixmap
 @end defvar
 
+@defvar clutter-x11-texture-pixmap-new-with-window
+@end defvar
+
 @defvar clutter-x11-texture-pixmap-set-automatic
 @end defvar
 
 @defvar clutter-x11-texture-pixmap-set-pixmap
 @end defvar
 
+@defvar clutter-x11-texture-pixmap-set-window
+@end defvar
+
 @defvar clutter-x11-texture-pixmap-update-area
+@end defvar
+
+@defvar clutter-x11-texture-pixmap-update-pixmap-from-window
 @end defvar
 
 

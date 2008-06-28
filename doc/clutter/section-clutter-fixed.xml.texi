@@ -24,7 +24,8 @@ Basic rules of Fixed Point arithmethic:
 @item
 @end itemize
 
-Two fixed point numbers can be directly added and subtracted.
+Two fixed point numbers can be directly added, subtracted and have their modulus
+taken.
 
 To add other numerical type to a fixed point number it has to be first converted
 to fixed point.

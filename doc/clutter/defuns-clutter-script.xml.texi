@@ -89,6 +89,27 @@ Since 0.6
 
 @end deffn
 
+@deffn Function clutter-script-lookup-filename  (self@tie{}@code{<clutter-script>}) (filename@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method lookup-filename
+Looks up @var{filename} inside the search paths of @var{script}. If
+@var{filename} is found, its full path will be returned .
+
+@table @var
+@item script
+a @code{<clutter-script>}
+
+@item filename
+the name of the file to lookup
+
+@item ret
+the full path of @var{filename} or @samp{@code{#f}} if no path was found.
+
+@end table
+
+Since 0.8
+
+@end deffn
+
 @deffn Function clutter-script-get-object  (self@tie{}@code{<clutter-script>}) (name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gobject>})
 @deffnx Method get-object
 Retrieves the object bound to @var{name}. This function does not increment the

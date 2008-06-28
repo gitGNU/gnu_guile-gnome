@@ -36,6 +36,10 @@ The underlying COGL texture handle used to draw this actor
 @item filename
 The full path of the file containing the texture
 
+@item keep-aspect-ratio
+Keep the aspect ratio of the texture when requesting the preferred width or
+height
+
 @end table
 
 @end deftp

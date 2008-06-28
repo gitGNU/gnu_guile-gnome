@@ -267,6 +267,9 @@ motion, release, enter, leave and scroll) are delivered to this actor directly.
 The source set in the event will be the actor that would have received the event
 if the pointer grab was not in effect.
 
+If you wish to grab all the pointer events for a specific input device, you
+should use @code{clutter-grab-pointer-for-device}.
+
 @table @var
 @item actor
 a @code{<clutter-actor>}
@@ -288,6 +291,38 @@ Since 0.6
 Removes an existing grab of the pointer.
 
 Since 0.6
+
+@end deffn
+
+@deffn Function clutter-grab-pointer-for-device  (actor@tie{}@code{<clutter-actor>}) (id@tie{}@code{int})
+Grabs all the pointer events coming from the device @var{id} for @var{actor}.
+
+If @var{id} is -1 then this function is equivalent to
+@code{clutter-grab-pointer}.
+
+@table @var
+@item actor
+a @code{<clutter-actor>}
+
+@item id
+a device id, or -1
+
+@end table
+
+Since 0.8
+
+@end deffn
+
+@deffn Function clutter-ungrab-pointer-for-device  (id@tie{}@code{int})
+Removes an existing grab of the pointer events for device @var{id}.
+
+@table @var
+@item id
+a device id
+
+@end table
+
+Since 0.8
 
 @end deffn
 

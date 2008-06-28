@@ -701,34 +701,6 @@ Since 0.8
 
 @end deffn
 
-@deffn Function clutter-actor-get-paint-area  (self@tie{}@code{<clutter-actor>}) (box@tie{}@code{<clutter-actor-box>})
-@deffnx Method get-paint-area
-Gets where an actor will be painted, which is generally the union of the paint
-boxes of the actor's children, plus anything the actor draws itself, transformed
-by the scale factor and anchor point. The result is a "paint area", i.e. where
-the actor will actually be painted.
-
-The returned @code{<clutter-actor-box>} is in the coordinates of the actor's
-parent, just as an allocation is.
-
-@cartouche 
-This function is only valid if the allocation is valid,
-which means for the most part only inside a @code{paint} method.
-@end cartouche
-
-@table @var
-@item self
-A @code{<clutter-actor>}
-
-@item box
-the function fills this in with the actor's paint area
-
-@end table
-
-Since 0.8
-
-@end deffn
-
 @deffn Function clutter-actor-set-geometry  (self@tie{}@code{<clutter-actor>}) (geometry@tie{}@code{<clutter-geometry>})
 @deffnx Method set-geometry
 Sets the actor's fixed position and forces its minimum and natural size, in

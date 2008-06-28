@@ -7,26 +7,26 @@ Derives from @code{<ginterface>}.
 This class defines the following slots:
 
 @table @code
+@item uri
+The loaded URI.
+
 @item duration
 The duration of the current stream in seconds.
-
-@item can-seek
-TRUE if the current stream is seekable.
 
 @item playing
 TRUE if playing.
 
-@item volume
-The audio volume.
-
-@item uri
-The loaded URI.
-
 @item buffer-percent
 The percentage the current stream buffer is filled.
 
+@item volume
+The audio volume.
+
 @item position
 The position in the current stream in seconds.
+
+@item can-seek
+TRUE if the current stream is seekable.
 
 @end table
 

@@ -98,5 +98,19 @@ Since 0.4
 
 @end deffn
 
+@deffn Function clutter-x11-has-xinput  @result{}@tie{} (ret@tie{}@code{bool})
+Gets whether Clutter has XInput support.
+
+@table @var
+@item ret
+@samp{@code{#t}} if Clutter was compiled with XInput support and XInput support
+is available at run time.
+
+@end table
+
+Since 0.8
+
+@end deffn
+
 
 @c %end of fragment
