@@ -8,5 +8,9 @@ SUBDIRS += gw
 guilemodule_DATA += clutter.scm
 endif
 
-EXTRA_DIST = clutter.scm
+if HAVE_CLUTTER_GLX
+guilemodule_DATA += clutter-glx.scm
+endif
+
+EXTRA_DIST = clutter.scm clutter-glx.scm
 DIST_SUBDIRS = gw overrides

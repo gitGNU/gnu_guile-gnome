@@ -12,6 +12,31 @@
   )
 )
 
+(define-enum X11XInputEventTypes
+  (in-module "Clutter")
+  (c-name "ClutterX11XInputEventTypes")
+  (gtype-id "CLUTTER_X11_TYPE_XINPUT_EVENT_TYPES")
+  (values
+    '("key-press-event" "CLUTTER_X11_XINPUT_KEY_PRESS_EVENT")
+    '("key-release-event" "CLUTTER_X11_XINPUT_KEY_RELEASE_EVENT")
+    '("button-press-event" "CLUTTER_X11_XINPUT_BUTTON_PRESS_EVENT")
+    '("button-release-event" "CLUTTER_X11_XINPUT_BUTTON_RELEASE_EVENT")
+    '("motion-notify-event" "CLUTTER_X11_XINPUT_MOTION_NOTIFY_EVENT")
+    '("last-event" "CLUTTER_X11_XINPUT_LAST_EVENT")
+  )
+)
+
+(define-enum X11InputDeviceType
+  (in-module "Clutter")
+  (c-name "ClutterX11InputDeviceType")
+  (gtype-id "CLUTTER_X11_TYPE_INPUT_DEVICE_TYPE")
+  (values
+    '("pointer-device" "CLUTTER_X11_XINPUT_POINTER_DEVICE")
+    '("keyboard-device" "CLUTTER_X11_XINPUT_KEYBOARD_DEVICE")
+    '("extension-device" "CLUTTER_X11_XINPUT_EXTENSION_DEVICE")
+  )
+)
+
 ;; -*- scheme -*-
 ; object definitions ...
 (define-object X11TexturePixmap

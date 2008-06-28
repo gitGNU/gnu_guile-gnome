@@ -26,6 +26,14 @@
   )
 )
 
+(define-function clutter_glx_texture_pixmap_new_with_window
+  (c-name "clutter_glx_texture_pixmap_new_with_window")
+  (return-type "ClutterActor*")
+  (parameters
+    '("Window" "window")
+  )
+)
+
 (define-method using_extension
   (of-object "ClutterGLXTexturePixmap")
   (c-name "clutter_glx_texture_pixmap_using_extension")

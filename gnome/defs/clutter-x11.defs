@@ -100,6 +100,24 @@
   )
 )
 
+(define-function clutter_x11_get_input_devices
+  (c-name "clutter_x11_get_input_devices")
+  (return-type "GSList*")
+)
+
+(define-function clutter_x11_get_input_device_type
+  (c-name "clutter_x11_get_input_device_type")
+  (return-type "ClutterX11InputDeviceType")
+  (parameters
+    '("ClutterX11XInputDevice*" "device")
+  )
+)
+
+(define-function clutter_x11_has_xinput
+  (c-name "clutter_x11_has_xinput")
+  (return-type "gboolean")
+)
+
 
 
 ;; From /opt/clutter/include/clutter-0.7/clutter/x11/clutter-x11-texture-pixmap.h
@@ -123,6 +141,14 @@
   )
 )
 
+(define-function clutter_x11_texture_pixmap_new_with_window
+  (c-name "clutter_x11_texture_pixmap_new_with_window")
+  (return-type "ClutterActor*")
+  (parameters
+    '("Window" "window")
+  )
+)
+
 (define-method set_pixmap
   (of-object "ClutterX11TexturePixmap")
   (c-name "clutter_x11_texture_pixmap_set_pixmap")
@@ -130,6 +156,21 @@
   (parameters
     '("Pixmap" "pixmap")
   )
+)
+
+(define-method set_window
+  (of-object "ClutterX11TexturePixmap")
+  (c-name "clutter_x11_texture_pixmap_set_window")
+  (return-type "none")
+  (parameters
+    '("Window" "window")
+  )
+)
+
+(define-method update_pixmap_from_window
+  (of-object "ClutterX11TexturePixmap")
+  (c-name "clutter_x11_texture_pixmap_update_pixmap_from_window")
+  (return-type "none")
 )
 
 (define-method update_area
