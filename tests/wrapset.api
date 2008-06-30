@@ -86,9 +86,6 @@
      (clutter-actor-get-opacity
        procedure
        (arity 0 0 #t))
-     (clutter-actor-get-paint-area
-       procedure
-       (arity 0 0 #t))
      (clutter-actor-get-paint-opacity
        procedure
        (arity 0 0 #t))
@@ -646,6 +643,9 @@
      (clutter-event-get-coords
        procedure
        (arity 1 0 #f))
+     (clutter-event-get-device-id
+       procedure
+       (arity 0 0 #t))
      (clutter-event-get-source
        procedure
        (arity 0 0 #t))
@@ -699,6 +699,9 @@
        (arity 0 0 #t))
      (clutter-grab-keyboard procedure (arity 0 0 #t))
      (clutter-grab-pointer procedure (arity 0 0 #t))
+     (clutter-grab-pointer-for-device
+       procedure
+       (arity 0 0 #t))
      (clutter-group-get-n-children
        procedure
        (arity 0 0 #t))
@@ -790,6 +793,9 @@
      (clutter-label-set-use-markup
        procedure
        (arity 0 0 #t))
+     (clutter-main procedure (arity 0 0 #t))
+     (clutter-main-level procedure (arity 0 0 #t))
+     (clutter-main-quit procedure (arity 0 0 #t))
      (clutter-media-get-buffer-percent
        procedure
        (arity 0 0 #t))
@@ -887,6 +893,9 @@
      (clutter-script-load-from-file
        procedure
        (arity 2 0 #f))
+     (clutter-script-lookup-filename
+       procedure
+       (arity 0 0 #t))
      (clutter-script-new procedure (arity 0 0 #t))
      (clutter-script-unmerge-objects
        procedure
@@ -1125,6 +1134,9 @@
        procedure
        (arity 0 0 #t))
      (clutter-ungrab-pointer procedure (arity 0 0 #t))
+     (clutter-ungrab-pointer-for-device
+       procedure
+       (arity 0 0 #t))
      (clutter-util-next-p2 procedure (arity 0 0 #t))
      (clutter-value-get-unit procedure (arity 1 0 #f))
      (clutter-value-set-unit procedure (arity 2 0 #f))))

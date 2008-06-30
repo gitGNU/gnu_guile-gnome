@@ -1,6 +1,25 @@
 ;; -*- scheme -*-
 (include type-ignores) (include "clutter-x11-types.defs") (include overrides)
 
+;; From /opt/clutter/include/clutter-0.7/clutter/x11/clutter-x11-enum-types.h
+
+(define-function clutter_x11_filter_return_get_type
+  (c-name "clutter_x11_filter_return_get_type")
+  (return-type "GType")
+)
+
+(define-function clutter_x11_xinput_event_types_get_type
+  (c-name "clutter_x11_xinput_event_types_get_type")
+  (return-type "GType")
+)
+
+(define-function clutter_x11_input_device_type_get_type
+  (c-name "clutter_x11_input_device_type_get_type")
+  (return-type "GType")
+)
+
+
+
 ;; From /opt/clutter/include/clutter-0.7/clutter/x11/clutter-x11.h
 
 (define-function clutter_x11_trap_x_errors
@@ -118,6 +137,11 @@
   (return-type "gboolean")
 )
 
+(define-function clutter_x11_has_composite_extension
+  (c-name "clutter_x11_has_composite_extension")
+  (return-type "gboolean")
+)
+
 
 
 ;; From /opt/clutter/include/clutter-0.7/clutter/x11/clutter-x11-texture-pixmap.h
@@ -164,12 +188,13 @@
   (return-type "none")
   (parameters
     '("Window" "window")
+    '("gboolean" "automatic")
   )
 )
 
-(define-method update_pixmap_from_window
+(define-method sync_window
   (of-object "ClutterX11TexturePixmap")
-  (c-name "clutter_x11_texture_pixmap_update_pixmap_from_window")
+  (c-name "clutter_x11_texture_pixmap_sync_window")
   (return-type "none")
 )
 
