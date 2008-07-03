@@ -13,4 +13,4 @@ guilemodule_DATA += clutter-glx.scm
 endif
 
 EXTRA_DIST = clutter.scm clutter-glx.scm
-DIST_SUBDIRS = gw overrides
+DIST_SUBDIRS = overrides defs gw
