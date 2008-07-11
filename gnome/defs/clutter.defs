@@ -1,7 +1,7 @@
 ;; -*- scheme -*-
 (include "clutter-types.defs") (include overrides)
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-actor.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-actor.h
 
 (define-function clutter_actor_box_get_type
   (c-name "clutter_actor_box_get_type")
@@ -986,18 +986,9 @@
   )
 )
 
-(define-method allocate_preferred_size
-  (of-object "ClutterActor")
-  (c-name "clutter_actor_allocate_preferred_size")
-  (return-type "none")
-  (parameters
-    '("gboolean" "absolute_origin_changed")
-  )
-)
 
 
-
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-alpha.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-alpha.h
 
 (define-function clutter_alpha_get_type
   (c-name "clutter_alpha_get_type")
@@ -1172,7 +1163,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-backend.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-backend.h
 
 (define-function clutter_backend_get_type
   (c-name "clutter_backend_get_type")
@@ -1246,7 +1237,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-behaviour-bspline.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-behaviour-bspline.h
 
 (define-function clutter_behaviour_bspline_get_type
   (c-name "clutter_behaviour_bspline_get_type")
@@ -1346,7 +1337,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-behaviour-depth.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-behaviour-depth.h
 
 (define-function clutter_behaviour_depth_get_type
   (c-name "clutter_behaviour_depth_get_type")
@@ -1386,7 +1377,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-behaviour-ellipse.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-behaviour-ellipse.h
 
 (define-function clutter_behaviour_ellipse_get_type
   (c-name "clutter_behaviour_ellipse_get_type")
@@ -1633,7 +1624,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-behaviour.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-behaviour.h
 
 (define-function clutter_behaviour_get_type
   (c-name "clutter_behaviour_get_type")
@@ -1721,7 +1712,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-behaviour-opacity.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-behaviour-opacity.h
 
 (define-function clutter_behaviour_opacity_get_type
   (c-name "clutter_behaviour_opacity_get_type")
@@ -1761,7 +1752,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-behaviour-path.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-behaviour-path.h
 
 (define-function clutter_behaviour_path_get_type
   (c-name "clutter_behaviour_path_get_type")
@@ -1831,7 +1822,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-behaviour-rotate.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-behaviour-rotate.h
 
 (define-function clutter_behaviour_rotate_get_type
   (c-name "clutter_behaviour_rotate_get_type")
@@ -1957,7 +1948,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-behaviour-scale.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-behaviour-scale.h
 
 (define-function clutter_behaviour_scale_get_type
   (c-name "clutter_behaviour_scale_get_type")
@@ -2039,7 +2030,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-child-meta.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-child-meta.h
 
 (define-function clutter_child_meta_get_type
   (c-name "clutter_child_meta_get_type")
@@ -2060,7 +2051,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-clone-texture.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-clone-texture.h
 
 (define-function clutter_clone_texture_get_type
   (c-name "clutter_clone_texture_get_type")
@@ -2093,7 +2084,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-color.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-color.h
 
 (define-method copy
   (of-object "ClutterColor")
@@ -2255,7 +2246,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-container.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-container.h
 
 (define-function clutter_container_get_type
   (c-name "clutter_container_get_type")
@@ -2444,11 +2435,11 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-deprecated.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-deprecated.h
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-effect.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-effect.h
 
 (define-function clutter_effect_template_get_type
   (c-name "clutter_effect_template_get_type")
@@ -2594,7 +2585,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-entry.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-entry.h
 
 (define-function clutter_entry_get_type
   (c-name "clutter_entry_get_type")
@@ -2819,7 +2810,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-enum-types.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-enum-types.h
 
 (define-function clutter_actor_flags_get_type
   (c-name "clutter_actor_flags_get_type")
@@ -2913,7 +2904,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-event.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-event.h
 
 (define-function clutter_event_get_type
   (c-name "clutter_event_get_type")
@@ -3042,7 +3033,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-feature.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-feature.h
 
 (define-function clutter_feature_available
   (c-name "clutter_feature_available")
@@ -3059,7 +3050,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-frame-source.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-frame-source.h
 
 (define-function clutter_frame_source_add
   (c-name "clutter_frame_source_add")
@@ -3085,7 +3076,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-group.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-group.h
 
 (define-function clutter_group_get_type
   (c-name "clutter_group_get_type")
@@ -3176,15 +3167,15 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-json.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-json.h
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-keysyms.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-keysyms.h
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-label.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-label.h
 
 (define-function clutter_label_get_type
   (c-name "clutter_label_get_type")
@@ -3377,7 +3368,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-list-model.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-list-model.h
 
 (define-function clutter_list_model_get_type
   (c-name "clutter_list_model_get_type")
@@ -3406,7 +3397,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-main.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-main.h
 
 (define-function clutter_init_error_quark
   (c-name "clutter_init_error_quark")
@@ -3699,7 +3690,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-media.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-media.h
 
 (define-function clutter_media_get_type
   (c-name "clutter_media_get_type")
@@ -3795,7 +3786,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-model.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-model.h
 
 (define-function clutter_model_get_type
   (c-name "clutter_model_get_type")
@@ -4132,7 +4123,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-rectangle.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-rectangle.h
 
 (define-function clutter_rectangle_get_type
   (c-name "clutter_rectangle_get_type")
@@ -4206,7 +4197,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-score.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-score.h
 
 (define-function clutter_score_get_type
   (c-name "clutter_score_get_type")
@@ -4317,7 +4308,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-scriptable.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-scriptable.h
 
 (define-function clutter_scriptable_get_type
   (c-name "clutter_scriptable_get_type")
@@ -4364,7 +4355,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-script.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-script.h
 
 (define-function clutter_script_error_quark
   (c-name "clutter_script_error_quark")
@@ -4494,7 +4485,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-shader.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-shader.h
 
 (define-function clutter_shader_error_quark
   (c-name "clutter_shader_error_quark")
@@ -4597,7 +4588,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-stage.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-stage.h
 
 (define-function clutter_perspective_get_type
   (c-name "clutter_perspective_get_type")
@@ -4872,7 +4863,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-stage-manager.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-stage-manager.h
 
 (define-function clutter_stage_manager_get_type
   (c-name "clutter_stage_manager_get_type")
@@ -4907,7 +4898,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-texture.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-texture.h
 
 (define-function clutter_texture_error_quark
   (c-name "clutter_texture_error_quark")
@@ -5061,7 +5052,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-timeline.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-timeline.h
 
 (define-function clutter_timeline_get_type
   (c-name "clutter_timeline_get_type")
@@ -5316,7 +5307,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-timeout-pool.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-timeout-pool.h
 
 (define-function clutter_timeout_pool_new
   (c-name "clutter_timeout_pool_new")
@@ -5350,7 +5341,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-types.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-types.h
 
 (define-function clutter_geometry_get_type
   (c-name "clutter_geometry_get_type")
@@ -5390,7 +5381,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-units.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-units.h
 
 (define-function clutter_unit_get_type
   (c-name "clutter_unit_get_type")
@@ -5435,7 +5426,7 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-util.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-util.h
 
 (define-function clutter_util_next_p2
   (c-name "clutter_util_next_p2")
@@ -5447,6 +5438,6 @@
 
 
 
-;; From /opt/clutter/include/clutter-0.7/clutter/clutter-version.h
+;; From /opt/clutter/include/clutter-0.8/clutter/clutter-version.h
 
 
