@@ -8,6 +8,12 @@ guile-clutter is a Guile binding for the Clutter graphics library. It is
 part of GNU guile-gnome.
 
 
+guile-clutter 0.8.0 - Andy Wingo, 2008-07-11
+============================================
+
+* Bump clutter version requirement to 0.8.
+
+
 guile-clutter 0.7.6 - Andy Wingo, 3 July 2008
 =============================================
 
