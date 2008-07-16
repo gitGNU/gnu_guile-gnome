@@ -23,7 +23,9 @@
 
 ;; Demonstrates how to construct caps with scheme.
 
-(use-modules (gnome gstreamer debug) ; debug-caps
+(use-modules (gnome-2)
+             (gnome gobject)
+             (gnome gstreamer debug) ; debug-caps
              (gnome gstreamer)) ; for some ungodly reason this must be
 			        ; after debug -- don't know why yet
 

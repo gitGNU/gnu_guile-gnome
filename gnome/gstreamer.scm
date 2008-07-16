@@ -31,19 +31,6 @@
   :use-module (gnome gw gstreamer)
   :use-module (gnome gw support modules))
 
-(define-method (initialize (instance <gst-mini-object>) initargs)
-  (cond
-   ((get-keyword #:%real-instance initargs #f)
-    => (lambda (gtype-instance)
-         (slot-set! instance 'gtype-instance gtype-instance)))
-   (else
-    ;; nothing for next-method to do
-    (let* ((class (class-of instance))
-           (type (gtype-class->type class)))
-      (or (null? initargs)
-          (gruntime-error "Unexpected initargs: ~a" initargs))
-      (gst-mini-object-primitive-create class type instance)))))
-
 (define (construct-levels-list specifier)
   (or (and (list? specifier) (and-map list? specifier))
       (error "invalid debug specifier"))
@@ -91,8 +78,8 @@
 (set-object-property! with-gst-debug 'documentation
                       "Usage:
 @example
-(with-gst-debug ((@var{category1} #var{level1}) (@var{category2} @var{level2}) ...)
-  @var{body}
+ (with-gst-debug ((@var{category1} #var{level1}) (@var{category2} @var{level2}) ...)
+   @var{body}
 @end example
 
 Execute @var{body} with GStreamer debugging. The debugging thresholds
@@ -106,9 +93,9 @@ special case, @code{*all*} is interpreted to be the default threshold.")
    ((memv kind (list <gint> <gfloat> <gdouble> <gboolean> <gchararray>
                      <gst-fourcc> <gst-int-range> <gst-double-range>
                      <gst-fraction> <gst-fraction-range>))
-    (scm->gvalue (gtype-class->type kind) arg))
+    (scm->gvalue kind arg))
    ((memv kind (list <gst-value-list> <gst-value-array>))
-    (scm->gvalue (gtype-class->type kind)
+    (scm->gvalue kind
                  (map (lambda (x) (make-value (car arg) x)) (cdr arg))))
    (else
     (error "Unknown structure field type: " kind))))

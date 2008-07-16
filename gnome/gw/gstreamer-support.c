@@ -8,6 +8,48 @@
              ##args, SCM_EOL)
 
 
+typedef struct {
+    void *func;
+    void *p[4];
+    unsigned int u[3];
+    int d[3];
+    const void *c[4];
+    int L[2];
+} arg_data;
+
+static void*
+_invoke_i__p_p (void *p)
+{
+    arg_data *a = p;
+    int (*func)(void*, void*) = a->func;
+    return (void*) func(a->p[0], a->p[1]);
+}
+
+static int
+scm_dynwind_guile_i__p_p (void* (*dynwind)(void*(*)(void*), void*),
+                          void *func, void *arg1, void *arg2)
+{
+    arg_data args = {func, {arg1, arg2,},};
+    return (int)dynwind (_invoke_i__p_p, &args);
+}
+
+static void*
+_invoke_i__p_L_u_p (void *p)
+{
+    arg_data *a = p;
+    int (*func)(void*, guint64, guint, void*) = a->func;
+    return (void*) func(a->p[0], a->L[0], a->u[0], a->p[1]);
+}
+
+static int
+scm_dynwind_guile_i__p_L_u_p (void* (*dynwind)(void*(*)(void*), void*),
+                              void *func, void *arg1, guint64 arg2, guint arg3,
+                              void *arg4)
+{
+    arg_data args = {func, {arg1, arg4,}, {arg3,}, {0,}, {NULL,}, {arg2,}};
+    return (int)dynwind (_invoke_i__p_L_u_p, &args);
+}
+
 /***********************************************************************
  * GstBuffer
  */
@@ -82,27 +124,6 @@ _wrap_gst_buffer_set_data (GstBuffer *buf, SCM uvect)
   
   GST_BUFFER_MALLOCDATA (buf) = GST_BUFFER_DATA (buf);
   GST_BUFFER_SIZE (buf) = (guint)(len * inc);
-}
-
-
-/***********************************************************************
- * GstClock
- */
-
-static gboolean
-call_async_clock_wait (GstClock *clock, GstClockTime time, GstClockID id, SCM closure)
-{
-  /* should pass the clock as well... */
-  return SCM_NFALSEP (scm_call_1 (scm_glib_gc_unprotect_object (closure),
-                                  scm_ulong_long2num (time)));
-}
-
-GstClockReturn
-_wrap_gst_clock_id_wait_async (GstClockID id,
-                               SCM callback)
-{
-  return gst_clock_id_wait_async (id, (GstClockCallback)call_async_clock_wait,
-                                  SCM_PACK (scm_glib_gc_protect_object (callback)));
 }
 
 
@@ -291,25 +312,30 @@ pad_private(GstPad *pad)
 }
 
 static GstFlowReturn
-call_chain_function (GstPad *pad, GstBuffer* buf)
+do_call_chain_function (GstPad *pad, GstBuffer* buf)
 {
   SCM scm_buf, ret;
   GuileGstPadPrivate *private;
-  GValue *tmp;
+  GValue tmp = { 0, };
   GstFlowReturn fret;
   
   private = pad_private (pad);
-  scm_buf = scm_c_make_gvalue (GST_TYPE_BUFFER);
-  g_value_set_boxed ((GValue*)SCM_SMOB_DATA (scm_buf), buf);
+  scm_buf = scm_c_gvalue_new_take_boxed (GST_TYPE_BUFFER, buf);
 
   ret = scm_call_2 (private->chain_function,
-                    scm_c_gtype_instance_to_scm ((GTypeInstance*)pad),
-                    scm_buf);
-  tmp = scm_c_scm_to_gvalue (GST_TYPE_FLOW_RETURN, ret);
-  fret = g_value_get_enum (tmp);
-  g_value_unset (tmp);
-  g_free (tmp);
+                    scm_c_gtype_instance_to_scm (pad), scm_buf);
+  g_value_init (&tmp, GST_TYPE_FLOW_RETURN);
+  scm_c_gvalue_set (&tmp, ret);
+  fret = g_value_get_enum (&tmp);
+  g_value_unset (&tmp);
   return fret;
+}
+
+static GstFlowReturn
+call_chain_function (GstPad *pad, GstBuffer* buf) 
+{
+  return scm_dynwind_guile_i__p_p (scm_with_guile, do_call_chain_function,
+                                   pad, buf);
 }
 
 void
@@ -331,28 +357,34 @@ _wrap_gst_pad_set_chain_function (GstPad *pad, SCM chain_function)
 }
 
 static GstFlowReturn
-call_getrange_function (GstPad *pad, guint64 offset, guint len, GstBuffer **buf)
+do_call_getrange_function (GstPad *pad, guint64 offset, guint len, GstBuffer **buf)
 {
   SCM ret;
   GuileGstPadPrivate *private;
-  GValue *tmp;
+  GValue tmp = {0,};
   GstFlowReturn fret;
   
   private = pad_private (pad);
   ret = scm_call_2 (private->getrange_function,
                     scm_from_uint64 (offset),
                     scm_from_uint (len));
-  if (SCM_TYP16_PREDICATE (scm_tc16_gtype_instance, ret)) {
-    GTypeInstance *tbuf = (GTypeInstance*)SCM_SMOB_DATA (ret);
-    *buf = (GstBuffer*) tbuf;
+  if (SCM_GTYPE_INSTANCEP (ret)) {
+    *buf = scm_c_scm_to_gtype_instance_typed (ret, GST_TYPE_BUFFER);
     return GST_FLOW_OK;
   } else {
-    tmp = scm_c_scm_to_gvalue (GST_TYPE_FLOW_RETURN, ret);
-    fret = g_value_get_enum (tmp);
-    g_value_unset (tmp);
-    g_free (tmp);
+    g_value_init (&tmp, GST_TYPE_FLOW_RETURN);
+    scm_c_gvalue_set (&tmp, ret);
+    fret = g_value_get_enum (&tmp);
+    g_value_unset (&tmp);
     return fret;
   }
+}
+
+static GstFlowReturn
+call_getrange_function (GstPad *pad, guint64 offset, guint len, GstBuffer **buf)
+{
+  return scm_dynwind_guile_i__p_L_u_p (scm_with_guile, do_call_getrange_function,
+                                       pad, offset, len, buf);
 }
 
 void
@@ -374,19 +406,24 @@ _wrap_gst_pad_set_getrange_function (GstPad* pad, SCM getrange_function)
 }
 
 static gboolean
-call_setcaps_function(GstPad *pad, GstCaps *caps)
+do_call_setcaps_function(GstPad *pad, GstCaps *caps)
 {
   SCM scm_caps, ret;
   GuileGstPadPrivate *private = pad_private (pad);
   
-  scm_caps = scm_c_make_gvalue (GST_TYPE_CAPS);
-  g_value_set_boxed ((GValue*)SCM_SMOB_DATA (scm_caps), caps);
+  scm_caps = scm_c_gvalue_new_from_boxed (GST_TYPE_CAPS, caps);
 
   ret = scm_call_2 (private->setcaps_function,
-                    scm_c_gtype_instance_to_scm ((GTypeInstance*)pad),
-                    scm_caps);
+                    scm_c_gtype_instance_to_scm (pad), scm_caps);
 
   return scm_is_true (ret);
+}
+
+static gboolean
+call_setcaps_function(GstPad *pad, GstCaps *caps) 
+{
+  return (int)scm_dynwind_guile_i__p_p (scm_with_guile,
+                                        do_call_setcaps_function, pad, caps);
 }
 
 void
@@ -432,15 +469,8 @@ gst_plugin_feature_get_name (GstPluginFeature *feature)
 static void
 struct_for_each_func (GQuark id, GValue *value, SCM proc)
 {
-  GValue *tmp;
-  SCM svalue;
-  
-  tmp = g_new0 (GValue, 1);
-  g_value_init (tmp, G_VALUE_TYPE (value));
-  g_value_copy (value, tmp);
-  SCM_NEWSMOB (svalue, scm_tc16_gvalue, tmp);
-  
-  scm_call_2 (proc, scm_makfrom0str (g_quark_to_string (id)), svalue);
+  scm_call_2 (proc, scm_from_locale_string (g_quark_to_string (id)),
+              scm_c_gvalue_from_value (value));
 }
               
 void
@@ -471,7 +501,6 @@ void
 scm_to_gst_fourcc (SCM scm, GValue *value)
 {
   char *str = scm_to_locale_string (scm);
-  g_value_init (value, GST_TYPE_FOURCC);
   if (strlen (str) >= 4) {
     gst_value_set_fourcc (value,
                         GST_STR_FOURCC (str));
@@ -489,7 +518,6 @@ scm_from_gst_fraction (const GValue *value)
 void
 scm_to_gst_fraction (SCM scm, GValue *value)
 {
-  g_value_init (value, GST_TYPE_FRACTION);
   gst_value_set_fraction (value,
                           scm_to_int (scm_numerator (scm)),
                           scm_to_int (scm_denominator (scm)));
@@ -505,7 +533,6 @@ scm_from_gst_int_range (const GValue *value)
 void
 scm_to_gst_int_range (SCM scm, GValue *value)
 {
-  g_value_init (value, GST_TYPE_INT_RANGE);
   gst_value_set_int_range (value,
                            scm_to_int (scm_car (scm)),
                            scm_to_int (scm_cdr (scm)));
@@ -521,7 +548,6 @@ scm_from_gst_double_range (const GValue *value)
 void
 scm_to_gst_double_range (SCM scm, GValue *value)
 {
-  g_value_init (value, GST_TYPE_DOUBLE_RANGE);
   gst_value_set_double_range (value,
                               scm_to_double (scm_car (scm)),
                               scm_to_double (scm_cdr (scm)));
@@ -537,7 +563,6 @@ scm_from_gst_fraction_range (const GValue *value)
 void
 scm_to_gst_fraction_range (SCM scm, GValue *value)
 {
-  g_value_init (value, GST_TYPE_FRACTION_RANGE);
   gst_value_set_fraction_range_full (value,
                                      scm_to_int (scm_numerator (scm_car (scm))),
                                      scm_to_int (scm_denominator (scm_car (scm))),
@@ -562,24 +587,15 @@ scm_to_gst_list (SCM scm, GValue *value)
 {
   SCM head = scm;
 
-  g_value_init (value, GST_TYPE_LIST);
-
   for (scm = head; !scm_is_null (scm); scm = scm_cdr (scm)) {
-    if (scm_is_false (scm_gvalue_p (scm_car (scm))))
+    if (!SCM_GVALUEP (scm_car (scm)))
       /* we require all values in a list to already have been coerced; otherwise
          there's no sane way to sniff the types... */
       return;
   }
   
-  for (scm = head; !scm_is_null (scm); scm = scm_cdr (scm)) {
-    GValue *v = NULL;
-    /* note: this does *not* actually copy the value. good in this case but a
-     * crack api... */
-#define FUNC_NAME "%scm->gst-list"
-    SCM_VALIDATE_GVALUE_COPY (0, scm_car (scm), v);
-#undef FUNC_NAME
-    gst_value_list_append_value (value, v);
-  }
+  for (scm = head; !scm_is_null (scm); scm = scm_cdr (scm))
+    gst_value_list_append_value (value, scm_c_gvalue_peek_value (scm_car (scm)));
 }
   
 SCM
@@ -602,65 +618,46 @@ scm_to_gst_array (SCM scm, GValue *value)
 {
   guint i, size = scm_c_vector_length (scm);
   
-  g_value_init (value, GST_TYPE_ARRAY);
-
-  for (i = 0; i < size; i++) {
-    if (scm_is_false (scm_gvalue_p (scm_c_vector_ref (scm, i))))
+  for (i = 0; i < size; i++)
+    if (!SCM_GVALUEP (scm_c_vector_ref (scm, i)))
       /* we require all values in a list to already have been coerced; otherwise
          there's no sane way to sniff the types... */
       return;
-  }
   
-  for (i = 0; i < size; i++) {
-    GValue *v = NULL;
-    /* note: this does *not* actually copy the value. good in this case but a
-     * crack api... */
-#define FUNC_NAME "%scm->gst-array"
-    SCM_VALIDATE_GVALUE_COPY (0, scm_c_vector_ref (scm, i), v);
-#undef FUNC_NAME
-    gst_value_array_append_value (value, v);
-  }
+  for (i = 0; i < size; i++)
+    gst_value_array_append_value
+      (value,
+       scm_c_gvalue_peek_value (scm_c_vector_ref (scm, i)));
 }
   
+static gpointer scm_c_gst_mini_object_construct (SCM instance, SCM initargs);
+
 static /*can't be const*/ scm_t_gtype_instance_funcs miniobject_funcs = {
   0 /* GST_TYPE_MINI_OBJECT, init this at runtime */,
   (scm_t_gtype_instance_ref)gst_mini_object_ref,
   (scm_t_gtype_instance_unref)gst_mini_object_unref,
   NULL,
+  NULL,
+  (scm_t_gtype_instance_construct)scm_c_gst_mini_object_construct,
   NULL
 };
 
-#ifndef GST_TYPE_IS_MINI_OBJECT
-#define GST_TYPE_IS_MINI_OBJECT(t) (g_type_is_a ((t), GST_TYPE_MINI_OBJECT))
-#endif
-
-static SCM
-scm_gst_mini_object_primitive_create (SCM class, SCM type, SCM object)
-#define s_scm_gst_mini_object_primitive_create "gst-mini-object-primitive-create"
-#define FUNC_NAME s_scm_gst_mini_object_primitive_create
+static gpointer
+scm_c_gst_mini_object_construct (SCM instance, SCM initargs)
+#define FUNC_NAME "%gst-mini-object-construct"
 {
-  GstMiniObject *mini = NULL;
-  GType gtype;
-  SCM smob;
-  
-  SCM_VALIDATE_GTYPE_CLASS (1, class);
-  SCM_VALIDATE_GTYPE_COPY (2, type, gtype);
-  SCM_ASSERT (SCM_IS_A_P (SCM_CLASS_OF (object), scm_class_gtype_class), object, 3, FUNC_NAME);
-  SCM_ASSERT (GST_TYPE_IS_MINI_OBJECT (gtype), type, 2, FUNC_NAME);
+    GType gtype;
+    SCM class;
 
-  mini = gst_mini_object_new (gtype);
+    SCM_VALIDATE_INSTANCE (1, instance);
 
-  if (!mini)
-    scm_c_gruntime_error (FUNC_NAME, "gst_mini_object_new() failed: ~S line ~S: ~A", \
-                          SCM_LIST3 (scm_makfrom0str (__FILE__), SCM_MAKINUM (__LINE__), type));
-
-  smob = scm_c_make_gtype_instance ((GTypeInstance *) mini);
-
-  scm_slot_set_x (object, scm_from_locale_symbol ("gtype-instance"), smob);
-
-  return object;
+    class = scm_class_of (instance);
+    gtype = scm_c_gtype_class_to_gtype (class);
+    return gst_mini_object_new (gtype);
+    /* here could handle other initargs. */
 }
 #undef FUNC_NAME
+
 
 void
 scm_init_gstreamer (void)
@@ -671,9 +668,6 @@ scm_init_gstreamer (void)
   scm_c_define ("<gst-mini-object>",
                 scm_c_gtype_to_class (GST_TYPE_MINI_OBJECT));
   scm_c_export ("<gst-mini-object>", NULL);
-  scm_c_define_gsubr (s_scm_gst_mini_object_primitive_create, 3, 0, 0,
-                      (SCM (*)()) scm_gst_mini_object_primitive_create);
-  scm_c_export (s_scm_gst_mini_object_primitive_create, NULL);
 
   scm_c_register_gtype_instance_gvalue_wrappers
     (GST_TYPE_MINI_OBJECT,

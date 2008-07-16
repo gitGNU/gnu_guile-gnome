@@ -1,6 +1,7 @@
 (define-module (gnome gstreamer debug)
   :use-module (gnome gstreamer)
   :use-module (gnome gobject)
+  :use-module (oop goops)
   :export     (debug-caps
                debug-notify-handler
                debug-deep-notify-handler))
@@ -13,7 +14,7 @@
           (gst-structure-foreach
            struct
            (lambda (k v)
-             (format #t "  ~a: ~a ~a\n" k (gvalue->type v) (gvalue->scm v))))
+             (format #t "  ~a: ~a ~a\n" k (class-of v) (gvalue->scm v))))
           (loop (1+ i))))))
 
 (define (debug-notify-handler sender param)

@@ -84,12 +84,6 @@
 ;; Unfortunately, since GstClockId is the pointer already (not
 ;; GstClockID*), we need to make these into functions
 
-(define-function wait-async
-  (c-name "_wrap_gst_clock_id_wait_async")
-  (overrides "gst_clock_id_wait_async")
-  (return-type "GstClockReturn")
-  (parameters '("GstClockID" "id") '("SCM" "callback")))
-
 (define-function get_time
   (c-name "gst_clock_id_get_time")
   (overrides "gst_clock_id_get_time")
@@ -409,6 +403,7 @@
   (c-name "_wrap_gst_structure_for_each")
   (overrides "gst_structure_foreach")
   (return-type "none")
+  (leave-guile-mode #f)
   (parameters '("SCM" "proc")))
 
 (define-function gst-structure-from-string
