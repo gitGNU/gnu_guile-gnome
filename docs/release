@@ -45,8 +45,5 @@ How
 7) Run make-release-note, and edit if necessary. Send to
    guile-gtk-general and guile-user.
 
-8) Would be nice to record the bzr revisions that the release was made
-   with, but that doesn't seem possible...
-
 9) Upload tarball:
    scripts/maint/upload-to-ftp.gnu.org tarball ftp://anonymous@ftp-upload.gnu.org/incoming/ftp
