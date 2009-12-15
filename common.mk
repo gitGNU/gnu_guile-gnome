@@ -1,5 +1,5 @@
 # guile-gnome
-# Copyright (C) 2003,2004 Free Software Foundation, Inc.
+# Copyright (C) 2003,2004,2009 Free Software Foundation, Inc.
 
 # This program is free software; you can redistribute it and/or    
 # modify it under the terms of the GNU General Public License as   
@@ -51,7 +51,7 @@ export GUILE_LOAD_PATH
 	|| { rm $@; false; }
 .c.doc:
 	$(CPP) -DSCM_MAGIC_SNARF_DOCS $(GUILE_SNARF_CFLAGS) $< \
-	  | grep -E '^\^\^ {.*\^\^ }' > $@ || { rm $@; false; }
+	  | grep -E '\^\^ {.*\^\^ }' > $@ || { rm $@; false; }
 
 %.scm guile-gnome-gw-%.c: %-spec.scm
 	guile $(GUILE_FLAGS) -c \
