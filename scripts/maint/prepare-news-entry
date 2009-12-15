@@ -29,7 +29,7 @@ echo >> NEWS.new
 echo >> NEWS.new
 echo >> NEWS.new
 # new news
-heading="$package $version - `bzr whoami | sed -e 's, <.*,,'`, `date +'%Y-%m-%d'`"
+heading="$package $version - `git config user.name`, `date +'%Y-%m-%d'`"
 echo $heading >> NEWS.new
 len=`echo $heading | wc -m`
 for ((i=1; $i<$len; i=$i+1)); do
@@ -38,7 +38,7 @@ done
 echo >> NEWS.new
 echo >> NEWS.new
 echo "* ChangeLog diff (process this into NEWS):" >> NEWS.new
-bzr log --forward -rtag:$prev.. >>NEWS.new
+git log $prev..HEAD >>NEWS.new
 echo >> NEWS.new
 echo >> NEWS.new
 # old news

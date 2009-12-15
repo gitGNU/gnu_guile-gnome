@@ -21,8 +21,8 @@ Who
 Anyone can make a release. Only one person, however, is the release
 manager. The release manager is the one who rolls the official packages
 and posts them on gnu.org. When a release is made by someone who is not
-the release manager (checked via `bzr whoami`), "+unofficial" is
-appended to the version.
+the release manager (checked via `git config user.email`), "+unofficial"
+is appended to the version.
 
 How
 ---
@@ -44,9 +44,6 @@ How
 
 7) Run make-release-note, and edit if necessary. Send to
    guile-gtk-general and guile-user.
-
-8) Would be nice to record the bzr revisions that the release was made
-   with, but that doesn't seem possible...
 
 9) Upload tarball:
    scripts/maint/upload-to-ftp.gnu.org tarball ftp://anonymous@ftp-upload.gnu.org/incoming/ftp

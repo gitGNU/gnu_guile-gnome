@@ -1,22 +1,14 @@
 #!/bin/bash
 
 root=`cd $(dirname $0)/.. && pwd`
-if test -n "$2"; then
-    echo "usage: $0 [BASE-URL]"
-    echo "merges in any updates in packages at BASE-URL, or the last place pulled from"
-    exit 1
-fi
-baseurl=http://arch.gna.org/guile-gnome/bzr/
-if test -n "$1"; then
-    baseurl=$1
-fi
+
+echo "$root: git pull $@"
+( cd $root; git pull "$@" )
 
 for dir in $root/*; do
-    if test -d $dir -a -d $dir/.bzr; then
+    if test -d $dir -a -d $dir/.git; then
         package=`basename $dir`
-        echo "merging changes from $baseurl/$package into $dir"
-        ( cd $dir; bzr merge $baseurl/$package )
+        echo "$root/$package: git pull $@"
+        ( cd $dir; git pull "$@" )
     fi
 done
-echo "merging changes from $baseurl/pkg into $root"
-( cd $root; bzr merge $baseurl/pkg )

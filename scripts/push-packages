@@ -3,17 +3,17 @@
 root=`cd $(dirname $0)/.. && pwd`
 if test -z "$1"; then
     echo "usage: $0 BASE-URL"
-    echo "pushes out all packages in $root to BASE-URL"
+    echo "pushes out all packages in $root to their origin"
     exit 1
 fi
 baseurl=$1
 
 for dir in $root/*; do
-    if test -d $dir -a -d $dir/.bzr; then
+    if test -d $dir -a -d $dir/.git; then
         package=`basename $dir`
-        echo "pushing $dir to $baseurl/$package"
-        ( cd $dir; bzr push --create-prefix $baseurl/$package )
+        echo "pushing $dir to root"
+        ( cd $dir; git push )
     fi
 done
-echo "pushing $root to $baseurl/pkg"
-( cd $root; bzr push --create-prefix $baseurl/pkg )
+echo "pushing $root to origin"
+( cd $root; git push )

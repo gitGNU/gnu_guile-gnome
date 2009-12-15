@@ -14,7 +14,7 @@ echo "* prepare-release in $dir"
 cd $dir
 
 for i in *; do
-    if test -d $i/.bzr; then
+    if test -d $i/.git; then
        packages="$packages $i";
     fi
 done
