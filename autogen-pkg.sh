@@ -1,5 +1,5 @@
 # guile-gnome
-# Copyright (C) 2001,2003,2004 Free Software Foundation, Inc.
+# Copyright (C) 2001,2003,2004,2009 Free Software Foundation, Inc.
 
 # This program is free software; you can redistribute it and/or    
 # modify it under the terms of the GNU General Public License as   
@@ -23,7 +23,7 @@ checks_catted=""
 
 # Defines the release manager. Packages from someone else will carry a
 # date and releaser stamp.
-release_manager="Andy Wingo"
+release_manager="wingo@pobox.com"
 
 sort_pkgs()
 {
@@ -120,15 +120,15 @@ autogen_pkg()
     if test -z "$packages"; then
         echo "No sub-packages present in source tree."
         echo
-        echo "You probably just pulled this branch from bzr. Guile-GNOME can"
+        echo "You probably just pulled this branch from git. Guile-GNOME can"
         echo "be configured to build many different packages, as listed in"
-        echo "PACKAGES. To pull those packages from the net, try the scripts"
-        echo "in ./scripts/."
+        echo "PACKAGES. To configure this source tree for a particular"
+        echo "combination of packages, try the scripts in ./scripts/."
         echo
         echo "For example, to check out the source packages for "
         echo "guile-gnome-platform, try:"
         echo
-        echo "  ./scripts/get-packages guile-gnome-platform"
+        echo "  ./scripts/configure-packages guile-gnome-platform"
         echo
         exit 1
     fi
@@ -137,7 +137,7 @@ autogen_pkg()
 
     # versioning
     get_version $packages
-    if bzr whoami | grep -qv "$release_manager"; then
+    if git config user.email | grep -qv "$release_manager"; then
         version="$version+unofficial";
     fi
     

@@ -17,11 +17,11 @@ cd $dir
 for i in `find . -name VERSION`; do
     echo "* setting $i to $version"
     echo $version > $i
-    ( cd $(dirname $i); bzr commit -m "Bumped to $version." VERSION )
+    ( cd $(dirname $i); git commit -a -m "Bumped to $version." VERSION )
 done
 
 for i in *; do
-    if test -d $i/.bzr; then
+    if test -d $i/.git; then
        packages="$packages $i";
     fi
 done
@@ -30,5 +30,5 @@ done
 packages="$packages ."
 
 for i in $packages; do
-    (cd $i && bzr commit --unchanged -m "Released $package $version" && bzr tag $version)
+    (cd $i && git commit -a -m "Released $package $version" && git tag $version)
 done

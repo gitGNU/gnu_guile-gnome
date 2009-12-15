@@ -21,8 +21,8 @@ Who
 Anyone can make a release. Only one person, however, is the release
 manager. The release manager is the one who rolls the official packages
 and posts them on gnu.org. When a release is made by someone who is not
-the release manager (checked via `bzr whoami`), "+unofficial" is
-appended to the version.
+the release manager (checked via `git config user.email`), "+unofficial"
+is appended to the version.
 
 How
 ---

@@ -13,19 +13,12 @@ while read line; do
     avail_packages="$avail_packages $package"
 done < $root/PACKAGES
 
-if test -z "$1" -o -n "$4"; then
-    echo "usage: $0 PACKAGE [BASE-URL] [BRANCH-SUFFIX]"
+if test -z "$1" -o -n "$2"; then
+    echo "usage: $0 PACKAGE"
     echo
     echo "available packages:$avail_packages"
     echo
     exit 1
-fi
-
-if test -z "$2"; then
-    baseurl=http://arch.gna.org/guile-gnome/bzr
-    echo "no base url specified, defaulting to $baseurl"
-else
-    baseurl=$2
 fi
 
 package=$1
@@ -36,9 +29,10 @@ branch_suffix=$3
 
 for package in $subpackages; do
     if test -d $root/$package; then
-        echo "warning, directory $root/$package already exists, not fetching"
+        echo "warning, directory $root/$package already exists, not checking out $package"
     else
-        echo "fetching $package from $baseurl/$package$branch_suffix"
-        bzr get $baseurl/$package$branch_suffix $root/$package
+        echo "checking out $package"
+        git clone . $package
+        ( cd $package; git checkout -b $package origin/$package )
     fi
 done
