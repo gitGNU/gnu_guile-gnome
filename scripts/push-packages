@@ -1,12 +1,11 @@
 #!/bin/bash
 
 root=`cd $(dirname $0)/.. && pwd`
-if test -z "$1"; then
-    echo "usage: $0 BASE-URL"
+if test -n "$1"; then
+    echo "usage: $0"
     echo "pushes out all packages in $root to their origin"
     exit 1
 fi
-baseurl=$1
 
 for dir in $root/*; do
     if test -d $dir -a -d $dir/.git; then
