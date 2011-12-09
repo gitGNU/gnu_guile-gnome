@@ -1,3 +1,3 @@
 SUBDIRS = gnome
 
-EXTRA_DIST = ChangeLog NEWS README AUTHORS $(wildcard *.ac) VERSION
+EXTRA_DIST = ChangeLog
