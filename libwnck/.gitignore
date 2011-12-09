@@ -1,0 +1,9 @@
+*-gw-*.[ch]
+Makefile
+Makefile.in
+gnome/gw/wnck.scm
+.deps
+.libs
+*.log
+*.la
+*.lo

@@ -1,0 +1,27 @@
+(define-method get_windows
+  (of-object "WnckApplication")
+  (c-name "wnck_application_get_windows")
+  (overrides "wnck_application_get_windows")
+  (return-type "GList*-of-WnckWindow*")
+)
+
+(define-method get_windows
+  (of-object "WnckClassGroup")
+  (c-name "wnck_class_group_get_windows")
+  (overrides "wnck_class_group_get_windows")
+  (return-type "GList*-of-WnckWindow*")
+)
+
+(define-method get_windows
+  (of-object "WnckScreen")
+  (c-name "wnck_screen_get_windows")
+  (overrides "wnck_screen_get_windows")
+  (return-type "GList*-of-WnckWindow*")
+)
+
+(define-method get_windows_stacked
+  (of-object "WnckScreen")
+  (c-name "wnck_screen_get_windows_stacked")
+  (overrides "wnck_screen_get_windows_stacked")
+  (return-type "GList*-of-WnckWindow*")
+)

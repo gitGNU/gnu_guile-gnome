@@ -1,0 +1,120 @@
+2008-04-09  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/defs/libwnck.defs:
+	* gnome/defs/libwnck-types.defs (PagerDisplayMode): Regenerated
+	again, against the 2.16 branch of libwnck.
+
+	* gnome/defs/Makefile.am: Fix regeneration rule to be more like
+	the other ones.
+
+	* package.ac: Actually record our check as having succeeded.
+
+	* gnome/gw/wnck-spec.scm (initialize):
+	* gnome/Makefile.am (SUBDIRS):
+	* gnome/overrides/Makefile.am:
+	* gnome/overrides/libwnck.defs: Add overrides for GList-of foo.
+
+2007-12-17  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* gnome/defs/Makefile.am: Add rule to generate files.
+	* gnome/defs/common-ignores.defs: New file.
+	* gnome/defs/libwnck-types.defs:
+	* gnome/defs/libwnck.defs: Regenerate for 2.16.1.
+
+2007-09-15  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* Resurrect from Attic and merge changes from
+	    http://lilypond.org/~janneke/vc/guile-gnome/defs
+	    http://lilypond.org/~janneke/vc/guile-gnome/libwnck
+	
+	2007-07-18  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+		* gnome/defs/libwnck.defs: Updates for libwnck-2.18.
+
+	2007-07-13  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+		* Build updates for g-wrap and libwnck-2.18.
+
+
+2004-11-13  Andy Wingo  <wingo@pobox.com>
+
+	* Makefile.am: Dist VERSION.
+	* VERSION: New file.
+
+	* gnome/Makefile.am: Recurse into defs/.
+
+	* defs-extra-checks.ac: Deleted.
+
+	* gnome/defs/libwnck.defs:
+	* gnome/defs/libwnck-types.defs:
+	* gnome/defs/Makefile.am: New files, moved in from defs-extra.
+	
+2004-11-07  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gw/Makefile.am (guilegnomelib_LTLIBRARIES): Install to
+	versioned dir.
+
+	* defs-extra-checks.ac: Fix the versioned pkg-config check.
+
+2004-11-06  Andy Wingo  <wingo@pobox.com>
+
+	* glib-checks.ac: 
+	* defs-extra-checks.ac: Versioned pkg-config checks.
+
+2004-09-30  Andy Wingo  <wingo@pobox.com>
+
+	* defs-extra-checks.ac: New file.
+
+2004-09-27  Andy Wingo  <wingo@pobox.com>
+
+	* Makefile.am (EXTRA_DIST): Dist the new files.
+
+2004-09-19  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gw/Makefile.am (libgw_guile_gnome_wnck_la_LIBADD): Not
+	G_WRAP_LINK_ARGS, it's G_WRAP_LIBS.
+
+2004-09-17  Andy Wingo  <wingo@pobox.com>
+
+	* NEWS: Added.
+
+	* README: Added.
+
+	* AUTHORS: Added.
+
+2004-09-15  Andy Wingo  <wingo@pobox.com>
+
+	* glib-checks.ac: Check the right module.
+
+2004-09-14  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/Makefile.am: This is not GtkSourceView...
+
+	* gnome/gw/wnck-spec.scm: Adopt for new module locations.
+
+	* gnome/gw/Makefile.am (nodist_libgw_guile_gnome_wnck_la_SOURCES):
+	Don't dist generated files.
+
+	* gnome/Makefile.am: Dist fixes.
+
+	* gnome/wnck.scm: New file.
+
+2004-06-29  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* gnome/gw/wnck-spec.scm (<wnck-wrapset>): Fix dependency list.
+	(define-module): Add dependency on gdk, fixes wrapset objects.
+	(global-declarations-cg): Fix SELF parameter's class.
+
+2004-06-26  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* gnome/gw/wnck-spec.scm (<wnck-wrapset>): Add #:dependencies.
+	(initialize): Remove depends-on!
+
+2004-06-13  Jan Nieuwenhuizen  <janneke@gnu.org>
+
+	* gnome/gw/Makefile.am: Update.
+
+	* gnome/gw/wnck-spec.scm: New name (WAS: libwnck-spec.scm).
+
+	* New file.
+
