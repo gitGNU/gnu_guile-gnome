@@ -1,19 +1,16 @@
-To find out what should go in this file, see "Information For
-Maintainers of GNU Software" (maintain.texi), the section called
-"Recording Changes".
+Guile-GStreamer was mostly written by Andy Wingo. Please see the
+revision control logs for more specific information.
 
+In addition:
 
 Martin Baulig:
-In the toplevel directory, wrote the initial versions of configure.ac,
-which live on inside autogen-pkg.sh.
+In the toplevel directory, wrote the initial versions of configure.ac.
 
 Andreas Rottmann:
 In the toplevel directory, wrote:
-    autogen-pkg.sh common.mk
+    common.mk
 In the toplevel directory, changes to:
-    h2defs.py autogen.sh
-In the directory scripts/, wrote:
-    add-upstream fork-archive-packages submit-merge
+    h2defs.py
 
 Toby D. Reeves:
 In the toplevel directory, wrote:
@@ -25,12 +22,4 @@ In the toplevel directory, changes to:
 
 Andy Wingo:
 In the toplevel directory, wrote:
-    autogen.sh dev-environ.in
-In the toplevel directory, changes to:
-    autogen-pkg.sh
-In the directory scripts/, wrote:
-    update-inventories tla-for-each
-
-Thomas Vander Stichele:
-In the toplevel directory, wrote:
-    autogen-support.sh
+    dev-environ.in

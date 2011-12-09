@@ -1,70 +1,34 @@
-guile-gnome-pkg NEWS --- history of user-visible changes.
-Copyright (C) 2004,2005,2006,2007 Free Software Foundation, Inc.
+guile-gstreamer NEWS --- history of user-visible changes.
+Copyright (C) 2004,2006,2007 Free Software Foundation, Inc.
 See the end for copying conditions of this file.
-Last updated 10 Nov 2007.
+Last updated 15 Jun 2007.
 
 
-guile-gnome-pkg is the umbrella package for guile-gnome, which can
-contain any number of sub-packages. This file documents the user-visible
-changes in guile-gnome-pkg only.
+guile-gstreamer is a Guile binding for GStreamer. It is part of
+GNU guile-gnome. This file documents the user-visible changes in
+guile-gstreamer only.
 
 
-guile-gnome-pkg 2.15.95 - Andy Wingo, 2007-11-10
-================================================
+guile-gnome-gstreamer 0.9.91 - Andy Wingo, 2007-06-15
+=====================================================
 
-* Build system work: add common makefile include for unit tests and a
-  new check-coverage target to documentation builds.
+* Require guile-gnome-glib 2.15.93.
 
+* Remove printouts when loading GStreamer, as loading is fast enough
+  that status reports are unnecessary.
 
-guile-gnome-pkg 2.15.94 - Andy Wingo, 2007-09-25
-================================================
+* Miniobjects can now be wrapped and unwrapped from GValues.
 
-* Added infrastructure to make documentation.
-
-
-guile-gnome-pkg 2.15.93 - Andy Wingo, 2007-06-15
-================================================
-
-* No user-visible changes.
+* Add accessors for GST_MESSAGE_TYPE and GST_MESSAGE_SRC.
 
 
-guile-gnome-pkg 2.15.92 - Andy Wingo, 2007-05-24
-================================================
+guile-gnome-gstreamer 0.9.90 - Andy Wingo, 2006-12-17
+=====================================================
 
-* Updates to h2defs.py to automatically handle more cases.
-
-* Add cairo to guile-gnome-platform.
+* Initial release
 
 
-guile-gnome-pkg 2.15.91 - Andy Wingo, 2007-05-10
-================================================
-
-* Require G-Wrap 1.9.8.
-
-
-guile-gnome-pkg 2.15.90 - Andy Wingo, 2006-12-15
-================================================
-
-* Require G-Wrap 1.9.7.
-
-* Update to use bzr as the version control system, instead of tla.
-
-
-guile-gnome-pkg 2.7.99 - Andy Wingo, 2005-03-06
-===============================================
-
-* Require g-wrap >= 1.9.4.
-
-* Add a general option to disable wrapping deprecated functions.
-
-
-guile-gnome-pkg 2.7.98 - Andy Wingo, 2005-01-11
-===============================================
-
-* Initial release with NEWS.
-
-
-Copyright (C) 2004,2005,2006,2007 Free Software Foundation, Inc.
+Copyright (C) 2004,2006,2007 Free Software Foundation, Inc.
 
 Copying and distribution of this file, with or without modification, are
 permitted in any medium without royalty provided the copyright notice
