@@ -1,0 +1,35 @@
+;; -*- scheme -*-
+;; Enumerations and flags ...
+
+(define-enum AppletBackgroundType
+  (in-module "Panel")
+  (c-name "PanelAppletBackgroundType")
+  (gtype-id "PANEL_TYPE_APPLET_BACKGROUND_TYPE")
+  (values
+    '("no-background" "PANEL_NO_BACKGROUND")
+    '("color-background" "PANEL_COLOR_BACKGROUND")
+    '("pixmap-background" "PANEL_PIXMAP_BACKGROUND")
+  )
+)
+
+(define-flags AppletFlags
+  (in-module "Panel")
+  (c-name "PanelAppletFlags")
+  (gtype-id "PANEL_TYPE_APPLET_FLAGS")
+  (values
+    '("flags-none" "PANEL_APPLET_FLAGS_NONE")
+    '("expand-major" "PANEL_APPLET_EXPAND_MAJOR")
+    '("expand-minor" "PANEL_APPLET_EXPAND_MINOR")
+    '("has-handle" "PANEL_APPLET_HAS_HANDLE")
+  )
+)
+
+;; -*- scheme -*-
+; object definitions ...
+(define-object Applet
+  (in-module "Panel")
+  (parent "GtkEventBox")
+  (c-name "PanelApplet")
+  (gtype-id "PANEL_TYPE_APPLET")
+)
+

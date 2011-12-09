@@ -1,0 +1,326 @@
+;; -*- scheme -*-
+(include "panel-applet-types.defs") (include overrides)
+
+;; From /usr/include/panel-2.0/panel-applet-enums.h
+
+(define-function panel_applet_background_type_get_type
+  (c-name "panel_applet_background_type_get_type")
+  (return-type "GType")
+)
+
+(define-function panel_applet_flags_get_type
+  (c-name "panel_applet_flags_get_type")
+  (return-type "GType")
+)
+
+
+
+;; From /usr/include/panel-2.0/panel-applet-gconf.h
+
+(define-method gconf_get_full_key
+  (of-object "PanelApplet")
+  (c-name "panel_applet_gconf_get_full_key")
+  (return-type "gchar*")
+  (parameters
+    '("const-gchar*" "key")
+  )
+)
+
+(define-method gconf_set_bool
+  (of-object "PanelApplet")
+  (c-name "panel_applet_gconf_set_bool")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "key")
+    '("gboolean" "the_bool")
+    '("GError**" "opt_error")
+  )
+)
+
+(define-method gconf_set_int
+  (of-object "PanelApplet")
+  (c-name "panel_applet_gconf_set_int")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "key")
+    '("gint" "the_int")
+    '("GError**" "opt_error")
+  )
+)
+
+(define-method gconf_set_string
+  (of-object "PanelApplet")
+  (c-name "panel_applet_gconf_set_string")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "key")
+    '("const-gchar*" "the_string")
+    '("GError**" "opt_error")
+  )
+)
+
+(define-method gconf_set_float
+  (of-object "PanelApplet")
+  (c-name "panel_applet_gconf_set_float")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "key")
+    '("gdouble" "the_float")
+    '("GError**" "opt_error")
+  )
+)
+
+(define-method gconf_set_list
+  (of-object "PanelApplet")
+  (c-name "panel_applet_gconf_set_list")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "key")
+    '("GConfValueType" "list_type")
+    '("GSList*" "list")
+    '("GError**" "opt_error")
+  )
+)
+
+(define-method gconf_set_value
+  (of-object "PanelApplet")
+  (c-name "panel_applet_gconf_set_value")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "key")
+    '("GConfValue*" "value")
+    '("GError**" "opt_error")
+  )
+)
+
+(define-method gconf_get_bool
+  (of-object "PanelApplet")
+  (c-name "panel_applet_gconf_get_bool")
+  (return-type "gboolean")
+  (parameters
+    '("const-gchar*" "key")
+    '("GError**" "opt_error")
+  )
+)
+
+(define-method gconf_get_int
+  (of-object "PanelApplet")
+  (c-name "panel_applet_gconf_get_int")
+  (return-type "gint")
+  (parameters
+    '("const-gchar*" "key")
+    '("GError**" "opt_error")
+  )
+)
+
+(define-method gconf_get_string
+  (of-object "PanelApplet")
+  (c-name "panel_applet_gconf_get_string")
+  (return-type "gchar*")
+  (parameters
+    '("const-gchar*" "key")
+    '("GError**" "opt_error")
+  )
+)
+
+(define-method gconf_get_float
+  (of-object "PanelApplet")
+  (c-name "panel_applet_gconf_get_float")
+  (return-type "gdouble")
+  (parameters
+    '("const-gchar*" "key")
+    '("GError**" "opt_error")
+  )
+)
+
+(define-method gconf_get_list
+  (of-object "PanelApplet")
+  (c-name "panel_applet_gconf_get_list")
+  (return-type "GSList*")
+  (parameters
+    '("const-gchar*" "key")
+    '("GConfValueType" "list_type")
+    '("GError**" "opt_error")
+  )
+)
+
+(define-method gconf_get_value
+  (of-object "PanelApplet")
+  (c-name "panel_applet_gconf_get_value")
+  (return-type "GConfValue*")
+  (parameters
+    '("const-gchar*" "key")
+    '("GError**" "opt_error")
+  )
+)
+
+
+
+;; From /usr/include/panel-2.0/panel-applet.h
+
+(define-function panel_applet_get_type
+  (c-name "panel_applet_get_type")
+  (return-type "GType")
+)
+
+(define-function panel_applet_new
+  (c-name "panel_applet_new")
+  (is-constructor-of "PanelApplet")
+  (return-type "GtkWidget*")
+)
+
+(define-method get_orient
+  (of-object "PanelApplet")
+  (c-name "panel_applet_get_orient")
+  (return-type "PanelAppletOrient")
+)
+
+(define-method get_size
+  (of-object "PanelApplet")
+  (c-name "panel_applet_get_size")
+  (return-type "guint")
+)
+
+(define-method get_background
+  (of-object "PanelApplet")
+  (c-name "panel_applet_get_background")
+  (return-type "PanelAppletBackgroundType")
+  (parameters
+    '("GdkColor*" "color")
+    '("GdkPixmap**" "pixmap")
+  )
+)
+
+(define-method get_preferences_key
+  (of-object "PanelApplet")
+  (c-name "panel_applet_get_preferences_key")
+  (return-type "gchar*")
+)
+
+(define-method add_preferences
+  (of-object "PanelApplet")
+  (c-name "panel_applet_add_preferences")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "schema_dir")
+    '("GError**" "opt_error")
+  )
+)
+
+(define-method get_flags
+  (of-object "PanelApplet")
+  (c-name "panel_applet_get_flags")
+  (return-type "PanelAppletFlags")
+)
+
+(define-method set_flags
+  (of-object "PanelApplet")
+  (c-name "panel_applet_set_flags")
+  (return-type "none")
+  (parameters
+    '("PanelAppletFlags" "flags")
+  )
+)
+
+(define-method set_size_hints
+  (of-object "PanelApplet")
+  (c-name "panel_applet_set_size_hints")
+  (return-type "none")
+  (parameters
+    '("const-int*" "size_hints")
+    '("int" "n_elements")
+    '("int" "base_size")
+  )
+)
+
+(define-method get_locked_down
+  (of-object "PanelApplet")
+  (c-name "panel_applet_get_locked_down")
+  (return-type "gboolean")
+)
+
+(define-method get_control
+  (of-object "PanelApplet")
+  (c-name "panel_applet_get_control")
+  (return-type "BonoboControl*")
+)
+
+(define-method get_popup_component
+  (of-object "PanelApplet")
+  (c-name "panel_applet_get_popup_component")
+  (return-type "BonoboUIComponent*")
+)
+
+(define-method setup_menu
+  (of-object "PanelApplet")
+  (c-name "panel_applet_setup_menu")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "xml")
+    '("const-BonoboUIVerb*" "verb_list")
+    '("gpointer" "user_data")
+  )
+)
+
+(define-method setup_menu_from_file
+  (of-object "PanelApplet")
+  (c-name "panel_applet_setup_menu_from_file")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "opt_datadir")
+    '("const-gchar*" "file")
+    '("const-gchar*" "opt_app_name")
+    '("const-BonoboUIVerb*" "verb_list")
+    '("gpointer" "user_data")
+  )
+)
+
+(define-function panel_applet_factory_main
+  (c-name "panel_applet_factory_main")
+  (return-type "int")
+  (parameters
+    '("const-gchar*" "iid")
+    '("GType" "applet_type")
+    '("PanelAppletFactoryCallback" "callback")
+    '("gpointer" "data")
+  )
+)
+
+(define-function panel_applet_factory_main_closure
+  (c-name "panel_applet_factory_main_closure")
+  (return-type "int")
+  (parameters
+    '("const-gchar*" "iid")
+    '("GType" "applet_type")
+    '("GClosure*" "closure")
+  )
+)
+
+(define-function panel_applet_shlib_factory
+  (c-name "panel_applet_shlib_factory")
+  (return-type "Bonobo_Unknown")
+  (parameters
+    '("const-char*" "iid")
+    '("GType" "applet_type")
+    '("PortableServer_POA" "poa")
+    '("gpointer" "impl_ptr")
+    '("PanelAppletFactoryCallback" "callback")
+    '("gpointer" "user_data")
+    '("CORBA_Environment*" "ev")
+  )
+)
+
+(define-function panel_applet_shlib_factory_closure
+  (c-name "panel_applet_shlib_factory_closure")
+  (return-type "Bonobo_Unknown")
+  (parameters
+    '("const-char*" "iid")
+    '("GType" "applet_type")
+    '("PortableServer_POA" "poa")
+    '("gpointer" "impl_ptr")
+    '("GClosure*" "closure")
+    '("CORBA_Environment*" "ev")
+  )
+)
+
+

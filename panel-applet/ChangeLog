@@ -1,0 +1,44 @@
+2004-11-13  Andy Wingo  <wingo@pobox.com>
+
+	* Makefile.am: Dist VERSION.
+	* VERSION: New file.
+
+	* gnome/Makefile.am: Recurse into defs/.
+
+	* defs-extra-checks.ac: Deleted.
+
+	* gnome/defs/panel-applet.defs:
+	* gnome/defs/panel-applet-types.defs:
+	* gnome/defs/Makefile.am: New files, moved in from defs-extra.
+	
+2004-11-07  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gw/Makefile.am (guilegnomelib_LTLIBRARIES): Install to
+	versioned dir.
+
+2004-11-06  Andy Wingo  <wingo@pobox.com>
+
+	* gtk-checks.ac: 
+	* glib-checks.ac: 
+	* defs-checks.ac: Versioned pkg-config checks.
+
+2004-10-20  Andy Wingo  <wingo@pobox.com>
+
+	* package.ac: Require panel-applet >= 2.8.0.
+
+	* gtk-checks.ac: Added.
+
+	* gnome/gw/panel-applet-spec.scm (global-declarations-cg): Include
+	all the headers.
+
+	* gnome/gw/panel-applet-support.h: Define some aliases between the
+	wack panel-applet enum types and the parsed h2defs types.
+
+	* gnome/overrides/panel-applet.defs (PanelAppletOrient): Defined
+	as a C enum.
+	(panel-applet-factory-main): Aliased to
+	panel-applet-factory-main-closure.
+	(ignores): Ignore bonobo funcs, funcs for the C api, type-specific
+	gconf funcs.
+
+	* Initial branch from guile-gnome-template.
