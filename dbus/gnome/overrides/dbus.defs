@@ -1,0 +1,129 @@
+;; -*- scheme -*-
+;; guile-gnome
+;; Copyright (C) 2003,2004 Andy Wingo <wingo at pobox dot com>
+
+;; This program is free software; you can redistribute it and/or    
+;; modify it under the terms of the GNU General Public License as   
+;; published by the Free Software Foundation; either version 2 of   
+;; the License, or (at your option) any later version.              
+;;                                                                  
+;; This program is distributed in the hope that it will be useful,  
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of   
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the    
+;; GNU General Public License for more details.                     
+;;                                                                  
+;; You should have received a copy of the GNU General Public License
+;; along with this program; if not, contact:
+;;
+;; Free Software Foundation           Voice:  +1-617-542-5942
+;; 59 Temple Place - Suite 330        Fax:    +1-617-542-2652
+;; Boston, MA  02111-1307,  USA       gnu@gnu.org
+
+;;; Commentary:
+;;
+;;Custom wrapper definitions.
+;;
+;;; Code:
+
+(define-boxed BusConnection
+  (c-name "DBusConnection")
+  (gtype-id "DBUS_TYPE_CONNECTION")
+)
+
+(define-boxed BusMessage
+  (c-name "DBusMessage")
+  (gtype-id "DBUS_TYPE_MESSAGE")
+)
+
+(define-boxed BusPendingCall
+  (c-name "DBusPendingCall")
+  (gtype-id "DBUS_TYPE_PENDING_CALL")
+)
+
+(define-boxed BusServer
+  (c-name "DBusServer")
+  (gtype-id "DBUS_TYPE_SERVER")
+)
+
+(define-function dbus_g_thread_init
+  (c-name "dbus_g_thread_init")
+  (return-type "none")
+)
+
+(define-method pop_message
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_pop_message")
+  (return-type "DBusMessage*")
+  (caller-owns-return #t)
+)
+
+(define-method get
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_get")
+  (return-type "SCM"))
+
+(define-method get
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_append")
+  (return-type "dbus_bool_t")
+  (parameters
+   '("SCM" "arg")
+   '("SCM" "type" (default "SCM_BOOL_F"))))
+
+(define-method get_iter
+  (of-object "DBusMessage")
+  (c-name "dbus_message_get_iter")
+  (caller-owns-return #t)
+  (return-type "DBusMessageIter*"))
+
+(define-method get_append_iter
+  (of-object "DBusMessage")
+  (c-name "dbus_message_get_append_iter")
+  (caller-owns-return #t)
+  (return-type "DBusMessageIter*"))
+
+(define-method get_unix_user
+  (of-object "DBusConnection")
+  (c-name "_wrap_dbus_connection_get_unix_user")
+  (overrides "dbus_connection_get_unix_user")
+  (return-type "SCM"))
+
+;; should wrap connection filters.
+;; should wrap free_data_slot better.
+;; REALLY need to handle register_object_path, register_fallback.
+
+(ignore-glob  "_*"
+              "*_copy"
+              "*_newv"
+              "*_ref"
+              "*_unref"
+              "*_valist"
+              "*_setv"
+              "*_get_data"
+              "*_set_data"
+              "*_function"
+              "*_functions"
+              "*preallocate*"
+              "dbus_*error*"
+              "dbus_watch_*" ; useless without the WatchFunctions
+              "dbus_timeout_*" ; useless without the TimeoutFunctions
+              "dbus_message_iter_get_*"
+              "dbus_message_iter_append_*"
+              "dbus_g_*"
+              "dbus_message_iter_init*"
+              "dbus_mutex*"
+              "dbus_condvar*"
+              )
+
+(ignore       "dbus_connection_add_filter"
+              "dbus_connection_remove_filter"
+              "dbus_message_append_iter_init"
+              "dbus_g_object_class_install_info"
+              "dbus_connection_register_g_object"
+              "dbus_malloc"
+              "dbus_malloc0"
+              "dbus_free"
+              "dbus_free_string_array"
+              "dbus_shutdown"
+              "dbus_threads_init"
+              )

@@ -1,0 +1,61 @@
+;; -*- scheme -*-
+;; Enumerations and flags ...
+
+(define-flags BusWatchFlags
+  (in-module "D")
+  (c-name "DBusWatchFlags")
+  (values
+    '("readable" "DBUS_WATCH_READABLE")
+    '("writable" "DBUS_WATCH_WRITABLE")
+    '("error" "DBUS_WATCH_ERROR")
+    '("hangup" "DBUS_WATCH_HANGUP")
+  )
+)
+
+(define-enum BusDispatchStatus
+  (in-module "D")
+  (c-name "DBusDispatchStatus")
+  (values
+    '("data-remains" "DBUS_DISPATCH_DATA_REMAINS")
+    '("complete" "DBUS_DISPATCH_COMPLETE")
+    '("need-memory" "DBUS_DISPATCH_NEED_MEMORY")
+  )
+)
+
+(define-enum BusBusType
+  (in-module "D")
+  (c-name "DBusBusType")
+  (values
+    '("session" "DBUS_BUS_SESSION")
+    '("system" "DBUS_BUS_SYSTEM")
+    '("activation" "DBUS_BUS_ACTIVATION")
+  )
+)
+
+(define-enum BusHandlerResult
+  (in-module "D")
+  (c-name "DBusHandlerResult")
+  (values
+    '("handled" "DBUS_HANDLER_RESULT_HANDLED")
+    '("not-yet-handled" "DBUS_HANDLER_RESULT_NOT_YET_HANDLED")
+    '("need-memory" "DBUS_HANDLER_RESULT_NEED_MEMORY")
+  )
+)
+
+(define-flags BusThreadFunctionsMask
+  (in-module "D")
+  (c-name "DBusThreadFunctionsMask")
+  (values
+    '("mutex-new-mask" "DBUS_THREAD_FUNCTIONS_MUTEX_NEW_MASK")
+    '("mutex-free-mask" "DBUS_THREAD_FUNCTIONS_MUTEX_FREE_MASK")
+    '("mutex-lock-mask" "DBUS_THREAD_FUNCTIONS_MUTEX_LOCK_MASK")
+    '("mutex-unlock-mask" "DBUS_THREAD_FUNCTIONS_MUTEX_UNLOCK_MASK")
+    '("condvar-new-mask" "DBUS_THREAD_FUNCTIONS_CONDVAR_NEW_MASK")
+    '("condvar-free-mask" "DBUS_THREAD_FUNCTIONS_CONDVAR_FREE_MASK")
+    '("condvar-wait-mask" "DBUS_THREAD_FUNCTIONS_CONDVAR_WAIT_MASK")
+    '("condvar-wait-timeout-mask" "DBUS_THREAD_FUNCTIONS_CONDVAR_WAIT_TIMEOUT_MASK")
+    '("condvar-wake-one-mask" "DBUS_THREAD_FUNCTIONS_CONDVAR_WAKE_ONE_MASK")
+    '("condvar-wake-all-mask" "DBUS_THREAD_FUNCTIONS_CONDVAR_WAKE_ALL_MASK")
+    '("all-mask" "DBUS_THREAD_FUNCTIONS_ALL_MASK")
+  )
+)

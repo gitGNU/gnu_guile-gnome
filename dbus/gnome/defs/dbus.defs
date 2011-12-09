@@ -1,0 +1,2080 @@
+;; -*- scheme -*-
+; object definitions ...
+;; Enumerations and flags ...
+
+(include "dbus-types.defs")
+(include overrides)
+
+;; From /usr/include/dbus-1.0/dbus/dbus-address.h
+
+(define-function dbus_parse_address
+  (c-name "dbus_parse_address")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-char*" "address")
+    '("DBusAddressEntry***" "entry")
+    '("int*" "array_len")
+    '("DBusError*" "error")
+  )
+)
+
+(define-method get_value
+  (of-object "DBusAddressEntry")
+  (c-name "dbus_address_entry_get_value")
+  (return-type "const-char*")
+  (parameters
+    '("const-char*" "key")
+  )
+)
+
+(define-method get_method
+  (of-object "DBusAddressEntry")
+  (c-name "dbus_address_entry_get_method")
+  (return-type "const-char*")
+)
+
+(define-function dbus_address_entries_free
+  (c-name "dbus_address_entries_free")
+  (return-type "none")
+  (parameters
+    '("DBusAddressEntry**" "entries")
+  )
+)
+
+
+
+;; From /usr/include/dbus-1.0/dbus/dbus-bus.h
+
+(define-function dbus_bus_get
+  (c-name "dbus_bus_get")
+  (return-type "DBusConnection*")
+  (parameters
+    '("DBusBusType" "type")
+    '("DBusError*" "error")
+  )
+)
+
+(define-function dbus_bus_register
+  (c-name "dbus_bus_register")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("DBusConnection*" "connection")
+    '("DBusError*" "error")
+  )
+)
+
+(define-function dbus_bus_set_base_service
+  (c-name "dbus_bus_set_base_service")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("DBusConnection*" "connection")
+    '("const-char*" "base_service")
+  )
+)
+
+(define-function dbus_bus_get_base_service
+  (c-name "dbus_bus_get_base_service")
+  (return-type "const-char*")
+  (parameters
+    '("DBusConnection*" "connection")
+  )
+)
+
+(define-function dbus_bus_acquire_service
+  (c-name "dbus_bus_acquire_service")
+  (return-type "int")
+  (parameters
+    '("DBusConnection*" "connection")
+    '("const-char*" "service_name")
+    '("unsigned-int" "flags")
+    '("DBusError*" "error")
+  )
+)
+
+(define-function dbus_bus_service_exists
+  (c-name "dbus_bus_service_exists")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("DBusConnection*" "connection")
+    '("const-char*" "service_name")
+    '("DBusError*" "error")
+  )
+)
+
+(define-function dbus_bus_activate_service
+  (c-name "dbus_bus_activate_service")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("DBusConnection*" "connection")
+    '("const-char*" "service_name")
+    '("dbus_uint32_t" "flags")
+    '("dbus_uint32_t*" "reply")
+    '("DBusError*" "error")
+  )
+)
+
+(define-function dbus_bus_add_match
+  (c-name "dbus_bus_add_match")
+  (return-type "none")
+  (parameters
+    '("DBusConnection*" "connection")
+    '("const-char*" "rule")
+    '("DBusError*" "error")
+  )
+)
+
+(define-function dbus_bus_remove_match
+  (c-name "dbus_bus_remove_match")
+  (return-type "none")
+  (parameters
+    '("DBusConnection*" "connection")
+    '("const-char*" "rule")
+    '("DBusError*" "error")
+  )
+)
+
+
+
+;; From /usr/include/dbus-1.0/dbus/dbus-connection.h
+
+(define-function dbus_connection_open
+  (c-name "dbus_connection_open")
+  (return-type "DBusConnection*")
+  (parameters
+    '("const-char*" "address")
+    '("DBusError*" "error")
+  )
+)
+
+(define-method ref
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_ref")
+  (return-type "DBusConnection*")
+)
+
+(define-method unref
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_unref")
+  (return-type "none")
+)
+
+(define-method disconnect
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_disconnect")
+  (return-type "none")
+)
+
+(define-method get_is_connected
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_get_is_connected")
+  (return-type "dbus_bool_t")
+)
+
+(define-method get_is_authenticated
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_get_is_authenticated")
+  (return-type "dbus_bool_t")
+)
+
+(define-method set_exit_on_disconnect
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_set_exit_on_disconnect")
+  (return-type "none")
+  (parameters
+    '("dbus_bool_t" "exit_on_disconnect")
+  )
+)
+
+(define-method flush
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_flush")
+  (return-type "none")
+)
+
+(define-method borrow_message
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_borrow_message")
+  (return-type "DBusMessage*")
+)
+
+(define-method return_message
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_return_message")
+  (return-type "none")
+  (parameters
+    '("DBusMessage*" "message")
+  )
+)
+
+(define-method steal_borrowed_message
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_steal_borrowed_message")
+  (return-type "none")
+  (parameters
+    '("DBusMessage*" "message")
+  )
+)
+
+(define-method pop_message
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_pop_message")
+  (return-type "DBusMessage*")
+)
+
+(define-method get_dispatch_status
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_get_dispatch_status")
+  (return-type "DBusDispatchStatus")
+)
+
+(define-method dispatch
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_dispatch")
+  (return-type "DBusDispatchStatus")
+)
+
+(define-method send
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_send")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("DBusMessage*" "message")
+    '("dbus_uint32_t*" "client_serial")
+  )
+)
+
+(define-method send_with_reply
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_send_with_reply")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("DBusMessage*" "message")
+    '("DBusPendingCall**" "pending_return")
+    '("int" "timeout_milliseconds")
+  )
+)
+
+(define-method send_with_reply_and_block
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_send_with_reply_and_block")
+  (return-type "DBusMessage*")
+  (parameters
+    '("DBusMessage*" "message")
+    '("int" "timeout_milliseconds")
+    '("DBusError*" "error")
+  )
+)
+
+(define-method set_watch_functions
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_set_watch_functions")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("DBusAddWatchFunction" "add_function")
+    '("DBusRemoveWatchFunction" "remove_function")
+    '("DBusWatchToggledFunction" "toggled_function")
+    '("void*" "data")
+    '("DBusFreeFunction" "free_data_function")
+  )
+)
+
+(define-method set_timeout_functions
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_set_timeout_functions")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("DBusAddTimeoutFunction" "add_function")
+    '("DBusRemoveTimeoutFunction" "remove_function")
+    '("DBusTimeoutToggledFunction" "toggled_function")
+    '("void*" "data")
+    '("DBusFreeFunction" "free_data_function")
+  )
+)
+
+(define-method set_wakeup_main_function
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_set_wakeup_main_function")
+  (return-type "none")
+  (parameters
+    '("DBusWakeupMainFunction" "wakeup_main_function")
+    '("void*" "data")
+    '("DBusFreeFunction" "free_data_function")
+  )
+)
+
+(define-method set_dispatch_status_function
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_set_dispatch_status_function")
+  (return-type "none")
+  (parameters
+    '("DBusDispatchStatusFunction" "function")
+    '("void*" "data")
+    '("DBusFreeFunction" "free_data_function")
+  )
+)
+
+(define-method get_unix_user
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_get_unix_user")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("unsigned-long*" "uid")
+  )
+)
+
+(define-method get_unix_process_id
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_get_unix_process_id")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("unsigned-long*" "pid")
+  )
+)
+
+(define-method set_unix_user_function
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_set_unix_user_function")
+  (return-type "none")
+  (parameters
+    '("DBusAllowUnixUserFunction" "function")
+    '("void*" "data")
+    '("DBusFreeFunction" "free_data_function")
+  )
+)
+
+(define-method get_fd
+  (of-object "DBusWatch")
+  (c-name "dbus_watch_get_fd")
+  (return-type "int")
+)
+
+(define-method get_data
+  (of-object "DBusWatch")
+  (c-name "dbus_watch_get_data")
+  (return-type "void*")
+)
+
+(define-method set_data
+  (of-object "DBusWatch")
+  (c-name "dbus_watch_set_data")
+  (return-type "none")
+  (parameters
+    '("void*" "data")
+    '("DBusFreeFunction" "free_data_function")
+  )
+)
+
+(define-method handle
+  (of-object "DBusWatch")
+  (c-name "dbus_watch_handle")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("unsigned-int" "flags")
+  )
+)
+
+(define-method get_enabled
+  (of-object "DBusWatch")
+  (c-name "dbus_watch_get_enabled")
+  (return-type "dbus_bool_t")
+)
+
+(define-method get_interval
+  (of-object "DBusTimeout")
+  (c-name "dbus_timeout_get_interval")
+  (return-type "int")
+)
+
+(define-method get_data
+  (of-object "DBusTimeout")
+  (c-name "dbus_timeout_get_data")
+  (return-type "void*")
+)
+
+(define-method set_data
+  (of-object "DBusTimeout")
+  (c-name "dbus_timeout_set_data")
+  (return-type "none")
+  (parameters
+    '("void*" "data")
+    '("DBusFreeFunction" "free_data_function")
+  )
+)
+
+(define-method handle
+  (of-object "DBusTimeout")
+  (c-name "dbus_timeout_handle")
+  (return-type "dbus_bool_t")
+)
+
+(define-method get_enabled
+  (of-object "DBusTimeout")
+  (c-name "dbus_timeout_get_enabled")
+  (return-type "dbus_bool_t")
+)
+
+(define-method add_filter
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_add_filter")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("DBusHandleMessageFunction" "function")
+    '("void*" "user_data")
+    '("DBusFreeFunction" "free_data_function")
+  )
+)
+
+(define-method remove_filter
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_remove_filter")
+  (return-type "none")
+  (parameters
+    '("DBusHandleMessageFunction" "function")
+    '("void*" "user_data")
+  )
+)
+
+(define-function dbus_connection_allocate_data_slot
+  (c-name "dbus_connection_allocate_data_slot")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("dbus_int32_t*" "slot_p")
+  )
+)
+
+(define-function dbus_connection_free_data_slot
+  (c-name "dbus_connection_free_data_slot")
+  (return-type "none")
+  (parameters
+    '("dbus_int32_t*" "slot_p")
+  )
+)
+
+(define-method set_data
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_set_data")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("dbus_int32_t" "slot")
+    '("void*" "data")
+    '("DBusFreeFunction" "free_data_func")
+  )
+)
+
+(define-method get_data
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_get_data")
+  (return-type "void*")
+  (parameters
+    '("dbus_int32_t" "slot")
+  )
+)
+
+(define-function dbus_connection_set_change_sigpipe
+  (c-name "dbus_connection_set_change_sigpipe")
+  (return-type "none")
+  (parameters
+    '("dbus_bool_t" "will_modify_sigpipe")
+  )
+)
+
+(define-method set_max_message_size
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_set_max_message_size")
+  (return-type "none")
+  (parameters
+    '("long" "size")
+  )
+)
+
+(define-method get_max_message_size
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_get_max_message_size")
+  (return-type "long")
+)
+
+(define-method set_max_received_size
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_set_max_received_size")
+  (return-type "none")
+  (parameters
+    '("long" "size")
+  )
+)
+
+(define-method get_max_received_size
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_get_max_received_size")
+  (return-type "long")
+)
+
+(define-method get_outgoing_size
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_get_outgoing_size")
+  (return-type "long")
+)
+
+(define-method preallocate_send
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_preallocate_send")
+  (return-type "DBusPreallocatedSend*")
+)
+
+(define-method free_preallocated_send
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_free_preallocated_send")
+  (return-type "none")
+  (parameters
+    '("DBusPreallocatedSend*" "preallocated")
+  )
+)
+
+(define-method send_preallocated
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_send_preallocated")
+  (return-type "none")
+  (parameters
+    '("DBusPreallocatedSend*" "preallocated")
+    '("DBusMessage*" "message")
+    '("dbus_uint32_t*" "client_serial")
+  )
+)
+
+(define-method register_object_path
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_register_object_path")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-char*" "path")
+    '("const-DBusObjectPathVTable*" "vtable")
+    '("void*" "user_data")
+  )
+)
+
+(define-method register_fallback
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_register_fallback")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-char*" "path")
+    '("const-DBusObjectPathVTable*" "vtable")
+    '("void*" "user_data")
+  )
+)
+
+(define-method unregister_object_path
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_unregister_object_path")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-char*" "path")
+  )
+)
+
+(define-method list_registered
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_list_registered")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-char*" "parent_path")
+    '("char***" "child_entries")
+  )
+)
+
+(define-method get_unix_fd
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_get_unix_fd")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("int*" "fd")
+  )
+)
+
+
+
+;; From /usr/include/dbus-1.0/dbus/dbus-errors.h
+
+(define-method init
+  (of-object "DBusError")
+  (c-name "dbus_error_init")
+  (return-type "none")
+)
+
+(define-method free
+  (of-object "DBusError")
+  (c-name "dbus_error_free")
+  (return-type "none")
+)
+
+(define-function dbus_set_error
+  (c-name "dbus_set_error")
+  (return-type "none")
+  (parameters
+    '("DBusError*" "error")
+    '("const-char*" "name")
+    '("const-char*" "message")
+  )
+  (varargs #t)
+)
+
+(define-function dbus_move_error
+  (c-name "dbus_move_error")
+  (return-type "none")
+  (parameters
+    '("DBusError*" "src")
+    '("DBusError*" "dest")
+  )
+)
+
+(define-method has_name
+  (of-object "DBusError")
+  (c-name "dbus_error_has_name")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-char*" "name")
+  )
+)
+
+(define-method is_set
+  (of-object "DBusError")
+  (c-name "dbus_error_is_set")
+  (return-type "dbus_bool_t")
+)
+
+
+
+;; From /usr/include/dbus-1.0/dbus/dbus-glib-error-enum.h
+
+
+
+;; From /usr/include/dbus-1.0/dbus/dbus-glib.h
+
+(define-method flush
+  (of-object "DBusGConnection")
+  (c-name "dbus_g_connection_flush")
+  (return-type "none")
+)
+
+(define-function dbus_g_error_quark
+  (c-name "dbus_g_error_quark")
+  (return-type "GQuark")
+)
+
+(define-function dbus_g_thread_init
+  (c-name "dbus_g_thread_init")
+  (return-type "none")
+)
+
+(define-function dbus_g_bus_get
+  (c-name "dbus_g_bus_get")
+  (return-type "DBusGConnection*")
+  (parameters
+    '("DBusBusType" "type")
+    '("GError**" "error")
+  )
+)
+
+(define-function dbus_g_object_class_install_info
+  (c-name "dbus_g_object_class_install_info")
+  (return-type "none")
+  (parameters
+    '("GObjectClass*" "object_class")
+    '("const-DBusGObjectInfo*" "info")
+  )
+)
+
+(define-method register_g_object
+  (of-object "DBusGConnection")
+  (c-name "dbus_g_connection_register_g_object")
+  (return-type "none")
+  (parameters
+    '("const-char*" "at_path")
+    '("GObject*" "object")
+  )
+)
+
+(define-function dbus_g_proxy_get_type
+  (c-name "dbus_g_proxy_get_type")
+  (return-type "GType")
+)
+
+(define-function dbus_g_proxy_new_for_service
+  (c-name "dbus_g_proxy_new_for_service")
+  (return-type "DBusGProxy*")
+  (parameters
+    '("DBusGConnection*" "connection")
+    '("const-char*" "service_name")
+    '("const-char*" "path_name")
+    '("const-char*" "interface_name")
+  )
+)
+
+(define-function dbus_g_proxy_new_for_service_owner
+  (c-name "dbus_g_proxy_new_for_service_owner")
+  (return-type "DBusGProxy*")
+  (parameters
+    '("DBusGConnection*" "connection")
+    '("const-char*" "service_name")
+    '("const-char*" "path_name")
+    '("const-char*" "interface_name")
+    '("GError**" "error")
+  )
+)
+
+(define-function dbus_g_proxy_new_for_peer
+  (c-name "dbus_g_proxy_new_for_peer")
+  (return-type "DBusGProxy*")
+  (parameters
+    '("DBusGConnection*" "connection")
+    '("const-char*" "path_name")
+    '("const-char*" "interface_name")
+  )
+)
+
+(define-method connect_signal
+  (of-object "DBusGProxy")
+  (c-name "dbus_g_proxy_connect_signal")
+  (return-type "none")
+  (parameters
+    '("const-char*" "signal_name")
+    '("GCallback" "handler")
+    '("void*" "data")
+    '("GClosureNotify" "free_data_func")
+  )
+)
+
+(define-method disconnect_signal
+  (of-object "DBusGProxy")
+  (c-name "dbus_g_proxy_disconnect_signal")
+  (return-type "none")
+  (parameters
+    '("const-char*" "signal_name")
+    '("GCallback" "handler")
+    '("void*" "data")
+  )
+)
+
+(define-method begin_call
+  (of-object "DBusGProxy")
+  (c-name "dbus_g_proxy_begin_call")
+  (return-type "DBusGPendingCall*")
+  (parameters
+    '("const-char*" "method")
+    '("int" "first_arg_type")
+  )
+  (varargs #t)
+)
+
+(define-method end_call
+  (of-object "DBusGProxy")
+  (c-name "dbus_g_proxy_end_call")
+  (return-type "gboolean")
+  (parameters
+    '("DBusGPendingCall*" "pending")
+    '("GError**" "error")
+    '("int" "first_arg_type")
+  )
+  (varargs #t)
+)
+
+(define-method call_no_reply
+  (of-object "DBusGProxy")
+  (c-name "dbus_g_proxy_call_no_reply")
+  (return-type "none")
+  (parameters
+    '("const-char*" "method")
+    '("int" "first_arg_type")
+  )
+  (varargs #t)
+)
+
+
+
+;; From /usr/include/dbus-1.0/dbus/dbus-glib-lowlevel.h
+
+(define-function dbus_set_g_error
+  (c-name "dbus_set_g_error")
+  (return-type "none")
+  (parameters
+    '("GError**" "gerror")
+    '("DBusError*" "derror")
+  )
+)
+
+(define-function dbus_connection_get_g_type
+  (c-name "dbus_connection_get_g_type")
+  (return-type "GType")
+)
+
+(define-function dbus_message_get_g_type
+  (c-name "dbus_message_get_g_type")
+  (return-type "GType")
+)
+
+(define-function dbus_g_connection_get_g_type
+  (c-name "dbus_g_connection_get_g_type")
+  (return-type "GType")
+)
+
+(define-function dbus_g_message_get_g_type
+  (c-name "dbus_g_message_get_g_type")
+  (return-type "GType")
+)
+
+(define-method setup_with_g_main
+  (of-object "DBusConnection")
+  (c-name "dbus_connection_setup_with_g_main")
+  (return-type "none")
+  (parameters
+    '("GMainContext*" "context")
+  )
+)
+
+(define-method setup_with_g_main
+  (of-object "DBusServer")
+  (c-name "dbus_server_setup_with_g_main")
+  (return-type "none")
+  (parameters
+    '("GMainContext*" "context")
+  )
+)
+
+(define-function dbus_bus_get_with_g_main
+  (c-name "dbus_bus_get_with_g_main")
+  (return-type "DBusConnection*")
+  (parameters
+    '("DBusBusType" "type")
+    '("GError**" "error")
+  )
+)
+
+(define-method send
+  (of-object "DBusGProxy")
+  (c-name "dbus_g_proxy_send")
+  (return-type "none")
+  (parameters
+    '("DBusMessage*" "message")
+    '("dbus_uint32_t*" "client_serial")
+  )
+)
+
+(define-method get_connection
+  (of-object "DBusGConnection")
+  (c-name "dbus_g_connection_get_connection")
+  (return-type "DBusConnection*")
+)
+
+(define-method get_message
+  (of-object "DBusGMessage")
+  (c-name "dbus_g_message_get_message")
+  (return-type "DBusMessage*")
+)
+
+
+
+;; From /usr/include/dbus-1.0/dbus/dbus.h
+
+
+
+;; From /usr/include/dbus-1.0/dbus/dbus-macros.h
+
+
+
+;; From /usr/include/dbus-1.0/dbus/dbus-memory.h
+
+(define-function dbus_malloc
+  (c-name "dbus_malloc")
+  (return-type "void*")
+  (parameters
+    '("size_t" "bytes")
+  )
+)
+
+(define-function dbus_malloc0
+  (c-name "dbus_malloc0")
+  (return-type "void*")
+  (parameters
+    '("size_t" "bytes")
+  )
+)
+
+(define-function dbus_realloc
+  (c-name "dbus_realloc")
+  (return-type "void*")
+  (parameters
+    '("void*" "memory")
+    '("size_t" "bytes")
+  )
+)
+
+(define-function dbus_free
+  (c-name "dbus_free")
+  (return-type "none")
+  (parameters
+    '("void*" "memory")
+  )
+)
+
+(define-function dbus_free_string_array
+  (c-name "dbus_free_string_array")
+  (return-type "none")
+  (parameters
+    '("char**" "str_array")
+  )
+)
+
+(define-function dbus_shutdown
+  (c-name "dbus_shutdown")
+  (return-type "none")
+)
+
+
+
+;; From /usr/include/dbus-1.0/dbus/dbus-message.h
+
+(define-function dbus_message_new
+  (c-name "dbus_message_new")
+  (is-constructor-of "DbusMessage")
+  (return-type "DBusMessage*")
+  (parameters
+    '("int" "message_type")
+  )
+)
+
+(define-function dbus_message_new_method_call
+  (c-name "dbus_message_new_method_call")
+  (return-type "DBusMessage*")
+  (parameters
+    '("const-char*" "service")
+    '("const-char*" "path")
+    '("const-char*" "interface")
+    '("const-char*" "method")
+  )
+)
+
+(define-method new_method_return
+  (of-object "DBusMessage")
+  (c-name "dbus_message_new_method_return")
+  (return-type "DBusMessage*")
+)
+
+(define-function dbus_message_new_signal
+  (c-name "dbus_message_new_signal")
+  (return-type "DBusMessage*")
+  (parameters
+    '("const-char*" "path")
+    '("const-char*" "interface")
+    '("const-char*" "name")
+  )
+)
+
+(define-method new_error
+  (of-object "DBusMessage")
+  (c-name "dbus_message_new_error")
+  (return-type "DBusMessage*")
+  (parameters
+    '("const-char*" "error_name")
+    '("const-char*" "error_message")
+  )
+)
+
+(define-method new_error_printf
+  (of-object "DBusMessage")
+  (c-name "dbus_message_new_error_printf")
+  (return-type "DBusMessage*")
+  (parameters
+    '("const-char*" "error_name")
+    '("const-char*" "error_format")
+  )
+  (varargs #t)
+)
+
+(define-method copy
+  (of-object "DBusMessage")
+  (c-name "dbus_message_copy")
+  (return-type "DBusMessage*")
+)
+
+(define-method ref
+  (of-object "DBusMessage")
+  (c-name "dbus_message_ref")
+  (return-type "DBusMessage*")
+)
+
+(define-method unref
+  (of-object "DBusMessage")
+  (c-name "dbus_message_unref")
+  (return-type "none")
+)
+
+(define-method get_type
+  (of-object "DBusMessage")
+  (c-name "dbus_message_get_type")
+  (return-type "int")
+)
+
+(define-method set_path
+  (of-object "DBusMessage")
+  (c-name "dbus_message_set_path")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-char*" "object_path")
+  )
+)
+
+(define-method get_path
+  (of-object "DBusMessage")
+  (c-name "dbus_message_get_path")
+  (return-type "const-char*")
+)
+
+(define-method set_interface
+  (of-object "DBusMessage")
+  (c-name "dbus_message_set_interface")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-char*" "interface")
+  )
+)
+
+(define-method get_interface
+  (of-object "DBusMessage")
+  (c-name "dbus_message_get_interface")
+  (return-type "const-char*")
+)
+
+(define-method set_member
+  (of-object "DBusMessage")
+  (c-name "dbus_message_set_member")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-char*" "member")
+  )
+)
+
+(define-method get_member
+  (of-object "DBusMessage")
+  (c-name "dbus_message_get_member")
+  (return-type "const-char*")
+)
+
+(define-method set_error_name
+  (of-object "DBusMessage")
+  (c-name "dbus_message_set_error_name")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-char*" "name")
+  )
+)
+
+(define-method get_error_name
+  (of-object "DBusMessage")
+  (c-name "dbus_message_get_error_name")
+  (return-type "const-char*")
+)
+
+(define-method set_destination
+  (of-object "DBusMessage")
+  (c-name "dbus_message_set_destination")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-char*" "destination")
+  )
+)
+
+(define-method get_destination
+  (of-object "DBusMessage")
+  (c-name "dbus_message_get_destination")
+  (return-type "const-char*")
+)
+
+(define-method set_sender
+  (of-object "DBusMessage")
+  (c-name "dbus_message_set_sender")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-char*" "sender")
+  )
+)
+
+(define-method get_sender
+  (of-object "DBusMessage")
+  (c-name "dbus_message_get_sender")
+  (return-type "const-char*")
+)
+
+(define-method get_signature
+  (of-object "DBusMessage")
+  (c-name "dbus_message_get_signature")
+  (return-type "const-char*")
+)
+
+(define-method set_no_reply
+  (of-object "DBusMessage")
+  (c-name "dbus_message_set_no_reply")
+  (return-type "none")
+  (parameters
+    '("dbus_bool_t" "no_reply")
+  )
+)
+
+(define-method get_no_reply
+  (of-object "DBusMessage")
+  (c-name "dbus_message_get_no_reply")
+  (return-type "dbus_bool_t")
+)
+
+(define-method is_method_call
+  (of-object "DBusMessage")
+  (c-name "dbus_message_is_method_call")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-char*" "interface")
+    '("const-char*" "method")
+  )
+)
+
+(define-method is_signal
+  (of-object "DBusMessage")
+  (c-name "dbus_message_is_signal")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-char*" "interface")
+    '("const-char*" "signal_name")
+  )
+)
+
+(define-method is_error
+  (of-object "DBusMessage")
+  (c-name "dbus_message_is_error")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-char*" "error_name")
+  )
+)
+
+(define-method has_destination
+  (of-object "DBusMessage")
+  (c-name "dbus_message_has_destination")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-char*" "service")
+  )
+)
+
+(define-method has_sender
+  (of-object "DBusMessage")
+  (c-name "dbus_message_has_sender")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-char*" "service")
+  )
+)
+
+(define-method has_signature
+  (of-object "DBusMessage")
+  (c-name "dbus_message_has_signature")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-char*" "signature")
+  )
+)
+
+(define-method get_serial
+  (of-object "DBusMessage")
+  (c-name "dbus_message_get_serial")
+  (return-type "dbus_uint32_t")
+)
+
+(define-method set_reply_serial
+  (of-object "DBusMessage")
+  (c-name "dbus_message_set_reply_serial")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("dbus_uint32_t" "reply_serial")
+  )
+)
+
+(define-method get_reply_serial
+  (of-object "DBusMessage")
+  (c-name "dbus_message_get_reply_serial")
+  (return-type "dbus_uint32_t")
+)
+
+(define-method set_auto_activation
+  (of-object "DBusMessage")
+  (c-name "dbus_message_set_auto_activation")
+  (return-type "none")
+  (parameters
+    '("dbus_bool_t" "auto_activation")
+  )
+)
+
+(define-method get_auto_activation
+  (of-object "DBusMessage")
+  (c-name "dbus_message_get_auto_activation")
+  (return-type "dbus_bool_t")
+)
+
+(define-method get_path_decomposed
+  (of-object "DBusMessage")
+  (c-name "dbus_message_get_path_decomposed")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("char***" "path")
+  )
+)
+
+(define-method append_args
+  (of-object "DBusMessage")
+  (c-name "dbus_message_append_args")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("int" "first_arg_type")
+  )
+  (varargs #t)
+)
+
+(define-method append_args_valist
+  (of-object "DBusMessage")
+  (c-name "dbus_message_append_args_valist")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("int" "first_arg_type")
+    '("va_list" "var_args")
+  )
+)
+
+(define-method get_args
+  (of-object "DBusMessage")
+  (c-name "dbus_message_get_args")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("DBusError*" "error")
+    '("int" "first_arg_type")
+  )
+  (varargs #t)
+)
+
+(define-method get_args_valist
+  (of-object "DBusMessage")
+  (c-name "dbus_message_get_args_valist")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("DBusError*" "error")
+    '("int" "first_arg_type")
+    '("va_list" "var_args")
+  )
+)
+
+(define-method get_args
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_get_args")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("DBusError*" "error")
+    '("int" "first_arg_type")
+  )
+  (varargs #t)
+)
+
+(define-method get_args_valist
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_get_args_valist")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("DBusError*" "error")
+    '("int" "first_arg_type")
+    '("va_list" "var_args")
+  )
+)
+
+(define-method iter_init
+  (of-object "DBusMessage")
+  (c-name "dbus_message_iter_init")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("DBusMessageIter*" "iter")
+  )
+)
+
+(define-method has_next
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_has_next")
+  (return-type "dbus_bool_t")
+)
+
+(define-method next
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_next")
+  (return-type "dbus_bool_t")
+)
+
+(define-method get_arg_type
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_get_arg_type")
+  (return-type "int")
+)
+
+(define-method get_array_type
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_get_array_type")
+  (return-type "int")
+)
+
+(define-method get_boolean
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_get_boolean")
+  (return-type "dbus_bool_t")
+)
+
+(define-method get_int32
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_get_int32")
+  (return-type "dbus_int32_t")
+)
+
+(define-method get_uint32
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_get_uint32")
+  (return-type "dbus_uint32_t")
+)
+
+(define-method get_int64
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_get_int64")
+  (return-type "dbus_int64_t")
+)
+
+(define-method get_uint64
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_get_uint64")
+  (return-type "dbus_uint64_t")
+)
+
+(define-method get_double
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_get_double")
+  (return-type "double")
+)
+
+(define-method get_string
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_get_string")
+  (return-type "char*")
+)
+
+(define-method get_object_path
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_get_object_path")
+  (return-type "char*")
+)
+
+(define-method get_dict_key
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_get_dict_key")
+  (return-type "char*")
+)
+
+(define-method get_custom
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_get_custom")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("char**" "name")
+    '("unsigned-char**" "value")
+    '("int*" "len")
+  )
+)
+
+(define-method init_array_iterator
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_init_array_iterator")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("DBusMessageIter*" "array_iter")
+    '("int*" "array_type")
+  )
+)
+
+(define-method init_dict_iterator
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_init_dict_iterator")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("DBusMessageIter*" "dict_iter")
+  )
+)
+
+(define-method get_byte_array
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_get_byte_array")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("unsigned-char**" "value")
+    '("int*" "len")
+  )
+)
+
+(define-method get_boolean_array
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_get_boolean_array")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("unsigned-char**" "value")
+    '("int*" "len")
+  )
+)
+
+(define-method get_int32_array
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_get_int32_array")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("dbus_int32_t**" "value")
+    '("int*" "len")
+  )
+)
+
+(define-method get_uint32_array
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_get_uint32_array")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("dbus_uint32_t**" "value")
+    '("int*" "len")
+  )
+)
+
+(define-method get_int64_array
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_get_int64_array")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("dbus_int64_t**" "value")
+    '("int*" "len")
+  )
+)
+
+(define-method get_uint64_array
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_get_uint64_array")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("dbus_uint64_t**" "value")
+    '("int*" "len")
+  )
+)
+
+(define-method get_double_array
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_get_double_array")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("double**" "value")
+    '("int*" "len")
+  )
+)
+
+(define-method get_string_array
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_get_string_array")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("char***" "value")
+    '("int*" "len")
+  )
+)
+
+(define-method get_object_path_array
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_get_object_path_array")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("char***" "value")
+    '("int*" "len")
+  )
+)
+
+(define-method append_iter_init
+  (of-object "DBusMessage")
+  (c-name "dbus_message_append_iter_init")
+  (return-type "none")
+  (parameters
+    '("DBusMessageIter*" "iter")
+  )
+)
+
+(define-method append_nil
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_append_nil")
+  (return-type "dbus_bool_t")
+)
+
+(define-method append_boolean
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_append_boolean")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("dbus_bool_t" "value")
+  )
+)
+
+(define-method append_byte
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_append_byte")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("unsigned-char" "value")
+  )
+)
+
+(define-method append_int32
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_append_int32")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("dbus_int32_t" "value")
+  )
+)
+
+(define-method append_uint32
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_append_uint32")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("dbus_uint32_t" "value")
+  )
+)
+
+(define-method append_int64
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_append_int64")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("dbus_int64_t" "value")
+  )
+)
+
+(define-method append_uint64
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_append_uint64")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("dbus_uint64_t" "value")
+  )
+)
+
+(define-method append_double
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_append_double")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("double" "value")
+  )
+)
+
+(define-method append_string
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_append_string")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-char*" "value")
+  )
+)
+
+(define-method append_object_path
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_append_object_path")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-char*" "value")
+  )
+)
+
+(define-method append_custom
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_append_custom")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-char*" "name")
+    '("const-unsigned-char*" "data")
+    '("int" "len")
+  )
+)
+
+(define-method append_dict_key
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_append_dict_key")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-char*" "value")
+  )
+)
+
+(define-method append_array
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_append_array")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("DBusMessageIter*" "array_iter")
+    '("int" "element_type")
+  )
+)
+
+(define-method append_dict
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_append_dict")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("DBusMessageIter*" "dict_iter")
+  )
+)
+
+(define-method append_boolean_array
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_append_boolean_array")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("unsigned-const-char*" "value")
+    '("int" "len")
+  )
+)
+
+(define-method append_int32_array
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_append_int32_array")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-dbus_int32_t*" "value")
+    '("int" "len")
+  )
+)
+
+(define-method append_uint32_array
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_append_uint32_array")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-dbus_uint32_t*" "value")
+    '("int" "len")
+  )
+)
+
+(define-method append_int64_array
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_append_int64_array")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-dbus_int64_t*" "value")
+    '("int" "len")
+  )
+)
+
+(define-method append_uint64_array
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_append_uint64_array")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-dbus_uint64_t*" "value")
+    '("int" "len")
+  )
+)
+
+(define-method append_double_array
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_append_double_array")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-double*" "value")
+    '("int" "len")
+  )
+)
+
+(define-method append_byte_array
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_append_byte_array")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("unsigned-const-char*" "value")
+    '("int" "len")
+  )
+)
+
+(define-method append_string_array
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_append_string_array")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-char**" "value")
+    '("int" "len")
+  )
+)
+
+(define-method append_object_path_array
+  (of-object "DBusMessageIter")
+  (c-name "dbus_message_iter_append_object_path_array")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-char**" "value")
+    '("int" "len")
+  )
+)
+
+(define-function dbus_set_error_from_message
+  (c-name "dbus_set_error_from_message")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("DBusError*" "error")
+    '("DBusMessage*" "message")
+  )
+)
+
+(define-function dbus_message_allocate_data_slot
+  (c-name "dbus_message_allocate_data_slot")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("dbus_int32_t*" "slot_p")
+  )
+)
+
+(define-function dbus_message_free_data_slot
+  (c-name "dbus_message_free_data_slot")
+  (return-type "none")
+  (parameters
+    '("dbus_int32_t*" "slot_p")
+  )
+)
+
+(define-method set_data
+  (of-object "DBusMessage")
+  (c-name "dbus_message_set_data")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("dbus_int32_t" "slot")
+    '("void*" "data")
+    '("DBusFreeFunction" "free_data_func")
+  )
+)
+
+(define-method get_data
+  (of-object "DBusMessage")
+  (c-name "dbus_message_get_data")
+  (return-type "void*")
+  (parameters
+    '("dbus_int32_t" "slot")
+  )
+)
+
+(define-function dbus_message_type_from_string
+  (c-name "dbus_message_type_from_string")
+  (return-type "int")
+  (parameters
+    '("const-char*" "type_str")
+  )
+)
+
+
+
+;; From /usr/include/dbus-1.0/dbus/dbus-pending-call.h
+
+(define-method ref
+  (of-object "DBusPendingCall")
+  (c-name "dbus_pending_call_ref")
+  (return-type "DBusPendingCall*")
+)
+
+(define-method unref
+  (of-object "DBusPendingCall")
+  (c-name "dbus_pending_call_unref")
+  (return-type "none")
+)
+
+(define-method set_notify
+  (of-object "DBusPendingCall")
+  (c-name "dbus_pending_call_set_notify")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("DBusPendingCallNotifyFunction" "function")
+    '("void*" "user_data")
+    '("DBusFreeFunction" "free_user_data")
+  )
+)
+
+(define-method cancel
+  (of-object "DBusPendingCall")
+  (c-name "dbus_pending_call_cancel")
+  (return-type "none")
+)
+
+(define-method get_completed
+  (of-object "DBusPendingCall")
+  (c-name "dbus_pending_call_get_completed")
+  (return-type "dbus_bool_t")
+)
+
+(define-method get_reply
+  (of-object "DBusPendingCall")
+  (c-name "dbus_pending_call_get_reply")
+  (return-type "DBusMessage*")
+)
+
+(define-method block
+  (of-object "DBusPendingCall")
+  (c-name "dbus_pending_call_block")
+  (return-type "none")
+)
+
+(define-function dbus_pending_call_allocate_data_slot
+  (c-name "dbus_pending_call_allocate_data_slot")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("dbus_int32_t*" "slot_p")
+  )
+)
+
+(define-function dbus_pending_call_free_data_slot
+  (c-name "dbus_pending_call_free_data_slot")
+  (return-type "none")
+  (parameters
+    '("dbus_int32_t*" "slot_p")
+  )
+)
+
+(define-method set_data
+  (of-object "DBusPendingCall")
+  (c-name "dbus_pending_call_set_data")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("dbus_int32_t" "slot")
+    '("void*" "data")
+    '("DBusFreeFunction" "free_data_func")
+  )
+)
+
+(define-method get_data
+  (of-object "DBusPendingCall")
+  (c-name "dbus_pending_call_get_data")
+  (return-type "void*")
+  (parameters
+    '("dbus_int32_t" "slot")
+  )
+)
+
+
+
+;; From /usr/include/dbus-1.0/dbus/dbus-protocol.h
+
+
+
+;; From /usr/include/dbus-1.0/dbus/dbus-server.h
+
+(define-function dbus_server_listen
+  (c-name "dbus_server_listen")
+  (return-type "DBusServer*")
+  (parameters
+    '("const-char*" "address")
+    '("DBusError*" "error")
+  )
+)
+
+(define-method ref
+  (of-object "DBusServer")
+  (c-name "dbus_server_ref")
+  (return-type "DBusServer*")
+)
+
+(define-method unref
+  (of-object "DBusServer")
+  (c-name "dbus_server_unref")
+  (return-type "none")
+)
+
+(define-method disconnect
+  (of-object "DBusServer")
+  (c-name "dbus_server_disconnect")
+  (return-type "none")
+)
+
+(define-method get_is_connected
+  (of-object "DBusServer")
+  (c-name "dbus_server_get_is_connected")
+  (return-type "dbus_bool_t")
+)
+
+(define-method get_address
+  (of-object "DBusServer")
+  (c-name "dbus_server_get_address")
+  (return-type "char*")
+)
+
+(define-method set_new_connection_function
+  (of-object "DBusServer")
+  (c-name "dbus_server_set_new_connection_function")
+  (return-type "none")
+  (parameters
+    '("DBusNewConnectionFunction" "function")
+    '("void*" "data")
+    '("DBusFreeFunction" "free_data_function")
+  )
+)
+
+(define-method set_watch_functions
+  (of-object "DBusServer")
+  (c-name "dbus_server_set_watch_functions")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("DBusAddWatchFunction" "add_function")
+    '("DBusRemoveWatchFunction" "remove_function")
+    '("DBusWatchToggledFunction" "toggled_function")
+    '("void*" "data")
+    '("DBusFreeFunction" "free_data_function")
+  )
+)
+
+(define-method set_timeout_functions
+  (of-object "DBusServer")
+  (c-name "dbus_server_set_timeout_functions")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("DBusAddTimeoutFunction" "add_function")
+    '("DBusRemoveTimeoutFunction" "remove_function")
+    '("DBusTimeoutToggledFunction" "toggled_function")
+    '("void*" "data")
+    '("DBusFreeFunction" "free_data_function")
+  )
+)
+
+(define-method set_auth_mechanisms
+  (of-object "DBusServer")
+  (c-name "dbus_server_set_auth_mechanisms")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-char**" "mechanisms")
+  )
+)
+
+(define-function dbus_server_allocate_data_slot
+  (c-name "dbus_server_allocate_data_slot")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("dbus_int32_t*" "slot_p")
+  )
+)
+
+(define-function dbus_server_free_data_slot
+  (c-name "dbus_server_free_data_slot")
+  (return-type "none")
+  (parameters
+    '("dbus_int32_t*" "slot_p")
+  )
+)
+
+(define-method set_data
+  (of-object "DBusServer")
+  (c-name "dbus_server_set_data")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("int" "slot")
+    '("void*" "data")
+    '("DBusFreeFunction" "free_data_func")
+  )
+)
+
+(define-method get_data
+  (of-object "DBusServer")
+  (c-name "dbus_server_get_data")
+  (return-type "void*")
+  (parameters
+    '("int" "slot")
+  )
+)
+
+
+
+;; From /usr/include/dbus-1.0/dbus/dbus-shared.h
+
+
+
+;; From /usr/include/dbus-1.0/dbus/dbus-threads.h
+
+(define-function dbus_mutex_new
+  (c-name "dbus_mutex_new")
+  (is-constructor-of "DbusMutex")
+  (return-type "DBusMutex*")
+)
+
+(define-method free
+  (of-object "DBusMutex")
+  (c-name "dbus_mutex_free")
+  (return-type "none")
+)
+
+(define-method lock
+  (of-object "DBusMutex")
+  (c-name "dbus_mutex_lock")
+  (return-type "dbus_bool_t")
+)
+
+(define-method unlock
+  (of-object "DBusMutex")
+  (c-name "dbus_mutex_unlock")
+  (return-type "dbus_bool_t")
+)
+
+(define-function dbus_condvar_new
+  (c-name "dbus_condvar_new")
+  (is-constructor-of "DbusCondvar")
+  (return-type "DBusCondVar*")
+)
+
+(define-method free
+  (of-object "DBusCondVar")
+  (c-name "dbus_condvar_free")
+  (return-type "none")
+)
+
+(define-method wait
+  (of-object "DBusCondVar")
+  (c-name "dbus_condvar_wait")
+  (return-type "none")
+  (parameters
+    '("DBusMutex*" "mutex")
+  )
+)
+
+(define-method wait_timeout
+  (of-object "DBusCondVar")
+  (c-name "dbus_condvar_wait_timeout")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("DBusMutex*" "mutex")
+    '("int" "timeout_milliseconds")
+  )
+)
+
+(define-method wake_one
+  (of-object "DBusCondVar")
+  (c-name "dbus_condvar_wake_one")
+  (return-type "none")
+)
+
+(define-method wake_all
+  (of-object "DBusCondVar")
+  (c-name "dbus_condvar_wake_all")
+  (return-type "none")
+)
+
+(define-function dbus_threads_init
+  (c-name "dbus_threads_init")
+  (return-type "dbus_bool_t")
+  (parameters
+    '("const-DBusThreadFunctions*" "functions")
+  )
+)
+
+
+
+;; From /usr/include/dbus-1.0/dbus/dbus-types.h
+
+

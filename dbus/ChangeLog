@@ -1,0 +1,110 @@
+2004-11-13  Andy Wingo  <wingo@pobox.com>
+
+	* VERSION: New file.
+	* Makefile.am (EXTRA_DIST): Dist VERSION.
+
+	* gnome/Makefile.am: Recurse into defs/.
+
+	* defs-extra-checks.ac: Deleted.
+
+	* gnome/defs/dbus.defs:
+	* gnome/defs/dbus-types.defs:
+	* gnome/defs/Makefile.am: New files, moved in from defs-extra.
+	
+2004-11-07  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gw/Makefile.am (guilegnomelib_LTLIBRARIES): Install to
+	versioned dir.
+
+2004-11-06  Andy Wingo  <wingo@pobox.com>
+
+	* glib-checks.ac: 
+	* defs-extra-checks.ac: Versioned pkg-config checks.
+
+2004-09-30  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/overrides/dbus.defs: Update to ignore all high-level GLib
+	things, define boxed types for pending calls and servers,
+	specifically define dbus_g_threads_init.
+
+	* gnome/gw/dbus-spec.scm (initialize): Add type rule for
+	unsigned-long* out. 
+	(global-declarations-cg): Include dbus-glib-lowlevel.h, not
+	dbus-glib.h.
+
+	* gnome/gw/dbus-support.c (dbus-message-iter-get): Use 0.22 API to
+	check for empty arrays and dicts.
+	(dbus_message_get_iter): Use 0.22 API to check for empty messages.
+	(dbus_mending_call_get_gtype): New function. Public.
+	(dbus_server_get_gtype): New function. Public.
+
+	* defs-extra-checks.ac: New file.
+
+2004-09-27  Andy Wingo  <wingo@pobox.com>
+
+	* Makefile.am (EXTRA_DIST): Dist the new files.
+
+2004-09-19  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gw/Makefile.am (libgw_guile_gnome_dbus_la_LIBADD): Not
+	G_WRAP_LINK_ARGS, it's G_WRAP_LIBS.
+
+2004-09-17  Andy Wingo  <wingo@pobox.com>
+
+	* NEWS: Added.
+
+	* README: Added.
+
+	* AUTHORS: Added.
+
+2004-09-15  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/Makefile.am: Dist fixes.
+
+	* glib-checks.ac: Check the proper package.
+
+	* gnome/gw/dbus-spec.scm (initialize): Use
+	load-defs-with-overrides.
+
+2004-09-14  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gw/dbus-spec.scm: Adapt for module name changes.
+
+	* gnome/gw/Makefile.am (libgw_guile_gnome_dbus_la_SOURCES): Don't
+	dist the generated wrapper files.
+
+	* gnome/Makefile.am: Dist fixes.
+
+	* examples/Makefile.am: This isn't libglade...
+
+2004-09-12  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/overrides/dbus.defs: Don't wrap GProxy any more, it's
+	effectively the same as a remote object. The caller of pop-message
+	owns the result. Add a short TODO, and ignore about 70 procedures
+	(101 left).
+
+	* gnome/gw/dbus-spec.scm (initialize): Add a type rule for
+	DBusPendingCall**. Doesn't work though.
+
+2004-09-11  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/overrides/dbus.defs: Add wrappings for DBusConnection,
+	DBusMessage, DBusGProxy. Ignore some functions.
+
+	* gnome/dbus.scm: Added helper "service" and "remote object"
+	classes, along with some helper methods:
+	dbus-connection-get-service, get-object, invoke.
+
+	* gnome/gw/dbus-support.[ch]: Implemented Guile-specific functions
+	dbus-message-iter-get, dbus-message-iter-append,
+	dbus-message-get-iter, dbus-message-get-append-iter. Wrapped
+	dbus-connection-get-unix-user.
+
+	* gnome/dbus.scm: Documented dbus-message-iter-get and
+	dbus-message-iter-append, which are provided by the Guile wrapper.
+
+2004-09-09  Andy Wingo  <wingo@pobox.com>
+
+	* Initial import.
+
