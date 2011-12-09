@@ -1,0 +1,150 @@
+;; -*- scheme -*-
+;; guile-gnome
+;; Copyright (C) 2003,2004 Andy Wingo <wingo at pobox dot com>
+
+;; This program is free software; you can redistribute it and/or    
+;; modify it under the terms of the GNU General Public License as   
+;; published by the Free Software Foundation; either version 2 of   
+;; the License, or (at your option) any later version.              
+;;                                                                  
+;; This program is distributed in the hope that it will be useful,  
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of   
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the    
+;; GNU General Public License for more details.                     
+;;                                                                  
+;; You should have received a copy of the GNU General Public License
+;; along with this program; if not, contact:
+;;
+;; Free Software Foundation           Voice:  +1-617-542-5942
+;; 59 Temple Place - Suite 330        Fax:    +1-617-542-2652
+;; Boston, MA  02111-1307,  USA       gnu@gnu.org
+
+;;; Commentary:
+;;
+;;Custom wrapper definitions.
+;;
+;;; Code:
+
+(define-method get_iter_at_marker
+  (of-object "GtkSourceBuffer")
+  (c-name "_wrap_gtk_source_buffer_get_iter_at_marker")
+  (overrides "gtk_source_buffer_get_iter_at_marker")
+  (return-type "GtkTextIter*")
+  (parameters
+    '("GtkSourceMarker*" "marker")
+  )
+)
+
+(define-method get_markers_in_region
+  (of-object "GtkSourceBuffer")
+  (c-name "gtk_source_buffer_get_markers_in_region")
+  (overrides "gtk_source_buffer_get_markers_in_region")
+  (return-type "GSList*-of-GtkSourceMarker*")
+  (parameters
+    '("const-GtkTextIter*" "begin")
+    '("const-GtkTextIter*" "end")
+  )
+)
+
+(define-function gtk_source_iter_backward_search
+  (c-name "_wrap_gtk_source_iter_backward_search")
+  (overrides "gtk_source_iter_backward_search")
+  (return-type "SCM")
+  (leave-guile-mode #f)
+  (parameters
+    '("const-GtkTextIter*" "iter")
+    '("const-gchar*" "str")
+    '("GtkSourceSearchFlags" "flags")
+    '("const-GtkTextIter*" "limit")
+  )
+)
+
+(define-function gtk_source_iter_find_matching_bracket
+  (c-name "_wrap_gtk_source_iter_find_matching_bracket")
+  (overrides "gtk_source_iter_find_matching_bracket")
+  (return-type "GtkTextIter*")
+  (parameters '("GtkTextIter*" "bracket")))
+
+(define-method get_tags
+  (of-object "GtkSourceLanguage")
+  (c-name "gtk_source_language_get_tags")
+  (overrides "gtk_source_language_get_tags")
+  (return-type "GSList*-of-GtkSourceTag*")
+)
+
+(define-method get_mime_types
+  (of-object "GtkSourceLanguage")
+  (c-name "gtk_source_language_get_mime_types")
+  (overrides "gtk_source_language_get_mime_types")
+  (return-type "GSList*-of-gchar*")
+)
+
+(define-method set_mime_types
+  (of-object "GtkSourceLanguage")
+  (c-name "gtk_source_language_set_mime_types")
+  (overrides "gtk_source_language_set_mime_types")
+  (return-type "none")
+  (parameters
+    '("const-GSList*-of-gchar*" "mime_types")
+  )
+)
+
+(define-method get_available_languages
+  (of-object "GtkSourceLanguagesManager")
+  (c-name "gtk_source_languages_manager_get_available_languages")
+  (overrides "gtk_source_languages_manager_get_available_languages")
+  (return-type "const-GSList*-of-GtkSourceLanguage*")
+)
+
+(define-method get_lang_files_dirs
+  (of-object "GtkSourceLanguagesManager")
+  (c-name "gtk_source_languages_manager_get_lang_files_dirs")
+  (overrides "gtk_source_languages_manager_get_lang_files_dirs")
+  (return-type "const-GSList*-of-const-gchar*")
+)
+
+(define-method get_style_names
+  (of-object "GtkSourceStyleScheme")
+  (c-name "gtk_source_style_scheme_get_style_names")
+  (overrides "gtk_source_style_scheme_get_style_names")
+  (return-type "GSList*-of-const-gchar*")
+)
+
+(define-function gtk_keyword_list_tag_new
+  (c-name "gtk_keyword_list_tag_new")
+  (overrides "gtk_keyword_list_tag_new")
+  (is-constructor-of "GtkKeywordListTag")
+  (return-type "GtkTextTag*")
+  (parameters
+    '("const-gchar*" "id")
+    '("const-gchar*" "name")
+    '("const-GSList*-of-const-gchar*" "keywords")
+    '("gboolean" "case_sensitive")
+    '("gboolean" "match_empty_string_at_beginning")
+    '("gboolean" "match_empty_string_at_end")
+    '("const-gchar*" "beginning_regex")
+    '("const-gchar*" "end_regex")
+  )
+)
+
+(define-method add_tags
+  (of-object "GtkSourceTagTable")
+  (c-name "gtk_source_tag_table_add_tags")
+  (overrides "gtk_source_tag_table_add_tags")
+  (return-type "none")
+  (parameters
+    '("const-GSList*-of-GtkTextTag*" "tags")
+  )
+)
+
+(ignore-glob  "*_get_type"
+              "_*"
+              "*_ref"
+              "*_unref"
+              "*_copy"
+              "*_free"
+              "*_newv"
+              "*_valist"
+              "*_setv"
+              "*_foreach"
+              "*_valist")
