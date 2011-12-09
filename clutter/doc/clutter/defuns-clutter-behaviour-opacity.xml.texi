@@ -1,0 +1,45 @@
+
+@c %start of fragment
+
+@deftp Class <clutter-behaviour-opacity>
+Derives from @code{<clutter-behaviour>}.
+
+This class defines the following slots:
+
+@table @code
+@item opacity-start
+Initial opacity level
+
+@item opacity-end
+Final opacity level
+
+@end table
+
+@end deftp
+
+@deffn Function clutter-behaviour-opacity-new  (alpha@tie{}@code{<clutter-alpha>}) (opacity_start@tie{}@code{unsigned-int8}) (opacity_end@tie{}@code{unsigned-int8}) @result{}@tie{} (ret@tie{}@code{<clutter-behaviour>})
+Creates a new @code{<clutter-behaviour-opacity>} object, driven by @var{alpha}
+which controls the opacity property of every actor, making it change in the
+interval between @var{opacity-start} and @var{opacity-end}.
+
+@table @var
+@item alpha
+a @code{<clutter-alpha>} instance, or @samp{@code{#f}}
+
+@item opacity-start
+minimum level of opacity
+
+@item opacity-end
+maximum level of opacity
+
+@item ret
+the newly created @code{<clutter-behaviour-opacity>}
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+
+@c %end of fragment

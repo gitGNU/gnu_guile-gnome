@@ -1,0 +1,160 @@
+
+@c %start of fragment
+
+@deftp Class <clutter-behaviour-path>
+Derives from @code{<clutter-scriptable>}, @code{<clutter-behaviour>}.
+
+This class defines the following slots:
+
+@table @code
+@item knot
+Can be used to append a knot to the path
+
+@end table
+
+@end deftp
+
+@defop Signal <clutter-behaviour-path> knot-reached  (arg0@tie{}@code{<clutter-knot>})
+This signal is emitted each time a node defined inside the path is reached.
+
+Since 0.2
+
+@end defop
+
+@deftp Class <clutter-knot>
+Derives from @code{<gboxed>}.
+
+This class defines no direct slots.
+
+@end deftp
+
+@deffn Function clutter-behaviour-path-new  (alpha@tie{}@code{<clutter-alpha>}) (knots@tie{}@code{<clutter-knot>}) (n_knots@tie{}@code{unsigned-int}) @result{}@tie{} (ret@tie{}@code{<clutter-behaviour>})
+Creates a new path behaviour. You can use this behaviour to drive actors along
+the nodes of a path, described by the @var{knots}.
+
+@table @var
+@item alpha
+a @code{<clutter-alpha>}, or @samp{@code{#f}}
+
+@item knots
+a list of @code{<clutter-knots>}, or @samp{@code{#f}} for an empty path
+
+@item n-knots
+the number of nodes in the path
+
+@item ret
+a @code{<clutter-behaviour>}
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+@deffn Function clutter-behaviour-path-get-knots  (self@tie{}@code{<clutter-behaviour-path>}) @result{}@tie{} (ret@tie{}@code{gslist-of})
+@deffnx Method get-knots
+Returns a copy of the list of knots contained by @var{pathb}
+
+@table @var
+@item pathb
+a @code{<clutter-behvaiour-path>}
+
+@item ret
+a @code{<gs-list>} of the paths knots.
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+@deffn Function clutter-behaviour-path-append-knot  (self@tie{}@code{<clutter-behaviour-path>}) (knot@tie{}@code{<clutter-knot>})
+@deffnx Method append-knot
+Appends a @code{<clutter-knot>} to the path
+
+@table @var
+@item pathb
+a @code{<clutter-behvaiour-path>}
+
+@item knot
+a @code{<clutter-knot>} to append.
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+@deffn Function clutter-behaviour-path-insert-knot  (self@tie{}@code{<clutter-behaviour-path>}) (offset@tie{}@code{unsigned-int}) (knot@tie{}@code{<clutter-knot>})
+@deffnx Method insert-knot
+Inserts a @code{<clutter-knot>} in the path at specified position. Values
+greater than total number of knots will append the knot at the end of path.
+
+@table @var
+@item pathb
+a @code{<clutter-behvaiour-path>}
+
+@item offset
+position in path to insert knot.
+
+@item knot
+a @code{<clutter-knot>} to append.
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+@deffn Function clutter-behaviour-path-remove-knot  (self@tie{}@code{<clutter-behaviour-path>}) (offset@tie{}@code{unsigned-int})
+@deffnx Method remove-knot
+Removes a @code{<clutter-knot>} in the path at specified offset.
+
+@table @var
+@item pathb
+a @code{<clutter-behvaiour-path>}
+
+@item offset
+position in path to remove knot.
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+@deffn Function clutter-behaviour-path-clear  (self@tie{}@code{<clutter-behaviour-path>})
+@deffnx Method clear
+Removes all knots from a path
+
+@table @var
+@item pathb
+a @code{<clutter-behvaiour-path>}
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+@deffn Function clutter-knot-equal  (self@tie{}@code{<clutter-knot>}) (knot_b@tie{}@code{<clutter-knot>}) @result{}@tie{} (ret@tie{}@code{bool})
+Compares to knot and checks if the point to the same location.
+
+@table @var
+@item knot-a
+First knot
+
+@item knot-b
+Second knot
+
+@item ret
+@samp{@code{#t}} if the knots point to the same location.
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+
+@c %end of fragment

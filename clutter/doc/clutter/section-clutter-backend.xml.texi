@@ -1,0 +1,21 @@
+
+@c %start of fragment
+
+@node ClutterBackend
+@chapter ClutterBackend
+Backend abstraction
+
+@section Overview
+Clutter can be compiled against different backends. Each backend has to
+implement a set of functions, in order to be used by Clutter.
+
+@code{<clutter-backend>} is the base class abstracting the various
+implementation; it provides a basic API to query the backend for generic
+information and settings.
+
+@code{<clutter-backend>} is available since Clutter 0.4
+
+@section Usage
+@include defuns-clutter-backend.xml.texi
+
+@c %end of fragment

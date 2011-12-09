@@ -1,0 +1,417 @@
+;; -*- scheme -*-
+;; Enumerations and flags ...
+
+(define-flags ActorFlags
+  (in-module "Clutter")
+  (c-name "ClutterActorFlags")
+  (gtype-id "CLUTTER_TYPE_ACTOR_FLAGS")
+  (values
+    '("mapped" "CLUTTER_ACTOR_MAPPED")
+    '("realized" "CLUTTER_ACTOR_REALIZED")
+    '("reactive" "CLUTTER_ACTOR_REACTIVE")
+  )
+)
+
+(define-flags ModifierType
+  (in-module "Clutter")
+  (c-name "ClutterModifierType")
+  (gtype-id "CLUTTER_TYPE_MODIFIER_TYPE")
+  (values
+    '("shift-mask" "CLUTTER_SHIFT_MASK")
+    '("lock-mask" "CLUTTER_LOCK_MASK")
+    '("control-mask" "CLUTTER_CONTROL_MASK")
+    '("mod1-mask" "CLUTTER_MOD1_MASK")
+    '("mod2-mask" "CLUTTER_MOD2_MASK")
+    '("mod3-mask" "CLUTTER_MOD3_MASK")
+    '("mod4-mask" "CLUTTER_MOD4_MASK")
+    '("mod5-mask" "CLUTTER_MOD5_MASK")
+    '("button1-mask" "CLUTTER_BUTTON1_MASK")
+    '("button2-mask" "CLUTTER_BUTTON2_MASK")
+    '("button3-mask" "CLUTTER_BUTTON3_MASK")
+    '("button4-mask" "CLUTTER_BUTTON4_MASK")
+    '("button5-mask" "CLUTTER_BUTTON5_MASK")
+  )
+)
+
+(define-flags EventFlags
+  (in-module "Clutter")
+  (c-name "ClutterEventFlags")
+  (gtype-id "CLUTTER_TYPE_EVENT_FLAGS")
+  (values
+    '("c" "CLUTTER_EVENT_FLAG_SYNTHETIC")
+  )
+)
+
+(define-enum EventType
+  (in-module "Clutter")
+  (c-name "ClutterEventType")
+  (gtype-id "CLUTTER_TYPE_EVENT_TYPE")
+  (values
+    '("nothing" "CLUTTER_NOTHING")
+    '("key-press" "CLUTTER_KEY_PRESS")
+    '("key-release" "CLUTTER_KEY_RELEASE")
+    '("motion" "CLUTTER_MOTION")
+    '("enter" "CLUTTER_ENTER")
+    '("leave" "CLUTTER_LEAVE")
+    '("button-press" "CLUTTER_BUTTON_PRESS")
+    '("button-release" "CLUTTER_BUTTON_RELEASE")
+    '("scroll" "CLUTTER_SCROLL")
+    '("stage-state" "CLUTTER_STAGE_STATE")
+    '("destroy-notify" "CLUTTER_DESTROY_NOTIFY")
+    '("client-message" "CLUTTER_CLIENT_MESSAGE")
+    '("delete" "CLUTTER_DELETE")
+  )
+)
+
+(define-enum ScrollDirection
+  (in-module "Clutter")
+  (c-name "ClutterScrollDirection")
+  (gtype-id "CLUTTER_TYPE_SCROLL_DIRECTION")
+  (values
+    '("up" "CLUTTER_SCROLL_UP")
+    '("down" "CLUTTER_SCROLL_DOWN")
+    '("left" "CLUTTER_SCROLL_LEFT")
+    '("right" "CLUTTER_SCROLL_RIGHT")
+  )
+)
+
+(define-flags StageState
+  (in-module "Clutter")
+  (c-name "ClutterStageState")
+  (gtype-id "CLUTTER_TYPE_STAGE_STATE")
+  (values
+    '("fullscreen" "CLUTTER_STAGE_STATE_FULLSCREEN")
+    '("offscreen" "CLUTTER_STAGE_STATE_OFFSCREEN")
+    '("activated" "CLUTTER_STAGE_STATE_ACTIVATED")
+  )
+)
+
+(define-flags FeatureFlags
+  (in-module "Clutter")
+  (c-name "ClutterFeatureFlags")
+  (gtype-id "CLUTTER_TYPE_FEATURE_FLAGS")
+  (values
+    '("texture-npot" "CLUTTER_FEATURE_TEXTURE_NPOT")
+    '("sync-to-vblank" "CLUTTER_FEATURE_SYNC_TO_VBLANK")
+    '("texture-yuv" "CLUTTER_FEATURE_TEXTURE_YUV")
+    '("texture-read-pixels" "CLUTTER_FEATURE_TEXTURE_READ_PIXELS")
+    '("stage-static" "CLUTTER_FEATURE_STAGE_STATIC")
+    '("stage-user-resize" "CLUTTER_FEATURE_STAGE_USER_RESIZE")
+    '("stage-cursor" "CLUTTER_FEATURE_STAGE_CURSOR")
+    '("shaders-glsl" "CLUTTER_FEATURE_SHADERS_GLSL")
+    '("offscreen" "CLUTTER_FEATURE_OFFSCREEN")
+    '("stage-multiple" "CLUTTER_FEATURE_STAGE_MULTIPLE")
+  )
+)
+
+(define-enum InitError
+  (in-module "Clutter")
+  (c-name "ClutterInitError")
+  (gtype-id "CLUTTER_TYPE_INIT_ERROR")
+  (values
+    '("success" "CLUTTER_INIT_SUCCESS")
+    '("error-unknown" "CLUTTER_INIT_ERROR_UNKNOWN")
+    '("error-threads" "CLUTTER_INIT_ERROR_THREADS")
+    '("error-backend" "CLUTTER_INIT_ERROR_BACKEND")
+    '("error-internal" "CLUTTER_INIT_ERROR_INTERNAL")
+  )
+)
+
+(define-enum ScriptError
+  (in-module "Clutter")
+  (c-name "ClutterScriptError")
+  (gtype-id "CLUTTER_TYPE_SCRIPT_ERROR")
+  (values
+    '("type-function" "CLUTTER_SCRIPT_ERROR_INVALID_TYPE_FUNCTION")
+    '("property" "CLUTTER_SCRIPT_ERROR_INVALID_PROPERTY")
+    '("value" "CLUTTER_SCRIPT_ERROR_INVALID_VALUE")
+  )
+)
+
+(define-enum ShaderError
+  (in-module "Clutter")
+  (c-name "ClutterShaderError")
+  (gtype-id "CLUTTER_TYPE_SHADER_ERROR")
+  (values
+    '("no-asm" "CLUTTER_SHADER_ERROR_NO_ASM")
+    '("no-glsl" "CLUTTER_SHADER_ERROR_NO_GLSL")
+    '("compile" "CLUTTER_SHADER_ERROR_COMPILE")
+  )
+)
+
+(define-enum TextureError
+  (in-module "Clutter")
+  (c-name "ClutterTextureError")
+  (gtype-id "CLUTTER_TYPE_TEXTURE_ERROR")
+  (values
+    '("out-of-memory" "CLUTTER_TEXTURE_ERROR_OUT_OF_MEMORY")
+    '("no-yuv" "CLUTTER_TEXTURE_ERROR_NO_YUV")
+    '("bad-format" "CLUTTER_TEXTURE_ERROR_BAD_FORMAT")
+  )
+)
+
+(define-flags TextureFlags
+  (in-module "Clutter")
+  (c-name "ClutterTextureFlags")
+  (gtype-id "CLUTTER_TYPE_TEXTURE_FLAGS")
+  (values
+    '("rgb-flag-bgr" "CLUTTER_TEXTURE_RGB_FLAG_BGR")
+    '("rgb-flag-premult" "CLUTTER_TEXTURE_RGB_FLAG_PREMULT")
+    '("yuv-flag-yuv2" "CLUTTER_TEXTURE_YUV_FLAG_YUV2")
+  )
+)
+
+(define-enum TextureQuality
+  (in-module "Clutter")
+  (c-name "ClutterTextureQuality")
+  (gtype-id "CLUTTER_TYPE_TEXTURE_QUALITY")
+  (values
+    '("low" "CLUTTER_TEXTURE_QUALITY_LOW")
+    '("medium" "CLUTTER_TEXTURE_QUALITY_MEDIUM")
+    '("high" "CLUTTER_TEXTURE_QUALITY_HIGH")
+  )
+)
+
+(define-enum TimelineDirection
+  (in-module "Clutter")
+  (c-name "ClutterTimelineDirection")
+  (gtype-id "CLUTTER_TYPE_TIMELINE_DIRECTION")
+  (values
+    '("forward" "CLUTTER_TIMELINE_FORWARD")
+    '("backward" "CLUTTER_TIMELINE_BACKWARD")
+  )
+)
+
+(define-enum Gravity
+  (in-module "Clutter")
+  (c-name "ClutterGravity")
+  (gtype-id "CLUTTER_TYPE_GRAVITY")
+  (values
+    '("none" "CLUTTER_GRAVITY_NONE")
+    '("north" "CLUTTER_GRAVITY_NORTH")
+    '("north-east" "CLUTTER_GRAVITY_NORTH_EAST")
+    '("east" "CLUTTER_GRAVITY_EAST")
+    '("south-east" "CLUTTER_GRAVITY_SOUTH_EAST")
+    '("south" "CLUTTER_GRAVITY_SOUTH")
+    '("south-west" "CLUTTER_GRAVITY_SOUTH_WEST")
+    '("west" "CLUTTER_GRAVITY_WEST")
+    '("north-west" "CLUTTER_GRAVITY_NORTH_WEST")
+    '("center" "CLUTTER_GRAVITY_CENTER")
+  )
+)
+
+(define-enum RotateAxis
+  (in-module "Clutter")
+  (c-name "ClutterRotateAxis")
+  (gtype-id "CLUTTER_TYPE_ROTATE_AXIS")
+  (values
+    '("x-axis" "CLUTTER_X_AXIS")
+    '("y-axis" "CLUTTER_Y_AXIS")
+    '("z-axis" "CLUTTER_Z_AXIS")
+  )
+)
+
+(define-enum RotateDirection
+  (in-module "Clutter")
+  (c-name "ClutterRotateDirection")
+  (gtype-id "CLUTTER_TYPE_ROTATE_DIRECTION")
+  (values
+    '("w" "CLUTTER_ROTATE_CW")
+    '("cw" "CLUTTER_ROTATE_CCW")
+  )
+)
+
+(define-enum RequestMode
+  (in-module "Clutter")
+  (c-name "ClutterRequestMode")
+  (gtype-id "CLUTTER_TYPE_REQUEST_MODE")
+  (values
+    '("height-for-width" "CLUTTER_REQUEST_HEIGHT_FOR_WIDTH")
+    '("width-for-height" "CLUTTER_REQUEST_WIDTH_FOR_HEIGHT")
+  )
+)
+
+;; -*- scheme -*-
+; object definitions ...
+(define-object Actor
+  (in-module "Clutter")
+  (parent "GInitiallyUnowned")
+  (c-name "ClutterActor")
+  (gtype-id "CLUTTER_TYPE_ACTOR")
+)
+
+(define-object Alpha
+  (in-module "Clutter")
+  (parent "GInitiallyUnowned")
+  (c-name "ClutterAlpha")
+  (gtype-id "CLUTTER_TYPE_ALPHA")
+)
+
+(define-object Backend
+  (in-module "Clutter")
+  (parent "GObject")
+  (c-name "ClutterBackend")
+  (gtype-id "CLUTTER_TYPE_BACKEND")
+)
+
+(define-object Behaviour
+  (in-module "Clutter")
+  (parent "GObject")
+  (c-name "ClutterBehaviour")
+  (gtype-id "CLUTTER_TYPE_BEHAVIOUR")
+)
+
+(define-object BehaviourBspline
+  (in-module "Clutter")
+  (parent "ClutterBehaviour")
+  (c-name "ClutterBehaviourBspline")
+  (gtype-id "CLUTTER_TYPE_BEHAVIOUR_BSPLINE")
+)
+
+(define-object BehaviourDepth
+  (in-module "Clutter")
+  (parent "ClutterBehaviour")
+  (c-name "ClutterBehaviourDepth")
+  (gtype-id "CLUTTER_TYPE_BEHAVIOUR_DEPTH")
+)
+
+(define-object BehaviourEllipse
+  (in-module "Clutter")
+  (parent "ClutterBehaviour")
+  (c-name "ClutterBehaviourEllipse")
+  (gtype-id "CLUTTER_TYPE_BEHAVIOUR_ELLIPSE")
+)
+
+(define-object BehaviourOpacity
+  (in-module "Clutter")
+  (parent "ClutterBehaviour")
+  (c-name "ClutterBehaviourOpacity")
+  (gtype-id "CLUTTER_TYPE_BEHAVIOUR_OPACITY")
+)
+
+(define-object BehaviourPath
+  (in-module "Clutter")
+  (parent "ClutterBehaviour")
+  (c-name "ClutterBehaviourPath")
+  (gtype-id "CLUTTER_TYPE_BEHAVIOUR_PATH")
+)
+
+(define-object BehaviourRotate
+  (in-module "Clutter")
+  (parent "ClutterBehaviour")
+  (c-name "ClutterBehaviourRotate")
+  (gtype-id "CLUTTER_TYPE_BEHAVIOUR_ROTATE")
+)
+
+(define-object BehaviourScale
+  (in-module "Clutter")
+  (parent "ClutterBehaviour")
+  (c-name "ClutterBehaviourScale")
+  (gtype-id "CLUTTER_TYPE_BEHAVIOUR_SCALE")
+)
+
+(define-object ChildMeta
+  (in-module "Clutter")
+  (parent "GObject")
+  (c-name "ClutterChildMeta")
+  (gtype-id "CLUTTER_TYPE_CHILD_META")
+)
+
+(define-object CloneTexture
+  (in-module "Clutter")
+  (parent "ClutterActor")
+  (c-name "ClutterCloneTexture")
+  (gtype-id "CLUTTER_TYPE_CLONE_TEXTURE")
+)
+
+(define-object EffectTemplate
+  (in-module "Clutter")
+  (parent "GObject")
+  (c-name "ClutterEffectTemplate")
+  (gtype-id "CLUTTER_TYPE_EFFECT_TEMPLATE")
+)
+
+(define-object Entry
+  (in-module "Clutter")
+  (parent "ClutterActor")
+  (c-name "ClutterEntry")
+  (gtype-id "CLUTTER_TYPE_ENTRY")
+)
+
+(define-object Group
+  (in-module "Clutter")
+  (parent "ClutterActor")
+  (c-name "ClutterGroup")
+  (gtype-id "CLUTTER_TYPE_GROUP")
+)
+
+(define-object Label
+  (in-module "Clutter")
+  (parent "ClutterActor")
+  (c-name "ClutterLabel")
+  (gtype-id "CLUTTER_TYPE_LABEL")
+)
+
+(define-object Model
+  (in-module "Clutter")
+  (parent "GObject")
+  (c-name "ClutterModel")
+  (gtype-id "CLUTTER_TYPE_MODEL")
+)
+
+(define-object ModelIter
+  (in-module "Clutter")
+  (parent "GObject")
+  (c-name "ClutterModelIter")
+  (gtype-id "CLUTTER_TYPE_MODEL_ITER")
+)
+
+(define-object Rectangle
+  (in-module "Clutter")
+  (parent "ClutterActor")
+  (c-name "ClutterRectangle")
+  (gtype-id "CLUTTER_TYPE_RECTANGLE")
+)
+
+(define-object Score
+  (in-module "Clutter")
+  (parent "GObject")
+  (c-name "ClutterScore")
+  (gtype-id "CLUTTER_TYPE_SCORE")
+)
+
+(define-object Script
+  (in-module "Clutter")
+  (parent "GObject")
+  (c-name "ClutterScript")
+  (gtype-id "CLUTTER_TYPE_SCRIPT")
+)
+
+(define-object Shader
+  (in-module "Clutter")
+  (parent "GObject")
+  (c-name "ClutterShader")
+  (gtype-id "CLUTTER_TYPE_SHADER")
+)
+
+(define-object Stage
+  (in-module "Clutter")
+  (parent "ClutterGroup")
+  (c-name "ClutterStage")
+  (gtype-id "CLUTTER_TYPE_STAGE")
+)
+
+(define-object Texture
+  (in-module "Clutter")
+  (parent "ClutterActor")
+  (c-name "ClutterTexture")
+  (gtype-id "CLUTTER_TYPE_TEXTURE")
+)
+
+(define-object Timeline
+  (in-module "Clutter")
+  (parent "GObject")
+  (c-name "ClutterTimeline")
+  (gtype-id "CLUTTER_TYPE_TIMELINE")
+)
+

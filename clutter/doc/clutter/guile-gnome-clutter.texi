@@ -1,0 +1,156 @@
+\input texinfo   @c -*-texinfo-*-
+@c %**start of header
+@setfilename guile-gnome-clutter.info
+@settitle Guile-Clutter
+@c %**end of header
+
+@include version.texi
+
+@copying 
+This manual is for @code{(gnome clutter)} (version @value{VERSION}, updated
+@value{UPDATED})
+
+Copyright 2008 OpenedHand LTD
+
+@quotation 
+Permission is granted to copy, distribute and/or modify this document
+under the terms of the GNU Free Documentation License, Version 1.1 or
+any later version published by the Free Software Foundation with no
+Invariant Sections, no Front-Cover Texts, and no Back-Cover Texts. You
+may obtain a copy of the GNU Free Documentation License from the Free
+Software Foundation by visiting their Web site or by writing to:
+
+@quotation
+The Free Software Foundation, Inc.,
+59 Temple Place - Suite 330,
+Boston, MA 02111-1307,
+USA
+@end quotation
+@end quotation
+
+@end copying
+
+@dircategory The Algorithmic Language Scheme
+@direntry 
+* Guile-Clutter: (guile-gnome-clutter.info).  A fast graphical canvas toolkit.
+@end direntry
+
+@titlepage 
+@title Guile-GNOME: Clutter
+@subtitle version @value{VERSION}, updated @value{UPDATED}
+@author Matthew Allum and OpenedHand LTD
+@page 
+@vskip 0pt plus 1filll
+@insertcopying 
+@end titlepage
+
+@ifnottex 
+@node Top
+@top Guile-Clutter
+
+@insertcopying 
+@menu
+* Overview::               About Clutter and its Guile bindings.
+
+* ClutterActor:: Base abstract class for all visual stage actors.
+* ClutterAlpha:: A class for calculating an alpha value as a function of time.
+* ClutterBackend:: Backend abstraction
+* ClutterBehaviourBspline:: A behaviour interpolating position along a B-Spline
+* ClutterBehaviourDepth:: A behaviour controlling the Z position
+* ClutterBehaviourEllipse:: A behaviour interpolating position along an ellipse
+* ClutterBehaviourOpacity:: Behaviour controlling the opacity
+* ClutterBehaviourPath:: A behaviour interpolating position along a path
+* ClutterBehaviourRotate:: A behaviour controlling rotation
+* ClutterBehaviourScale:: A behaviour controlling scale
+* ClutterBehaviour:: Class for providing behaviours to actors
+* ClutterChildMeta:: Wrapper for actors inside a container
+* ClutterCloneTexture:: Actor for cloning existing textures in an efficient way.
+* Colors:: Color management and manipulation.
+* ClutterContainer:: An interface for implementing container actors
+* Clutter Effects:: Utility Class for basic visual effects
+* ClutterEntry:: A single line text entry actor
+* Events:: User and window system events
+* GL Features:: Query GL features at runtime
+* Fixed Point Support:: Fixed Point API
+* ClutterGroup:: Actor class containing multiple children. actors.
+* ClutterLabel:: Actor for displaying text
+* ClutterListModel:: List model implementation
+* General:: Various 'global' clutter functions.
+* ClutterMedia:: An interface for controlling playback of media data.
+* ClutterModelIter:: Iterates through a model
+* ClutterModel:: A generic model implementation
+* ClutterRectangle:: An actor that displays a simple rectangle.
+* ClutterScore:: Controller for multiple timelines
+* ClutterScriptable:: Override the UI definition parsing
+* ClutterScript:: Loads a scene from UI definition data
+* ClutterShader:: Programmable pipeline abstraction
+* ClutterStage:: Top level visual element to which actors are placed.
+* ClutterTexture:: An actor for displaying and manipulating images.
+* ClutterTimeline:: A class for time-based events
+* Unit conversion:: A logical distance unit.
+* Utilities:: Misc utility functions.
+* Versioning Macros:: Versioning utility macros
+
+
+* Undocumented::           Undocumented functions.
+
+* Type Index::
+* Function Index::
+@end menu
+
+@end ifnottex
+
+@iftex 
+@shortcontents 
+@end iftex
+
+@include overview.texi
+
+@include section-clutter-actor.xml.texi
+@include section-clutter-alpha.xml.texi
+@include section-clutter-backend.xml.texi
+@include section-clutter-behaviour-bspline.xml.texi
+@include section-clutter-behaviour-depth.xml.texi
+@include section-clutter-behaviour-ellipse.xml.texi
+@include section-clutter-behaviour-opacity.xml.texi
+@include section-clutter-behaviour-path.xml.texi
+@include section-clutter-behaviour-rotate.xml.texi
+@include section-clutter-behaviour-scale.xml.texi
+@include section-clutter-behaviour.xml.texi
+@include section-clutter-child-meta.xml.texi
+@include section-clutter-clone-texture.xml.texi
+@include section-clutter-color.xml.texi
+@include section-clutter-container.xml.texi
+@include section-clutter-effect.xml.texi
+@include section-clutter-entry.xml.texi
+@include section-clutter-event.xml.texi
+@include section-clutter-feature.xml.texi
+@include section-clutter-fixed.xml.texi
+@include section-clutter-group.xml.texi
+@include section-clutter-label.xml.texi
+@include section-clutter-list-model.xml.texi
+@include section-clutter-main.xml.texi
+@include section-clutter-media.xml.texi
+@include section-clutter-model-iter.xml.texi
+@include section-clutter-model.xml.texi
+@include section-clutter-rectangle.xml.texi
+@include section-clutter-score.xml.texi
+@include section-clutter-scriptable.xml.texi
+@include section-clutter-script.xml.texi
+@include section-clutter-shader.xml.texi
+@include section-clutter-stage.xml.texi
+@include section-clutter-texture.xml.texi
+@include section-clutter-timeline.xml.texi
+@include section-clutter-units.xml.texi
+@include section-clutter-util.xml.texi
+@include section-clutter-version.xml.texi
+
+@include undocumented.texi
+
+@node Type Index
+@unnumbered Type Index
+@printindex tp
+@node Function Index
+@unnumbered Function Index
+@printindex fn
+@bye

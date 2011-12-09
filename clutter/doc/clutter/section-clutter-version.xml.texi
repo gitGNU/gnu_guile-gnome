@@ -1,0 +1,15 @@
+
+@c %start of fragment
+
+@node Versioning Macros
+@chapter Versioning Macros
+Versioning utility macros
+
+@section Overview
+Clutter offers a set of macros for checking the version of the library an
+application was linked to.
+
+@section Usage
+@include defuns-clutter-version.xml.texi
+
+@c %end of fragment

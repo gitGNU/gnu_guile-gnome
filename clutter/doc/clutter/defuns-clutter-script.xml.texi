@@ -1,0 +1,208 @@
+
+@c %start of fragment
+
+@deftp Class <clutter-script>
+Derives from @code{<gobject>}.
+
+This class defines the following slots:
+
+@table @code
+@item filename-set
+Whether the :filename property is set
+
+@item filename
+The path of the currently parsed file
+
+@end table
+
+@end deftp
+
+@deffn Function clutter-script-new  @result{}@tie{} (ret@tie{}@code{<clutter-script>})
+Creates a new @code{<clutter-script>} instance. @code{<clutter-script>} can be
+used to load objects definitions for scenegraph elements, like actors, or
+behavioural elements, like behaviours and timelines. The definitions must be
+encoded using the JavaScript Object Notation (JSON) language.
+
+@table @var
+@item ret
+the newly created @code{<clutter-script>} instance. Use @code{g-object-unref}
+when done.
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-script-load-from-data  (self@tie{}@code{<clutter-script>}) (data@tie{}@code{mchars}) (length@tie{}@code{ssize_t}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+@deffnx Method load-from-data
+Loads the definitions from @var{data} into @var{script} and merges with the
+currently loaded ones, if any.
+
+@table @var
+@item script
+a @code{<clutter-script>}
+
+@item data
+a buffer containing the definitions
+
+@item length
+the length of the buffer, or -1 if @var{data} is a NUL-terminated buffer
+
+@item error
+return location for a @code{<g-error>}, or @samp{@code{#f}}
+
+@item ret
+on error, zero is returned and @var{error} is set accordingly. On success, the
+merge id for the UI definitions is returned. You can use the merge id with
+@code{clutter-script-unmerge}.
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-script-load-from-file  (self@tie{}@code{<clutter-script>}) (filename@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+@deffnx Method load-from-file
+Loads the definitions from @var{filename} into @var{script} and merges with the
+currently loaded ones, if any.
+
+@table @var
+@item script
+a @code{<clutter-script>}
+
+@item filename
+the full path to the definition file
+
+@item error
+return location for a @code{<g-error>}, or @samp{@code{#f}}
+
+@item ret
+on error, zero is returned and @var{error} is set accordingly. On success, the
+merge id for the UI definitions is returned. You can use the merge id with
+@code{clutter-script-unmerge}.
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-script-lookup-filename  (self@tie{}@code{<clutter-script>}) (filename@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method lookup-filename
+Looks up @var{filename} inside the search paths of @var{script}. If
+@var{filename} is found, its full path will be returned .
+
+@table @var
+@item script
+a @code{<clutter-script>}
+
+@item filename
+the name of the file to lookup
+
+@item ret
+the full path of @var{filename} or @samp{@code{#f}} if no path was found.
+
+@end table
+
+Since 0.8
+
+@end deffn
+
+@deffn Function clutter-script-get-object  (self@tie{}@code{<clutter-script>}) (name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gobject>})
+@deffnx Method get-object
+Retrieves the object bound to @var{name}. This function does not increment the
+reference count of the returned object.
+
+@table @var
+@item script
+a @code{<clutter-script>}
+
+@item name
+the name of the object to retrieve
+
+@item ret
+the named object, or @samp{@code{#f}} if no object with the given name was
+available
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-script-unmerge-objects  (self@tie{}@code{<clutter-script>}) (merge_id@tie{}@code{unsigned-int})
+@deffnx Method unmerge-objects
+Unmerges the objects identified by @var{merge-id}.
+
+@table @var
+@item script
+a @code{<clutter-script>}
+
+@item merge-id
+merge id returned when loading a UI definition
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-script-ensure-objects  (self@tie{}@code{<clutter-script>})
+@deffnx Method ensure-objects
+Ensure that every object defined inside @var{script} is correctly constructed.
+You should rarely need to use this function.
+
+@table @var
+@item script
+a @code{<clutter-script>}
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-script-get-type-from-name  (self@tie{}@code{<clutter-script>}) (type_name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gtype>})
+@deffnx Method get-type-from-name
+Looks up a type by name, using the virtual function that @code{<clutter-script>}
+has for that purpose. This function should rarely be used.
+
+@table @var
+@item script
+a @code{<clutter-script>}
+
+@item type-name
+name of the type to look up
+
+@item ret
+the type for the requested type name, or @samp{G_TYPE_INVALID} if not
+corresponding type was found.
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-get-script-id  (gobject@tie{}@code{<gobject>}) @result{}@tie{} (ret@tie{}@code{mchars})
+Retrieves the Clutter script id, if any.
+
+@table @var
+@item gobject
+a @code{<gobject>}
+
+@item ret
+the script id, or @samp{@code{#f}} if @var{object} was not defined inside a UI
+definition file. The returned string is owned by the object and should never be
+modified or freed.
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+
+@c %end of fragment

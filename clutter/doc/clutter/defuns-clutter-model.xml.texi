@@ -1,0 +1,51 @@
+
+@c %start of fragment
+
+@deftp Class <clutter-model>
+Derives from @code{<gobject>}.
+
+This class defines no direct slots.
+
+@end deftp
+
+@defop Signal <clutter-model> row-added  (arg0@tie{}@code{<clutter-model-iter>})
+The ::row-added signal is emitted when a new row has been added. The data on the
+row has already been set when the ::row-added signal has been emitted.
+
+Since 0.6
+
+@end defop
+
+@defop Signal <clutter-model> row-removed  (arg0@tie{}@code{<clutter-model-iter>})
+The ::row-removed signal is emitted when a row has been removed. The data on the
+row pointed by the passed iterator is still valid when the ::row-removed signal
+has been emitted.
+
+Since 0.6
+
+@end defop
+
+@defop Signal <clutter-model> row-changed  (arg0@tie{}@code{<clutter-model-iter>})
+The ::row-removed signal is emitted when a row has been changed. The data on the
+row has already been updated when the ::row-changed signal has been emitted.
+
+Since 0.6
+
+@end defop
+
+@defop Signal <clutter-model> sort-changed 
+The ::sort-changed signal is emitted after the model has been sorted
+
+Since 0.6
+
+@end defop
+
+@defop Signal <clutter-model> filter-changed 
+The ::filter-changed signal is emitted when a new filter has been applied
+
+Since 0.6
+
+@end defop
+
+
+@c %end of fragment

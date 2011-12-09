@@ -1,0 +1,234 @@
+
+@c %start of fragment
+
+@deftp Class <clutter-shader>
+Derives from @code{<gobject>}.
+
+This class defines the following slots:
+
+@table @code
+@item vertex-source
+Source of vertex shader
+
+@item fragment-source
+Source of fragment shader
+
+@item compiled
+Whether the shader is compiled and linked
+
+@item enabled
+Whether the shader is enabled
+
+@end table
+
+@end deftp
+
+@deffn Function clutter-shader-new  @result{}@tie{} (ret@tie{}@code{<clutter-shader>})
+Create a new @code{<clutter-shader>} instance.
+
+@table @var
+@item ret
+a new @code{<clutter-shader>}.
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-shader-set-vertex-source  (self@tie{}@code{<clutter-shader>}) (data@tie{}@code{mchars}) (length@tie{}@code{ssize_t})
+@deffnx Method set-vertex-source
+Sets the GLSL source code to be used by a @code{<clutter-shader>} for the vertex
+program.
+
+@table @var
+@item shader
+a @code{<clutter-shader>}
+
+@item data
+GLSL source code.
+
+@item length
+length of source buffer (currently ignored)
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-shader-get-vertex-source  (self@tie{}@code{<clutter-shader>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-vertex-source
+Query the current GLSL vertex source set on @var{shader}.
+
+@table @var
+@item shader
+a @code{<clutter-shader>}
+
+@item ret
+the source of the vertex shader for this ClutterShader object or
+@samp{@code{#f}}. The returned string is owned by the shader object and should
+never be modified or freed
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-shader-set-fragment-source  (self@tie{}@code{<clutter-shader>}) (data@tie{}@code{mchars}) (length@tie{}@code{ssize_t})
+@deffnx Method set-fragment-source
+Sets the GLSL source code to be used by a @code{<clutter-shader>} for the
+fragment program.
+
+@table @var
+@item shader
+a @code{<clutter-shader>}
+
+@item data
+GLSL source code.
+
+@item length
+length of source buffer (currently ignored)
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-shader-get-fragment-source  (self@tie{}@code{<clutter-shader>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-fragment-source
+Query the current GLSL fragment source set on @var{shader}.
+
+@table @var
+@item shader
+a @code{<clutter-shader>}
+
+@item ret
+the source of the fragment shader for this ClutterShader object or
+@samp{@code{#f}}. The returned string is owned by the shader object and should
+never be modified or freed
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-shader-compile  (self@tie{}@code{<clutter-shader>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method compile
+Compiles and links GLSL sources set for vertex and fragment shaders for a
+@code{<clutter-shader>}. If the compilation fails and a @code{<g-error>} return
+location is provided the error will contain the errors from the compiler, if
+any.
+
+@table @var
+@item shader
+a @code{<clutter-shader>}
+
+@item error
+return location for a @code{<g-error>}, or @samp{@code{#f}}
+
+@item ret
+returns TRUE if the shader was succesfully compiled.
+
+@end table
+
+Since 0.8
+
+@end deffn
+
+@deffn Function clutter-shader-release  (self@tie{}@code{<clutter-shader>})
+@deffnx Method release
+Frees up any GL context resources held by the shader.
+
+@table @var
+@item shader
+a @code{<clutter-shader>}
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-shader-is-compiled  (self@tie{}@code{<clutter-shader>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method is-compiled
+Checks whether @var{shader} is is currently compiled, linked and bound to the GL
+context.
+
+@table @var
+@item shader
+a @code{<clutter-shader>}
+
+@item ret
+@samp{@code{#t}} if the shader is compiled, linked and ready for use.
+
+@end table
+
+Since 0.8
+
+@end deffn
+
+@deffn Function clutter-shader-set-is-enabled  (self@tie{}@code{<clutter-shader>}) (enabled@tie{}@code{bool})
+@deffnx Method set-is-enabled
+Enables a shader. This function will attempt to compile and link the shader, if
+it isn't already.
+
+When @var{enabled} is @samp{@code{#f}} the default state of the GL pipeline will
+be used instead.
+
+@table @var
+@item shader
+a @code{<clutter-shader>}
+
+@item enabled
+The new state of the shader.
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-shader-get-is-enabled  (self@tie{}@code{<clutter-shader>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-is-enabled
+Checks whether @var{shader} is enabled.
+
+@table @var
+@item shader
+a @code{<clutter-shader>}
+
+@item ret
+@samp{@code{#t}} if the shader is enabled.
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-shader-set-uniform-1f  (self@tie{}@code{<clutter-shader>}) (name@tie{}@code{mchars}) (value@tie{}@code{float})
+@deffnx Method set-uniform-1f
+Sets a user configurable variable in the shader programs attached to a
+@code{<clutter-shader>}.
+
+@table @var
+@item shader
+a @code{<clutter-shader>}
+
+@item name
+name of uniform in vertex or fragment program to set.
+
+@item value
+the new value of the uniform.
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+
+@c %end of fragment

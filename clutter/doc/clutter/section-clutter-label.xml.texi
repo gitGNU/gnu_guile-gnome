@@ -1,0 +1,15 @@
+
+@c %start of fragment
+
+@node ClutterLabel
+@chapter ClutterLabel
+Actor for displaying text
+
+@section Overview
+@code{<clutter-label>} is a @code{<clutter-actor>} that displays text using
+Pango.
+
+@section Usage
+@include defuns-clutter-label.xml.texi
+
+@c %end of fragment

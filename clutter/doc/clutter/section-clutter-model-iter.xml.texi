@@ -1,0 +1,28 @@
+
+@c %start of fragment
+
+@node ClutterModelIter
+@chapter ClutterModelIter
+Iterates through a model
+
+@section Overview
+@code{<clutter-model-iter>} is an object used for iterating through all the rows
+of a @code{<clutter-model>}. It allows setting and getting values on the row
+which is currently pointing at.
+
+A @code{<clutter-model-iter>} represents a position between two elements of the
+sequence. For example, the iterator returned by
+@code{clutter-model-get-first-iter} represents the gap immediately before the
+first row of the @code{<clutter-model>}, and the iterator returned by
+@code{clutter-model-get-last-iter} represents the gap immediately after the last
+row.
+
+A @code{<clutter-model-iter>} can only be created by a @code{<clutter-model>}
+implementation and it is valid as long as the model does not change.
+
+@code{<clutter-model-iter>} is available since Clutter 0.6
+
+@section Usage
+@include defuns-clutter-model-iter.xml.texi
+
+@c %end of fragment

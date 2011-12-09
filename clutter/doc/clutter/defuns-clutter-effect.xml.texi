@@ -1,0 +1,21 @@
+
+@c %start of fragment
+
+@deftp Class <clutter-effect-template>
+Derives from @code{<gobject>}.
+
+This class defines the following slots:
+
+@table @code
+@item timeline
+Timeline to use as a reference for the Template
+
+@item clone
+controls if effects should clone or reference the templated timeline
+
+@end table
+
+@end deftp
+
+
+@c %end of fragment

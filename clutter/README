@@ -1,0 +1,32 @@
+guile-clutter README
+Copyright (C) 2008 Free Software Foundation, Inc.
+See the end for copying conditions of this file.
+Last updated 20 June 2008.
+
+
+About guile-clutter
+===================
+
+guile-clutter is a Guile wrapper for clutter. It is a part of GNU
+guile-gnome. See the README file in the toplevel source directory for
+more information.
+
+
+Build dependencies
+==================
+
+Besides the base guile-gnome requirements given in ../README,
+guile-clutter requires clutter 0.7/0.8 development packages.
+
+guile-gnome-clutter depends on guile-gnome-glib, which is commonly
+distributed with the `guile-gnome-platform' tarball.
+
+
+Copying this file
+=================
+
+Copyright (C) 2008 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification, are
+permitted in any medium without royalty provided the copyright notice
+and this notice are preserved.

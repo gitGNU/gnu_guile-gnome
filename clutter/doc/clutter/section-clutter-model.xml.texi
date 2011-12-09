@@ -1,0 +1,102 @@
+
+@c %start of fragment
+
+@node ClutterModel
+@chapter ClutterModel
+A generic model implementation
+
+@section Overview
+@code{<clutter-model>} is a generic list model API which can be used to
+implement the model-view-controller architectural pattern in Clutter.
+
+The @code{<clutter-model>} class is a list model which can accept most GObject
+types as a column type.
+
+Creating a simple clutter model:
+
+@example 
+
+enum
+@{
+  COLUMN_INT,
+  COLUMN_STRING,
+
+  N_COLUMNS
+@};
+
+@{
+  ClutterModel *model;
+  gint i;
+
+  model = clutter_model_default_new (N_COLUMNS,
+                                     /* column type, column title */
+                                     G_TYPE_INT,     "my integers",
+                                     G_TYPE_STRING,  "my strings");
+  for (i = 0; i < 10; i++)
+    @{
+      gchar *string = g_strdup_printf ("String %d", i);
+      clutter_model_append (model,
+                            COLUMN_INT, i,
+                            COLUMN_STRING, string,
+                            -1);
+      g_free (string);
+    @}
+
+  
+@}
+@end example
+
+Iterating through the model consists of retrieving a new
+@code{<clutter-model-iter>} pointing to the starting row, and calling
+@code{clutter-model-iter-next} or @code{clutter-model-iter-prev} to move forward
+or backwards, repectively.
+
+A valid @code{<clutter-model-iter>} represents the position between two rows in
+the model. For example, the "first" iterator represents the gap immediately
+before the first row, and the "last" iterator represents the gap immediately
+after the last row. In an empty sequence, the first and last iterators are the
+same.
+
+Iterating a @code{<"">}
+
+@example 
+
+enum
+@{
+  COLUMN_INT,
+  COLUMN_STRING.
+
+  N_COLUMNS
+@};
+
+@{
+  ClutterModel *model;
+  ClutterModelIter *iter = NULL;
+
+  /*  Fill the model */
+  model = populate_model ();
+
+  /* Get the first iter */
+  iter = clutter_model_get_first_iter (model);
+  while (!clutter_model_iter_is_last (iter))
+    @{
+      print_row (iter);
+      
+      iter = clutter_model_iter_next (iter);
+    @}
+
+  /* Make sure to unref the iter */
+  g_object_unref (iter);
+@}
+@end example
+
+@code{<clutter-model>} is an abstract class. Clutter provides a default model
+implementation called @code{<clutter-model-default>} which has been optimised
+for insertion and look up in sorted lists.
+
+@code{<clutter-model>} is available since Clutter 0.6
+
+@section Usage
+@include defuns-clutter-model.xml.texi
+
+@c %end of fragment

@@ -1,0 +1,19 @@
+
+@c %start of fragment
+
+@node ClutterScriptable
+@chapter ClutterScriptable
+Override the UI definition parsing
+
+@section Overview
+The @code{<clutter-scriptable-iface>} interface exposes the UI definition
+parsing process to external classes. By implementing this interface, a class can
+override the UI definition parsing and transform complex data types into GObject
+properties, or allow custom properties.
+
+@code{<clutter-scriptable>} is available since Clutter 0.6
+
+@section Usage
+@include defuns-clutter-scriptable.xml.texi
+
+@c %end of fragment

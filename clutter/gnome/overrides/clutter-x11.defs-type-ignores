@@ -1,0 +1,1 @@
+(ignore-types "ClutterX11FilterReturn" "ClutterX11XInputEventTypes" "ClutterX11InputDeviceType")

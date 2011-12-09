@@ -1,0 +1,27 @@
+guile-clutter NEWS --- history of user-visible changes.
+Copyright (C) 2008 Free Software Foundation, Inc.
+See the end for copying conditions of this file.
+Last updated 11 Jul 2008.
+
+
+guile-clutter is a Guile binding for the Clutter graphics library. It is
+part of GNU guile-gnome.
+
+
+guile-clutter 0.8.0 - Andy Wingo, 2008-07-11
+============================================
+
+* Bump clutter version requirement to 0.8.
+
+
+guile-clutter 0.7.6 - Andy Wingo, 3 July 2008
+=============================================
+
+* Initial release
+
+
+Copyright (C) 2008 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification, are
+permitted in any medium without royalty provided the copyright notice
+and this notice are preserved.

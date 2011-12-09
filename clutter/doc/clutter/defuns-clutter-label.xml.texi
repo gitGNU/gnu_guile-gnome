@@ -1,0 +1,456 @@
+
+@c %start of fragment
+
+@deftp Class <clutter-label>
+Derives from @code{<clutter-actor>}.
+
+This class defines the following slots:
+
+@table @code
+@item font-name
+Pango font description
+
+@item text
+Text to render
+
+@item color
+Font Colour
+
+@item attributes
+A list of style attributes to apply to the text of the label
+
+@item use-markup
+The text of the label includes XML markup. See pango_parse_markup()
+
+@item alignment
+The preferred alignment for the string
+
+@item wrap
+If set, wrap lines if the text becomes too wide
+
+@item wrap-mode
+If wrap is set, controls how line-wrapping is done
+
+@item justify
+Whether the contents of the label should be justified
+
+@item ellipsize
+The preferred place to ellipsize the string, if the label does not have enough
+room to display the entire string
+
+@end table
+
+@end deftp
+
+@deffn Function clutter-label-new  @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+Creates a new, empty @code{<clutter-label>}.
+
+@table @var
+@item ret
+the newly created @code{<clutter-label>}
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-label-new-with-text  (font_name@tie{}@code{mchars}) (text@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+Creates a new @code{<clutter-label>} displaying @var{text} using
+@var{font-name}.
+
+@table @var
+@item font-name
+the name (and size) of the font to be used
+
+@item text
+the text to be displayed
+
+@item ret
+a @code{<clutter-label>}
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-label-new-full  (font_name@tie{}@code{mchars}) (text@tie{}@code{mchars}) (color@tie{}@code{<clutter-color>}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+Creates a new @code{<clutter-label>} displaying @var{text} with @var{color}
+using @var{font-name}.
+
+@table @var
+@item font-name
+the name (and size) of the font to be used
+
+@item text
+the text to be displayed
+
+@item color
+@code{<clutter-color>} for text
+
+@item ret
+a @code{<clutter-label>}
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-label-set-text  (self@tie{}@code{<clutter-label>}) (text@tie{}@code{mchars})
+@deffnx Method set-text
+Sets @var{text} as the text to be displayed by @var{label}.
+
+@table @var
+@item label
+a @code{<clutter-label>}
+
+@item text
+the text to be displayed
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-label-get-text  (self@tie{}@code{<clutter-label>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-text
+Retrieves the text displayed by @var{label}
+
+@table @var
+@item label
+a @code{<clutter-label>}
+
+@item ret
+the text of the label. The returned string is owned by @code{<clutter-label>}
+and should not be modified or freed.
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-label-set-font-name  (self@tie{}@code{<clutter-label>}) (font_name@tie{}@code{mchars})
+@deffnx Method set-font-name
+Sets @var{font-name} as the font used by @var{label}.
+
+@var{font-name} must be a string containing the font name and its size,
+similarly to what you would feed to the
+@code{pango-font-description-from-string} function.
+
+@table @var
+@item label
+a @code{<clutter-label>}
+
+@item font-name
+a font name and size, or @samp{@code{#f}} for the default font
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-label-get-font-name  (self@tie{}@code{<clutter-label>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-font-name
+Retrieves the font used by @var{label}.
+
+@table @var
+@item label
+a @code{<clutter-label>}
+
+@item ret
+a string containing the font name, in a format understandable by
+@code{pango-font-description-from-string}. The string is owned by @var{label}
+and should not be modified or freed.
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-label-set-color  (self@tie{}@code{<clutter-label>}) (color@tie{}@code{<clutter-color>})
+@deffnx Method set-color
+Sets the color of @var{label}.
+
+@table @var
+@item label
+a @code{<clutter-label>}
+
+@item color
+a @code{<clutter-color>}
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-label-get-color  (self@tie{}@code{<clutter-label>}) (color@tie{}@code{<clutter-color>})
+@deffnx Method get-color
+Retrieves the color of @var{label}.
+
+@table @var
+@item label
+a @code{<clutter-label>}
+
+@item color
+return location for a @code{<clutter-color>}
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-label-set-ellipsize  (self@tie{}@code{<clutter-label>}) (mode@tie{}@code{<pango-ellipsize-mode>})
+@deffnx Method set-ellipsize
+Sets the mode used to ellipsize (add an ellipsis: "...") to the text if there is
+not enough space to render the entire string.
+
+@table @var
+@item label
+a @code{<clutter-label>}
+
+@item mode
+a @code{<pango-ellipsize-mode>}
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+@deffn Function clutter-label-get-ellipsize  (self@tie{}@code{<clutter-label>}) @result{}@tie{} (ret@tie{}@code{<pango-ellipsize-mode>})
+@deffnx Method get-ellipsize
+Returns the ellipsizing position of the label. See
+@code{clutter-label-set-ellipsize}.
+
+@table @var
+@item label
+a @code{<clutter-label>}
+
+@item ret
+@code{<pango-ellipsize-mode>}
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+@deffn Function clutter-label-set-line-wrap  (self@tie{}@code{<clutter-label>}) (wrap@tie{}@code{bool})
+@deffnx Method set-line-wrap
+Toggles line wrapping within the @code{<clutter-label>} widget. @samp{@code{#t}}
+makes it break lines if text exceeds the widget's size. @samp{@code{#f}} lets
+the text get cut off by the edge of the widget if it exceeds the widget size.
+
+@table @var
+@item label
+a @code{<clutter-label>}
+
+@item wrap
+the setting
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+@deffn Function clutter-label-get-line-wrap  (self@tie{}@code{<clutter-label>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-line-wrap
+Returns whether lines in the label are automatically wrapped. See
+@code{clutter-label-set-line-wrap}.
+
+@table @var
+@item label
+a @code{<clutter-label>}
+
+@item ret
+@samp{@code{#t}} if the lines of the label are automatically wrapped.
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+@deffn Function clutter-label-set-line-wrap-mode  (self@tie{}@code{<clutter-label>}) (wrap_mode@tie{}@code{<pango-wrap-mode>})
+@deffnx Method set-line-wrap-mode
+If line wrapping is on (see @code{clutter-label-set-line-wrap}) this controls
+how the line wrapping is done. The default is @samp{PANGO_WRAP_WORD} which means
+wrap on word boundaries.
+
+@table @var
+@item label
+a @code{<clutter-label>}
+
+@item wrap-mode
+the line wrapping mode
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+@deffn Function clutter-label-get-line-wrap-mode  (self@tie{}@code{<clutter-label>}) @result{}@tie{} (ret@tie{}@code{<pango-wrap-mode>})
+@deffnx Method get-line-wrap-mode
+Returns line wrap mode used by the label. See
+@code{clutter-label-set-line-wrap-mode}.
+
+@table @var
+@item label
+a @code{<clutter-label>}
+
+@item ret
+@samp{@code{#t}} if the lines of the label are automatically wrapped.
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+@deffn Function clutter-label-get-layout  (self@tie{}@code{<clutter-label>}) @result{}@tie{} (ret@tie{}@code{<pango-layout>})
+@deffnx Method get-layout
+Gets the @code{<pango-layout>} used to display the label. The layout is useful
+to e.g. convert text positions to pixel positions. The returned layout is owned
+by the label so need not be freed by the caller.
+
+@table @var
+@item label
+a @code{<clutter-label>}
+
+@item ret
+the @code{<pango-layout>} for this label
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+@deffn Function clutter-label-set-attributes  (self@tie{}@code{<clutter-label>}) (attrs@tie{}@code{<pango-attr-list>})
+@deffnx Method set-attributes
+Sets a @code{<pango-attr-list>}; the attributes in the list are applied to the
+label text. The attributes set with this function will be ignored if the
+"use_markup" property is @samp{@code{#t}}.
+
+@table @var
+@item label
+a @code{<clutter-label>}
+
+@item attrs
+a @code{<pango-attr-list>}
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+@deffn Function clutter-label-get-attributes  (self@tie{}@code{<clutter-label>}) @result{}@tie{} (ret@tie{}@code{<pango-attr-list>})
+@deffnx Method get-attributes
+Gets the attribute list that was set on the label using
+@code{clutter-label-set-attributes}, if any.
+
+@table @var
+@item label
+a @code{<clutter-label>}
+
+@item ret
+the attribute list, or @samp{@code{#f}} if none was set.
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+@deffn Function clutter-label-set-use-markup  (self@tie{}@code{<clutter-label>}) (setting@tie{}@code{bool})
+@deffnx Method set-use-markup
+Sets whether the text of the label contains markup in Pango's text markup
+language.
+
+@table @var
+@item label
+a @code{<clutter-label>}
+
+@item setting
+@samp{@code{#t}} if the label's text should be parsed for markup.
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-label-get-use-markup  (self@tie{}@code{<clutter-label>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-use-markup
+Returns whether the label's text is interpreted as marked up with the Pango text
+markup language. See @code{clutter-label-set-use-markup}.
+
+@table @var
+@item label
+a @code{<clutter-label>}
+
+@item ret
+@samp{@code{#t}} if the label's text will be parsed for markup.
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-label-set-alignment  (self@tie{}@code{<clutter-label>}) (alignment@tie{}@code{<pango-alignment>})
+@deffnx Method set-alignment
+Sets text alignment of the label.
+
+@table @var
+@item label
+a @code{<clutter-label>}
+
+@item alignment
+A @code{<pango-alignment>}
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-label-get-alignment  (self@tie{}@code{<clutter-label>}) @result{}@tie{} (ret@tie{}@code{<pango-alignment>})
+@deffnx Method get-alignment
+Returns the label's text alignment
+
+@table @var
+@item label
+a @code{<clutter-label>}
+
+@item ret
+The label's @code{<pango-alignment>} Since 0.2
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-label-get-justify  (self@tie{}@code{<clutter-label>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-justify
+Retrieves whether the label should justify the text on both margins.
+
+@table @var
+@item label
+a @code{<clutter-label>}
+
+@item ret
+@samp{@code{#t}} if the text should be justified
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-label-set-justify  (self@tie{}@code{<clutter-label>}) (justify@tie{}@code{bool})
+@deffnx Method set-justify
+Sets whether the text of the @var{label} actor should be justified on both
+margins. This setting is ignored if Clutter is compiled against Pango < 1.18.
+
+@table @var
+@item label
+a @code{<clutter-label>}
+
+@item justify
+whether the text should be justified
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+
+@c %end of fragment

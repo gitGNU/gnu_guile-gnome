@@ -1,0 +1,46 @@
+
+@c %start of fragment
+
+@node Undocumented
+@chapter Undocumented
+The following symbols, if any, have not been properly documented.
+
+@section (gnome gw clutter-glx)
+@defvar clutter-glx-texture-pixmap-new
+@end defvar
+
+@defvar clutter-glx-texture-pixmap-new-with-pixmap
+@end defvar
+
+@defvar clutter-glx-texture-pixmap-new-with-window
+@end defvar
+
+@defvar clutter-glx-texture-pixmap-using-extension
+@end defvar
+
+@defvar clutter-x11-texture-pixmap-new
+@end defvar
+
+@defvar clutter-x11-texture-pixmap-new-with-pixmap
+@end defvar
+
+@defvar clutter-x11-texture-pixmap-new-with-window
+@end defvar
+
+@defvar clutter-x11-texture-pixmap-set-automatic
+@end defvar
+
+@defvar clutter-x11-texture-pixmap-set-pixmap
+@end defvar
+
+@defvar clutter-x11-texture-pixmap-set-window
+@end defvar
+
+@defvar clutter-x11-texture-pixmap-update-area
+@end defvar
+
+@defvar clutter-x11-texture-pixmap-update-pixmap-from-window
+@end defvar
+
+
+@c %end of fragment

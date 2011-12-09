@@ -1,0 +1,148 @@
+;; -*- scheme -*-
+;; guile-gnome
+;; Copyright (C) 2008 Free Software Foundation, Inc.
+
+;; This program is free software; you can redistribute it and/or    
+;; modify it under the terms of the GNU General Public License as   
+;; published by the Free Software Foundation; either version 2 of   
+;; the License, or (at your option) any later version.              
+;;                                                                  
+;; This program is distributed in the hope that it will be useful,  
+;; but WITHOUT ANY WARRANTY; without even the implied warranty of   
+;; MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the    
+;; GNU General Public License for more details.                     
+;;                                                                  
+;; You should have received a copy of the GNU General Public License
+;; along with this program; if not, contact:
+;;
+;; Free Software Foundation           Voice:  +1-617-542-5942
+;; 59 Temple Place - Suite 330        Fax:    +1-617-542-2652
+;; Boston, MA  02111-1307,  USA       gnu@gnu.org
+
+;;; Commentary:
+;;
+;;Custom wrapper definitions.
+;;
+;;; Code:
+
+(define-interface Container
+  (in-module "Clutter")
+  (c-name "ClutterContainer")
+  (gtype-id "CLUTTER_TYPE_CONTAINER")
+)
+
+(define-interface Media
+  (in-module "Clutter")
+  (c-name "ClutterMedia")
+  (gtype-id "CLUTTER_TYPE_MEDIA")
+)
+
+(define-interface StageManager
+  (in-module "Clutter")
+  (c-name "ClutterStageManager")
+  (gtype-id "CLUTTER_TYPE_STAGE_MANAGER")
+)
+
+(define-method get_children
+  (of-object "ClutterContainer")
+  (c-name "clutter_container_get_children")
+  (overrides "clutter_container_get_children")
+  (return-type "GList*-of-ClutterActor*")
+)
+
+(define-method get_actors
+  (of-object "ClutterBehaviour")
+  (c-name "clutter_behaviour_get_actors")
+  (overrides "clutter_behaviour_get_actors")
+  (return-type "GSList*-of-ClutterActor*")
+)
+
+(define-method get_knots
+  (of-object "ClutterBehaviourPath")
+  (c-name "clutter_behaviour_path_get_knots")
+  (overrides "clutter_behaviour_path_get_knots")
+  (return-type "GSList*-of-ClutterKnot*")
+)
+
+(define-method list_timelines
+  (of-object "ClutterScore")
+  (c-name "clutter_score_list_timelines")
+  (overrides "clutter_score_list_timelines")
+  (return-type "GSList*-of-ClutterTimeline*")
+)
+
+(define-method list_timelines
+  (of-object "ClutterStageManager")
+  (c-name "clutter_stage_manager_list_stages")
+  (overrides "clutter_stage_manager_list_stages")
+  (return-type "GSList*-of-ClutterStage*")
+)
+
+(define-method set_stock_func
+  (of-object "ClutterAlpha")
+  (c-name "clutter_alpha_set_stock_func")
+  (return-type "none")
+  (parameters
+    '("const-char*" "name")
+  )
+)
+
+(define-function clutter_color_parse
+  (c-name "_wrap_clutter_color_parse")
+  (overrides "clutter_color_parse")
+  (return-type "SCM")
+  (leave-guile-mode #f)
+  (parameters
+   '("const-char*" "name")))
+
+(ignore-glob  "*_get_type"
+              "_*"
+              "*_ref"
+              "*_unref"
+              "*_copy"
+              "*_free"
+              "*_newv"
+              "*_valist"
+              "*_setv"
+              "*_foreach"
+              "*_valist")
+
+(ignore-glob "clutter*vertices*"
+             "*_rotationx"
+             "*_scalex"
+             "*_newx"
+             "*_startx"
+             "*_endx"
+             "*_tiltx"
+             "*_boundsx"
+             "*_shadex"
+             "*_hlsx"
+             "*_perspectivex"
+             "*_fogx"
+             "*_resolutionx"
+             "*_progressx"
+             "*_func"
+             "clutter_alpha_new_full"
+             "clutter_container_class_find_child_property"
+             "clutter_container_class_list_child_properties"
+             "clutter_effect_*"
+             "clutter_frame_source_*"
+             "clutter_init*"
+             "clutter_init*"
+             "clutter_get_option_group"
+             ;;"clutter_main*" ;; fixme: do i need to do something special with clutter-main?
+             "clutter_threads*"
+             "clutter_model*"
+             "clutter_list_model*"
+             "clutter_scriptable*"
+             "clutter_script_connect_signals*"
+             "clutter_stage_read_pixels"
+             "clutter_texture_set_from_rgb_data"
+             "clutter_texture_set_from_yuv_data"
+             "clutter_texture_set_area_from_rgb_data"
+             "clutter_texture_set_cogl_texture"
+             "clutter_texture_get_cogl_texture"
+             "clutter_timeline_list_markers"
+             "clutter_timeout_pool*"
+             "clutter_param_spec_unit"
+             )
