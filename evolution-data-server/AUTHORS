@@ -1,0 +1,16 @@
+To find out what should go in this file, see "Information For
+Maintainers of GNU Software" (maintain.texi), the section called
+"Recording Changes".
+
+
+Andy Wingo:
+In the directory gnome/gw, wrote:
+    evolution-data-server-spec.scm evolution-data-server-support.c
+    evolution-data-server-support.h ical-support.c ical-support.h
+In the directory gnome/overrides, wrote:
+    evolution-data-server.defs evolution-data-server.defs-overrides-eds
+    evolution-data-server.defs-overrides-ecal
+In the directory gnome, wrote:
+    evolution-data-server.scm
+In the directory examples/evolution-data-server, wrote:
+    ...

@@ -1,0 +1,26 @@
+;; -*- scheme -*-
+;; Enumerations and flags ...
+
+;; -*- scheme -*-
+; object definitions ...
+(define-object Source
+  (in-module "E")
+  (parent "GObject")
+  (c-name "ESource")
+  (gtype-id "E_TYPE_SOURCE")
+)
+
+(define-object SourceGroup
+  (in-module "E")
+  (parent "GObject")
+  (c-name "ESourceGroup")
+  (gtype-id "E_TYPE_SOURCE_GROUP")
+)
+
+(define-object SourceList
+  (in-module "E")
+  (parent "GObject")
+  (c-name "ESourceList")
+  (gtype-id "E_TYPE_SOURCE_LIST")
+)
+

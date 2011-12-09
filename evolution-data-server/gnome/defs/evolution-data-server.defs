@@ -1,0 +1,4 @@
+;; -*- scheme -*-
+
+(include "libedataserver.defs")
+(include "libecal.defs")

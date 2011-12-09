@@ -1,0 +1,529 @@
+;; -*- scheme -*-
+(include "libedataserver-types.defs") (include overrides-eds)
+
+;; From /usr/include/evolution-data-server-1.0/libedataserver/e-source-group.h
+
+(define-function e_source_group_get_type
+  (c-name "e_source_group_get_type")
+  (return-type "GType")
+)
+
+(define-function e_source_group_new
+  (c-name "e_source_group_new")
+  (is-constructor-of "ESourceGroup")
+  (return-type "ESourceGroup*")
+  (parameters
+    '("const-char*" "name")
+    '("const-char*" "base_uri")
+  )
+)
+
+(define-function e_source_group_new_from_xml
+  (c-name "e_source_group_new_from_xml")
+  (return-type "ESourceGroup*")
+  (parameters
+    '("const-char*" "xml")
+  )
+)
+
+(define-function e_source_group_new_from_xmldoc
+  (c-name "e_source_group_new_from_xmldoc")
+  (return-type "ESourceGroup*")
+  (parameters
+    '("xmlDocPtr" "doc")
+  )
+)
+
+(define-method update_from_xml
+  (of-object "ESourceGroup")
+  (c-name "e_source_group_update_from_xml")
+  (return-type "gboolean")
+  (parameters
+    '("const-char*" "xml")
+    '("gboolean*" "changed_return")
+  )
+)
+
+(define-method update_from_xmldoc
+  (of-object "ESourceGroup")
+  (c-name "e_source_group_update_from_xmldoc")
+  (return-type "gboolean")
+  (parameters
+    '("xmlDocPtr" "doc")
+    '("gboolean*" "changed_return")
+  )
+)
+
+(define-function e_source_group_uid_from_xmldoc
+  (c-name "e_source_group_uid_from_xmldoc")
+  (return-type "char*")
+  (parameters
+    '("xmlDocPtr" "doc")
+  )
+)
+
+(define-method set_name
+  (of-object "ESourceGroup")
+  (c-name "e_source_group_set_name")
+  (return-type "none")
+  (parameters
+    '("const-char*" "name")
+  )
+)
+
+(define-method set_base_uri
+  (of-object "ESourceGroup")
+  (c-name "e_source_group_set_base_uri")
+  (return-type "none")
+  (parameters
+    '("const-char*" "base_uri")
+  )
+)
+
+(define-method set_readonly
+  (of-object "ESourceGroup")
+  (c-name "e_source_group_set_readonly")
+  (return-type "none")
+  (parameters
+    '("gboolean" "readonly")
+  )
+)
+
+(define-method peek_uid
+  (of-object "ESourceGroup")
+  (c-name "e_source_group_peek_uid")
+  (return-type "const-char*")
+)
+
+(define-method peek_name
+  (of-object "ESourceGroup")
+  (c-name "e_source_group_peek_name")
+  (return-type "const-char*")
+)
+
+(define-method peek_base_uri
+  (of-object "ESourceGroup")
+  (c-name "e_source_group_peek_base_uri")
+  (return-type "const-char*")
+)
+
+(define-method get_readonly
+  (of-object "ESourceGroup")
+  (c-name "e_source_group_get_readonly")
+  (return-type "gboolean")
+)
+
+(define-method peek_sources
+  (of-object "ESourceGroup")
+  (c-name "e_source_group_peek_sources")
+  (return-type "GSList*")
+)
+
+(define-method peek_source_by_uid
+  (of-object "ESourceGroup")
+  (c-name "e_source_group_peek_source_by_uid")
+  (return-type "ESource*")
+  (parameters
+    '("const-char*" "source_uid")
+  )
+)
+
+(define-method peek_source_by_name
+  (of-object "ESourceGroup")
+  (c-name "e_source_group_peek_source_by_name")
+  (return-type "ESource*")
+  (parameters
+    '("const-char*" "source_name")
+  )
+)
+
+(define-method add_source
+  (of-object "ESourceGroup")
+  (c-name "e_source_group_add_source")
+  (return-type "gboolean")
+  (parameters
+    '("ESource*" "source")
+    '("int" "position")
+  )
+)
+
+(define-method remove_source
+  (of-object "ESourceGroup")
+  (c-name "e_source_group_remove_source")
+  (return-type "gboolean")
+  (parameters
+    '("ESource*" "source")
+  )
+)
+
+(define-method remove_source_by_uid
+  (of-object "ESourceGroup")
+  (c-name "e_source_group_remove_source_by_uid")
+  (return-type "gboolean")
+  (parameters
+    '("const-char*" "uid")
+  )
+)
+
+(define-method to_xml
+  (of-object "ESourceGroup")
+  (c-name "e_source_group_to_xml")
+  (return-type "char*")
+)
+
+
+
+;; From /usr/include/evolution-data-server-1.0/libedataserver/e-source.h
+
+(define-function e_source_get_type
+  (c-name "e_source_get_type")
+  (return-type "GType")
+)
+
+(define-function e_source_new
+  (c-name "e_source_new")
+  (is-constructor-of "ESource")
+  (return-type "ESource*")
+  (parameters
+    '("const-char*" "name")
+    '("const-char*" "relative_uri")
+  )
+)
+
+(define-function e_source_new_with_absolute_uri
+  (c-name "e_source_new_with_absolute_uri")
+  (return-type "ESource*")
+  (parameters
+    '("const-char*" "name")
+    '("const-char*" "absolute_uri")
+  )
+)
+
+(define-function e_source_new_from_xml_node
+  (c-name "e_source_new_from_xml_node")
+  (return-type "ESource*")
+  (parameters
+    '("xmlNodePtr" "node")
+  )
+)
+
+(define-function e_source_new_from_standalone_xml
+  (c-name "e_source_new_from_standalone_xml")
+  (return-type "ESource*")
+  (parameters
+    '("const-char*" "xml")
+  )
+)
+
+(define-method copy
+  (of-object "ESource")
+  (c-name "e_source_copy")
+  (return-type "ESource*")
+)
+
+(define-method equal
+  (of-object "ESource")
+  (c-name "e_source_equal")
+  (return-type "gboolean")
+  (parameters
+    '("ESource*" "source_2")
+  )
+)
+
+(define-method update_from_xml_node
+  (of-object "ESource")
+  (c-name "e_source_update_from_xml_node")
+  (return-type "gboolean")
+  (parameters
+    '("xmlNodePtr" "node")
+    '("gboolean*" "changed_return")
+  )
+)
+
+(define-function e_source_uid_from_xml_node
+  (c-name "e_source_uid_from_xml_node")
+  (return-type "char*")
+  (parameters
+    '("xmlNodePtr" "node")
+  )
+)
+
+(define-method set_group
+  (of-object "ESource")
+  (c-name "e_source_set_group")
+  (return-type "none")
+  (parameters
+    '("ESourceGroup*" "group")
+  )
+)
+
+(define-method set_name
+  (of-object "ESource")
+  (c-name "e_source_set_name")
+  (return-type "none")
+  (parameters
+    '("const-char*" "name")
+  )
+)
+
+(define-method set_relative_uri
+  (of-object "ESource")
+  (c-name "e_source_set_relative_uri")
+  (return-type "none")
+  (parameters
+    '("const-char*" "relative_uri")
+  )
+)
+
+(define-method set_absolute_uri
+  (of-object "ESource")
+  (c-name "e_source_set_absolute_uri")
+  (return-type "none")
+  (parameters
+    '("const-char*" "absolute_uri")
+  )
+)
+
+(define-method set_readonly
+  (of-object "ESource")
+  (c-name "e_source_set_readonly")
+  (return-type "none")
+  (parameters
+    '("gboolean" "readonly")
+  )
+)
+
+(define-method set_color
+  (of-object "ESource")
+  (c-name "e_source_set_color")
+  (return-type "none")
+  (parameters
+    '("guint32" "color")
+  )
+)
+
+(define-method unset_color
+  (of-object "ESource")
+  (c-name "e_source_unset_color")
+  (return-type "none")
+)
+
+(define-method peek_group
+  (of-object "ESource")
+  (c-name "e_source_peek_group")
+  (return-type "ESourceGroup*")
+)
+
+(define-method peek_uid
+  (of-object "ESource")
+  (c-name "e_source_peek_uid")
+  (return-type "const-char*")
+)
+
+(define-method peek_name
+  (of-object "ESource")
+  (c-name "e_source_peek_name")
+  (return-type "const-char*")
+)
+
+(define-method peek_relative_uri
+  (of-object "ESource")
+  (c-name "e_source_peek_relative_uri")
+  (return-type "const-char*")
+)
+
+(define-method peek_absolute_uri
+  (of-object "ESource")
+  (c-name "e_source_peek_absolute_uri")
+  (return-type "const-char*")
+)
+
+(define-method get_readonly
+  (of-object "ESource")
+  (c-name "e_source_get_readonly")
+  (return-type "gboolean")
+)
+
+(define-method get_color
+  (of-object "ESource")
+  (c-name "e_source_get_color")
+  (return-type "gboolean")
+  (parameters
+    '("guint32*" "color_return")
+  )
+)
+
+(define-method get_uri
+  (of-object "ESource")
+  (c-name "e_source_get_uri")
+  (return-type "char*")
+)
+
+(define-method dump_to_xml_node
+  (of-object "ESource")
+  (c-name "e_source_dump_to_xml_node")
+  (return-type "none")
+  (parameters
+    '("xmlNodePtr" "parent_node")
+  )
+)
+
+(define-method to_standalone_xml
+  (of-object "ESource")
+  (c-name "e_source_to_standalone_xml")
+  (return-type "char*")
+)
+
+(define-method get_property
+  (of-object "ESource")
+  (c-name "e_source_get_property")
+  (return-type "const-gchar*")
+  (parameters
+    '("const-gchar*" "property")
+  )
+)
+
+(define-method set_property
+  (of-object "ESource")
+  (c-name "e_source_set_property")
+  (return-type "none")
+  (parameters
+    '("const-gchar*" "property")
+    '("const-gchar*" "value")
+  )
+)
+
+(define-method foreach_property
+  (of-object "ESource")
+  (c-name "e_source_foreach_property")
+  (return-type "none")
+  (parameters
+    '("GHFunc" "func")
+    '("gpointer" "data")
+  )
+)
+
+(define-method build_absolute_uri
+  (of-object "ESource")
+  (c-name "e_source_build_absolute_uri")
+  (return-type "char*")
+)
+
+
+
+;; From /usr/include/evolution-data-server-1.0/libedataserver/e-source-list.h
+
+(define-function e_source_list_get_type
+  (c-name "e_source_list_get_type")
+  (return-type "GType")
+)
+
+(define-function e_source_list_new
+  (c-name "e_source_list_new")
+  (is-constructor-of "ESourceList")
+  (return-type "ESourceList*")
+)
+
+(define-function e_source_list_new_for_gconf
+  (c-name "e_source_list_new_for_gconf")
+  (return-type "ESourceList*")
+  (parameters
+    '("GConfClient*" "client")
+    '("const-char*" "path")
+  )
+)
+
+(define-function e_source_list_new_for_gconf_default
+  (c-name "e_source_list_new_for_gconf_default")
+  (return-type "ESourceList*")
+  (parameters
+    '("const-char*" "path")
+  )
+)
+
+(define-method peek_groups
+  (of-object "ESourceList")
+  (c-name "e_source_list_peek_groups")
+  (return-type "GSList*")
+)
+
+(define-method peek_group_by_uid
+  (of-object "ESourceList")
+  (c-name "e_source_list_peek_group_by_uid")
+  (return-type "ESourceGroup*")
+  (parameters
+    '("const-char*" "uid")
+  )
+)
+
+(define-method peek_group_by_name
+  (of-object "ESourceList")
+  (c-name "e_source_list_peek_group_by_name")
+  (return-type "ESourceGroup*")
+  (parameters
+    '("const-char*" "name")
+  )
+)
+
+(define-method peek_source_by_uid
+  (of-object "ESourceList")
+  (c-name "e_source_list_peek_source_by_uid")
+  (return-type "ESource*")
+  (parameters
+    '("const-char*" "uid")
+  )
+)
+
+(define-method peek_source_any
+  (of-object "ESourceList")
+  (c-name "e_source_list_peek_source_any")
+  (return-type "ESource*")
+)
+
+(define-method add_group
+  (of-object "ESourceList")
+  (c-name "e_source_list_add_group")
+  (return-type "gboolean")
+  (parameters
+    '("ESourceGroup*" "group")
+    '("int" "position")
+  )
+)
+
+(define-method remove_group
+  (of-object "ESourceList")
+  (c-name "e_source_list_remove_group")
+  (return-type "gboolean")
+  (parameters
+    '("ESourceGroup*" "group")
+  )
+)
+
+(define-method remove_group_by_uid
+  (of-object "ESourceList")
+  (c-name "e_source_list_remove_group_by_uid")
+  (return-type "gboolean")
+  (parameters
+    '("const-char*" "uid")
+  )
+)
+
+(define-method remove_source_by_uid
+  (of-object "ESourceList")
+  (c-name "e_source_list_remove_source_by_uid")
+  (return-type "gboolean")
+  (parameters
+    '("const-char*" "uidj")
+  )
+)
+
+(define-method sync
+  (of-object "ESourceList")
+  (c-name "e_source_list_sync")
+  (return-type "gboolean")
+  (parameters
+    '("GError**" "error")
+  )
+)
+
+

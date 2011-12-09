@@ -1,0 +1,10 @@
+prefix=@prefix@
+exec_prefix=@exec_prefix@
+libdir=@libdir@
+includedir=@includedir@/guile-gobject
+toolsdir=${exec_prefix}/bin
+
+Name: (gnome evolution-data-server)
+Description: Guile bindings for evolution-data-server
+Requires: guile-gnome-glib-@API_VERSION@ >= 2.7.94
+Version: @VERSION@

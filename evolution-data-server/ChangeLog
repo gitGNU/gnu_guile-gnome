@@ -1,0 +1,42 @@
+2004-11-13  Andy Wingo  <wingo@pobox.com>
+
+	* Makefile.am (EXTRA_DIST): Dist VERSION.
+	* VERSION: New file.
+
+	* gnome/Makefile.am: Recurse into defs/.
+
+	* defs-extra-checks.ac: Deleted.
+
+	* gnome/defs/evolution-data-server.defs:
+	* gnome/defs/libedataserver.defs:
+	* gnome/defs/libedataserver-types.defs:
+	* gnome/defs/libecal.defs:
+	* gnome/defs/libecal-types.defs:
+	* gnome/defs/Makefile.am: New files, moved in from defs-extra.
+	
+2004-11-11  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/overrides/evolution-data-server.defs-overrides-eds:
+	* gnome/overrides/evolution-data-server.defs-overrides-ecal: New
+	files.
+
+2004-11-07  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gw/Makefile.am (guilegnomelib_LTLIBRARIES): Install to
+	versioned dir.
+
+	* files.ac:
+	* guile-gnome-evolution-data-server.pc.in:
+	* guile-gnome-evolution-data-server-uninstalled.pc.in: New files.
+	* Makefile.am: Version the pkg-config files.
+
+2004-11-06  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gw/ical-support.c: New file, converts between srfi-19 and
+	libical types.
+
+	* glib-checks.ac: Versioned pkg-config checks.
+
+	* defs-extra-checks.ac: Moved from defs-checks.ac. Versioned checks.
+	
+	* Initial import from templatize. Many fixes.
