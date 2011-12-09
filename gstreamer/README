@@ -1,0 +1,58 @@
+guile-gnome-gstreamer README
+Copyright (C) 2004,2006 Free Software Foundation, Inc.
+See the end for copying conditions of this file.
+Last updated 28 May 2006.
+
+
+About guile-gnome-gstreamer
+===========================
+
+guile-gnome-gstreamer contains the Guile wrappers for GStreamer, a
+streaming-media framework. It is a part of GNU guile-gnome, although it
+is not part of the GNOME platform. See the README file in the toplevel
+source directory for more information.
+
+http://gstreamer.freedesktop.org/
+
+
+Build dependencies
+==================
+
+Besides the base guile-gnome requirements given in ../README,
+guile-gnome-gstreamer requires GStreamer 0.10 development packages.
+
+guile-gnome-gstreamer depends on the following guile-gnome modules: glib,
+defs-extra.
+
+
+Documentation
+=============
+
+Documentation on the Guile bindings is rather sparse, unfortunately.
+Please see the GStreamer documentation at
+http://gstreamer.freedesktop.org/. There are examples of
+guile-gnome-gstreamer in the examples/gstreamer subdirectory.
+
+
+Bugs
+====
+
+The bugs section of the readme is unwritten.
+
+
+Feedback
+========
+
+Please send all feedback to the mailing list, guile-gtk-general@gnu.org.
+You might also try asking on the #guile or #gstreamer channels on the
+irc.freenode.net IRC server.
+
+
+Copying this file
+=================
+
+Copyright (C) 2004,2006 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification, are
+permitted in any medium without royalty provided the copyright notice
+and this notice are preserved.

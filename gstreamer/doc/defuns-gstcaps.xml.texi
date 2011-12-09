@@ -1,0 +1,528 @@
+
+@c %start of fragment
+
+@deftp Class <gst-caps>
+@end deftp
+
+@deffn Function gst-caps-new-empty  @result{}@tie{} (ret@tie{}@code{<gst-caps>})
+Creates a new @code{<gst-caps>} that is empty. That is, the returned
+@code{<gst-caps>} contains no media formats. Caller is responsible for unreffing
+the returned caps.
+
+@table @var
+@item ret
+the new @code{<gst-caps>}
+
+@end table
+
+@end deffn
+
+@deffn Function gst-caps-new-any  @result{}@tie{} (ret@tie{}@code{<gst-caps>})
+Creates a new @code{<gst-caps>} that indicates that it is compatible with any
+media format.
+
+@table @var
+@item ret
+the new @code{<gst-caps>}
+
+@end table
+
+@end deffn
+
+@deffn Function gst-caps-copy-nth  (self@tie{}@code{<gst-caps>}) (nth@tie{}@code{unsigned-int}) @result{}@tie{} (ret@tie{}@code{<gst-caps>})
+Creates a new @code{<gst-caps>} and appends a copy of the nth structure
+contained in @var{caps}.
+
+@table @var
+@item caps
+the @code{<gst-caps>} to copy
+
+@item nth
+the nth structure to copy
+
+@item ret
+the new @code{<gst-caps>}
+
+@end table
+
+@end deffn
+
+@deffn Function gst-static-caps-get  (self@tie{}@code{<gst-static-caps*>}) @result{}@tie{} (ret@tie{}@code{<gst-caps>})
+Converts a @code{<gst-static-caps>} to a @code{<gst-caps>}.
+
+@table @var
+@item static-caps
+the @code{<gst-static-caps>} to convert
+
+@item ret
+A pointer to the @code{<gst-caps>}. Unref after usage. Since the core holds an
+additional ref to the returned caps, use @code{gst-caps-make-writable} on the
+returned caps to modify it.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-caps-append  (self@tie{}@code{<gst-caps>}) (caps2@tie{}@code{<gst-caps>})
+Appends the structures contained in @var{caps2} to @var{caps1}. The structures
+in @var{caps2} are not copied -- they are transferred to @var{caps1}, and then
+@var{caps2} is freed. If either caps is ANY, the resulting caps will be ANY.
+
+@table @var
+@item caps1
+the @code{<gst-caps>} that will be appended to
+
+@item caps2
+the @code{<gst-caps>} to append
+
+@end table
+
+@end deffn
+
+@deffn Function gst-caps-merge  (self@tie{}@code{<gst-caps>}) (caps2@tie{}@code{<gst-caps>})
+Appends the structures contained in @var{caps2} to @var{caps1} if they are not
+yet expressed by @var{caps1}. The structures in @var{caps2} are not copied --
+they are transferred to @var{caps1}, and then @var{caps2} is freed. If either
+caps is ANY, the resulting caps will be ANY.
+
+@table @var
+@item caps1
+the @code{<gst-caps>} that will take the new entries
+
+@item caps2
+the @code{<gst-caps>} to merge in
+
+@end table
+
+Since 0.10.10
+
+@end deffn
+
+@deffn Function gst-caps-append-structure  (self@tie{}@code{<gst-caps>}) (structure@tie{}@code{<gst-structure>})
+Appends @var{structure} to @var{caps}. The structure is not copied; @var{caps}
+becomes the owner of @var{structure}.
+
+@table @var
+@item caps
+the @code{<gst-caps>} that will be appended to
+
+@item structure
+the @code{<gst-structure>} to append
+
+@end table
+
+@end deffn
+
+@deffn Function gst-caps-remove-structure  (self@tie{}@code{<gst-caps>}) (idx@tie{}@code{unsigned-int})
+removes the stucture with the given index from the list of structures contained
+in @var{caps}.
+
+@table @var
+@item caps
+the @code{<gst-caps>} to remove from
+
+@item idx
+Index of the structure to remove
+
+@end table
+
+@end deffn
+
+@deffn Function gst-caps-merge-structure  (self@tie{}@code{<gst-caps>}) (structure@tie{}@code{<gst-structure>})
+Appends @var{structure} to @var{caps} if its not already expressed by
+@var{caps}. The structure is not copied; @var{caps} becomes the owner of
+@var{structure}.
+
+@table @var
+@item caps
+the @code{<gst-caps>} that will the the new structure
+
+@item structure
+the @code{<gst-structure>} to merge
+
+@end table
+
+@end deffn
+
+@deffn Function gst-caps-get-size  (self@tie{}@code{<gst-caps>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+Gets the number of structures contained in @var{caps}.
+
+@table @var
+@item caps
+a @code{<gst-caps>}
+
+@item ret
+the number of structures that @var{caps} contains
+
+@end table
+
+@end deffn
+
+@deffn Function gst-caps-get-structure  (self@tie{}@code{<gst-caps>}) (index@tie{}@code{unsigned-int}) @result{}@tie{} (ret@tie{}@code{<gst-structure>})
+Finds the structure in @var{caps} that has the index @var{index}, and returns
+it.
+
+WARNING: This function takes a const GstCaps *, but returns a non-const
+GstStructure *. This is for programming convenience -- the caller should be
+aware that structures inside a constant @code{<gst-caps>} should not be
+modified.
+
+@table @var
+@item caps
+a @code{<gst-caps>}
+
+@item index
+the index of the structure
+
+@item ret
+a pointer to the @code{<gst-structure>} corresponding to @var{index}
+
+@end table
+
+@end deffn
+
+@deffn Function gst-caps-is-any  (self@tie{}@code{<gst-caps>}) @result{}@tie{} (ret@tie{}@code{bool})
+Determines if @var{caps} represents any media format.
+
+@table @var
+@item caps
+the @code{<gst-caps>} to test
+
+@item ret
+TRUE if @var{caps} represents any format.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-caps-is-empty  (self@tie{}@code{<gst-caps>}) @result{}@tie{} (ret@tie{}@code{bool})
+Determines if @var{caps} represents no media formats.
+
+@table @var
+@item caps
+the @code{<gst-caps>} to test
+
+@item ret
+TRUE if @var{caps} represents no formats.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-caps-is-fixed  (self@tie{}@code{<gst-caps>}) @result{}@tie{} (ret@tie{}@code{bool})
+Fixed @code{<gst-caps>} describe exactly one format, that is, they have exactly
+one structure, and each field in the structure describes a fixed type. Examples
+of non-fixed types are GST_TYPE_INT_RANGE and GST_TYPE_LIST.
+
+@table @var
+@item caps
+the @code{<gst-caps>} to test
+
+@item ret
+TRUE if @var{caps} is fixed
+
+@end table
+
+@end deffn
+
+@deffn Function gst-caps-is-equal  (self@tie{}@code{<gst-caps>}) (caps2@tie{}@code{<gst-caps>}) @result{}@tie{} (ret@tie{}@code{bool})
+Checks if the given caps represent the same set of caps.
+
+@cartouche 
+This function does not work reliably if optional properties for caps
+are included on one caps and omitted on the other.
+@end cartouche
+
+This function deals correctly with passing NULL for any of the caps.
+
+@table @var
+@item caps1
+a @code{<gst-caps>}
+
+@item caps2
+another @code{<gst-caps>}
+
+@item ret
+TRUE if both caps are equal.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-caps-is-equal-fixed  (self@tie{}@code{<gst-caps>}) (caps2@tie{}@code{<gst-caps>}) @result{}@tie{} (ret@tie{}@code{bool})
+Tests if two @code{<gst-caps>} are equal. This function only works on fixed
+@code{<gst-caps>}.
+
+@table @var
+@item caps1
+the @code{<gst-caps>} to test
+
+@item caps2
+the @code{<gst-caps>} to test
+
+@item ret
+TRUE if the arguments represent the same format
+
+@end table
+
+@end deffn
+
+@deffn Function gst-caps-is-always-compatible  (self@tie{}@code{<gst-caps>}) (caps2@tie{}@code{<gst-caps>}) @result{}@tie{} (ret@tie{}@code{bool})
+A given @code{<gst-caps>} structure is always compatible with another if every
+media format that is in the first is also contained in the second. That is,
+@var{caps1} is a subset of @var{caps2}.
+
+@table @var
+@item caps1
+the @code{<gst-caps>} to test
+
+@item caps2
+the @code{<gst-caps>} to test
+
+@item ret
+TRUE if @var{caps1} is a subset of @var{caps2}.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-caps-is-subset  (self@tie{}@code{<gst-caps>}) (superset@tie{}@code{<gst-caps>}) @result{}@tie{} (ret@tie{}@code{bool})
+Checks if all caps represented by @var{subset} are also represented by
+@var{superset}.
+
+@cartouche 
+This function does not work reliably if optional properties for caps
+are included on one caps and omitted on the other.
+@end cartouche
+
+@table @var
+@item subset
+a @code{<gst-caps>}
+
+@item superset
+a potentially greater @code{<gst-caps>}
+
+@item ret
+@samp{@code{#t}} if @var{subset} is a subset of @var{superset}
+
+@end table
+
+@end deffn
+
+@deffn Function gst-caps-intersect  (self@tie{}@code{<gst-caps>}) (caps2@tie{}@code{<gst-caps>}) @result{}@tie{} (ret@tie{}@code{<gst-caps>})
+Creates a new @code{<gst-caps>} that contains all the formats that are common to
+both @var{caps1} and @var{caps2}.
+
+@table @var
+@item caps1
+a @code{<gst-caps>} to intersect
+
+@item caps2
+a @code{<gst-caps>} to intersect
+
+@item ret
+the new @code{<gst-caps>}
+
+@end table
+
+@end deffn
+
+@deffn Function gst-caps-union  (self@tie{}@code{<gst-caps>}) (caps2@tie{}@code{<gst-caps>}) @result{}@tie{} (ret@tie{}@code{<gst-caps>})
+Creates a new @code{<gst-caps>} that contains all the formats that are in either
+@var{caps1} and @var{caps2}.
+
+@table @var
+@item caps1
+a @code{<gst-caps>} to union
+
+@item caps2
+a @code{<gst-caps>} to union
+
+@item ret
+the new @code{<gst-caps>}
+
+@end table
+
+@end deffn
+
+@deffn Function gst-caps-normalize  (self@tie{}@code{<gst-caps>}) @result{}@tie{} (ret@tie{}@code{<gst-caps>})
+Creates a new @code{<gst-caps>} that represents the same set of formats as
+@var{caps}, but contains no lists. Each list is expanded into separate
+@var{gst-structures}.
+
+@table @var
+@item caps
+a @code{<gst-caps>} to normalize
+
+@item ret
+the new @code{<gst-caps>}
+
+@end table
+
+@end deffn
+
+@deffn Function gst-caps-do-simplify  (self@tie{}@code{<gst-caps>}) @result{}@tie{} (ret@tie{}@code{bool})
+Modifies the given @var{caps} inplace into a representation that represents the
+same set of formats, but in a simpler form. Component structures that are
+identical are merged. Component structures that have values that can be merged
+are also merged.
+
+@table @var
+@item caps
+a @code{<gst-caps>} to simplify
+
+@item ret
+TRUE, if the caps could be simplified
+
+@end table
+
+@end deffn
+
+@deffn Function gst-caps-save-thyself  (self@tie{}@code{<gst-caps>}) (parent@tie{}@code{<xml-node-ptr>}) @result{}@tie{} (ret@tie{}@code{<xml-node-ptr>})
+Serializes a @code{<gst-caps>} to XML and adds it as a child node of
+@var{parent}.
+
+@table @var
+@item caps
+a @code{<gst-caps>} structure
+
+@item parent
+a XML parent node
+
+@item ret
+a XML node pointer
+
+@end table
+
+@end deffn
+
+@deffn Function gst-caps-load-thyself  (parent@tie{}@code{<xml-node-ptr>}) @result{}@tie{} (ret@tie{}@code{<gst-caps>})
+Creates a @code{<gst-caps>} from its XML serialization.
+
+@table @var
+@item parent
+a XML node
+
+@item ret
+a new @code{<gst-caps>} structure
+
+@end table
+
+@end deffn
+
+@deffn Function gst-caps-replace  (caps@tie{}@code{<gst-caps**>}) (newcaps@tie{}@code{<gst-caps>})
+Replaces *caps with @var{newcaps}. Unrefs the @code{<gst-caps>} in the location
+pointed to by @var{caps}, if applicable, then modifies @var{caps} to point to
+@var{newcaps}. An additional ref on @var{newcaps} is taken.
+
+This function does not take any locks so you might want to lock the object
+owning @var{caps} pointer.
+
+@table @var
+@item caps
+a pointer to @code{<gst-caps>}
+
+@item newcaps
+a @code{<gst-caps>} to replace *caps
+
+@end table
+
+@end deffn
+
+@deffn Function gst-caps-to-string  (self@tie{}@code{<gst-caps>}) @result{}@tie{} (ret@tie{}@code{mchars})
+Converts @var{caps} to a string representation. This string representation can
+be converted back to a @code{<gst-caps>} by @code{gst-caps-from-string}.
+
+For debugging purposes its easier to do something like this: This prints the
+caps in human readble form.
+
+@example 
+
+ GST_LOG ("caps are %" GST_PTR_FORMAT, caps);
+@end example
+
+@table @var
+@item caps
+a @code{<gst-caps>}
+
+@item ret
+a newly allocated string representing @var{caps}.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-caps-from-string  (string@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gst-caps>})
+Converts @var{caps} from a string representation.
+
+@table @var
+@item string
+a string to convert to @code{<gst-caps>}
+
+@item ret
+a newly allocated @code{<gst-caps>}
+
+@end table
+
+@end deffn
+
+@deffn Function gst-caps-subtract  (self@tie{}@code{<gst-caps>}) (subtrahend@tie{}@code{<gst-caps>}) @result{}@tie{} (ret@tie{}@code{<gst-caps>})
+Subtracts the @var{subtrahend} from the @var{minuend}.
+
+@cartouche 
+This function does not work reliably if optional properties for caps
+are included on one caps and omitted on the other.
+@end cartouche
+
+@table @var
+@item minuend
+@code{<gst-caps>} to substract from
+
+@item subtrahend
+@code{<gst-caps>} to substract
+
+@item ret
+the resulting caps
+
+@end table
+
+@end deffn
+
+@deffn Function gst-caps-make-writable  (self@tie{}@code{<gst-caps>}) @result{}@tie{} (ret@tie{}@code{<gst-caps>})
+Returns a writable copy of @var{caps}.
+
+If there is only one reference count on @var{caps}, the caller must be the
+owner, and so this function will return the caps object unchanged. If on the
+other hand there is more than one reference on the object, a new caps object
+will be returned. The caller's reference on @var{caps} will be removed, and
+instead the caller will own a reference to the returned object.
+
+In short, this function unrefs the caps in the argument and refs the caps that
+it returns. Don't access the argument after calling this function. See also:
+@code{gst-caps-ref}.
+
+@table @var
+@item caps
+the @code{<gst-caps>} to make writable
+
+@item ret
+the same @code{<gst-caps>} object.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-caps-truncate  (self@tie{}@code{<gst-caps>})
+Destructively discard all but the first structure from @var{caps}. Useful when
+fixating. @var{caps} must be writable.
+
+@table @var
+@item caps
+the @code{<gst-caps>} to truncate
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

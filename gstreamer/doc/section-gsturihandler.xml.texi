@@ -1,0 +1,22 @@
+
+@c %start of fragment
+
+@node GstUriHandler
+@chapter GstUriHandler
+Interface to ease URI handling in plugins.
+
+@section Overview
+The URIHandler is an interface that is implemented by Source and Sink
+@code{<gst-element>} to simplify then handling of URI.
+
+An application can use the following functions to quickly get an element that
+handles the given URI for reading or writing (@code{gst-element-make-from-uri}).
+
+Source and Sink plugins should implement this interface when possible.
+
+Last reviewed on 2005-11-09 (0.9.4)
+
+@section Usage
+@include defuns-gsturihandler.xml.texi
+
+@c %end of fragment

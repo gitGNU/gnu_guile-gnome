@@ -1,0 +1,359 @@
+
+@c %start of fragment
+
+@deftp Class <gst-index>
+This @code{<gobject>} class defines the following properties:
+
+@table @code
+@item resolver
+Select a predefined object to string mapper
+
+@end table
+
+@end deftp
+
+@defop Signal <gst-index> entry-added  (arg0@tie{}@code{<gst-index-entry>})
+Is emitted when a new entry is added to the index.
+
+@end defop
+
+@deffn Function gst-index-new  @result{}@tie{} (ret@tie{}@code{<gst-index>})
+Create a new tileindex object
+
+@table @var
+@item ret
+a new index object
+
+@end table
+
+@end deffn
+
+@deffn Function gst-index-commit  (self@tie{}@code{<gst-index>}) (id@tie{}@code{int})
+@deffnx Method commit
+Tell the index that the writer with the given id is done with this index and is
+not going to write any more entries to it.
+
+@table @var
+@item index
+the index to commit
+
+@item id
+the writer that commited the index
+
+@end table
+
+@end deffn
+
+@deffn Function gst-index-get-group  (self@tie{}@code{<gst-index>}) @result{}@tie{} (ret@tie{}@code{int})
+@deffnx Method get-group
+Get the id of the current group.
+
+@table @var
+@item index
+the index to get the current group from
+
+@item ret
+the id of the current group.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-index-new-group  (self@tie{}@code{<gst-index>}) @result{}@tie{} (ret@tie{}@code{int})
+@deffnx Method new-group
+Create a new group for the given index. It will be set as the current group.
+
+@table @var
+@item index
+the index to create the new group in
+
+@item ret
+the id of the newly created group.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-index-set-group  (self@tie{}@code{<gst-index>}) (groupnum@tie{}@code{int}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method set-group
+Set the current groupnumber to the given argument.
+
+@table @var
+@item index
+the index to set the new group in
+
+@item groupnum
+the groupnumber to set
+
+@item ret
+TRUE if the operation succeeded, FALSE if the group did not exist.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-index-set-certainty  (self@tie{}@code{<gst-index>}) (certainty@tie{}@code{<gst-index-certainty>})
+@deffnx Method set-certainty
+Set the certainty of the given index.
+
+@table @var
+@item index
+the index to set the certainty on
+
+@item certainty
+the certainty to set
+
+@end table
+
+@end deffn
+
+@deffn Function gst-index-get-certainty  (self@tie{}@code{<gst-index>}) @result{}@tie{} (ret@tie{}@code{<gst-index-certainty>})
+@deffnx Method get-certainty
+Get the certainty of the given index.
+
+@table @var
+@item index
+the index to get the certainty of
+
+@item ret
+the certainty of the index.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-index-set-filter-full  (self@tie{}@code{<gst-index>}) (filter@tie{}@code{<gst-index-filter>}) (user_data@tie{}@code{<gpointer>}) (user_data_destroy@tie{}@code{<g-destroy-notify>})
+@deffnx Method set-filter-full
+Lets the app register a custom filter function so that it can select what
+entries should be stored in the index.
+
+@table @var
+@item index
+the index to register the filter on
+
+@item filter
+the filter to register
+
+@item user-data
+data passed to the filter function
+
+@item user-data-destroy
+function to call when @var{user-data} is unset
+
+@end table
+
+@end deffn
+
+@deffn Function gst-index-get-writer-id  (self@tie{}@code{<gst-index>}) (writer@tie{}@code{<gst-object>}) @result{}@tie{} (ret@tie{}@code{bool}) (id@tie{}@code{int})
+@deffnx Method get-writer-id
+Before entries can be added to the index, a writer should obtain a unique id.
+The methods to add new entries to the index require this id as an argument.
+
+The application can implement a custom function to map the writer object to a
+string. That string will be used to register or look up an id in the index.
+
+@table @var
+@item index
+the index to get a unique write id for
+
+@item writer
+the GstObject to allocate an id for
+
+@item id
+a pointer to a gint to hold the id
+
+@item ret
+TRUE if the writer would be mapped to an id.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-index-add-format  (self@tie{}@code{<gst-index>}) (id@tie{}@code{int}) (format@tie{}@code{<gst-format>}) @result{}@tie{} (ret@tie{}@code{<gst-index-entry*>})
+@deffnx Method add-format
+Adds a format entry into the index. This function is used to map dynamic
+GstFormat ids to their original format key.
+
+@table @var
+@item index
+the index to add the entry to
+
+@item id
+the id of the index writer
+
+@item format
+the format to add to the index
+
+@item ret
+a pointer to the newly added entry in the index.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-index-add-associationv  (self@tie{}@code{<gst-index>}) (id@tie{}@code{int}) (flags@tie{}@code{<gst-assoc-flags>}) (n@tie{}@code{int}) (list@tie{}@code{<gst-index-association*>}) @result{}@tie{} (ret@tie{}@code{<gst-index-entry*>})
+@deffnx Method add-associationv
+Associate given format/value pairs with each other.
+
+@table @var
+@item index
+the index to add the entry to
+
+@item id
+the id of the index writer
+
+@item flags
+optinal flags for this entry
+
+@item n
+number of associations
+
+@item list
+list of associations
+
+@item ret
+a pointer to the newly added entry in the index.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-index-add-object  (self@tie{}@code{<gst-index>}) (id@tie{}@code{int}) (key@tie{}@code{mchars}) (type@tie{}@code{<gtype>}) (object@tie{}@code{<gpointer>}) @result{}@tie{} (ret@tie{}@code{<gst-index-entry*>})
+@deffnx Method add-object
+Add the given object to the index with the given key.
+
+This function is not yet implemented.
+
+@table @var
+@item index
+the index to add the object to
+
+@item id
+the id of the index writer
+
+@item key
+a key for the object
+
+@item type
+the GType of the object
+
+@item object
+a pointer to the object to add
+
+@item ret
+a pointer to the newly added entry in the index.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-index-add-id  (self@tie{}@code{<gst-index>}) (id@tie{}@code{int}) (description@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gst-index-entry*>})
+@deffnx Method add-id
+Add an id entry into the index.
+
+@table @var
+@item index
+the index to add the entry to
+
+@item id
+the id of the index writer
+
+@item description
+the description of the index writer
+
+@item ret
+a pointer to the newly added entry in the index.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-index-get-assoc-entry  (self@tie{}@code{<gst-index>}) (id@tie{}@code{int}) (method@tie{}@code{<gst-index-lookup-method>}) (flags@tie{}@code{<gst-assoc-flags>}) (format@tie{}@code{<gst-format>}) (value@tie{}@code{int64}) @result{}@tie{} (ret@tie{}@code{<gst-index-entry*>})
+@deffnx Method get-assoc-entry
+Finds the given format/value in the index
+
+@table @var
+@item index
+the index to search
+
+@item id
+the id of the index writer
+
+@item method
+The lookup method to use
+
+@item flags
+Flags for the entry
+
+@item format
+the format of the value
+
+@item value
+the value to find
+
+@item ret
+the entry associated with the value or NULL if the value was not found.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-index-get-assoc-entry-full  (self@tie{}@code{<gst-index>}) (id@tie{}@code{int}) (method@tie{}@code{<gst-index-lookup-method>}) (flags@tie{}@code{<gst-assoc-flags>}) (format@tie{}@code{<gst-format>}) (value@tie{}@code{int64}) (func@tie{}@code{<g-compare-data-func>}) (user_data@tie{}@code{<gpointer>}) @result{}@tie{} (ret@tie{}@code{<gst-index-entry*>})
+@deffnx Method get-assoc-entry-full
+Finds the given format/value in the index with the given compare function and
+user_data.
+
+@table @var
+@item index
+the index to search
+
+@item id
+the id of the index writer
+
+@item method
+The lookup method to use
+
+@item flags
+Flags for the entry
+
+@item format
+the format of the value
+
+@item value
+the value to find
+
+@item func
+the function used to compare entries
+
+@item user-data
+user data passed to the compare function
+
+@item ret
+the entry associated with the value or NULL if the value was not found.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-index-entry-assoc-map  (self@tie{}@code{<gst-index-entry*>}) (format@tie{}@code{<gst-format>}) @result{}@tie{} (ret@tie{}@code{bool}) (value@tie{}@code{int64})
+Gets alternative formats associated with the indexentry.
+
+@table @var
+@item entry
+the index to search
+
+@item format
+the format of the value the find
+
+@item value
+a pointer to store the value
+
+@item ret
+TRUE if there was a value associated with the given format.
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

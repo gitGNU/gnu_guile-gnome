@@ -1,0 +1,287 @@
+
+@c %start of fragment
+
+@deftp Class <gst-object>
+This @code{<gobject>} class defines the following properties:
+
+@table @code
+@item name
+The name of the object
+
+@end table
+
+@end deftp
+
+@defop Signal <gst-object> parent-set  (arg0@tie{}@code{<gobject>})
+Emitted when the parent of an object is set.
+
+@end defop
+
+@defop Signal <gst-object> parent-unset  (arg0@tie{}@code{<gobject>})
+Emitted when the parent of an object is unset.
+
+@end defop
+
+@defop Signal <gst-object> object-saved  (arg0@tie{}@code{<gpointer>})
+Trigered whenever a new object is saved to XML. You can connect to this signal
+to insert custom XML tags into the core XML.
+
+@end defop
+
+@defop Signal <gst-object> deep-notify  (arg0@tie{}@code{<gst-object>}) (arg1@tie{}@code{<gparam>})
+The deep notify signal is used to be notified of property changes. It is
+typically attached to the toplevel bin to receive notifications from all the
+elements contained in that bin.
+
+@end defop
+
+@deffn Function gst-object-set-name  (self@tie{}@code{<gst-object>}) (name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method set-name
+Sets the name of @var{object}, or gives @var{object} a guaranteed unique name
+(if @var{name} is NULL). This function makes a copy of the provided name, so the
+caller retains ownership of the name it sent.
+
+@table @var
+@item object
+a @code{<gst-object>}
+
+@item name
+new name of object
+
+@item ret
+TRUE if the name could be set. Since Objects that have a parent cannot be
+renamed, this function returns FALSE in those cases. MT safe. This function
+grabs and releases @var{object}'s LOCK.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-object-get-name  (self@tie{}@code{<gst-object>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-name
+Returns a copy of the name of @var{object}. Caller should @code{g-free} the
+return value after usage. For a nameless object, this returns NULL, which you
+can safely @code{g-free} as well.
+
+@table @var
+@item object
+a @code{<gst-object>}
+
+@item ret
+the name of @var{object}. @code{g-free} after usage. MT safe. This function
+grabs and releases @var{object}'s LOCK.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-object-set-parent  (self@tie{}@code{<gst-object>}) (parent@tie{}@code{<gst-object>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method set-parent
+Sets the parent of @var{object} to @var{parent}. The object's reference count
+will be incremented, and any floating reference will be removed (see
+@code{gst-object-sink}).
+
+This function causes the parent-set signal to be emitted when the parent was
+successfully set.
+
+@table @var
+@item object
+a @code{<gst-object>}
+
+@item parent
+new parent of object
+
+@item ret
+TRUE if @var{parent} could be set or FALSE when @var{object} already had a
+parent or @var{object} and @var{parent} are the same. MT safe. Grabs and
+releases @var{object}'s LOCK.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-object-get-parent  (self@tie{}@code{<gst-object>}) @result{}@tie{} (ret@tie{}@code{<gst-object>})
+@deffnx Method get-parent
+Returns the parent of @var{object}. This function increases the refcount of the
+parent object so you should @code{gst-object-unref} it after usage.
+
+@table @var
+@item object
+a @code{<gst-object>}
+
+@item ret
+parent of @var{object}, this can be NULL if @var{object} has no parent. unref
+after usage. MT safe. Grabs and releases @var{object}'s LOCK.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-object-unparent  (self@tie{}@code{<gst-object>})
+@deffnx Method unparent
+Clear the parent of @var{object}, removing the associated reference. This
+function decreases the refcount of @var{object}.
+
+MT safe. Grabs and releases @var{object}'s lock.
+
+@table @var
+@item object
+a @code{<gst-object>} to unparent
+
+@end table
+
+@end deffn
+
+@deffn Function gst-object-get-name-prefix  (self@tie{}@code{<gst-object>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-name-prefix
+Returns a copy of the name prefix of @var{object}. Caller should @code{g-free}
+the return value after usage. For a prefixless object, this returns NULL, which
+you can safely @code{g-free} as well.
+
+@table @var
+@item object
+a @code{<gst-object>}
+
+@item ret
+the name prefix of @var{object}. @code{g-free} after usage. MT safe. This
+function grabs and releases @var{object}'s LOCK.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-object-set-name-prefix  (self@tie{}@code{<gst-object>}) (name_prefix@tie{}@code{mchars})
+@deffnx Method set-name-prefix
+Sets the name prefix of @var{object} to @var{name-prefix}. This function makes a
+copy of the provided name prefix, so the caller retains ownership of the name
+prefix it sent.
+
+MT safe. This function grabs and releases @var{object}'s LOCK.
+
+@table @var
+@item object
+a @code{<gst-object>}
+
+@item name-prefix
+new name prefix of @var{object}
+
+@end table
+
+@end deffn
+
+@deffn Function gst-object-default-error  (self@tie{}@code{<gst-object>}) (error@tie{}@code{<g-error*>}) (debug@tie{}@code{mchars})
+@deffnx Method default-error
+A default error function.
+
+The default handler will simply print the error string using g_print.
+
+@table @var
+@item source
+the @code{<gst-object>} that initiated the error.
+
+@item error
+the GError.
+
+@item debug
+an additional debug information string, or NULL.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-object-check-uniqueness  (list@tie{}@code{glist-of}) (name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool})
+Checks to see if there is any object named @var{name} in @var{list}. This
+function does not do any locking of any kind. You might want to protect the
+provided list with the lock of the owner of the list. This function will lock
+each @code{<gst-object>} in the list to compare the name, so be carefull when
+passing a list with a locked object.
+
+@table @var
+@item list
+a list of @code{<gst-object>} to check through
+
+@item name
+the name to search for
+
+@item ret
+TRUE if a @code{<gst-object>} named @var{name} does not appear in @var{list},
+FALSE if it does. MT safe. Grabs and releases the LOCK of each object in the
+list.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-object-has-ancestor  (self@tie{}@code{<gst-object>}) (ancestor@tie{}@code{<gst-object>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method has-ancestor
+Check if @var{object} has an ancestor @var{ancestor} somewhere up in the
+hierarchy.
+
+@table @var
+@item object
+a @code{<gst-object>} to check
+
+@item ancestor
+a @code{<gst-object>} to check as ancestor
+
+@item ret
+TRUE if @var{ancestor} is an ancestor of @var{object}. MT safe. Grabs and
+releases @var{object}'s locks.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-object-save-thyself  (self@tie{}@code{<gst-object>}) (parent@tie{}@code{<xml-node-ptr>}) @result{}@tie{} (ret@tie{}@code{<xml-node-ptr>})
+@deffnx Method save-thyself
+Saves @var{object} into the parent XML node.
+
+@table @var
+@item object
+a @code{<gst-object>} to save
+
+@item parent
+The parent XML node to save @var{object} into
+
+@item ret
+the new xmlNodePtr with the saved object
+
+@end table
+
+@end deffn
+
+@deffn Function gst-object-restore-thyself  (self@tie{}@code{<gst-object>}) (self@tie{}@code{<xml-node-ptr>})
+@deffnx Method restore-thyself
+Restores @var{object} with the data from the parent XML node.
+
+@table @var
+@item object
+a @code{<gst-object>} to load into
+
+@item self
+The XML node to load @var{object} from
+
+@end table
+
+@end deffn
+
+@deffn Function gst-object-get-path-string  (self@tie{}@code{<gst-object>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-path-string
+Generates a string describing the path of @var{object} in the object hierarchy.
+Only useful (or used) for debugging.
+
+@table @var
+@item object
+a @code{<gst-object>}
+
+@item ret
+a string describing the path of @var{object}. You must @code{g-free} the string
+after usage. MT safe. Grabs and releases the @code{<gst-object>}'s LOCK for all
+objects in the hierarchy.
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

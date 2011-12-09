@@ -1,0 +1,284 @@
+
+@c %start of fragment
+
+@deffn Function gst-debug-message-get  (self@tie{}@code{<gst-debug-message*>}) @result{}@tie{} (ret@tie{}@code{mchars})
+Gets the string representation of a @code{<gst-debug-message>}. This function is
+used in debug handlers to extract the message.
+
+@table @var
+@item message
+a debug message
+
+@item ret
+the string representation of a @code{<gst-debug-message>}.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-debug-log-default  (category@tie{}@code{<gst-debug-category*>}) (level@tie{}@code{<gst-debug-level>}) (file@tie{}@code{mchars}) (function@tie{}@code{mchars}) (line@tie{}@code{int}) (object@tie{}@code{<gobject>}) (message@tie{}@code{<gst-debug-message*>}) (unused@tie{}@code{<gpointer>})
+The default logging handler used by GStreamer. Logging functions get called
+whenever a macro like GST_DEBUG or similar is used. This function outputs the
+message and additional info using the glib error handler. You can add other
+handlers by using @code{gst-debug-add-log-function}. And you can remove this
+handler by calling gst_debug_remove_log_function(gst_debug_log_default);
+
+@table @var
+@item category
+category to log
+
+@item level
+level of the message
+
+@item file
+the file that emitted the message, usually the __FILE__ identifier
+
+@item function
+the function that emitted the message
+
+@item line
+the line from that the message was emitted, usually __LINE__
+
+@item object
+the object this message relates to or NULL if none
+
+@item message
+the actual message
+
+@item unused
+an unused variable, reserved for some user_data.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-debug-level-get-name  (level@tie{}@code{<gst-debug-level>}) @result{}@tie{} (ret@tie{}@code{mchars})
+Get the string representation of a debugging level
+
+@table @var
+@item level
+the level to get the name for
+
+@item ret
+the name
+
+@end table
+
+@end deffn
+
+@deffn Function gst-debug-set-active  (active@tie{}@code{bool})
+If activated, debugging messages are sent to the debugging handlers. It makes
+sense to deactivate it for speed issues.
+
+This function is not threadsafe. It makes sense to only call it during
+initialization.
+
+@table @var
+@item active
+Whether to use debugging output or not
+
+@end table
+
+@end deffn
+
+@deffn Function gst-debug-is-active  @result{}@tie{} (ret@tie{}@code{bool})
+Checks if debugging output is activated.
+
+@table @var
+@item ret
+TRUE, if debugging is activated
+
+@end table
+
+@end deffn
+
+@deffn Function gst-debug-set-colored  (colored@tie{}@code{bool})
+Sets or unsets the use of coloured debugging output.
+
+@table @var
+@item colored
+Whether to use colored output or not
+
+@end table
+
+@end deffn
+
+@deffn Function gst-debug-is-colored  @result{}@tie{} (ret@tie{}@code{bool})
+Checks if the debugging output should be colored.
+
+@table @var
+@item ret
+TRUE, if the debug output should be colored.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-debug-set-default-threshold  (level@tie{}@code{<gst-debug-level>})
+Sets the default threshold to the given level and updates all categories to use
+this threshold.
+
+@table @var
+@item level
+level to set
+
+@end table
+
+@end deffn
+
+@deffn Function gst-debug-get-default-threshold  @result{}@tie{} (ret@tie{}@code{<gst-debug-level>})
+Returns the default threshold that is used for new categories.
+
+@table @var
+@item ret
+the default threshold level
+
+@end table
+
+@end deffn
+
+@deffn Function gst-debug-set-threshold-for-name  (name@tie{}@code{mchars}) (level@tie{}@code{<gst-debug-level>})
+Sets all categories which match the given glob style pattern to the given level.
+
+@table @var
+@item name
+name of the categories to set
+
+@item level
+level to set them to
+
+@end table
+
+@end deffn
+
+@deffn Function gst-debug-unset-threshold-for-name  (name@tie{}@code{mchars})
+Resets all categories with the given name back to the default level.
+
+@table @var
+@item name
+name of the categories to set
+
+@end table
+
+@end deffn
+
+@deffn Function gst-debug-category-set-threshold  (self@tie{}@code{<gst-debug-category*>}) (level@tie{}@code{<gst-debug-level>})
+Sets the threshold of the category to the given level. Debug information will
+only be output if the threshold is lower or equal to the level of the debugging
+message.
+
+Do not use this function in production code, because other functions may change
+the threshold of categories as side effect. It is however a nice function to use
+when debugging (even from gdb).
+
+@table @var
+@item category
+a @code{<gst-debug-category>} to set threshold of.
+
+@item level
+the @code{<gst-debug-level>} threshold to set.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-debug-category-reset-threshold  (self@tie{}@code{<gst-debug-category*>})
+Resets the threshold of the category to the default level. Debug information
+will only be output if the threshold is lower or equal to the level of the
+debugging message. Use this function to set the threshold back to where it was
+after using @code{gst-debug-category-set-threshold}.
+
+@table @var
+@item category
+a @code{<gst-debug-category>} to reset threshold of.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-debug-category-get-threshold  (self@tie{}@code{<gst-debug-category*>}) @result{}@tie{} (ret@tie{}@code{<gst-debug-level>})
+Returns the threshold of a @code{<gst-debug-category>}.
+
+@table @var
+@item category
+a @code{<gst-debug-category>} to get threshold of.
+
+@item ret
+the @code{<gst-debug-level>} that is used as threshold.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-debug-category-get-name  (self@tie{}@code{<gst-debug-category*>}) @result{}@tie{} (ret@tie{}@code{mchars})
+Returns the name of a debug category.
+
+@table @var
+@item category
+a @code{<gst-debug-category>} to get name of.
+
+@item ret
+the name of the category.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-debug-category-get-color  (self@tie{}@code{<gst-debug-category*>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+Returns the color of a debug category used when printing output in this
+category.
+
+@table @var
+@item category
+a @code{<gst-debug-category>} to get the color of.
+
+@item ret
+the color of the category.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-debug-category-get-description  (self@tie{}@code{<gst-debug-category*>}) @result{}@tie{} (ret@tie{}@code{mchars})
+Returns the description of a debug category.
+
+@table @var
+@item category
+a @code{<gst-debug-category>} to get the description of.
+
+@item ret
+the description of the category.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-debug-get-all-categories  @result{}@tie{} (ret@tie{}@code{gslist-of})
+Returns a snapshot of a all categories that are currently in use . This list may
+change anytime. The caller has to free the list after use.
+
+@table @var
+@item ret
+the list of categories
+
+@end table
+
+@end deffn
+
+@deffn Function gst-debug-construct-term-color  (colorinfo@tie{}@code{unsigned-int}) @result{}@tie{} (ret@tie{}@code{mchars})
+Constructs a string that can be used for getting the desired color in color
+terminals. You need to free the string after use.
+
+@table @var
+@item colorinfo
+the color info
+
+@item ret
+a string containing the color definition
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

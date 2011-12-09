@@ -1,0 +1,64 @@
+
+@c %start of fragment
+
+@node GstPipeline
+@chapter GstPipeline
+Top-level bin with clocking and bus management functionality.
+
+@section Overview
+A @code{<gst-pipeline>} is a special @code{<gst-bin>} used as the toplevel
+container for the filter graph. The @code{<gst-pipeline>} will manage the
+selection and distribution of a global @code{<gst-clock>} as well as provide a
+@code{<gst-bus>} to the application. It will also implement a default behavour
+for managing seek events (see @code{gst-element-seek}).
+
+@code{gst-pipeline-new} is used to create a pipeline. when you are done with the
+pipeline, use @code{gst-object-unref} to free its resources including all added
+@code{<gst-element>} objects (if not otherwise referenced).
+
+Elements are added and removed from the pipeline using the @code{<gst-bin>}
+methods like @code{gst-bin-add} and @code{gst-bin-remove} (see
+@code{<gst-bin>}).
+
+Before changing the state of the @code{<gst-pipeline>} (see
+@code{<gst-element>}) a @code{<gst-bus>} can be retrieved with
+@code{gst-pipeline-get-bus}. This bus can then be used to receive
+@code{<gst-message>} from the elements in the pipeline.
+
+By default, a @code{<gst-pipeline>} will automatically flush the pending
+@code{<gst-bus>} messages when going to the NULL state to ensure that no
+circular references exist when no messages are read from the @code{<gst-bus>}.
+This behaviour can be changed with @code{gst-pipeline-set-auto-flush-bus}.
+
+When the @code{<gst-pipeline>} performs the PAUSED to PLAYING state change it
+will select a clock for the elements. The clock selection algorithm will by
+default select a clock provided by an element that is most upstream (closest to
+the source). For live pipelines (ones that return
+@code{<gst-state-change-no-preroll>} from the @code{gst-element-set-state} call)
+this will select the clock provided by the live source. For normal pipelines
+this will select a clock provided by the sinks (most likely the audio sink). If
+no element provides a clock, a default @code{<gst-system-clock>} is used.
+
+The clock selection can be controlled with the @code{gst-pipeline-use-clock}
+method, which will enforce a given clock on the pipeline. With
+@code{gst-pipeline-auto-clock} the default clock selection algorithm can be
+restored.
+
+A @code{<gst-pipeline>} maintains a stream time for the elements. The stream
+time is defined as the difference between the current clock time and the base
+time. When the pipeline goes to READY or a flushing seek is performed on it, the
+stream time is reset to 0. When the pipeline is set from PLAYING to PAUSED, the
+current clock time is sampled and used to configure the base time for the
+elements when the pipeline is set to PLAYING again. This default behaviour can
+be changed with the @code{gst-pipeline-set-new-stream-time} method.
+
+When sending a flushing seek event to a GstPipeline (see
+@code{gst-element-seek}), it will make sure that the pipeline is properly PAUSED
+and resumed as well as set the new stream time to 0 when the seek succeeded.
+
+Last reviewed on 2006-03-12 (0.10.5)
+
+@section Usage
+@include defuns-gstpipeline.xml.texi
+
+@c %end of fragment

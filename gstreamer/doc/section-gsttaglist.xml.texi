@@ -1,0 +1,16 @@
+
+@c %start of fragment
+
+@node GstTagList
+@chapter GstTagList
+List of tags and values used to describe media metadata
+
+@section Overview
+List of tags and values used to describe media metadata.
+
+Last reviewed on 2005-11-23 (0.9.5)
+
+@section Usage
+@include defuns-gsttaglist.xml.texi
+
+@c %end of fragment

@@ -1,0 +1,195 @@
+
+@c %start of fragment
+
+@deffn Function gst-init  (argv@tie{}@code{<char***>}) @result{}@tie{} (argc@tie{}@code{int})
+Initializes the GStreamer library, setting up internal path lists, registering
+built-in elements, and loading standard plugins.
+
+This function should be called before calling any other GLib functions. If this
+is not an option, your program must initialise the GLib thread system using
+@code{g-thread-init} before any other GLib functions are called.
+
+This function will terminate your program if it was unable to initialize
+GStreamer for some reason. If you want your program to fall back, use
+@code{gst-init-check} instead.
+
+WARNING: This function does not work in the same way as corresponding functions
+in other glib-style libraries, such as @code{gtk-init}. In particular, unknown
+command line options cause this function to abort program execution.
+
+@table @var
+@item argc
+pointer to application's argc
+
+@item argv
+pointer to application's argv
+
+@end table
+
+@end deffn
+
+@deffn Function gst-init-check  (argv@tie{}@code{<char***>}) @result{}@tie{} (ret@tie{}@code{bool}) (argc@tie{}@code{int})
+Initializes the GStreamer library, setting up internal path lists, registering
+built-in elements, and loading standard plugins.
+
+This function will return @samp{@code{#f}} if GStreamer could not be initialized
+for some reason. If you want your program to fail fatally, use @code{gst-init}
+instead.
+
+This function should be called before calling any other GLib functions. If this
+is not an option, your program must initialise the GLib thread system using
+@code{g-thread-init} before any other GLib functions are called.
+
+@table @var
+@item argc
+pointer to application's argc
+
+@item argv
+pointer to application's argv
+
+@item err
+pointer to a @code{<g-error>} to which a message will be posted on error
+
+@item ret
+@samp{@code{#t}} if GStreamer could be initialized.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-init-get-option-group  @result{}@tie{} (ret@tie{}@code{<g-option-group*>})
+Returns a @code{<g-option-group>} with GStreamer's argument specifications. The
+group is set up to use standard GOption callbacks, so when using this group in
+combination with GOption parsing methods, all argument parsing and
+initialization is automated.
+
+This function is useful if you want to integrate GStreamer with other libraries
+that use GOption (see @code{g-option-context-add-group} ).
+
+If you use this function, you should make sure you initialise the GLib threading
+system as one of the very first things in your program (see the example at the
+beginning of this section).
+
+@table @var
+@item ret
+a pointer to GStreamer's option group.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-deinit 
+Clean up any resources created by GStreamer in @code{gst-init}.
+
+It is normally not needed to call this function in a normal application as the
+resources will automatically be freed when the program terminates. This function
+is therefore mostly used by testsuites and other memory profiling tools.
+
+After this call GStreamer (including this method) should not be used anymore.
+
+@end deffn
+
+@deffn Function gst-version  @result{}@tie{} (major@tie{}@code{unsigned-int}) (minor@tie{}@code{unsigned-int}) (micro@tie{}@code{unsigned-int}) (nano@tie{}@code{unsigned-int})
+Gets the version number of the GStreamer library.
+
+@table @var
+@item major
+pointer to a guint to store the major version number
+
+@item minor
+pointer to a guint to store the minor version number
+
+@item micro
+pointer to a guint to store the micro version number
+
+@item nano
+pointer to a guint to store the nano version number
+
+@end table
+
+@end deffn
+
+@deffn Function gst-version-string  @result{}@tie{} (ret@tie{}@code{mchars})
+This function returns a string that is useful for describing this version of
+GStreamer to the outside world: user agent strings, logging, ...
+
+@table @var
+@item ret
+a newly allocated string describing this version of GStreamer.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-segtrap-is-enabled  @result{}@tie{} (ret@tie{}@code{bool})
+Some functions in the GStreamer core might install a custom SIGSEGV handler to
+better catch and report errors to the application. Currently this feature is
+enabled by default when loading plugins.
+
+Applications might want to disable this behaviour with the
+@code{gst-segtrap-set-enabled} function. This is typically done if the
+application wants to install its own handler without GStreamer interfering.
+
+@table @var
+@item ret
+@samp{@code{#t}} if GStreamer is allowed to install a custom SIGSEGV handler.
+
+@end table
+
+Since 0.10.10
+
+@end deffn
+
+@deffn Function gst-segtrap-set-enabled  (enabled@tie{}@code{bool})
+Applications might want to disable/enable the SIGSEGV handling of the GStreamer
+core. See @code{gst-segtrap-is-enabled} for more information.
+
+@table @var
+@item enabled
+whether a custom SIGSEGV handler should be installed.
+
+@end table
+
+Since 0.10.10
+
+@end deffn
+
+@deffn Function gst-registry-fork-is-enabled  @result{}@tie{} (ret@tie{}@code{bool})
+By default GStreamer will perform a @code{fork} when scanning and rebuilding the
+registry file.
+
+Applications might want to disable this behaviour with the
+@code{gst-registry-fork-set-enabled} function.
+
+@table @var
+@item ret
+@samp{@code{#t}} if GStreamer will use @code{fork} when rebuilding the registry.
+On platforms without @code{fork}, this function will always return
+@samp{@code{#f}}.
+
+@end table
+
+Since 0.10.10
+
+@end deffn
+
+@deffn Function gst-registry-fork-set-enabled  (enabled@tie{}@code{bool})
+Applications might want to disable/enable the usage of @code{fork} when
+rebuilding the registry. See @code{gst-registry-fork-is-enabled} for more
+information.
+
+On platforms without @code{fork}, this function will have no effect on the
+return value of @code{gst-registry-fork-is-enabled}.
+
+@table @var
+@item enabled
+whether rebuilding the registry may fork
+
+@end table
+
+Since 0.10.10
+
+@end deffn
+
+
+@c %end of fragment

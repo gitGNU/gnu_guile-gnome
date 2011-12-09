@@ -1,0 +1,936 @@
+
+@c %start of fragment
+
+@deffn Function gst-tag-register  (name@tie{}@code{mchars}) (flag@tie{}@code{<gst-tag-flag>}) (type@tie{}@code{<gtype>}) (nick@tie{}@code{mchars}) (blurb@tie{}@code{mchars}) (func@tie{}@code{<gst-tag-merge-func>})
+Registers a new tag type for the use with GStreamer's type system. If a type
+with that name is already registered, that one is used. The old registration may
+have used a different type however. So don't rely on your supplied values.
+
+Important: if you do not supply a merge function the implication will be that
+there can only be one single value for this tag in a tag list and any additional
+values will silenty be discarded when being added (unless
+@code{<gst-tag-merge-replace>}, @code{<gst-tag-merge-replace-all>}, or
+@code{<gst-tag-merge-prepend>} is used as merge mode, in which case the new
+value will replace the old one in the list).
+
+The merge function will be called from @code{gst-tag-list-copy-value} when it is
+required that one or more values for a tag be condensed into one single value.
+This may happen from @code{gst-tag-list-get-string},
+@code{gst-tag-list-get-int}, @code{gst-tag-list-get-double} etc. What will
+happen exactly in that case depends on how the tag was registered and if a merge
+function was supplied and if so which one.
+
+Two default merge functions are provided: @code{gst-tag-merge-use-first} and
+@code{gst-tag-merge-strings-with-commas}.
+
+@table @var
+@item name
+the name or identifier string
+
+@item flag
+a flag describing the type of tag info
+
+@item type
+the type this data is in
+
+@item nick
+human-readable name
+
+@item blurb
+a human-readable description about this tag
+
+@item func
+function for merging multiple values of this tag, or NULL
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-merge-use-first  (dest@tie{}@code{<gvalue>}) (src@tie{}@code{<gvalue>})
+This is a convenience function for the func argument of @code{gst-tag-register}.
+It creates a copy of the first value from the list.
+
+@table @var
+@item dest
+uninitialized GValue to store result in
+
+@item src
+GValue to copy from
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-merge-strings-with-comma  (dest@tie{}@code{<gvalue>}) (src@tie{}@code{<gvalue>})
+This is a convenience function for the func argument of @code{gst-tag-register}.
+It concatenates all given strings using a comma. The tag must be registered as a
+G_TYPE_STRING or this function will fail.
+
+@table @var
+@item dest
+uninitialized GValue to store result in
+
+@item src
+GValue to copy from
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-exists  (tag@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool})
+Checks if the given type is already registered.
+
+@table @var
+@item tag
+name of the tag
+
+@item ret
+TRUE if the type is already registered
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-get-nick  (tag@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{mchars})
+Returns the human-readable name of this tag, You must not change or free this
+string.
+
+@table @var
+@item tag
+the tag
+
+@item ret
+the human-readable name of this tag
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-get-description  (tag@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{mchars})
+Returns the human-readable description of this tag, You must not change or free
+this string.
+
+@table @var
+@item tag
+the tag
+
+@item ret
+the human-readable description of this tag
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-get-flag  (tag@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gst-tag-flag>})
+Gets the flag of @var{tag}.
+
+@table @var
+@item tag
+the tag
+
+@item ret
+the flag of this tag.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-is-fixed  (tag@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool})
+Checks if the given tag is fixed. A fixed tag can only contain one value.
+Unfixed tags can contain lists of values.
+
+@table @var
+@item tag
+tag to check
+
+@item ret
+TRUE, if the given tag is fixed.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-new  @result{}@tie{} (ret@tie{}@code{<gst-tag-list*>})
+Creates a new empty GstTagList.
+
+@table @var
+@item ret
+An empty tag list
+
+@end table
+
+@end deffn
+
+@deffn Function gst-is-tag-list  (p@tie{}@code{<gconstpointer>}) @result{}@tie{} (ret@tie{}@code{bool})
+Checks if the given pointer is a taglist.
+
+@table @var
+@item p
+Object that might be a taglist
+
+@item ret
+TRUE, if the given pointer is a taglist
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-insert  (self@tie{}@code{<gst-tag-list*>}) (from@tie{}@code{<gst-tag-list*>}) (mode@tie{}@code{<gst-tag-merge-mode>})
+Inserts the tags of the second list into the first list using the given mode.
+
+@table @var
+@item into
+list to merge into
+
+@item from
+list to merge from
+
+@item mode
+the mode to use
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-merge  (self@tie{}@code{<gst-tag-list*>}) (list2@tie{}@code{<gst-tag-list*>}) (mode@tie{}@code{<gst-tag-merge-mode>}) @result{}@tie{} (ret@tie{}@code{<gst-tag-list*>})
+Merges the two given lists into a new list. If one of the lists is NULL, a copy
+of the other is returned. If both lists are NULL, NULL is returned.
+
+@table @var
+@item list1
+first list to merge
+
+@item list2
+second list to merge
+
+@item mode
+the mode to use
+
+@item ret
+the new list
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-get-tag-size  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+Checks how many value are stored in this tag list for the given tag.
+
+@table @var
+@item list
+a taglist
+
+@item tag
+the tag to query
+
+@item ret
+The number of tags stored
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-remove-tag  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars})
+Removes the given tag from the taglist.
+
+@table @var
+@item list
+list to remove tag from
+
+@item tag
+tag to remove
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-foreach  (self@tie{}@code{<gst-tag-list*>}) (func@tie{}@code{<gst-tag-foreach-func>}) (user_data@tie{}@code{<gpointer>})
+Calls the given function for each tag inside the tag list. Note that if there is
+no tag, the function won't be called at all.
+
+@table @var
+@item list
+list to iterate over
+
+@item func
+function to be called for each tag
+
+@item user-data
+user specified data
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-get-value-index  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) (index@tie{}@code{unsigned-int}) @result{}@tie{} (ret@tie{}@code{<gvalue>})
+Gets the value that is at the given index for the given tag in the given list.
+
+@table @var
+@item list
+a @code{<gst-tag-list>}
+
+@item tag
+tag to read out
+
+@item index
+number of entry to read out
+
+@item ret
+The GValue for the specified entry or NULL if the tag wasn't available or the
+tag doesn't have as many entries
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-copy-value  (dest@tie{}@code{<gvalue>}) (list@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool})
+Copies the contents for the given tag into the value, merging multiple values
+into one if multiple values are associated with the tag. You must
+@code{g-value-unset} the value after use.
+
+@table @var
+@item dest
+uninitialized @code{<gvalue>} to copy into
+
+@item list
+list to get the tag from
+
+@item tag
+tag to read out
+
+@item ret
+TRUE, if a value was copied, FALSE if the tag didn't exist in the given list.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-get-char  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) (value@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool})
+Copies the contents for the given tag into the value, merging multiple values
+into one if multiple values are associated with the tag.
+
+@table @var
+@item list
+a @code{<gst-tag-list>} to get the tag from
+
+@item tag
+tag to read out
+
+@item value
+location for the result
+
+@item ret
+TRUE, if a value was copied, FALSE if the tag didn't exist in the given list.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-get-char-index  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) (index@tie{}@code{unsigned-int}) (value@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool})
+Gets the value that is at the given index for the given tag in the given list.
+
+@table @var
+@item list
+a @code{<gst-tag-list>} to get the tag from
+
+@item tag
+tag to read out
+
+@item index
+number of entry to read out
+
+@item value
+location for the result
+
+@item ret
+TRUE, if a value was copied, FALSE if the tag didn't exist in the given list.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-get-uchar  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) (value@tie{}@code{<guchar*>}) @result{}@tie{} (ret@tie{}@code{bool})
+Copies the contents for the given tag into the value, merging multiple values
+into one if multiple values are associated with the tag.
+
+@table @var
+@item list
+a @code{<gst-tag-list>} to get the tag from
+
+@item tag
+tag to read out
+
+@item value
+location for the result
+
+@item ret
+TRUE, if a value was copied, FALSE if the tag didn't exist in the given list.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-get-uchar-index  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) (index@tie{}@code{unsigned-int}) (value@tie{}@code{<guchar*>}) @result{}@tie{} (ret@tie{}@code{bool})
+Gets the value that is at the given index for the given tag in the given list.
+
+@table @var
+@item list
+a @code{<gst-tag-list>} to get the tag from
+
+@item tag
+tag to read out
+
+@item index
+number of entry to read out
+
+@item value
+location for the result
+
+@item ret
+TRUE, if a value was copied, FALSE if the tag didn't exist in the given list.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-get-boolean  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool}) (value@tie{}@code{bool})
+Copies the contents for the given tag into the value, merging multiple values
+into one if multiple values are associated with the tag.
+
+@table @var
+@item list
+a @code{<gst-tag-list>} to get the tag from
+
+@item tag
+tag to read out
+
+@item value
+location for the result
+
+@item ret
+TRUE, if a value was copied, FALSE if the tag didn't exist in the given list.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-get-boolean-index  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) (index@tie{}@code{unsigned-int}) @result{}@tie{} (ret@tie{}@code{bool}) (value@tie{}@code{bool})
+Gets the value that is at the given index for the given tag in the given list.
+
+@table @var
+@item list
+a @code{<gst-tag-list>} to get the tag from
+
+@item tag
+tag to read out
+
+@item index
+number of entry to read out
+
+@item value
+location for the result
+
+@item ret
+TRUE, if a value was copied, FALSE if the tag didn't exist in the given list.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-get-int  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool}) (value@tie{}@code{int})
+Copies the contents for the given tag into the value, merging multiple values
+into one if multiple values are associated with the tag.
+
+@table @var
+@item list
+a @code{<gst-tag-list>} to get the tag from
+
+@item tag
+tag to read out
+
+@item value
+location for the result
+
+@item ret
+TRUE, if a value was copied, FALSE if the tag didn't exist in the given list.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-get-int-index  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) (index@tie{}@code{unsigned-int}) @result{}@tie{} (ret@tie{}@code{bool}) (value@tie{}@code{int})
+Gets the value that is at the given index for the given tag in the given list.
+
+@table @var
+@item list
+a @code{<gst-tag-list>} to get the tag from
+
+@item tag
+tag to read out
+
+@item index
+number of entry to read out
+
+@item value
+location for the result
+
+@item ret
+TRUE, if a value was copied, FALSE if the tag didn't exist in the given list.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-get-uint  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool}) (value@tie{}@code{unsigned-int})
+Copies the contents for the given tag into the value, merging multiple values
+into one if multiple values are associated with the tag.
+
+@table @var
+@item list
+a @code{<gst-tag-list>} to get the tag from
+
+@item tag
+tag to read out
+
+@item value
+location for the result
+
+@item ret
+TRUE, if a value was copied, FALSE if the tag didn't exist in the given list.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-get-uint-index  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) (index@tie{}@code{unsigned-int}) @result{}@tie{} (ret@tie{}@code{bool}) (value@tie{}@code{unsigned-int})
+Gets the value that is at the given index for the given tag in the given list.
+
+@table @var
+@item list
+a @code{<gst-tag-list>} to get the tag from
+
+@item tag
+tag to read out
+
+@item index
+number of entry to read out
+
+@item value
+location for the result
+
+@item ret
+TRUE, if a value was copied, FALSE if the tag didn't exist in the given list.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-get-long  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool}) (value@tie{}@code{long})
+Copies the contents for the given tag into the value, merging multiple values
+into one if multiple values are associated with the tag.
+
+@table @var
+@item list
+a @code{<gst-tag-list>} to get the tag from
+
+@item tag
+tag to read out
+
+@item value
+location for the result
+
+@item ret
+TRUE, if a value was copied, FALSE if the tag didn't exist in the given list.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-get-long-index  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) (index@tie{}@code{unsigned-int}) @result{}@tie{} (ret@tie{}@code{bool}) (value@tie{}@code{long})
+Gets the value that is at the given index for the given tag in the given list.
+
+@table @var
+@item list
+a @code{<gst-tag-list>} to get the tag from
+
+@item tag
+tag to read out
+
+@item index
+number of entry to read out
+
+@item value
+location for the result
+
+@item ret
+TRUE, if a value was copied, FALSE if the tag didn't exist in the given list.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-get-ulong  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool}) (value@tie{}@code{unsigned-long})
+Copies the contents for the given tag into the value, merging multiple values
+into one if multiple values are associated with the tag.
+
+@table @var
+@item list
+a @code{<gst-tag-list>} to get the tag from
+
+@item tag
+tag to read out
+
+@item value
+location for the result
+
+@item ret
+TRUE, if a value was copied, FALSE if the tag didn't exist in the given list.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-get-ulong-index  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) (index@tie{}@code{unsigned-int}) @result{}@tie{} (ret@tie{}@code{bool}) (value@tie{}@code{unsigned-long})
+Gets the value that is at the given index for the given tag in the given list.
+
+@table @var
+@item list
+a @code{<gst-tag-list>} to get the tag from
+
+@item tag
+tag to read out
+
+@item index
+number of entry to read out
+
+@item value
+location for the result
+
+@item ret
+TRUE, if a value was copied, FALSE if the tag didn't exist in the given list.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-get-int64  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool}) (value@tie{}@code{int64})
+Copies the contents for the given tag into the value, merging multiple values
+into one if multiple values are associated with the tag.
+
+@table @var
+@item list
+a @code{<gst-tag-list>} to get the tag from
+
+@item tag
+tag to read out
+
+@item value
+location for the result
+
+@item ret
+TRUE, if a value was copied, FALSE if the tag didn't exist in the given list.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-get-int64-index  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) (index@tie{}@code{unsigned-int}) @result{}@tie{} (ret@tie{}@code{bool}) (value@tie{}@code{int64})
+Gets the value that is at the given index for the given tag in the given list.
+
+@table @var
+@item list
+a @code{<gst-tag-list>} to get the tag from
+
+@item tag
+tag to read out
+
+@item index
+number of entry to read out
+
+@item value
+location for the result
+
+@item ret
+TRUE, if a value was copied, FALSE if the tag didn't exist in the given list.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-get-uint64  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool}) (value@tie{}@code{unsigned-int64})
+Copies the contents for the given tag into the value, merging multiple values
+into one if multiple values are associated with the tag.
+
+@table @var
+@item list
+a @code{<gst-tag-list>} to get the tag from
+
+@item tag
+tag to read out
+
+@item value
+location for the result
+
+@item ret
+TRUE, if a value was copied, FALSE if the tag didn't exist in the given list.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-get-uint64-index  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) (index@tie{}@code{unsigned-int}) @result{}@tie{} (ret@tie{}@code{bool}) (value@tie{}@code{unsigned-int64})
+Gets the value that is at the given index for the given tag in the given list.
+
+@table @var
+@item list
+a @code{<gst-tag-list>} to get the tag from
+
+@item tag
+tag to read out
+
+@item index
+number of entry to read out
+
+@item value
+location for the result
+
+@item ret
+TRUE, if a value was copied, FALSE if the tag didn't exist in the given list.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-get-float  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool}) (value@tie{}@code{float})
+Copies the contents for the given tag into the value, merging multiple values
+into one if multiple values are associated with the tag.
+
+@table @var
+@item list
+a @code{<gst-tag-list>} to get the tag from
+
+@item tag
+tag to read out
+
+@item value
+location for the result
+
+@item ret
+TRUE, if a value was copied, FALSE if the tag didn't exist in the given list.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-get-float-index  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) (index@tie{}@code{unsigned-int}) @result{}@tie{} (ret@tie{}@code{bool}) (value@tie{}@code{float})
+Gets the value that is at the given index for the given tag in the given list.
+
+@table @var
+@item list
+a @code{<gst-tag-list>} to get the tag from
+
+@item tag
+tag to read out
+
+@item index
+number of entry to read out
+
+@item value
+location for the result
+
+@item ret
+TRUE, if a value was copied, FALSE if the tag didn't exist in the given list.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-get-double  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool}) (value@tie{}@code{double})
+Copies the contents for the given tag into the value, merging multiple values
+into one if multiple values are associated with the tag.
+
+@table @var
+@item list
+a @code{<gst-tag-list>} to get the tag from
+
+@item tag
+tag to read out
+
+@item value
+location for the result
+
+@item ret
+TRUE, if a value was copied, FALSE if the tag didn't exist in the given list.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-get-double-index  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) (index@tie{}@code{unsigned-int}) @result{}@tie{} (ret@tie{}@code{bool}) (value@tie{}@code{double})
+Gets the value that is at the given index for the given tag in the given list.
+
+@table @var
+@item list
+a @code{<gst-tag-list>} to get the tag from
+
+@item tag
+tag to read out
+
+@item index
+number of entry to read out
+
+@item value
+location for the result
+
+@item ret
+TRUE, if a value was copied, FALSE if the tag didn't exist in the given list.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-get-string  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool}) (value@tie{}@code{mchars})
+Copies the contents for the given tag into the value, possibly merging multiple
+values into one if multiple values are associated with the tag.
+
+Use gst_tag_list_get_string_index (list, tag, 0, value) if you want to retrieve
+the first string associated with this tag unmodified.
+
+The resulting string in @var{value} should be freed by the caller using g_free
+when no longer needed
+
+@table @var
+@item list
+a @code{<gst-tag-list>} to get the tag from
+
+@item tag
+tag to read out
+
+@item value
+location for the result
+
+@item ret
+TRUE, if a value was copied, FALSE if the tag didn't exist in the given list.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-get-string-index  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) (index@tie{}@code{unsigned-int}) @result{}@tie{} (ret@tie{}@code{bool}) (value@tie{}@code{mchars})
+Gets the value that is at the given index for the given tag in the given list.
+
+The resulting string in @var{value} should be freed by the caller using g_free
+when no longer needed
+
+@table @var
+@item list
+a @code{<gst-tag-list>} to get the tag from
+
+@item tag
+tag to read out
+
+@item index
+number of entry to read out
+
+@item value
+location for the result
+
+@item ret
+TRUE, if a value was copied, FALSE if the tag didn't exist in the given list.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-get-pointer  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) (value@tie{}@code{<gpointer*>}) @result{}@tie{} (ret@tie{}@code{bool})
+Copies the contents for the given tag into the value, merging multiple values
+into one if multiple values are associated with the tag.
+
+@table @var
+@item list
+a @code{<gst-tag-list>} to get the tag from
+
+@item tag
+tag to read out
+
+@item value
+location for the result
+
+@item ret
+TRUE, if a value was copied, FALSE if the tag didn't exist in the given list.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-get-pointer-index  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) (index@tie{}@code{unsigned-int}) (value@tie{}@code{<gpointer*>}) @result{}@tie{} (ret@tie{}@code{bool})
+Gets the value that is at the given index for the given tag in the given list.
+
+@table @var
+@item list
+a @code{<gst-tag-list>} to get the tag from
+
+@item tag
+tag to read out
+
+@item index
+number of entry to read out
+
+@item value
+location for the result
+
+@item ret
+TRUE, if a value was copied, FALSE if the tag didn't exist in the given list.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-get-date  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) (value@tie{}@code{<g-date**>}) @result{}@tie{} (ret@tie{}@code{bool})
+Copies the contents for the given tag into the value, merging multiple values
+into one if multiple values are associated with the tag.
+
+@table @var
+@item list
+a @code{<gst-tag-list>} to get the tag from
+
+@item tag
+tag to read out
+
+@item value
+location for the result
+
+@item ret
+TRUE, if a value was copied, FALSE if the tag didn't exist in the given list or
+if it was @code{@code{#f}}.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-tag-list-get-date-index  (self@tie{}@code{<gst-tag-list*>}) (tag@tie{}@code{mchars}) (index@tie{}@code{unsigned-int}) (value@tie{}@code{<g-date**>}) @result{}@tie{} (ret@tie{}@code{bool})
+Gets the value that is at the given index for the given tag in the given list.
+
+@table @var
+@item list
+a @code{<gst-tag-list>} to get the tag from
+
+@item tag
+tag to read out
+
+@item index
+number of entry to read out
+
+@item value
+location for the result
+
+@item ret
+TRUE, if a value was copied, FALSE if the tag didn't exist in the given list or
+if it was @code{@code{#f}}.
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

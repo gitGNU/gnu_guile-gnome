@@ -1,0 +1,87 @@
+
+@c %start of fragment
+
+@node GstClock
+@chapter GstClock
+Abstract class for global clocks
+
+@section Overview
+GStreamer uses a global clock to synchronize the plugins in a pipeline.
+Different clock implementations are possible by implementing this abstract base
+class.
+
+The @code{<gst-clock>} returns a monotonically increasing time with the method
+@code{gst-clock-get-time}. Its accuracy and base time depend on the specific
+clock implementation but time is always expressed in nanoseconds. Since the
+baseline of the clock is undefined, the clock time returned is not meaningful in
+itself, what matters are the deltas between two clock times. The time returned
+by a clock is called the absolute time.
+
+The pipeline uses the clock to calculate the stream time. Usually all renderers
+synchronize to the global clock using the buffer timestamps, the newsegment
+events and the element's base time, see @code{<gst-pipeline>}.
+
+A clock implementation can support periodic and single shot clock notifications
+both synchronous and asynchronous.
+
+One first needs to create a @code{<gst-clock-id>} for the periodic or single
+shot notification using @code{gst-clock-new-single-shot-id} or
+@code{gst-clock-new-periodic-id}.
+
+To perform a blocking wait for the specific time of the @code{<gst-clock-id>}
+use the @code{gst-clock-id-wait}. To receive a callback when the specific time
+is reached in the clock use @code{gst-clock-id-wait-async}. Both these calls can
+be interrupted with the @code{gst-clock-id-unschedule} call. If the blocking
+wait is unscheduled a return value of GST_CLOCK_UNSCHEDULED is returned.
+
+Periodic callbacks scheduled async will be repeadedly called automatically until
+it is unscheduled. To schedule a sync periodic callback,
+@code{gst-clock-id-wait} should be called repeadedly.
+
+The async callbacks can happen from any thread, either provided by the core or
+from a streaming thread. The application should be prepared for this.
+
+A @code{<gst-clock-id>} that has been unscheduled cannot be used again for any
+wait operation, a new @code{<gst-clock-id>} should be created and the old
+unscheduled one should be destroyed wirth @code{gst-clock-id-unref}.
+
+It is possible to perform a blocking wait on the same @code{<gst-clock-id>} from
+multiple threads. However, registering the same @code{<gst-clock-id>} for
+multiple async notifications is not possible, the callback will only be called
+for the thread registering the entry last.
+
+None of the wait operations unref the @code{<gst-clock-id>}, the owner is
+responsible for unreffing the ids itself. This holds for both periodic and
+single shot notifications. The reason being that the owner of the
+@code{<gst-clock-id>} has to keep a handle to the @code{<gst-clock-id>} to
+unblock the wait on FLUSHING events or state changes and if the entry would be
+unreffed automatically, the handle might become invalid without any
+notification.
+
+These clock operations do not operate on the stream time, so the callbacks will
+also occur when not in PLAYING state as if the clock just keeps on running. Some
+clocks however do not progress when the element that provided the clock is not
+PLAYING.
+
+When a clock has the GST_CLOCK_FLAG_CAN_SET_MASTER flag set, it can be slaved to
+another @code{<gst-clock>} with the @code{gst-clock-set-master}. The clock will
+then automatically be synchronized to this master clock by repeadedly sampling
+the master clock and the slave clock and recalibrating the slave clock with
+@code{gst-clock-set-calibration}. This feature is mostly useful for plugins that
+have an internal clock but must operate with another clock selected by the
+@code{<gst-pipeline>}. They can track the offset and rate difference of their
+internal clock relative to the master clock by using the
+@code{gst-clock-get-calibration} function.
+
+The master/slave synchronisation can be tuned with the "timeout", "window-size"
+and "window-threshold" properties. The "timeout" property defines the interval
+to sample the master clock and run the calibration functions. "window-size"
+defines the number of samples to use when calibrating and "window-threshold"
+defines the minimum number of samples before the calibration is performed.
+
+Last reviewed on 2006-08-11 (0.10.10)
+
+@section Usage
+@include defuns-gstclock.xml.texi
+
+@c %end of fragment

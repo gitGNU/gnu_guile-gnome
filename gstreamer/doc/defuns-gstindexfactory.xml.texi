@@ -1,0 +1,87 @@
+
+@c %start of fragment
+
+@deftp Class <gst-index-factory>
+This @code{<gobject>} class defines no properties, other than those defined by
+its superclasses.
+
+@end deftp
+
+@deffn Function gst-index-factory-new  (name@tie{}@code{mchars}) (longdesc@tie{}@code{mchars}) (type@tie{}@code{<gtype>}) @result{}@tie{} (ret@tie{}@code{<gst-index-factory>})
+Create a new indexfactory with the given parameters
+
+@table @var
+@item name
+name of indexfactory to create
+
+@item longdesc
+long description of indexfactory to create
+
+@item type
+the GType of the GstIndex element of this factory
+
+@item ret
+a new @code{<gst-index-factory>}.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-index-factory-destroy  (self@tie{}@code{<gst-index-factory>})
+@deffnx Method destroy
+Removes the index from the global list.
+
+@table @var
+@item factory
+factory to destroy
+
+@end table
+
+@end deffn
+
+@deffn Function gst-index-factory-find  (name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gst-index-factory>})
+Search for an indexfactory of the given name.
+
+@table @var
+@item name
+name of indexfactory to find
+
+@item ret
+@code{<gst-index-factory>} if found, NULL otherwise
+
+@end table
+
+@end deffn
+
+@deffn Function gst-index-factory-create  (self@tie{}@code{<gst-index-factory>}) @result{}@tie{} (ret@tie{}@code{<gst-index>})
+@deffnx Method create
+Create a new @code{<gst-index>} instance from the given indexfactory.
+
+@table @var
+@item factory
+the factory used to create the instance
+
+@item ret
+A new @code{<gst-index>} instance.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-index-factory-make  (name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gst-index>})
+Create a new @code{<gst-index>} instance from the indexfactory with the given
+name.
+
+@table @var
+@item name
+the name of the factory used to create the instance
+
+@item ret
+A new @code{<gst-index>} instance.
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

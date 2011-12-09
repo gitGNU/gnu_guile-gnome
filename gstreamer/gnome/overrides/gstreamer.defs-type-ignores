@@ -1,0 +1,6 @@
+;; -*- scheme -*-
+
+;(ignore-types "GstBuffer"
+;              "GstEvent"
+;              "GstMessage"
+;              "GstQuery")

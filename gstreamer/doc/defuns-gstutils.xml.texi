@@ -1,0 +1,82 @@
+
+@c %start of fragment
+
+@deffn Function gst-atomic-int-set  (value@tie{}@code{int}) @result{}@tie{} (atomic_int@tie{}@code{int})
+Unconditionally sets the atomic integer to @var{value}.
+
+@table @var
+@item atomic-int
+pointer to an atomic integer
+
+@item value
+value to set
+
+@end table
+
+@end deffn
+
+@deffn Function gst-flow-get-name  (ret@tie{}@code{<gst-flow-return>}) @result{}@tie{} (ret@tie{}@code{mchars})
+Gets a string representing the given flow return.
+
+@table @var
+@item ret
+a @code{<gst-flow-return>} to get the name of.
+
+@item ret
+a static string with the name of the flow return.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-flow-to-quark  (ret@tie{}@code{<gst-flow-return>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+Get the unique quark for the given GstFlowReturn.
+
+@table @var
+@item ret
+a @code{<gst-flow-return>} to get the quark of.
+
+@item ret
+the quark associated with the flow return or 0 if an invalid return was
+specified.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-print-element-args  (buf@tie{}@code{<g-string*>}) (indent@tie{}@code{int}) (element@tie{}@code{<gst-element>})
+Print the element argument in a human readable format in the given GString.
+
+@table @var
+@item buf
+the buffer to print the args in
+
+@item indent
+initial indentation
+
+@item element
+the element to print the args of
+
+@end table
+
+@end deffn
+
+@deffn Function gst-print-pad-caps  (buf@tie{}@code{<g-string*>}) (indent@tie{}@code{int}) (pad@tie{}@code{<gst-pad>})
+Write the pad capabilities in a human readable format into the given GString.
+
+@table @var
+@item buf
+the buffer to print the caps in
+
+@item indent
+initial indentation
+
+@item pad
+the pad to print the caps from
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

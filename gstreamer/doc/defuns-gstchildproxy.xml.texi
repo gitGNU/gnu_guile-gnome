@@ -1,0 +1,146 @@
+
+@c %start of fragment
+
+@deffn Function gst-child-proxy-get-children-count  (self@tie{}@code{<gst-child-proxy*>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+Gets the number of child objects this parent contains.
+
+@table @var
+@item parent
+the parent object
+
+@item ret
+the number of child objects MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-child-proxy-get-child-by-name  (self@tie{}@code{<gst-child-proxy*>}) (name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gst-object>})
+Looks up a child element by the given name.
+
+Implementors can use @code{<gst-object>} together with
+@code{gst-object-get-name}
+
+@table @var
+@item parent
+the parent object to get the child from
+
+@item name
+the childs name
+
+@item ret
+the child object or @samp{@code{#f}} if not found. Unref after usage. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-child-proxy-get-child-by-index  (self@tie{}@code{<gst-child-proxy*>}) (index@tie{}@code{unsigned-int}) @result{}@tie{} (ret@tie{}@code{<gst-object>})
+Fetches a child by its number.
+
+@table @var
+@item parent
+the parent object to get the child from
+
+@item index
+the childs position in the child list
+
+@item ret
+the child object or @samp{@code{#f}} if not found (index too high). Unref after
+usage. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-child-proxy-lookup  (object@tie{}@code{<gst-object>}) (name@tie{}@code{mchars}) (target@tie{}@code{<gst-object**>}) (pspec@tie{}@code{<g-param-spec**>}) @result{}@tie{} (ret@tie{}@code{bool})
+Looks up which object and @code{<gparam>} would be effected by the given
+@var{name}.
+
+@table @var
+@item object
+object to lookup the property in
+
+@item name
+name of the property to look up
+
+@item target
+pointer to a @code{<gst-object>} that takes the real object to set property on
+
+@item pspec
+pointer to take the @code{<gparam>} describing the property
+
+@item ret
+TRUE if @var{target} and @var{pspec} could be found. FALSE otherwise. In that
+case the values for @var{pspec} and @var{target} are not modified. Unref
+@var{target} after usage. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-child-proxy-get-property  (object@tie{}@code{<gst-object>}) (name@tie{}@code{mchars}) (value@tie{}@code{<gvalue>})
+Gets a single property using the GstChildProxy mechanism. You are responsible
+for for freeing it by calling @code{g-value-unset}
+
+@table @var
+@item object
+object to query
+
+@item name
+name of the property
+
+@item value
+a @code{<gvalue>} that should take the result.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-child-proxy-set-property  (object@tie{}@code{<gst-object>}) (name@tie{}@code{mchars}) (value@tie{}@code{<gvalue>})
+Sets a single property using the GstChildProxy mechanism.
+
+@table @var
+@item object
+the parent object
+
+@item name
+name of the property to set
+
+@item value
+new @code{<gvalue>} for the property
+
+@end table
+
+@end deffn
+
+@deffn Function gst-child-proxy-child-added  (object@tie{}@code{<gst-object>}) (child@tie{}@code{<gst-object>})
+Emits the "child-added" signal.
+
+@table @var
+@item object
+the parent object
+
+@item child
+the newly added child
+
+@end table
+
+@end deffn
+
+@deffn Function gst-child-proxy-child-removed  (object@tie{}@code{<gst-object>}) (child@tie{}@code{<gst-object>})
+Emits the "child-removed" signal.
+
+@table @var
+@item object
+the parent object
+
+@item child
+the newly added child
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

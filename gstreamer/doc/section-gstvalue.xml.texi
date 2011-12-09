@@ -1,0 +1,19 @@
+
+@c %start of fragment
+
+@node GstValue
+@chapter GstValue
+GValue and GParamSpec implementations specific to GStreamer
+
+@section Overview
+GValue and GParamSpec implementations specific to GStreamer.
+
+Note that operations on the same GstValue (or GValue) from multiple threads may
+lead to undefined behaviour.
+
+Last reviewed on 2006-03-07 (0.10.4)
+
+@section Usage
+@include defuns-gstvalue.xml.texi
+
+@c %end of fragment

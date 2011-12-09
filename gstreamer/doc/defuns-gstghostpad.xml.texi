@@ -1,0 +1,105 @@
+
+@c %start of fragment
+
+@deffn Function gst-ghost-pad-new  (name@tie{}@code{mchars}) (target@tie{}@code{<gst-pad>}) @result{}@tie{} (ret@tie{}@code{<gst-pad>})
+Create a new ghostpad with @var{target} as the target. The direction will be
+taken from the target pad. @var{target} must be unlinked.
+
+Will ref the target.
+
+@table @var
+@item name
+the name of the new pad, or NULL to assign a default name.
+
+@item target
+the pad to ghost.
+
+@item ret
+a new @code{<gst-pad>}, or NULL in case of an error.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-ghost-pad-new-no-target  (name@tie{}@code{mchars}) (dir@tie{}@code{<gst-pad-direction>}) @result{}@tie{} (ret@tie{}@code{<gst-pad>})
+Create a new ghostpad without a target with the given direction. A target can be
+set on the ghostpad later with the @code{gst-ghost-pad-set-target} function.
+
+The created ghostpad will not have a padtemplate.
+
+@table @var
+@item name
+the name of the new pad, or NULL to assign a default name.
+
+@item dir
+the direction of the ghostpad
+
+@item ret
+a new @code{<gst-pad>}, or NULL in case of an error.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-ghost-pad-new-from-template  (name@tie{}@code{mchars}) (target@tie{}@code{<gst-pad>}) (templ@tie{}@code{<gst-pad-template>}) @result{}@tie{} (ret@tie{}@code{<gst-pad>})
+Create a new ghostpad with @var{target} as the target. The direction will be
+taken from the target pad. The template used on the ghostpad will be
+@var{template}.
+
+Will ref the target.
+
+@table @var
+@item name
+the name of the new pad, or NULL to assign a default name.
+
+@item target
+the pad to ghost.
+
+@item templ
+the @code{<gst-pad-template>} to use on the ghostpad.
+
+@item ret
+a new @code{<gst-pad>}, or NULL in case of an error.
+
+@end table
+
+Since 0.10.10
+
+@end deffn
+
+@deffn Function gst-ghost-pad-set-target  (self@tie{}@code{<gst-ghost-pad*>}) (newtarget@tie{}@code{<gst-pad>}) @result{}@tie{} (ret@tie{}@code{bool})
+Set the new target of the ghostpad @var{gpad}. Any existing target is unlinked
+and links to the new target are established.
+
+@table @var
+@item gpad
+the @code{<gst-ghostpad>}
+
+@item newtarget
+the new pad target
+
+@item ret
+TRUE if the new target could be set. This function can return FALSE when the
+internal pads could not be linked.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-ghost-pad-get-target  (self@tie{}@code{<gst-ghost-pad*>}) @result{}@tie{} (ret@tie{}@code{<gst-pad>})
+Get the target pad of @code{<gpad>}. Unref target pad after usage.
+
+@table @var
+@item gpad
+the @code{<gst-ghostpad>}
+
+@item ret
+the target @code{<gst-pad>}, can be NULL if the ghostpad has no target set.
+Unref target pad after usage.
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

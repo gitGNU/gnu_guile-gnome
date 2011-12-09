@@ -1,0 +1,208 @@
+
+@c %start of fragment
+
+@deffn Function gst-uri-protocol-is-valid  (protocol@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool})
+Tests if the given string is a valid protocol identifier. Protocols must consist
+of alphanumeric characters and not start with a number.
+
+@table @var
+@item protocol
+A string
+
+@item ret
+TRUE if the string is a valid protocol identifier, FALSE otherwise.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-uri-is-valid  (uri@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool})
+Tests if the given string is a valid URI identifier. URIs start with a valid
+protocol followed by "://" and maybe a string identifying the location.
+
+@table @var
+@item uri
+A URI string
+
+@item ret
+TRUE if the string is a valid URI
+
+@end table
+
+@end deffn
+
+@deffn Function gst-uri-has-protocol  (uri@tie{}@code{mchars}) (protocol@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool})
+Checks if the protocol of a given valid URI matches @var{protocol}.
+
+@table @var
+@item uri
+an URI string
+
+@item protocol
+a protocol string (e.g. "http")
+
+@item ret
+@samp{@code{#t}} if the protocol matches.
+
+@end table
+
+Since 0.10.4
+
+@end deffn
+
+@deffn Function gst-uri-get-protocol  (uri@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{mchars})
+Extracts the protocol out of a given valid URI. The returned string must be
+freed using @code{g-free}.
+
+@table @var
+@item uri
+A URI string
+
+@item ret
+The protocol for this URI.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-uri-get-location  (uri@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{mchars})
+Extracts the location out of a given valid URI, ie. the protocol and "://" are
+stripped from the URI, which means that the location returned includes the
+hostname if one is specified. The returned string must be freed using
+@code{g-free}.
+
+@table @var
+@item uri
+A URI string
+
+@item ret
+The location for this URI. Returns NULL if the URI isn't valid. If the URI does
+not contain a location, an empty string is returned.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-uri-construct  (protocol@tie{}@code{mchars}) (location@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{mchars})
+Constructs a URI for a given valid protocol and location.
+
+@table @var
+@item protocol
+Protocol for URI
+
+@item location
+Location for URI
+
+@item ret
+a new string for this URI. Returns NULL if the given URI protocol is not valid,
+or the given location is NULL.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-make-from-uri  (type@tie{}@code{<gst-uri-type>}) (uri@tie{}@code{mchars}) (elementname@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gst-element>})
+Creates an element for handling the given URI.
+
+@table @var
+@item type
+Whether to create a source or a sink
+
+@item uri
+URI to create an element for
+
+@item elementname
+Name of created element, can be NULL.
+
+@item ret
+a new element or NULL if none could be created
+
+@end table
+
+@end deffn
+
+@deffn Function gst-uri-handler-get-uri-type  (self@tie{}@code{<gst-uri-handler*>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+Gets the type of the given URI handler
+
+Returns: the @code{<gst-uri-type>} of the URI handler.
+
+@table @var
+@item handler
+A @code{<gst-uri-handler>}.
+
+@item ret
+@code{<gst-uri-unknown>} if the @var{handler} isn't implemented correctly.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-uri-handler-get-protocols  (self@tie{}@code{<gst-uri-handler*>}) @result{}@tie{} (ret@tie{}@code{<gchar**>})
+Gets the list of protocols supported by @var{handler}. This list may not be
+modified.
+
+Returns: the supported protocols.
+
+@table @var
+@item handler
+A @code{<gst-uri-handler>}.
+
+@item ret
+NULL if the @var{handler} isn't implemented properly, or the @var{handler}
+doesn't support any protocols.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-uri-handler-get-uri  (self@tie{}@code{<gst-uri-handler*>}) @result{}@tie{} (ret@tie{}@code{mchars})
+Gets the currently handled URI.
+
+Returns: the URI currently handled by the @var{handler}.
+
+@table @var
+@item handler
+A @code{<gst-uri-handler>}
+
+@item ret
+NULL if there are no URI currently handled. The returned string must not be
+modified or freed.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-uri-handler-set-uri  (self@tie{}@code{<gst-uri-handler*>}) (uri@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool})
+Tries to set the URI of the given handler.
+
+@table @var
+@item handler
+A @code{<gst-uri-handler>}
+
+@item uri
+URI to set
+
+@item ret
+TRUE if the URI was set successfully, else FALSE.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-uri-handler-new-uri  (self@tie{}@code{<gst-uri-handler*>}) (uri@tie{}@code{mchars})
+Emits the new-uri signal for a given handler, when that handler has a new URI.
+This function should only be called by URI handlers themselves.
+
+@table @var
+@item handler
+A @code{<gst-uri-handler>}
+
+@item uri
+new URI or NULL if it was unset
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

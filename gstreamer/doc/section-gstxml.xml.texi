@@ -1,0 +1,20 @@
+
+@c %start of fragment
+
+@node GstXML
+@chapter GstXML
+XML save/restore operations of pipelines
+
+@section Overview
+GStreamer pipelines can be saved to xml files using @code{gst-xml-write-file}.
+They can be loaded back using @code{gst-xml-parse-doc} /
+@code{gst-xml-parse-file} / @code{gst-xml-parse-memory}. Additionally one can
+load saved pipelines into the gst-editor to inspect the graph.
+
+@code{<gst-element>} implementations need to override
+@code{gst-object-save-thyself} and @code{gst-object-restore-thyself}.
+
+@section Usage
+@include defuns-gstxml.xml.texi
+
+@c %end of fragment

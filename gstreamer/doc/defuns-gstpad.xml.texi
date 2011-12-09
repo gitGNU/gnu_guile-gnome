@@ -1,0 +1,1493 @@
+
+@c %start of fragment
+
+@deftp Class <gst-pad>
+This @code{<gobject>} class defines the following properties:
+
+@table @code
+@item caps
+The capabilities of the pad
+
+@item direction
+The direction of the pad
+
+@item template
+The GstPadTemplate of this pad
+
+@end table
+
+@end deftp
+
+@defop Signal <gst-pad> linked  (arg0@tie{}@code{<gst-pad>})
+Signals that a pad has been linked to the peer pad.
+
+@end defop
+
+@defop Signal <gst-pad> unlinked  (arg0@tie{}@code{<gst-pad>})
+Signals that a pad has been unlinked from the peer pad.
+
+@end defop
+
+@defop Signal <gst-pad> request-link 
+Signals that a pad connection has been requested.
+
+@end defop
+
+@defop Signal <gst-pad> have-data  (arg0@tie{}@code{<gst-mini-object>}) @result{}@tie{}@code{<gboolean>}
+Signals that new data is available on the pad. This signal is used internally
+for implementing pad probes. See gst_pad_add_*_probe functions.
+
+@end defop
+
+@deffn Function gst-pad-get-direction  (self@tie{}@code{<gst-pad>}) @result{}@tie{} (ret@tie{}@code{<gst-pad-direction>})
+@deffnx Method get-direction
+Gets the direction of the pad. The direction of the pad is decided at
+construction time so this function does not take the LOCK.
+
+@table @var
+@item pad
+a @code{<gst-pad>} to get the direction of.
+
+@item ret
+the @code{<gst-pad-direction>} of the pad. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-get-parent-element  (self@tie{}@code{<gst-pad>}) @result{}@tie{} (ret@tie{}@code{<gst-element>})
+@deffnx Method get-parent-element
+Gets the parent of @var{pad}, cast to a @code{<gst-element>}. If a @var{pad} has
+no parent or its parent is not an element, return NULL.
+
+@table @var
+@item pad
+a pad
+
+@item ret
+The parent of the pad. The caller has a reference on the parent, so unref when
+you're finished with it. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-get-pad-template  (self@tie{}@code{<gst-pad>}) @result{}@tie{} (ret@tie{}@code{<gst-pad-template>})
+@deffnx Method get-pad-template
+Gets the template for @var{pad}.
+
+@table @var
+@item pad
+a @code{<gst-pad>}.
+
+@item ret
+the @code{<gst-pad-template>} from which this pad was instantiated, or
+@samp{@code{#f}} if this pad has no template. FIXME: currently returns an
+unrefcounted padtemplate.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-link  (self@tie{}@code{<gst-pad>}) (sinkpad@tie{}@code{<gst-pad>}) @result{}@tie{} (ret@tie{}@code{<gst-pad-link-return>})
+@deffnx Method link
+Links the source pad and the sink pad.
+
+@table @var
+@item srcpad
+the source @code{<gst-pad>} to link.
+
+@item sinkpad
+the sink @code{<gst-pad>} to link.
+
+@item ret
+A result code indicating if the connection worked or what went wrong. MT Safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-unlink  (self@tie{}@code{<gst-pad>}) (sinkpad@tie{}@code{<gst-pad>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method unlink
+Unlinks the source pad from the sink pad. Will emit the "unlinked" signal on
+both pads.
+
+@table @var
+@item srcpad
+the source @code{<gst-pad>} to unlink.
+
+@item sinkpad
+the sink @code{<gst-pad>} to unlink.
+
+@item ret
+TRUE if the pads were unlinked. This function returns FALSE if the pads were not
+linked together. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-is-linked  (self@tie{}@code{<gst-pad>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method is-linked
+Checks if a @var{pad} is linked to another pad or not.
+
+@table @var
+@item pad
+pad to check
+
+@item ret
+TRUE if the pad is linked, FALSE otherwise. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-can-link  (self@tie{}@code{<gst-pad>}) (sinkpad@tie{}@code{<gst-pad>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method can-link
+Checks if the source pad and the sink pad can be linked. Both @var{srcpad} and
+@var{sinkpad} must be unlinked.
+
+@table @var
+@item srcpad
+the source @code{<gst-pad>} to link.
+
+@item sinkpad
+the sink @code{<gst-pad>} to link.
+
+@item ret
+TRUE if the pads can be linked, FALSE otherwise.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-get-caps  (self@tie{}@code{<gst-pad>}) @result{}@tie{} (ret@tie{}@code{<gst-caps>})
+@deffnx Method get-caps
+Gets the capabilities this pad can produce or consume. Note that this method
+doesn't necessarily return the caps set by @code{gst-pad-set-caps} - use
+@code{<gst-pad-caps>} for that instead. gst_pad_get_caps returns all possible
+caps a pad can operate with, using the pad's get_caps function; this returns the
+pad template caps if not explicitly set.
+
+@table @var
+@item pad
+a @code{<gst-pad>} to get the capabilities of.
+
+@item ret
+a newly allocated copy of the @code{<gst-caps>} of this pad. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-get-allowed-caps  (self@tie{}@code{<gst-pad>}) @result{}@tie{} (ret@tie{}@code{<gst-caps>})
+@deffnx Method get-allowed-caps
+Gets the capabilities of the allowed media types that can flow through @var{pad}
+and its peer.
+
+The allowed capabilities is calculated as the intersection of the results of
+calling @code{gst-pad-get-caps} on @var{pad} and its peer. The caller owns a
+reference on the resulting caps.
+
+@table @var
+@item pad
+a @code{<gst-pad>}.
+
+@item ret
+the allowed @code{<gst-caps>} of the pad link. Unref the caps when you no longer
+need it. This function returns NULL when @var{pad} has no peer. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-get-negotiated-caps  (self@tie{}@code{<gst-pad>}) @result{}@tie{} (ret@tie{}@code{<gst-caps>})
+@deffnx Method get-negotiated-caps
+Gets the capabilities of the media type that currently flows through @var{pad}
+and its peer.
+
+This function can be used on both src and sinkpads. Note that srcpads are always
+negotiated before sinkpads so it is possible that the negotiated caps on the
+srcpad do not match the negotiated caps of the peer.
+
+@table @var
+@item pad
+a @code{<gst-pad>}.
+
+@item ret
+the negotiated @code{<gst-caps>} of the pad link. Unref the caps when you no
+longer need it. This function returns NULL when the @var{pad} has no peer or is
+not negotiated yet. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-get-pad-template-caps  (self@tie{}@code{<gst-pad>}) @result{}@tie{} (ret@tie{}@code{<gst-caps>})
+@deffnx Method get-pad-template-caps
+Gets the capabilities for @var{pad}'s template.
+
+@table @var
+@item pad
+a @code{<gst-pad>} to get the template capabilities from.
+
+@item ret
+the @code{<gst-caps>} of this pad template. If you intend to keep a reference on
+the caps, make a copy (see @code{gst-caps-copy}).
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-set-caps  (self@tie{}@code{<gst-pad>}) (caps@tie{}@code{<gst-caps>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method set-caps
+Sets the capabilities of this pad. The caps must be fixed. Any previous caps on
+the pad will be unreffed. This function refs the caps so you should unref if as
+soon as you don't need it anymore. It is possible to set NULL caps, which will
+make the pad unnegotiated again.
+
+@table @var
+@item pad
+a @code{<gst-pad>} to set the capabilities of.
+
+@item caps
+a @code{<gst-caps>} to set.
+
+@item ret
+TRUE if the caps could be set. FALSE if the caps were not fixed or bad
+parameters were provided to this function. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-get-peer  (self@tie{}@code{<gst-pad>}) @result{}@tie{} (ret@tie{}@code{<gst-pad>})
+@deffnx Method get-peer
+Gets the peer of @var{pad}. This function refs the peer pad so you need to unref
+it after use.
+
+@table @var
+@item pad
+a @code{<gst-pad>} to get the peer of.
+
+@item ret
+the peer @code{<gst-pad>}. Unref after usage. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-peer-get-caps  (self@tie{}@code{<gst-pad>}) @result{}@tie{} (ret@tie{}@code{<gst-caps>})
+@deffnx Method peer-get-caps
+Gets the capabilities of the peer connected to this pad.
+
+@table @var
+@item pad
+a @code{<gst-pad>} to get the peer capabilities of.
+
+@item ret
+the @code{<gst-caps>} of the peer pad. This function returns a new caps, so use
+gst_caps_unref to get rid of it. this function returns NULL if there is no peer
+pad.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-use-fixed-caps  (self@tie{}@code{<gst-pad>})
+@deffnx Method use-fixed-caps
+A helper function you can use that sets the @var{gst-pad-get-fixed-caps-func} as
+the getcaps function for the pad. This way the function will always return the
+negotiated caps or in case the pad is not negotiated, the padtemplate caps.
+
+Use this function on a pad that, once @code{-set-caps} has been called on it,
+cannot be renegotiated to something else.
+
+@table @var
+@item pad
+the pad to use
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-is-active  (self@tie{}@code{<gst-pad>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method is-active
+Query if a pad is active
+
+@table @var
+@item pad
+the @code{<gst-pad>} to query
+
+@item ret
+TRUE if the pad is active. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-set-blocked  (self@tie{}@code{<gst-pad>}) (blocked@tie{}@code{bool}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method set-blocked
+Blocks or unblocks the dataflow on a pad. This function is a shortcut for
+@code{gst-pad-set-blocked-async} with a NULL callback.
+
+@table @var
+@item pad
+the @code{<gst-pad>} to block or unblock
+
+@item blocked
+boolean indicating we should block or unblock
+
+@item ret
+TRUE if the pad could be blocked. This function can fail if the wrong parameters
+were passed or the pad was already in the requested state. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-set-blocked-async  (self@tie{}@code{<gst-pad>}) (blocked@tie{}@code{bool}) (callback@tie{}@code{<gst-pad-block-callback>}) (user_data@tie{}@code{<gpointer>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method set-blocked-async
+Blocks or unblocks the dataflow on a pad. The provided callback is called when
+the operation succeeds; this happens right before the next attempt at pushing a
+buffer on the pad.
+
+This can take a while as the pad can only become blocked when real dataflow is
+happening. When the pipeline is stalled, for example in PAUSED, this can take an
+indeterminate amount of time. You can pass NULL as the callback to make this
+call block. Be careful with this blocking call as it might not return for
+reasons stated above.
+
+@table @var
+@item pad
+the @code{<gst-pad>} to block or unblock
+
+@item blocked
+boolean indicating whether the pad should be blocked or unblocked
+
+@item callback
+@code{<gst-pad-block-callback>} that will be called when the operation succeeds
+
+@item user-data
+user data passed to the callback
+
+@item ret
+TRUE if the pad could be blocked. This function can fail if the wrong parameters
+were passed or the pad was already in the requested state. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-is-blocked  (self@tie{}@code{<gst-pad>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method is-blocked
+Checks if the pad is blocked or not. This function returns the last requested
+state of the pad. It is not certain that the pad is actually blocking at this
+point (see @code{gst-pad-is-blocking}).
+
+@table @var
+@item pad
+the @code{<gst-pad>} to query
+
+@item ret
+TRUE if the pad is blocked. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-add-data-probe  (self@tie{}@code{<gst-pad>}) (handler@tie{}@code{<g-callback>}) (data@tie{}@code{<gpointer>}) @result{}@tie{} (ret@tie{}@code{unsigned-long})
+@deffnx Method add-data-probe
+Adds a "data probe" to a pad. This function will be called whenever data passes
+through a pad. In this case data means both events and buffers. The probe will
+be called with the data as an argument, meaning @var{handler} should have the
+same callback signature as the 'have-data' signal of @code{<gst-pad>}. Note that
+the data will have a reference count greater than 1, so it will be immutable --
+you must not change it.
+
+For source pads, the probe will be called after the blocking function, if any
+(see @code{gst-pad-set-blocked-async}), but before looking up the peer to chain
+to. For sink pads, the probe function will be called before configuring the sink
+with new caps, if any, and before calling the pad's chain function.
+
+Your data probe should return TRUE to let the data continue to flow, or FALSE to
+drop it. Dropping data is rarely useful, but occasionally comes in handy with
+events.
+
+Although probes are implemented internally by connecting @var{handler} to the
+have-data signal on the pad, if you want to remove a probe it is insufficient to
+only call g_signal_handler_disconnect on the returned handler id. To remove a
+probe, use the appropriate function, such as @code{gst-pad-remove-data-probe}.
+
+@table @var
+@item pad
+pad to add the data probe handler to
+
+@item handler
+function to call when data is passed over pad
+
+@item data
+data to pass along with the handler
+
+@item ret
+The handler id.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-add-buffer-probe  (self@tie{}@code{<gst-pad>}) (handler@tie{}@code{<g-callback>}) (data@tie{}@code{<gpointer>}) @result{}@tie{} (ret@tie{}@code{unsigned-long})
+@deffnx Method add-buffer-probe
+Adds a probe that will be called for all buffers passing through a pad. See
+@code{gst-pad-add-data-probe} for more information.
+
+@table @var
+@item pad
+pad to add the buffer probe handler to
+
+@item handler
+function to call when data is passed over pad
+
+@item data
+data to pass along with the handler
+
+@item ret
+The handler id
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-add-event-probe  (self@tie{}@code{<gst-pad>}) (handler@tie{}@code{<g-callback>}) (data@tie{}@code{<gpointer>}) @result{}@tie{} (ret@tie{}@code{unsigned-long})
+@deffnx Method add-event-probe
+Adds a probe that will be called for all events passing through a pad. See
+@code{gst-pad-add-data-probe} for more information.
+
+@table @var
+@item pad
+pad to add the event probe handler to
+
+@item handler
+function to call when data is passed over pad
+
+@item data
+data to pass along with the handler
+
+@item ret
+The handler id
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-remove-data-probe  (self@tie{}@code{<gst-pad>}) (handler_id@tie{}@code{unsigned-int})
+@deffnx Method remove-data-probe
+Removes a data probe from @var{pad}.
+
+@table @var
+@item pad
+pad to remove the data probe handler from
+
+@item handler-id
+handler id returned from gst_pad_add_data_probe
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-remove-buffer-probe  (self@tie{}@code{<gst-pad>}) (handler_id@tie{}@code{unsigned-int})
+@deffnx Method remove-buffer-probe
+Removes a buffer probe from @var{pad}.
+
+@table @var
+@item pad
+pad to remove the buffer probe handler from
+
+@item handler-id
+handler id returned from gst_pad_add_buffer_probe
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-remove-event-probe  (self@tie{}@code{<gst-pad>}) (handler_id@tie{}@code{unsigned-int})
+@deffnx Method remove-event-probe
+Removes an event probe from @var{pad}.
+
+@table @var
+@item pad
+pad to remove the event probe handler from
+
+@item handler-id
+handler id returned from gst_pad_add_event_probe
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-new  (name@tie{}@code{mchars}) (direction@tie{}@code{<gst-pad-direction>}) @result{}@tie{} (ret@tie{}@code{<gst-pad>})
+Creates a new pad with the given name in the given direction. If name is NULL, a
+guaranteed unique name (across all pads) will be assigned. This function makes a
+copy of the name so you can safely free the name.
+
+@table @var
+@item name
+the name of the new pad.
+
+@item direction
+the @code{<gst-pad-direction>} of the pad.
+
+@item ret
+a new @code{<gst-pad>}, or NULL in case of an error. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-new-from-template  (templ@tie{}@code{<gst-pad-template>}) (name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gst-pad>})
+Creates a new pad with the given name from the given template. If name is NULL,
+a guaranteed unique name (across all pads) will be assigned. This function makes
+a copy of the name so you can safely free the name.
+
+@table @var
+@item templ
+the pad template to use
+
+@item name
+the name of the element
+
+@item ret
+a new @code{<gst-pad>}, or NULL in case of an error.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-new-from-static-template  (templ@tie{}@code{<gst-static-pad-template*>}) (name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gst-pad>})
+Creates a new pad with the given name from the given static template. If name is
+NULL, a guaranteed unique name (across all pads) will be assigned. This function
+makes a copy of the name so you can safely free the name.
+
+@table @var
+@item templ
+the @code{<gst-static-pad-template>} to use
+
+@item name
+the name of the element
+
+@item ret
+a new @code{<gst-pad>}, or NULL in case of an error.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-alloc-buffer  (self@tie{}@code{<gst-pad>}) (offset@tie{}@code{unsigned-int64}) (size@tie{}@code{int}) (caps@tie{}@code{<gst-caps>}) (buf@tie{}@code{<gst-buffer**>}) @result{}@tie{} (ret@tie{}@code{<gst-flow-return>})
+@deffnx Method alloc-buffer
+Allocates a new, empty buffer optimized to push to pad @var{pad}. This function
+only works if @var{pad} is a source pad and has a peer.
+
+A new, empty @code{<gst-buffer>} will be put in the @var{buf} argument. You need
+to check the caps of the buffer after performing this function and renegotiate
+to the format if needed.
+
+@table @var
+@item pad
+a source @code{<gst-pad>}
+
+@item offset
+the offset of the new buffer in the stream
+
+@item size
+the size of the new buffer
+
+@item caps
+the caps of the new buffer
+
+@item buf
+a newly allocated buffer
+
+@item ret
+a result code indicating success of the operation. Any result code other than
+@code{<gst-flow-ok>} is an error and @var{buf} should not be used. An error can
+occur if the pad is not connected or when the downstream peer elements cannot
+provide an acceptable buffer. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-alloc-buffer-and-set-caps  (self@tie{}@code{<gst-pad>}) (offset@tie{}@code{unsigned-int64}) (size@tie{}@code{int}) (caps@tie{}@code{<gst-caps>}) (buf@tie{}@code{<gst-buffer**>}) @result{}@tie{} (ret@tie{}@code{<gst-flow-return>})
+@deffnx Method alloc-buffer-and-set-caps
+In addition to the function @code{gst-pad-alloc-buffer}, this function
+automatically calls @code{gst-pad-set-caps} when the caps of the newly allocated
+buffer are different from the @var{pad} caps.
+
+@table @var
+@item pad
+a source @code{<gst-pad>}
+
+@item offset
+the offset of the new buffer in the stream
+
+@item size
+the size of the new buffer
+
+@item caps
+the caps of the new buffer
+
+@item buf
+a newly allocated buffer
+
+@item ret
+a result code indicating success of the operation. Any result code other than
+@code{<gst-flow-ok>} is an error and @var{buf} should not be used. An error can
+occur if the pad is not connected or when the downstream peer elements cannot
+provide an acceptable buffer. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-set-chain-function  (self@tie{}@code{<gst-pad>}) (chain-function@tie{}@code{scm})
+@deffnx Method set-chain-function
+Sets the given chain function for the pad. The chain function is called to
+process a @code{<gst-buffer>} input buffer. see @code{<gst-pad-chain-function>}
+for more details.
+
+@table @var
+@item pad
+a sink @code{<gst-pad>}.
+
+@item chain
+the @code{<gst-pad-chain-function>} to set.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-get-range  (self@tie{}@code{<gst-pad>}) (offset@tie{}@code{unsigned-int64}) (size@tie{}@code{unsigned-int}) (buffer@tie{}@code{<gst-buffer**>}) @result{}@tie{} (ret@tie{}@code{<gst-flow-return>})
+@deffnx Method get-range
+When @var{pad} is flushing this function returns @code{<gst-flow-wrong-state>}
+immediatly.
+
+Calls the getrange function of @var{pad}, see
+@code{<gst-pad-get-range-function>} for a description of a getrange function. If
+@var{pad} has no getrange function installed (see
+@code{gst-pad-set-getrange-function}) this function returns
+@code{<gst-flow-not-supported>}.
+
+@var{buffer}'s caps must either be unset or the same as what is already
+configured on @var{pad}. Renegotiation within a running pull-mode pipeline is
+not supported.
+
+This is a lowlevel function. Usualy @code{gst-pad-pull-range} is used.
+
+@table @var
+@item pad
+a src @code{<gst-pad>}, returns @code{<gst-flow-error>} if not.
+
+@item offset
+The start offset of the buffer
+
+@item size
+The length of the buffer
+
+@item buffer
+a pointer to hold the @code{<gst-buffer>}, returns @code{<gst-flow-error>} if
+@samp{@code{#f}}.
+
+@item ret
+a @code{<gst-flow-return>} from the pad. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-set-getrange-function  (self@tie{}@code{<gst-pad>}) (get-function@tie{}@code{scm})
+@deffnx Method set-getrange-function
+Sets the given getrange function for the pad. The getrange function is called to
+produce a new @code{<gst-buffer>} to start the processing pipeline. see
+@code{<gst-pad-get-range-function>} for a description of the getrange function.
+
+@table @var
+@item pad
+a source @code{<gst-pad>}.
+
+@item get
+the @code{<gst-pad-get-range-function>} to set.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-accept-caps  (self@tie{}@code{<gst-pad>}) (caps@tie{}@code{<gst-caps>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method accept-caps
+Check if the given pad accepts the caps.
+
+@table @var
+@item pad
+a @code{<gst-pad>} to check
+
+@item caps
+a @code{<gst-caps>} to check on the pad
+
+@item ret
+TRUE if the pad can accept the caps.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-proxy-getcaps  (self@tie{}@code{<gst-pad>}) @result{}@tie{} (ret@tie{}@code{<gst-caps>})
+@deffnx Method proxy-getcaps
+Calls @code{gst-pad-get-allowed-caps} for every other pad belonging to the same
+element as @var{pad}, and returns the intersection of the results.
+
+This function is useful as a default getcaps function for an element that can
+handle any stream format, but requires all its pads to have the same caps. Two
+such elements are tee and aggregator.
+
+@table @var
+@item pad
+a @code{<gst-pad>} to proxy.
+
+@item ret
+the intersection of the other pads' allowed caps.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-set-setcaps-function  (self@tie{}@code{<gst-pad>}) (setcaps-function@tie{}@code{scm})
+@deffnx Method set-setcaps-function
+Sets the given setcaps function for the pad. The setcaps function will be called
+whenever a buffer with a new media type is pushed or pulled from the pad. The
+pad/element needs to update its internal structures to process the new media
+type. If this new type is not acceptable, the setcaps function should return
+FALSE.
+
+@table @var
+@item pad
+a @code{<gst-pad>}.
+
+@item setcaps
+the @code{<gst-pad-set-caps-function>} to set.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-proxy-setcaps  (self@tie{}@code{<gst-pad>}) (caps@tie{}@code{<gst-caps>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method proxy-setcaps
+Calls @code{gst-pad-set-caps} for every other pad belonging to the same element
+as @var{pad}. If @code{gst-pad-set-caps} fails on any pad, the proxy setcaps
+fails. May be used only during negotiation.
+
+@table @var
+@item pad
+a @code{<gst-pad>} to proxy from
+
+@item caps
+the @code{<gst-caps>} to link with
+
+@item ret
+TRUE if sucessful
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-fixate-caps  (self@tie{}@code{<gst-pad>}) (caps@tie{}@code{<gst-caps>})
+@deffnx Method fixate-caps
+Fixate a caps on the given pad. Modifies the caps in place, so you should make
+sure that the caps are actually writable (see @code{gst-caps-make-writable}).
+
+@table @var
+@item pad
+a @code{<gst-pad>} to fixate
+
+@item caps
+the @code{<gst-caps>} to fixate
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-get-fixed-caps-func  (self@tie{}@code{<gst-pad>}) @result{}@tie{} (ret@tie{}@code{<gst-caps>})
+@deffnx Method get-fixed-caps-func
+A helper function you can use as a GetCaps function that will return the
+currently negotiated caps or the padtemplate when NULL.
+
+@table @var
+@item pad
+the pad to use
+
+@item ret
+The currently negotiated caps or the padtemplate.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-peer-accept-caps  (self@tie{}@code{<gst-pad>}) (caps@tie{}@code{<gst-caps>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method peer-accept-caps
+Check if the peer of @var{pad} accepts @var{caps}. If @var{pad} has no peer,
+this function returns TRUE.
+
+@table @var
+@item pad
+a @code{<gst-pad>} to check the peer of
+
+@item caps
+a @code{<gst-caps>} to check on the pad
+
+@item ret
+TRUE if the peer of @var{pad} can accept the caps or @var{pad} has no peer.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-push  (self@tie{}@code{<gst-pad>}) (buffer@tie{}@code{<gst-buffer>}) @result{}@tie{} (ret@tie{}@code{<gst-flow-return>})
+@deffnx Method push
+Pushes a buffer to the peer of @var{pad}.
+
+This function will call an installed pad block before triggering any installed
+pad probes.
+
+If the caps on @var{buffer} are different from the currently configured caps on
+@var{pad}, this function will call any installed setcaps function on @var{pad}
+(see @code{gst-pad-set-setcaps-function}). In case of failure to renegotiate the
+new format, this function returns @code{<gst-flow-not-negotiated>}.
+
+The function proceeds calling @code{gst-pad-chain} on the peer pad and returns
+the value from that function. If @var{pad} has no peer,
+@code{<gst-flow-not-linked>} will be returned.
+
+In all cases, success or failure, the caller loses its reference to @var{buffer}
+after calling this function.
+
+@table @var
+@item pad
+a source @code{<gst-pad>}, returns @code{<gst-flow-error>} if not.
+
+@item buffer
+the @code{<gst-buffer>} to push returns GST_FLOW_ERROR if not.
+
+@item ret
+a @code{<gst-flow-return>} from the peer pad. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-push-event  (self@tie{}@code{<gst-pad>}) (event@tie{}@code{<gst-event>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method push-event
+Sends the event to the peer of the given pad. This function is mainly used by
+elements to send events to their peer elements.
+
+This function takes owership of the provided event so you should
+@code{gst-event-ref} it if you want to reuse the event after this call.
+
+@table @var
+@item pad
+a @code{<gst-pad>} to push the event to.
+
+@item event
+the @code{<gst-event>} to send to the pad.
+
+@item ret
+TRUE if the event was handled. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-check-pull-range  (self@tie{}@code{<gst-pad>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method check-pull-range
+Checks if a @code{gst-pad-pull-range} can be performed on the peer source pad.
+This function is used by plugins that want to check if they can use random
+access on the peer source pad.
+
+The peer sourcepad can implement a custom
+@code{<gst-pad-check-get-range-function>} if it needs to perform some logic to
+determine if pull_range is possible.
+
+@table @var
+@item pad
+a sink @code{<gst-pad>}.
+
+@item ret
+a gboolean with the result. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-pull-range  (self@tie{}@code{<gst-pad>}) (offset@tie{}@code{unsigned-int64}) (size@tie{}@code{unsigned-int}) (buffer@tie{}@code{<gst-buffer**>}) @result{}@tie{} (ret@tie{}@code{<gst-flow-return>})
+@deffnx Method pull-range
+Pulls a @var{buffer} from the peer pad.
+
+This function will first trigger the pad block signal if it was installed.
+
+When @var{pad} is not linked @code{<gst-flow-not-linked>} is returned else this
+function returns the result of @code{gst-pad-get-range} on the peer pad. See
+@code{gst-pad-get-range} for a list of return values and for the semantics of
+the arguments of this function.
+
+@var{buffer}'s caps must either be unset or the same as what is already
+configured on @var{pad}. Renegotiation within a running pull-mode pipeline is
+not supported.
+
+@table @var
+@item pad
+a sink @code{<gst-pad>}, returns GST_FLOW_ERROR if not.
+
+@item offset
+The start offset of the buffer
+
+@item size
+The length of the buffer
+
+@item buffer
+a pointer to hold the @code{<gst-buffer>}, returns GST_FLOW_ERROR if
+@samp{@code{#f}}.
+
+@item ret
+a @code{<gst-flow-return>} from the peer pad. When this function returns
+@code{<gst-flow-ok>}, @var{buffer} will contain a valid @code{<gst-buffer>} that
+should be freed with @code{gst-buffer-unref} after usage. @var{buffer} may not
+be used or freed when any other return value than @code{<gst-flow-ok>} is
+returned. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-activate-pull  (self@tie{}@code{<gst-pad>}) (active@tie{}@code{bool}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method activate-pull
+Activates or deactivates the given pad in pull mode via dispatching to the pad's
+activatepullfunc. For use from within pad activation functions only. When called
+on sink pads, will first proxy the call to the peer pad, which is expected to
+activate its internally linked pads from within its activate_pull function.
+
+If you don't know what this is, you probably don't want to call it.
+
+@table @var
+@item pad
+the @code{<gst-pad>} to activate or deactivate.
+
+@item active
+whether or not the pad should be active.
+
+@item ret
+TRUE if the operation was successful. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-activate-push  (self@tie{}@code{<gst-pad>}) (active@tie{}@code{bool}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method activate-push
+Activates or deactivates the given pad in push mode via dispatching to the pad's
+activatepushfunc. For use from within pad activation functions only.
+
+If you don't know what this is, you probably don't want to call it.
+
+@table @var
+@item pad
+the @code{<gst-pad>} to activate or deactivate.
+
+@item active
+whether the pad should be active or not.
+
+@item ret
+@samp{@code{#t}} if the operation was successful. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-send-event  (self@tie{}@code{<gst-pad>}) (event@tie{}@code{<gst-event>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method send-event
+Sends the event to the pad. This function can be used by applications to send
+events in the pipeline.
+
+If @var{pad} is a source pad, @var{event} should be an upstream event. If
+@var{pad} is a sink pad, @var{event} should be a downstream event. For example,
+you would not send a @code{<gst-event-eos>} on a src pad; EOS events only
+propagate downstream. Furthermore, some downstream events have to be serialized
+with data flow, like EOS, while some can travel out-of-band, like
+@code{<gst-event-flush-start>}. If the event needs to be serialized with data
+flow, this function will take the pad's stream lock while calling its event
+function.
+
+To find out whether an event type is upstream, downstream, or downstream and
+serialized, see @code{<gst-event-type-flags>}, @code{gst-event-type-get-flags},
+@code{<gst-event-is-upstream>}, @code{<gst-event-is-downstream>}, and
+@code{<gst-event-is-serialized>}. Note that in practice that an application or
+plugin doesn't need to bother itself with this information; the core handles all
+necessary locks and checks.
+
+This function takes owership of the provided event so you should
+@code{gst-event-ref} it if you want to reuse the event after this call.
+
+@table @var
+@item pad
+a @code{<gst-pad>} to send the event to.
+
+@item event
+the @code{<gst-event>} to send to the pad.
+
+@item ret
+TRUE if the event was handled.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-event-default  (self@tie{}@code{<gst-pad>}) (event@tie{}@code{<gst-event>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method event-default
+Invokes the default event handler for the given pad. End-of-stream and
+discontinuity events are handled specially, and then the event is sent to all
+pads internally linked to @var{pad}. Note that if there are many possible sink
+pads that are internally linked to @var{pad}, only one will be sent an event.
+Multi-sinkpad elements should implement custom event handlers.
+
+@table @var
+@item pad
+a @code{<gst-pad>} to call the default event handler on.
+
+@item event
+the @code{<gst-event>} to handle.
+
+@item ret
+TRUE if the event was sent succesfully.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-query  (self@tie{}@code{<gst-pad>}) (query@tie{}@code{<gst-query>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method query
+Dispatches a query to a pad. The query should have been allocated by the caller
+via one of the type-specific allocation functions in gstquery.h. The element is
+responsible for filling the query with an appropriate response, which should
+then be parsed with a type-specific query parsing function.
+
+Again, the caller is responsible for both the allocation and deallocation of the
+query structure.
+
+@table @var
+@item pad
+a @code{<gst-pad>} to invoke the default query on.
+
+@item query
+the @code{<gst-query>} to perform.
+
+@item ret
+TRUE if the query could be performed.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-query-default  (self@tie{}@code{<gst-pad>}) (query@tie{}@code{<gst-query>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method query-default
+Invokes the default query handler for the given pad. The query is sent to all
+pads internally linked to @var{pad}. Note that if there are many possible sink
+pads that are internally linked to @var{pad}, only one will be sent the query.
+Multi-sinkpad elements should implement custom query handlers.
+
+@table @var
+@item pad
+a @code{<gst-pad>} to call the default query handler on.
+
+@item query
+the @code{<gst-query>} to handle.
+
+@item ret
+TRUE if the query was performed succesfully.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-query-position  (self@tie{}@code{<gst-pad>}) (format@tie{}@code{<gst-format*>}) @result{}@tie{} (ret@tie{}@code{bool}) (cur@tie{}@code{int64})
+@deffnx Method query-position
+Queries a pad for the stream position.
+
+@table @var
+@item pad
+a @code{<gst-pad>} to invoke the position query on.
+
+@item format
+a pointer to the @code{<gst-format>} asked for. On return contains the
+@code{<gst-format>} used.
+
+@item cur
+A location in which to store the current position, or NULL.
+
+@item ret
+TRUE if the query could be performed.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-query-duration  (self@tie{}@code{<gst-pad>}) (format@tie{}@code{<gst-format*>}) @result{}@tie{} (ret@tie{}@code{bool}) (duration@tie{}@code{int64})
+@deffnx Method query-duration
+Queries a pad for the total stream duration.
+
+@table @var
+@item pad
+a @code{<gst-pad>} to invoke the duration query on.
+
+@item format
+a pointer to the @code{<gst-format>} asked for. On return contains the
+@code{<gst-format>} used.
+
+@item duration
+A location in which to store the total duration, or NULL.
+
+@item ret
+TRUE if the query could be performed.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-query-convert  (self@tie{}@code{<gst-pad>}) (src_format@tie{}@code{<gst-format>}) (src_val@tie{}@code{int64}) (dest_format@tie{}@code{<gst-format*>}) @result{}@tie{} (ret@tie{}@code{bool}) (dest_val@tie{}@code{int64})
+@deffnx Method query-convert
+Queries a pad to convert @var{src-val} in @var{src-format} to @var{dest-format}.
+
+@table @var
+@item pad
+a @code{<gst-pad>} to invoke the convert query on.
+
+@item src-format
+a @code{<gst-format>} to convert from.
+
+@item src-val
+a value to convert.
+
+@item dest-format
+a pointer to the @code{<gst-format>} to convert to.
+
+@item dest-val
+a pointer to the result.
+
+@item ret
+TRUE if the query could be performed.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-query-peer-position  (self@tie{}@code{<gst-pad>}) (format@tie{}@code{<gst-format*>}) @result{}@tie{} (ret@tie{}@code{bool}) (cur@tie{}@code{int64})
+@deffnx Method query-peer-position
+Queries the peer of a given sink pad for the stream position.
+
+@table @var
+@item pad
+a @code{<gst-pad>} on whose peer to invoke the position query on. Must be a sink
+pad.
+
+@item format
+a pointer to the @code{<gst-format>} asked for. On return contains the
+@code{<gst-format>} used.
+
+@item cur
+A location in which to store the current position, or NULL.
+
+@item ret
+TRUE if the query could be performed.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-query-peer-duration  (self@tie{}@code{<gst-pad>}) (format@tie{}@code{<gst-format*>}) @result{}@tie{} (ret@tie{}@code{bool}) (duration@tie{}@code{int64})
+@deffnx Method query-peer-duration
+Queries the peer pad of a given sink pad for the total stream duration.
+
+@table @var
+@item pad
+a @code{<gst-pad>} on whose peer pad to invoke the duration query on. Must be a
+sink pad.
+
+@item format
+a pointer to the @code{<gst-format>} asked for. On return contains the
+@code{<gst-format>} used.
+
+@item duration
+A location in which to store the total duration, or NULL.
+
+@item ret
+TRUE if the query could be performed.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-query-peer-convert  (self@tie{}@code{<gst-pad>}) (src_format@tie{}@code{<gst-format>}) (src_val@tie{}@code{int64}) (dest_format@tie{}@code{<gst-format*>}) @result{}@tie{} (ret@tie{}@code{bool}) (dest_val@tie{}@code{int64})
+@deffnx Method query-peer-convert
+Queries the peer pad of a given sink pad to convert @var{src-val} in
+@var{src-format} to @var{dest-format}.
+
+@table @var
+@item pad
+a @code{<gst-pad>}, on whose peer pad to invoke the convert query on. Must be a
+sink pad.
+
+@item src-format
+a @code{<gst-format>} to convert from.
+
+@item src-val
+a value to convert.
+
+@item dest-format
+a pointer to the @code{<gst-format>} to convert to.
+
+@item dest-val
+a pointer to the result.
+
+@item ret
+TRUE if the query could be performed.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-get-query-types  (self@tie{}@code{<gst-pad>}) @result{}@tie{} (ret@tie{}@code{<gst-query-type*>})
+@deffnx Method get-query-types
+Get an array of supported queries that can be performed on this pad.
+
+@table @var
+@item pad
+a @code{<gst-pad>}.
+
+@item ret
+a zero-terminated array of @code{<gst-query-type>}.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-get-query-types-default  (self@tie{}@code{<gst-pad>}) @result{}@tie{} (ret@tie{}@code{<gst-query-type*>})
+@deffnx Method get-query-types-default
+Invoke the default dispatcher for the query types on the pad.
+
+@table @var
+@item pad
+a @code{<gst-pad>}.
+
+@item ret
+an zero-terminated array of @code{<gst-query-type>}, or NULL if none of the
+internally-linked pads has a query types function.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-get-internal-links  (self@tie{}@code{<gst-pad>}) @result{}@tie{} (ret@tie{}@code{glist-of})
+@deffnx Method get-internal-links
+Gets a list of pads to which the given pad is linked to inside of the parent
+element. The caller must free this list after use.
+
+@table @var
+@item pad
+the @code{<gst-pad>} to get the internal links of.
+
+@item ret
+a newly allocated @code{<g-list>} of pads. Not MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-get-internal-links-default  (self@tie{}@code{<gst-pad>}) @result{}@tie{} (ret@tie{}@code{glist-of})
+@deffnx Method get-internal-links-default
+Gets a list of pads to which the given pad is linked to inside of the parent
+element. This is the default handler, and thus returns a list of all of the pads
+inside the parent element with opposite direction. The caller must free this
+list after use.
+
+@table @var
+@item pad
+the @code{<gst-pad>} to get the internal links of.
+
+@item ret
+a newly allocated @code{<g-list>} of pads, or NULL if the pad has no parent. Not
+MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-load-and-link  (self@tie{}@code{<xml-node-ptr>}) (parent@tie{}@code{<gst-object>})
+Reads the pad definition from the XML node and links the given pad in the
+element to a pad of an element up in the hierarchy.
+
+@table @var
+@item self
+an @code{<xml-node-ptr>} to read the description from.
+
+@item parent
+the @code{<gst-object>} element that owns the pad.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-dispatcher  (self@tie{}@code{<gst-pad>}) (dispatch@tie{}@code{<gst-pad-dispatcher-function>}) (data@tie{}@code{<gpointer>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method dispatcher
+Invokes the given dispatcher function on each respective peer of all pads that
+are internally linked to the given pad. The GstPadDispatcherFunction should
+return TRUE when no further pads need to be processed.
+
+@table @var
+@item pad
+a @code{<gst-pad>} to dispatch.
+
+@item dispatch
+the @code{<gst-dispatcher-function>} to call.
+
+@item data
+gpointer user data passed to the dispatcher function.
+
+@item ret
+TRUE if one of the dispatcher functions returned TRUE.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-chain  (self@tie{}@code{<gst-pad>}) (buffer@tie{}@code{<gst-buffer>}) @result{}@tie{} (ret@tie{}@code{<gst-flow-return>})
+@deffnx Method chain
+Chain a buffer to @var{pad}.
+
+The function returns @code{<gst-flow-wrong-state>} if the pad was flushing.
+
+If the caps on @var{buffer} are different from the current caps on @var{pad},
+this function will call any setcaps function (see
+@code{gst-pad-set-setcaps-function}) installed on @var{pad}. If the new caps are
+not acceptable for @var{pad}, this function returns
+@code{<gst-flow-not-negotiated>}.
+
+The function proceeds calling the chain function installed on @var{pad} (see
+@code{gst-pad-set-chain-function}) and the return value of that function is
+returned to the caller. @code{<gst-flow-not-supported>} is returned if @var{pad}
+has no chain function.
+
+In all cases, success or failure, the caller loses its reference to @var{buffer}
+after calling this function.
+
+@table @var
+@item pad
+a sink @code{<gst-pad>}, returns GST_FLOW_ERROR if not.
+
+@item buffer
+the @code{<gst-buffer>} to send, return GST_FLOW_ERROR if not.
+
+@item ret
+a @code{<gst-flow-return>} from the pad. MT safe.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-start-task  (self@tie{}@code{<gst-pad>}) (func@tie{}@code{<gst-task-function>}) (data@tie{}@code{<gpointer>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method start-task
+Starts a task that repeatedly calls @var{func} with @var{data}. This function is
+mostly used in pad activation functions to start the dataflow. The
+@code{<gst-pad-stream-lock>} of @var{pad} will automatically be acquired before
+@var{func} is called.
+
+@table @var
+@item pad
+the @code{<gst-pad>} to start the task of
+
+@item func
+the task function to call
+
+@item data
+data passed to the task function
+
+@item ret
+a @samp{@code{#t}} if the task could be started.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-pause-task  (self@tie{}@code{<gst-pad>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method pause-task
+Pause the task of @var{pad}. This function will also wait until the function
+executed by the task is finished if this function is not called from the task
+function.
+
+@table @var
+@item pad
+the @code{<gst-pad>} to pause the task of
+
+@item ret
+a TRUE if the task could be paused or FALSE when the pad has no task.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-stop-task  (self@tie{}@code{<gst-pad>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method stop-task
+Stop the task of @var{pad}. This function will also make sure that the function
+executed by the task will effectively stop if not called from the
+GstTaskFunction.
+
+This function will deadlock if called from the GstTaskFunction of the task. Use
+@code{gst-task-pause} instead.
+
+Regardless of whether the pad has a task, the stream lock is acquired and
+released so as to ensure that streaming through this pad has finished.
+
+@table @var
+@item pad
+the @code{<gst-pad>} to stop the task of
+
+@item ret
+a TRUE if the task could be stopped or FALSE on error.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-pad-set-active  (self@tie{}@code{<gst-pad>}) (active@tie{}@code{bool}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method set-active
+Activates or deactivates the given pad. Normally called from within core state
+change functions.
+
+If @var{active}, makes sure the pad is active. If it is already active, either
+in push or pull mode, just return. Otherwise dispatches to the pad's activate
+function to perform the actual activation.
+
+If not @var{active}, checks the pad's current mode and calls
+@code{gst-pad-activate-push} or @code{gst-pad-activate-pull}, as appropriate,
+with a FALSE argument.
+
+@table @var
+@item pad
+the @code{<gst-pad>} to activate or deactivate.
+
+@item active
+whether or not the pad should be active.
+
+@item ret
+@code{@code{#t}} if the operation was successful. MT safe.
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

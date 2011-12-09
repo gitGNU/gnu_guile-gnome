@@ -1,0 +1,38 @@
+
+@c %start of fragment
+
+@node GstElementFactory
+@chapter GstElementFactory
+Create GstElements from a factory
+
+@section Overview
+@code{<gst-element-factory>} is used to create instances of elements. A
+GstElementfactory can be added to a @code{<gst-plugin>} as it is also a
+@code{<gst-plugin-feature>}.
+
+Use the @code{gst-element-factory-find} and @code{gst-element-factory-create}
+functions to create element instances or use @code{gst-element-factory-make} as
+a convenient shortcut.
+
+The following code example shows you how to create a GstFileSrc element.
+
+@c (title "Using an element factory")
+@example 
+
+  #include <gst/gst.h>
+  GstElement *src;
+  GstElementFactory *srcfactory;
+  gst_init(&argc,&argv);
+  srcfactory = gst_element_factory_find("filesrc");
+  g_return_if_fail(srcfactory != NULL);
+  src = gst_element_factory_create(srcfactory,"src");
+  g_return_if_fail(src != NULL);
+  ...
+@end example
+
+Last reviewed on 2005-11-23 (0.9.5)
+
+@section Usage
+@include defuns-gstelementfactory.xml.texi
+
+@c %end of fragment

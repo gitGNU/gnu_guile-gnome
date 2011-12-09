@@ -1,0 +1,201 @@
+
+@c %start of fragment
+
+@deftp Class <gst-element-factory>
+This @code{<gobject>} class defines no properties, other than those defined by
+its superclasses.
+
+@end deftp
+
+@deffn Function gst-element-register  (plugin@tie{}@code{<gst-plugin>}) (name@tie{}@code{mchars}) (rank@tie{}@code{unsigned-int}) (type@tie{}@code{<gtype>}) @result{}@tie{} (ret@tie{}@code{bool})
+Create a new elementfactory capable of instantiating objects of the @var{type}
+and add the factory to @var{plugin}.
+
+@table @var
+@item plugin
+@code{<gst-plugin>} to register the element with
+
+@item name
+name of elements of this type
+
+@item rank
+rank of element (higher rank means more importance when autoplugging)
+
+@item type
+GType of element to register
+
+@item ret
+TRUE, if the registering succeeded, FALSE on error
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-factory-find  (name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gst-element-factory>})
+Search for an element factory of the given name. Refs the returned element
+factory; caller is responsible for unreffing.
+
+@table @var
+@item name
+name of factory to find
+
+@item ret
+@code{<gst-element-factory>} if found, NULL otherwise
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-factory-get-longname  (self@tie{}@code{<gst-element-factory>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-longname
+Gets the longname for this factory
+
+@table @var
+@item factory
+a @code{<gst-element-factory>}
+
+@item ret
+the longname
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-factory-get-klass  (self@tie{}@code{<gst-element-factory>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-klass
+Gets the class for this factory.
+
+@table @var
+@item factory
+a @code{<gst-element-factory>}
+
+@item ret
+the class
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-factory-get-description  (self@tie{}@code{<gst-element-factory>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-description
+Gets the description for this factory.
+
+@table @var
+@item factory
+a @code{<gst-element-factory>}
+
+@item ret
+the description
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-factory-get-author  (self@tie{}@code{<gst-element-factory>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-author
+Gets the author for this factory.
+
+@table @var
+@item factory
+a @code{<gst-element-factory>}
+
+@item ret
+the author
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-factory-get-uri-type  (self@tie{}@code{<gst-element-factory>}) @result{}@tie{} (ret@tie{}@code{int})
+@deffnx Method get-uri-type
+Gets the type of URIs the element supports or GST_URI_UNKNOWN if none.
+
+@table @var
+@item factory
+a @code{<gst-element-factory>}
+
+@item ret
+type of URIs this element supports
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-factory-create  (self@tie{}@code{<gst-element-factory>}) (name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gst-element>})
+@deffnx Method create
+Create a new element of the type defined by the given elementfactory. It will be
+given the name supplied, since all elements require a name as their first
+argument.
+
+@table @var
+@item factory
+factory to instantiate
+
+@item name
+name of new element
+
+@item ret
+new @code{<gst-element>} or NULL if the element couldn't be created
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-factory-make  (factoryname@tie{}@code{mchars}) (name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gst-element>})
+Create a new element of the type defined by the given element factory. If name
+is NULL, then the element will receive a guaranteed unique name, consisting of
+the element factory name and a number. If name is given, it will be given the
+name supplied.
+
+@table @var
+@item factoryname
+a named factory to instantiate
+
+@item name
+name of new element
+
+@item ret
+new @code{<gst-element>} or NULL if unable to create element
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-factory-can-sink-caps  (self@tie{}@code{<gst-element-factory>}) (caps@tie{}@code{<gst-caps>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method can-sink-caps
+Checks if the factory can sink the given capability.
+
+@table @var
+@item factory
+factory to query
+
+@item caps
+the caps to check
+
+@item ret
+true if it can sink the capabilities
+
+@end table
+
+@end deffn
+
+@deffn Function gst-element-factory-can-src-caps  (self@tie{}@code{<gst-element-factory>}) (caps@tie{}@code{<gst-caps>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method can-src-caps
+Checks if the factory can source the given capability.
+
+@table @var
+@item factory
+factory to query
+
+@item caps
+the caps to check
+
+@item ret
+true if it can src the capabilities
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment

@@ -1,0 +1,37 @@
+-*- org -*-
+
+* Release a stable GStreamer
+
+** Documentation
+   
+** API unit tests
+
+*** Define what API will be stable
+
+Available API: functions, types, generics, methods on generics, defined
+on a per-module basis.
+
+How to check for API? With lazy bindings, most types and generics are
+not there until asked for; also, the generics module exports things from
+other projects
+
+Check for gst prefix on everything but generics; ignore prefix of %.
+
+*** Cannot include automatically-wrapped WCTs
+
+I suppose they can be checked for, and warned about, and certainly
+having WCT's in the API without the right prefix should be errors,
+unless they are specifically allowed by name.
+
+** Stability in guile-gobject
+
+Same API definition as in gstreamer, but more modules, and there is the
+C library, the defs parser, and g-wrap.
+
+** Stable G-Wrap?
+
+Really tough to declare stability without knowing what g-wrap's api is,
+and that it will be stable.
+
+
+In summary: shit.

@@ -1,0 +1,14 @@
+
+@c %start of fragment
+
+@node GstPluginFeature
+@chapter GstPluginFeature
+Base class for contents of a GstPlugin
+
+@section Overview
+This is a base class for anything that can be added to a @code{<gst-plugin>}.
+
+@section Usage
+@include defuns-gstpluginfeature.xml.texi
+
+@c %end of fragment

@@ -1,0 +1,25 @@
+
+@c %start of fragment
+
+@node GstChildProxy
+@chapter GstChildProxy
+Interface for multi child elements.
+
+@section Overview
+This interface abstracts handling of property sets for child elements. Imagine
+elements such as mixers or polyphonic generators. They all have multiple
+@code{<gst-pad>} or some kind of voice objects. The element acts as a parent for
+those child objects. Each child has the same properties.
+
+By implementing this interface the child properties can be accessed from the
+parent element by using @code{gst-child-proxy-get} and
+@code{gst-child-proxy-set}.
+
+Property names are written as "child-name::property-name". The whole naming
+scheme is recursive. Thus "child1::child2::property" is valid too, if "child1"
+also implements the @code{<gst-child-proxy>} interface.
+
+@section Usage
+@include defuns-gstchildproxy.xml.texi
+
+@c %end of fragment

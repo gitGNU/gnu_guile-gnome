@@ -1,0 +1,68 @@
+
+@c %start of fragment
+
+@deffn Function gst-parse-error-quark  @result{}@tie{} (ret@tie{}@code{unsigned-int})
+Get the error quark used by the parsing subsystem.
+
+@table @var
+@item ret
+the quark of the parse errors.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-parse-launch  (pipeline_description@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gst-element>})
+Create a new pipeline based on command line syntax. Please note that you might
+get a return value that is not @samp{@code{#f}} even though the @var{error} is
+set. In this case there was a recoverable parsing error and you can try to play
+the pipeline.
+
+@table @var
+@item pipeline-description
+the command line describing the pipeline
+
+@item error
+the error message in case of an erroneous pipeline.
+
+@item ret
+a new element on success, @samp{@code{#f}} on failure. If more than one toplevel
+element is specified by the @var{pipeline-description}, all elements are put
+into a @code{<gst-pipeline>}, which than is returned.
+
+@end table
+
+@end deffn
+
+@deffn Function gst-parse-bin-from-description  (bin_description@tie{}@code{mchars}) (ghost_unconnected_pads@tie{}@code{bool}) @result{}@tie{} (ret@tie{}@code{<gst-element>})
+This is a convenience wrapper around @code{gst-parse-launch} to create a
+@code{<gst-bin>} from a gst-launch-style pipeline description. See
+@code{gst-parse-launch} and the gst-launch man page for details about the
+syntax. Ghost pads on the bin for unconnected source or sink pads within the bin
+can automatically be created (but only a maximum of one ghost pad for each
+direction will be created; if you expect multiple unconnected source pads or
+multiple unconnected sink pads and want them all ghosted, you will have to
+create the ghost pads yourself).
+
+@table @var
+@item bin-description
+command line describing the bin
+
+@item ghost-unconnected-pads
+whether to automatically create ghost pads for unconnected source or sink pads
+within the bin
+
+@item err
+where to store the error message in case of an error, or NULL
+
+@item ret
+a newly-created bin, or NULL if an error occurred.
+
+@end table
+
+Since 0.10.3
+
+@end deffn
+
+
+@c %end of fragment

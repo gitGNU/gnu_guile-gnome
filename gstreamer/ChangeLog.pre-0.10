@@ -1,0 +1,337 @@
+2007-11-15  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gstreamer.scm: Just re-export (gnome gw gstreamer), it's
+	not our business to export GObject things.
+
+	* Makefile.am:
+	* doc/*:
+	* tests/*: Add documentation and API regression unit test.
+
+2007-06-15  Andy Wingo  <wingo@pobox.com>
+
+	* == Released guile-gnome-gstreamer version 0.9.91 ==
+
+2007-06-15  Andy Wingo  <wingo@pobox.com>
+
+	* VERSION: Bumped to 0.9.91.
+
+2007-06-15  Andy Wingo  <wingo@pobox.com>
+
+	* glib-checks.ac: Bump required guile-gnome-glib-0 version to
+	2.15.93, for the (callee-owned) fix.
+
+	* gnome/gstreamer.scm: Remove printouts, as loading is now faster
+	with guile-gnome-platform 2.15.93 and Guile 1.8 CVS. Remove
+	terrible hack involving `link', there seems to be no need.
+
+2007-05-04  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gw/gstreamer-support.c (scm_init_gstreamer): Register
+	GstMiniObject GValue wrappers.
+
+	* glib-checks.ac: Make sure we have new new guile-gnome-glib-0.
+
+2007-02-02  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gw/gstreamer-support.c (scm_init_gstreamer): Don't set the
+	log handler, as there is no more log handler.
+
+2007-01-14  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/overrides/gstreamer.defs:
+	* gnome/gw/gstreamer-support.h: 
+	* gnome/gw/gstreamer-support.c (_wrap_gst_message_get_src)
+	(_wrap_gst_message_get_type): Ignore the gst_message_parse_*
+	functions. Make wrappers for GST_MESSAGE_TYPE and GST_MESSAGE_SRC,
+	as gst-message-get-type and gst-message-get-src.
+
+2006-12-17  Andy Wingo  <wingo@pobox.com>
+
+	* == Released guile-gnome-gstreamer version 0.9.90 ==
+
+2006-12-17  Andy Wingo  <wingo@pobox.com>
+
+	* VERSION: Bumped to 0.9.90.
+
+2006-12-17  Andy Wingo  <wingo@pobox.com>
+
+	* guile-gnome-gstreamer.pc.in (Requires): 
+	* guile-gnome-gstreamer-uninstalled.pc.in (Requires): Updates
+	platform requirement, but not sure where this gets used.
+
+	* gnome/overrides/Makefile.am (module_DATA): Add the type-ignores
+	to the dist.
+
+	* gnome/gstreamer.scm (make): Update for new 0.10 plugin/registry
+	API.
+
+	* examples/gstreamer/vorbisplay.scm: Updated for newer API. Works
+	with newest guile-gnome from bzr and g-wrap with an extra-special
+	patch.
+
+2006-12-15  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gw/gstreamer-support.h
+	* gnome/gw/gstreamer-support.c
+	(scm_gst_mini_object_primitive_create): New function, used in
+	<gst-mini-object>'s initialize method.
+	(scm_init_gstreamer): Register miniobject ref/unref functions, and
+	do the work that was in initializations-cg.
+
+	* gnome/gw/gstreamer-spec.scm (initializations-cg): Instead of
+	putting a lot of C code here, just call scm_init_gstreamer in the
+	support file.
+
+	* gnome/gstreamer.scm (initialize): Define the initialize method
+	on miniobjects, allowing you to (make <gst-buffer>), which is
+	neat.
+
+	* gnome/defs/gstreamer.defs (type-ignores): 
+	* gnome/defs/Makefile.am (gstreamer):
+	* gnome/overrides/gstreamer.defs-type-ignores: Add type-ignores
+	file, but empty for now.
+
+2006-12-09  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/overrides/gstreamer.defs (gst_caps_new_empty)
+	(gst_caps_new_any): These construct GstCaps, so we take their ref.
+	(set-get-function, set-link-function): => set-getrange-function,
+	set-setcaps-function.
+	(gst-structure-from-string): Wrap without the pointer-to-finish
+	argument, which doesn't map well to scheme.
+
+	* gnome/gw/gstreamer-support.h: 
+	* gnome/gw/gstreamer-support.c: 
+	* gnome/gw/gstreamer-spec.scm (initialize): Add wrap/unwrappers
+	for fourcc, fractions, lists, arrays, and ranges of doubles, ints,
+	and fractions.
+	
+	* gnome/gw/gstreamer-spec.scm (initializations-cg): No more
+	cothreads, no need to muck with the stack setting.
+
+	* gnome/gstreamer.scm (scheme-elements): Use autosizing hash
+	tables.
+	
+	* gnome/gstreamer/debug.scm (debug-caps): 
+	* gnome/gstreamer.scm (make-value, gst-structure-new)
+	(gst-caps-new): 
+	* examples/gstreamer/caps.scm (gst-caps-new): Rework the
+	gst-structure-new minilanguage so it uses gvalue classes and
+	conversions instead of a second namespace.
+
+2006-12-08  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/overrides/gstreamer.defs: Remove crufty overrides, add a
+	couple of new ones. Still have a ways to go here, but the wrapper
+	compiles.
+
+	* gnome/gw/gstreamer-support.h: 
+	* gnome/gw/gstreamer-support.c: Remove old cruft; use
+	guile-gobject's gc protect code.
+	(_wrap_gst_buffer_get_data, _wrap_gst_buffer_set_data): Wrap
+	buffers with the new uvects. Requires Guile 1.8.
+	(free_pad_private, pad_private): Set a setcaps and getrange
+	function instead of link and get. Update all to the new
+	prototypes. Make the padprivate a freeable structure.
+
+	* gnome/gw/gstreamer-spec.scm: Update for changes in g-wrap.
+
+	* gnome/defs/gstreamer.defs:
+	* gnome/defs/gstreamer-types.defs: Regenerated defs against
+	GStreamer core 0.10.10.
+
+	* gnome/defs/Makefile.am: Add rule to regen defs.
+
+	* package.ac: Replace 0.8/0.10 infrastructure with 0.10/0.12.
+
+	* guile-gnome-gstreamer.pc.in (Requires):
+	* guile-gnome-gstreamer-uninstalled.pc.in (Requires): Up
+	guile-gnome version req.
+
+	* gnome/overrides/gstreamer.defs: Add a couple of ignores.
+
+	* gnome/gw/gstreamer-support.c (gst_guile_debug_logger): Fix
+	compile warning.
+
+	* VERSION: Mark as 0.9.90, unstable until we can release 0.10.11
+	or so.
+
+	* TODO: 
+	* README: 
+	* NEWS: Update a bit.
+
+2004-11-13  Andy Wingo  <wingo@pobox.com>
+
+	* Makefile.am: Dist VERSION.
+	* VERSION: New file.
+
+	* gnome/Makefile.am: Recurse into defs/.
+
+	* defs-extra-checks.ac: Deleted.
+
+	* gnome/defs/gstreamer.defs, gnome/defs/gstreamer-types.defs:
+	* gnome/defs/Makefile.am: New files, moved in from defs-extra.
+
+2004-11-07  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gw/Makefile.am (guilegnomelib_LTLIBRARIES): Install to
+	versioned dir.
+
+	* guile-gnome-gstreamer-uninstalled.pc.in (Requires): 
+	* guile-gnome-gstreamer.pc.in (Requires): 
+	* Makefile.am: Versioned pkg-config files.
+
+2004-11-06  Andy Wingo  <wingo@pobox.com>
+
+	* glib-checks.ac: 
+	* defs-extra-checks.ac: Versioned pkg-config checks.
+
+2004-09-30  Andy Wingo  <wingo@pobox.com>
+
+	* defs-extra-checks.ac: New file.
+
+2004-09-27  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gstreamer.scm: Add license block, avoid deprecated
+	modules.
+
+	* examples/gstreamer/vorbisplay.scm
+	* examples/gstreamer/threads.scm
+	* examples/gstreamer/test-sinesrc.scm
+	* examples/gstreamer/sinesrc.scm
+	* examples/gstreamer/chain-function.scm
+	* examples/gstreamer/caps.scm: Added license blocks.
+
+2004-09-19  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gw/Makefile.am (libgw_guile_gnome_gstreamer_la_LIBADD):
+	Not G_WRAP_LINK_ARGS, it's G_WRAP_LIBS.
+
+	* package.ac: No more GUILE_GSTREAMER_VERSION, just use the
+	guile-gnome-extra version.
+
+2004-09-17  Andy Wingo  <wingo@pobox.com>
+
+	* NEWS, README: Adapted a bit.
+
+2004-09-15  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gstreamer/Makefile.am (module_DATA): Dist fixes.
+
+	* gnome/Makefile.am: Dist fixes.
+
+	* glib-checks.ac: Check the right pkg-config file.
+
+	* files.ac: Refer to the right files.
+
+2004-09-14  Andy Wingo  <wingo@pobox.com>
+
+	* Makefile.am: Dist and install the pkg-config files.
+
+	* package.ac: Some fixups.
+
+	* docs/: Deleted. No more XML crap.
+
+	* TODO, README, AUTHORS, NEWS: Freshly written.
+
+	* files.ac: New file.
+
+	* gnome/gw/gstreamer-spec.scm (initialize): Adapt for module name
+	changes. Use load-defs-with-overrides.
+
+	* gnome/gw/Makefile.am (libgw_guile_gnome_gstreamer_la_SOURCES):
+	Don't dist the generated files.
+
+2004-07-18  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gstreamer.scm (with-gst-debug): New macro, sets specific
+	debugging thresholds during the dynamic extent of its body.
+
+2004-07-15  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gw/gstreamer-support.[ch]: Fix to take a GstPad* when
+	setting chain/link/get functions, add debug handlers.
+
+2004-07-07  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gw/gstreamer-spec.scm (<gstreamer-wrapset>): Fix
+	depends-on!. (It was sitting in my tree uncommitted!)
+
+2004-05-19  Andy Wingo  <wingo@pobox.com>
+
+	* *: Split into its own arch category. Lots of deletions and
+	moving around.
+
+	* glib-checks.ac, gnome/gw, gnome/gw/Makefile.am: New files.
+
+	* gnome/gstreamer/gw-gstreamer-spec.scm: Moved to
+	gnome/gw/gstreamer-spec.scm.
+
+	* gnome/gstreamer/gstreamer-support.[ch]: Moved to gnome/gw.
+
+	* gnome/gstreamer/gstreamer-support.[ch],
+	gnome/defs/gstreamer-overrides.defs: Macros wrapped as functions
+	so the new libffi-based wrappers will work.
+
+	* gnome/gstreamer/gstreamer-support.c: Remove legacy 0.6 code
+	regarding GstData/GstBuffer.
+	
+	* gnome/gstreamer.scm: Show more detailed startup info.
+
+2004-05-16  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/defs/gstreamer-overrides.defs: Update to remove all use of
+	g-wrap API.
+
+	* gnome/gstreamer/generics.scm: Deleted, it hasn't been used in a
+	long time.
+
+	* ChangeLog: Merged gnome/ChangeLog, gnome/gstreamer/ChangeLog,
+	and gnome/defs/ChangeLog to this one.
+
+2004-02-22  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/defs/gstreamer-overrides.defs (realize): New method on
+	GstPad.
+
+	* gnome/gstreamer.scm (unlink, remove): New methods taking many
+	args.
+
+2004-02-08  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/defs/gstreamer-overrides.defs (append, append_structure):
+	These methods on GstCaps take ownership of their arguments, so
+	they're
+	(callee-owned).
+
+2004-01-29  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/defs/gstreamer-overrides.defs (gst_pad_template_new):
+	Lot's of changes, really, but this one makes gst_pad_template_new
+	receive a copied GstCaps.
+
+2004-01-28  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/defs/gstreamer.defs (get_version): removed
+
+	* gnome/gstreamer.scm (gst-caps-new, gst-structure-new): Add new
+	wrappers for creating the new caps.
+
+2003-05-25  Andy Wingo  <wingo@pobox.com>
+
+	* gnome/gstreamer.scm: Rename link-many and add-many to link and
+	add.
+
+	* examples/gstreamer/vorbisplay.scm: s/add-many/add/,
+	s/link-many/link/
+
+	* examples/gstreamer/chain-function.scm: s/add-may/add/
+
+	* gnome/gstreamer/debug.scm (debug-notify-handler): New file,
+	contains some debugging routines.
+
+2003-05-08  Andy Wingo  <wingo@pobox.com>
+
+	* Initial import.
+	
+

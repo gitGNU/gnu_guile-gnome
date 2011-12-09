@@ -1,0 +1,40 @@
+
+@c %start of fragment
+
+@node GstStructure
+@chapter GstStructure
+Generic structure containing fields of names and values
+
+@section Overview
+A @code{<gst-structure>} is a collection of key/value pairs. The keys are
+expressed as GQuarks and the values can be of any GType.
+
+In addition to the key/value pairs, a @code{<gst-structure>} also has a name.
+The name starts with a letter and can be folled by letters, numbers and any of
+"/-_.:".
+
+@code{<gst-structure>} is used by various GStreamer subsystems to store
+information in a flexible and extensible way. A @code{<gst-structure>} does not
+have a refcount because it usually is part of a higher level object such as
+@code{<gst-caps>}. It provides a means to enforce mutability using the refcount
+of the parent with the @code{gst-structure-set-parent-refcount} method.
+
+A @code{<gst-structure>} can be created with @code{gst-structure-empty-new} or
+@code{gst-structure-new}, which both take a name and an optional set of
+key/value pairs along with the types of the values.
+
+Field values can be changed with @code{gst-structure-set-value} or
+@code{gst-structure-set}.
+
+Field values can be retrieved with @code{gst-structure-get-value} or the more
+convenient gst_structure_get_*() functions.
+
+Fields can be removed with @code{gst-structure-remove-field} or
+@code{gst-structure-remove-fields}.
+
+Last reviewed on 2007-10-16 (0.10.15)
+
+@section Usage
+@include defuns-gststructure.xml.texi
+
+@c %end of fragment

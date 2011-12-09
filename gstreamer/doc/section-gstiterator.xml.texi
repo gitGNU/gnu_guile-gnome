@@ -1,0 +1,50 @@
+
+@c %start of fragment
+
+@node GstIterator
+@chapter GstIterator
+Object to retrieve multiple elements in a threadsafe way.
+
+@section Overview
+A GstIterator is used to retrieve multiple objects from another object in a
+threadsafe way.
+
+Various GStreamer objects provide access to their internal structures using an
+iterator.
+
+The basic use pattern of an iterator is as follows:
+
+@c (title "Using an iterator")
+@example 
+
+   it = _get_iterator(object);
+   done = FALSE;
+   while (!done) @{
+     switch (gst_iterator_next (it, &item)) @{
+       case GST_ITERATOR_OK:
+         ... use/change item here...
+         gst_object_unref (item);
+         break;
+       case GST_ITERATOR_RESYNC:
+         ...rollback changes to items...
+         gst_iterator_resync (it);
+         break;
+       case GST_ITERATOR_ERROR:
+         ...wrong parameter were given...
+         done = TRUE;
+         break;
+       case GST_ITERATOR_DONE:
+         done = TRUE;
+         break;
+     @}
+   @}
+   gst_iterator_free (it);
+  
+@end example
+
+Last reviewed on 2005-11-09 (0.9.4)
+
+@section Usage
+@include defuns-gstiterator.xml.texi
+
+@c %end of fragment

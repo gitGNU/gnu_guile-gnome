@@ -1,0 +1,22 @@
+
+@c %start of fragment
+
+@deffn Function gst-error-get-message  (domain@tie{}@code{unsigned-int}) (code@tie{}@code{int}) @result{}@tie{} (ret@tie{}@code{mchars})
+Get a string describing the error message in the current locale.
+
+@table @var
+@item domain
+the GStreamer error domain this error belongs to.
+
+@item code
+the error code belonging to the domain.
+
+@item ret
+a newly allocated string describing the error message in the current locale.
+
+@end table
+
+@end deffn
+
+
+@c %end of fragment
