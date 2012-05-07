@@ -1,0 +1,57 @@
+
+@c %start of fragment
+
+@node ClutterCairoTexture
+@chapter ClutterCairoTexture
+Texture with Cairo integration
+
+@section Overview
+@code{<clutter-cairo-texture>} is a @code{<clutter-texture>} that
+displays the contents of a Cairo context. The
+@code{<clutter-cairo-texture>} actor will create a Cairo image surface
+which will then be uploaded to a GL texture when needed.
+
+@code{<clutter-cairo-texture>} will provide a @code{<cairo-t>} context
+by using the @code{clutter-cairo-texture-create} and
+@code{clutter-cairo-texture-create-region} functions; you can use the
+Cairo API to draw on the context and then call @code{cairo-destroy} when
+done.
+
+As soon as the context is destroyed with @code{cairo-destroy}, the
+contents of the surface will be uploaded into the
+@code{<clutter-cairo-texture>} actor:
+
+@example 
+
+  cairo_t *cr;
+
+  cr = clutter_cairo_texture_create (CLUTTER_CAIRO_TEXTURE (texture));
+
+  /&#x002A; draw on the context &#x002A;/
+
+  cairo_destroy (cr);
+@end example
+
+Although a new @code{<cairo-t>} is created each time you call
+@code{clutter-cairo-texture-create} or
+@code{clutter-cairo-texture-create-region}, it uses the same
+@code{<cairo-surface-t>} each time. You can call
+@code{clutter-cairo-texture-clear} to erase the contents between calls.
+
+@c (warning)
+
+Note that you should never use the code above inside the
+@code{<"paint">} or @code{<"pick">} virtual functions or signal handlers
+because it will lead to performance degradation.
+
+Since @code{<clutter-cairo-texture>} uses a Cairo image surface
+internally all the drawing operations will be performed in software and
+not using hardware acceleration. This can lead to performance
+degradation if the contents of the texture change frequently.
+
+@code{<clutter-cairo-texture>} is available since Clutter 1.0.
+
+@section Usage
+@include defuns-clutter-cairo-texture.xml.texi
+
+@c %end of fragment

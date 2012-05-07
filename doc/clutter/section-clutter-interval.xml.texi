@@ -1,0 +1,34 @@
+
+@c %start of fragment
+
+@node Value intervals
+@chapter Value intervals
+An object holding an interval of two values
+
+@section Overview
+@code{<clutter-interval>} is a simple object that can hold two values
+defining an interval. @code{<clutter-interval>} can hold any value that
+can be enclosed inside a @code{<gvalue>}.
+
+Once a @code{<clutter-interval>} for a specific @code{<g-type>} has been
+instantiated the @code{<"value-type">} property cannot be changed
+anymore.
+
+@code{<clutter-interval>} starts with a floating reference; this means
+that any object taking a reference on a @code{<clutter-interval>}
+instance should also take ownership of the interval by using
+@code{g-object-ref-sink}.
+
+@code{<clutter-interval>} is used by @code{<clutter-animation>} to
+define the interval of values that an implicit animation should tween
+over.
+
+@code{<clutter-interval>} can be subclassed to override the validation
+and value computation.
+
+@code{<clutter-interval>} is available since Clutter 1.0
+
+@section Usage
+@include defuns-clutter-interval.xml.texi
+
+@c %end of fragment

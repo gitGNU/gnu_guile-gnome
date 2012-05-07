@@ -6,8 +6,8 @@
 A behaviour controlling rotation
 
 @section Overview
-A @code{<clutter-behaviour-rotate>} rotate actors between a starting and ending
-angle on a given axis.
+A @code{<clutter-behaviour-rotate>} rotate actors between a starting and
+ending angle on a given axis.
 
 The @code{<clutter-behaviour-rotate>} is available since version 0.4.
 

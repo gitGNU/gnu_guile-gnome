@@ -6,19 +6,21 @@
 Class for providing behaviours to actors
 
 @section Overview
-@code{<clutter-behaviour>} is the base class for implementing behaviours. A
-behaviour is a controller object for @code{<clutter-actor>}s; you can use a
-behaviour to control one or more properties of an actor (such as its opacity, or
-its position). A @code{<clutter-behaviour>} is driven by an "alpha function"
-stored inside a @code{<clutter-alpha>} object; an alpha function is a function
-depending solely on time. The alpha function computes a value which is then
-applied to the properties of the actors driven by a behaviour.
+@code{<clutter-behaviour>} is the base class for implementing
+behaviours. A behaviour is a controller object for
+@code{<clutter-actor>}s; you can use a behaviour to control one or more
+properties of an actor (such as its opacity, or its position). A
+@code{<clutter-behaviour>} is driven by an "alpha function" stored
+inside a @code{<clutter-alpha>} object; an alpha function is a function
+depending solely on time. The alpha function computes a value which is
+then applied to the properties of the actors driven by a behaviour.
 
 Clutter provides some pre-defined behaviours, like
-@code{<clutter-behaviour-path>}, which controls the position of a set of actors
-making them "walk" along a set of nodes; @code{<clutter-behaviour-opacity>},
-which controls the opacity of a set of actors; @code{<clutter-behaviour-scale>},
-which controls the width and height of a set of actors.
+@code{<clutter-behaviour-path>}, which controls the position of a set of
+actors making them "walk" along a set of nodes;
+@code{<clutter-behaviour-opacity>}, which controls the opacity of a set
+of actors; @code{<clutter-behaviour-scale>}, which controls the width
+and height of a set of actors.
 
 To visualize the effects of different alpha functions on a
 @code{<clutter-behaviour>} implementation it is possible to take the
@@ -27,18 +29,19 @@ To visualize the effects of different alpha functions on a
 (The missing figure, behaviour-path-alpha
 
 @c (title "Effects of alpha functions on a path")
-The actors position between the path's end points directly correlates to the
-@code{<clutter-alpha>}'s current alpha value driving the behaviour. With the
-@code{<clutter-alpha>}'s function set to @samp{CLUTTER_ALPHA_RAMP_INC} the actor
-will follow the path at a constant velocity, but when changing to
-@samp{CLUTTER_ALPHA_SINE_INC} the actor initially accelerates before quickly
-decelerating.
+The actors position between the path's end points directly correlates to
+the @code{<clutter-alpha>}'s current alpha value driving the behaviour.
+With the @code{<clutter-alpha>}'s function set to
+@samp{CLUTTER_ALPHA_RAMP_INC} the actor will follow the path at a
+constant velocity, but when changing to @samp{CLUTTER_ALPHA_SINE_INC}
+the actor initially accelerates before quickly decelerating.
 
 In order to implement a new behaviour you should subclass
-@code{<clutter-behaviour>} and override the "alpha_notify" virtual function;
-inside the overridden function you should obtain the alpha value from the
-@code{<clutter-alpha>} instance bound to the behaviour and apply it to the
-desiderd property (or properties) of every actor controlled by the behaviour.
+@code{<clutter-behaviour>} and override the "alpha_notify" virtual
+function; inside the overridden function you should obtain the alpha
+value from the @code{<clutter-alpha>} instance bound to the behaviour
+and apply it to the desiderd property (or properties) of every actor
+controlled by the behaviour.
 
 @code{<clutter-behaviour>} is available since Clutter 0.2
 

@@ -2,8 +2,8 @@
 @c %start of fragment
 
 @deffn Function clutter-feature-available  (feature@tie{}@code{<clutter-feature-flags>}) @result{}@tie{} (ret@tie{}@code{bool})
-Checks whether @var{feature} is available. @var{feature} can be a logical OR of
-@code{<clutter-feature-flags>}.
+Checks whether @var{feature} is available. @var{feature} can be a
+logical OR of @code{<clutter-feature-flags>}.
 
 @table @var
 @item feature

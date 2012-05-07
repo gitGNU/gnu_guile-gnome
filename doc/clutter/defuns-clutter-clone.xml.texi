@@ -1,0 +1,55 @@
+
+@c %start of fragment
+
+@deffn Function clutter-clone-new  (source@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+Creates a new @code{<clutter-actor>} which clones @var{source}/
+
+@table @var
+@item source
+a @code{<clutter-actor>}, or @samp{@code{#f}}
+
+@item ret
+the newly created @code{<clutter-clone>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-clone-set-source  (self@tie{}@code{<clutter-clone>}) (source@tie{}@code{<clutter-actor>})
+@deffnx Method set-source
+Sets @var{source} as the source actor to be cloned by @var{clone}.
+
+@table @var
+@item clone
+a @code{<clutter-clone>}
+
+@item source
+a @code{<clutter-actor>}, or @samp{@code{#f}}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-clone-get-source  (self@tie{}@code{<clutter-clone>}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+@deffnx Method get-source
+Retrieves the source @code{<clutter-actor>} being cloned by @var{clone}
+
+@table @var
+@item clone
+a @code{<clutter-clone>}
+
+@item ret
+the actor source for the clone.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+
+@c %end of fragment

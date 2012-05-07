@@ -3,73 +3,44 @@
 
 @node Unit conversion
 @chapter Unit conversion
-A logical distance unit.
+A logical distance unit
 
 @section Overview
-Clutter units are logical units with granularity greater than that of the device
-units; they are used by @code{<clutter-actor-box>} and the units-based family of
-@code{<clutter-actor>} functions. To convert between Clutter units and device
-units, use @samp{CLUTTER_UNITS_FROM_DEVICE} and @samp{CLUTTER_UNITS_TO_DEVICE}
-macros.
+@code{<clutter-units>} is a structure holding a logical distance value
+along with its type, expressed as a value of the
+@code{<clutter-unit-type>} enumeration. It is possible to use
+@code{<clutter-units>} to store a position or a size in units different
+than pixels, and convert them whenever needed (for instance inside the
+@code{<clutter-actor>}::@code{allocate} virtual function, or inside the
+@code{<clutter-actor>}::@code{get-preferred-width} and
+@code{<clutter-actor>}::@code{get-preferred-height} virtual functions.
 
-@code{<clutter-unit>}s can be converted from other units like millimeters,
-typographic points (at the current resolution) and percentages. It is also
-possible to convert fixed point values to and from @code{<clutter-unit>} values.
-
-In order to register a @code{<clutter-unit>} property, the
-@code{<clutter-param-spec-unit>}@code{<gparam>} sub-class should be used:
+In order to register a @code{<clutter-units>} property, the
+@code{<clutter-param-spec-units>}@code{<gparam>} sub-class should be
+used:
 
 @example 
 
   GParamSpec *pspec;
 
-  pspec = clutter_param_spec_unit ("width",
-                                   "Width",
-                                   "Width of the actor, in units",
-                                   0, CLUTTER_MAXUNIT,
-                                   0,
-                                   G_PARAM_READWRITE);
+  pspec = clutter_param_spec_units ("active-width",
+                                    "Width",
+                                    "Width of the active area, in millimeters",
+                                    CLUTTER_UNIT_MM,
+                                    0.0, 12.0,
+                                    12.0,
+                                    G_PARAM_READWRITE);
   g_object_class_install_property (gobject_class, PROP_WIDTH, pspec);
 @end example
 
 A @code{<gvalue>} holding units can be manipulated using
-@code{clutter-value-set-unit} and @code{clutter-value-get-unit}.
-@code{<gvalue>}s containing a @code{<clutter-unit>} value can also be
-transformed to @code{<gvalue>}s containing integer values - with a loss of
-precision:
+@code{clutter-value-set-units} and @code{clutter-value-get-units}.
+@code{<gvalue>}s containing a @code{<clutter-units>} value can also be
+transformed to @code{<gvalue>}s initialized with @samp{G_TYPE_INT},
+@samp{G_TYPE_FLOAT} and @samp{G_TYPE_STRING} through implicit conversion
+and using @code{g-value-transform}.
 
-@example 
-
-  static gboolean
-  units_to_int (const GValue *src,
-                GValue       *dest)
-  @{
-    g_return_val_if_fail (CLUTTER_VALUE_HOLDS_UNIT (src), FALSE);
-
-    g_value_init (dest, G_TYPE_INT);
-    return g_value_transform (src, &dest);
-  @}
-@end example
-
-The code above is equivalent to:
-
-@example 
-
-  static gboolean
-  units_to_int (const GValue *src,
-                GValue       *dest)
-  @{
-    g_return_val_if_fail (CLUTTER_VALUE_HOLDS_UNIT (src), FALSE);
-
-    g_value_init (dest, G_TYPE_INT);
-    g_value_set_int (dest,
-                     CLUTTER_UNITS_TO_INT (clutter_value_get_unit (src)));
-
-    return TRUE;
-  @}
-@end example
-
-@code{<clutter-unit>} is available since Clutter 0.4
+@code{<clutter-units>} is available since Clutter 1.0
 
 @section Usage
 @include defuns-clutter-units.xml.texi

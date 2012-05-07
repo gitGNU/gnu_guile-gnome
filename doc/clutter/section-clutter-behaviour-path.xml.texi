@@ -3,21 +3,32 @@
 
 @node ClutterBehaviourPath
 @chapter ClutterBehaviourPath
-A behaviour interpolating position along a path
+A behaviour for moving actors along a
 
 @section Overview
-@code{<clutter-behaviour-path>} interpolates actors along a defined path.
+@code{<clutter-behaviour-path>} interpolates actors along a defined
+path.
 
-A path is a set of @code{<clutter-knots>} object given when creating a new
-@code{<clutter-behaviour-path>} instance. Knots can be also added to the path
-using @code{clutter-behaviour-path-append-knot}. The whole path can be cleared
-using @code{clutter-behaviour-path-clear}. Each time the behaviour reaches a
-knot in the path, the "knot-reached" signal is emitted.
+A path is described by a @code{<clutter-path>} object. The path can
+contain straight line parts and bezier curves. If the path contains
+@samp{CLUTTER_PATH_MOVE_TO} parts then the actors will jump to those
+coordinates. This can be used make disjoint paths.
 
-This first knot in the path is reached with the lower bound value provided by
-the @code{<clutter-alpha>} objectused by the behaviour; the last knot in the
-path is reached with the upper bound value provided by the
-@code{<clutter-alpha>} object used by the behaviour.
+When creating a path behaviour in a @code{<clutter-script>}, you can
+specify the path property directly as a string. For example:
+
+@example 
+
+@{
+  "id"     : "spline-path",
+  "type"   : "ClutterBehaviourPath",
+  "path"   : "M 50 50 L 100 100",
+  "alpha"  : @{
+     "timeline" : "main-timeline",
+     "function" : "ramp
+   @}
+@}
+@end example
 
 @cartouche 
 If the alpha function is a periodic function, i.e. it returns to

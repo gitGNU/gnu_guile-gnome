@@ -1,0 +1,1242 @@
+
+@c %start of fragment
+
+@deffn Function clutter-text-new  @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+Creates a new @code{<clutter-text>} actor. This actor can be used to
+display and edit text.
+
+@table @var
+@item ret
+the newly created @code{<clutter-text>} actor
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-new-full  (font_name@tie{}@code{mchars}) (text@tie{}@code{mchars}) (color@tie{}@code{<clutter-color>}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+Creates a new @code{<clutter-text>} actor, using @var{font-name} as the
+font description; @var{text} will be used to set the contents of the
+actor; and @var{color} will be used as the color to render @var{text}.
+
+This function is equivalent to calling @code{clutter-text-new},
+@code{clutter-text-set-font-name}, @code{clutter-text-set-text} and
+@code{clutter-text-set-color}.
+
+@table @var
+@item font-name
+a string with a font description
+
+@item text
+the contents of the actor
+
+@item color
+the color to be used to render @var{text}
+
+@item ret
+the newly created @code{<clutter-text>} actor
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-new-with-text  (font_name@tie{}@code{mchars}) (text@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+Creates a new @code{<clutter-text>} actor, using @var{font-name} as the
+font description; @var{text} will be used to set the contents of the
+actor.
+
+This function is equivalent to calling @code{clutter-text-new},
+@code{clutter-text-set-font-name}, and @code{clutter-text-set-text}.
+
+@table @var
+@item font-name
+a string with a font description
+
+@item text
+the contents of the actor
+
+@item ret
+the newly created @code{<clutter-text>} actor
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-set-text  (self@tie{}@code{<clutter-text>}) (text@tie{}@code{mchars})
+@deffnx Method set-text
+Sets the contents of a @code{<clutter-text>} actor.
+
+If the @code{<"use-markup">} property was set to @samp{@code{#t}} it
+will be reset to @samp{@code{#f}} as a side effect. If you want to
+maintain the @code{<"use-markup">} you should use the
+@code{clutter-text-set-markup} function instead
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item text
+the text to set. Passing @samp{@code{#f}} is the same as passing "" (the
+empty string)
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-set-markup  (self@tie{}@code{<clutter-text>}) (markup@tie{}@code{mchars})
+@deffnx Method set-markup
+Sets @var{markup} as the contents of a @code{<clutter-text>}.
+
+This is a convenience function for setting a string containing Pango
+markup, and it is logically equivalent to:
+
+@example 
+
+  clutter_text_set_text (CLUTTER_TEXT (actor), markup);
+  clutter_text_set_use_markup (CLUTTER_TEXT (actor), TRUE);
+@end example
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item markup
+a string containing Pango markup. Passing @samp{@code{#f}} is the same
+as passing "" (the empty string)
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-get-text  (self@tie{}@code{<clutter-text>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-text
+Retrieves a pointer to the current contents of a @code{<clutter-text>}
+actor.
+
+If you need a copy of the contents for manipulating, either use
+@code{g-strdup} on the returned string, or use:
+
+@example 
+
+   copy = clutter_text_get_chars (text, 0, -1);
+@end example
+
+Which will return a newly allocated string.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item ret
+the contents of the actor. The returned string is owned by the
+@code{<clutter-text>} actor and should never be modified or freed
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-set-activatable  (self@tie{}@code{<clutter-text>}) (activatable@tie{}@code{bool})
+@deffnx Method set-activatable
+Sets whether a @code{<clutter-text>} actor should be activatable.
+
+An activatable @code{<clutter-text>} actor will emit the
+@code{<"activate">} signal whenever the 'Enter' (or 'Return') key is
+pressed; if it is not activatable, a new line will be appended to the
+current content.
+
+An activatable @code{<clutter-text>} must also be set as editable using
+@code{clutter-text-set-editable}.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item activatable
+whether the @code{<clutter-text>} actor should be activatable
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-get-activatable  (self@tie{}@code{<clutter-text>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-activatable
+Retrieves whether a @code{<clutter-text>} is activatable or not.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item ret
+@samp{@code{#t}} if the actor is activatable
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-set-attributes  (self@tie{}@code{<clutter-text>}) (attrs@tie{}@code{<pango-attr-list>})
+@deffnx Method set-attributes
+Sets the attributes list that are going to be applied to the
+@code{<clutter-text>} contents.
+
+The @code{<clutter-text>} actor will take a reference on the
+@code{<pango-attr-list>} passed to this function.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item attrs
+a @code{<pango-attr-list>} or @samp{@code{#f}} to unset the attributes
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-get-attributes  (self@tie{}@code{<clutter-text>}) @result{}@tie{} (ret@tie{}@code{<pango-attr-list>})
+@deffnx Method get-attributes
+Gets the attribute list that was set on the @code{<clutter-text>} actor
+@code{clutter-text-set-attributes}, if any.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item ret
+the attribute list, or @samp{@code{#f}} if none was set. The returned
+value is owned by the @code{<clutter-text>} and should not be
+unreferenced.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-set-color  (self@tie{}@code{<clutter-text>}) (color@tie{}@code{<clutter-color>})
+@deffnx Method set-color
+Sets the color of the contents of a @code{<clutter-text>} actor.
+
+The overall opacity of the @code{<clutter-text>} actor will be the
+result of the alpha value of @var{color} and the composited opacity of
+the actor itself on the scenegraph, as returned by
+@code{clutter-actor-get-paint-opacity}.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item color
+a @code{<clutter-color>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-get-color  (self@tie{}@code{<clutter-text>}) (color@tie{}@code{<clutter-color>})
+@deffnx Method get-color
+Retrieves the text color as set by @code{clutter-text-set-color}.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item color
+return location for a @code{<clutter-color>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-set-ellipsize  (self@tie{}@code{<clutter-text>}) (mode@tie{}@code{<pango-ellipsize-mode>})
+@deffnx Method set-ellipsize
+Sets the mode used to ellipsize (add an ellipsis: "...") to the text if
+there is not enough space to render the entire contents of a
+@code{<clutter-text>} actor
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item mode
+a @code{<pango-ellipsize-mode>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-get-ellipsize  (self@tie{}@code{<clutter-text>}) @result{}@tie{} (ret@tie{}@code{<pango-ellipsize-mode>})
+@deffnx Method get-ellipsize
+Returns the ellipsizing position of a @code{<clutter-text>} actor, as
+set by @code{clutter-text-set-ellipsize}.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item ret
+@code{<pango-ellipsize-mode>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-set-font-name  (self@tie{}@code{<clutter-text>}) (font_name@tie{}@code{mchars})
+@deffnx Method set-font-name
+Sets the font used by a @code{<clutter-text>}. The @var{font-name}
+string must either be @samp{@code{#f}}, which means that the font name
+from the default @code{<clutter-backend>} will be used; or be something
+that can be parsed by the @code{pango-font-description-from-string}
+function, like:
+
+@example 
+
+  clutter_text_set_font_name (text, "Sans 10pt");
+  clutter_text_set_font_name (text, "Serif 16px");
+  clutter_text_set_font_name (text, "Helvetica 10");
+@end example
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item font-name
+a font name, or @samp{@code{#f}} to set the default font name
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-get-font-name  (self@tie{}@code{<clutter-text>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-font-name
+Retrieves the font name as set by @code{clutter-text-set-font-name}.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item ret
+a string containing the font name. The returned string is owned by the
+@code{<clutter-text>} actor and should not be modified or freed
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-set-password-char  (self@tie{}@code{<clutter-text>}) (wc@tie{}@code{unsigned-int32})
+@deffnx Method set-password-char
+Sets the character to use in place of the actual text in a password text
+actor.
+
+If @var{wc} is 0 the text will be displayed as it is entered in the
+@code{<clutter-text>} actor.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item wc
+a Unicode character, or 0 to unset the password character
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-get-password-char  (self@tie{}@code{<clutter-text>}) @result{}@tie{} (ret@tie{}@code{unsigned-int32})
+@deffnx Method get-password-char
+Retrieves the character to use in place of the actual text as set by
+@code{clutter-text-set-password-char}.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item ret
+a Unicode character or 0 if the password character is not set
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-set-justify  (self@tie{}@code{<clutter-text>}) (justify@tie{}@code{bool})
+@deffnx Method set-justify
+Sets whether the text of the @code{<clutter-text>} actor should be
+justified on both margins. This setting is ignored if Clutter is
+compiled against Pango < 1.18.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item justify
+whether the text should be justified
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-get-justify  (self@tie{}@code{<clutter-text>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-justify
+Retrieves whether the @code{<clutter-text>} actor should justify its
+contents on both margins.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item ret
+@samp{@code{#t}} if the text should be justified
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-text-get-layout  (self@tie{}@code{<clutter-text>}) @result{}@tie{} (ret@tie{}@code{<pango-layout>})
+@deffnx Method get-layout
+Retrieves the current @code{<pango-layout>} used by a
+@code{<clutter-text>} actor.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item ret
+a @code{<pango-layout>}. The returned object is owned by the
+@code{<clutter-text>} actor and should not be modified or freed.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-set-line-alignment  (self@tie{}@code{<clutter-text>}) (alignment@tie{}@code{<pango-alignment>})
+@deffnx Method set-line-alignment
+Sets the way that the lines of a wrapped label are aligned with respect
+to each other. This does not affect the overall alignment of the label
+within its allocated or specified width.
+
+To align a @code{<clutter-text>} actor you should add it to a container
+that supports alignment, or use the anchor point.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item alignment
+A @code{<pango-alignment>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-get-line-alignment  (self@tie{}@code{<clutter-text>}) @result{}@tie{} (ret@tie{}@code{<pango-alignment>})
+@deffnx Method get-line-alignment
+Retrieves the alignment of a @code{<clutter-text>}, as set by
+@code{clutter-text-set-line-alignment}.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item ret
+a @code{<pango-alignment>} Since 1.0
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-text-set-line-wrap  (self@tie{}@code{<clutter-text>}) (line_wrap@tie{}@code{bool})
+@deffnx Method set-line-wrap
+Sets whether the contents of a @code{<clutter-text>} actor should wrap,
+if they don't fit the size assigned to the actor.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item line-wrap
+whether the contents should wrap
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-get-line-wrap  (self@tie{}@code{<clutter-text>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-line-wrap
+Retrieves the value set using @code{clutter-text-set-line-wrap}.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item ret
+@samp{@code{#t}} if the @code{<clutter-text>} actor should wrap its
+contents
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-set-line-wrap-mode  (self@tie{}@code{<clutter-text>}) (wrap_mode@tie{}@code{<pango-wrap-mode>})
+@deffnx Method set-line-wrap-mode
+If line wrapping is enabled (see @code{clutter-text-set-line-wrap}) this
+function controls how the line wrapping is performed. The default is
+@samp{PANGO_WRAP_WORD} which means wrap on word boundaries.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item wrap-mode
+the line wrapping mode
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-get-line-wrap-mode  (self@tie{}@code{<clutter-text>}) @result{}@tie{} (ret@tie{}@code{<pango-wrap-mode>})
+@deffnx Method get-line-wrap-mode
+Retrieves the line wrap mode used by the @code{<clutter-text>} actor.
+
+See @code{clutter-text-set-line-wrap-mode}.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item ret
+the wrap mode used by the @code{<clutter-text>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-set-max-length  (self@tie{}@code{<clutter-text>}) (max@tie{}@code{int})
+@deffnx Method set-max-length
+Sets the maximum allowed length of the contents of the actor. If the
+current contents are longer than the given length, then they will be
+truncated to fit.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item max
+the maximum number of characters allowed in the text actor; 0 to disable
+or -1 to set the length of the current string
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-get-max-length  (self@tie{}@code{<clutter-text>}) @result{}@tie{} (ret@tie{}@code{int})
+@deffnx Method get-max-length
+Gets the maximum length of text that can be set into a text actor.
+
+See @code{clutter-text-set-max-length}.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item ret
+the maximum number of characters.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-set-selectable  (self@tie{}@code{<clutter-text>}) (selectable@tie{}@code{bool})
+@deffnx Method set-selectable
+Sets whether a @code{<clutter-text>} actor should be selectable.
+
+A selectable @code{<clutter-text>} will allow selecting its contents
+using the pointer or the keyboard.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item selectable
+whether the @code{<clutter-text>} actor should be selectable
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-get-selectable  (self@tie{}@code{<clutter-text>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-selectable
+Retrieves whether a @code{<clutter-text>} is selectable or not.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item ret
+@samp{@code{#t}} if the actor is selectable
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-set-selection  (self@tie{}@code{<clutter-text>}) (start_pos@tie{}@code{ssize_t}) (end_pos@tie{}@code{ssize_t})
+@deffnx Method set-selection
+Selects the region of text between @var{start-pos} and @var{end-pos}.
+
+This function changes the position of the cursor to match
+@var{start-pos} and the selection bound to match @var{end-pos}.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item start-pos
+start of the selection, in characters
+
+@item end-pos
+end of the selection, in characters
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-get-selection  (self@tie{}@code{<clutter-text>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-selection
+Retrieves the currently selected text.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item ret
+a newly allocated string containing the currently selected text, or
+@samp{@code{#f}}. Use @code{g-free} to free the returned string.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-set-selection-bound  (self@tie{}@code{<clutter-text>}) (selection_bound@tie{}@code{int})
+@deffnx Method set-selection-bound
+Sets the other end of the selection, starting from the current cursor
+position.
+
+If @var{selection-bound} is -1, the selection unset.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item selection-bound
+the position of the end of the selection, in characters
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-get-selection-bound  (self@tie{}@code{<clutter-text>}) @result{}@tie{} (ret@tie{}@code{int})
+@deffnx Method get-selection-bound
+Retrieves the other end of the selection of a @code{<clutter-text>}
+actor, in characters from the current cursor position.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item ret
+the position of the other end of the selection
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-set-single-line-mode  (self@tie{}@code{<clutter-text>}) (single_line@tie{}@code{bool})
+@deffnx Method set-single-line-mode
+Sets whether a @code{<clutter-text>} actor should be in single line mode
+or not.
+
+A text actor in single line mode will not wrap text and will clip the
+the visible area to the predefined size. The contents of the text actor
+will scroll to display the end of the text if its length is bigger than
+the allocated width.
+
+When setting the single line mode the @code{<"activatable">} property is
+also set as a side effect. Instead of entering a new line character, the
+text actor will emit the @code{<"activate">} signal.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item single-line
+whether to enable single line mode
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-get-single-line-mode  (self@tie{}@code{<clutter-text>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-single-line-mode
+Retrieves whether the @code{<clutter-text>} actor is in single line
+mode.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item ret
+@samp{@code{#t}} if the @code{<clutter-text>} actor is in single line
+mode
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-set-use-markup  (self@tie{}@code{<clutter-text>}) (setting@tie{}@code{bool})
+@deffnx Method set-use-markup
+Sets whether the contents of the @code{<clutter-text>} actor contains
+markup in Pango's text markup language.
+
+Setting @code{<"use-markup">} on an editable @code{<clutter-text>} will
+make the actor discard any markup.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item setting
+@samp{@code{#t}} if the text should be parsed for markup.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-get-use-markup  (self@tie{}@code{<clutter-text>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-use-markup
+Retrieves whether the contents of the @code{<clutter-text>} actor should
+be parsed for the Pango text markup.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item ret
+@samp{@code{#t}} if the contents will be parsed for markup
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-set-editable  (self@tie{}@code{<clutter-text>}) (editable@tie{}@code{bool})
+@deffnx Method set-editable
+Sets whether the @code{<clutter-text>} actor should be editable.
+
+An editable @code{<clutter-text>} with key focus set using
+@code{clutter-actor-grab-key-focus} or
+@code{clutter-stage-take-key-focus} will receive key events and will
+update its contents accordingly.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item editable
+whether the @code{<clutter-text>} should be editable
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-get-editable  (self@tie{}@code{<clutter-text>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-editable
+Retrieves whether a @code{<clutter-text>} is editable or not.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item ret
+@samp{@code{#t}} if the actor is editable
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-insert-text  (self@tie{}@code{<clutter-text>}) (text@tie{}@code{mchars}) (position@tie{}@code{ssize_t})
+@deffnx Method insert-text
+Inserts @var{text} into a @code{<clutter-actor>} at the given position.
+
+If @var{position} is a negative number, the text will be appended at the
+end of the current contents of the @code{<clutter-text>}.
+
+The position is expressed in characters, not in bytes.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item text
+the text to be inserted
+
+@item position
+the position of the insertion, or -1
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-insert-unichar  (self@tie{}@code{<clutter-text>}) (wc@tie{}@code{unsigned-int32})
+@deffnx Method insert-unichar
+Inserts @var{wc} at the current cursor position of a
+@code{<clutter-text>} actor.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item wc
+a Unicode character
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-delete-chars  (self@tie{}@code{<clutter-text>}) (n_chars@tie{}@code{unsigned-int})
+@deffnx Method delete-chars
+Deletes @var{n-chars} inside a @code{<clutter-text>} actor, starting
+from the current cursor position.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item n-chars
+the number of characters to delete
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-delete-text  (self@tie{}@code{<clutter-text>}) (start_pos@tie{}@code{ssize_t}) (end_pos@tie{}@code{ssize_t})
+@deffnx Method delete-text
+Deletes the text inside a @code{<clutter-text>} actor between
+@var{start-pos} and @var{end-pos}.
+
+The starting and ending positions are expressed in characters, not in
+bytes.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item start-pos
+starting position
+
+@item end-pos
+ending position
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-delete-selection  (self@tie{}@code{<clutter-text>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method delete-selection
+Deletes the currently selected text
+
+This function is only useful in subclasses of @code{<clutter-text>}
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item ret
+@samp{@code{#t}} if text was deleted or if the text actor is empty, and
+@samp{@code{#f}} otherwise
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-get-chars  (self@tie{}@code{<clutter-text>}) (start_pos@tie{}@code{ssize_t}) (end_pos@tie{}@code{ssize_t}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-chars
+Retrieves the contents of the @code{<clutter-text>} actor between
+@var{start-pos} and @var{end-pos}.
+
+The positions are specified in characters, not in bytes.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item start-pos
+start of text, in characters
+
+@item end-pos
+end of text, in characters
+
+@item ret
+a newly allocated string with the contents of the text actor between the
+specified positions. Use @code{g-free} to free the resources when done
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-set-cursor-color  (self@tie{}@code{<clutter-text>}) (color@tie{}@code{<clutter-color>})
+@deffnx Method set-cursor-color
+Sets the color of the cursor of a @code{<clutter-text>} actor.
+
+If @var{color} is @samp{@code{#f}}, the cursor color will be the same as
+the text color.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item color
+the color of the cursor, or @samp{@code{#f}} to unset it
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-get-cursor-color  (self@tie{}@code{<clutter-text>}) (color@tie{}@code{<clutter-color>})
+@deffnx Method get-cursor-color
+Retrieves the color of the cursor of a @code{<clutter-text>} actor.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item color
+return location for a @code{<clutter-color>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-set-selection-color  (self@tie{}@code{<clutter-text>}) (color@tie{}@code{<clutter-color>})
+@deffnx Method set-selection-color
+Sets the color of the selection of a @code{<clutter-text>} actor.
+
+If @var{color} is @samp{@code{#f}}, the selection color will be the same
+as the cursor color, or if no cursor color is set either then it will be
+the same as the text color.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item color
+the color of the selection, or @samp{@code{#f}} to unset it
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-get-selection-color  (self@tie{}@code{<clutter-text>}) (color@tie{}@code{<clutter-color>})
+@deffnx Method get-selection-color
+Retrieves the color of the selection of a @code{<clutter-text>} actor.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item color
+return location for a @code{<clutter-color>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-set-cursor-position  (self@tie{}@code{<clutter-text>}) (position@tie{}@code{int})
+@deffnx Method set-cursor-position
+Sets the cursor of a @code{<clutter-text>} actor at @var{position}.
+
+The position is expressed in characters, not in bytes.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item position
+the new cursor position, in characters
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-get-cursor-position  (self@tie{}@code{<clutter-text>}) @result{}@tie{} (ret@tie{}@code{int})
+@deffnx Method get-cursor-position
+Retrieves the cursor position.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item ret
+the cursor position, in characters
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-set-cursor-visible  (self@tie{}@code{<clutter-text>}) (cursor_visible@tie{}@code{bool})
+@deffnx Method set-cursor-visible
+Sets whether the cursor of a @code{<clutter-text>} actor should be
+visible or not.
+
+The color of the cursor will be the same as the text color unless
+@code{clutter-text-set-cursor-color} has been called.
+
+The size of the cursor can be set using
+@code{clutter-text-set-cursor-size}.
+
+The position of the cursor can be changed programmatically using
+@code{clutter-text-set-cursor-position}.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item cursor-visible
+whether the cursor should be visible
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-get-cursor-visible  (self@tie{}@code{<clutter-text>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-cursor-visible
+Retrieves whether the cursor of a @code{<clutter-text>} actor is
+visible.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item ret
+@samp{@code{#t}} if the cursor is visible
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-set-cursor-size  (self@tie{}@code{<clutter-text>}) (size@tie{}@code{int})
+@deffnx Method set-cursor-size
+Sets the size of the cursor of a @code{<clutter-text>}. The cursor will
+only be visible if the @code{<"cursor-visible">} property is set to
+@samp{@code{#t}}.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item size
+the size of the cursor, in pixels, or -1 to use the default value
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-get-cursor-size  (self@tie{}@code{<clutter-text>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+@deffnx Method get-cursor-size
+Retrieves the size of the cursor of a @code{<clutter-text>} actor.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item ret
+the size of the cursor, in pixels
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-activate  (self@tie{}@code{<clutter-text>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method activate
+Emits the @code{<"activate">} signal, if @var{self} has been set as
+activatable using @code{clutter-text-set-activatable}.
+
+This function can be used to emit the ::activate signal inside a
+@code{<"captured-event">} or @code{<"key-press-event">} signal handlers
+before the default signal handler for the @code{<clutter-text>} is
+invoked.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item ret
+@samp{@code{#t}} if the ::activate signal has been emitted, and
+@samp{@code{#f}} otherwise
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-position-to-coords  (self@tie{}@code{<clutter-text>}) (position@tie{}@code{int}) @result{}@tie{} (ret@tie{}@code{bool}) (x@tie{}@code{float}) (y@tie{}@code{float}) (line_height@tie{}@code{float})
+@deffnx Method position-to-coords
+Retrieves the coordinates of the given @var{position}.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item position
+position in characters
+
+@item x
+return location for the X coordinate, or @samp{@code{#f}}
+
+@item y
+return location for the Y coordinate, or @samp{@code{#f}}
+
+@item line-height
+return location for the line height, or @samp{@code{#f}}
+
+@item ret
+@samp{@code{#t}} if the conversion was successful
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-text-set-preedit-string  (self@tie{}@code{<clutter-text>}) (preedit_str@tie{}@code{mchars}) (preedit_attr@tie{}@code{<pango-attr-list>}) (cursor_position@tie{}@code{unsigned-int})
+@deffnx Method set-preedit-string
+Sets, or unsets, the pre-edit string. This function is useful for input
+methods to display a string (with eventual specific Pango attributes)
+before it is entered inside the @code{<clutter-text>} buffer.
+
+The preedit string and attributes are ignored if the
+@code{<clutter-text>} actor is not editable.
+
+This function should not be used by applications
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item preedit-str
+the pre-edit string, or @samp{@code{#f}} to unset it.
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+
+@c %end of fragment

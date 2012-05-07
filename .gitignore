@@ -31,3 +31,7 @@ autom4te.cache/
 /clutter/gnome/gw/clutter-glx.scm
 /clutter/gnome/gw/clutter.scm
 /libtool
+/doc/clutter/guile-gnome-clutter.info
+/doc/clutter/guile-gnome-clutter.info-1
+/doc/clutter/guile-gnome-clutter.info-2
+/doc/clutter/version.texi

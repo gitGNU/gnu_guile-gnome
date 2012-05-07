@@ -1,36 +1,10 @@
 
 @c %start of fragment
 
-@deftp Class <clutter-behaviour>
-Derives from @code{<gobject>}.
-
-This class defines the following slots:
-
-@table @code
-@item alpha
-Alpha Object to drive the behaviour
-
-@end table
-
-@end deftp
-
-@defop Signal <clutter-behaviour> applied  (arg0@tie{}@code{<clutter-actor>})
-The ::apply signal is emitted each time the behaviour is applied to an actor.
-
-Since 0.4
-
-@end defop
-
-@defop Signal <clutter-behaviour> removed  (arg0@tie{}@code{<clutter-actor>})
-The ::removed signal is emitted each time a behaviour is not applied to an actor
-anymore.
-
-@end defop
-
 @deffn Function clutter-behaviour-apply  (self@tie{}@code{<clutter-behaviour>}) (actor@tie{}@code{<clutter-actor>})
 @deffnx Method apply
-Applies @var{behave} to @var{actor}. This function adds a reference on the
-actor.
+Applies @var{behave} to @var{actor}. This function adds a reference on
+the actor.
 
 @table @var
 @item behave
@@ -99,18 +73,18 @@ Since 0.4
 
 @deffn Function clutter-behaviour-get-actors  (self@tie{}@code{<clutter-behaviour>}) @result{}@tie{} (ret@tie{}@code{gslist-of})
 @deffnx Method get-actors
-Retrieves all the actors to which @var{behave} applies. It is not recommended
-for derived classes to use this in there alpha notify method but use
-@code{<clutter-behaviour-actors-foreach>} as it avoids alot of needless
-allocations.
+Retrieves all the actors to which @var{behave} applies. It is not
+recommended for derived classes to use this in there alpha notify method
+but use @code{<clutter-behaviour-actors-foreach>} as it avoids alot of
+needless allocations.
 
 @table @var
 @item behave
 a @code{<clutter-behaviour>}
 
 @item ret
-a list of actors. You should free the returned list with @code{g-slist-free}
-when finished using it.
+a list of actors. You should free the returned list with
+@code{g-slist-free} when finished using it.
 
 @end table
 
@@ -164,8 +138,8 @@ Retrieves the @code{<clutter-alpha>} object bound to @var{behave}.
 a @code{<clutter-behaviour>}
 
 @item ret
-a @code{<clutter-alpha>} object, or @samp{@code{#f}} if no alpha object has been
-bound to this behaviour.
+a @code{<clutter-alpha>} object, or @samp{@code{#f}} if no alpha object
+has been bound to this behaviour.
 
 @end table
 
@@ -175,18 +149,23 @@ Since 0.2
 
 @deffn Function clutter-behaviour-set-alpha  (self@tie{}@code{<clutter-behaviour>}) (alpha@tie{}@code{<clutter-alpha>})
 @deffnx Method set-alpha
-Binds @var{alpha} to a @code{<clutter-behaviour>}. The @code{<clutter-alpha>}
-object is what makes a behaviour work: for each tick of the timeline used by
-@code{<clutter-alpha>} a new value of the alpha parameter is computed by the
-alpha function; the value should be used by the @code{<clutter-behaviour>} to
-update one or more properties of the actors to which the behaviour applies.
+Binds @var{alpha} to a @code{<clutter-behaviour>}. The
+@code{<clutter-alpha>} object is what makes a behaviour work: for each
+tick of the timeline used by @code{<clutter-alpha>} a new value of the
+alpha parameter is computed by the alpha function; the value should be
+used by the @code{<clutter-behaviour>} to update one or more properties
+of the actors to which the behaviour applies.
+
+If @var{alpha} is not @samp{@code{#f}}, the @code{<clutter-behaviour>}
+will take ownership of the @code{<clutter-alpha>} instance.
 
 @table @var
 @item behave
 a @code{<clutter-behaviour>}
 
 @item alpha
-a @code{<clutter-alpha>} or @samp{@code{#f}} to unset a previously set alpha
+a @code{<clutter-alpha>} or @samp{@code{#f}} to unset a previously set
+alpha
 
 @end table
 

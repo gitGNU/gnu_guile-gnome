@@ -6,53 +6,8 @@
 A class for time-based events
 
 @section Overview
-@code{<clutter-timeline>} is a base class for managing time based events such as
-animations.
-
-Every timeline shares the same @code{<clutter-timeout-pool>} to decrease the
-possibility of starving the main loop when using many timelines at the same
-time; this might cause problems if you are also using a library making heavy use
-of threads with no GLib main loop integration.
-
-In that case you might disable the common timeline pool by setting the
-@samp{CLUTTER_TIMELINE}=no-pool environment variable prior to launching your
-application.
-
-One way to visualise a timeline is as a path with marks along its length. When
-creating a timeline of @var{n-frames} via @code{clutter-timeline-new}, then the
-number of frames can be seen as the paths length, and each unit of length (each
-frame) is delimited by a mark.
-
-For a non looping timeline there will be (n_frames + 1) marks along its length.
-For a looping timeline, the two ends are joined with one mark. Technically this
-mark represents two discrete frame numbers, but for a looping timeline the start
-and end frame numbers are considered equivalent.
-
-When you create a timeline it starts with
-@code{clutter-timeline-get-current-frame} == 0.
-
-After starting a timeline, the first timeout is for current_frame_num == 1
-(Notably it isn't 0 since there is a delay before the first timeout signals so
-re-asserting the starting frame (0) wouldn't make sense.) Notably, this implies
-that actors you intend to be affected by the timeline's progress, should be
-manually primed/positioned for frame 0 which will be displayed before the first
-timeout. (If you are not careful about this point you will likely see flashes of
-incorrect actor state in your program)
-
-For a non looping timeline the last timeout would be for current_frame_num ==
-@var{n-frames}
-
-For a looping timeline the timeout for current_frame_num == @var{n-frames} would
-be followed by a timeout for current_frame_num == 1 (remember frame 0 is
-considered == frame (@var{n-frames})).
-
-There may be times when a system is not able to meet the frame rate requested
-for a timeline, and in this case the frame number will be interpolated at the
-next timeout event. The interpolation is calculated from the time that the
-timeline was started, not from the time of the last timeout, so a given timeline
-should basically elapse in the same - real world - time on any given system. An
-invariable here though is that current_frame_num == @var{n-frames} will always
-be signaled, but notably frame 1 can be interpolated past and so never signaled.
+@code{<clutter-timeline>} is a base class for managing time based events
+such as animations.
 
 @section Usage
 @include defuns-clutter-timeline.xml.texi

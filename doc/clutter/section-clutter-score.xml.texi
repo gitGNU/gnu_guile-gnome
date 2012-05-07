@@ -6,16 +6,16 @@
 Controller for multiple timelines
 
 @section Overview
-@code{<clutter-score>} is a base class for sequencing multiple timelines in
-order. Using @code{<clutter-score>} it is possible to start multiple timelines
-at the same time or launch multiple timelines when a particular timeline has
-emitted the ClutterTimeline::completed signal.
+@code{<clutter-score>} is a base class for sequencing multiple timelines
+in order. Using @code{<clutter-score>} it is possible to start multiple
+timelines at the same time or launch multiple timelines when a
+particular timeline has emitted the ClutterTimeline::completed signal.
 
-Each time a @code{<clutter-timeline>} is started and completed, a signal will be
-emitted.
+Each time a @code{<clutter-timeline>} is started and completed, a signal
+will be emitted.
 
-For example, this code will start two @code{<clutter-timeline>}s after a third
-timeline terminates:
+For example, this code will start two @code{<clutter-timeline>}s after a
+third timeline terminates:
 
 @example 
 
@@ -32,17 +32,18 @@ timeline terminates:
   clutter_score_append (score, timeline_1, timeline_2);
   clutter_score_append (score, timeline_1, timeline_3);
 
-  clutter_score_start ();
+  clutter_score_start (score);
 @end example
 
-A @code{<clutter-score>} takes a reference on the timelines it manages, so
-timelines can be safely unreferenced after being appended.
+A @code{<clutter-score>} takes a reference on the timelines it manages,
+so timelines can be safely unreferenced after being appended.
 
 New timelines can be appended to the @code{<clutter-score>} using
-@code{clutter-score-append} and removed using @code{clutter-score-remove}.
+@code{clutter-score-append} and removed using
+@code{clutter-score-remove}.
 
-Timelines can also be appended to a specific marker on the parent timeline,
-using @code{clutter-score-append-at-marker}.
+Timelines can also be appended to a specific marker on the parent
+timeline, using @code{clutter-score-append-at-marker}.
 
 The score can be cleared using @code{clutter-score-remove-all}.
 

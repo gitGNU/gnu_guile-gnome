@@ -6,13 +6,10 @@
 List model implementation
 
 @section Overview
-@code{<clutter-list-model>} is a @code{<clutter-model>} implementation provided
-by Clutter. @code{<clutter-list-model>} uses a @code{<g-sequence>} for storing
-the values for each row, so it's optimized for insertion and look up in sorted
-lists.
-
-@code{<clutter-list-model>} is a terminal class: it cannot be subclassed, only
-instantiated.
+@code{<clutter-list-model>} is a @code{<clutter-model>} implementation
+provided by Clutter. @code{<clutter-list-model>} uses a
+@code{<g-sequence>} for storing the values for each row, so it's
+optimized for insertion and look up in sorted lists.
 
 @code{<clutter-list-model>} is available since Clutter 0.6
 

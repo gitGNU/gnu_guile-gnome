@@ -1,35 +1,213 @@
 
 @c %start of fragment
 
-@deffn Function clutter-value-set-unit  (value@tie{}@code{<gvalue>}) (units@tie{}@code{<clutter-unit>})
-Sets @var{value} to @var{units}
+@deffn Function clutter-units-from-mm  (mm@tie{}@code{float}) @result{}@tie{} (ret@tie{}@code{<clutter-units>})
+Stores a value in millimiters inside @var{units}
 
 @table @var
-@item value
-a @code{<gvalue>} initialized to @code{<clutter-type-unit>}
-
 @item units
-the units to set
+a @code{<clutter-units>}
+
+@item mm
+millimeters
 
 @end table
 
-Since 0.8
+Since 1.0
 
 @end deffn
 
-@deffn Function clutter-value-get-unit  (value@tie{}@code{<gvalue>}) @result{}@tie{} (ret@tie{}@code{<clutter-unit>})
-Gets the @code{<clutter-unit>}s contained in @var{value}.
+@deffn Function clutter-units-from-pt  (pt@tie{}@code{float}) @result{}@tie{} (ret@tie{}@code{<clutter-units>})
+Stores a value in typographic points inside @var{units}
 
 @table @var
-@item value
-a @code{<gvalue>} initialized to @code{<clutter-type-unit>}
+@item units
+a @code{<clutter-units>}
 
-@item ret
-the units inside the passed @code{<gvalue>}
+@item pt
+typographic points
 
 @end table
 
-Since 0.8
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-units-from-em  (em@tie{}@code{float}) @result{}@tie{} (ret@tie{}@code{<clutter-units>})
+Stores a value in em inside @var{units}, using the default font name as
+returned by @code{clutter-backend-get-font-name}
+
+@table @var
+@item units
+a @code{<clutter-units>}
+
+@item em
+em
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-units-from-em-for-font  (font_name@tie{}@code{mchars}) (em@tie{}@code{float}) @result{}@tie{} (ret@tie{}@code{<clutter-units>})
+Stores a value in em inside @var{units} using @var{font-name}
+
+@table @var
+@item units
+a @code{<clutter-units>}
+
+@item font-name
+the font name and size
+
+@item em
+em
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-units-from-pixels  (px@tie{}@code{int}) @result{}@tie{} (ret@tie{}@code{<clutter-units>})
+Stores a value in pixels inside @var{units}
+
+@table @var
+@item units
+a @code{<clutter-units>}
+
+@item px
+pixels
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-units-to-pixels  (self@tie{}@code{<clutter-units>}) @result{}@tie{} (ret@tie{}@code{float})
+Converts a value in @code{<clutter-units>} to pixels
+
+@table @var
+@item units
+units to convert
+
+@item ret
+the value in pixels
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-units-get-unit-type  (self@tie{}@code{<clutter-units>}) @result{}@tie{} (ret@tie{}@code{<clutter-unit-type>})
+Retrieves the unit type of the value stored inside @var{units}
+
+@table @var
+@item units
+a @code{<clutter-units>}
+
+@item ret
+a unit type
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-units-get-unit-value  (self@tie{}@code{<clutter-units>}) @result{}@tie{} (ret@tie{}@code{float})
+Retrieves the value stored inside @var{units}
+
+@table @var
+@item units
+a @code{<clutter-units>}
+
+@item ret
+the value stored inside a @code{<clutter-units>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-units-from-string  (str@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<clutter-units>})
+Parses a value and updates @var{units} with it
+
+A @code{<clutter-units>} expressed in string should match:
+
+@example 
+
+  number: [0-9]
+  unit_value: <number>+
+  unit_name: px|pt|mm|em
+  units: <unit_value> <unit_name>
+@end example
+
+For instance, these are valid strings:
+
+@example 
+
+  10 px
+  5.1 em
+  24 pt
+  12.6 mm
+@end example
+
+While these are not:
+
+@example 
+
+  42 cats
+  omg!1!ponies
+@end example
+
+@cartouche 
+If no unit is specified, pixels are assumed.
+@end cartouche
+
+@table @var
+@item units
+a @code{<clutter-units>}
+
+@item str
+the string to convert
+
+@item ret
+@samp{@code{#t}} if the string was successfully parsed, and
+@samp{@code{#f}} otherwise
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-units-to-string  (self@tie{}@code{<clutter-units>}) @result{}@tie{} (ret@tie{}@code{mchars})
+Converts @var{units} into a string
+
+See @code{clutter-units-from-string} for the units syntax and for
+examples of output
+
+@cartouche 
+Fractional values are truncated to the second decimal
+position for em and mm, and to the first decimal position for
+typographic points. Pixels are integers.
+@end cartouche
+
+@table @var
+@item units
+a @code{<clutter-units>}
+
+@item ret
+a newly allocated string containing the encoded @code{<clutter-units>}
+value. Use @code{g-free} to free the string
+
+@end table
+
+Since 1.0
 
 @end deffn
 

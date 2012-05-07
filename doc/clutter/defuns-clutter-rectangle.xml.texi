@@ -1,28 +1,6 @@
 
 @c %start of fragment
 
-@deftp Class <clutter-rectangle>
-Derives from @code{<clutter-actor>}.
-
-This class defines the following slots:
-
-@table @code
-@item color
-The color of the rectangle
-
-@item border-color
-The color of the border of the rectangle
-
-@item border-width
-The width of the border of the rectangle
-
-@item has-border
-Whether the rectangle should have a border
-
-@end table
-
-@end deftp
-
 @deffn Function clutter-rectangle-new  @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
 Creates a new @code{<clutter-actor>} with a rectangular shape.
 
@@ -35,8 +13,8 @@ a new @code{<clutter-actor>}
 @end deffn
 
 @deffn Function clutter-rectangle-new-with-color  (color@tie{}@code{<clutter-color>}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
-Creates a new @code{<clutter-actor>} with a rectangular shape and of the given
-@var{color}.
+Creates a new @code{<clutter-actor>} with a rectangular shape and of the
+given @var{color}.
 
 @table @var
 @item color
@@ -131,8 +109,8 @@ Since 0.2
 
 @deffn Function clutter-rectangle-set-border-width  (self@tie{}@code{<clutter-rectangle>}) (width@tie{}@code{unsigned-int})
 @deffnx Method set-border-width
-Sets the width (in pixel) of the border used by @var{rectangle}. A @var{width}
-of 0 will unset the border.
+Sets the width (in pixel) of the border used by @var{rectangle}. A
+@var{width} of 0 will unset the border.
 
 @table @var
 @item rectangle

@@ -1,49 +1,13 @@
 
 @c %start of fragment
 
-@deftp Class <clutter-behaviour-ellipse>
-Derives from @code{<clutter-behaviour>}.
-
-This class defines the following slots:
-
-@table @code
-@item center
-Center of ellipse
-
-@item width
-Width of ellipse
-
-@item height
-Height of ellipse
-
-@item angle-start
-Initial angle
-
-@item angle-end
-Final angle
-
-@item angle-tilt-x
-Tilt of the ellipse around x axis
-
-@item angle-tilt-y
-Tilt of the ellipse around y axis
-
-@item angle-tilt-z
-Tilt of the ellipse around z axis
-
-@item direction
-Direction of rotation
-
-@end table
-
-@end deftp
-
 @deffn Function clutter-behaviour-ellipse-new  (alpha@tie{}@code{<clutter-alpha>}) (x@tie{}@code{int}) (y@tie{}@code{int}) (width@tie{}@code{int}) (height@tie{}@code{int}) (direction@tie{}@code{<clutter-rotate-direction>}) (start@tie{}@code{double}) (end@tie{}@code{double}) @result{}@tie{} (ret@tie{}@code{<clutter-behaviour>})
-Creates a behaviour that drives actors along an elliptical path with given
-center, width and height; the movement starts at @var{angle-start} degrees (with
-0 corresponding to 12 o'clock) and ends at @var{angle-end} degrees. Angles >=
-360 degrees get clamped to the canonical interval <0, 360), if start == end, the
-behaviour will rotate by exacly 360 degrees.
+Creates a behaviour that drives actors along an elliptical path with
+given center, width and height; the movement starts at @var{start}
+degrees (with 0 corresponding to 12 o'clock) and ends at @var{end}
+degrees. Angles greated than 360 degrees get clamped to the canonical
+interval <0, 360); if @var{start} is equal to @var{end}, the behaviour
+will rotate by exacly 360 degrees.
 
 @table @var
 @item alpha
@@ -115,7 +79,8 @@ Since 0.4
 
 @deffn Function clutter-behaviour-ellipse-set-tilt  (self@tie{}@code{<clutter-behaviour-ellipse>}) (angle_tilt_x@tie{}@code{double}) (angle_tilt_y@tie{}@code{double}) (angle_tilt_z@tie{}@code{double})
 @deffnx Method set-tilt
-Sets the angles at which the ellipse should be tilted around it's center.
+Sets the angles at which the ellipse should be tilted around it's
+center.
 
 @table @var
 @item self

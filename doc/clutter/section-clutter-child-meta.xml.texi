@@ -7,8 +7,8 @@ Wrapper for actors inside a container
 
 @section Overview
 @code{<clutter-child-meta>} is a wrapper object created by
-@code{<clutter-container>} implementations in order to store child-specific data
-and properties.
+@code{<clutter-container>} implementations in order to store
+child-specific data and properties.
 
 A @code{<clutter-child-meta>} wraps a @code{<clutter-actor>} inside a
 @code{<clutter-container>}.

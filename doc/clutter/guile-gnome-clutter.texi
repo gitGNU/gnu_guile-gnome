@@ -10,7 +10,9 @@
 This manual is for @code{(gnome clutter)} (version @value{VERSION}, updated
 @value{UPDATED})
 
-Copyright 2008 OpenedHand LTD
+Copyright 2006,2007,2008 OpenedHand LTD
+
+Copyright 2009 Intel Corporation
 
 @quotation 
 Permission is granted to copy, distribute and/or modify this document
@@ -53,9 +55,10 @@ USA
 * Overview::               About Clutter and its Guile bindings.
 
 * ClutterActor:: Base abstract class for all visual stage actors.
+* ClutterAnimatable:: Interface for animatable classes.
+* Implicit Animations:: Simple implicit animations.
 * ClutterAlpha:: A class for calculating an alpha value as a function of time.
 * ClutterBackend:: Backend abstraction
-* ClutterBehaviourBspline:: A behaviour interpolating position along a B-Spline
 * ClutterBehaviourDepth:: A behaviour controlling the Z position
 * ClutterBehaviourEllipse:: A behaviour interpolating position along an ellipse
 * ClutterBehaviourOpacity:: Behaviour controlling the opacity
@@ -63,28 +66,29 @@ USA
 * ClutterBehaviourRotate:: A behaviour controlling rotation
 * ClutterBehaviourScale:: A behaviour controlling scale
 * ClutterBehaviour:: Class for providing behaviours to actors
+* Key Bindings:: Pool for key bindings.
 * ClutterChildMeta:: Wrapper for actors inside a container
-* ClutterCloneTexture:: Actor for cloning existing textures in an efficient way.
+* ClutterCairoTexture:: Texture with Cairo integration.
+* ClutterClone:: An actor that displays a clone of a source actor.
 * Colors:: Color management and manipulation.
 * ClutterContainer:: An interface for implementing container actors
-* Clutter Effects:: Utility Class for basic visual effects
-* ClutterEntry:: A single line text entry actor
 * Events:: User and window system events
 * GL Features:: Query GL features at runtime
-* Fixed Point Support:: Fixed Point API
 * ClutterGroup:: Actor class containing multiple children. actors.
-* ClutterLabel:: Actor for displaying text
+* Value intervals:: An object holding an interval of two values.
 * ClutterListModel:: List model implementation
 * General:: Various 'global' clutter functions.
 * ClutterMedia:: An interface for controlling playback of media data.
 * ClutterModelIter:: Iterates through a model
 * ClutterModel:: A generic model implementation
+* ClutterPath:: Paths with straight lines and bezier curves.
 * ClutterRectangle:: An actor that displays a simple rectangle.
 * ClutterScore:: Controller for multiple timelines
 * ClutterScriptable:: Override the UI definition parsing
 * ClutterScript:: Loads a scene from UI definition data
 * ClutterShader:: Programmable pipeline abstraction
 * ClutterStage:: Top level visual element to which actors are placed.
+* ClutterText:: An actor for displaying and editing text.
 * ClutterTexture:: An actor for displaying and manipulating images.
 * ClutterTimeline:: A class for time-based events
 * Unit conversion:: A logical distance unit.
@@ -108,8 +112,9 @@ USA
 
 @include section-clutter-actor.xml.texi
 @include section-clutter-alpha.xml.texi
+@include section-clutter-animatable.xml.texi
+@include section-clutter-animation.xml.texi
 @include section-clutter-backend.xml.texi
-@include section-clutter-behaviour-bspline.xml.texi
 @include section-clutter-behaviour-depth.xml.texi
 @include section-clutter-behaviour-ellipse.xml.texi
 @include section-clutter-behaviour-opacity.xml.texi
@@ -117,28 +122,29 @@ USA
 @include section-clutter-behaviour-rotate.xml.texi
 @include section-clutter-behaviour-scale.xml.texi
 @include section-clutter-behaviour.xml.texi
+@include section-clutter-binding-pool.xml.texi
 @include section-clutter-child-meta.xml.texi
-@include section-clutter-clone-texture.xml.texi
+@include section-clutter-cairo-texture.xml.texi
+@include section-clutter-clone.xml.texi
 @include section-clutter-color.xml.texi
 @include section-clutter-container.xml.texi
-@include section-clutter-effect.xml.texi
-@include section-clutter-entry.xml.texi
 @include section-clutter-event.xml.texi
 @include section-clutter-feature.xml.texi
-@include section-clutter-fixed.xml.texi
 @include section-clutter-group.xml.texi
-@include section-clutter-label.xml.texi
+@include section-clutter-interval.xml.texi
 @include section-clutter-list-model.xml.texi
 @include section-clutter-main.xml.texi
 @include section-clutter-media.xml.texi
 @include section-clutter-model-iter.xml.texi
 @include section-clutter-model.xml.texi
+@include section-clutter-path.xml.texi
 @include section-clutter-rectangle.xml.texi
 @include section-clutter-score.xml.texi
 @include section-clutter-scriptable.xml.texi
 @include section-clutter-script.xml.texi
 @include section-clutter-shader.xml.texi
 @include section-clutter-stage.xml.texi
+@include section-clutter-text.xml.texi
 @include section-clutter-texture.xml.texi
 @include section-clutter-timeline.xml.texi
 @include section-clutter-units.xml.texi

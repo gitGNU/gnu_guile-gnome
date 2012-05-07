@@ -1,0 +1,59 @@
+
+@c %start of fragment
+
+@node Implicit Animations
+@chapter Implicit Animations
+Simple implicit animations
+
+@section Overview
+@code{<clutter-animation>} is an object providing simple, implicit
+animations for @code{<gobject>}s.
+
+@code{<clutter-animation>} instances will bind one or more
+@code{<gobject>} properties belonging to a @code{<gobject>} to a
+@code{<clutter-interval>}, and will then use a @code{<clutter-alpha>} to
+interpolate the property between the initial and final values of the
+interval.
+
+The duration of the animation is set using
+@code{clutter-animation-set-duration}. The easing mode of the animation
+is set using @code{clutter-animation-set-mode}.
+
+If you want to control the animation you should retrieve the
+@code{<clutter-timeline>} using @code{clutter-animation-get-timeline}
+and then use @code{<clutter-timeline>} functions like
+@code{clutter-timeline-start}, @code{clutter-timeline-pause} or
+@code{clutter-timeline-stop}.
+
+A @code{<clutter-animation>} will emit the @code{<"completed">} signal
+when the @code{<clutter-timeline>} used by the animation is completed;
+unlike @code{<clutter-timeline>}, though, the @code{<"completed">} will
+not be emitted if @code{<"loop">} is set to @samp{@code{#t}} - that is,
+a looping animation never completes.
+
+If your animation depends on user control you can force its completion
+using @code{clutter-animation-completed}.
+
+If the @code{<gobject>} instance bound to a @code{<clutter-animation>}
+implements the @code{<clutter-animatable>} interface it is possible for
+that instance to control the way the initial and final states are
+interpolated.
+
+@code{<clutter-animation>}s are distinguished from
+@code{<clutter-behaviour>}s because the former can only control
+@code{<gobject>} properties of a single @code{<gobject>} instance, while
+the latter can control multiple properties using accessor functions
+inside the @code{<"alpha-notify">} virtual function, and can control
+multiple @code{<clutter-actor>}s as well.
+
+For convenience, it is possible to use the @code{clutter-actor-animate}
+function call which will take care of setting up and tearing down a
+@code{<clutter-animation>} instance and animate an actor between its
+current state and the specified final state.
+
+@code{<clutter-animation>} is available since Clutter 1.0
+
+@section Usage
+@include defuns-clutter-animation.xml.texi
+
+@c %end of fragment

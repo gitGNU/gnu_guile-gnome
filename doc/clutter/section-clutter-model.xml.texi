@@ -9,8 +9,8 @@ A generic model implementation
 @code{<clutter-model>} is a generic list model API which can be used to
 implement the model-view-controller architectural pattern in Clutter.
 
-The @code{<clutter-model>} class is a list model which can accept most GObject
-types as a column type.
+The @code{<clutter-model>} class is a list model which can accept most
+GObject types as a column type.
 
 Creating a simple clutter model:
 
@@ -48,16 +48,16 @@ enum
 
 Iterating through the model consists of retrieving a new
 @code{<clutter-model-iter>} pointing to the starting row, and calling
-@code{clutter-model-iter-next} or @code{clutter-model-iter-prev} to move forward
-or backwards, repectively.
+@code{clutter-model-iter-next} or @code{clutter-model-iter-prev} to move
+forward or backwards, repectively.
 
-A valid @code{<clutter-model-iter>} represents the position between two rows in
-the model. For example, the "first" iterator represents the gap immediately
-before the first row, and the "last" iterator represents the gap immediately
-after the last row. In an empty sequence, the first and last iterators are the
-same.
+A valid @code{<clutter-model-iter>} represents the position between two
+rows in the model. For example, the "first" iterator represents the gap
+immediately before the first row, and the "last" iterator represents the
+gap immediately after the last row. In an empty sequence, the first and
+last iterators are the same.
 
-Iterating a @code{<"">}
+Iterating a @code{<clutter-model>}:
 
 @example 
 
@@ -90,9 +90,9 @@ enum
 @}
 @end example
 
-@code{<clutter-model>} is an abstract class. Clutter provides a default model
-implementation called @code{<clutter-model-default>} which has been optimised
-for insertion and look up in sorted lists.
+@code{<clutter-model>} is an abstract class. Clutter provides a list
+model implementation called @code{<clutter-list-model>} which has been
+optimised for insertion and look up in sorted lists.
 
 @code{<clutter-model>} is available since Clutter 0.6
 

@@ -1,30 +1,14 @@
 
 @c %start of fragment
 
-@deftp Class <clutter-alpha>
-Derives from @code{<g-initially-unowned>}.
-
-This class defines the following slots:
-
-@table @code
-@item timeline
-Timeline
-
-@item alpha
-Alpha value
-
-@end table
-
-@end deftp
-
 @deffn Function clutter-alpha-new  @result{}@tie{} (ret@tie{}@code{<clutter-alpha>})
-Creates a new @code{<clutter-alpha>} instance. You must set a function to
-compute the alpha value using @code{clutter-alpha-set-func} and bind a
-@code{<clutter-timeline>} object to the @code{<clutter-alpha>} instance using
-@code{clutter-alpha-set-timeline}.
+Creates a new @code{<clutter-alpha>} instance. You must set a function
+to compute the alpha value using @code{clutter-alpha-set-func} and bind
+a @code{<clutter-timeline>} object to the @code{<clutter-alpha>}
+instance using @code{clutter-alpha-set-timeline}.
 
-You should use the newly created @code{<clutter-alpha>} instance inside a
-@code{<clutter-behaviour>} object.
+You should use the newly created @code{<clutter-alpha>} instance inside
+a @code{<clutter-behaviour>} object.
 
 @table @var
 @item ret
@@ -33,41 +17,6 @@ the newly created empty @code{<clutter-alpha>} instance.
 @end table
 
 Since 0.2
-
-@end deffn
-
-@deffn Function clutter-alpha-get-alpha  (self@tie{}@code{<clutter-alpha>}) @result{}@tie{} (ret@tie{}@code{unsigned-int32})
-@deffnx Method get-alpha
-Query the current alpha value.
-
-@table @var
-@item alpha
-A @code{<clutter-alpha>}
-
-@item ret
-The current alpha value for the alpha
-
-@end table
-
-Since 0.2
-
-@end deffn
-
-@deffn Function clutter-alpha-set-closure  (self@tie{}@code{<clutter-alpha>}) (closure@tie{}@code{<gclosure>})
-@deffnx Method set-closure
-Sets the @code{<gclosure>} used to compute the alpha value at each frame of the
-@code{<clutter-timeline>} bound to @var{alpha}.
-
-@table @var
-@item alpha
-A @code{<clutter-alpha>}
-
-@item closure
-A @code{<gclosure>}
-
-@end table
-
-Since 0.8
 
 @end deffn
 
@@ -97,11 +46,103 @@ Gets the @code{<clutter-timeline>} bound to @var{alpha}.
 A @code{<clutter-alpha>}
 
 @item ret
-a @code{<clutter-timeline>} instance
+a @code{<clutter-timeline>} instance.
 
 @end table
 
 Since 0.2
+
+@end deffn
+
+@deffn Function clutter-alpha-set-mode  (self@tie{}@code{<clutter-alpha>}) (mode@tie{}@code{<clutter-animation-mode>})
+@deffnx Method set-mode
+Sets the progress function of @var{alpha} using the symbolic value of
+@var{mode}, as taken by the @code{<clutter-animation-mode>} enumeration
+or using the value returned by @code{clutter-alpha-register-func}.
+
+@table @var
+@item alpha
+a @code{<clutter-alpha>}
+
+@item mode
+a @code{<clutter-animation-mode>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-alpha-get-mode  (self@tie{}@code{<clutter-alpha>}) @result{}@tie{} (ret@tie{}@code{<clutter-animation-mode>})
+@deffnx Method get-mode
+Retrieves the @code{<clutter-animation-mode>} used by @var{alpha}.
+
+@table @var
+@item alpha
+a @code{<clutter-alpha>}
+
+@item ret
+the animation mode
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-alpha-get-alpha  (self@tie{}@code{<clutter-alpha>}) @result{}@tie{} (ret@tie{}@code{double})
+@deffnx Method get-alpha
+Query the current alpha value.
+
+@table @var
+@item alpha
+A @code{<clutter-alpha>}
+
+@item ret
+The current alpha value for the alpha
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+@deffn Function clutter-alpha-set-closure  (self@tie{}@code{<clutter-alpha>}) (closure@tie{}@code{<gclosure>})
+@deffnx Method set-closure
+Sets the @code{<gclosure>} used to compute the alpha value at each frame
+of the @code{<clutter-timeline>} bound to @var{alpha}.
+
+@table @var
+@item alpha
+A @code{<clutter-alpha>}
+
+@item closure
+A @code{<gclosure>}
+
+@end table
+
+Since 0.8
+
+@end deffn
+
+@deffn Function clutter-alpha-register-closure  (closure@tie{}@code{<gclosure>}) @result{}@tie{} (ret@tie{}@code{unsigned-long})
+@code{<gclosure>} variant of @code{clutter-alpha-register-func}.
+
+Registers a global alpha function and returns its logical id to be used
+by @code{clutter-alpha-set-mode} or by @code{<clutter-animation>}.
+
+The logical id is always greater than @samp{CLUTTER_ANIMATION_LAST}.
+
+@table @var
+@item closure
+a @code{<gclosure>}
+
+@item ret
+the logical id of the alpha function
+
+@end table
+
+Since 1.0
 
 @end deffn
 

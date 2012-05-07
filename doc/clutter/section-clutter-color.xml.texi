@@ -6,7 +6,13 @@
 Color management and manipulation.
 
 @section Overview
-@code{<clutter-color>} is a simple type for representing colors.
+@code{<clutter-color>} is a simple type for representing colors in
+Clutter.
+
+A @code{<clutter-color>} is expressed as a 4-tuple of values ranging
+from zero to 255, one for each color channel plus one for the alpha.
+
+The alpha channel is fully opaque at 255 and fully transparent at 0.
 
 @section Usage
 @include defuns-clutter-color.xml.texi

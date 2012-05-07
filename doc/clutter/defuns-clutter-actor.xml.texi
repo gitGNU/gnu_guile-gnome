@@ -1,306 +1,71 @@
 
 @c %start of fragment
 
-@deftp Class <clutter-actor-box>
-Derives from @code{<gboxed>}.
+@deffn Function clutter-actor-set-flags  (self@tie{}@code{<clutter-actor>}) (flags@tie{}@code{<clutter-actor-flags>})
+@deffnx Method set-flags
+Sets @var{flags} on @var{self}
 
-This class defines no direct slots.
+This function will emit notifications for the changed properties
 
-@end deftp
+@table @var
+@item self
+a @code{<clutter-actor>}
 
-@deftp Class <clutter-geometry>
-Derives from @code{<gboxed>}.
-
-This class defines no direct slots.
-
-@end deftp
-
-@deftp Class <clutter-actor>
-Derives from @code{<clutter-scriptable>}, @code{<g-initially-unowned>}.
-
-This class defines the following slots:
-
-@table @code
-@item name
-Name of the actor
-
-@item x
-X coordinate of the actor
-
-@item y
-Y coordinate of the actor
-
-@item width
-Width of the actor
-
-@item height
-Height of the actor
-
-@item fixed-x
-Forced X position of the actor
-
-@item fixed-y
-Forced Y position of the actor
-
-@item fixed-position-set
-Whether to use fixed positioning for the actor
-
-@item min-width
-Forced minimum width request for the actor
-
-@item min-width-set
-Whether to use the min-width property
-
-@item min-height
-Forced minimum height request for the actor
-
-@item min-height-set
-Whether to use the min-height property
-
-@item natural-width
-Forced natural width request for the actor
-
-@item natural-width-set
-Whether to use the natural-width property
-
-@item natural-height
-Forced natural height request for the actor
-
-@item natural-height-set
-Whether to use the natural-height property
-
-@item request-mode
-The actor's request mode
-
-@item allocation
-The actor's allocation
-
-@item depth
-Depth of actor
-
-@item clip
-The clip region for the actor
-
-@item has-clip
-Whether the actor has a clip set or not
-
-@item opacity
-Opacity of actor
-
-@item visible
-Whether the actor is visible or not
-
-@item reactive
-Whether the actor is reactive to events or not
-
-@item scale-x
-Scale factor on the X axis
-
-@item scale-y
-Scale factor on the Y axis
-
-@item rotation-angle-x
-The rotation angle on the X axis
-
-@item rotation-angle-y
-The rotation angle on the Y axis
-
-@item rotation-angle-z
-The rotation angle on the Z axis
-
-@item rotation-center-x
-The rotation center on the X axis
-
-@item rotation-center-y
-The rotation center on the Y axis
-
-@item rotation-center-z
-The rotation center on the Z axis
-
-@item anchor-x
-X coordinate of the anchor point
-
-@item anchor-y
-Y coordinate of the anchor point
-
-@item show-on-set-parent
-Whether the actor is shown when parented
+@item flags
+the flags to set
 
 @end table
 
-@end deftp
+Since 1.0
 
-@defop Signal <clutter-actor> destroy 
-The ::destroy signal is emitted when an actor is destroyed, either by direct
-invocation of @code{clutter-actor-destroy} or when the @code{<clutter-group>}
-that contains the actor is destroyed.
+@end deffn
 
-Since 0.2
+@deffn Function clutter-actor-unset-flags  (self@tie{}@code{<clutter-actor>}) (flags@tie{}@code{<clutter-actor-flags>})
+@deffnx Method unset-flags
+Unsets @var{flags} on @var{self}
 
-@end defop
+This function will emit notifications for the changed properties
 
-@defop Signal <clutter-actor> show 
-The ::show signal is emitted when an actor is visible and rendered on the stage.
+@table @var
+@item self
+a @code{<clutter-actor>}
 
-Since 0.2
+@item flags
+the flags to unset
 
-@end defop
+@end table
 
-@defop Signal <clutter-actor> hide 
-The ::hide signal is emitted when an actor is no longer rendered on the stage.
+Since 1.0
 
-Since 0.2
+@end deffn
 
-@end defop
+@deffn Function clutter-actor-get-flags  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-actor-flags>})
+@deffnx Method get-flags
+Retrieves the flags set on @var{self}
 
-@defop Signal <clutter-actor> parent-set  (arg0@tie{}@code{<clutter-actor>})
-This signal is emitted when the parent of the actor changes.
+@table @var
+@item self
+a @code{<clutter-actor>}
 
-Since 0.2
+@item ret
+a bitwise or of @code{<clutter-actor-flags>} or 0
 
-@end defop
+@end table
 
-@defop Signal <clutter-actor> event  (arg0@tie{}@code{<clutter-event>}) @result{}@tie{}@code{<gboolean>}
-The ::event signal is emitted each time an event is received by the @var{actor}.
-This signal will be emitted on every actor, following the hierarchy chain, until
-it reaches the top-level container (the @code{<clutter-stage>}).
+Since 1.0
 
-Since 0.6
-
-@end defop
-
-@defop Signal <clutter-actor> button-press-event  (arg0@tie{}@code{<clutter-event>}) @result{}@tie{}@code{<gboolean>}
-The ::button-press-event signal is emitted each time a mouse button is pressed
-on @var{actor}.
-
-Since 0.6
-
-@end defop
-
-@defop Signal <clutter-actor> button-release-event  (arg0@tie{}@code{<clutter-event>}) @result{}@tie{}@code{<gboolean>}
-The ::button-release-event signal is emitted each time a mouse button is
-released on @var{actor}.
-
-Since 0.6
-
-@end defop
-
-@defop Signal <clutter-actor> scroll-event  (arg0@tie{}@code{<clutter-event>}) @result{}@tie{}@code{<gboolean>}
-The ::scroll-event signal is emitted each time the mouse is scrolled on
-@var{actor}
-
-Since 0.6
-
-@end defop
-
-@defop Signal <clutter-actor> key-press-event  (arg0@tie{}@code{<clutter-event>}) @result{}@tie{}@code{<gboolean>}
-The ::key-press-event signal is emitted each time a keyboard button is pressed
-while @var{actor} has key focus (see @code{clutter-stage-set-key-focus}).
-
-Since 0.6
-
-@end defop
-
-@defop Signal <clutter-actor> key-release-event  (arg0@tie{}@code{<clutter-event>}) @result{}@tie{}@code{<gboolean>}
-The ::key-release-event signal is emitted each time a keyboard button is
-released while @var{actor} has key focus (see
-@code{clutter-stage-set-key-focus}).
-
-Since 0.6
-
-@end defop
-
-@defop Signal <clutter-actor> motion-event  (arg0@tie{}@code{<clutter-event>}) @result{}@tie{}@code{<gboolean>}
-The ::motion-event signal is emitted each time the mouse pointer is moved over
-@var{actor}.
-
-Since 0.6
-
-@end defop
-
-@defop Signal <clutter-actor> focus-in 
-The ::focus-in signal is emitted when @var{actor} recieves key focus.
-
-Since 0.6
-
-@end defop
-
-@defop Signal <clutter-actor> focus-out 
-The ::focus-out signal is emitted when @var{actor} loses key focus.
-
-Since 0.6
-
-@end defop
-
-@defop Signal <clutter-actor> enter-event  (arg0@tie{}@code{<clutter-event>}) @result{}@tie{}@code{<gboolean>}
-The ::enter-event signal is emitted when the pointer enters the @var{actor}
-
-Since 0.6
-
-@end defop
-
-@defop Signal <clutter-actor> leave-event  (arg0@tie{}@code{<clutter-event>}) @result{}@tie{}@code{<gboolean>}
-The ::leave-event signal is emitted when the pointer leaves the @var{actor}.
-
-Since 0.6
-
-@end defop
-
-@defop Signal <clutter-actor> captured-event  (arg0@tie{}@code{<clutter-event>}) @result{}@tie{}@code{<gboolean>}
-The ::captured-event signal is emitted when an event is captured by Clutter.
-This signal will be emitted starting from the top-level container (the
-@code{<clutter-stage>}) to the actor which received the event going down the
-hierarchy. This signal can be used to intercept every event before the
-specialized events (like ClutterActor::button-press-event or
-::key-released-event) are emitted.
-
-Since 0.6
-
-@end defop
-
-@defop Signal <clutter-actor> paint 
-The ::paint signal is emitted each time an actor is being painted.
-
-Subclasses of @code{<clutter-actor>} should override the class signal handler
-and paint themselves in that function.
-
-It is possible to connect a handler to the ::paint signal in order to set up
-some custom aspect of a paint.
-
-Since 0.8
-
-@end defop
-
-@defop Signal <clutter-actor> realize 
-The ::realize signal is emitted each time an actor is being realized.
-
-Since 0.8
-
-@end defop
-
-@defop Signal <clutter-actor> unrealize 
-The ::unrealize signal is emitted each time an actor is being unrealized.
-
-Since 0.8
-
-@end defop
-
-@deftp Class <clutter-vertex>
-Derives from @code{<gboxed>}.
-
-This class defines no direct slots.
-
-@end deftp
+@end deffn
 
 @deffn Function clutter-actor-show  (self@tie{}@code{<clutter-actor>})
 @deffnx Method show
-Flags an actor to be displayed. An actor that isn't shown will not be rendered
-on the stage.
+Flags an actor to be displayed. An actor that isn't shown will not be
+rendered on the stage.
 
 Actors are visible by default.
 
 If this function is called on an actor without a parent, the
-@code{<"show-on-set-parent">} will be set to @samp{@code{#t}} as a side effect.
+@code{<"show-on-set-parent">} will be set to @samp{@code{#t}} as a side
+effect.
 
 @table @var
 @item self
@@ -326,13 +91,14 @@ Since 0.2
 
 @deffn Function clutter-actor-hide  (self@tie{}@code{<clutter-actor>})
 @deffnx Method hide
-Flags an actor to be hidden. A hidden actor will not be rendered on the stage.
+Flags an actor to be hidden. A hidden actor will not be rendered on the
+stage.
 
 Actors are visible by default.
 
 If this function is called on an actor without a parent, the
-@code{<"show-on-set-parent">} property will be set to @samp{@code{#f}} as a
-side-effect.
+@code{<"show-on-set-parent">} property will be set to @samp{@code{#f}}
+as a side-effect.
 
 @table @var
 @item self
@@ -358,7 +124,20 @@ Since 0.2
 
 @deffn Function clutter-actor-realize  (self@tie{}@code{<clutter-actor>})
 @deffnx Method realize
-Creates any underlying graphics resources needed by the actor to be displayed.
+Creates any underlying graphics resources needed by the actor to be
+displayed.
+
+Realization means the actor is now tied to a specific rendering context
+(that is, a specific toplevel stage).
+
+This function does nothing if the actor is already realized.
+
+Because a realized actor must have realized parent actors, calling
+@code{clutter-actor-realize} will also realize all parents of the actor.
+
+This function does not realize child actors, except in the special case
+that realizing the stage, when the stage is visible, will suddenly map
+(and thus realize) the children of the stage.
 
 @table @var
 @item self
@@ -370,7 +149,32 @@ A @code{<clutter-actor>}
 
 @deffn Function clutter-actor-unrealize  (self@tie{}@code{<clutter-actor>})
 @deffnx Method unrealize
-Frees up any underlying graphics resources needed by the actor to be displayed.
+Frees up any underlying graphics resources needed by the actor to be
+displayed.
+
+Unrealization means the actor is now independent of any specific
+rendering context (is not attached to a specific toplevel stage).
+
+Because mapped actors must be realized, actors may not be unrealized if
+they are mapped. This function hides the actor to be sure it isn't
+mapped, an application-visible side effect that you may not be
+expecting.
+
+This function should not really be in the public API, because there
+isn't a good reason to call it. ClutterActor will already unrealize
+things for you when it's important to do so.
+
+If you were using @code{clutter-actor-unrealize} in a dispose
+implementation, then don't, just chain up to ClutterActor's dispose.
+
+If you were using @code{clutter-actor-unrealize} to implement
+unrealizing children of your container, then don't, ClutterActor will
+already take care of that.
+
+If you were using @code{clutter-actor-unrealize} to re-realize to create
+your resources in a different way, then use
+@code{-clutter-actor-rerealize} (inside Clutter) or just call your code
+that recreates your resources directly (outside Clutter).
 
 @table @var
 @item self
@@ -387,6 +191,8 @@ Renders the actor to display.
 This function should not be called directly by applications. Call
 @code{clutter-actor-queue-redraw} to queue paints, instead.
 
+This function will emit the @code{<"paint">} signal.
+
 @table @var
 @item self
 A @code{<clutter-actor>}
@@ -397,12 +203,17 @@ A @code{<clutter-actor>}
 
 @deffn Function clutter-actor-queue-redraw  (self@tie{}@code{<clutter-actor>})
 @deffnx Method queue-redraw
-Queues up a redraw of an actor and any children. The redraw occurs once the main
-loop becomes idle (after the current batch of events has been processed,
-roughly).
+Queues up a redraw of an actor and any children. The redraw occurs once
+the main loop becomes idle (after the current batch of events has been
+processed, roughly).
 
-Applications rarely need to call this, as redraws are handled automatically by
-modification functions.
+Applications rarely need to call this, as redraws are handled
+automatically by modification functions.
+
+This function will not do anything if @var{self} is not visible, or if
+the actor is inside an invisible part of the scenegraph.
+
+Also be aware that painting is a NOP for actors with an opacity of 0
 
 @table @var
 @item self
@@ -414,9 +225,10 @@ A @code{<clutter-actor>}
 
 @deffn Function clutter-actor-queue-relayout  (self@tie{}@code{<clutter-actor>})
 @deffnx Method queue-relayout
-Indicates that the actor's size request or other layout-affecting properties may
-have changed. This function is used inside @code{<clutter-actor>} subclass
-implementations, not by applications directly.
+Indicates that the actor's size request or other layout-affecting
+properties may have changed. This function is used inside
+@code{<clutter-actor>} subclass implementations, not by applications
+directly.
 
 Queueing a new layout automatically queues a redraw as well.
 
@@ -432,9 +244,9 @@ Since 0.8
 
 @deffn Function clutter-actor-destroy  (self@tie{}@code{<clutter-actor>})
 @deffnx Method destroy
-Destroys an actor. When an actor is destroyed, it will break any references it
-holds to other objects. If the actor is inside a container, the actor will be
-removed.
+Destroys an actor. When an actor is destroyed, it will break any
+references it holds to other objects. If the actor is inside a
+container, the actor will be removed.
 
 When you destroy a container, its children will be destroyed as well.
 
@@ -451,8 +263,8 @@ a @code{<clutter-actor>}
 
 @deffn Function clutter-actor-event  (self@tie{}@code{<clutter-actor>}) (event@tie{}@code{<clutter-event>}) (capture@tie{}@code{bool}) @result{}@tie{} (ret@tie{}@code{bool})
 @deffnx Method event
-This function is used to emit an event on the main stage. You should rarely need
-to use this function, except for synthetising events.
+This function is used to emit an event on the main stage. You should
+rarely need to use this function, except for synthetising events.
 
 @table @var
 @item actor
@@ -465,8 +277,8 @@ a @code{<clutter-event>}
 TRUE if event in in capture phase, FALSE otherwise.
 
 @item ret
-the return value from the signal emission: @samp{@code{#t}} if the actor handled
-the event, or @samp{@code{#f}} if the event was not handled
+the return value from the signal emission: @samp{@code{#t}} if the actor
+handled the event, or @samp{@code{#f}} if the event was not handled
 
 @end table
 
@@ -474,33 +286,11 @@ Since 0.6
 
 @end deffn
 
-@deffn Function clutter-actor-pick  (self@tie{}@code{<clutter-actor>}) (color@tie{}@code{<clutter-color>})
-@deffnx Method pick
-Renders a silhouette of the actor using the supplied color. Used internally for
-mapping pointer events to actors.
-
-This function should never be called directly by applications.
-
-Subclasses overiding the ClutterActor::@code{pick} method should call
-@code{clutter-actor-should-pick-paint} to decide whether to render their
-silhouette. Containers should always recursively call pick for each child.
-
-Since 0.4
-
-@table @var
-@item self
-A @code{<clutter-actor>}
-
-@item color
-A @code{<clutter-color>}
-
-@end table
-
-@end deffn
-
 @deffn Function clutter-actor-should-pick-paint  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{bool})
 @deffnx Method should-pick-paint
-Utility call for subclasses overiding the pick method.
+Should be called inside the implementation of the @code{<"pick">}
+virtual function in order to check whether the actor should paint itself
+in pick mode or not.
 
 This function should never be called directly by applications.
 
@@ -509,22 +299,73 @@ This function should never be called directly by applications.
 A @code{<clutter-actor>}
 
 @item ret
-@samp{@code{#t}} if the actor should paint its silhouette, @samp{@code{#f}}
-otherwise
+@samp{@code{#t}} if the actor should paint its silhouette,
+@samp{@code{#f}} otherwise
 
 @end table
 
 @end deffn
 
-@deffn Function clutter-actor-allocate  (self@tie{}@code{<clutter-actor>}) (box@tie{}@code{<clutter-actor-box>}) (absolute_origin_changed@tie{}@code{bool})
-@deffnx Method allocate
-Called by the parent of an actor to assign the actor its size. Should never be
-called by applications (except when implementing a container or layout manager).
+@deffn Function clutter-actor-map  (self@tie{}@code{<clutter-actor>})
+@deffnx Method map
+Sets the @code{<clutter-actor-mapped>} flag on the actor and possibly
+maps and realizes its children if they are visible. Does nothing if the
+actor is not visible.
 
-Actors can know from their allocation box whether they have moved with respect
-to their parent actor. The absolute_origin_changed parameter additionally
-indicates whether the parent has moved with respect to the stage, for example
-because a grandparent's origin has moved.
+Calling this is allowed in only one case: you are implementing the
+@code{<"map">} virtual function in an actor and you need to map the
+children of that actor. It is not necessary to call this if you
+implement @code{<clutter-container>} because the default implementation
+will automatically map children of containers.
+
+When overriding map, it is mandatory to chain up to the parent
+implementation.
+
+@table @var
+@item self
+A @code{<clutter-actor>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-actor-unmap  (self@tie{}@code{<clutter-actor>})
+@deffnx Method unmap
+Unsets the @code{<clutter-actor-mapped>} flag on the actor and possibly
+unmaps its children if they were mapped.
+
+Calling this is allowed in only one case: you are implementing the
+@code{<"unmap">} virtual function in an actor and you need to unmap the
+children of that actor. It is not necessary to call this if you
+implement @code{<clutter-container>} because the default implementation
+will automatically unmap children of containers.
+
+When overriding unmap, it is mandatory to chain up to the parent
+implementation.
+
+@table @var
+@item self
+A @code{<clutter-actor>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-actor-allocate  (self@tie{}@code{<clutter-actor>}) (box@tie{}@code{<clutter-actor-box>}) (flags@tie{}@code{<clutter-allocation-flags>})
+@deffnx Method allocate
+Called by the parent of an actor to assign the actor its size. Should
+never be called by applications (except when implementing a container or
+layout manager).
+
+Actors can know from their allocation box whether they have moved with
+respect to their parent actor. The @var{flags} parameter describes
+additional information about the allocation, for instance whether the
+parent has moved with respect to the stage, for example because a
+grandparent's origin has moved.
 
 @table @var
 @item self
@@ -533,41 +374,8 @@ A @code{<clutter-actor>}
 @item box
 new allocation of the actor, in parent-relative coordinates
 
-@item absolute-origin-changed
-whether the position of the parent has changed in stage coordinates
-
-@end table
-
-Since 0.8
-
-@end deffn
-
-@deffn Function clutter-actor-get-allocation-coords  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (x_1@tie{}@code{int}) (y_1@tie{}@code{int}) (x_2@tie{}@code{int}) (y_2@tie{}@code{int})
-@deffnx Method get-allocation-coords
-Gets the layout box an actor has been assigned. The allocation can only be
-assumed valid inside a @code{paint} method; anywhere else, it may be
-out-of-date.
-
-An allocation does not incorporate the actor's scale or anchor point; those
-transformations do not affect layout, only rendering.
-
-The returned coordinates are in pixels.
-
-@table @var
-@item self
-A @code{<clutter-actor>}
-
-@item x-1
-x1 coordinate
-
-@item y-1
-y1 coordinate
-
-@item x-2
-x2 coordinate
-
-@item y-2
-y2 coordinate
+@item flags
+flags that control the allocation
 
 @end table
 
@@ -577,12 +385,12 @@ Since 0.8
 
 @deffn Function clutter-actor-get-allocation-box  (self@tie{}@code{<clutter-actor>}) (box@tie{}@code{<clutter-actor-box>})
 @deffnx Method get-allocation-box
-Gets the layout box an actor has been assigned. The allocation can only be
-assumed valid inside a @code{paint} method; anywhere else, it may be
+Gets the layout box an actor has been assigned. The allocation can only
+be assumed valid inside a @code{paint} method; anywhere else, it may be
 out-of-date.
 
-An allocation does not incorporate the actor's scale or anchor point; those
-transformations do not affect layout, only rendering.
+An allocation does not incorporate the actor's scale or anchor point;
+those transformations do not affect layout, only rendering.
 
 @cartouche 
 Do not call any of the clutter_actor_get_allocation_*() family
@@ -595,7 +403,7 @@ or @code{get-preferred-height} virtual functions.
 A @code{<clutter-actor>}
 
 @item box
-the function fills this in with the actor's allocation
+the function fills this in with the actor's allocation.
 
 @end table
 
@@ -603,34 +411,37 @@ Since 0.8
 
 @end deffn
 
-@deffn Function clutter-actor-get-preferred-size  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (min_width_p@tie{}@code{<clutter-unit>}) (min_height_p@tie{}@code{<clutter-unit>}) (natural_width_p@tie{}@code{<clutter-unit>}) (natural_height_p@tie{}@code{<clutter-unit>})
+@deffn Function clutter-actor-get-preferred-size  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (min_width_p@tie{}@code{float}) (min_height_p@tie{}@code{float}) (natural_width_p@tie{}@code{float}) (natural_height_p@tie{}@code{float})
 @deffnx Method get-preferred-size
-Computes the preferred minimum and natural size of an actor, taking into account
-the actor's geometry management (either height-for-width or width-for-height).
+Computes the preferred minimum and natural size of an actor, taking into
+account the actor's geometry management (either height-for-width or
+width-for-height).
 
-The width and height used to compute the preferred height and preferred width
-are the actor's natural ones.
+The width and height used to compute the preferred height and preferred
+width are the actor's natural ones.
 
-If you need to control the height for the preferred width, or the width for the
-preferred height, you should use @code{clutter-actor-get-preferred-width} and
-@code{clutter-actor-get-preferred-height}, and check the actor's preferred
-geometry management using the @code{<"request-mode">} property.
+If you need to control the height for the preferred width, or the width
+for the preferred height, you should use
+@code{clutter-actor-get-preferred-width} and
+@code{clutter-actor-get-preferred-height}, and check the actor's
+preferred geometry management using the @code{<"request-mode">}
+property.
 
 @table @var
 @item self
 a @code{<clutter-actor>}
 
 @item min-width-p
-return location for the minimum width, or @samp{@code{#f}}
+return location for the minimum width, or @samp{@code{#f}}.
 
 @item min-height-p
-return location for the minimum height, or @samp{@code{#f}}
+return location for the minimum height, or @samp{@code{#f}}.
 
 @item natural-width-p
-return location for the natural width, or @samp{@code{#f}}
+return location for the natural width, or @samp{@code{#f}}.
 
 @item natural-height-p
-return location for the natural height, or @samp{@code{#f}}
+return location for the natural height, or @samp{@code{#f}}.
 
 @end table
 
@@ -638,31 +449,31 @@ Since 0.8
 
 @end deffn
 
-@deffn Function clutter-actor-get-preferred-width  (self@tie{}@code{<clutter-actor>}) (for_height@tie{}@code{<clutter-unit>}) @result{}@tie{} (min_width_p@tie{}@code{<clutter-unit>}) (natural_width_p@tie{}@code{<clutter-unit>})
+@deffn Function clutter-actor-get-preferred-width  (self@tie{}@code{<clutter-actor>}) (for_height@tie{}@code{float}) @result{}@tie{} (min_width_p@tie{}@code{float}) (natural_width_p@tie{}@code{float})
 @deffnx Method get-preferred-width
-Computes the requested minimum and natural widths for an actor, optionally
-depending on the specified height, or if they are already computed, returns the
-cached values.
+Computes the requested minimum and natural widths for an actor,
+optionally depending on the specified height, or if they are already
+computed, returns the cached values.
 
-An actor may not get its request - depending on the layout manager that's in
-effect.
+An actor may not get its request - depending on the layout manager
+that's in effect.
 
-A request should not incorporate the actor's scale or anchor point; those
-transformations do not affect layout, only rendering.
+A request should not incorporate the actor's scale or anchor point;
+those transformations do not affect layout, only rendering.
 
 @table @var
 @item self
 A @code{<clutter-actor>}
 
 @item for-height
-available height when computing the preferred width, or a negative value to
-indicate that no height is defined
+available height when computing the preferred width, or a negative value
+to indicate that no height is defined
 
 @item min-width-p
-return location for minimum width, or @samp{@code{#f}}
+return location for minimum width, or @samp{@code{#f}}.
 
 @item natural-width-p
-return location for the natural width, or @samp{@code{#f}}
+return location for the natural width, or @samp{@code{#f}}.
 
 @end table
 
@@ -670,30 +481,30 @@ Since 0.8
 
 @end deffn
 
-@deffn Function clutter-actor-get-preferred-height  (self@tie{}@code{<clutter-actor>}) (for_width@tie{}@code{<clutter-unit>}) @result{}@tie{} (min_height_p@tie{}@code{<clutter-unit>}) (natural_height_p@tie{}@code{<clutter-unit>})
+@deffn Function clutter-actor-get-preferred-height  (self@tie{}@code{<clutter-actor>}) (for_width@tie{}@code{float}) @result{}@tie{} (min_height_p@tie{}@code{float}) (natural_height_p@tie{}@code{float})
 @deffnx Method get-preferred-height
-Computes the requested minimum and natural heights for an actor, or if they are
-already computed, returns the cached values.
+Computes the requested minimum and natural heights for an actor, or if
+they are already computed, returns the cached values.
 
-An actor may not get its request - depending on the layout manager that's in
-effect.
+An actor may not get its request - depending on the layout manager
+that's in effect.
 
-A request should not incorporate the actor's scale or anchor point; those
-transformations do not affect layout, only rendering.
+A request should not incorporate the actor's scale or anchor point;
+those transformations do not affect layout, only rendering.
 
 @table @var
 @item self
 A @code{<clutter-actor>}
 
 @item for-width
-available width to assume in computing desired height, or a negative value to
-indicate that no width is defined
+available width to assume in computing desired height, or a negative
+value to indicate that no width is defined
 
 @item min-height-p
-return location for minimum height, or @samp{@code{#f}}
+return location for minimum height, or @samp{@code{#f}}.
 
 @item natural-height-p
-return location for natural height, or @samp{@code{#f}}
+return location for natural height, or @samp{@code{#f}}.
 
 @end table
 
@@ -703,10 +514,10 @@ Since 0.8
 
 @deffn Function clutter-actor-set-geometry  (self@tie{}@code{<clutter-actor>}) (geometry@tie{}@code{<clutter-geometry>})
 @deffnx Method set-geometry
-Sets the actor's fixed position and forces its minimum and natural size, in
-pixels. This means the untransformed actor will have the given geometry. This is
-the same as calling @code{clutter-actor-set-position} and
-@code{clutter-actor-set-size}.
+Sets the actor's fixed position and forces its minimum and natural size,
+in pixels. This means the untransformed actor will have the given
+geometry. This is the same as calling @code{clutter-actor-set-position}
+and @code{clutter-actor-set-size}.
 
 @table @var
 @item self
@@ -721,30 +532,32 @@ A @code{<clutter-geometry>}
 
 @deffn Function clutter-actor-get-geometry  (self@tie{}@code{<clutter-actor>}) (geometry@tie{}@code{<clutter-geometry>})
 @deffnx Method get-geometry
-Gets the size and position of an actor relative to its parent actor. This is the
-same as calling @code{clutter-actor-get-position} and
-@code{clutter-actor-get-size}. It tries to "do what you mean" and get the
-requested size and position if the actor's allocation is invalid.
+Gets the size and position of an actor relative to its parent actor.
+This is the same as calling @code{clutter-actor-get-position} and
+@code{clutter-actor-get-size}. It tries to "do what you mean" and get
+the requested size and position if the actor's allocation is invalid.
 
 @table @var
 @item self
 A @code{<clutter-actor>}
 
 @item geometry
-A location to store actors @code{<clutter-geometry>}
+A location to store actors @code{<clutter-geometry>}.
 
 @end table
 
 @end deffn
 
-@deffn Function clutter-actor-set-size  (self@tie{}@code{<clutter-actor>}) (width@tie{}@code{int}) (height@tie{}@code{int})
+@deffn Function clutter-actor-set-size  (self@tie{}@code{<clutter-actor>}) (width@tie{}@code{float}) (height@tie{}@code{float})
 @deffnx Method set-size
-Sets the actor's size request in pixels. This overrides any "normal" size
-request the actor would have. For example a text actor might normally request
-the size of the text; this function would force a specific size instead.
+Sets the actor's size request in pixels. This overrides any "normal"
+size request the actor would have. For example a text actor might
+normally request the size of the text; this function would force a
+specific size instead.
 
-If @var{width} and/or @var{height} are -1 the actor will use its "normal" size
-request instead of overriding it, i.e. you can "unset" the size with -1.
+If @var{width} and/or @var{height} are -1 the actor will use its
+"normal" size request instead of overriding it, i.e. you can "unset" the
+size with -1.
 
 This function sets or unsets both the minimum and natural size.
 
@@ -762,14 +575,15 @@ New height of actor in pixels, or -1
 
 @end deffn
 
-@deffn Function clutter-actor-get-size  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (width@tie{}@code{unsigned-int}) (height@tie{}@code{unsigned-int})
+@deffn Function clutter-actor-get-size  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (width@tie{}@code{float}) (height@tie{}@code{float})
 @deffnx Method get-size
-This function tries to "do what you mean" and return the size an actor will
-have. If the actor has a valid allocation, the allocation will be returned;
-otherwise, the actors natural size request will be returned.
+This function tries to "do what you mean" and return the size an actor
+will have. If the actor has a valid allocation, the allocation will be
+returned; otherwise, the actors natural size request will be returned.
 
-If you care whether you get the request vs. the allocation, you should probably
-call a different function like @code{clutter-actor-get-allocation-coords} or
+If you care whether you get the request vs. the allocation, you should
+probably call a different function like
+@code{clutter-actor-get-allocation-box} or
 @code{clutter-actor-get-preferred-width}.
 
 @table @var
@@ -788,12 +602,12 @@ Since 0.2
 
 @end deffn
 
-@deffn Function clutter-actor-set-position  (self@tie{}@code{<clutter-actor>}) (x@tie{}@code{int}) (y@tie{}@code{int})
+@deffn Function clutter-actor-set-position  (self@tie{}@code{<clutter-actor>}) (x@tie{}@code{float}) (y@tie{}@code{float})
 @deffnx Method set-position
 Sets the actor's fixed position in pixels relative to any parent actor.
 
-If a layout manager is in use, this position will override the layout manager
-and force a fixed position.
+If a layout manager is in use, this position will override the layout
+manager and force a fixed position.
 
 @table @var
 @item self
@@ -809,12 +623,12 @@ New top position of actor in pixels.
 
 @end deffn
 
-@deffn Function clutter-actor-get-position  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (x@tie{}@code{int}) (y@tie{}@code{int})
+@deffn Function clutter-actor-get-position  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (x@tie{}@code{float}) (y@tie{}@code{float})
 @deffnx Method get-position
-This function tries to "do what you mean" and tell you where the actor is, prior
-to any transformations. Retrieves the fixed position of an actor in pixels, if
-one has been set; otherwise, if the allocation is valid, returns the actor's
-allocated position; otherwise, returns 0,0.
+This function tries to "do what you mean" and tell you where the actor
+is, prior to any transformations. Retrieves the fixed position of an
+actor in pixels, if one has been set; otherwise, if the allocation is
+valid, returns the actor's allocated position; otherwise, returns 0,0.
 
 The returned position is in pixels.
 
@@ -823,10 +637,10 @@ The returned position is in pixels.
 a @code{<clutter-actor>}
 
 @item x
-return location for the X coordinate, or @samp{@code{#f}}
+return location for the X coordinate, or @samp{@code{#f}}.
 
 @item y
-return location for the Y coordinate, or @samp{@code{#f}}
+return location for the Y coordinate, or @samp{@code{#f}}.
 
 @end table
 
@@ -834,10 +648,10 @@ Since 0.6
 
 @end deffn
 
-@deffn Function clutter-actor-set-width  (self@tie{}@code{<clutter-actor>}) (width@tie{}@code{unsigned-int})
+@deffn Function clutter-actor-set-width  (self@tie{}@code{<clutter-actor>}) (width@tie{}@code{float})
 @deffnx Method set-width
-Forces a width on an actor, causing the actor's preferred width and height (if
-any) to be ignored.
+Forces a width on an actor, causing the actor's preferred width and
+height (if any) to be ignored.
 
 This function sets both the minimum and natural size of the actor.
 
@@ -854,23 +668,25 @@ Since 0.2
 
 @end deffn
 
-@deffn Function clutter-actor-get-width  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+@deffn Function clutter-actor-get-width  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{float})
 @deffnx Method get-width
 Retrieves the width of a @code{<clutter-actor>}.
 
-If the actor has a valid allocation, this function will return the width of the
-allocated area given to the actor.
+If the actor has a valid allocation, this function will return the width
+of the allocated area given to the actor.
 
-If the actor does not have a valid allocation, this function will return the
-actor's natural width, that is the preferred width of the actor.
+If the actor does not have a valid allocation, this function will return
+the actor's natural width, that is the preferred width of the actor.
 
-If you care whether you get the preferred width or the width that has been
-assigned to the actor, you should probably call a different function like
-@code{clutter-actor-get-allocation-coords} to retrieve the allocated size or
-@code{clutter-actor-get-preferred-width} to retrieve the preferred width.
+If you care whether you get the preferred width or the width that has
+been assigned to the actor, you should probably call a different
+function like @code{clutter-actor-get-allocation-box} to retrieve the
+allocated size or @code{clutter-actor-get-preferred-width} to retrieve
+the preferred width.
 
-If an actor has a fixed width, for instance a width that has been assigned using
-@code{clutter-actor-set-width}, the width returned will be the same value.
+If an actor has a fixed width, for instance a width that has been
+assigned using @code{clutter-actor-set-width}, the width returned will
+be the same value.
 
 @table @var
 @item self
@@ -883,10 +699,10 @@ the width of the actor, in pixels
 
 @end deffn
 
-@deffn Function clutter-actor-set-height  (self@tie{}@code{<clutter-actor>}) (height@tie{}@code{unsigned-int})
+@deffn Function clutter-actor-set-height  (self@tie{}@code{<clutter-actor>}) (height@tie{}@code{float})
 @deffnx Method set-height
-Forces a height on an actor, causing the actor's preferred width and height (if
-any) to be ignored.
+Forces a height on an actor, causing the actor's preferred width and
+height (if any) to be ignored.
 
 This function sets both the minimum and natural size of the actor.
 
@@ -903,24 +719,25 @@ Since 0.2
 
 @end deffn
 
-@deffn Function clutter-actor-get-height  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+@deffn Function clutter-actor-get-height  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{float})
 @deffnx Method get-height
 Retrieves the height of a @code{<clutter-actor>}.
 
-If the actor has a valid allocation, this function will return the height of the
-allocated area given to the actor.
+If the actor has a valid allocation, this function will return the
+height of the allocated area given to the actor.
 
-If the actor does not have a valid allocation, this function will return the
-actor's natural height, that is the preferred height of the actor.
+If the actor does not have a valid allocation, this function will return
+the actor's natural height, that is the preferred height of the actor.
 
-If you care whether you get the preferred height or the height that has been
-assigned to the actor, you should probably call a different function like
-@code{clutter-actor-get-allocation-coords} to retrieve the allocated size or
-@code{clutter-actor-get-preferred-height} to retrieve the preferred height.
+If you care whether you get the preferred height or the height that has
+been assigned to the actor, you should probably call a different
+function like @code{clutter-actor-get-allocation-box} to retrieve the
+allocated size or @code{clutter-actor-get-preferred-height} to retrieve
+the preferred height.
 
-If an actor has a fixed height, for instance a height that has been assigned
-using @code{clutter-actor-set-height}, the height returned will be the same
-value.
+If an actor has a fixed height, for instance a height that has been
+assigned using @code{clutter-actor-set-height}, the height returned will
+be the same value.
 
 @table @var
 @item self
@@ -933,7 +750,7 @@ the height of the actor, in pixels
 
 @end deffn
 
-@deffn Function clutter-actor-set-x  (self@tie{}@code{<clutter-actor>}) (x@tie{}@code{int})
+@deffn Function clutter-actor-set-x  (self@tie{}@code{<clutter-actor>}) (x@tie{}@code{float})
 @deffnx Method set-x
 Sets the actor's X coordinate, relative to its parent, in pixels.
 
@@ -952,22 +769,23 @@ Since 0.6
 
 @end deffn
 
-@deffn Function clutter-actor-get-x  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{int})
+@deffn Function clutter-actor-get-x  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{float})
 @deffnx Method get-x
 Retrieves the X coordinate of a @code{<clutter-actor>}.
 
-This function tries to "do what you mean", by returning the correct value
-depending on the actor's state.
+This function tries to "do what you mean", by returning the correct
+value depending on the actor's state.
 
-If the actor has a valid allocation, this function will return the X coordinate
-of the origin of the allocation box.
+If the actor has a valid allocation, this function will return the X
+coordinate of the origin of the allocation box.
 
-If the actor has any fixed coordinate set using @code{clutter-actor-set-x},
-@code{clutter-actor-set-position} or @code{clutter-actor-set-geometry}, this
-function will return that coordinate.
+If the actor has any fixed coordinate set using
+@code{clutter-actor-set-x}, @code{clutter-actor-set-position} or
+@code{clutter-actor-set-geometry}, this function will return that
+coordinate.
 
-If both the allocation and a fixed position are missing, this function will
-return 0.
+If both the allocation and a fixed position are missing, this function
+will return 0.
 
 @table @var
 @item self
@@ -981,7 +799,7 @@ rotation)
 
 @end deffn
 
-@deffn Function clutter-actor-set-y  (self@tie{}@code{<clutter-actor>}) (y@tie{}@code{int})
+@deffn Function clutter-actor-set-y  (self@tie{}@code{<clutter-actor>}) (y@tie{}@code{float})
 @deffnx Method set-y
 Sets the actor's Y coordinate, relative to its parent, in pixels.#
 
@@ -1000,22 +818,23 @@ Since 0.6
 
 @end deffn
 
-@deffn Function clutter-actor-get-y  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{int})
+@deffn Function clutter-actor-get-y  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{float})
 @deffnx Method get-y
 Retrieves the Y coordinate of a @code{<clutter-actor>}.
 
-This function tries to "do what you mean", by returning the correct value
-depending on the actor's state.
+This function tries to "do what you mean", by returning the correct
+value depending on the actor's state.
 
-If the actor has a valid allocation, this function will return the Y coordinate
-of the origin of the allocation box.
+If the actor has a valid allocation, this function will return the Y
+coordinate of the origin of the allocation box.
 
-If the actor has any fixed coordinate set using @code{clutter-actor-set-y},
-@code{clutter-actor-set-position} or @code{clutter-actor-set-geometry}, this
-function will return that coordinate.
+If the actor has any fixed coordinate set using
+@code{clutter-actor-set-y}, @code{clutter-actor-set-position} or
+@code{clutter-actor-set-geometry}, this function will return that
+coordinate.
 
-If both the allocation and a fixed position are missing, this function will
-return 0.
+If both the allocation and a fixed position are missing, this function
+will return 0.
 
 @table @var
 @item self
@@ -1029,12 +848,14 @@ rotation)
 
 @end deffn
 
-@deffn Function clutter-actor-move-by  (self@tie{}@code{<clutter-actor>}) (dx@tie{}@code{int}) (dy@tie{}@code{int})
+@deffn Function clutter-actor-move-by  (self@tie{}@code{<clutter-actor>}) (dx@tie{}@code{float}) (dy@tie{}@code{float})
 @deffnx Method move-by
-Moves an actor by the specified distance relative to its current position in
-pixels. This function modifies the fixed position of an actor and thus removes
-it from any layout management. Another way to move an actor is with an anchor
-point, see @code{clutter-actor-set-anchor-point}.
+Moves an actor by the specified distance relative to its current
+position in pixels.
+
+This function modifies the fixed position of an actor and thus removes
+it from any layout management. Another way to move an actor is with an
+anchor point, see @code{clutter-actor-set-anchor-point}.
 
 @table @var
 @item self
@@ -1052,7 +873,7 @@ Since 0.2
 
 @end deffn
 
-@deffn Function clutter-actor-set-rotation  (self@tie{}@code{<clutter-actor>}) (axis@tie{}@code{<clutter-rotate-axis>}) (angle@tie{}@code{double}) (x@tie{}@code{int}) (y@tie{}@code{int}) (z@tie{}@code{int})
+@deffn Function clutter-actor-set-rotation  (self@tie{}@code{<clutter-actor>}) (axis@tie{}@code{<clutter-rotate-axis>}) (angle@tie{}@code{double}) (x@tie{}@code{float}) (y@tie{}@code{float}) (z@tie{}@code{float})
 @deffnx Method set-rotation
 Sets the rotation angle of @var{self} around the given axis.
 
@@ -1070,9 +891,9 @@ The rotation center coordinates used depend on the value of @var{axis}:
 
 @samp{CLUTTER_Z_AXIS} requires @var{x} and @var{y}
 
-The rotation coordinates are relative to the anchor point of the actor, set
-using @code{clutter-actor-set-anchor-point}. If no anchor point is set, the
-upper left corner is assumed as the origin.
+The rotation coordinates are relative to the anchor point of the actor,
+set using @code{clutter-actor-set-anchor-point}. If no anchor point is
+set, the upper left corner is assumed as the origin.
 
 @table @var
 @item self
@@ -1095,17 +916,14 @@ Z coordinate of the rotation center
 
 @end table
 
-Since 0.6
+Since 0.8
 
 @end deffn
 
-@deffn Function clutter-actor-get-rotation  (self@tie{}@code{<clutter-actor>}) (axis@tie{}@code{<clutter-rotate-axis>}) @result{}@tie{} (ret@tie{}@code{double}) (x@tie{}@code{int}) (y@tie{}@code{int}) (z@tie{}@code{int})
+@deffn Function clutter-actor-get-rotation  (self@tie{}@code{<clutter-actor>}) (axis@tie{}@code{<clutter-rotate-axis>}) @result{}@tie{} (ret@tie{}@code{double}) (x@tie{}@code{float}) (y@tie{}@code{float}) (z@tie{}@code{float})
 @deffnx Method get-rotation
 Retrieves the angle and center of rotation on the given axis, set using
-@code{clutter-actor-set-angle}.
-
-The coordinates of the center returned by this function depend on the axis
-passed.
+@code{clutter-actor-set-rotation}.
 
 @table @var
 @item self
@@ -1115,20 +933,20 @@ a @code{<clutter-actor>}
 the axis of rotation
 
 @item x
-return value for the X coordinate of the center of rotation
+return value for the X coordinate of the center of rotation.
 
 @item y
-return value for the Y coordinate of the center of rotation
+return value for the Y coordinate of the center of rotation.
 
 @item z
-return value for the Z coordinate of the center of rotation
+return value for the Z coordinate of the center of rotation.
 
 @item ret
-the angle of rotation.
+the angle of rotation
 
 @end table
 
-Since 0.6
+Since 0.8
 
 @end deffn
 
@@ -1151,8 +969,8 @@ Since 0.6
 
 @deffn Function clutter-actor-set-opacity  (self@tie{}@code{<clutter-actor>}) (opacity@tie{}@code{unsigned-int8})
 @deffnx Method set-opacity
-Sets the actor's opacity, with zero being completely transparent and 255 (0xff)
-being fully opaque.
+Sets the actor's opacity, with zero being completely transparent and 255
+(0xff) being fully opaque.
 
 @table @var
 @item self
@@ -1209,8 +1027,8 @@ Retrieves the name of @var{self}.
 A @code{<clutter-actor>}
 
 @item ret
-the name of the actor, or @samp{@code{#f}}. The returned string is owned by the
-actor and should not be modified or freed.
+the name of the actor, or @samp{@code{#f}}. The returned string is owned
+by the actor and should not be modified or freed.
 
 @end table
 
@@ -1233,28 +1051,31 @@ Since 0.6
 
 @end deffn
 
-@deffn Function clutter-actor-set-clip  (self@tie{}@code{<clutter-actor>}) (xoff@tie{}@code{int}) (yoff@tie{}@code{int}) (width@tie{}@code{int}) (height@tie{}@code{int})
+@deffn Function clutter-actor-set-clip  (self@tie{}@code{<clutter-actor>}) (xoff@tie{}@code{float}) (yoff@tie{}@code{float}) (width@tie{}@code{float}) (height@tie{}@code{float})
 @deffnx Method set-clip
-Sets clip area in pixels for @var{self}. The clip area is always computed from
-the upper left corner of the actor, even if the anchor point is set otherwise.
+Sets clip area for @var{self}. The clip area is always computed from the
+upper left corner of the actor, even if the anchor point is set
+otherwise.
 
 @table @var
 @item self
 A @code{<clutter-actor>}
 
 @item xoff
-X offset of the clip rectangle, in pixels
+X offset of the clip rectangle
 
 @item yoff
-Y offset of the clip rectangle, in pixels
+Y offset of the clip rectangle
 
 @item width
-Width of the clip rectangle, in pixels
+Width of the clip rectangle
 
 @item height
-Height of the clip rectangle, in pixels
+Height of the clip rectangle
 
 @end table
+
+Since 0.6
 
 @end deffn
 
@@ -1287,25 +1108,29 @@ Since 0.1.1
 
 @end deffn
 
-@deffn Function clutter-actor-get-clip  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (xoff@tie{}@code{int}) (yoff@tie{}@code{int}) (width@tie{}@code{int}) (height@tie{}@code{int})
+@deffn Function clutter-actor-get-clip  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (xoff@tie{}@code{float}) (yoff@tie{}@code{float}) (width@tie{}@code{float}) (height@tie{}@code{float})
 @deffnx Method get-clip
-Gets the clip area for @var{self}, in pixels.
+Gets the clip area for @var{self}, if any is set
 
 @table @var
 @item self
 a @code{<clutter-actor>}
 
 @item xoff
-return location for the X offset of the clip rectangle, or @samp{@code{#f}}
+return location for the X offset of the clip rectangle, or
+@samp{@code{#f}}.
 
 @item yoff
-return location for the Y offset of the clip rectangle, or @samp{@code{#f}}
+return location for the Y offset of the clip rectangle, or
+@samp{@code{#f}}.
 
 @item width
-return location for the width of the clip rectangle, or @samp{@code{#f}}
+return location for the width of the clip rectangle, or
+@samp{@code{#f}}.
 
 @item height
-return location for the height of the clip rectangle, or @samp{@code{#f}}
+return location for the height of the clip rectangle, or
+@samp{@code{#f}}.
 
 @end table
 
@@ -1318,8 +1143,8 @@ Since 0.6
 Sets the parent of @var{self} to @var{parent}. The opposite function is
 @code{clutter-actor-unparent}.
 
-This function should not be used by applications, but by custom container actor
-subclasses.
+This function should not be used by applications, but by custom
+container actor subclasses.
 
 @table @var
 @item self
@@ -1341,7 +1166,8 @@ Retrieves the parent of @var{self}.
 A @code{<clutter-actor>}
 
 @item ret
-The @code{<clutter-actor>} parent, or @samp{@code{#f}} if no parent is set
+The @code{<clutter-actor>} parent, or @samp{@code{#f}} if no parent is
+set.
 
 @end table
 
@@ -1349,8 +1175,11 @@ The @code{<clutter-actor>} parent, or @samp{@code{#f}} if no parent is set
 
 @deffn Function clutter-actor-reparent  (self@tie{}@code{<clutter-actor>}) (new_parent@tie{}@code{<clutter-actor>})
 @deffnx Method reparent
-This function resets the parent actor of @var{self}. It is logically equivalent
-to calling @code{clutter-actor-unparent} and @code{clutter-actor-set-parent}.
+This function resets the parent actor of @var{self}. It is logically
+equivalent to calling @code{clutter-actor-unparent} and
+@code{clutter-actor-set-parent}, but more efficiently implemented,
+ensures the child is not finalized when unparented, and emits the
+parent-set signal only one time.
 
 @table @var
 @item self
@@ -1370,7 +1199,8 @@ Since 0.2
 Removes the parent of @var{self}.
 
 This function should not be used in applications. It should be called by
-implementations of container actors, to dissociate a child from the container.
+implementations of container actors, to dissociate a child from the
+container.
 
 @table @var
 @item self
@@ -1414,7 +1244,7 @@ This function is the equivalent of @code{clutter-container-lower-child}.
 A @code{<clutter-actor>}
 
 @item above
-A @code{<clutter-actor>} to lower below
+A @code{<clutter-actor>} to lower below.
 
 @end table
 
@@ -1457,7 +1287,7 @@ Retrieves the @code{<clutter-stage>} where @var{actor} is contained.
 a @code{<clutter-actor>}
 
 @item ret
-the stage containing the actor, or @samp{@code{#f}}
+the stage containing the actor, or @samp{@code{#f}}.
 
 @end table
 
@@ -1465,10 +1295,12 @@ Since 0.8
 
 @end deffn
 
-@deffn Function clutter-actor-set-depth  (self@tie{}@code{<clutter-actor>}) (depth@tie{}@code{int})
+@deffn Function clutter-actor-set-depth  (self@tie{}@code{<clutter-actor>}) (depth@tie{}@code{float})
 @deffnx Method set-depth
-Sets the Z co-ordinate of @var{self} to @var{depth}. The Units of which are
-dependant on the perspective setup.
+Sets the Z coordinate of @var{self} to @var{depth}.
+
+The unit used by @var{depth} is dependant on the perspective setup. See
+also @code{clutter-stage-set-perspective}.
 
 @table @var
 @item self
@@ -1481,7 +1313,7 @@ Z co-ord
 
 @end deffn
 
-@deffn Function clutter-actor-get-depth  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{int})
+@deffn Function clutter-actor-get-depth  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{float})
 @deffnx Method get-depth
 Retrieves the depth of @var{self}.
 
@@ -1498,8 +1330,9 @@ the depth of the actor
 
 @deffn Function clutter-actor-set-scale  (self@tie{}@code{<clutter-actor>}) (scale_x@tie{}@code{double}) (scale_y@tie{}@code{double})
 @deffnx Method set-scale
-Scales an actor with the given factors. The scaling is always relative to the
-anchor point.
+Scales an actor with the given factors. The scaling is relative to the
+scale center and the anchor point. The scale center is unchanged by this
+function and defaults to 0,0.
 
 @table @var
 @item self
@@ -1517,23 +1350,95 @@ Since 0.2
 
 @end deffn
 
-@deffn Function clutter-actor-get-scale  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (scale_x@tie{}@code{double}) (scale_y@tie{}@code{double})
-@deffnx Method get-scale
-Retrieves an actors scale in floating point.
+@deffn Function clutter-actor-set-scale-full  (self@tie{}@code{<clutter-actor>}) (scale_x@tie{}@code{double}) (scale_y@tie{}@code{double}) (center_x@tie{}@code{float}) (center_y@tie{}@code{float})
+@deffnx Method set-scale-full
+Scales an actor with the given factors around the given center point.
+The center point is specified in pixels relative to the anchor point
+(usually the top left corner of the actor).
 
 @table @var
 @item self
 A @code{<clutter-actor>}
 
 @item scale-x
-Location to store horizonal float scale factor, or @samp{@code{#f}}.
+double factor to scale actor by horizontally.
 
 @item scale-y
-Location to store vertical float scale factor, or @samp{@code{#f}}.
+double factor to scale actor by vertically.
+
+@item center-x
+X coordinate of the center of the scale.
+
+@item center-y
+Y coordinate of the center of the scale
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-actor-get-scale  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (scale_x@tie{}@code{double}) (scale_y@tie{}@code{double})
+@deffnx Method get-scale
+Retrieves an actors scale factors.
+
+@table @var
+@item self
+A @code{<clutter-actor>}
+
+@item scale-x
+Location to store horizonal scale factor, or @samp{@code{#f}}.
+
+@item scale-y
+Location to store vertical scale factor, or @samp{@code{#f}}.
 
 @end table
 
 Since 0.2
+
+@end deffn
+
+@deffn Function clutter-actor-get-scale-center  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (center_x@tie{}@code{float}) (center_y@tie{}@code{float})
+@deffnx Method get-scale-center
+Retrieves the scale center coordinate in pixels relative to the top left
+corner of the actor. If the scale center was specified using a
+@code{<clutter-gravity>} this will calculate the pixel offset using the
+current size of the actor.
+
+@table @var
+@item self
+A @code{<clutter-actor>}
+
+@item center-x
+Location to store the X position of the scale center, or
+@samp{@code{#f}}.
+
+@item center-y
+Location to store the Y position of the scale center, or
+@samp{@code{#f}}.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-actor-get-scale-gravity  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-gravity>})
+@deffnx Method get-scale-gravity
+Retrieves the scale center as a compass direction. If the scale center
+was specified in pixels or units this will return
+@samp{CLUTTER_GRAVITY_NONE}.
+
+@table @var
+@item self
+A @code{<clutter-actor>}
+
+@item ret
+the scale gravity
+
+@end table
+
+Since 1.0
 
 @end deffn
 
@@ -1554,39 +1459,40 @@ Since 0.6
 
 @end deffn
 
-@deffn Function clutter-actor-transform-stage-point  (self@tie{}@code{<clutter-actor>}) (x@tie{}@code{<clutter-unit>}) (y@tie{}@code{<clutter-unit>}) @result{}@tie{} (ret@tie{}@code{bool}) (x_out@tie{}@code{<clutter-unit>}) (y_out@tie{}@code{<clutter-unit>})
+@deffn Function clutter-actor-transform-stage-point  (self@tie{}@code{<clutter-actor>}) (x@tie{}@code{float}) (y@tie{}@code{float}) @result{}@tie{} (ret@tie{}@code{bool}) (x_out@tie{}@code{float}) (y_out@tie{}@code{float})
 @deffnx Method transform-stage-point
-This function translates screen coordinates (@var{x}, @var{y}) to coordinates
-relative to the actor. For example, it can be used to translate screen events
-from global screen coordinates into actor-local coordinates.
+This function translates screen coordinates (@var{x}, @var{y}) to
+coordinates relative to the actor. For example, it can be used to
+translate screen events from global screen coordinates into actor-local
+coordinates.
 
-The conversion can fail, notably if the transform stack results in the actor
-being projected on the screen as a mere line.
+The conversion can fail, notably if the transform stack results in the
+actor being projected on the screen as a mere line.
 
-The conversion should not be expected to be pixel-perfect due to the nature of
-the operation. In general the error grows when the skewing of the actor
-rectangle on screen increases.
+The conversion should not be expected to be pixel-perfect due to the
+nature of the operation. In general the error grows when the skewing of
+the actor rectangle on screen increases.
 
 Note: This function is fairly computationally intensive.
 
-Note: This function only works when the allocation is up-to-date, i.e. inside of
-@code{paint}
+Note: This function only works when the allocation is up-to-date, i.e.
+inside of @code{paint}
 
 @table @var
 @item self
 A @code{<clutter-actor>}
 
 @item x
-x screen coordinate of the point to unproject, in @code{<clutter-unit>}s
+x screen coordinate of the point to unproject.
 
 @item y
-y screen coordinate of the point to unproject, in @code{<clutter-unit>}s
+y screen coordinate of the point to unproject.
 
 @item x-out
-return location for the unprojected x coordinance, in @code{<clutter-unit>}s
+return location for the unprojected x coordinance.
 
 @item y-out
-return location for the unprojected y coordinance, in @code{<clutter-unit>}s
+return location for the unprojected y coordinance.
 
 @item ret
 @samp{@code{#t}} if conversion was successful.
@@ -1597,19 +1503,39 @@ Since 0.6
 
 @end deffn
 
-@deffn Function clutter-actor-get-transformed-size  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (width@tie{}@code{unsigned-int}) (height@tie{}@code{unsigned-int})
+@deffn Function clutter-actor-get-transformed-size  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (width@tie{}@code{float}) (height@tie{}@code{float})
 @deffnx Method get-transformed-size
-Gets the absolute size of an actor taking into account any scaling factors
+Gets the absolute size of an actor in pixels, taking into account the
+scaling factors.
+
+If the actor has a valid allocation, the allocated size will be used. If
+the actor has not a valid allocation then the preferred size will be
+transformed and returned.
+
+If you want the transformed allocation, see
+@code{clutter-actor-get-abs-allocation-vertices} instead.
+
+@cartouche 
+When the actor (or one of its ancestors) is rotated around the
+X or Y axis, it no longer appears as on the stage as a rectangle, but
+as a generic quadrangle; in that case this function returns the size
+of the smallest rectangle that encapsulates the entire quad. Please
+note that in this case no assumptions can be made about the relative
+position of this envelope to the absolute position of the actor, as
+returned by @code{clutter-actor-get-transformed-position}; if you need this
+information, you need to use @code{clutter-actor-get-abs-allocation-vertices}
+to get the coords of the actual quadrangle.
+@end cartouche
 
 @table @var
 @item self
 A @code{<clutter-actor>}
 
 @item width
-return location for the width, or @samp{@code{#f}}
+return location for the width, or @samp{@code{#f}}.
 
 @item height
-return location for the height, or @samp{@code{#f}}
+return location for the height, or @samp{@code{#f}}.
 
 @end table
 
@@ -1621,11 +1547,11 @@ Since 0.8
 @deffnx Method get-paint-opacity
 Retrieves the absolute opacity of the actor, as it appears on the stage.
 
-This function traverses the hierarchy chain and composites the opacity of the
-actor with that of its parents.
+This function traverses the hierarchy chain and composites the opacity
+of the actor with that of its parents.
 
-This function is intended for subclasses to use in the paint virtual function,
-to paint themselves with the correct opacity.
+This function is intended for subclasses to use in the paint virtual
+function, to paint themselves with the correct opacity.
 
 @table @var
 @item self
@@ -1640,11 +1566,32 @@ Since 0.8
 
 @end deffn
 
-@deffn Function clutter-actor-set-anchor-point  (self@tie{}@code{<clutter-actor>}) (anchor_x@tie{}@code{int}) (anchor_y@tie{}@code{int})
+@deffn Function clutter-actor-get-paint-visibility  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-paint-visibility
+Retrieves the 'paint' visibility of an actor recursively checking for
+non visible parents.
+
+This is by definition the same as @code{clutter-actor-is-mapped}.
+
+@table @var
+@item self
+A @code{<clutter-actor>}
+
+@item ret
+TRUE if the actor is visibile and will be painted.
+
+@end table
+
+Since 0.8.4
+
+@end deffn
+
+@deffn Function clutter-actor-set-anchor-point  (self@tie{}@code{<clutter-actor>}) (anchor_x@tie{}@code{float}) (anchor_y@tie{}@code{float})
 @deffnx Method set-anchor-point
-Sets an anchor point for the @var{actor}. The anchor point is a point in the
-coordinate space of an actor to which the actor position within its parent is
-relative; the default is (0, 0), i.e. the top-left corner of the actor.
+Sets an anchor point for @var{self}. The anchor point is a point in the
+coordinate space of an actor to which the actor position within its
+parent is relative; the default is (0, 0), i.e. the top-left corner of
+the actor.
 
 @table @var
 @item self
@@ -1662,7 +1609,7 @@ Since 0.6
 
 @end deffn
 
-@deffn Function clutter-actor-get-anchor-point  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (anchor_x@tie{}@code{int}) (anchor_y@tie{}@code{int})
+@deffn Function clutter-actor-get-anchor-point  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (anchor_x@tie{}@code{float}) (anchor_y@tie{}@code{float})
 @deffnx Method get-anchor-point
 Gets the current anchor point of the @var{actor} in pixels.
 
@@ -1671,10 +1618,10 @@ Gets the current anchor point of the @var{actor} in pixels.
 a @code{<clutter-actor>}
 
 @item anchor-x
-return location for the X coordinate of the anchor point
+return location for the X coordinate of the anchor point.
 
 @item anchor-y
-return location for the y coordinate of the anchor point
+return location for the Y coordinate of the anchor point.
 
 @end table
 
@@ -1682,10 +1629,11 @@ Since 0.6
 
 @end deffn
 
-@deffn Function clutter-actor-move-anchor-point  (self@tie{}@code{<clutter-actor>}) (anchor_x@tie{}@code{int}) (anchor_y@tie{}@code{int})
+@deffn Function clutter-actor-move-anchor-point  (self@tie{}@code{<clutter-actor>}) (anchor_x@tie{}@code{float}) (anchor_y@tie{}@code{float})
 @deffnx Method move-anchor-point
-Sets an anchor point for the @var{actor}, and adjusts the actor postion so that
-the relative position of the actor toward its parent remains the same.
+Sets an anchor point for the actor, and adjusts the actor postion so
+that the relative position of the actor toward its parent remains the
+same.
 
 @table @var
 @item self
@@ -1739,9 +1687,10 @@ Since 0.6
 
 @deffn Function clutter-actor-set-shader  (self@tie{}@code{<clutter-actor>}) (shader@tie{}@code{<clutter-shader>}) @result{}@tie{} (ret@tie{}@code{bool})
 @deffnx Method set-shader
-Sets the @code{<clutter-shader>} to be used when rendering @var{self}. If
-@var{shader} is @samp{@code{#f}} it will unset any currently set shader for the
-actor.
+Sets the @code{<clutter-shader>} to be used when rendering @var{self}.
+
+If @var{shader} is @samp{@code{#f}} it will unset any currently set
+shader for the actor.
 
 @table @var
 @item self
@@ -1768,8 +1717,8 @@ Queries the currently set @code{<clutter-shader>} on @var{self}.
 a @code{<clutter-actor>}
 
 @item ret
-The currently set @code{<clutter-shader>} or @samp{@code{#f}} if no shader is
-set.
+The currently set @code{<clutter-shader>} or @samp{@code{#f}} if no
+shader is set.
 
 @end table
 
@@ -1777,9 +1726,10 @@ Since 0.6
 
 @end deffn
 
-@deffn Function clutter-actor-set-shader-param  (self@tie{}@code{<clutter-actor>}) (param@tie{}@code{mchars}) (value@tie{}@code{float})
+@deffn Function clutter-actor-set-shader-param  (self@tie{}@code{<clutter-actor>}) (param@tie{}@code{mchars}) (value@tie{}@code{<gvalue>})
 @deffnx Method set-shader-param
-Sets the value for a named parameter of the shader applied to @var{actor}.
+Sets the value for a named parameter of the shader applied to
+@var{actor}.
 
 @table @var
 @item self
@@ -1793,586 +1743,380 @@ the value of the parameter
 
 @end table
 
-Since 0.6
+Since 1.0
 
 @end deffn
 
-@deffn Function clutter-actor-set-depthu  (self@tie{}@code{<clutter-actor>}) (depth@tie{}@code{<clutter-unit>})
-@deffnx Method set-depthu
-Sets the Z co-ordinate of @var{self} to @var{depth} in @code{<clutter-unit>}s,
-the units of which are dependant on the perspective setup.
+@deffn Function clutter-actor-set-shader-param-int  (self@tie{}@code{<clutter-actor>}) (param@tie{}@code{mchars}) (value@tie{}@code{int})
+@deffnx Method set-shader-param-int
+Sets the value for a named int parameter of the shader applied to
+@var{actor}.
 
 @table @var
 @item self
 a @code{<clutter-actor>}
 
-@item depth
-Z co-ordinate, in @code{<clutter-unit>}s
+@item param
+the name of the parameter
+
+@item value
+the value of the parameter
 
 @end table
 
+Since 0.8
+
 @end deffn
 
-@deffn Function clutter-actor-get-depthu  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-unit>})
-@deffnx Method get-depthu
-Retrieves the depth of @var{self}.
+@deffn Function clutter-actor-grab-key-focus  (self@tie{}@code{<clutter-actor>})
+@deffnx Method grab-key-focus
+Sets the key focus of the @code{<clutter-stage>} including @var{self} to
+this @code{<clutter-actor>}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-actor-get-pango-context  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<pango-context>})
+@deffnx Method get-pango-context
+Retrieves the @code{<pango-context>} for @var{self}. The actor's
+@code{<pango-context>} is already configured using the appropriate font
+map, resolution and font options.
+
+Unlike @code{clutter-actor-create-pango-context}, this context is owend
+by the @code{<clutter-actor>} and it will be updated each time the
+options stored by the @code{<clutter-backend>} change.
+
+You can use the returned @code{<pango-context>} to create a
+@code{<pango-layout>} and render text using
+@code{cogl-pango-render-layout} to reuse the glyphs cache also used by
+Clutter.
 
 @table @var
 @item self
 a @code{<clutter-actor>}
 
 @item ret
-the depth of the actor, in @code{<clutter-unit>}s
+the @code{<pango-context>} for a @code{<clutter-actor>}. The returned
+@code{<pango-context>} is owned by the actor and should not be
+unreferenced by the application code.
 
 @end table
 
-Since 0.6
+Since 1.0
 
 @end deffn
 
-@deffn Function clutter-actor-set-heightu  (self@tie{}@code{<clutter-actor>}) (height@tie{}@code{<clutter-unit>})
-@deffnx Method set-heightu
-Forces a height on an actor, causing the actor's preferred width and height (if
-any) to be ignored.
+@deffn Function clutter-actor-create-pango-context  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<pango-context>})
+@deffnx Method create-pango-context
+Creates a @code{<pango-context>} for the given actor. The
+@code{<pango-context>} is already configured using the appropriate font
+map, resolution and font options.
 
-This function sets both the minimum and natural size of the actor.
-
-@table @var
-@item self
-A @code{<clutter-actor>}
-
-@item height
-Requested new height for the actor, in @code{<clutter-unit>}s
-
-@end table
-
-Since 0.6
-
-@end deffn
-
-@deffn Function clutter-actor-get-heightu  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-unit>})
-@deffnx Method get-heightu
-Retrieves the height of a @code{<clutter-actor>}, in @code{<clutter-unit>}s.
-
-If the actor has a valid allocation, this function will return the height of the
-allocated area given to the actor.
-
-If the actor does not have a valid allocation, this function will return the
-actor's natural height, that is the preferred height of the actor.
-
-If you care whether you get the preferred height or the height that has been
-assigned to the actor, you should probably call a different function like
-@code{clutter-actor-get-allocation-coords} to retrieve the allocated size or
-@code{clutter-actor-get-preferred-height} to retrieve the preferred height.
-
-If an actor has a fixed height, for instance a height that has been assigned
-using @code{clutter-actor-set-height}, the height returned will be the same
-value.
-
-@table @var
-@item self
-A @code{<clutter-actor>}
-
-@item ret
-the height of the actor, in @code{<clutter-unit>}s
-
-@end table
-
-Since 0.6
-
-@end deffn
-
-@deffn Function clutter-actor-set-widthu  (self@tie{}@code{<clutter-actor>}) (width@tie{}@code{<clutter-unit>})
-@deffnx Method set-widthu
-Forces a width on an actor, causing the actor's preferred width and height (if
-any) to be ignored.
-
-This function sets both the minimum and natural size of the actor.
-
-@table @var
-@item self
-A @code{<clutter-actor>}
-
-@item width
-Requested new width for the actor, in @code{<clutter-unit>}s
-
-@end table
-
-Since 0.6
-
-@end deffn
-
-@deffn Function clutter-actor-get-widthu  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-unit>})
-@deffnx Method get-widthu
-Retrieves the width of a @code{<clutter-actor>}, in @code{<clutter-unit>}s.
-
-If the actor has a valid allocation, this function will return the width of the
-allocated area given to the actor.
-
-If the actor does not have a valid allocation, this function will return the
-actor's natural width, that is the preferred width of the actor.
-
-If you care whether you get the preferred width or the width that has been
-assigned to the actor, you should probably call a different function like
-@code{clutter-actor-get-allocation-coords} to retrieve the allocated size or
-@code{clutter-actor-get-preferred-width} to retrieve the preferred width.
-
-If an actor has a fixed width, for instance a width that has been assigned using
-@code{clutter-actor-set-width}, the width returned will be the same value.
-
-@table @var
-@item self
-A @code{<clutter-actor>}
-
-@item ret
-the width of the actor, in @code{<clutter-unit>}s
-
-@end table
-
-Since 0.6
-
-@end deffn
-
-@deffn Function clutter-actor-set-xu  (self@tie{}@code{<clutter-actor>}) (x@tie{}@code{<clutter-unit>})
-@deffnx Method set-xu
-Sets the actor's X coordinate, relative to its parent.
-
-Overrides any layout manager and forces a fixed position for the actor.
+See also @code{clutter-actor-get-pango-context}.
 
 @table @var
 @item self
 a @code{<clutter-actor>}
+
+@item ret
+the newly created @code{<pango-context>}. Use @code{g-object-unref} on
+the returned value to deallocate its resources
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-actor-create-pango-layout  (self@tie{}@code{<clutter-actor>}) (text@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<pango-layout>})
+@deffnx Method create-pango-layout
+Creates a new @code{<pango-layout>} from the same @code{<pango-context>}
+used by the @code{<clutter-actor>}. The @code{<pango-layout>} is already
+configured with the font map, resolution and font options, and the given
+@var{text}.
+
+If you want to keep around a @code{<pango-layout>} created by this
+function you will have to connect to the @code{<"font-changed">} and
+@code{<"resolution-changed">} signals, and call
+@code{pango-layout-context-changed} in response to them.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item text
+(allow-none) the text to set on the @code{<pango-layout>}, or
+@samp{@code{#f}}
+
+@item ret
+the newly created @code{<pango-layout>}. Use @code{g-object-unref} when
+done
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-actor-is-in-clone-paint  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method is-in-clone-paint
+Checks whether @var{self} is being currently painted by a
+@code{<clutter-clone>}
+
+This function is useful only inside the ::paint virtual function
+implementations or within handlers for the @code{<"paint">} signal
+
+This function should not be used by applications
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+@samp{@code{#t}} if the @code{<clutter-actor>} is currently being
+painted by a @code{<clutter-clone>}, and @samp{@code{#f}} otherwise
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-actor-box-new  (x_1@tie{}@code{float}) (y_1@tie{}@code{float}) (x_2@tie{}@code{float}) (y_2@tie{}@code{float}) @result{}@tie{} (ret@tie{}@code{<clutter-actor-box>})
+Allocates a new @code{<clutter-actor-box>} using the passed coordinates
+for the top left and bottom right points
+
+@table @var
+@item x-1
+X coordinate of the top left point
+
+@item y-1
+Y coordinate of the top left point
+
+@item x-2
+X coordinate of the bottom right point
+
+@item y-2
+Y coordinate of the bottom right point
+
+@item ret
+the newly allocated @code{<clutter-actor-box>}. Use
+@code{clutter-actor-box-free} to free the resources
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-actor-box-equal  (self@tie{}@code{<clutter-actor-box>}) (box_b@tie{}@code{<clutter-actor-box>}) @result{}@tie{} (ret@tie{}@code{bool})
+Checks @var{box-a} and @var{box-b} for equality
+
+@table @var
+@item box-a
+a @code{<clutter-actor-box>}
+
+@item box-b
+a @code{<clutter-actor-box>}
+
+@item ret
+@samp{@code{#t}} if the passed @code{<clutter-actor-box>} are equal
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-actor-box-get-x  (self@tie{}@code{<clutter-actor-box>}) @result{}@tie{} (ret@tie{}@code{float})
+Retrieves the X coordinate of the origin of @var{box}
+
+@table @var
+@item box
+a @code{<clutter-actor-box>}
+
+@item ret
+the X coordinate of the origin
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-actor-box-get-y  (self@tie{}@code{<clutter-actor-box>}) @result{}@tie{} (ret@tie{}@code{float})
+Retrieves the Y coordinate of the origin of @var{box}
+
+@table @var
+@item box
+a @code{<clutter-actor-box>}
+
+@item ret
+the Y coordinate of the origin
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-actor-box-get-width  (self@tie{}@code{<clutter-actor-box>}) @result{}@tie{} (ret@tie{}@code{float})
+Retrieves the width of the @var{box}
+
+@table @var
+@item box
+a @code{<clutter-actor-box>}
+
+@item ret
+the width of the box
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-actor-box-get-height  (self@tie{}@code{<clutter-actor-box>}) @result{}@tie{} (ret@tie{}@code{float})
+Retrieves the height of the @var{box}
+
+@table @var
+@item box
+a @code{<clutter-actor-box>}
+
+@item ret
+the height of the box
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-actor-box-get-origin  (self@tie{}@code{<clutter-actor-box>}) @result{}@tie{} (x@tie{}@code{float}) (y@tie{}@code{float})
+Retrieves the origin of @var{box}
+
+@table @var
+@item box
+a @code{<clutter-actor-box>}
 
 @item x
-the actor's position on the X axis, in @code{<clutter-unit>}s
+return location for the X coordinate, or @samp{@code{#f}}.
+
+@item y
+return location for the Y coordinate, or @samp{@code{#f}}.
 
 @end table
 
-Since 0.6
+Since 1.0
 
 @end deffn
 
-@deffn Function clutter-actor-get-xu  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-unit>})
-@deffnx Method get-xu
-Retrieves the X coordinate of a @code{<clutter-actor>}, in
-@code{<clutter-unit>}s.
-
-This function tries to "do what you mean", by returning the correct value
-depending on the actor's state.
-
-If the actor has a valid allocation, this function will return the X coordinate
-of the origin of the allocation box.
-
-If the actor has any fixed coordinate set using @code{clutter-actor-set-x},
-@code{clutter-actor-set-position} or @code{clutter-actor-set-geometry}, this
-function will return that coordinate.
-
-If both the allocation and a fixed position are missing, this function will
-return 0.
+@deffn Function clutter-actor-box-get-size  (self@tie{}@code{<clutter-actor-box>}) @result{}@tie{} (width@tie{}@code{float}) (height@tie{}@code{float})
+Retrieves the size of @var{box}
 
 @table @var
-@item self
-A @code{<clutter-actor>}
+@item box
+a @code{<clutter-actor-box>}
+
+@item width
+return location for the width, or @samp{@code{#f}}.
+
+@item height
+return location for the height, or @samp{@code{#f}}.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-actor-box-get-area  (self@tie{}@code{<clutter-actor-box>}) @result{}@tie{} (ret@tie{}@code{float})
+Retrieves the area of @var{box}
+
+@table @var
+@item box
+a @code{<clutter-actor-box>}
 
 @item ret
-the X coordinate, in @code{<clutter-unit>}s, ignoring any transformation (i.e.
-scaling, rotation)
+the area of a @code{<clutter-actor-box>}, in pixels
 
 @end table
 
-Since 0.6
+Since 1.0
 
 @end deffn
 
-@deffn Function clutter-actor-set-yu  (self@tie{}@code{<clutter-actor>}) (y@tie{}@code{<clutter-unit>})
-@deffnx Method set-yu
-Sets the actor's Y coordinate, relative to its parent.
-
-Overrides any layout manager and forces a fixed position for the actor.
+@deffn Function clutter-actor-box-contains  (self@tie{}@code{<clutter-actor-box>}) (x@tie{}@code{float}) (y@tie{}@code{float}) @result{}@tie{} (ret@tie{}@code{bool})
+Checks whether a point with @var{x}, @var{y} coordinates is contained
+withing @var{box}
 
 @table @var
-@item self
-a @code{<clutter-actor>}
+@item box
+a @code{<clutter-actor-box>}
+
+@item x
+X coordinate of the point
 
 @item y
-the actor's position on the Y axis, in @code{<clutter-unit>}s
-
-@end table
-
-Since 0.6
-
-@end deffn
-
-@deffn Function clutter-actor-get-yu  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-unit>})
-@deffnx Method get-yu
-Retrieves the Y coordinate of a @code{<clutter-actor>}, in
-@code{<clutter-unit>}s.
-
-This function tries to "do what you mean", by returning the correct value
-depending on the actor's state.
-
-If the actor has a valid allocation, this function will return the Y coordinate
-of the origin of the allocation box.
-
-If the actor has any fixed coordinate set using @code{clutter-actor-set-y},
-@code{clutter-actor-set-position} or @code{clutter-actor-set-geometry}, this
-function will return that coordinate.
-
-If both the allocation and a fixed position are missing, this function will
-return 0.
-
-@table @var
-@item self
-A @code{<clutter-actor>}
+Y coordinate of the point
 
 @item ret
-the Y coordinate, in @code{<clutter-unit>}s, ignoring any transformation (i.e.
-scaling, rotation)
+@samp{@code{#t}} if the point is contained by the
+@code{<clutter-actor-box>}
 
 @end table
 
-Since 0.6
+Since 1.0
 
 @end deffn
 
-@deffn Function clutter-actor-set-positionu  (self@tie{}@code{<clutter-actor>}) (x@tie{}@code{<clutter-unit>}) (y@tie{}@code{<clutter-unit>})
-@deffnx Method set-positionu
-Sets the actor's position in @code{<clutter-unit>}s relative to any parent
-actor.
-
-If a layout manager is in use, this position will override the layout manager
-and force a fixed position.
+@deffn Function clutter-vertex-new  (x@tie{}@code{float}) (y@tie{}@code{float}) (z@tie{}@code{float}) @result{}@tie{} (ret@tie{}@code{<clutter-vertex>})
+Creates a new @code{<clutter-vertex>} for the point in 3D space
+identified by the 3 coordinates @var{x}, @var{y}, @var{z}
 
 @table @var
-@item self
-A @code{<clutter-actor>}
-
 @item x
-New left position of actor in @code{<clutter-unit>}s
+X coordinate
 
 @item y
-New top position of actor in @code{<clutter-unit>}s
-
-@end table
-
-Since 0.6
-
-@end deffn
-
-@deffn Function clutter-actor-get-positionu  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (x@tie{}@code{<clutter-unit>}) (y@tie{}@code{<clutter-unit>})
-@deffnx Method get-positionu
-This function tries to "do what you mean" and tell you where the actor is, prior
-to any transformations. Retrieves the fixed position of an actor in pixels, if
-one has been set; otherwise, if the allocation is valid, returns the actor's
-allocated position; otherwise, returns 0,0.
-
-The returned position is in @code{<clutter-unit>}s.
-
-@table @var
-@item self
-a @code{<clutter-actor>}
-
-@item x
-return location for the X coordinate, or @samp{@code{#f}}
-
-@item y
-return location for the Y coordinate, or @samp{@code{#f}}
-
-@end table
-
-Since 0.6
-
-@end deffn
-
-@deffn Function clutter-actor-set-sizeu  (self@tie{}@code{<clutter-actor>}) (width@tie{}@code{<clutter-unit>}) (height@tie{}@code{<clutter-unit>})
-@deffnx Method set-sizeu
-Overrides the actor's size request in @code{<clutter-unit>}s. If @var{width}
-and/or @var{height} are -1 the actor will use its normal size request (the
-override is removed).
-
-This function sets or unsets both the minimum and natural size.
-
-@table @var
-@item self
-A @code{<clutter-actor>}
-
-@item width
-New width of actor in @code{<clutter-unit>}s, or -1
-
-@item height
-New height of actor in @code{<clutter-unit>}s, or -1
-
-@end table
-
-Since 0.6
-
-@end deffn
-
-@deffn Function clutter-actor-get-sizeu  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (width@tie{}@code{<clutter-unit>}) (height@tie{}@code{<clutter-unit>})
-@deffnx Method get-sizeu
-This function tries to "do what you mean" and return the size an actor will
-have. If the actor has a valid allocation, the allocation will be returned;
-otherwise, the actors natural size request will be returned.
-
-If you care whether you get the request vs. the allocation, you should probably
-call a different function like @code{clutter-actor-get-allocation-coords} or
-@code{clutter-actor-get-preferred-width}.
-
-@table @var
-@item self
-A @code{<clutter-actor>}
-
-@item width
-return location for the width, or @samp{@code{#f}}
-
-@item height
-return location for the height, or @samp{@code{#f}}
-
-@end table
-
-Since 0.6
-
-@end deffn
-
-@deffn Function clutter-actor-set-anchor-pointu  (self@tie{}@code{<clutter-actor>}) (anchor_x@tie{}@code{<clutter-unit>}) (anchor_y@tie{}@code{<clutter-unit>})
-@deffnx Method set-anchor-pointu
-Sets an anchor point for @var{self}. The anchor point is a point in the
-coordinate space of an actor to which the actor position within its parent is
-relative; the default is (0, 0), i.e. the top-left corner of the actor.
-
-@table @var
-@item self
-a @code{<clutter-actor>}
-
-@item anchor-x
-X coordinate of the anchor point, in @code{<clutter-unit>}s
-
-@item anchor-y
-Y coordinate of the anchor point, in @code{<clutter-unit>}s
-
-@end table
-
-Since 0.6
-
-@end deffn
-
-@deffn Function clutter-actor-get-anchor-pointu  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (anchor_x@tie{}@code{<clutter-unit>}) (anchor_y@tie{}@code{<clutter-unit>})
-@deffnx Method get-anchor-pointu
-Gets the current anchor point of the @var{actor} in @code{<clutter-unit>}s.
-
-@table @var
-@item self
-a @code{<clutter-actor>}
-
-@item anchor-x
-return location for the X coordinace of the anchor point
-
-@item anchor-y
-return location for the X coordinace of the anchor point
-
-@end table
-
-Since 0.6
-
-@end deffn
-
-@deffn Function clutter-actor-move-anchor-pointu  (self@tie{}@code{<clutter-actor>}) (anchor_x@tie{}@code{<clutter-unit>}) (anchor_y@tie{}@code{<clutter-unit>})
-@deffnx Method move-anchor-pointu
-Sets an anchor point for the actor, and adjusts the actor postion so that the
-relative position of the actor toward its parent remains the same.
-
-@table @var
-@item self
-a @code{<clutter-actor>}
-
-@item anchor-x
-X coordinate of the anchor point
-
-@item anchor-y
-Y coordinate of the anchor point
-
-@end table
-
-Since 0.6
-
-@end deffn
-
-@deffn Function clutter-actor-set-clipu  (self@tie{}@code{<clutter-actor>}) (xoff@tie{}@code{<clutter-unit>}) (yoff@tie{}@code{<clutter-unit>}) (width@tie{}@code{<clutter-unit>}) (height@tie{}@code{<clutter-unit>})
-@deffnx Method set-clipu
-Unit-based variant of @code{clutter-actor-set-clip}
-
-Sets clip area for @var{self}. The clip area is always computed from the upper
-left corner of the actor, even if the anchor point is set otherwise.
-
-@table @var
-@item self
-A @code{<clutter-actor>}
-
-@item xoff
-X offset of the clip rectangle, in @code{<clutter-unit>}s
-
-@item yoff
-Y offset of the clip rectangle, in @code{<clutter-unit>}s
-
-@item width
-Width of the clip rectangle, in @code{<clutter-unit>}s
-
-@item height
-Height of the clip rectangle, in @code{<clutter-unit>}s
-
-@end table
-
-Since 0.6
-
-@end deffn
-
-@deffn Function clutter-actor-get-clipu  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (xoff@tie{}@code{<clutter-unit>}) (yoff@tie{}@code{<clutter-unit>}) (width@tie{}@code{<clutter-unit>}) (height@tie{}@code{<clutter-unit>})
-@deffnx Method get-clipu
-Unit-based variant of @code{clutter-actor-get-clip}.
-
-Gets the clip area for @var{self}, in @code{<clutter-unit>}s.
-
-@table @var
-@item self
-a @code{<clutter-actor>}
-
-@item xoff
-return location for the X offset of the clip rectangle, or @samp{@code{#f}}
-
-@item yoff
-return location for the Y offset of the clip rectangle, or @samp{@code{#f}}
-
-@item width
-return location for the width of the clip rectangle, or @samp{@code{#f}}
-
-@item height
-return location for the height of the clip rectangle, or @samp{@code{#f}}
-
-@end table
-
-Since 0.6
-
-@end deffn
-
-@deffn Function clutter-actor-set-rotationu  (self@tie{}@code{<clutter-actor>}) (axis@tie{}@code{<clutter-rotate-axis>}) (angle@tie{}@code{double}) (x@tie{}@code{<clutter-unit>}) (y@tie{}@code{<clutter-unit>}) (z@tie{}@code{<clutter-unit>})
-@deffnx Method set-rotationu
-Sets the rotation angle of @var{self} around the given axis.
-
-This function is the units based variant of @code{clutter-actor-set-rotation}.
-
-@table @var
-@item self
-a @code{<clutter-actor>}
-
-@item axis
-the axis of rotation
-
-@item angle
-the angle of rotation
-
-@item x
-X coordinate of the rotation center, in @code{<clutter-unit>}s
-
-@item y
-Y coordinate of the rotation center, in @code{<clutter-unit>}s
+Y coordinate
 
 @item z
-Z coordinate of the rotation center, in @code{<clutter-unit>}s
-
-@end table
-
-Since 0.8
-
-@end deffn
-
-@deffn Function clutter-actor-get-rotationu  (self@tie{}@code{<clutter-actor>}) (axis@tie{}@code{<clutter-rotate-axis>}) @result{}@tie{} (ret@tie{}@code{double}) (x@tie{}@code{<clutter-unit>}) (y@tie{}@code{<clutter-unit>}) (z@tie{}@code{<clutter-unit>})
-@deffnx Method get-rotationu
-Retrieves the angle and center of rotation on the given axis, set using
-@code{clutter-actor-set-rotation}.
-
-This function is the units based variant of @code{clutter-actor-get-rotation}.
-
-@table @var
-@item self
-a @code{<clutter-actor>}
-
-@item axis
-the axis of rotation
-
-@item x
-return value for the X coordinate of the center of rotation, in
-@code{<clutter-unit>}s
-
-@item y
-return value for the Y coordinate of the center of rotation, in
-@code{<clutter-unit>}s
-
-@item z
-return value for the Z coordinate of the center of rotation, in
-@code{<clutter-unit>}s
+Z coordinate
 
 @item ret
-the angle of rotation
+the newly allocate @code{<clutter-vertex>}. Use
+@code{clutter-vertex-free} to free the resources
 
 @end table
 
-Since 0.8
+Since 1.0
 
 @end deffn
 
-@deffn Function clutter-actor-move-byu  (self@tie{}@code{<clutter-actor>}) (dx@tie{}@code{<clutter-unit>}) (dy@tie{}@code{<clutter-unit>})
-@deffnx Method move-byu
-Moves an actor by the specified distance relative to its current position.
-
-The move is accomplished by setting a fixed position, overriding any layout
-manager, see @code{clutter-actor-set-positionu}.
+@deffn Function clutter-vertex-equal  (self@tie{}@code{<clutter-vertex>}) (vertex_b@tie{}@code{<clutter-vertex>}) @result{}@tie{} (ret@tie{}@code{bool})
+Compares @var{vertex-a} and @var{vertex-b} for equality
 
 @table @var
-@item self
-A @code{<clutter-actor>}
+@item vertex-a
+a @code{<clutter-vertex>}
 
-@item dx
-Distance to move Actor on X axis, in @code{<clutter-unit>}s.
+@item vertex-b
+a @code{<clutter-vertex>}
 
-@item dy
-Distance to move Actor on Y axis, in @code{<clutter-unit>}s.
+@item ret
+@samp{@code{#t}} if the passed @code{<clutter-vertex>} are equal
 
 @end table
 
-Since 0.6
-
-@end deffn
-
-@deffn Function clutter-actor-get-transformed-sizeu  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (width@tie{}@code{<clutter-unit>}) (height@tie{}@code{<clutter-unit>})
-@deffnx Method get-transformed-sizeu
-Gets the absolute size of an actor in @code{<clutter-units>}s, taking into
-account the scaling factors.
-
-@cartouche 
-When the actor (or one of its ancestors) is rotated around the
-X or Y axis, it no longer appears as on the stage as a rectangle, but
-as a generic quadrangle; in that case this function returns the size
-of the smallest rectangle that encapsulates the entire quad. Please
-note that in this case no assumptions can be made about the relative
-position of this envelope to the absolute position of the actor, as
-returned by @code{clutter-actor-get-transformed-position}; if you need this
-information, you need to use @code{clutter-actor-get-abs-allocation-vertices}
-to get the coords of the actual quadrangle.
-@end cartouche
-
-@table @var
-@item self
-A @code{<clutter-actor>}
-
-@item width
-return location for the width, or @samp{@code{#f}}
-
-@item height
-return location for the height, or @samp{@code{#f}}
-
-@end table
-
-Since 0.8
+Since 1.0
 
 @end deffn
 

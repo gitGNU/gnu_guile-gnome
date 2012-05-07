@@ -1,0 +1,204 @@
+
+@c %start of fragment
+
+@deffn Function clutter-binding-pool-new  (name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<clutter-binding-pool>})
+Creates a new @code{<clutter-binding-pool>} that can be used to store
+key bindings for an actor. The @var{name} must be a unique identifier
+for the binding pool, so that @code{clutter-binding-pool-find} will be
+able to return the correct binding pool.
+
+@table @var
+@item name
+the name of the binding pool
+
+@item ret
+the newly created binding pool with the given name. Use
+@code{g-object-unref} when done.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-binding-pool-get-for-class  (klass@tie{}@code{<g-object-class>}) @result{}@tie{} (ret@tie{}@code{<clutter-binding-pool>})
+Retrieves the @code{<clutter-binding-pool>} for the given
+@code{<gobject>} class and, eventually, creates it. This function is a
+wrapper around @code{clutter-binding-pool-new} and uses the class type
+name as the unique name for the binding pool.
+
+Calling this function multiple times will return the same
+@code{<clutter-binding-pool>}.
+
+A binding pool for a class can also be retrieved using
+@code{clutter-binding-pool-find} with the class type name:
+
+@example 
+
+  pool = clutter_binding_pool_find (G_OBJECT_TYPE_NAME (instance));
+@end example
+
+@table @var
+@item klass
+a @code{<g-object-class>} pointer
+
+@item ret
+the binding pool for the given class. The returned
+@code{<clutter-binding-pool>} is owned by Clutter and should not be
+freed directly.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-binding-pool-find  (name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<clutter-binding-pool>})
+Finds the @code{<clutter-binding-pool>} with @var{name}.
+
+@table @var
+@item name
+the name of the binding pool to find
+
+@item ret
+a pointer to the @code{<clutter-binding-pool>}, or @samp{@code{#f}}.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-binding-pool-find-action  (self@tie{}@code{<clutter-binding-pool>}) (key_val@tie{}@code{unsigned-int}) (modifiers@tie{}@code{<clutter-modifier-type>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method find-action
+Retrieves the name of the action matching the given key symbol and
+modifiers bitmask.
+
+@table @var
+@item pool
+a @code{<clutter-binding-pool>}
+
+@item key-val
+a key symbol
+
+@item modifiers
+a bitmask for the modifiers
+
+@item ret
+the name of the action, if found, or @samp{@code{#f}}. The returned
+string is owned by the binding pool and should never be modified or
+freed
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-binding-pool-remove-action  (self@tie{}@code{<clutter-binding-pool>}) (key_val@tie{}@code{unsigned-int}) (modifiers@tie{}@code{<clutter-modifier-type>})
+@deffnx Method remove-action
+Removes the action matching the given @var{key-val}, @var{modifiers}
+pair, if any exists.
+
+@table @var
+@item pool
+a @code{<clutter-binding-pool>}
+
+@item key-val
+a key symbol
+
+@item modifiers
+a bitmask for the modifiers
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-binding-pool-block-action  (self@tie{}@code{<clutter-binding-pool>}) (action_name@tie{}@code{mchars})
+@deffnx Method block-action
+Blocks all the actions with name @var{action-name} inside @var{pool}.
+
+@table @var
+@item pool
+a @code{<clutter-binding-pool>}
+
+@item action-name
+an action name
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-binding-pool-unblock-action  (self@tie{}@code{<clutter-binding-pool>}) (action_name@tie{}@code{mchars})
+@deffnx Method unblock-action
+Unblockes all the actions with name @var{action-name} inside @var{pool}.
+
+Unblocking an action does not cause the callback bound to it to be
+invoked in case @code{clutter-binding-pool-activate} was called on an
+action previously blocked with @code{clutter-binding-pool-block-action}.
+
+@table @var
+@item pool
+a @code{<clutter-binding-pool>}
+
+@item action-name
+an action name
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-binding-pool-activate  (self@tie{}@code{<clutter-binding-pool>}) (key_val@tie{}@code{unsigned-int}) (modifiers@tie{}@code{<clutter-modifier-type>}) (gobject@tie{}@code{<gobject>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method activate
+Activates the callback associated to the action that is bound to the
+@var{key-val} and @var{modifiers} pair.
+
+The callback has the following signature:
+
+@example 
+
+  void (* callback) (GObject             *gobject,
+                     const gchar         *action_name,
+                     guint                key_val,
+                     ClutterModifierType  modifiers,
+                     gpointer             user_data);
+@end example
+
+Where the @code{<gobject>} instance is @var{gobject} and the user data
+is the one passed when installing the action with
+@code{clutter-binding-pool-install-action}.
+
+If the action bound to the @var{key-val}, @var{modifiers} pair has been
+blocked using @code{clutter-binding-pool-block-action}, the callback
+will not be invoked, and this function will return @samp{@code{#f}}.
+
+@table @var
+@item pool
+a @code{<clutter-binding-pool>}
+
+@item key-val
+the key symbol
+
+@item modifiers
+bitmask for the modifiers
+
+@item gobject
+a @code{<gobject>}
+
+@item ret
+@samp{@code{#t}} if an action was found and was activated
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+
+@c %end of fragment

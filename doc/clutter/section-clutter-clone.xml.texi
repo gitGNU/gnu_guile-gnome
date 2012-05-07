@@ -1,0 +1,22 @@
+
+@c %start of fragment
+
+@node ClutterClone
+@chapter ClutterClone
+An actor that displays a clone of a source actor
+
+@section Overview
+@code{<clutter-clone>} is a @code{<clutter-actor>} which draws with the
+paint function of another actor, scaled to fit its own allocation.
+
+@code{<clutter-clone>} can be used to efficiently clone any other actor.
+
+This is different from @code{clutter-texture-new-from-actor} which
+requires support for FBOs in the underlying GL implementation.
+
+@code{<clutter-clone>} is available since Clutter 1.0
+
+@section Usage
+@include defuns-clutter-clone.xml.texi
+
+@c %end of fragment

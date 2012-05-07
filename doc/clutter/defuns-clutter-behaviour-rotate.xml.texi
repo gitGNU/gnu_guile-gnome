@@ -1,43 +1,13 @@
 
 @c %start of fragment
 
-@deftp Class <clutter-behaviour-rotate>
-Derives from @code{<clutter-behaviour>}.
-
-This class defines the following slots:
-
-@table @code
-@item angle-start
-Initial angle
-
-@item angle-end
-Final angle
-
-@item axis
-Axis of rotation
-
-@item direction
-Direction of rotation
-
-@item center-x
-X center of rotation
-
-@item center-y
-Y center of rotation
-
-@item center-z
-Z center of rotation
-
-@end table
-
-@end deftp
-
 @deffn Function clutter-behaviour-rotate-new  (alpha@tie{}@code{<clutter-alpha>}) (axis@tie{}@code{<clutter-rotate-axis>}) (direction@tie{}@code{<clutter-rotate-direction>}) (angle_start@tie{}@code{double}) (angle_end@tie{}@code{double}) @result{}@tie{} (ret@tie{}@code{<clutter-behaviour>})
-Creates a new @code{<clutter-behaviour-rotate>}. This behaviour will rotate
-actors bound to it on @var{axis}, following @var{direction}, between
-@var{angle-start} and @var{angle-end}. Angles >= 360 degrees will be clamped to
-the canonical interval <0, 360), if angle_start == angle_end, the behaviour will
-carry out a single rotation of 360 degrees.
+Creates a new @code{<clutter-behaviour-rotate>}. This behaviour will
+rotate actors bound to it on @var{axis}, following @var{direction},
+between @var{angle-start} and @var{angle-end}. Angles >= 360 degrees
+will be clamped to the canonical interval <0, 360), if angle_start ==
+angle_end, the behaviour will carry out a single rotation of 360
+degrees.
 
 @table @var
 @item alpha
@@ -100,8 +70,8 @@ Since 0.4
 
 @deffn Function clutter-behaviour-rotate-set-bounds  (self@tie{}@code{<clutter-behaviour-rotate>}) (angle_start@tie{}@code{double}) (angle_end@tie{}@code{double})
 @deffnx Method set-bounds
-Sets the initial and final angles of a rotation behaviour; angles >= 360 degrees
-get clamped to the canonical interval <0, 360).
+Sets the initial and final angles of a rotation behaviour; angles >= 360
+degrees get clamped to the canonical interval <0, 360).
 
 @table @var
 @item rotate
@@ -141,8 +111,9 @@ Since 0.4
 
 @deffn Function clutter-behaviour-rotate-set-center  (self@tie{}@code{<clutter-behaviour-rotate>}) (x@tie{}@code{int}) (y@tie{}@code{int}) (z@tie{}@code{int})
 @deffnx Method set-center
-Sets the center of rotation. The coordinates are relative to the plane normal to
-the rotation axis set with @code{clutter-behaviour-rotate-set-axis}.
+Sets the center of rotation. The coordinates are relative to the plane
+normal to the rotation axis set with
+@code{clutter-behaviour-rotate-set-axis}.
 
 @table @var
 @item rotate

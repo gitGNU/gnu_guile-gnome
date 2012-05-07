@@ -1,0 +1,121 @@
+
+@c %start of fragment
+
+@deffn Function clutter-cairo-texture-new  (width@tie{}@code{unsigned-int}) (height@tie{}@code{unsigned-int}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+Creates a new @code{<clutter-cairo-texture>} actor, with a surface of
+@var{width} by @var{height} pixels.
+
+@table @var
+@item width
+the width of the surface
+
+@item height
+the height of the surface
+
+@item ret
+the newly created @code{<clutter-cairo-texture>} actor
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-cairo-texture-create  (self@tie{}@code{<clutter-cairo-texture>}) @result{}@tie{} (ret@tie{}@code{cairo-t})
+@deffnx Method create
+Creates a new Cairo context for the @var{cairo} texture. It is similar
+to using @code{clutter-cairo-texture-create-region} with @var{x-offset}
+and @var{y-offset} of 0, @var{width} equal to the @var{cairo} texture
+surface width and @var{height} equal to the @var{cairo} texture surface
+height.
+
+@c (warning)
+
+Do not call this function within the paint virtual function or from a
+callback to the @code{<"paint">} signal.
+
+@table @var
+@item self
+a @code{<clutter-cairo-texture>}
+
+@item ret
+a newly created Cairo context. Use @code{cairo-destroy} to upload the
+contents of the context when done drawing
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-cairo-texture-create-region  (self@tie{}@code{<clutter-cairo-texture>}) (x_offset@tie{}@code{int}) (y_offset@tie{}@code{int}) (width@tie{}@code{int}) (height@tie{}@code{int}) @result{}@tie{} (ret@tie{}@code{cairo-t})
+@deffnx Method create-region
+Creates a new Cairo context that will updat the region defined by
+@var{x-offset}, @var{y-offset}, @var{width} and @var{height}.
+
+@c (warning)
+
+Do not call this function within the paint virtual function or from a
+callback to the @code{<"paint">} signal.
+
+@table @var
+@item self
+a @code{<clutter-cairo-texture>}
+
+@item x-offset
+offset of the region on the X axis
+
+@item y-offset
+offset of the region on the Y axis
+
+@item width
+width of the region, or -1 for the full surface width
+
+@item height
+height of the region, or -1 for the full surface height
+
+@item ret
+a newly created Cairo context. Use @code{cairo-destroy} to upload the
+contents of the context when done drawing
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-cairo-texture-clear  (self@tie{}@code{<clutter-cairo-texture>})
+@deffnx Method clear
+Clears @var{self}'s internal drawing surface, so that the next upload
+will replace the previous contents of the @code{<clutter-cairo-texture>}
+rather than adding to it.
+
+@table @var
+@item self
+a @code{<clutter-cairo-texture>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-cairo-set-source-color  (cr@tie{}@code{cairo-t}) (color@tie{}@code{<clutter-color>})
+Utility function for setting the source color of @var{cr} using a
+@code{<clutter-color>}.
+
+@table @var
+@item cr
+a Cairo context
+
+@item color
+a @code{<clutter-color>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+
+@c %end of fragment

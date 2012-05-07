@@ -6,8 +6,8 @@
 Versioning utility macros
 
 @section Overview
-Clutter offers a set of macros for checking the version of the library an
-application was linked to.
+Clutter offers a set of macros for checking the version of the library
+an application was linked to.
 
 @section Usage
 @include defuns-clutter-version.xml.texi

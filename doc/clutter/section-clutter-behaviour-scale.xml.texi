@@ -6,7 +6,8 @@
 A behaviour controlling scale
 
 @section Overview
-A @code{<clutter-behaviour-scale>} interpolates actors size between two values.
+A @code{<clutter-behaviour-scale>} interpolates actors size between two
+values.
 
 @section Usage
 @include defuns-clutter-behaviour-scale.xml.texi

@@ -6,21 +6,40 @@
 A class for calculating an alpha value as a function of time.
 
 @section Overview
-@code{<clutter-alpha>} is a class for calculating an integer value between 0 and
-@samp{CLUTTER_ALPHA_MAX_ALPHA} as a function of time. You should provide a
-@code{<clutter-timeline>} and bind it to the @code{<clutter-alpha>} object; you
-should also provide a function returning the alpha value depending on the
-position inside the timeline; this function will be executed each time a new
-frame in the @code{<clutter-timeline>} is reached. Since the alpha function is
-controlled by the timeline instance, you can pause or stop the
-@code{<clutter-alpha>} from calling the alpha function by controlling the
+@code{<clutter-alpha>} is a class for calculating an floating point
+value dependent only on the position of a @code{<clutter-timeline>}.
+
+A @code{<clutter-alpha>} binds a @code{<clutter-timeline>} to a progress
+function which translates the time T into an adimensional factor alpha.
+The factor can then be used to drive a @code{<clutter-behaviour>}, which
+will translate the alpha value into something meaningful for a
+@code{<clutter-actor>}.
+
+You should provide a @code{<clutter-timeline>} and bind it to the
+@code{<clutter-alpha>} instance using @code{clutter-alpha-set-timeline}.
+You should also set an "animation mode", either by using the
+@code{<clutter-animation-mode>} values that Clutter itself provides or
+by registering custom functions using
+@code{clutter-alpha-register-func}.
+
+Instead of a @code{<clutter-animation-mode>} you may provide a function
+returning the alpha value depending on the progress of the timeline,
+using @code{clutter-alpha-set-func} or @code{clutter-alpha-set-closure}.
+The alpha function will be executed each time a new frame in the
+@code{<clutter-timeline>} is reached.
+
+Since the alpha function is controlled by the timeline instance, you can
+pause, stop or resume the @code{<clutter-alpha>} from calling the alpha
+function by using the appropriate functions of the
 @code{<clutter-timeline>} object.
 
-@code{<clutter-alpha>} is used to "drive" a @code{<clutter-behaviour>} instance.
+@code{<clutter-alpha>} is used to "drive" a @code{<clutter-behaviour>}
+instance, and it is internally used by the @code{<clutter-animation>}
+API.
 
-(The missing figure, alpha-functions
+(The missing figure, easing-modes
 
-@c (title "Graphic representation of some alpha functions")
+@c (title "Easing modes provided by Clutter")
 @section Usage
 @include defuns-clutter-alpha.xml.texi
 

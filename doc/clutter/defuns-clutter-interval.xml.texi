@@ -1,0 +1,224 @@
+
+@c %start of fragment
+
+@deffn Function clutter-interval-new-with-values  (gtype@tie{}@code{<gtype>}) (initial@tie{}@code{<gvalue>}) (final@tie{}@code{<gvalue>}) @result{}@tie{} (ret@tie{}@code{<clutter-interval>})
+Creates a new @code{<clutter-interval>} of type @var{gtype}, between
+@var{initial} and @var{final}.
+
+This function is useful for language bindings.
+
+@table @var
+@item gtype
+the type of the values in the interval
+
+@item initial
+a @code{<gvalue>} holding the initial value of the interval
+
+@item final
+a @code{<gvalue>} holding the final value of the interval
+
+@item ret
+the newly created @code{<clutter-interval>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-interval-clone  (self@tie{}@code{<clutter-interval>}) @result{}@tie{} (ret@tie{}@code{<clutter-interval>})
+@deffnx Method clone
+Creates a copy of @var{interval}.
+
+@table @var
+@item interval
+a @code{<clutter-interval>}
+
+@item ret
+the newly created @code{<clutter-interval>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-interval-get-value-type  (self@tie{}@code{<clutter-interval>}) @result{}@tie{} (ret@tie{}@code{<gtype>})
+@deffnx Method get-value-type
+Retrieves the @code{<g-type>} of the values inside @var{interval}.
+
+@table @var
+@item interval
+a @code{<clutter-interval>}
+
+@item ret
+the type of the value, or G_TYPE_INVALID
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-interval-set-initial-value  (self@tie{}@code{<clutter-interval>}) (value@tie{}@code{<gvalue>})
+@deffnx Method set-initial-value
+Sets the initial value of @var{interval} to @var{value}. The value is
+copied inside the @code{<clutter-interval>}.
+
+@table @var
+@item interval
+a @code{<clutter-interval>}
+
+@item value
+a @code{<gvalue>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-interval-get-initial-value  (self@tie{}@code{<clutter-interval>}) (value@tie{}@code{<gvalue>})
+@deffnx Method get-initial-value
+Retrieves the initial value of @var{interval} and copies it into
+@var{value}.
+
+The passed @code{<gvalue>} must be initialized to the value held by the
+@code{<clutter-interval>}.
+
+@table @var
+@item interval
+a @code{<clutter-interval>}
+
+@item value
+a @code{<gvalue>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-interval-peek-initial-value  (self@tie{}@code{<clutter-interval>}) @result{}@tie{} (ret@tie{}@code{<gvalue>})
+@deffnx Method peek-initial-value
+Gets the pointer to the initial value of @var{interval}
+
+@table @var
+@item interval
+a @code{<clutter-interval>}
+
+@item ret
+the initial value of the interval. The value is owned by the
+@code{<clutter-interval>} and it should not be modified or freed.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-interval-set-final-value  (self@tie{}@code{<clutter-interval>}) (value@tie{}@code{<gvalue>})
+@deffnx Method set-final-value
+Sets the final value of @var{interval} to @var{value}. The value is
+copied inside the @code{<clutter-interval>}.
+
+@table @var
+@item interval
+a @code{<clutter-interval>}
+
+@item value
+a @code{<gvalue>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-interval-get-final-value  (self@tie{}@code{<clutter-interval>}) (value@tie{}@code{<gvalue>})
+@deffnx Method get-final-value
+Retrieves the final value of @var{interval} and copies it into
+@var{value}.
+
+The passed @code{<gvalue>} must be initialized to the value held by the
+@code{<clutter-interval>}.
+
+@table @var
+@item interval
+a @code{<clutter-interval>}
+
+@item value
+a @code{<gvalue>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-interval-peek-final-value  (self@tie{}@code{<clutter-interval>}) @result{}@tie{} (ret@tie{}@code{<gvalue>})
+@deffnx Method peek-final-value
+Gets the pointer to the final value of @var{interval}
+
+@table @var
+@item interval
+a @code{<clutter-interval>}
+
+@item ret
+the final value of the interval. The value is owned by the
+@code{<clutter-interval>} and it should not be modified or freed.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-interval-compute-value  (self@tie{}@code{<clutter-interval>}) (factor@tie{}@code{double}) (value@tie{}@code{<gvalue>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method compute-value
+Computes the value between the @var{interval} boundaries given the
+progress @var{factor} and puts it into @var{value}.
+
+@table @var
+@item interval
+a @code{<clutter-interval>}
+
+@item factor
+the progress factor, between 0 and 1
+
+@item value
+return location for an initialized @code{<gvalue>}
+
+@item ret
+@samp{@code{#t}} if the operation was successful
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-interval-validate  (self@tie{}@code{<clutter-interval>}) (pspec@tie{}@code{<gparam>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method validate
+Validates the initial and final values of @var{interval} against a
+@code{<gparam>}.
+
+@table @var
+@item interval
+a @code{<clutter-interval>}
+
+@item pspec
+a @code{<gparam>}
+
+@item ret
+@samp{@code{#t}} if the @code{<clutter-interval>} is valid,
+@samp{@code{#f}} otherwise
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+
+@c %end of fragment

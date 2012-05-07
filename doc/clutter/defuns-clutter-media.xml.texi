@@ -1,63 +1,20 @@
 
 @c %start of fragment
 
-@deftp Class <clutter-media>
-Derives from @code{<ginterface>}.
-
-This class defines the following slots:
-
-@table @code
-@item can-seek
-TRUE if the current stream is seekable.
-
-@item volume
-The audio volume.
-
-@item duration
-The duration of the current stream in seconds.
-
-@item buffer-percent
-The percentage the current stream buffer is filled.
-
-@item uri
-The loaded URI.
-
-@item playing
-TRUE if playing.
-
-@item position
-The position in the current stream in seconds.
-
-@end table
-
-@end deftp
-
-@defop Signal <clutter-media> eos 
-The ::eos signal is emitted each time the media stream ends.
-
-Since 0.2
-
-@end defop
-
-@defop Signal <clutter-media> error  (arg0@tie{}@code{<gpointer>})
-The ::error signal is emitted each time an error occurred.
-
-Since 0.2
-
-@end defop
-
 @deffn Function clutter-media-set-uri  (self@tie{}@code{<clutter-media>}) (uri@tie{}@code{mchars})
 @deffnx Method set-uri
 Sets the URI of @var{media} to @var{uri}.
 
 @table @var
 @item media
-@code{<clutter-media>} object
+a @code{<clutter-media>}
 
 @item uri
-URI
+the URI of the media stream
 
 @end table
+
+Since 0.2
 
 @end deffn
 
@@ -67,27 +24,32 @@ Retrieves the URI from @var{media}.
 
 @table @var
 @item media
-A @code{<clutter-media>} object
+a @code{<clutter-media>}
 
 @item ret
-The URI as a string.
+the URI of the media stream. Use @code{g-free} to free the returned
+string
 
 @end table
+
+Since 0.2
 
 @end deffn
 
 @deffn Function clutter-media-set-playing  (self@tie{}@code{<clutter-media>}) (playing@tie{}@code{bool})
 @deffnx Method set-playing
-Starts or stops @var{media} playing.
+Starts or stops playing of @var{media}.
 
 @table @var
 @item media
-A @code{<clutter-media>} object
+a @code{<clutter-media>}
 
 @item playing
-TRUE to start playing, FALSE to stop.
+@samp{@code{#t}} to start playing
 
 @end table
+
+Since 0.2
 
 @end deffn
 
@@ -104,65 +66,76 @@ A @code{<clutter-media>} object
 
 @end table
 
+Since 0.2
+
 @end deffn
 
-@deffn Function clutter-media-set-position  (self@tie{}@code{<clutter-media>}) (position@tie{}@code{int})
-@deffnx Method set-position
-Sets the playback position of @var{media} to @var{position}.
+@deffn Function clutter-media-set-progress  (self@tie{}@code{<clutter-media>}) (progress@tie{}@code{double})
+@deffnx Method set-progress
+Sets the playback progress of @var{media}. The @var{progress} is a
+normalized value between 0.0 (begin) and 1.0 (end).
 
 @table @var
 @item media
-A @code{<clutter-media>} object
+a @code{<clutter-media>}
 
-@item position
-The desired position.
+@item progress
+the progress of the playback, between 0.0 and 1.0
 
 @end table
 
+Since 1.0
+
 @end deffn
 
-@deffn Function clutter-media-get-position  (self@tie{}@code{<clutter-media>}) @result{}@tie{} (ret@tie{}@code{int})
-@deffnx Method get-position
-Retrieves the position of @var{media}.
+@deffn Function clutter-media-get-progress  (self@tie{}@code{<clutter-media>}) @result{}@tie{} (ret@tie{}@code{double})
+@deffnx Method get-progress
+Retrieves the playback progress of @var{media}.
 
 @table @var
 @item media
-A @code{<clutter-media>} object
+a @code{<clutter-media>}
 
 @item ret
-The playback position.
+the playback progress, between 0.0 and 1.0
 
 @end table
 
+Since 1.0
+
 @end deffn
 
-@deffn Function clutter-media-set-volume  (self@tie{}@code{<clutter-media>}) (volume@tie{}@code{double})
-@deffnx Method set-volume
+@deffn Function clutter-media-set-audio-volume  (self@tie{}@code{<clutter-media>}) (volume@tie{}@code{double})
+@deffnx Method set-audio-volume
 Sets the playback volume of @var{media} to @var{volume}.
 
 @table @var
 @item media
-A @code{<clutter-media>} object
+a @code{<clutter-media>}
 
 @item volume
-The volume as a double between 0.0 and 1.0
+the volume as a double between 0.0 and 1.0
 
 @end table
 
+Since 1.0
+
 @end deffn
 
-@deffn Function clutter-media-get-volume  (self@tie{}@code{<clutter-media>}) @result{}@tie{} (ret@tie{}@code{double})
-@deffnx Method get-volume
+@deffn Function clutter-media-get-audio-volume  (self@tie{}@code{<clutter-media>}) @result{}@tie{} (ret@tie{}@code{double})
+@deffnx Method get-audio-volume
 Retrieves the playback volume of @var{media}.
 
 @table @var
 @item media
-A @code{<clutter-media>} object
+a @code{<clutter-media>}
 
 @item ret
 The playback volume between 0.0 and 1.0
 
 @end table
+
+Since 1.0
 
 @end deffn
 
@@ -172,57 +145,65 @@ Retrieves whether @var{media} is seekable or not.
 
 @table @var
 @item media
-A @code{<clutter-media>} object
+a @code{<clutter-media>}
 
 @item ret
 @samp{@code{#t}} if @var{media} can seek, @samp{@code{#f}} otherwise.
 
 @end table
 
+Since 0.2
+
 @end deffn
 
-@deffn Function clutter-media-get-buffer-percent  (self@tie{}@code{<clutter-media>}) @result{}@tie{} (ret@tie{}@code{int})
-@deffnx Method get-buffer-percent
+@deffn Function clutter-media-get-buffer-fill  (self@tie{}@code{<clutter-media>}) @result{}@tie{} (ret@tie{}@code{double})
+@deffnx Method get-buffer-fill
 Retrieves the amount of the stream that is buffered.
 
 @table @var
 @item media
-A @code{<clutter-media>} object
+a @code{<clutter-media>}
 
 @item ret
-percentage value
+the fill level, between 0.0 and 1.0
 
 @end table
 
+Since 1.0
+
 @end deffn
 
-@deffn Function clutter-media-get-duration  (self@tie{}@code{<clutter-media>}) @result{}@tie{} (ret@tie{}@code{int})
+@deffn Function clutter-media-get-duration  (self@tie{}@code{<clutter-media>}) @result{}@tie{} (ret@tie{}@code{double})
 @deffnx Method get-duration
 Retrieves the duration of the media stream that @var{media} represents.
 
 @table @var
 @item media
-A @code{<clutter-media>} object
+a @code{<clutter-media>}
 
 @item ret
-The length of the media stream.
+the duration of the media stream, in seconds
 
 @end table
+
+Since 0.2
 
 @end deffn
 
 @deffn Function clutter-media-set-filename  (self@tie{}@code{<clutter-media>}) (filename@tie{}@code{mchars})
 @deffnx Method set-filename
-Sets the filename of the media source.
+Sets the source of @var{media} using a file path.
 
 @table @var
 @item media
-A @code{<clutter-media>} object
+a @code{<clutter-media>}
 
 @item filename
-A filename to media file.
+A filename
 
 @end table
+
+Since 0.2
 
 @end deffn
 

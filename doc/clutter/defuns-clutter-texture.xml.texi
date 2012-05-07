@@ -1,61 +1,6 @@
 
 @c %start of fragment
 
-@deftp Class <clutter-texture>
-Derives from @code{<clutter-actor>}.
-
-This class defines the following slots:
-
-@table @code
-@item disable-slicing
-Force the underlying texture to be singlularand not made of of smaller space
-saving inidivual textures.
-
-@item tile-waste
-Max wastage dimension of a texture when using sliced textures or -1 to disable
-slicing. Bigger values use less textures, smaller values less texture memory.
-
-@item pixel-format
-CoglPixelFormat to use.
-
-@item sync-size
-Auto sync size of actor to underlying pixbuf dimensions
-
-@item repeat-y
-Repeat underlying pixbuf rather than scale in y direction.
-
-@item repeat-x
-Repeat underlying pixbuf rather than scale in x direction.
-
-@item filter-quality
-Rendering quality used when drawing the texture.
-
-@item cogl-texture
-The underlying COGL texture handle used to draw this actor
-
-@item filename
-The full path of the file containing the texture
-
-@item keep-aspect-ratio
-Keep the aspect ratio of the texture when requesting the preferred width or
-height
-
-@end table
-
-@end deftp
-
-@defop Signal <clutter-texture> size-change  (arg0@tie{}@code{<gint>}) (arg1@tie{}@code{<gint>})
-The ::size-change signal is emitted each time the size of the pixbuf used by
-@var{texture} changes. The new size is given as argument to the callback.
-
-@end defop
-
-@defop Signal <clutter-texture> pixbuf-change 
-The ::pixbuf-change signal is emitted each time the pixbuf used by @var{texture}
-changes.
-
-@end defop
-
 @deffn Function clutter-texture-new  @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
 Creates a new empty @code{<clutter-texture>} object.
 
@@ -68,8 +13,9 @@ A newly created @code{<clutter-texture>} object.
 @end deffn
 
 @deffn Function clutter-texture-new-from-file  (filename@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
-Creates a new ClutterTexture actor to display the image contained a file. If the
-image failed to load then NULL is returned and @var{error} is set.
+Creates a new ClutterTexture actor to display the image contained a
+file. If the image failed to load then NULL is returned and @var{error}
+is set.
 
 @table @var
 @item filename
@@ -88,14 +34,14 @@ Since 0.8
 @end deffn
 
 @deffn Function clutter-texture-new-from-actor  (actor@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
-Creates a new @code{<clutter-texture>} object with its source a prexisting actor
-(and associated children). The textures content will contain 'live' redirected
-output of the actors scene.
+Creates a new @code{<clutter-texture>} object with its source a
+prexisting actor (and associated children). The textures content will
+contain 'live' redirected output of the actors scene.
 
-Note this function is intented as a utility call for uniformly applying shaders
-to groups and other potential visual effects. It requires that the
-@samp{CLUTTER_FEATURE_OFFSCREEN} feature is supported by the current backend and
-the target system.
+Note this function is intented as a utility call for uniformly applying
+shaders to groups and other potential visual effects. It requires that
+the @samp{CLUTTER_FEATURE_OFFSCREEN} feature is supported by the current
+backend and the target system.
 
 Some tips on usage:
 
@@ -106,35 +52,59 @@ Some tips on usage:
 @item
 @item
 @item
+@item
+@item
 @end itemize
 
 The source actor must be made visible (i.e by calling
-@code{<clutter-actor-show>}). The source actor does not however have to have a
-parent.
+@code{<clutter-actor-show>}).
+
+The source actor must have a parent in order for it to be allocated a
+size from the layouting mechanism. If the source actor does not have a
+parent when this function is called then the ClutterTexture will adopt
+it and allocate it at its preferred size. Using this you can clone an
+actor that is otherwise not displayed. Because of this feature if you do
+intend to display the source actor then you must make sure that the
+actor is parented before calling @code{clutter-texture-new-from-actor}
+or that you unparent it before adding it to a container.
+
+When getting the image for the clone texture, Clutter will attempt to
+render the source actor exactly as it would appear if it was rendered on
+screen. The source actor's parent transformations are taken into
+account. Therefore if your source actor is rotated along the X or Y axes
+so that it has some depth, the texture will appear differently depending
+on the on-screen location of the source actor. While painting the source
+actor, Clutter will set up a temporary asymmetric perspective matrix as
+the projection matrix so that the source actor will be projected as if a
+small section of the screen was being viewed. Before version 0.8.2, an
+orthogonal identity projection was used which meant that the source
+actor would be clipped if any part of it was not on the zero Z-plane.
 
 Avoid reparenting the source with the created texture.
 
-A group can be padded with a transparent rectangle as to provide a border to
-contents for shader output (blurring text for example).
+A group can be padded with a transparent rectangle as to provide a
+border to contents for shader output (blurring text for example).
 
-The texture will automatically resize to contain a further transformed source.
-However, this involves overhead and can be avoided by placing the source actor
-in a bounding group sized large enough to contain any child tranformations.
+The texture will automatically resize to contain a further transformed
+source. However, this involves overhead and can be avoided by placing
+the source actor in a bounding group sized large enough to contain any
+child tranformations.
 
 Uploading pixel data to the texture (e.g by using
-@code{clutter-actor-set-from-file}) will destroy the offscreen texture data and
-end redirection.
+@code{clutter-actor-set-from-file}) will destroy the offscreen texture
+data and end redirection.
 
 @code{cogl-texture-get-data} with the handle returned by
-@code{clutter-texture-get-cogl-texture} can be used to read the offscreen
-texture pixels into a pixbuf.
+@code{clutter-texture-get-cogl-texture} can be used to read the
+offscreen texture pixels into a pixbuf.
 
 @table @var
 @item actor
 A source @code{<clutter-actor>}
 
 @item ret
-A newly created @code{<clutter-texture>} object, or @samp{@code{#f}} on failure.
+A newly created @code{<clutter-texture>} object, or @samp{@code{#f}} on
+failure.
 
 @end table
 
@@ -144,8 +114,14 @@ Since 0.6
 
 @deffn Function clutter-texture-set-from-file  (self@tie{}@code{<clutter-texture>}) (filename@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool})
 @deffnx Method set-from-file
-Sets the @code{<clutter-texture>} image data from an image file. In case of
-failure, @samp{@code{#f}} is returned and @var{error} is set.
+Sets the @code{<clutter-texture>} image data from an image file. In case
+of failure, @samp{@code{#f}} is returned and @var{error} is set.
+
+If @code{<"load-async">} is set to @samp{@code{#t}}, this function will
+return as soon as possible, and the actual image loading from disk will
+be performed asynchronously. @code{<"size-change">} will be emitten when
+the size of the texture is available and @code{<"load-finished">} will
+be emitted when the image has been loaded or if an error occurred.
 
 @table @var
 @item texture
@@ -168,50 +144,26 @@ Since 0.8
 
 @deffn Function clutter-texture-get-base-size  (self@tie{}@code{<clutter-texture>}) @result{}@tie{} (width@tie{}@code{int}) (height@tie{}@code{int})
 @deffnx Method get-base-size
-Gets the size in pixels of the untransformed underlying texture pixbuf data.
-
-@table @var
-@item texture
-A @code{<clutter-texture>}
-
-@item width
-Pointer to gint to be populated with width value if non NULL.
-
-@item height
-Pointer to gint to be populated with height value if non NULL.
-
-@end table
-
-@end deffn
-
-@deffn Function clutter-texture-set-filter-quality  (self@tie{}@code{<clutter-texture>}) (filter_quality@tie{}@code{<clutter-texture-quality>})
-@deffnx Method set-filter-quality
-Sets the filter quality when scaling a texture. The quality is an enumeration
-currently the following values are supported: @samp{CLUTTER_TEXTURE_QUALITY_LOW}
-which is fast but only uses nearest neighbour interpolation.
-@samp{CLUTTER_TEXTURE_QUALITY_MEDIUM} which is computationally a bit more
-expensive (bilinear interpolation), and @samp{CLUTTER_TEXTURE_QUALITY_HIGH}
-which uses extra texture memory resources to improve scaled down rendering as
-well (by using mipmaps). The default value is
-@samp{CLUTTER_TEXTURE_QUALITY_MEDIUM}.
+Gets the size in pixels of the untransformed underlying image
 
 @table @var
 @item texture
 a @code{<clutter-texture>}
 
-@item filter-quality
-new filter quality value
+@item width
+return location for the width, or @samp{@code{#f}}.
+
+@item height
+return location for the height, or @samp{@code{#f}}.
 
 @end table
-
-Since 0.8
 
 @end deffn
 
 @deffn Function clutter-texture-get-max-tile-waste  (self@tie{}@code{<clutter-texture>}) @result{}@tie{} (ret@tie{}@code{int})
 @deffnx Method get-max-tile-waste
-Gets the maximum waste that will be used when creating a texture or -1 if
-slicing is disabled.
+Gets the maximum waste that will be used when creating a texture or -1
+if slicing is disabled.
 
 @table @var
 @item texture
@@ -226,26 +178,190 @@ Since 0.8
 
 @end deffn
 
-@deffn Function clutter-texture-set-max-tile-waste  (self@tie{}@code{<clutter-texture>}) (max_tile_waste@tie{}@code{int})
-@deffnx Method set-max-tile-waste
-Sets the maximum number of pixels in either axis that can be wasted for an
-individual texture slice. If -1 is specified then the texture is forced not to
-be sliced and the texture creation will fail if the hardware can't create a
-texture large enough.
-
-The value is only used when first creating a texture so changing it after the
-texture data has been set has no effect.
+@deffn Function clutter-texture-set-filter-quality  (self@tie{}@code{<clutter-texture>}) (filter_quality@tie{}@code{<clutter-texture-quality>})
+@deffnx Method set-filter-quality
+Sets the filter quality when scaling a texture. The quality is an
+enumeration currently the following values are supported:
+@samp{CLUTTER_TEXTURE_QUALITY_LOW} which is fast but only uses nearest
+neighbour interpolation. @samp{CLUTTER_TEXTURE_QUALITY_MEDIUM} which is
+computationally a bit more expensive (bilinear interpolation), and
+@samp{CLUTTER_TEXTURE_QUALITY_HIGH} which uses extra texture memory
+resources to improve scaled down rendering as well (by using mipmaps).
+The default value is @samp{CLUTTER_TEXTURE_QUALITY_MEDIUM}.
 
 @table @var
 @item texture
-A @code{<clutter-texture>}
+a @code{<clutter-texture>}
 
-@item max-tile-waste
-Maximum amount of waste in pixels or -1
+@item filter-quality
+new filter quality value
 
 @end table
 
 Since 0.8
+
+@end deffn
+
+@deffn Function clutter-texture-get-sync-size  (self@tie{}@code{<clutter-texture>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-sync-size
+Retrieves the value set with @code{clutter-texture-get-sync-size}
+
+@table @var
+@item texture
+a @code{<clutter-texture>}
+
+@item ret
+@samp{@code{#t}} if the @code{<clutter-texture>} should have the same
+preferred size of the underlying image data
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-texture-set-sync-size  (self@tie{}@code{<clutter-texture>}) (sync_size@tie{}@code{bool})
+@deffnx Method set-sync-size
+Sets whether @var{texture} should have the same preferred size as the
+underlying image data.
+
+@table @var
+@item texture
+a @code{<clutter-texture>}
+
+@item sync-size
+@samp{@code{#t}} if the texture should have the same size of the
+underlying image data
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-texture-get-repeat  (self@tie{}@code{<clutter-texture>}) @result{}@tie{} (repeat_x@tie{}@code{bool}) (repeat_y@tie{}@code{bool})
+@deffnx Method get-repeat
+Retrieves the horizontal and vertical repeat values set using
+@code{clutter-texture-set-repeat}
+
+@table @var
+@item texture
+a @code{<clutter-texture>}
+
+@item repeat-x
+return location for the horizontal repeat.
+
+@item repeat-y
+return location for the vertical repeat.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-texture-set-repeat  (self@tie{}@code{<clutter-texture>}) (repeat_x@tie{}@code{bool}) (repeat_y@tie{}@code{bool})
+@deffnx Method set-repeat
+Sets whether the @var{texture} should repeat horizontally or vertically
+when the actor size is bigger than the image size
+
+@table @var
+@item texture
+a @code{<clutter-texture>}
+
+@item repeat-x
+@samp{@code{#t}} if the texture should repeat horizontally
+
+@item repeat-y
+@samp{@code{#t}} if the texture should repeat vertically
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-texture-get-load-async  (self@tie{}@code{<clutter-texture>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-load-async
+Retrieves the value set using @code{clutter-texture-get-load-async}
+
+@table @var
+@item texture
+a @code{<clutter-texture>}
+
+@item ret
+@samp{@code{#t}} if the @code{<clutter-texture>} should load the data
+from disk asynchronously
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-texture-set-load-async  (self@tie{}@code{<clutter-texture>}) (load_async@tie{}@code{bool})
+@deffnx Method set-load-async
+Sets whether @var{texture} should use a worker thread to load the data
+from disk asynchronously. Setting @var{load-async} to @samp{@code{#t}}
+will make @code{clutter-texture-set-from-file} return immediately.
+
+See the @code{<"load-async">} property documentation, and
+@code{clutter-texture-set-load-data-async}.
+
+@table @var
+@item texture
+a @code{<clutter-texture>}
+
+@item load-async
+@samp{@code{#t}} if the texture should asynchronously load data from a
+filename
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-texture-get-load-data-async  (self@tie{}@code{<clutter-texture>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-load-data-async
+Retrieves the value set by @code{clutter-texture-set-load-data-async}
+
+@table @var
+@item texture
+a @code{<clutter-texture>}
+
+@item ret
+@samp{@code{#t}} if the @code{<clutter-texture>} should load the image
+data from a file asynchronously
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-texture-set-load-data-async  (self@tie{}@code{<clutter-texture>}) (load_async@tie{}@code{bool})
+@deffnx Method set-load-data-async
+Sets whether @var{texture} should use a worker thread to load the data
+from disk asynchronously. Setting @var{load-async} to @samp{@code{#t}}
+will make @code{clutter-texture-set-from-file} block until the
+@code{<clutter-texture>} has determined the width and height of the
+image data.
+
+See the @code{<"load-async">} property documentation, and
+@code{clutter-texture-set-load-async}.
+
+@table @var
+@item texture
+a @code{<clutter-texture>}
+
+@item load-async
+@samp{@code{#t}} if the texture should asynchronously load data from a
+filename
+
+@end table
+
+Since 1.0
 
 @end deffn
 

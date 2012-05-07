@@ -1,30 +1,12 @@
 
 @c %start of fragment
 
-@deftp Class <clutter-container>
-Derives from @code{<ginterface>}.
-
-This class defines no direct slots.
-
-@end deftp
-
-@defop Signal <clutter-container> actor-added  (arg0@tie{}@code{<clutter-actor>})
-undocumented
-@end defop
-
-@defop Signal <clutter-container> actor-removed  (arg0@tie{}@code{<clutter-actor>})
-undocumented
-@end defop
-
-@defop Signal <clutter-container> child-notify  (arg0@tie{}@code{<clutter-actor>}) (arg1@tie{}@code{<gparam>})
-undocumented
-@end defop
-
 @deffn Function clutter-container-add-actor  (self@tie{}@code{<clutter-container>}) (actor@tie{}@code{<clutter-actor>})
 @deffnx Method add-actor
-Adds a @code{<clutter-actor>} to @var{container}. This function will emit the
-"actor-added" signal. The actor should be parented to @var{container}. You
-cannot add a @code{<clutter-actor>} to more than one @code{<clutter-container>}.
+Adds a @code{<clutter-actor>} to @var{container}. This function will
+emit the "actor-added" signal. The actor should be parented to
+@var{container}. You cannot add a @code{<clutter-actor>} to more than
+one @code{<clutter-container>}.
 
 @table @var
 @item container
@@ -41,10 +23,10 @@ Since 0.4
 
 @deffn Function clutter-container-remove-actor  (self@tie{}@code{<clutter-container>}) (actor@tie{}@code{<clutter-actor>})
 @deffnx Method remove-actor
-Removes @var{actor} from @var{container}. The actor should be unparented, so if
-you want to keep it around you must hold a reference to it yourself, using
-@code{g-object-ref}. When the actor has been removed, the "actor-removed" signal
-is emitted by @var{container}.
+Removes @var{actor} from @var{container}. The actor should be
+unparented, so if you want to keep it around you must hold a reference
+to it yourself, using @code{g-object-ref}. When the actor has been
+removed, the "actor-removed" signal is emitted by @var{container}.
 
 @table @var
 @item container
@@ -68,8 +50,8 @@ Retrieves all the children of @var{container}.
 a @code{<clutter-container>}
 
 @item ret
-a list of @code{<clutter-actor>}s. Use @code{g-list-free} on the returned list
-when done.
+a list of @code{<clutter-actor>}s. Use @code{g-list-free} on the
+returned list when done.
 
 @end table
 
@@ -119,8 +101,8 @@ Since 0.6
 
 @deffn Function clutter-container-sort-depth-order  (self@tie{}@code{<clutter-container>})
 @deffnx Method sort-depth-order
-Sorts a container's children using their depth. This function should not be
-normally used by applications.
+Sorts a container's children using their depth. This function should not
+be normally used by applications.
 
 @table @var
 @item container
@@ -134,8 +116,8 @@ Since 0.6
 
 @deffn Function clutter-container-get-child-meta  (self@tie{}@code{<clutter-container>}) (actor@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-child-meta>})
 @deffnx Method get-child-meta
-Retrieves the @code{<clutter-child-meta>} which contains the data about the
-@var{container} specific state for @var{actor}.
+Retrieves the @code{<clutter-child-meta>} which contains the data about
+the @var{container} specific state for @var{actor}.
 
 @table @var
 @item container
@@ -145,9 +127,10 @@ a @code{<clutter-container>}
 a @code{<clutter-actor>} that is a child of @var{container}.
 
 @item ret
-the @code{<clutter-child-meta>} for the @var{actor} child of @var{container} or
-@samp{@code{#f}} if the specifiec actor does not exist or the container is not
-configured to provide @code{<clutter-child-meta>}s
+the @code{<clutter-child-meta>} for the @var{actor} child of
+@var{container} or @samp{@code{#f}} if the specifiec actor does not
+exist or the container is not configured to provide
+@code{<clutter-child-meta>}s.
 
 @end table
 

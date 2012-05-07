@@ -6,13 +6,14 @@
 Actor class containing multiple children. actors.
 
 @section Overview
-A @code{<clutter-group>} is an Actor which contains multiple child actors
-positioned relative to the @code{<clutter-group>} position. Other operations
-such as scaling, rotating and clipping of the group will apply to the child
-actors.
+A @code{<clutter-group>} is an Actor which contains multiple child
+actors positioned relative to the @code{<clutter-group>} position. Other
+operations such as scaling, rotating and clipping of the group will
+apply to the child actors.
 
-A @code{<clutter-group>}'s size is defined by the size and position of its
-children. Resize requests via the @code{<clutter-actor>} API will be ignored.
+A @code{<clutter-group>}'s size is defined by the size and position of
+its children. Resize requests via the @code{<clutter-actor>} API will be
+ignored.
 
 @section Usage
 @include defuns-clutter-group.xml.texi

@@ -1,0 +1,565 @@
+
+@c %start of fragment
+
+@deffn Function clutter-path-new  @result{}@tie{} (ret@tie{}@code{<clutter-path>})
+Creates a new @code{<clutter-path>} instance with no nodes.
+
+The object has a floating reference so if you add it to a
+@code{<clutter-behaviour-path>} then you do not need to unref it.
+
+@table @var
+@item ret
+the newly created @code{<clutter-path>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-path-new-with-description  (desc@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<clutter-path>})
+Creates a new @code{<clutter-path>} instance with the nodes described in
+@var{desc}. See @code{clutter-path-add-string} for details of the format
+of the string.
+
+The object has a floating reference so if you add it to a
+@code{<clutter-behaviour-path>} then you do not need to unref it.
+
+@table @var
+@item desc
+a string describing the path
+
+@item ret
+the newly created @code{<clutter-path>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-path-add-move-to  (self@tie{}@code{<clutter-path>}) (x@tie{}@code{int}) (y@tie{}@code{int})
+@deffnx Method add-move-to
+Adds a @code{<clutter-path-move-to>} type node to the path. This is
+usually used as the first node in a path. It can also be used in the
+middle of the path to cause the actor to jump to the new coordinate.
+
+@table @var
+@item path
+a @code{<clutter-path>}
+
+@item x
+the x coordinate
+
+@item y
+the y coordinate
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-path-add-rel-move-to  (self@tie{}@code{<clutter-path>}) (x@tie{}@code{int}) (y@tie{}@code{int})
+@deffnx Method add-rel-move-to
+Same as @code{clutter-path-add-move-to} except the coordinates are
+relative to the previous node.
+
+@table @var
+@item path
+a @code{<clutter-path>}
+
+@item x
+the x coordinate
+
+@item y
+the y coordinate
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-path-add-line-to  (self@tie{}@code{<clutter-path>}) (x@tie{}@code{int}) (y@tie{}@code{int})
+@deffnx Method add-line-to
+Adds a @code{<clutter-path-line-to>} type node to the path. This causes
+the actor to move to the new coordinates in a straight line.
+
+@table @var
+@item path
+a @code{<clutter-path>}
+
+@item x
+the x coordinate
+
+@item y
+the y coordinate
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-path-add-rel-line-to  (self@tie{}@code{<clutter-path>}) (x@tie{}@code{int}) (y@tie{}@code{int})
+@deffnx Method add-rel-line-to
+Same as @code{clutter-path-add-line-to} except the coordinates are
+relative to the previous node.
+
+@table @var
+@item path
+a @code{<clutter-path>}
+
+@item x
+the x coordinate
+
+@item y
+the y coordinate
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-path-add-curve-to  (self@tie{}@code{<clutter-path>}) (x_1@tie{}@code{int}) (y_1@tie{}@code{int}) (x_2@tie{}@code{int}) (y_2@tie{}@code{int}) (x_3@tie{}@code{int}) (y_3@tie{}@code{int})
+@deffnx Method add-curve-to
+Adds a @code{<clutter-path-curve-to>} type node to the path. This causes
+the actor to follow a bezier from the last node to (@var{x-3},
+@var{y-3}) using (@var{x-1}, @var{y-1}) and (@var{x-2},@var{y-2}) as
+control points.
+
+@table @var
+@item path
+a @code{<clutter-path>}
+
+@item x-1
+the x coordinate of the first control point
+
+@item y-1
+the y coordinate of the first control point
+
+@item x-2
+the x coordinate of the second control point
+
+@item y-2
+the y coordinate of the second control point
+
+@item x-3
+the x coordinate of the third control point
+
+@item y-3
+the y coordinate of the third control point
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-path-add-rel-curve-to  (self@tie{}@code{<clutter-path>}) (x_1@tie{}@code{int}) (y_1@tie{}@code{int}) (x_2@tie{}@code{int}) (y_2@tie{}@code{int}) (x_3@tie{}@code{int}) (y_3@tie{}@code{int})
+@deffnx Method add-rel-curve-to
+Same as @code{clutter-path-add-curve-to} except the coordinates are
+relative to the previous node.
+
+@table @var
+@item path
+a @code{<clutter-path>}
+
+@item x-1
+the x coordinate of the first control point
+
+@item y-1
+the y coordinate of the first control point
+
+@item x-2
+the x coordinate of the second control point
+
+@item y-2
+the y coordinate of the second control point
+
+@item x-3
+the x coordinate of the third control point
+
+@item y-3
+the y coordinate of the third control point
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-path-add-close  (self@tie{}@code{<clutter-path>})
+@deffnx Method add-close
+Adds a @code{<clutter-path-close>} type node to the path. This creates a
+straight line from the last node to the last
+@code{<clutter-path-move-to>} type node.
+
+@table @var
+@item path
+a @code{<clutter-path>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-path-add-string  (self@tie{}@code{<clutter-path>}) (str@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method add-string
+Adds new nodes to the end of the path as described in @var{str}. The
+format is a subset of the SVG path format. Each node is represented by a
+letter and is followed by zero, one or three pairs of coordinates. The
+coordinates can be separated by spaces or a comma. The types are:
+
+@table @var
+@item L
+
+@c %start of fragment
+
+
+@c %end of fragment
+@item C
+
+@c %start of fragment
+
+
+@c %end of fragment
+@item z
+
+@c %start of fragment
+
+
+@c %end of fragment
+@end table
+
+Adds a @samp{CLUTTER_PATH_MOVE_TO} node. Takes one pair of coordinates.
+
+Adds a @samp{CLUTTER_PATH_LINE_TO} node. Takes one pair of coordinates.
+
+Adds a @samp{CLUTTER_PATH_CURVE_TO} node. Takes three pairs of
+coordinates.
+
+Adds a @samp{CLUTTER_PATH_CLOSE} node. No coordinates are needed.
+
+The M, L and C commands can also be specified in lower case which means
+the coordinates are relative to the previous node.
+
+For example, to move an actor in a 100 by 100 pixel square centered on
+the point 300,300 you could use the following path:
+
+@example 
+
+  M 250,350 l 0 -100 L 350,250 l 0 100 z
+ 
+@end example
+
+If the path description isn't valid @samp{@code{#f}} will be returned
+and no nodes will be added.
+
+@table @var
+@item path
+a @code{<clutter-path>}
+
+@item str
+a string describing the new nodes
+
+@item ret
+@samp{@code{#t}} is the path description was valid or @samp{@code{#f}}
+otherwise.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-path-add-node  (self@tie{}@code{<clutter-path>}) (node@tie{}@code{<clutter-path-node>})
+@deffnx Method add-node
+Adds @var{node} to the end of the path.
+
+@table @var
+@item path
+a @code{<clutter-path>}
+
+@item node
+a @code{<clutter-path-node>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-path-add-cairo-path  (self@tie{}@code{<clutter-path>}) (cpath@tie{}@code{cairo-path-t})
+@deffnx Method add-cairo-path
+Add the nodes of the Cairo path to the end of @var{path}.
+
+@table @var
+@item path
+a @code{<clutter-path>}
+
+@item cpath
+a Cairo path
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-path-get-n-nodes  (self@tie{}@code{<clutter-path>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+@deffnx Method get-n-nodes
+Retrieves the number of nodes in the path.
+
+@table @var
+@item path
+a @code{<clutter-path>}
+
+@item ret
+the number of nodes.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-path-get-node  (self@tie{}@code{<clutter-path>}) (index_@tie{}@code{unsigned-int}) (node@tie{}@code{<clutter-path-node>})
+@deffnx Method get-node
+Retrieves the node of the path indexed by @var{index}.
+
+@table @var
+@item path
+a @code{<clutter-path>}
+
+@item index
+the node number to retrieve
+
+@item node
+a location to store a copy of the node
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-path-get-nodes  (self@tie{}@code{<clutter-path>}) @result{}@tie{} (ret@tie{}@code{gslist-of})
+@deffnx Method get-nodes
+Returns a @code{<gs-list>} of @code{<clutter-path-node>}s. The list
+should be freed with @code{g-slist-free}. The nodes are owned by the
+path and should not be freed. Altering the path may cause the nodes in
+the list to become invalid so you should copy them if you want to keep
+the list.
+
+@table @var
+@item path
+a @code{<clutter-path>}
+
+@item ret
+a list of nodes in the path.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-path-insert-node  (self@tie{}@code{<clutter-path>}) (index_@tie{}@code{int}) (node@tie{}@code{<clutter-path-node>})
+@deffnx Method insert-node
+Inserts @var{node} into the path before the node at the given offset. If
+@var{index} is negative it will append the node to the end of the path.
+
+@table @var
+@item path
+a @code{<clutter-path>}
+
+@item index
+offset of where to insert the node
+
+@item node
+the node to insert
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-path-remove-node  (self@tie{}@code{<clutter-path>}) (index_@tie{}@code{unsigned-int})
+@deffnx Method remove-node
+Removes the node at the given offset from the path.
+
+@table @var
+@item path
+a @code{<clutter-path>}
+
+@item index
+index of the node to remove
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-path-replace-node  (self@tie{}@code{<clutter-path>}) (index_@tie{}@code{unsigned-int}) (node@tie{}@code{<clutter-path-node>})
+@deffnx Method replace-node
+Replaces the node at offset @var{index} with @var{node}.
+
+@table @var
+@item path
+a @code{<clutter-path>}
+
+@item index
+index to the existing node
+
+@item node
+the replacement node
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-path-get-description  (self@tie{}@code{<clutter-path>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-description
+Returns a newly allocated string describing the path in the same format
+as used by @code{clutter-path-add-string}.
+
+@table @var
+@item path
+a @code{<clutter-path>}
+
+@item ret
+a string description of the path. Free with @code{g-free}.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-path-set-description  (self@tie{}@code{<clutter-path>}) (str@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method set-description
+Replaces all of the nodes in the path with nodes described by @var{str}.
+See @code{clutter-path-add-string} for details of the format.
+
+If the string is invalid then @samp{@code{#f}} is returned and the path
+is unaltered.
+
+@table @var
+@item path
+a @code{<clutter-path>}
+
+@item str
+a string describing the path
+
+@item ret
+@samp{@code{#t}} is the path was valid, @samp{@code{#f}} otherwise.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-path-to-cairo-path  (self@tie{}@code{<clutter-path>}) (cr@tie{}@code{cairo-t})
+@deffnx Method to-cairo-path
+Add the nodes of the ClutterPath to the path in the Cairo context.
+
+@table @var
+@item path
+a @code{<clutter-path>}
+
+@item cr
+a Cairo context
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-path-clear  (self@tie{}@code{<clutter-path>})
+@deffnx Method clear
+Removes all nodes from the path.
+
+@table @var
+@item path
+a @code{<clutter-path>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-path-get-position  (self@tie{}@code{<clutter-path>}) (progress@tie{}@code{double}) (position@tie{}@code{<clutter-knot>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+@deffnx Method get-position
+The value in @var{progress} represents a position along the path where
+0.0 is the beginning and 1.0 is the end of the path. An interpolated
+position is then stored in @var{position}.
+
+@table @var
+@item path
+a @code{<clutter-path>}
+
+@item progress
+a position along the path as a fraction of its length
+
+@item position
+location to store the position
+
+@item ret
+index of the node used to calculate the position.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-path-get-length  (self@tie{}@code{<clutter-path>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+@deffnx Method get-length
+Retrieves an approximation of the total length of the path.
+
+@table @var
+@item path
+a @code{<clutter-path>}
+
+@item ret
+the length of the path.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-path-node-equal  (self@tie{}@code{<clutter-path-node>}) (node_b@tie{}@code{<clutter-path-node>}) @result{}@tie{} (ret@tie{}@code{bool})
+Compares two nodes and checks if they are the same type with the same
+coordinates.
+
+@table @var
+@item node-a
+First node
+
+@item node-b
+Second node
+
+@item ret
+@samp{@code{#t}} if the nodes are the same.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+
+@c %end of fragment

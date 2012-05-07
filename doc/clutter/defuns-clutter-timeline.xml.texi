@@ -1,114 +1,16 @@
 
 @c %start of fragment
 
-@deftp Class <clutter-timeline>
-Derives from @code{<gobject>}.
-
-This class defines the following slots:
-
-@table @code
-@item fps
-Timeline frames per second
-
-@item num-frames
-Timelines total number of frames
-
-@item loop
-Should the timeline automatically restart
-
-@item delay
-Delay before start
-
-@item duration
-Duration of the timeline in milliseconds
-
-@item direction
-Direction of the timeline
-
-@end table
-
-@end deftp
-
-@defop Signal <clutter-timeline> new-frame  (arg0@tie{}@code{<gint>})
-The ::new-frame signal is emitted each time a new frame in the timeline is
-reached.
-
-@end defop
-
-@defop Signal <clutter-timeline> completed 
-The ::completed signal is emitted when the timeline reaches the number of frames
-specified by the ClutterTimeline:num-frames property.
-
-@end defop
-
-@defop Signal <clutter-timeline> started 
-The ::started signal is emitted when the timeline starts its run. This might be
-as soon as @code{clutter-timeline-start} is invoked or after the delay set in
-the ClutterTimeline:delay property has expired.
-
-@end defop
-
-@defop Signal <clutter-timeline> paused 
-The ::paused signal is emitted when @code{clutter-timeline-pause} is invoked.
-
-@end defop
-
-@defop Signal <clutter-timeline> marker-reached  (arg0@tie{}@code{<gchararray>}) (arg1@tie{}@code{<gint>})
-The ::marker-reached signal is emitted each time a timeline reaches a marker set
-with @code{clutter-timeline-add-marker-at-frame} or
-@code{clutter-timeline-add-marker-at-time}. This signal is detailed with the
-name of the marker as well, so it is possible to connect a callback to the
-::marker-reached signal for a specific marker with:
-
-@example 
-
-  clutter_timeline_add_marker_at_frame (timeline, "foo", 24);
-  clutter_timeline_add_marker_at_frame (timeline, "bar", 48);
-
-  g_signal_connect (timeline, "marker-reached",
-                    G_CALLBACK (each_marker_reached), NULL);
-  g_signal_connect (timeline, "marker-reached::foo",
-                    G_CALLBACK (foo_marker_reached), NULL);
-  g_signal_connect (timeline, "marker-reached::bar",
-                    G_CALLBACK (bar_marker_reached), NULL);
-@end example
-
-In the example, the first callback will be invoked for both the "foo" and "bar"
-marker, while the second and third callbacks will be invoked for the "foo" or
-"bar" markers, respectively.
-
-Since 0.8
-
-@end defop
-
-@deffn Function clutter-timeline-new  (n_frames@tie{}@code{unsigned-int}) (fps@tie{}@code{unsigned-int}) @result{}@tie{} (ret@tie{}@code{<clutter-timeline>})
-Create a new @code{<clutter-timeline>} instance.
-
-@table @var
-@item n-frames
-the number of frames
-
-@item fps
-the number of frames per second
-
-@item ret
-a new @code{<clutter-timeline>}
-
-@end table
-
-@end deffn
-
-@deffn Function clutter-timeline-new-for-duration  (msecs@tie{}@code{unsigned-int}) @result{}@tie{} (ret@tie{}@code{<clutter-timeline>})
-Creates a new @code{<clutter-timeline>} with a duration of @var{msecs} using the
-value of the ClutterTimeline:fps property to compute the equivalent number of
-frames.
+@deffn Function clutter-timeline-new  (msecs@tie{}@code{unsigned-int}) @result{}@tie{} (ret@tie{}@code{<clutter-timeline>})
+Creates a new @code{<clutter-timeline>} with a duration of @var{msecs}.
 
 @table @var
 @item msecs
 Duration of the timeline in milliseconds
 
 @item ret
-the newly created @code{<clutter-timeline>}
+the newly created @code{<clutter-timeline>} instance. Use
+@code{g-object-unref} when done using it
 
 @end table
 
@@ -118,56 +20,29 @@ Since 0.6
 
 @deffn Function clutter-timeline-clone  (self@tie{}@code{<clutter-timeline>}) @result{}@tie{} (ret@tie{}@code{<clutter-timeline>})
 @deffnx Method clone
-Create a new @code{<clutter-timeline>} instance which has property values
-matching that of supplied timeline. The cloned timeline will not be started and
-will not be positioned to the current position of @var{timeline}: you will have
-to start it with @code{clutter-timeline-start}.
+Create a new @code{<clutter-timeline>} instance which has property
+values matching that of supplied timeline. The cloned timeline will not
+be started and will not be positioned to the current position of
+@var{timeline}: you will have to start it with
+@code{clutter-timeline-start}.
 
 @table @var
 @item timeline
 @code{<clutter-timeline>} to duplicate.
 
 @item ret
-a new @code{<clutter-timeline>}, cloned from @var{timeline} Since 0.4
+a new @code{<clutter-timeline>}, cloned from @var{timeline}
 
 @end table
 
-@end deffn
-
-@deffn Function clutter-timeline-set-speed  (self@tie{}@code{<clutter-timeline>}) (fps@tie{}@code{unsigned-int})
-@deffnx Method set-speed
-Set the speed in frames per second of the timeline.
-
-@table @var
-@item timeline
-A @code{<clutter-timeline>}
-
-@item fps
-New speed of timeline as frames per second
-
-@end table
-
-@end deffn
-
-@deffn Function clutter-timeline-get-speed  (self@tie{}@code{<clutter-timeline>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
-@deffnx Method get-speed
-Gets the frames per second played by @var{timeline}
-
-@table @var
-@item timeline
-a @code{<clutter-timeline>}
-
-@item ret
-the number of frames per second.
-
-@end table
+Since 0.4
 
 @end deffn
 
 @deffn Function clutter-timeline-set-duration  (self@tie{}@code{<clutter-timeline>}) (msecs@tie{}@code{unsigned-int})
 @deffnx Method set-duration
-Sets the duration of the timeline, in milliseconds. The speed of the timeline
-depends on the ClutterTimeline:fps setting.
+Sets the duration of the timeline, in milliseconds. The speed of the
+timeline depends on the ClutterTimeline:fps setting.
 
 @table @var
 @item timeline
@@ -184,8 +59,8 @@ Since 0.6
 
 @deffn Function clutter-timeline-get-duration  (self@tie{}@code{<clutter-timeline>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
 @deffnx Method get-duration
-Retrieves the duration of a @code{<clutter-timeline>} in milliseconds. See
-@code{clutter-timeline-set-duration}.
+Retrieves the duration of a @code{<clutter-timeline>} in milliseconds.
+See @code{clutter-timeline-set-duration}.
 
 @table @var
 @item timeline
@@ -230,36 +105,6 @@ a @code{<clutter-timeline>}
 
 @end deffn
 
-@deffn Function clutter-timeline-set-n-frames  (self@tie{}@code{<clutter-timeline>}) (n_frames@tie{}@code{unsigned-int})
-@deffnx Method set-n-frames
-Sets the total number of frames for @var{timeline}
-
-@table @var
-@item timeline
-a @code{<clutter-timeline>}
-
-@item n-frames
-the number of frames
-
-@end table
-
-@end deffn
-
-@deffn Function clutter-timeline-get-n-frames  (self@tie{}@code{<clutter-timeline>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
-@deffnx Method get-n-frames
-Request the total number of frames for the @code{<clutter-timeline>}.
-
-@table @var
-@item timeline
-A @code{<clutter-timeline>}
-
-@item ret
-Number of frames for this @code{<clutter-timeline>}.
-
-@end table
-
-@end deffn
-
 @deffn Function clutter-timeline-set-delay  (self@tie{}@code{<clutter-timeline>}) (msecs@tie{}@code{unsigned-int})
 @deffnx Method set-delay
 Sets the delay, in milliseconds, before @var{timeline} should start.
@@ -296,8 +141,8 @@ Since 0.4
 
 @deffn Function clutter-timeline-set-direction  (self@tie{}@code{<clutter-timeline>}) (direction@tie{}@code{<clutter-timeline-direction>})
 @deffnx Method set-direction
-Sets the direction of @var{timeline}, either @samp{CLUTTER_TIMELINE_FORWARD} or
-@samp{CLUTTER_TIMELINE_BACKWARD}.
+Sets the direction of @var{timeline}, either
+@samp{CLUTTER_TIMELINE_FORWARD} or @samp{CLUTTER_TIMELINE_BACKWARD}.
 
 @table @var
 @item timeline
@@ -369,7 +214,8 @@ A @code{<clutter-timeline>}
 @deffn Function clutter-timeline-rewind  (self@tie{}@code{<clutter-timeline>})
 @deffnx Method rewind
 Rewinds @code{<clutter-timeline>} to the first frame if its direction is
-CLUTTER_TIMELINE_FORWARD and the last frame if it is CLUTTER_TIMELINE_BACKWARD.
+@samp{CLUTTER_TIMELINE_FORWARD} and the last frame if it is
+@samp{CLUTTER_TIMELINE_BACKWARD}.
 
 @table @var
 @item timeline
@@ -379,69 +225,70 @@ A @code{<clutter-timeline>}
 
 @end deffn
 
-@deffn Function clutter-timeline-skip  (self@tie{}@code{<clutter-timeline>}) (n_frames@tie{}@code{unsigned-int})
+@deffn Function clutter-timeline-skip  (self@tie{}@code{<clutter-timeline>}) (msecs@tie{}@code{unsigned-int})
 @deffnx Method skip
-Advance timeline by requested number of frames.
+Advance timeline by the requested time in milliseconds
 
 @table @var
 @item timeline
 A @code{<clutter-timeline>}
 
-@item n-frames
-Number of frames to skip
+@item msecs
+Amount of time to skip
 
 @end table
 
 @end deffn
 
-@deffn Function clutter-timeline-advance  (self@tie{}@code{<clutter-timeline>}) (frame_num@tie{}@code{unsigned-int})
+@deffn Function clutter-timeline-advance  (self@tie{}@code{<clutter-timeline>}) (msecs@tie{}@code{unsigned-int})
 @deffnx Method advance
-Advance timeline to requested frame number
+Advance timeline to the requested point. The point is given as a time in
+milliseconds since the timeline started.
+
+The @var{timeline} will not emit the @code{<"new-frame">} signal for the
+given time. The first ::new-frame signal after the call to
+@code{clutter-timeline-advance} will be emit the skipped markers.
 
 @table @var
 @item timeline
 A @code{<clutter-timeline>}
 
-@item frame-num
-Frame number to advance to
+@item msecs
+Time to advance to
 
 @end table
 
 @end deffn
 
-@deffn Function clutter-timeline-get-current-frame  (self@tie{}@code{<clutter-timeline>}) @result{}@tie{} (ret@tie{}@code{int})
-@deffnx Method get-current-frame
-Request the current frame number of the timeline.
+@deffn Function clutter-timeline-get-elapsed-time  (self@tie{}@code{<clutter-timeline>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+@deffnx Method get-elapsed-time
+Request the current time position of the timeline.
 
 @table @var
 @item timeline
 A @code{<clutter-timeline>}
 
 @item ret
-current frame number
+current elapsed time in milliseconds.
 
 @end table
 
 @end deffn
 
-@deffn Function clutter-timeline-get-delta  (self@tie{}@code{<clutter-timeline>}) @result{}@tie{} (ret@tie{}@code{unsigned-int}) (msecs@tie{}@code{unsigned-int})
+@deffn Function clutter-timeline-get-delta  (self@tie{}@code{<clutter-timeline>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
 @deffnx Method get-delta
-Retrieves the number of frames and the amount of time elapsed since the last
+Retrieves the amount of time elapsed since the last
 ClutterTimeline::new-frame signal.
 
-This function is only useful inside handlers for the ::new-frame signal, and its
-behaviour is undefined if the timeline is not playing.
+This function is only useful inside handlers for the ::new-frame signal,
+and its behaviour is undefined if the timeline is not playing.
 
 @table @var
 @item timeline
 a @code{<clutter-timeline>}
 
-@item msecs
-return location for the milliseconds elapsed since the last frame, or
-@samp{@code{#f}}
-
 @item ret
-the amount of frames elapsed since the last one
+the amount of time in milliseconds elapsed since the last frame
 
 @end table
 
@@ -468,14 +315,14 @@ Since 0.6
 
 @deffn Function clutter-timeline-is-playing  (self@tie{}@code{<clutter-timeline>}) @result{}@tie{} (ret@tie{}@code{bool})
 @deffnx Method is-playing
-Query state of a @code{<clutter-timeline>} instance.
+Queries state of a @code{<clutter-timeline>}.
 
 @table @var
 @item timeline
 A @code{<clutter-timeline>}
 
 @item ret
-TRUE if timeline is currently playing, FALSE if not.
+@samp{@code{#t}} if timeline is currently playing
 
 @end table
 
@@ -483,9 +330,14 @@ TRUE if timeline is currently playing, FALSE if not.
 
 @deffn Function clutter-timeline-add-marker-at-time  (self@tie{}@code{<clutter-timeline>}) (marker_name@tie{}@code{mchars}) (msecs@tie{}@code{unsigned-int})
 @deffnx Method add-marker-at-time
-Time-based variant of @code{clutter-timeline-add-marker-at-frame}.
+Adds a named marker that will be hit when the timeline has been running
+for @var{msecs} milliseconds. Markers are unique string identifiers for
+a given time. Once @var{timeline} reaches @var{msecs}, it will emit a
+::marker-reached signal for each marker attached to that time.
 
-Adds a named marker at @var{msecs}.
+A marker can be removed with @code{clutter-timeline-remove-marker}. The
+timeline can be advanced to a marker using
+@code{clutter-timeline-advance-to-marker}.
 
 @table @var
 @item timeline
@@ -542,7 +394,11 @@ Since 0.8
 
 @deffn Function clutter-timeline-advance-to-marker  (self@tie{}@code{<clutter-timeline>}) (marker_name@tie{}@code{mchars})
 @deffnx Method advance-to-marker
-Advances @var{timeline} to the frame of the given @var{marker-name}.
+Advances @var{timeline} to the time of the given @var{marker-name}.
+
+Like @code{clutter-timeline-advance}, this function will not emit the
+@code{<"new-frame">} for the time where @var{marker-name} is set, nor it
+will emit @code{<"marker-reached">} for @var{marker-name}.
 
 @table @var
 @item timeline

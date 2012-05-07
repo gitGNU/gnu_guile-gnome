@@ -1,28 +1,6 @@
 
 @c %start of fragment
 
-@deftp Class <clutter-behaviour-scale>
-Derives from @code{<clutter-behaviour>}.
-
-This class defines the following slots:
-
-@table @code
-@item x-scale-start
-Initial scale on the X axis
-
-@item y-scale-start
-Initial scale on the Y axis
-
-@item x-scale-end
-Final scale on the X axis
-
-@item y-scale-end
-Final scale on the Y axis
-
-@end table
-
-@end deftp
-
 @deffn Function clutter-behaviour-scale-new  (alpha@tie{}@code{<clutter-alpha>}) (x_scale_start@tie{}@code{double}) (y_scale_start@tie{}@code{double}) (x_scale_end@tie{}@code{double}) (y_scale_end@tie{}@code{double}) @result{}@tie{} (ret@tie{}@code{<clutter-behaviour>})
 Creates a new @code{<clutter-behaviour-scale>} instance.
 
@@ -86,16 +64,20 @@ Retrieves the bounds used by scale behaviour.
 a @code{<clutter-behaviour-scale>}
 
 @item x-scale-start
-return location for the initial scale factor on the X axis, or @samp{@code{#f}}
+return location for the initial scale factor on the X axis, or
+@samp{@code{#f}}
 
 @item y-scale-start
-return location for the initial scale factor on the Y axis, or @samp{@code{#f}}
+return location for the initial scale factor on the Y axis, or
+@samp{@code{#f}}
 
 @item x-scale-end
-return location for the final scale factor on the X axis, or @samp{@code{#f}}
+return location for the final scale factor on the X axis, or
+@samp{@code{#f}}
 
 @item y-scale-end
-return location for the final scale factor on the Y axis, or @samp{@code{#f}}
+return location for the final scale factor on the Y axis, or
+@samp{@code{#f}}
 
 @end table
 

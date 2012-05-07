@@ -1,5 +1,437 @@
 
 @c %start of fragment
 
+@deffn Function clutter-animation-new  @result{}@tie{} (ret@tie{}@code{<clutter-animation>})
+Creates a new @code{<clutter-animation>} instance. You should set the
+@code{<gobject>} to be animated using
+@code{clutter-animation-set-object}, set the duration with
+@code{clutter-animation-set-duration} and the easing mode using
+@code{clutter-animation-set-mode}.
+
+Use @code{clutter-animation-bind} or
+@code{clutter-animation-bind-interval} to define the properties to be
+animated. The interval and the animated properties can be updated at
+runtime.
+
+The @code{clutter-actor-animate} and relative family of functions
+provide an easy way to animate a @code{<clutter-actor>} and
+automatically manage the lifetime of a @code{<clutter-animation>}
+instance, so you should consider using those functions instead of
+manually creating an animation.
+
+@table @var
+@item ret
+the newly created @code{<clutter-animation>}. Use @code{g-object-unref}
+to release the associated resources
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-animation-set-object  (self@tie{}@code{<clutter-animation>}) (object@tie{}@code{<gobject>})
+@deffnx Method set-object
+Attaches @var{animation} to @var{object}. The @code{<clutter-animation>}
+will take a reference on @var{object}.
+
+@table @var
+@item animation
+a @code{<clutter-animation>}
+
+@item object
+a @code{<gobject>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-animation-get-object  (self@tie{}@code{<clutter-animation>}) @result{}@tie{} (ret@tie{}@code{<gobject>})
+@deffnx Method get-object
+Retrieves the @code{<gobject>} attached to @var{animation}.
+
+@table @var
+@item animation
+a @code{<clutter-animation>}
+
+@item ret
+a @code{<gobject>}.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-animation-set-mode  (self@tie{}@code{<clutter-animation>}) (mode@tie{}@code{unsigned-long})
+@deffnx Method set-mode
+Sets the animation @var{mode} of @var{animation}. The animation
+@var{mode} is a logical id, either coming from the
+@code{<clutter-animation-mode>} enumeration or the return value of
+@code{clutter-alpha-register-func}.
+
+This function will also set @code{<"alpha">} if needed.
+
+@table @var
+@item animation
+a @code{<clutter-animation>}
+
+@item mode
+an animation mode logical id
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-animation-get-mode  (self@tie{}@code{<clutter-animation>}) @result{}@tie{} (ret@tie{}@code{unsigned-long})
+@deffnx Method get-mode
+Retrieves the animation mode of @var{animation}, as set by
+@code{clutter-animation-set-mode}.
+
+@table @var
+@item animation
+a @code{<clutter-animation>}
+
+@item ret
+the mode for the animation
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-animation-set-duration  (self@tie{}@code{<clutter-animation>}) (msecs@tie{}@code{int})
+@deffnx Method set-duration
+Sets the duration of @var{animation} in milliseconds.
+
+This function will set @code{<"alpha">} and @code{<"timeline">} if
+needed.
+
+@table @var
+@item animation
+a @code{<clutter-animation>}
+
+@item msecs
+the duration in milliseconds
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-animation-get-duration  (self@tie{}@code{<clutter-animation>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+@deffnx Method get-duration
+Retrieves the duration of @var{animation}, in milliseconds.
+
+@table @var
+@item animation
+a @code{<clutter-animation>}
+
+@item ret
+the duration of the animation
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-animation-set-loop  (self@tie{}@code{<clutter-animation>}) (loop@tie{}@code{bool})
+@deffnx Method set-loop
+Sets whether @var{animation} should loop over itself once finished.
+
+A looping @code{<clutter-animation>} will not emit the
+@code{<"completed">} signal when finished.
+
+This function will set @code{<"alpha">} and @code{<"timeline">} if
+needed.
+
+@table @var
+@item animation
+a @code{<clutter-animation>}
+
+@item loop
+@samp{@code{#t}} if the animation should loop
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-animation-get-loop  (self@tie{}@code{<clutter-animation>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-loop
+Retrieves whether @var{animation} is looping.
+
+@table @var
+@item animation
+a @code{<clutter-animation>}
+
+@item ret
+@samp{@code{#t}} if the animation is looping
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-animation-set-timeline  (self@tie{}@code{<clutter-animation>}) (timeline@tie{}@code{<clutter-timeline>})
+@deffnx Method set-timeline
+Sets the @code{<clutter-timeline>} used by @var{animation}.
+
+@table @var
+@item animation
+a @code{<clutter-animation>}
+
+@item timeline
+a @code{<clutter-timeline>}, or @samp{@code{#f}} to unset the current
+@code{<clutter-timeline>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-animation-get-timeline  (self@tie{}@code{<clutter-animation>}) @result{}@tie{} (ret@tie{}@code{<clutter-timeline>})
+@deffnx Method get-timeline
+Retrieves the @code{<clutter-timeline>} used by @var{animation}
+
+@table @var
+@item animation
+a @code{<clutter-animation>}
+
+@item ret
+the timeline used by the animation.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-animation-set-alpha  (self@tie{}@code{<clutter-animation>}) (alpha@tie{}@code{<clutter-alpha>})
+@deffnx Method set-alpha
+Sets @var{alpha} as the @code{<clutter-alpha>} used by @var{animation}.
+
+If @var{alpha} is not @samp{@code{#f}}, the @code{<clutter-animation>}
+will take ownership of the @code{<clutter-alpha>} instance.
+
+@table @var
+@item animation
+a @code{<clutter-animation>}
+
+@item alpha
+a @code{<clutter-alpha>}, or @samp{@code{#f}} to unset the current
+@code{<clutter-alpha>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-animation-get-alpha  (self@tie{}@code{<clutter-animation>}) @result{}@tie{} (ret@tie{}@code{<clutter-alpha>})
+@deffnx Method get-alpha
+Retrieves the @code{<clutter-alpha>} used by @var{animation}.
+
+@table @var
+@item animation
+a @code{<clutter-animation>}
+
+@item ret
+the alpha object used by the animation.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-animation-completed  (self@tie{}@code{<clutter-animation>})
+@deffnx Method completed
+Emits the ::completed signal on @var{animation}
+
+When using this function with a @code{<clutter-animation>} created by
+the @code{clutter-actor-animate} family of functions, @var{animation}
+will be unreferenced and it will not be valid anymore, unless
+@code{g-object-ref} was called before calling this function or unless a
+reference was taken inside a handler for the @code{<"completed">} signal
+
+@table @var
+@item animation
+a @code{<clutter-animation>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-animation-bind  (self@tie{}@code{<clutter-animation>}) (property_name@tie{}@code{mchars}) (final@tie{}@code{<gvalue>}) @result{}@tie{} (ret@tie{}@code{<clutter-animation>})
+@deffnx Method bind
+Adds a single property with name @var{property-name} to the animation
+@var{animation}. For more information about animations, see
+@code{clutter-actor-animate}.
+
+This method returns the animation primarily to make chained calls
+convenient in language bindings.
+
+@table @var
+@item animation
+a @code{<clutter-animation>}
+
+@item property-name
+the property to control
+
+@item final
+The final value of the property
+
+@item ret
+The animation itself.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-animation-bind-interval  (self@tie{}@code{<clutter-animation>}) (property_name@tie{}@code{mchars}) (interval@tie{}@code{<clutter-interval>}) @result{}@tie{} (ret@tie{}@code{<clutter-animation>})
+@deffnx Method bind-interval
+Binds @var{interval} to the @var{property-name} of the @code{<gobject>}
+attached to @var{animation}. The @code{<clutter-animation>} will take
+ownership of the passed @code{<clutter-interval>}. For more information
+about animations, see @code{clutter-actor-animate}.
+
+If you need to update the interval instance use
+@code{clutter-animation-update-property} instead.
+
+@table @var
+@item animation
+a @code{<clutter-animation>}
+
+@item property-name
+the property to control
+
+@item interval
+a @code{<clutter-interval>}.
+
+@item ret
+The animation itself.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-animation-update-interval  (self@tie{}@code{<clutter-animation>}) (property_name@tie{}@code{mchars}) (interval@tie{}@code{<clutter-interval>})
+@deffnx Method update-interval
+Changes the @var{interval} for @var{property-name}. The
+@code{<clutter-animation>} will take ownership of the passed
+@code{<clutter-interval>}.
+
+@table @var
+@item animation
+a @code{<clutter-animation>}
+
+@item property-name
+name of the property
+
+@item interval
+a @code{<clutter-interval>}
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-animation-has-property  (self@tie{}@code{<clutter-animation>}) (property_name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method has-property
+Checks whether @var{animation} is controlling @var{property-name}.
+
+@table @var
+@item animation
+a @code{<clutter-animation>}
+
+@item property-name
+name of the property
+
+@item ret
+@samp{@code{#t}} if the property is animated by the
+@code{<clutter-animation>}, @samp{@code{#f}} otherwise
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-animation-unbind-property  (self@tie{}@code{<clutter-animation>}) (property_name@tie{}@code{mchars})
+@deffnx Method unbind-property
+Removes @var{property-name} from the list of animated properties.
+
+@table @var
+@item animation
+a @code{<clutter-animation>}
+
+@item property-name
+name of the property
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-animation-get-interval  (self@tie{}@code{<clutter-animation>}) (property_name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<clutter-interval>})
+@deffnx Method get-interval
+Retrieves the @code{<clutter-interval>} associated to
+@var{property-name} inside @var{animation}.
+
+@table @var
+@item animation
+a @code{<clutter-animation>}
+
+@item property-name
+name of the property
+
+@item ret
+a @code{<clutter-interval>} or @samp{@code{#f}} if no property with the
+same name was found. The returned interval is owned by the
+@code{<clutter-animation>} and should not be unreferenced.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-actor-get-animation  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-animation>})
+@deffnx Method get-animation
+Retrieves the @code{<clutter-animation>} used by @var{actor}, if
+@code{clutter-actor-animate} has been called on @var{actor}.
+
+@table @var
+@item actor
+a @code{<clutter-actor>}
+
+@item ret
+a @code{<clutter-animation>}, or @samp{@code{#f}}.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
 
 @c %end of fragment

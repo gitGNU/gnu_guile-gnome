@@ -1,25 +1,10 @@
 
 @c %start of fragment
 
-@deftp Class <clutter-behaviour-depth>
-Derives from @code{<clutter-behaviour>}.
-
-This class defines the following slots:
-
-@table @code
-@item depth-start
-Initial depth to apply
-
-@item depth-end
-Final depth to apply
-
-@end table
-
-@end deftp
-
 @deffn Function clutter-behaviour-depth-new  (alpha@tie{}@code{<clutter-alpha>}) (depth_start@tie{}@code{int}) (depth_end@tie{}@code{int}) @result{}@tie{} (ret@tie{}@code{<clutter-behaviour>})
-Creates a new @code{<clutter-behaviour-depth>} which can be used to control the
-ClutterActor:depth property of a set of @code{<clutter-actor>}s.
+Creates a new @code{<clutter-behaviour-depth>} which can be used to
+control the ClutterActor:depth property of a set of
+@code{<clutter-actor>}s.
 
 @table @var
 @item alpha

@@ -1,0 +1,31 @@
+
+@c %start of fragment
+
+@node ClutterAnimatable
+@chapter ClutterAnimatable
+Interface for animatable classes
+
+@section Overview
+@code{<clutter-animatable>} is an interface that allows a
+@code{<gobject>} class to control how a @code{<clutter-animation>} will
+animate a property.
+
+Each @code{<clutter-animatable>} should implement the
+@code{animate-property} virtual function of the interface to compute the
+animation state between two values of an interval depending on a
+progress factor, expressed as a floating point value.
+
+If a @code{<clutter-animatable>} is animated by a
+@code{<clutter-animation>} instance, the @code{<clutter-animation>} will
+call @code{clutter-animatable-animate-property} passing the name of the
+currently animated property; the initial and final values of the
+animation interval; the progress factor. The @code{<clutter-animatable>}
+implementation should return the computed value for the animated
+property.
+
+@code{<clutter-animatable>} is available since Clutter 1.0
+
+@section Usage
+@include defuns-clutter-animatable.xml.texi
+
+@c %end of fragment

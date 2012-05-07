@@ -2,12 +2,36 @@
 @c %start of fragment
 
 @deffn Function clutter-get-default-backend  @result{}@tie{} (ret@tie{}@code{<clutter-backend>})
-FIXME
+Retrieves the default @code{<clutter-backend>} used by Clutter. The
+@code{<clutter-backend>} holds backend-specific configuration options.
 
 @table @var
 @item ret
 the default backend. You should not ref or unref the returned object.
-Applications should not rarely need to use this.
+Applications should rarely need to use this.
+
+@end table
+
+Since 0.4
+
+@end deffn
+
+@deffn Function clutter-backend-set-resolution  (self@tie{}@code{<clutter-backend>}) (dpi@tie{}@code{double})
+@deffnx Method set-resolution
+Sets the resolution for font handling on the screen. This is a scale
+factor between points specified in a @code{<pango-font-description>} and
+cairo units. The default value is 96, meaning that a 10 point font will
+be 13 units high. (10 * 96. / 72. = 13.3).
+
+Applications should never need to call this function.
+
+@table @var
+@item backend
+a @code{<clutter-backend>}
+
+@item dpi
+the resolution in "dots per inch" (Physical inches aren't actually
+involved; the terminology is conventional).
 
 @end table
 
@@ -33,35 +57,14 @@ Since 0.4
 
 @end deffn
 
-@deffn Function clutter-backend-set-resolution  (self@tie{}@code{<clutter-backend>}) (dpi@tie{}@code{double})
-@deffnx Method set-resolution
-Sets the resolution for font handling on the screen. This is a scale factor
-between points specified in a @code{<pango-font-description>} and cairo units.
-The default value is 96, meaning that a 10 point font will be 13 units high. (10
-* 96. / 72. = 13.3).
-
-Applications should never need to call this function.
-
-@table @var
-@item backend
-a @code{<clutter-backend>}
-
-@item dpi
-the resolution in "dots per inch" (Physical inches aren't actually involved; the
-terminology is conventional).
-
-@end table
-
-Since 0.4
-
-@end deffn
-
 @deffn Function clutter-backend-set-font-options  (self@tie{}@code{<clutter-backend>}) (options@tie{}@code{cairo-font-options-t})
 @deffnx Method set-font-options
-Sets the new font options for @var{backend}. If @var{options} is
-@samp{@code{#f}}, the first following call to
-@code{clutter-backend-get-font-options} will return the default font options for
-@var{backend}.
+Sets the new font options for @var{backend}. The
+@code{<clutter-backend>} will copy the @code{<cairo-font-options-t>}.
+
+If @var{options} is @samp{@code{#f}}, the first following call to
+@code{clutter-backend-get-font-options} will return the default font
+options for @var{backend}.
 
 This function is intended for actors creating a Pango layout using the
 PangoCairo API.
@@ -79,20 +82,42 @@ Since 0.8
 
 @end deffn
 
-@deffn Function clutter-backend-get-font-options  (self@tie{}@code{<clutter-backend>}) @result{}@tie{} (ret@tie{}@code{cairo-font-options-t})
-@deffnx Method get-font-options
-Retrieves the font options for @var{backend}.
+@deffn Function clutter-backend-set-font-name  (self@tie{}@code{<clutter-backend>}) (font_name@tie{}@code{mchars})
+@deffnx Method set-font-name
+Sets the default font to be used by Clutter. The @var{font-name} string
+must either be @samp{@code{#f}}, which means that the font name from the
+default @code{<clutter-backend>} will be used; or be something that can
+be parsed by the @code{pango-font-description-from-string} function.
+
+@table @var
+@item backend
+a @code{<clutter-backend>}
+
+@item font-name
+the name of the font
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-backend-get-font-name  (self@tie{}@code{<clutter-backend>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-font-name
+Retrieves the default font name as set by
+@code{clutter-backend-set-font-name}.
 
 @table @var
 @item backend
 a @code{<clutter-backend>}
 
 @item ret
-the font options of the @code{<clutter-backend>}
+the font name for the backend. The returned string is owned by the
+@code{<clutter-backend>} and should never be modified or freed
 
 @end table
 
-Since 0.8
+Since 1.0
 
 @end deffn
 
