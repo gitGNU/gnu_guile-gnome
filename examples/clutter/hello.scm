@@ -3,7 +3,7 @@
 exec guile -e main -s $0 "$@"
 !#
 ;; guile-gnome
-;; Copyright (C) 2008 Free Software Foundation, Inc.
+;; Copyright (C) 2008, 2012 Free Software Foundation, Inc.
 
 ;; This program is free software; you can redistribute it and/or    
 ;; modify it under the terms of the GNU General Public License as   
@@ -40,7 +40,7 @@ exec guile -e main -s $0 "$@"
 
 (define (prep-stage)
   (set! *stage* (clutter-stage-get-default))
-  (set-color *stage* (pk (clutter-color-parse "DarkSlateGrey")))
+  (set-color *stage* (pk (clutter-color-from-string "DarkSlateGrey")))
   (set-size *stage* 800 600)
   (set-title *stage* "My First Clutter Application")
   (connect *stage* 'key-press-event
@@ -55,7 +55,7 @@ exec guile -e main -s $0 "$@"
 
 (define (show-message msg)
   (define (make-label sw sh)
-    (let ((l (make <clutter-label>
+    (let ((l (make <clutter-text>
                #:font-name "Mono 22" #:text msg #:color *color*)))
       (let-values (((w h) (get-size l)))
         (pk w h)
@@ -68,15 +68,17 @@ exec guile -e main -s $0 "$@"
                 #:color *color* #:width 20 #:height (pk (- (get-height *stage*) sh))
                 #:x (- sw 50) #:y sh))
            (t (make <clutter-timeline>
-                #:fps 30 #:num-frames 25 #:loop #t))
+                #:duration 800 ; milliseconds
+                #:loop #t))
            (b (make <clutter-behaviour-opacity>
                 #:opacity-start #xdd #:opacity-end #x0
                 #:alpha (let ((a (clutter-alpha-new)))
-                          (set-stock-func a "ramp")
+                          (set-mode a 'linear)
                           (set-timeline a t)
                           a))))
       (add-actor *stage* c)
-      (apply b c)
+      ;; FIXME: apply is not being made into a generic!
+      (clutter-behaviour-apply b c)
       (start t)
       (values sw sh)))
 

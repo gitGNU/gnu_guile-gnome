@@ -28,11 +28,11 @@
 SCM scm_clutter_knot_to_scm (ClutterKnot *k);
 ClutterKnot* scm_scm_to_clutter_knot (SCM scm);
 
+SCM scm_clutter_path_node_to_scm (ClutterPathNode *k);
+ClutterPathNode* scm_scm_to_clutter_path_node (SCM scm);
+
 SCM scm_clutter_color_to_scm (ClutterColor *c);
 ClutterColor* scm_scm_to_clutter_color (SCM scm);
-
-SCM scm_clutter_units_to_scm (ClutterUnit u);
-ClutterUnit scm_scm_to_clutter_units (SCM scm);
 
 SCM scm_clutter_actor_box_to_scm (ClutterActorBox *a);
 ClutterActorBox* scm_scm_to_clutter_actor_box (SCM scm);
@@ -43,6 +43,19 @@ ClutterGeometry* scm_scm_to_clutter_geometry (SCM scm);
 SCM scm_clutter_vertex_to_scm (ClutterVertex *x);
 ClutterVertex* scm_scm_to_clutter_vertex (SCM scm);
 
-void clutter_alpha_set_stock_func (ClutterAlpha *a, const char *name);
+SCM scm_clutter_perspective_to_scm (ClutterPerspective *x);
+ClutterPerspective* scm_scm_to_clutter_perspective (SCM scm);
+SCM wrap_clutter_stage_get_perspective (ClutterStage *stage);
 
-SCM _wrap_clutter_color_parse (const char *name);
+SCM scm_clutter_fog_to_scm (ClutterFog *x);
+ClutterFog* scm_scm_to_clutter_fog (SCM scm);
+SCM wrap_clutter_stage_get_fog (ClutterStage *stage);
+
+SCM _wrap_clutter_color_from_string (const char *name);
+
+ClutterUnits* wrap_clutter_units_from_pixels (gint px);
+ClutterUnits* wrap_clutter_units_from_em (gfloat em);
+ClutterUnits* wrap_clutter_units_from_em_for_font (const gchar *font_name, gfloat em);
+ClutterUnits* wrap_clutter_units_from_mm (gfloat mm);
+ClutterUnits* wrap_clutter_units_from_pt (gfloat pt);
+ClutterUnits* wrap_clutter_units_from_string (const gchar *str);

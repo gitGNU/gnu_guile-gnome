@@ -1,6 +1,6 @@
 define(GUILE_CLUTTER_CONFIGURE_COPYRIGHT,[[
 
-Copyright (C) 2011  Free Software Foundation, Inc.
+Copyright (C) 2011,2012  Free Software Foundation, Inc.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as
@@ -19,13 +19,13 @@ License along with this program.  If not, see
 ]])
 
 AC_PREREQ(2.52)
-AC_INIT(guile-clutter, 0.8.0)
+AC_INIT(guile-clutter, 1.0.0)
 AC_CONFIG_AUX_DIR([build-aux])
 AC_COPYRIGHT(GUILE_CLUTTER_CONFIGURE_COPYRIGHT)
 AM_CONFIG_HEADER(config.h)
 AM_INIT_AUTOMAKE(-Wno-portability -Wno-syntax)
 
-AC_SUBST(VERSION,0.8.0)
+AC_SUBST(VERSION,1.0.0)
 
 # Meaning of the API version
 # --------------------------
@@ -166,7 +166,7 @@ on the prerequisites of a package.
 
 # Per-package checks follow
 # clutter
-CLUTTER_MAJORMINOR=0.8
+CLUTTER_MAJORMINOR=1.0
 AC_SUBST(CLUTTER_MAJORMINOR)
 
 PKG_CHECK_MODULES(CLUTTER, clutter-$CLUTTER_MAJORMINOR guile-cairo,
@@ -190,7 +190,7 @@ report_checks
 AC_CONFIG_FILES(dev-environ, [chmod +x ./dev-environ])
 AC_CONFIG_FILES(
 Makefile
-clutter/examples/Makefile
+examples/Makefile
 clutter/doc/Makefile
 clutter/doc/clutter-glx/Makefile
 clutter/doc/clutter/Makefile

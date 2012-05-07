@@ -1,11 +1,11 @@
 ;; -*- scheme -*-
 (include "clutter-glx-types.defs") (include overrides)
 
-;; From /opt/clutter/include/clutter-0.8/clutter/glx/clutter-glx.h
+;; From /opt/clutter/include/clutter-1.0/clutter/glx/clutter-glx.h
 
 
 
-;; From /opt/clutter/include/clutter-0.8/clutter/glx/clutter-glx-texture-pixmap.h
+;; From /opt/clutter/include/clutter-1.0/clutter/glx/clutter-glx-texture-pixmap.h
 
 (define-function clutter_glx_texture_pixmap_get_type
   (c-name "clutter_glx_texture_pixmap_get_type")

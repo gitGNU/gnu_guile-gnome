@@ -1,5 +1,5 @@
 ;; guile-gnome
-;; Copyright (C) 2008 Free Software Foundation, Inc.
+;; Copyright (C) 2008,2012 Free Software Foundation, Inc.
 
 ;; This program is free software; you can redistribute it and/or    
 ;; modify it under the terms of the GNU General Public License as   
@@ -44,17 +44,6 @@
    "clutter_init (NULL, NULL);\n"
    ;;; fixme: add sinkfunc for GInitiallyUnowned
    ))
-
-(define-class <gw-guile-clutter-unit-type> (<gw-guile-simple-type>))
-(define-method (check-typespec-options (type <gw-guile-clutter-unit-type>) (options <list>))
-  (let ((remainder options))
-    (define (del*! . syms)
-      (set! remainder (lset-difference eq? remainder syms)))
-    (del*! 'const 'out 'unspecialized)
-    (apply del*! 'caller-owned 'callee-owned (slot-ref type 'allowed-options))
-    (if (not (null? remainder))
-        (raise-bad-typespec type options
-                            "spurious options in RTI type: ~S" remainder))))
 
 (define-class <clutter-event-type> (<gobject-classed-pointer-type>))
 (define-method (initialize (type <clutter-event-type>) initargs)
@@ -112,6 +101,13 @@
    (list c-var " = scm_scm_to_clutter_knot (" scm-var ");\n"))
 
   (wrap-custom-boxed!
+   "ClutterPathNode" "CLUTTER_TYPE_PATH_NODE"
+   ;; wrap
+   (list scm-var " = " c-var " ? scm_clutter_path_node_to_scm (" c-var ") : SCM_BOOL_F;\n")
+   ;; unwrap
+   (list c-var " = scm_scm_to_clutter_path_node (" scm-var ");\n"))
+
+  (wrap-custom-boxed!
    "ClutterColor" "CLUTTER_TYPE_COLOR"
    ;; wrap
    (list scm-var " = " c-var " ? scm_clutter_color_to_scm (" c-var ") : SCM_BOOL_F;\n")
@@ -139,22 +135,25 @@
    ;; unwrap
    (list c-var " = scm_scm_to_clutter_vertex (" scm-var ");\n"))
 
-  (add-type! ws (make <gw-guile-clutter-unit-type>
-                  #:name '<clutter-unit>
-                  #:c-type-name "ClutterUnit"
-                  #:type-check #f
-                  #:unwrap '(c-var " = scm_scm_to_clutter_units (" scm-var ");\n")
-                  #:wrap '(scm-var " = scm_clutter_units_to_scm (" c-var ");\n")
-                  #:allowed-options '(out)
-                  #:ffspec 'int32))
-  (add-type-alias! ws "ClutterUnit" '<clutter-unit>)
-  (add-type-rule! ws "ClutterUnit*" '(<clutter-unit> out))
-  
+  (wrap-custom-boxed!
+   "ClutterFog" "CLUTTER_TYPE_FOG"
+   ;; wrap
+   (list scm-var " = " c-var " ? scm_clutter_fog_to_scm (" c-var ") : SCM_BOOL_F;\n")
+   ;; unwrap
+   (list c-var " = scm_scm_to_clutter_fog (" scm-var ");\n"))
+
+  (wrap-custom-boxed!
+   "ClutterPerspective" "CLUTTER_TYPE_PERSPECTIVE"
+   ;; wrap
+   (list scm-var " = " c-var " ? scm_clutter_perspective_to_scm (" c-var ") : SCM_BOOL_F;\n")
+   ;; unwrap
+   (list c-var " = scm_scm_to_clutter_perspective (" scm-var ");\n"))
+
+  (wrap-opaque-pointer! ws "ClutterInputDevice*")
+
   (load-defs-with-overrides ws "gnome/defs/clutter.defs"))
 
 (define-method (global-declarations-cg (self <clutter-wrapset>))
   (list (next-method)
         "#include <clutter/clutter.h>\n"
-        ;; FIXME: clutter should include this one
-        "#include <clutter/clutter-stage-manager.h>\n"
         "#include \"clutter-support.h\"\n"))

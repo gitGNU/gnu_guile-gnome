@@ -26,17 +26,6 @@
   )
 )
 
-(define-enum X11InputDeviceType
-  (in-module "Clutter")
-  (c-name "ClutterX11InputDeviceType")
-  (gtype-id "CLUTTER_X11_TYPE_INPUT_DEVICE_TYPE")
-  (values
-    '("pointer-device" "CLUTTER_X11_XINPUT_POINTER_DEVICE")
-    '("keyboard-device" "CLUTTER_X11_XINPUT_KEYBOARD_DEVICE")
-    '("extension-device" "CLUTTER_X11_XINPUT_EXTENSION_DEVICE")
-  )
-)
-
 ;; -*- scheme -*-
 ; object definitions ...
 (define-object X11TexturePixmap

@@ -1,6 +1,6 @@
 ;; -*- scheme -*-
 ;; guile-gnome
-;; Copyright (C) 2008 Free Software Foundation, Inc.
+;; Copyright (C) 2008, 2012 Free Software Foundation, Inc.
 
 ;; This program is free software; you can redistribute it and/or    
 ;; modify it under the terms of the GNU General Public License as   
@@ -46,6 +46,7 @@
 (ignore-glob "clutter_x11_set_display"
              "clutter_x11_disable_event_retrieval"
              "clutter_x11_handle_event"
+             "clutter_x11_get_current_event_time"
              "clutter_x11_get_default_display"
              "clutter_x11_get_stage_visual"
              "clutter_x11_add_filter"

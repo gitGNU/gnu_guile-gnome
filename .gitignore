@@ -28,3 +28,6 @@ autom4te.cache/
 /build-aux/texinfo.tex
 /INSTALL
 /config.h.in~
+/clutter/gnome/gw/clutter-glx.scm
+/clutter/gnome/gw/clutter.scm
+/libtool

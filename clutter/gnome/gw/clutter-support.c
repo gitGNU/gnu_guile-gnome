@@ -41,11 +41,74 @@ scm_clutter_knot_to_scm (ClutterKnot *k)
 ClutterKnot*
 scm_scm_to_clutter_knot (SCM scm)
 {
-    ClutterKnot *ret = g_new0 (ClutterKnot, 1);
-    
-    ret->x = scm_to_int (scm_car (scm));
-    ret->y = scm_to_int (scm_cdr (scm));
-    return ret;
+    ClutterKnot ret;
+    ret.x = scm_to_int (scm_car (scm));
+    ret.y = scm_to_int (scm_cdr (scm));
+    return clutter_knot_copy (&ret);
+}
+
+SCM
+scm_clutter_path_node_to_scm (ClutterPathNode *pn)
+{
+    SCM tail = SCM_EOL;
+    SCM head;
+
+    head = scm_c_make_gvalue (CLUTTER_TYPE_PATH_NODE);
+    g_value_set_enum (scm_c_gvalue_peek_value (head), pn->type);
+
+    switch (pn->type) {
+    case CLUTTER_PATH_CURVE_TO:
+    case CLUTTER_PATH_REL_CURVE_TO:
+    default:
+      tail = scm_cons (scm_clutter_knot_to_scm (&pn->points[2]), tail);
+    case CLUTTER_PATH_LINE_TO:
+    case CLUTTER_PATH_REL_LINE_TO:
+      tail = scm_cons (scm_clutter_knot_to_scm (&pn->points[1]), tail);
+    case CLUTTER_PATH_MOVE_TO:
+    case CLUTTER_PATH_REL_MOVE_TO:
+      tail = scm_cons (scm_clutter_knot_to_scm (&pn->points[0]), tail);
+    case CLUTTER_PATH_CLOSE:
+      break;
+    }
+
+    return scm_cons (head, tail);
+}
+
+ClutterPathNode*
+scm_scm_to_clutter_path_node (SCM scm)
+{
+    ClutterPathNode ret;
+    ClutterPathNodeType type;
+
+    if (scm_c_gvalue_holds (scm_car (scm), CLUTTER_TYPE_PATH_NODE))
+        type = g_value_get_enum (scm_c_gvalue_peek_value (scm_car (scm)));
+    else {
+        GValue newval = {0,};
+        g_value_init (&newval, CLUTTER_TYPE_PATH_NODE);
+        scm_c_gvalue_set (&newval, scm_car (scm));
+        type = g_value_get_enum (&newval);
+    }
+
+    switch (type) {
+    case CLUTTER_PATH_CURVE_TO:
+    case CLUTTER_PATH_REL_CURVE_TO:
+    default:
+        ret.points[2].x = scm_to_int (scm_car (scm_cadddr (scm)));
+        ret.points[2].y = scm_to_int (scm_cdr (scm_cadddr (scm)));
+    case CLUTTER_PATH_LINE_TO:
+    case CLUTTER_PATH_REL_LINE_TO:
+        ret.points[1].x = scm_to_int (scm_car (scm_caddr (scm)));
+        ret.points[1].y = scm_to_int (scm_cdr (scm_caddr (scm)));
+    case CLUTTER_PATH_MOVE_TO:
+    case CLUTTER_PATH_REL_MOVE_TO:
+        ret.points[0].x = scm_to_int (scm_car (scm_cadr (scm)));
+        ret.points[0].y = scm_to_int (scm_cdr (scm_cadr (scm)));
+    case CLUTTER_PATH_CLOSE:
+        break;
+    }
+      
+    ret.type = type;
+    return clutter_path_node_copy (&ret);
 }
 
 SCM
@@ -60,48 +123,34 @@ scm_clutter_color_to_scm (ClutterColor *c)
 ClutterColor*
 scm_scm_to_clutter_color (SCM scm)
 {
-    ClutterColor *ret = g_new0 (ClutterColor, 1);
+    ClutterColor ret;
     
-    ret->red = scm_to_uint8 (scm_car (scm));
-    ret->green = scm_to_uint8 (scm_cadr (scm));
-    ret->blue = scm_to_uint8 (scm_caddr (scm));
-    ret->alpha = scm_to_uint8 (scm_cadddr (scm));
+    ret.red = scm_to_uint8 (scm_car (scm));
+    ret.green = scm_to_uint8 (scm_cadr (scm));
+    ret.blue = scm_to_uint8 (scm_caddr (scm));
+    ret.alpha = scm_to_uint8 (scm_cadddr (scm));
 
-    return ret;
-}
-
-SCM
-scm_clutter_units_to_scm (ClutterUnit u)
-{
-    return scm_from_double (CLUTTER_UNITS_TO_FLOAT (u));
-}
-
-ClutterUnit
-scm_scm_to_clutter_units (SCM scm)
-{
-    return CLUTTER_UNITS_FROM_FLOAT (scm_to_double (scm));
+    return clutter_color_copy (&ret);
 }
 
 SCM
 scm_clutter_actor_box_to_scm (ClutterActorBox *a)
 {
-    return scm_list_4 (scm_clutter_units_to_scm (a->x1),
-                       scm_clutter_units_to_scm (a->y1),
-                       scm_clutter_units_to_scm (a->x2),
-                       scm_clutter_units_to_scm (a->y2));
+    return scm_list_4 (scm_from_double (a->x1),
+                       scm_from_double (a->y1),
+                       scm_from_double (a->x2),
+                       scm_from_double (a->y2));
 }
 
 ClutterActorBox*
 scm_scm_to_clutter_actor_box (SCM scm)
 {
-    ClutterActorBox *ret = g_new0 (ClutterActorBox, 1);
-    
-    ret->x1 = scm_scm_to_clutter_units (scm_car (scm));
-    ret->y1 = scm_scm_to_clutter_units (scm_cadr (scm));
-    ret->x2 = scm_scm_to_clutter_units (scm_caddr (scm));
-    ret->y2 = scm_scm_to_clutter_units (scm_cadddr (scm));
-
-    return ret;
+    ClutterActorBox ret;
+    ret.x1 = scm_to_double (scm_car (scm));
+    ret.y1 = scm_to_double (scm_cadr (scm));
+    ret.x2 = scm_to_double (scm_caddr (scm));
+    ret.y2 = scm_to_double (scm_cadddr (scm));
+    return clutter_actor_box_copy (&ret);
 }
 
 SCM
@@ -116,79 +165,138 @@ scm_clutter_geometry_to_scm (ClutterGeometry *g)
 ClutterGeometry*
 scm_scm_to_clutter_geometry (SCM scm)
 {
-    ClutterGeometry *ret = g_new0 (ClutterGeometry, 1);
-    
-    ret->x = scm_to_int (scm_car (scm));
-    ret->y = scm_to_int (scm_cadr (scm));
-    ret->width = scm_to_uint (scm_caddr (scm));
-    ret->height = scm_to_uint (scm_cadddr (scm));
-
-    return ret;
+    ClutterGeometry ret;
+    ret.x = scm_to_int (scm_car (scm));
+    ret.y = scm_to_int (scm_cadr (scm));
+    ret.width = scm_to_uint (scm_caddr (scm));
+    ret.height = scm_to_uint (scm_cadddr (scm));
+    return g_boxed_copy (clutter_geometry_get_type (), &ret);
 }
 
 SCM
 scm_clutter_vertex_to_scm (ClutterVertex *x)
 {
-    return scm_list_3 (scm_clutter_units_to_scm (x->x),
-                       scm_clutter_units_to_scm (x->y),
-                       scm_clutter_units_to_scm (x->z));
+    return scm_list_3 (scm_from_double (x->x),
+                       scm_from_double (x->y),
+                       scm_from_double (x->z));
 }
 
 ClutterVertex*
 scm_scm_to_clutter_vertex (SCM scm)
 {
-    ClutterVertex *ret = g_new0 (ClutterVertex, 1);
-    
-    ret->x = scm_scm_to_clutter_units (scm_car (scm));
-    ret->y = scm_scm_to_clutter_units (scm_cadr (scm));
-    ret->z = scm_scm_to_clutter_units (scm_caddr (scm));
-
-    return ret;
-}
-
-struct StockAlphaFunc {
-    const char *name;
-    ClutterAlphaFunc func;
-};
-
-const struct StockAlphaFunc stock_alpha_funcs[] = {
-    { "ramp-inc", clutter_ramp_inc_func },
-    { "ramp-dec", clutter_ramp_dec_func },
-    { "ramp", clutter_ramp_func },
-    { "sine", clutter_sine_func },
-    { "sine-inc", clutter_sine_inc_func },
-    { "sine-dec", clutter_sine_dec_func },
-    { "sine-half", clutter_sine_half_func },
-    { "square", clutter_square_func },
-    { "smoothstep-inc", clutter_smoothstep_inc_func },
-    { "smoothstep-dec", clutter_smoothstep_dec_func },
-    { "exp-inc", clutter_exp_inc_func },
-    { "exp-dec", clutter_exp_dec_func },
-    { NULL, NULL },
-};
-            
-void
-clutter_alpha_set_stock_func (ClutterAlpha *a, const char *name)
-{
-    const struct StockAlphaFunc *p;
-    
-    for (p = stock_alpha_funcs; p->name; p++)
-        if (strcmp (name, p->name) == 0) {
-            clutter_alpha_set_func (a, p->func, NULL, NULL);
-            return;
-        }
-    
-    GRUNTIME_ERROR("unknown stock alpha func: ~a", 
-                   "clutter-alpha-set-stock-func",
-                   scm_from_locale_string (name));
+    ClutterVertex ret;
+    ret.x = scm_to_double (scm_car (scm));
+    ret.y = scm_to_double (scm_cadr (scm));
+    ret.z = scm_to_double (scm_caddr (scm));
+    return clutter_vertex_copy (&ret);
 }
 
 SCM
-_wrap_clutter_color_parse (const char *name)
+scm_clutter_perspective_to_scm (ClutterPerspective *x)
+{
+    return scm_list_4 (scm_from_double (x->fovy),
+                       scm_from_double (x->aspect),
+                       scm_from_double (x->z_near),
+                       scm_from_double (x->z_far));
+}
+
+ClutterPerspective*
+scm_scm_to_clutter_perspective (SCM scm)
+{
+    ClutterPerspective ret;
+    ret.fovy = scm_to_double (scm_car (scm));
+    ret.aspect = scm_to_double (scm_cadr (scm));
+    ret.z_near = scm_to_double (scm_caddr (scm));
+    ret.z_far = scm_to_double (scm_cadddr (scm));
+    return g_boxed_copy (CLUTTER_TYPE_PERSPECTIVE, &ret);
+}
+
+SCM
+wrap_clutter_stage_get_perspective (ClutterStage* stage)
+{
+    ClutterPerspective p;
+    clutter_stage_get_perspective (stage, &p);
+    return scm_clutter_perspective_to_scm (&p);
+}
+
+SCM
+scm_clutter_fog_to_scm (ClutterFog *x)
+{
+    return scm_cons (scm_from_double (x->z_near),
+                     scm_from_double (x->z_far));
+}
+
+ClutterFog*
+scm_scm_to_clutter_fog (SCM scm)
+{
+    ClutterFog ret;
+    ret.z_near = scm_to_double (scm_car (scm));
+    ret.z_far = scm_to_double (scm_cdr (scm));
+    return g_boxed_copy (CLUTTER_TYPE_FOG, &ret);
+}
+
+SCM
+wrap_clutter_stage_get_fog (ClutterStage* stage)
+{
+    ClutterFog p;
+    clutter_stage_get_fog (stage, &p);
+    return scm_clutter_fog_to_scm (&p);
+}
+
+SCM
+_wrap_clutter_color_from_string (const char *name)
 {
     ClutterColor parsed;
-    if (clutter_color_parse (name, &parsed))
+    if (clutter_color_from_string (&parsed, name))
         return scm_clutter_color_to_scm (&parsed);
     else
         return SCM_BOOL_F;
+}
+
+ClutterUnits*
+wrap_clutter_units_from_pixels (gint px)
+{
+  ClutterUnits units;
+  clutter_units_from_pixels (&units, px);
+  return clutter_units_copy (&units);
+}
+
+ClutterUnits*
+wrap_clutter_units_from_em (gfloat em)
+{
+  ClutterUnits units;
+  clutter_units_from_em (&units, em);
+  return clutter_units_copy (&units);
+}
+
+ClutterUnits*
+wrap_clutter_units_from_em_for_font (const gchar *font_name, gfloat em)
+{
+  ClutterUnits units;
+  clutter_units_from_em_for_font (&units, font_name, em);
+  return clutter_units_copy (&units);
+}
+
+ClutterUnits*
+wrap_clutter_units_from_mm (gfloat mm)
+{
+  ClutterUnits units;
+  clutter_units_from_mm (&units, mm);
+  return clutter_units_copy (&units);
+}
+
+ClutterUnits*
+wrap_clutter_units_from_pt (gfloat pt)
+{
+  ClutterUnits units;
+  clutter_units_from_pt (&units, pt);
+  return clutter_units_copy (&units);
+}
+
+ClutterUnits*
+wrap_clutter_units_from_string (const gchar *str)
+{
+  ClutterUnits units;
+  clutter_units_from_string (&units, str);
+  return clutter_units_copy (&units);
 }

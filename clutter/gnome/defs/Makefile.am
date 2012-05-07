@@ -16,10 +16,10 @@ CLUTTER_PREFIX=/opt/clutter
 CLUTTER_INC_DIR=$(CLUTTER_PREFIX)/include/clutter-$(CLUTTER_MAJORMINOR)/clutter
 clutter:
 	../../../h2def.py --types \
-	   $(shell ls $(CLUTTER_INC_DIR)/clutter-*.h | grep -v -- -fixed) > clutter-types.defs
+	   $(CLUTTER_INC_DIR)/*.h > clutter-types.defs
 	../../../h2def.py --procs \
 	   --with-header='(include "clutter-types.defs") (include overrides)' \
-	   $(shell ls $(CLUTTER_INC_DIR)/clutter-*.h | grep -v -- -fixed)> clutter.defs
+	   $(CLUTTER_INC_DIR)/*.h > clutter.defs
 
 clutter-x11:
 	../../../h2def.py --types  --type-re='s/^CLUTTER_X11/CLUTTER_X11_TYPE/'\
