@@ -35,3 +35,5 @@ autom4te.cache/
 /doc/clutter/guile-gnome-clutter.info-1
 /doc/clutter/guile-gnome-clutter.info-2
 /doc/clutter/version.texi
+/doc/clutter-glx/guile-gnome-clutter-glx.info
+/doc/clutter-glx/version.texi
