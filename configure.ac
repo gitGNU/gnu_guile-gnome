@@ -104,76 +104,20 @@ AC_SUBST(G_WRAP_LIBS)
 AC_SUBST(G_WRAP_MODULE_DIR, `${PKG_CONFIG} --variable=module_directory g-wrap-2.0-guile`)
 AC_SUBST(G_WRAP_LIB_DIR, `echo $G_WRAP_MODULE_DIR | sed -e 's|share/guile|lib|'`)
 
-PACKAGES_TO_BUILD=""
-PACKAGES_NOT_BUILT=""
-record_check()
-{
-    local package=$1;
-    local buildp=$2;
-    case $buildp in
-        yes|true)
-            if test -z "$PACKAGES_TO_BUILD"; then
-                PACKAGES_TO_BUILD="$package"
-            else
-                PACKAGES_TO_BUILD="$PACKAGES_TO_BUILD $package"
-            fi
-            ;;
-        no|false)
-            if test -z "$PACKAGES_NOT_BUILT"; then
-                PACKAGES_NOT_BUILT="$package"
-            else
-                PACKAGES_NOT_BUILT="$PACKAGES_NOT_BUILT $package"
-            fi
-            ;;
-        *)
-            echo "bad record_check value: \"$buildp\" (for package \"$package\")"
-            exit 1
-            ;;
-    esac
-}
+# Check for Guile-GNOME
 
-report_checks()
-{
-    if test -z "$PACKAGES_TO_BUILD"; then
-        AC_MSG_ERROR([All wrappers failed their prerequisites.
+PKG_CHECK_MODULES(GUILE_GLIB, guile-gnome-glib-2)
+AC_SUBST(GUILE_GLIB_CFLAGS)
+AC_SUBST(GUILE_GLIB_LIBS)
 
-These following wrappers cannot be built:
-  $PACKAGES_NOT_BUILT
+# Check for clutter
 
-Check the README files in the above subdirectories, install the necessary
-packages, and try again.
-])
-    elif test -z "$PACKAGES_NOT_BUILT"; then
-        AC_MSG_NOTICE([
-All available wrappers will be built:
-  $PACKAGES_TO_BUILD
-
-])
-    else
-        AC_MSG_NOTICE([Some packages will not be built.
-
-These wrappers will be built:
-  $PACKAGES_TO_BUILD
-
-These wrappers failed their prerequisites and will NOT be built:
-  $PACKAGES_NOT_BUILT
-
-Check the README files in the above subdirectories for more information
-on the prerequisites of a package.
-])
-    fi
-}
-
-# Per-package checks follow
-# clutter
 CLUTTER_MAJORMINOR=1.0
 AC_SUBST(CLUTTER_MAJORMINOR)
 
-PKG_CHECK_MODULES(CLUTTER, clutter-$CLUTTER_MAJORMINOR guile-cairo,
-                  HAVE_CLUTTER=true, HAVE_CLUTTER=false)
+PKG_CHECK_MODULES(CLUTTER, clutter-$CLUTTER_MAJORMINOR guile-cairo)
 AC_SUBST(CLUTTER_CFLAGS)
 AC_SUBST(CLUTTER_LIBS)
-AM_CONDITIONAL(HAVE_CLUTTER, $HAVE_CLUTTER)
 
 PKG_CHECK_MODULES(CLUTTER_GLX, clutter-glx-$CLUTTER_MAJORMINOR,
                   HAVE_CLUTTER_GLX=true, HAVE_CLUTTER_GLX=false)
@@ -181,24 +125,18 @@ AC_SUBST(CLUTTER_GLX_CFLAGS)
 AC_SUBST(CLUTTER_GLX_LIBS)
 AM_CONDITIONAL(HAVE_CLUTTER_GLX, $HAVE_CLUTTER_GLX)
 
-record_check clutter $HAVE_CLUTTER
-PKG_CHECK_MODULES(GUILE_GLIB, guile-gnome-glib-2)
-AC_SUBST(GUILE_GLIB_CFLAGS)
-AC_SUBST(GUILE_GLIB_LIBS)
-report_checks
-
 AC_CONFIG_FILES(dev-environ, [chmod +x ./dev-environ])
 AC_CONFIG_FILES(
 Makefile
-examples/Makefile
-clutter/doc/Makefile
-clutter/doc/clutter-glx/Makefile
-clutter/doc/clutter/Makefile
-clutter/tests/Makefile
+clutter/Makefile
 clutter/gnome/gw/Makefile
 clutter/gnome/Makefile
 clutter/gnome/overrides/Makefile
 clutter/gnome/defs/Makefile
-clutter/Makefile
+clutter/tests/Makefile
+examples/Makefile
+doc/Makefile
+doc/clutter-glx/Makefile
+doc/clutter/Makefile
 )
 AC_OUTPUT

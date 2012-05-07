@@ -1,12 +1,7 @@
 include $(top_srcdir)/common.mk
 
-SUBDIRS = overrides defs
-guilemodule_DATA =
-
-if HAVE_CLUTTER
-SUBDIRS += gw
-guilemodule_DATA += clutter.scm
-endif
+SUBDIRS = overrides defs gw
+guilemodule_DATA = clutter.scm
 
 if HAVE_CLUTTER_GLX
 guilemodule_DATA += clutter-glx.scm

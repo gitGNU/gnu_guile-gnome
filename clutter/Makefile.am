@@ -1,1 +1,1 @@
-SUBDIRS = gnome tests doc
+SUBDIRS = gnome tests
