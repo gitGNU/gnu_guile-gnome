@@ -1,3 +1,3 @@
-include ../../tests.mk
+include ../tests.mk
 
 wrapset_stem = clutter
