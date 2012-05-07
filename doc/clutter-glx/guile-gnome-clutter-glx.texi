@@ -10,7 +10,9 @@
 This manual is for @code{(gnome clutter-glx)} (version @value{VERSION}, updated
 @value{UPDATED})
 
-Copyright 2008 OpenedHand LTD
+Copyright 2006,2007,2008 OpenedHand LTD
+
+Copyright 2009 Intel Corporation
 
 @quotation 
 Permission is granted to copy, distribute and/or modify this document
@@ -53,6 +55,7 @@ USA
 * Overview::               About Clutter-GLX and its Guile bindings.
 
 * X11 Specific Support:: X11 specific API
+* GLX Specific Support:: GLX specific API
 
 * Undocumented::           Undocumented functions.
 
@@ -69,6 +72,7 @@ USA
 @include overview.texi
 
 @include section-clutter-x11.xml.texi
+@include section-clutter-glx.xml.texi
 
 @include undocumented.texi
 

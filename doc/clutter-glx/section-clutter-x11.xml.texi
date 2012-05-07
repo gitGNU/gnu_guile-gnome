@@ -6,9 +6,9 @@
 X11 specific API
 
 @section Overview
-The X11 backend for Clutter provides some specific API, allowing integration
-with the Xlibs API for embedding and manipulating the stage window, or for
-trapping X errors.
+The X11 backend for Clutter provides some specific API, allowing
+integration with the Xlibs API for embedding and manipulating the stage
+window, or for trapping X errors.
 
 The ClutterX11 API is available since Clutter 0.6
 

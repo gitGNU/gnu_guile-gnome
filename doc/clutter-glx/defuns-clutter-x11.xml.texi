@@ -1,6 +1,19 @@
 
 @c %start of fragment
 
+@deffn Function clutter-x11-has-event-retrieval  @result{}@tie{} (ret@tie{}@code{bool})
+Queries the X11 backend to check if event collection has been disabled.
+
+@table @var
+@item ret
+TRUE if event retrival has been disabled. FALSE otherwise.
+
+@end table
+
+Since 0.8
+
+@end deffn
+
 @deffn Function clutter-x11-get-stage-from-window  (win@tie{}@code{unsigned-int32}) @result{}@tie{} (ret@tie{}@code{<clutter-stage>})
 Gets the stage for a particular X window.
 
@@ -98,13 +111,42 @@ Since 0.4
 
 @end deffn
 
+@deffn Function clutter-x11-has-composite-extension  @result{}@tie{} (ret@tie{}@code{bool})
+@end deffn
+
+@deffn Function clutter-x11-get-input-devices  @result{}@tie{} (ret@tie{}@code{gslist-of})
+@end deffn
+
 @deffn Function clutter-x11-has-xinput  @result{}@tie{} (ret@tie{}@code{bool})
 Gets whether Clutter has XInput support.
 
 @table @var
 @item ret
-@samp{@code{#t}} if Clutter was compiled with XInput support and XInput support
-is available at run time.
+@samp{@code{#t}} if Clutter was compiled with XInput support and XInput
+support is available at run time.
+
+@end table
+
+Since 0.8
+
+@end deffn
+
+@deffn Function clutter-x11-enable-xinput 
+Enables the use of the XInput extension if present on connected XServer
+and support built into Clutter. XInput allows for multiple pointing
+devices to be used. This must be called before @code{clutter-init}.
+
+You should use @code{<clutter-x11-has-xinput>} to see if support was
+enabled.
+
+Since 0.8
+
+@end deffn
+
+@deffn Function clutter-x11-texture-pixmap-new  @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+@table @var
+@item ret
+A new @code{<clutter-x11-texture-pixmap>}
 
 @end table
 

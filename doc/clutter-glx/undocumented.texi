@@ -6,9 +6,6 @@
 The following symbols, if any, have not been properly documented.
 
 @section (gnome gw clutter-glx)
-@defvar clutter-glx-texture-pixmap-new
-@end defvar
-
 @defvar clutter-glx-texture-pixmap-new-with-pixmap
 @end defvar
 
@@ -16,9 +13,6 @@ The following symbols, if any, have not been properly documented.
 @end defvar
 
 @defvar clutter-glx-texture-pixmap-using-extension
-@end defvar
-
-@defvar clutter-x11-texture-pixmap-new
 @end defvar
 
 @defvar clutter-x11-texture-pixmap-new-with-pixmap
@@ -36,10 +30,10 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-x11-texture-pixmap-set-window
 @end defvar
 
-@defvar clutter-x11-texture-pixmap-update-area
+@defvar clutter-x11-texture-pixmap-sync-window
 @end defvar
 
-@defvar clutter-x11-texture-pixmap-update-pixmap-from-window
+@defvar clutter-x11-texture-pixmap-update-area
 @end defvar
 
 

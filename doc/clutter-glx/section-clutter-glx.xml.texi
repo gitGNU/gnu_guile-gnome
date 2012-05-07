@@ -1,0 +1,17 @@
+
+@c %start of fragment
+
+@node GLX Specific Support
+@chapter GLX Specific Support
+GLX specific API
+
+@section Overview
+The GLX backend for Clutter provides some specific API for GLX related
+calls.
+
+The ClutterGLX API is available since Clutter 0.4
+
+@section Usage
+@include defuns-clutter-glx.xml.texi
+
+@c %end of fragment

@@ -3,8 +3,8 @@
 
 include $(top_srcdir)/generate-docs.mk
 
-docbook_xml_wildcard = ~/src/clutter/clutter/doc/reference/clutter/xml/*.xml
-docbook_xml_files = $(filter %x11.xml %glx.xml,$(wildcard $(docbook_xml_wildcard)))
+docbook_xml_wildcard = ~/src/clutter-1.0.8/doc/reference/clutter/xml/*.xml
+docbook_xml_files = $(filter %x11.xml %-glx.xml,$(wildcard $(docbook_xml_wildcard)))
 
 wrapset_stem = clutter-glx
 
