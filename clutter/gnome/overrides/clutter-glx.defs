@@ -1,6 +1,6 @@
 ;; -*- scheme -*-
 ;; guile-gnome
-;; Copyright (C) 2008 Free Software Foundation, Inc.
+;; Copyright (C) 2008, 2012 Free Software Foundation, Inc.
 
 ;; This program is free software; you can redistribute it and/or    
 ;; modify it under the terms of the GNU General Public License as   
@@ -36,3 +36,11 @@
               "*_setv"
               "*_foreach"
               "*_valist")
+
+;; Ignore symbols deprecated by Clutter 1.8 or earlier.  See
+;; clutter.defs for more info.
+(ignore "clutter_glx_texture_pixmap_new"
+        "clutter_glx_texture_pixmap_new_with_pixmap"
+        "clutter_glx_texture_pixmap_new_with_window"
+        "clutter_glx_texture_pixmap_using_extension"
+        )

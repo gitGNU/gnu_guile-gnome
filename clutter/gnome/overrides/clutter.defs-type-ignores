@@ -1,1 +1,18 @@
-(ignore-types "ClutterRedrawFlags" "ClutterShaderError")
+(ignore-types "ClutterRedrawFlags"
+              "ClutterShaderError"
+
+              ;; Deprecated in 1.7.6.
+              "ClutterScore"
+
+              ;; Deprecated in 1.5.14.
+              "ClutterGLXTexturePixmap"
+
+              ;; Deprecated in 1.5.4.
+              "ClutterBehaviour"
+              "ClutterBehaviourDepth"
+              "ClutterBehaviourEllipse"
+              "ClutterBehaviourOpacity"
+              "ClutterBehaviourPath"
+              "ClutterBehaviourRotate"
+              "ClutterBehaviourScale"
+              )
