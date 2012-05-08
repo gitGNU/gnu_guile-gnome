@@ -1,1 +1,1 @@
-(ignore-types "ClutterRedrawFlags")
+(ignore-types "ClutterRedrawFlags" "ClutterShaderError")
