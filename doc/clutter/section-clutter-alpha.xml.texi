@@ -9,6 +9,13 @@ A class for calculating a value as a function of time
 @code{<clutter-alpha>} is a class for calculating an floating point
 value dependent only on the position of a @code{<clutter-timeline>}.
 
+@c (warning "For newly written code, it is recommended to use the\n"
+(code "<\"progress-mode\">") " property of " (code "<clutter-timeline>")
+", or the\n" (code "clutter-timeline-set-progress-func") " function
+instead of " (code "<clutter-alpha>") ".\nThe " (code "<clutter-alpha>")
+" class will be deprecated in the future, and will not\nbe available any
+more in the next major version of Clutter.")
+
 A @code{<clutter-alpha>} binds a @code{<clutter-timeline>} to a progress
 function which translates the time T into an adimensional factor alpha.
 The factor can then be used to drive a @code{<clutter-behaviour>}, which

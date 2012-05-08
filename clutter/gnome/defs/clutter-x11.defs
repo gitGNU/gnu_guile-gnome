@@ -41,14 +41,6 @@
   )
 )
 
-(define-function clutter_x11_get_stage_visual
-  (c-name "clutter_x11_get_stage_visual")
-  (return-type "XVisualInfo*")
-  (parameters
-    '("ClutterStage*" "stage")
-  )
-)
-
 (define-function clutter_x11_get_stage_window
   (c-name "clutter_x11_get_stage_window")
   (return-type "Window")
@@ -108,11 +100,6 @@
   (parameters
     '("Window" "win")
   )
-)
-
-(define-function clutter_x11_get_input_devices
-  (c-name "clutter_x11_get_input_devices")
-  (return-type "const-GSList*")
 )
 
 (define-function clutter_x11_enable_xinput

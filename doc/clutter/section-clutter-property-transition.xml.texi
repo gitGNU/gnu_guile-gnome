@@ -1,0 +1,18 @@
+
+@c %start of fragment
+
+@node ClutterPropertyTransition
+@chapter ClutterPropertyTransition
+Property transitions
+
+@section Overview
+@code{<clutter-property-transition>} is a specialized
+@code{<clutter-transition>} that can be used to tween a property of a
+@code{<clutter-animatable>} instance.
+
+@code{<clutter-property-transition>} is available since Clutter 1.10
+
+@section Usage
+@include defuns-clutter-property-transition.xml.texi
+
+@c %end of fragment

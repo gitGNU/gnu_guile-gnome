@@ -1,0 +1,15 @@
+
+@c %start of fragment
+
+@node Paint Nodes
+@chapter Paint Nodes
+ClutterPaintNode implementations
+
+@section Overview
+Clutter provides a set of predefined @code{<clutter-paint-node>}
+implementations that cover all the state changes available.
+
+@section Usage
+@include defuns-clutter-paint-nodes.xml.texi
+
+@c %end of fragment

@@ -15,39 +15,44 @@ linking were successfull) to the buffer before painting it on screen.
 
 @section Implementing a ClutterShaderEffect
 Creating a sub-class of @code{<clutter-shader-effect>} requires the
-overriding of the @code{@code{pre-paint}} virtual function from the
-@code{<clutter-effect>} class.
+overriding of the @code{@code{paint-target}} virtual function from the
+@code{<clutter-offscreen-effect>} class as well as the
+@code{@code{get-static-shader-source}} virtual from the
+@code{<clutter-shader-effect>} class.
 
-The @code{@code{pre-paint}} should set the shader's source and
-eventually set the uniforms. The sub-class should call
-@code{clutter-shader-effect-set-shader-source} to set the shader source
-code, and @code{clutter-shader-effect-set-uniform-value} or
-@code{clutter-shader-effect-set-uniform} to set the values of the shader
-uniforms, if any; the sub-class should then chain up to the
-@code{<clutter-shader-effect>} implementation.
+The @code{@code{get-static-shader-source}} function should return a copy
+of the shader source to use. This function is only called once per
+subclass of @code{<clutter-shader-effect>} regardless of how many
+instances of the effect are created. The source for the shader is
+typically stored in a static const string which is returned from this
+function via @code{g-strdup}.
+
+The @code{@code{paint-target}} should set the shader's uniforms if any.
+This is done by calling @code{clutter-shader-effect-set-uniform-value}
+or @code{clutter-shader-effect-set-uniform}. The sub-class should then
+chain up to the @code{<clutter-shader-effect>} implementation.
 
 @c (example (@ (id "ClutterShaderEffect-example-uniforms")))
 @c (title "Setting uniforms on a ClutterShaderEffect")
 The example below shows a typical implementation of the
-@code{@code{pre-paint}} phase of a @code{<clutter-shader-effect>}
-sub-class.
+@code{@code{get-static-shader-source}} and @code{@code{paint-target}}
+phases of a @code{<clutter-shader-effect>} sub-class.
 
 @example 
 
+ static gchar *
+ my_effect_get_static_shader_source (ClutterShaderEffect *effect)
+ @{
+   return g_strdup (shader_source);
+ @}
+
  static gboolean
- my_effect_pre_paint (ClutterEffect *effect)
+ my_effect_paint_target (ClutterOffscreenEffect *effect)
  @{
    MyEffect *self = MY_EFFECT (effect);
    ClutterShaderEffect *shader = CLUTTER_SHADER_EFFECT (effect);
    ClutterEffectClass *parent_class;
    gfloat component_r, component_g, component_b;
-
-   /&#x002A; if the effect is not enabled we can bail out now &#x002A;/
-   if (!clutter_actor_meta_get_enabled (CLUTTER_ACTOR_META (effect)))
-     return FALSE;
-
-   /&#x002A; this function is a no-op after the first call &#x002A;/
-   clutter_shader_effect_set_shader_source (shader, shader_source);
 
    /&#x002A; the "tex" uniform is declared in the shader as:
     &#x002A;
@@ -74,8 +79,8 @@ sub-class.
                                       component_b);
 
    /&#x002A; chain up to the parent's implementation &#x002A;/
-   parent_class = CLUTTER_EFFECT_CLASS (my_effect_parent_class);
-   return parent_class->pre_paint (effect);
+   parent_class = CLUTTER_OFFSCREEN_EFFECT_CLASS (my_effect_parent_class);
+   return parent_class->paint_target (effect);
  @}
     
 @end example

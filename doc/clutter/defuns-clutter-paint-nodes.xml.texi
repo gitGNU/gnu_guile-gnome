@@ -1,0 +1,62 @@
+
+@c %start of fragment
+
+@deffn Function clutter-color-node-new  (self@tie{}@code{<clutter-color>}) @result{}@tie{} (ret@tie{}@code{<clutter-paint-node>})
+Creates a new @code{<clutter-paint-node>} that will paint a solid color
+fill using @var{color}.
+
+@table @var
+@item color
+the color to paint, or @samp{@code{#f}}.
+
+@item ret
+the newly created @code{<clutter-paint-node>}. Use
+@code{clutter-paint-node-unref} when done.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-text-node-new  (layout@tie{}@code{<pango-layout>}) (color@tie{}@code{<clutter-color>}) @result{}@tie{} (ret@tie{}@code{<clutter-paint-node>})
+Creates a new @code{<clutter-paint-node>} that will paint a
+@code{<pango-layout>} with the given color.
+
+This function takes a reference on the passed @var{layout}, so it is
+safe to call @code{g-object-unref} after it returns.
+
+@table @var
+@item layout
+a @code{<pango-layout>}, or @samp{@code{#f}}.
+
+@item color
+the color used to paint the layout, or @samp{@code{#f}}.
+
+@item ret
+the newly created @code{<clutter-paint-node>}. Use
+@code{clutter-paint-node-unref} when done.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-clip-node-new  @result{}@tie{} (ret@tie{}@code{<clutter-paint-node>})
+Creates a new @code{<clutter-paint-node>} that will clip its child nodes
+to the 2D regions added to it.
+
+@table @var
+@item ret
+the newly created @code{<clutter-paint-node>}. Use
+@code{clutter-paint-node-unref} when done.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+
+@c %end of fragment

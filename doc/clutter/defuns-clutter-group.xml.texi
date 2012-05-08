@@ -2,6 +2,10 @@
 @c %start of fragment
 
 @deffn Function clutter-group-new  @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+@samp{clutter_group_new} has been deprecated since version 1.10 and
+should not be used in newly-written code. Use @code{clutter-actor-new}
+instead.
+
 Create a new @code{<clutter-group>}.
 
 @table @var
@@ -14,10 +18,14 @@ the newly created @code{<clutter-group>} actor
 
 @deffn Function clutter-group-remove-all  (self@tie{}@code{<clutter-group>})
 @deffnx Method remove-all
+@samp{clutter_group_remove_all} has been deprecated since version 1.10
+and should not be used in newly-written code. Use
+@code{clutter-actor-remove-all-children} instead.
+
 Removes all children actors from the @code{<clutter-group>}.
 
 @table @var
-@item group
+@item self
 A @code{<clutter-group>}
 
 @end table
@@ -26,6 +34,10 @@ A @code{<clutter-group>}
 
 @deffn Function clutter-group-get-n-children  (self@tie{}@code{<clutter-group>}) @result{}@tie{} (ret@tie{}@code{int})
 @deffnx Method get-n-children
+@samp{clutter_group_get_n_children} has been deprecated since version
+1.10 and should not be used in newly-written code. Use
+@code{clutter-actor-get-n-children} instead.
+
 Gets the number of actors held in the group.
 
 @table @var
@@ -43,6 +55,10 @@ Since 0.2
 
 @deffn Function clutter-group-get-nth-child  (self@tie{}@code{<clutter-group>}) (index_@tie{}@code{int}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
 @deffnx Method get-nth-child
+@samp{clutter_group_get_nth_child} has been deprecated since version
+1.10 and should not be used in newly-written code. Use
+@code{clutter-actor-get-child-at-index} instead.
+
 Gets a groups child held at @var{index} in stack.
 
 @table @var

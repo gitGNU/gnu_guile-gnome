@@ -65,6 +65,8 @@ Since 1.0
 Sets the initial value of @var{interval} to @var{value}. The value is
 copied inside the @code{<clutter-interval>}.
 
+Rename to: clutter_interval_set_initial
+
 @table @var
 @item interval
 a @code{<clutter-interval>}
@@ -121,6 +123,8 @@ Since 1.0
 @deffnx Method set-final-value
 Sets the final value of @var{interval} to @var{value}. The value is
 copied inside the @code{<clutter-interval>}.
+
+Rename to: clutter_interval_set_final
 
 @table @var
 @item interval

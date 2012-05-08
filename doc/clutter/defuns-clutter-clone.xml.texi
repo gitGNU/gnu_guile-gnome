@@ -19,14 +19,14 @@ Since 1.0
 
 @deffn Function clutter-clone-set-source  (self@tie{}@code{<clutter-clone>}) (source@tie{}@code{<clutter-actor>})
 @deffnx Method set-source
-Sets @var{source} as the source actor to be cloned by @var{clone}.
+Sets @var{source} as the source actor to be cloned by @var{self}.
 
 @table @var
-@item clone
+@item self
 a @code{<clutter-clone>}
 
 @item source
-a @code{<clutter-actor>}, or @samp{@code{#f}}
+a @code{<clutter-actor>}, or @samp{@code{#f}}.
 
 @end table
 
@@ -36,10 +36,10 @@ Since 1.0
 
 @deffn Function clutter-clone-get-source  (self@tie{}@code{<clutter-clone>}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
 @deffnx Method get-source
-Retrieves the source @code{<clutter-actor>} being cloned by @var{clone}
+Retrieves the source @code{<clutter-actor>} being cloned by @var{self}.
 
 @table @var
-@item clone
+@item self
 a @code{<clutter-clone>}
 
 @item ret

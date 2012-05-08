@@ -99,6 +99,7 @@
   (add-type-rule! ws "ClutterTableAlignment*" '(<clutter-table-alignment> out))
   (add-type-rule! ws "ClutterModifierType*" '(<clutter-modifier-type> out))
   (add-type-rule! ws "ClutterSnapEdge*" '(<clutter-snap-edge> out))
+  (add-type-rule! ws "ClutterScalingFilter*" '(<clutter-scaling-filter> out))
 
   (wrap-custom-boxed!
    "ClutterKnot" "CLUTTER_TYPE_KNOT"
@@ -113,6 +114,13 @@
    (list scm-var " = " c-var " ? scm_clutter_path_node_to_scm (" c-var ") : SCM_BOOL_F;\n")
    ;; unwrap
    (list c-var " = scm_scm_to_clutter_path_node (" scm-var ");\n"))
+
+  (wrap-custom-boxed!
+   "ClutterMargin" "CLUTTER_TYPE_MARGIN"
+   ;; wrap
+   (list scm-var " = " c-var " ? scm_clutter_margin_to_scm (" c-var ") : SCM_BOOL_F;\n")
+   ;; unwrap
+   (list c-var " = scm_scm_to_clutter_margin (" scm-var ");\n"))
 
   (wrap-custom-boxed!
    "ClutterColor" "CLUTTER_TYPE_COLOR"
@@ -157,6 +165,8 @@
    (list c-var " = scm_scm_to_clutter_perspective (" scm-var ");\n"))
 
   (wrap-opaque-pointer! ws "ClutterInputDevice*")
+
+  (wrap-opaque-pointer! ws "ClutterEventSequence*")
 
   (load-defs-with-overrides ws "gnome/defs/clutter.defs"))
 

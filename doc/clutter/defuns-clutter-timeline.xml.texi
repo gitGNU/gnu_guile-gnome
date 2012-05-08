@@ -20,11 +20,32 @@ Since 0.6
 
 @deffn Function clutter-timeline-clone  (self@tie{}@code{<clutter-timeline>}) @result{}@tie{} (ret@tie{}@code{<clutter-timeline>})
 @deffnx Method clone
+@samp{clutter_timeline_clone} has been deprecated since version 1.10 and
+should not be used in newly-written code. Use
+@code{clutter-timeline-new} or @code{g-object-new} instead
+
 Create a new @code{<clutter-timeline>} instance which has property
 values matching that of supplied timeline. The cloned timeline will not
-be started and will not be positioned to the current position of
-@var{timeline}: you will have to start it with
+be started and will not be positioned to the current position of the
+original @var{timeline}: you will have to start it with
 @code{clutter-timeline-start}.
+
+The only cloned properties are:
+
+@itemize 
+@item
+@code{<"duration">}
+
+@item
+@code{<"loop">}
+
+@item
+@code{<"delay">}
+
+@item
+@code{<"direction">}
+
+@end itemize
 
 @table @var
 @item timeline
@@ -75,33 +96,42 @@ Since 0.6
 
 @end deffn
 
-@deffn Function clutter-timeline-set-loop  (self@tie{}@code{<clutter-timeline>}) (loop@tie{}@code{bool})
-@deffnx Method set-loop
-Sets whether @var{timeline} should loop.
+@deffn Function clutter-timeline-set-repeat-count  (self@tie{}@code{<clutter-timeline>}) (count@tie{}@code{int})
+@deffnx Method set-repeat-count
+Sets the number of times the @var{timeline} should repeat.
+
+If @var{count} is 0, the timeline never repeats.
+
+If @var{count} is -1, the timeline will always repeat until it's
+stopped.
 
 @table @var
 @item timeline
 a @code{<clutter-timeline>}
 
-@item loop
-@samp{@code{#t}} for enable looping
+@item count
+the number of times the timeline should repeat
 
 @end table
 
+Since 1.10
+
 @end deffn
 
-@deffn Function clutter-timeline-get-loop  (self@tie{}@code{<clutter-timeline>}) @result{}@tie{} (ret@tie{}@code{bool})
-@deffnx Method get-loop
-Gets whether @var{timeline} is looping
+@deffn Function clutter-timeline-get-repeat-count  (self@tie{}@code{<clutter-timeline>}) @result{}@tie{} (ret@tie{}@code{int})
+@deffnx Method get-repeat-count
+Retrieves the number set using @code{clutter-timeline-set-repeat-count}.
 
 @table @var
 @item timeline
 a @code{<clutter-timeline>}
 
 @item ret
-@samp{@code{#t}} if the timeline is looping
+the number of repeats
 
 @end table
+
+Since 1.10
 
 @end deffn
 
@@ -201,7 +231,7 @@ reverse_timeline (ClutterTimeline *timeline)
 @}
 ...
   timeline = clutter_timeline_new (1000);
-  clutter_timeline_set_loop (timeline);
+  clutter_timeline_set_repeat_count (timeline, -1);
   g_signal_connect (timeline, "completed",
                     G_CALLBACK (reverse_timeline),
                     NULL);
@@ -212,7 +242,7 @@ can be effectively replaced by:
 @example 
 
   timeline = clutter_timeline_new (1000);
-  clutter_timeline_set_loop (timeline);
+  clutter_timeline_set_repeat_count (timeline, -1);
   clutter_timeline_set_auto_reverse (timeline);
 @end example
 
@@ -244,6 +274,129 @@ a @code{<clutter-timeline>}
 @end table
 
 Since 1.6
+
+@end deffn
+
+@deffn Function clutter-timeline-set-progress-mode  (self@tie{}@code{<clutter-timeline>}) (mode@tie{}@code{<clutter-animation-mode>})
+@deffnx Method set-progress-mode
+Sets the progress function using a value from the
+@code{<clutter-animation-mode>} enumeration. The @var{mode} cannot be
+@samp{CLUTTER_CUSTOM_MODE} or bigger than @samp{CLUTTER_ANIMATION_LAST}.
+
+@table @var
+@item timeline
+a @code{<clutter-timeline>}
+
+@item mode
+the progress mode, as a @code{<clutter-animation-mode>}
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-timeline-get-progress-mode  (self@tie{}@code{<clutter-timeline>}) @result{}@tie{} (ret@tie{}@code{<clutter-animation-mode>})
+@deffnx Method get-progress-mode
+Retrieves the progress mode set using
+@code{clutter-timeline-set-progress-mode} or
+@code{clutter-timeline-set-progress-func}.
+
+@table @var
+@item timeline
+a @code{<clutter-timeline>}
+
+@item ret
+a @code{<clutter-animation-mode>}
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-timeline-get-duration-hint  (self@tie{}@code{<clutter-timeline>}) @result{}@tie{} (ret@tie{}@code{int64})
+@deffnx Method get-duration-hint
+Retrieves the full duration of the @var{timeline}, taking into account
+the current value of the @code{<"repeat-count">} property.
+
+If the @code{<"repeat-count">} property is set to -1, this function will
+return @samp{G_MAXINT64}.
+
+The returned value is to be considered a hint, and it's only valid as
+long as the @var{timeline} hasn't been changed.
+
+@table @var
+@item timeline
+a @code{<clutter-timeline>}
+
+@item ret
+the full duration of the @code{<clutter-timeline>}
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-timeline-get-current-repeat  (self@tie{}@code{<clutter-timeline>}) @result{}@tie{} (ret@tie{}@code{int})
+@deffnx Method get-current-repeat
+Retrieves the current repeat for a timeline.
+
+Repeats start at 0.
+
+@table @var
+@item timeline
+a @code{<clutter-timeline>}
+
+@item ret
+the current repeat
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-timeline-set-loop  (self@tie{}@code{<clutter-timeline>}) (loop@tie{}@code{bool})
+@deffnx Method set-loop
+@samp{clutter_timeline_set_loop} has been deprecated since version 1.10
+and should not be used in newly-written code. Use
+@code{clutter-timeline-set-repeat-count} instead.
+
+Sets whether @var{timeline} should loop.
+
+This function is equivalent to calling
+@code{clutter-timeline-set-repeat-count} with -1 if @var{loop} is
+@samp{@code{#t}}, and with 0 if @var{loop} is @samp{@code{#f}}.
+
+@table @var
+@item timeline
+a @code{<clutter-timeline>}
+
+@item loop
+@samp{@code{#t}} for enable looping
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-timeline-get-loop  (self@tie{}@code{<clutter-timeline>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-loop
+@samp{clutter_timeline_get_loop} has been deprecated since version 1.10
+and should not be used in newly-written code. Use
+@code{clutter-timeline-get-repeat-count} instead.
+
+Gets whether @var{timeline} is looping
+
+@table @var
+@item timeline
+a @code{<clutter-timeline>}
+
+@item ret
+@samp{@code{#t}} if the timeline is looping
+
+@end table
 
 @end deffn
 
@@ -370,14 +523,18 @@ Since 0.6
 
 @deffn Function clutter-timeline-get-progress  (self@tie{}@code{<clutter-timeline>}) @result{}@tie{} (ret@tie{}@code{double})
 @deffnx Method get-progress
-The position of the timeline in a [0, 1] interval.
+The position of the timeline in a normalized [-1, 2] interval.
+
+The return value of this function is determined by the progress mode set
+using @code{clutter-timeline-set-progress-mode}, or by the progress
+function set using @code{clutter-timeline-set-progress-func}.
 
 @table @var
 @item timeline
 a @code{<clutter-timeline>}
 
 @item ret
-the position of the timeline.
+the normalized current position in the timeline.
 
 @end table
 

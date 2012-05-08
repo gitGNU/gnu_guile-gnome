@@ -2,12 +2,26 @@
 @c %start of fragment
 
 @deffn Function clutter-stage-get-default  @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
-Returns the main stage. The default @code{<clutter-stage>} is a
-singleton, so the stage will be created the first time this function is
-called (typically, inside @code{clutter-init}); all the subsequent calls
-to @code{clutter-stage-get-default} will return the same instance.
+@samp{clutter_stage_get_default} has been deprecated since version 1.10
+and should not be used in newly-written code. Use
+@code{clutter-stage-new} instead.
 
-Clutter guarantess the existence of the default stage.
+Retrieves a @code{<clutter-stage>} singleton.
+
+This function is not as useful as it sounds, and will most likely by
+deprecated in the future. Application code should only create a
+@code{<clutter-stage>} instance using @code{clutter-stage-new}, and
+manage the lifetime of the stage manually.
+
+The default stage singleton has a platform-specific behaviour: on
+platforms without the @samp{CLUTTER_FEATURE_STAGE_MULTIPLE} feature flag
+set, the first @code{<clutter-stage>} instance will also be set to be
+the default stage instance, and this function will always return a
+pointer to it.
+
+On platforms with the @samp{CLUTTER_FEATURE_STAGE_MULTIPLE} feature flag
+set, the default stage will be created by the first call to this
+function, and every following call will return the same pointer to it.
 
 @table @var
 @item ret
@@ -44,6 +58,11 @@ Since 0.8
 
 @deffn Function clutter-stage-is-default  (self@tie{}@code{<clutter-stage>}) @result{}@tie{} (ret@tie{}@code{bool})
 @deffnx Method is-default
+@samp{clutter_stage_is_default} has been deprecated since version 1.10
+and should not be used in newly-written code. Track the stage pointer
+inside your application code, or use @code{clutter-actor-get-stage} to
+retrieve the stage for a given actor.
+
 Checks if @var{stage} is the default stage, or an instance created using
 @code{clutter-stage-new} but internally using the same implementation.
 
@@ -62,6 +81,10 @@ Since 0.8
 
 @deffn Function clutter-stage-set-color  (self@tie{}@code{<clutter-stage>}) (color@tie{}@code{<clutter-color>})
 @deffnx Method set-color
+@samp{clutter_stage_set_color} has been deprecated since version 1.10
+and should not be used in newly-written code. Use
+@code{clutter-actor-set-background-color} instead.
+
 Sets the stage color.
 
 @table @var
@@ -77,6 +100,10 @@ A @code{<clutter-color>}
 
 @deffn Function clutter-stage-get-color  (self@tie{}@code{<clutter-stage>}) (color@tie{}@code{<clutter-color>})
 @deffnx Method get-color
+@samp{clutter_stage_get_color} has been deprecated since version 1.10
+and should not be used in newly-written code. Use
+@code{clutter-actor-get-background-color} instead.
+
 Retrieves the stage color.
 
 @table @var
@@ -244,16 +271,15 @@ Since 1.0
 
 @deffn Function clutter-stage-queue-redraw  (self@tie{}@code{<clutter-stage>})
 @deffnx Method queue-redraw
+@samp{clutter_stage_queue_redraw} has been deprecated since version 1.10
+and should not be used in newly-written code. Use
+@code{clutter-actor-queue-redraw} instead.
+
 Queues a redraw for the passed stage.
 
 @cartouche 
 Applications should call @code{clutter-actor-queue-redraw} and not
 this function.
-@end cartouche
-
-@cartouche 
-This function is just a wrapper for @code{clutter-actor-queue-redraw}
-and should probably go away.
 @end cartouche
 
 @table @var
@@ -607,6 +633,10 @@ Since 0.4
 
 @deffn Function clutter-stage-set-use-fog  (self@tie{}@code{<clutter-stage>}) (fog@tie{}@code{bool})
 @deffnx Method set-use-fog
+@samp{clutter_stage_set_use_fog} has been deprecated since version 1.10
+and should not be used in newly-written code. Calling this function
+produces no visible effect
+
 Sets whether the depth cueing effect on the stage should be enabled or
 not.
 
@@ -631,6 +661,10 @@ Since 0.6
 
 @deffn Function clutter-stage-get-use-fog  (self@tie{}@code{<clutter-stage>}) @result{}@tie{} (ret@tie{}@code{bool})
 @deffnx Method get-use-fog
+@samp{clutter_stage_get_use_fog} has been deprecated since version 1.10
+and should not be used in newly-written code. This function will always
+return @samp{@code{#f}}
+
 Gets whether the depth cueing effect is enabled on @var{stage}.
 
 @table @var
@@ -648,6 +682,9 @@ Since 0.6
 
 @deffn Function clutter-stage-set-fog  (self@tie{}@code{<clutter-stage>}) (fog@tie{}@code{<clutter-fog>})
 @deffnx Method set-fog
+@samp{clutter_stage_set_fog} has been deprecated since version 1.10 and
+should not be used in newly-written code. Fog settings are ignored.
+
 Sets the fog (also known as "depth cueing") settings for the
 @var{stage}.
 
@@ -716,6 +753,10 @@ Since 0.6
 
 @deffn Function clutter-stage-get-fog  (self@tie{}@code{<clutter-stage>}) @result{}@tie{} (ret@tie{}@code{scm})
 @deffnx Method get-fog
+@samp{clutter_stage_get_fog} has been deprecated since version 1.10 and
+should not be used in newly-written code. This function will always
+return the default values of @code{<clutter-fog>}
+
 Retrieves the current depth cueing settings from the stage.
 
 @table @var

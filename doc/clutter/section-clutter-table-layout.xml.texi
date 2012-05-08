@@ -51,6 +51,11 @@ and duration used for the animations are controlled by the
 @code{<"easing-mode">} and @code{<"easing-duration">} properties and
 their accessor functions.
 
+(The missing figure, table-layout-image
+
+@c (title "Table layout")
+The image shows a @code{<clutter-table-layout>}.
+
 @code{<clutter-table-layout>} is available since Clutter 1.4
 
 @section Usage

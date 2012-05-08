@@ -67,6 +67,58 @@ Since 1.0
 
 @end deffn
 
+@deffn Function clutter-text-new-with-buffer  (buffer@tie{}@code{<clutter-text-buffer>}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+Creates a new entry with the specified text buffer.
+
+@table @var
+@item buffer
+The buffer to use for the new @code{<clutter-text>}.
+
+@item ret
+a new @code{<clutter-text>}
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-text-set-buffer  (self@tie{}@code{<clutter-text>}) (buffer@tie{}@code{<clutter-text-buffer>})
+@deffnx Method set-buffer
+Set the @code{<clutter-text-buffer>} object which holds the text for
+this widget.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item buffer
+a @code{<clutter-text-buffer>}
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-text-get-buffer  (self@tie{}@code{<clutter-text>}) @result{}@tie{} (ret@tie{}@code{<clutter-text-buffer>})
+@deffnx Method get-buffer
+Get the @code{<clutter-text-buffer>} object which holds the text for
+this widget.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item ret
+A @code{<gtk-entry-buffer>} object.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
 @deffn Function clutter-text-set-text  (self@tie{}@code{<clutter-text>}) (text@tie{}@code{mchars})
 @deffnx Method set-text
 Sets the contents of a @code{<clutter-text>} actor.
@@ -82,7 +134,7 @@ a @code{<clutter-text>}
 
 @item text
 the text to set. Passing @samp{@code{#f}} is the same as passing "" (the
-empty string)
+empty string).
 
 @end table
 
@@ -110,7 +162,7 @@ a @code{<clutter-text>}
 
 @item markup
 a string containing Pango markup. Passing @samp{@code{#f}} is the same
-as passing "" (the empty string)
+as passing "" (the empty string).
 
 @end table
 
@@ -914,6 +966,9 @@ Since 1.0
 Deletes @var{n-chars} inside a @code{<clutter-text>} actor, starting
 from the current cursor position.
 
+Somewhat awkwardly, the cursor position is decremented by the same
+number of characters you've deleted.
+
 @table @var
 @item self
 a @code{<clutter-text>}
@@ -1214,6 +1269,28 @@ Since 1.0
 
 @end deffn
 
+@deffn Function clutter-text-coords-to-position  (self@tie{}@code{<clutter-text>}) (x@tie{}@code{float}) (y@tie{}@code{float}) @result{}@tie{} (ret@tie{}@code{int})
+@deffnx Method coords-to-position
+Retrieves the position of the character at the given coordinates.
+
+Return: the position of the character
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item x
+the X coordinate, relative to the actor
+
+@item y
+the Y coordinate, relative to the actor
+
+@end table
+
+Since 1.10
+
+@end deffn
+
 @deffn Function clutter-text-position-to-coords  (self@tie{}@code{<clutter-text>}) (position@tie{}@code{int}) @result{}@tie{} (ret@tie{}@code{bool}) (x@tie{}@code{float}) (y@tie{}@code{float}) (line_height@tie{}@code{float})
 @deffnx Method position-to-coords
 Retrieves the coordinates of the given @var{position}.
@@ -1290,7 +1367,7 @@ location to store Y offset of layout, or @samp{@code{#f}}.
 
 @end table
 
-Since 1.7
+Since 1.8
 
 @end deffn
 

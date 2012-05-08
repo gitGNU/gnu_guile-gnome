@@ -134,6 +134,28 @@ scm_scm_to_clutter_color (SCM scm)
 }
 
 SCM
+scm_clutter_margin_to_scm (ClutterMargin *c)
+{
+    return scm_list_4 (scm_from_double (c->left),
+                       scm_from_double (c->right),
+                       scm_from_double (c->top),
+                       scm_from_double (c->bottom));
+}
+
+ClutterMargin*
+scm_scm_to_clutter_margin (SCM scm)
+{
+    ClutterMargin ret;
+    
+    ret.left = scm_to_uint8 (scm_car (scm));
+    ret.right = scm_to_uint8 (scm_cadr (scm));
+    ret.top = scm_to_uint8 (scm_caddr (scm));
+    ret.bottom = scm_to_uint8 (scm_cadddr (scm));
+
+    return clutter_margin_copy (&ret);
+}
+
+SCM
 scm_clutter_actor_box_to_scm (ClutterActorBox *a)
 {
     return scm_list_4 (scm_from_double (a->x1),

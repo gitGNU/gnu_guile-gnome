@@ -211,5 +211,46 @@ Since 1.6
 
 @end deffn
 
+@deffn Function clutter-input-device-grab  (self@tie{}@code{<clutter-input-device*>}) (actor@tie{}@code{<clutter-actor>})
+Acquires a grab on @var{actor} for the given @var{device}.
+
+Any event coming from @var{device} will be delivered to @var{actor},
+bypassing the usual event delivery mechanism, until the grab is released
+by calling @code{clutter-input-device-ungrab}.
+
+The grab is client-side: even if the windowing system used by the
+Clutter backend has the concept of "device grabs", Clutter will not use
+them.
+
+Only @code{<clutter-input-device>} of types
+@samp{CLUTTER_POINTER_DEVICE} and @samp{CLUTTER_KEYBOARD_DEVICE} can
+hold a grab.
+
+@table @var
+@item device
+a @code{<clutter-input-device>}
+
+@item actor
+a @code{<clutter-actor>}
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-input-device-ungrab  (self@tie{}@code{<clutter-input-device*>})
+Releases the grab on the @var{device}, if one is in place.
+
+@table @var
+@item device
+a @code{<clutter-input-device>}
+
+@end table
+
+Since 1.10
+
+@end deffn
+
 
 @c %end of fragment

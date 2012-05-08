@@ -1,6 +1,22 @@
 
 @c %start of fragment
 
+@deffn Function clutter-actor-new  @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+Creates a new @code{<clutter-actor>}.
+
+A newly created actor has a floating reference, which will be sunk when
+it is added to another actor.
+
+@table @var
+@item ret
+the newly created @code{<clutter-actor>}.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
 @deffn Function clutter-actor-set-flags  (self@tie{}@code{<clutter-actor>}) (flags@tie{}@code{<clutter-actor-flags>})
 @deffnx Method set-flags
 Sets @var{flags} on @var{self}
@@ -56,6 +72,38 @@ Since 1.0
 
 @end deffn
 
+@deffn Function clutter-actor-set-name  (self@tie{}@code{<clutter-actor>}) (name@tie{}@code{mchars})
+@deffnx Method set-name
+Sets the given name to @var{self}. The name can be used to identify a
+@code{<clutter-actor>}.
+
+@table @var
+@item self
+A @code{<clutter-actor>}
+
+@item name
+Textual tag to apply to actor
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-actor-get-name  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-name
+Retrieves the name of @var{self}.
+
+@table @var
+@item self
+A @code{<clutter-actor>}
+
+@item ret
+the name of the actor, or @samp{@code{#f}}. The returned string is owned
+by the actor and should not be modified or freed.
+
+@end table
+
+@end deffn
+
 @deffn Function clutter-actor-show  (self@tie{}@code{<clutter-actor>})
 @deffnx Method show
 Flags an actor to be displayed. An actor that isn't shown will not be
@@ -77,6 +125,9 @@ A @code{<clutter-actor>}
 
 @deffn Function clutter-actor-show-all  (self@tie{}@code{<clutter-actor>})
 @deffnx Method show-all
+@samp{clutter_actor_show_all} has been deprecated since version 1.10 and
+should not be used in newly-written code. Actors are visible by default
+
 Calls @code{clutter-actor-show} on all children of an actor (if any).
 
 @table @var
@@ -110,6 +161,11 @@ A @code{<clutter-actor>}
 
 @deffn Function clutter-actor-hide-all  (self@tie{}@code{<clutter-actor>})
 @deffnx Method hide-all
+@samp{clutter_actor_hide_all} has been deprecated since version 1.10 and
+should not be used in newly-written code. Using
+@code{clutter-actor-hide} on the actor will prevent its children from
+being painted as well.
+
 Calls @code{clutter-actor-hide} on all child actors (if any).
 
 @table @var
@@ -329,11 +385,9 @@ Sets the @samp{CLUTTER_ACTOR_MAPPED} flag on the actor and possibly maps
 and realizes its children if they are visible. Does nothing if the actor
 is not visible.
 
-Calling this is allowed in only one case: you are implementing the
-@code{<clutter-actor>}@code{@code{map}} virtual function in an actor and
-you need to map the children of that actor. It is not necessary to call
-this if you implement @code{<clutter-container>} because the default
-implementation will automatically map children of containers.
+Calling this function is strongly disencouraged: the default
+implementation of @code{clutter-actor-class.map} will map all the
+children of an actor when mapping its parent.
 
 When overriding map, it is mandatory to chain up to the parent
 implementation.
@@ -353,14 +407,21 @@ Since 1.0
 Unsets the @samp{CLUTTER_ACTOR_MAPPED} flag on the actor and possibly
 unmaps its children if they were mapped.
 
-Calling this is allowed in only one case: you are implementing the
-@code{<clutter-actor>}@code{@code{unmap}} virtual function in an actor
-and you need to unmap the children of that actor. It is not necessary to
-call this if you implement @code{<clutter-container>} because the
-default implementation will automatically unmap children of containers.
+Calling this function is not encouraged: the default
+@code{<clutter-actor>} implementation of
+@code{clutter-actor-class.unmap} will also unmap any eventual children
+by default when their parent is unmapped.
 
-When overriding unmap, it is mandatory to chain up to the parent
-implementation.
+When overriding @code{clutter-actor-class.unmap}, it is mandatory to
+chain up to the parent implementation.
+
+@cartouche 
+It is important to note that the implementation of the
+@code{clutter-actor-class.unmap} virtual function may be called after
+the @code{clutter-actor-class.destroy} or the @code{g-object-class.dispose}
+implementation, but it is guaranteed to be called before the
+@code{g-object-class.finalize} implementation.
+@end cartouche
 
 @table @var
 @item self
@@ -468,6 +529,100 @@ allocation flags to be passed to @code{clutter-actor-allocate}
 @end table
 
 Since 1.4
+
+@end deffn
+
+@deffn Function clutter-actor-set-allocation  (self@tie{}@code{<clutter-actor>}) (box@tie{}@code{<clutter-actor-box>}) (flags@tie{}@code{<clutter-allocation-flags>})
+@deffnx Method set-allocation
+Stores the allocation of @var{self} as defined by @var{box}.
+
+This function can only be called from within the implementation of the
+@code{clutter-actor-class.allocate} virtual function.
+
+The allocation should have been adjusted to take into account
+constraints, alignment, and margin properties. If you are implementing a
+@code{<clutter-actor>} subclass that provides its own layout management
+policy for its children instead of using a
+@code{<clutter-layout-manager>} delegate, you should not call this
+function on the children of @var{self}; instead, you should call
+@code{clutter-actor-allocate}, which will adjust the allocation box for
+you.
+
+This function should only be used by subclasses of
+@code{<clutter-actor>} that wish to store their allocation but cannot
+chain up to the parent's implementation; the default implementation of
+the @code{clutter-actor-class.allocate} virtual function will call this
+function.
+
+It is important to note that, while chaining up was the recommended
+behaviour for @code{<clutter-actor>} subclasses prior to the
+introduction of this function, it is recommended to call
+@code{clutter-actor-set-allocation} instead.
+
+If the @code{<clutter-actor>} is using a @code{<clutter-layout-manager>}
+delegate object to handle the allocation of its children, this function
+will call the @code{clutter-layout-manager-allocate} function only if
+the @samp{CLUTTER_DELEGATE_LAYOUT} flag is set on @var{flags}, otherwise
+it is expected that the subclass will call
+@code{clutter-layout-manager-allocate} by itself. For instance, the
+following code:
+
+@example 
+
+static void
+my_actor_allocate (ClutterActor *actor,
+                   const ClutterActorBox *allocation,
+                   ClutterAllocationFlags flags)
+@{
+  ClutterActorBox new_alloc;
+  ClutterAllocationFlags new_flags;
+
+  adjust_allocation (allocation, &new_alloc);
+
+  new_flags = flags | CLUTTER_DELEGATE_LAYOUT;
+
+  /&#x002A; this will use the layout manager set on the actor &#x002A;/
+  clutter_actor_set_allocation (actor, &new_alloc, new_flags);
+@}
+@end example
+
+is equivalent to this:
+
+@example 
+
+static void
+my_actor_allocate (ClutterActor *actor,
+                   const ClutterActorBox *allocation,
+                   ClutterAllocationFlags flags)
+@{
+  ClutterLayoutManager *layout;
+  ClutterActorBox new_alloc;
+
+  adjust_allocation (allocation, &new_alloc);
+
+  clutter_actor_set_allocation (actor, &new_alloc, flags);
+
+  layout = clutter_actor_get_layout_manager (actor);
+  clutter_layout_manager_allocate (layout,
+                                   CLUTTER_CONTAINER (actor),
+                                   &new_alloc,
+                                   flags);
+@}
+@end example
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item box
+a @code{<clutter-actor-box>}
+
+@item flags
+allocation flags
+
+@end table
+
+Since 1.10
 
 @end deffn
 
@@ -663,8 +818,356 @@ Since 1.4
 
 @end deffn
 
+@deffn Function clutter-actor-set-x-align  (self@tie{}@code{<clutter-actor>}) (x_align@tie{}@code{<clutter-actor-align>})
+@deffnx Method set-x-align
+Sets the horizontal alignment policy of a @code{<clutter-actor>}, in
+case the actor received extra horizontal space.
+
+See also the @code{<"x-align">} property.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item x-align
+the horizontal alignment policy
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-get-x-align  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-actor-align>})
+@deffnx Method get-x-align
+Retrieves the horizontal alignment policy set using
+@code{clutter-actor-set-x-align}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+the horizontal alignment policy.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-set-y-align  (self@tie{}@code{<clutter-actor>}) (y_align@tie{}@code{<clutter-actor-align>})
+@deffnx Method set-y-align
+Sets the vertical alignment policy of a @code{<clutter-actor>}, in case
+the actor received extra vertical space.
+
+See also the @code{<"y-align">} property.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item y-align
+the vertical alignment policy
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-get-y-align  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-actor-align>})
+@deffnx Method get-y-align
+Retrieves the vertical alignment policy set using
+@code{clutter-actor-set-y-align}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+the vertical alignment policy.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-margin-new  @result{}@tie{} (ret@tie{}@code{<clutter-margin>})
+Creates a new @code{<clutter-margin>}.
+
+@table @var
+@item ret
+a newly allocated @code{<clutter-margin>}. Use
+@code{clutter-margin-free} to free the resources associated with it when
+done.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-set-margin  (self@tie{}@code{<clutter-actor>}) (margin@tie{}@code{<clutter-margin>})
+@deffnx Method set-margin
+Sets all the components of the margin of a @code{<clutter-actor>}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item margin
+a @code{<clutter-margin>}
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-get-margin  (self@tie{}@code{<clutter-actor>}) (margin@tie{}@code{<clutter-margin>})
+@deffnx Method get-margin
+Retrieves all the components of the margin of a @code{<clutter-actor>}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item margin
+return location for a @code{<clutter-margin>}.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-set-margin-top  (self@tie{}@code{<clutter-actor>}) (margin@tie{}@code{float})
+@deffnx Method set-margin-top
+Sets the margin from the top of a @code{<clutter-actor>}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item margin
+the top margin
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-get-margin-top  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{float})
+@deffnx Method get-margin-top
+Retrieves the top margin of a @code{<clutter-actor>}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+the top margin
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-set-margin-right  (self@tie{}@code{<clutter-actor>}) (margin@tie{}@code{float})
+@deffnx Method set-margin-right
+Sets the margin from the right of a @code{<clutter-actor>}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item margin
+the right margin
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-get-margin-right  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{float})
+@deffnx Method get-margin-right
+Retrieves the right margin of a @code{<clutter-actor>}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+the right margin
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-set-margin-bottom  (self@tie{}@code{<clutter-actor>}) (margin@tie{}@code{float})
+@deffnx Method set-margin-bottom
+Sets the margin from the bottom of a @code{<clutter-actor>}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item margin
+the bottom margin
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-get-margin-bottom  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{float})
+@deffnx Method get-margin-bottom
+Retrieves the bottom margin of a @code{<clutter-actor>}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+the bottom margin
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-set-margin-left  (self@tie{}@code{<clutter-actor>}) (margin@tie{}@code{float})
+@deffnx Method set-margin-left
+Sets the margin from the left of a @code{<clutter-actor>}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item margin
+the left margin
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-get-margin-left  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{float})
+@deffnx Method get-margin-left
+Retrieves the left margin of a @code{<clutter-actor>}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+the left margin
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-set-layout-manager  (self@tie{}@code{<clutter-actor>}) (manager@tie{}@code{<clutter-layout-manager>})
+@deffnx Method set-layout-manager
+Sets the @code{<clutter-layout-manager>} delegate object that will be
+used to lay out the children of @var{self}.
+
+The @code{<clutter-actor>} will take a reference on the passed
+@var{manager} which will be released either when the layout manager is
+removed, or when the actor is destroyed.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item manager
+a @code{<clutter-layout-manager>}, or @samp{@code{#f}} to unset it.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-get-layout-manager  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-layout-manager>})
+@deffnx Method get-layout-manager
+Retrieves the @code{<clutter-layout-manager>} used by @var{self}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+a pointer to the @code{<clutter-layout-manager>}, or @samp{@code{#f}}.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-set-background-color  (self@tie{}@code{<clutter-actor>}) (color@tie{}@code{<clutter-color>})
+@deffnx Method set-background-color
+Sets the background color of a @code{<clutter-actor>}.
+
+The background color will be used to cover the whole allocation of the
+actor. The default background color of an actor is transparent.
+
+To check whether an actor has a background color, you can use the
+@code{<"background-color-set">} actor property.
+
+The @code{<"background-color">} property is animatable.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item color
+a @code{<clutter-color>}, or @samp{@code{#f}} to unset a previously set
+color.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-get-background-color  (self@tie{}@code{<clutter-actor>}) (color@tie{}@code{<clutter-color>})
+@deffnx Method get-background-color
+Retrieves the color set using @code{clutter-actor-set-background-color}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item color
+return location for a @code{<clutter-color>}.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
 @deffn Function clutter-actor-set-geometry  (self@tie{}@code{<clutter-actor>}) (geometry@tie{}@code{<clutter-geometry>})
 @deffnx Method set-geometry
+@samp{clutter_actor_set_geometry} has been deprecated since version 1.10
+and should not be used in newly-written code. Use
+@code{clutter-actor-set-position} and @code{clutter-actor-set-size}
+instead.
+
 Sets the actor's fixed position and forces its minimum and natural size,
 in pixels. This means the untransformed actor will have the given
 geometry. This is the same as calling @code{clutter-actor-set-position}
@@ -683,6 +1186,11 @@ A @code{<clutter-geometry>}
 
 @deffn Function clutter-actor-get-geometry  (self@tie{}@code{<clutter-actor>}) (geometry@tie{}@code{<clutter-geometry>})
 @deffnx Method get-geometry
+@samp{clutter_actor_get_geometry} has been deprecated since version 1.10
+and should not be used in newly-written code. Use
+@code{clutter-actor-get-position} and @code{clutter-actor-get-size}, or
+@code{clutter-actor-get-allocation-geometry} instead.
+
 Gets the size and position of an actor relative to its parent actor.
 This is the same as calling @code{clutter-actor-get-position} and
 @code{clutter-actor-get-size}. It tries to "do what you mean" and get
@@ -913,6 +1421,8 @@ Sets the actor's X coordinate, relative to its parent, in pixels.
 
 Overrides any layout manager and forces a fixed position for the actor.
 
+The @code{<"x">} property is animatable.
+
 @table @var
 @item self
 a @code{<clutter-actor>}
@@ -961,6 +1471,8 @@ rotation)
 Sets the actor's Y coordinate, relative to its parent, in pixels.#
 
 Overrides any layout manager and forces a fixed position for the actor.
+
+The @code{<"y">} property is animatable.
 
 @table @var
 @item self
@@ -1030,530 +1542,6 @@ Since 0.2
 
 @end deffn
 
-@deffn Function clutter-actor-set-rotation  (self@tie{}@code{<clutter-actor>}) (axis@tie{}@code{<clutter-rotate-axis>}) (angle@tie{}@code{double}) (x@tie{}@code{float}) (y@tie{}@code{float}) (z@tie{}@code{float})
-@deffnx Method set-rotation
-Sets the rotation angle of @var{self} around the given axis.
-
-The rotation center coordinates used depend on the value of @var{axis}:
-
-@itemize 
-@item
-@item
-@item
-@end itemize
-
-@samp{CLUTTER_X_AXIS} requires @var{y} and @var{z}
-
-@samp{CLUTTER_Y_AXIS} requires @var{x} and @var{z}
-
-@samp{CLUTTER_Z_AXIS} requires @var{x} and @var{y}
-
-The rotation coordinates are relative to the anchor point of the actor,
-set using @code{clutter-actor-set-anchor-point}. If no anchor point is
-set, the upper left corner is assumed as the origin.
-
-@table @var
-@item self
-a @code{<clutter-actor>}
-
-@item axis
-the axis of rotation
-
-@item angle
-the angle of rotation
-
-@item x
-X coordinate of the rotation center
-
-@item y
-Y coordinate of the rotation center
-
-@item z
-Z coordinate of the rotation center
-
-@end table
-
-Since 0.8
-
-@end deffn
-
-@deffn Function clutter-actor-get-rotation  (self@tie{}@code{<clutter-actor>}) (axis@tie{}@code{<clutter-rotate-axis>}) @result{}@tie{} (ret@tie{}@code{double}) (x@tie{}@code{float}) (y@tie{}@code{float}) (z@tie{}@code{float})
-@deffnx Method get-rotation
-Retrieves the angle and center of rotation on the given axis, set using
-@code{clutter-actor-set-rotation}.
-
-@table @var
-@item self
-a @code{<clutter-actor>}
-
-@item axis
-the axis of rotation
-
-@item x
-return value for the X coordinate of the center of rotation.
-
-@item y
-return value for the Y coordinate of the center of rotation.
-
-@item z
-return value for the Z coordinate of the center of rotation.
-
-@item ret
-the angle of rotation
-
-@end table
-
-Since 0.8
-
-@end deffn
-
-@deffn Function clutter-actor-is-rotated  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{bool})
-@deffnx Method is-rotated
-Checks whether any rotation is applied to the actor.
-
-@table @var
-@item self
-a @code{<clutter-actor>}
-
-@item ret
-@samp{@code{#t}} if the actor is rotated.
-
-@end table
-
-Since 0.6
-
-@end deffn
-
-@deffn Function clutter-actor-set-opacity  (self@tie{}@code{<clutter-actor>}) (opacity@tie{}@code{unsigned-int8})
-@deffnx Method set-opacity
-Sets the actor's opacity, with zero being completely transparent and 255
-(0xff) being fully opaque.
-
-@table @var
-@item self
-A @code{<clutter-actor>}
-
-@item opacity
-New opacity value for the actor.
-
-@end table
-
-@end deffn
-
-@deffn Function clutter-actor-get-opacity  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{unsigned-int8})
-@deffnx Method get-opacity
-Retrieves the opacity value of an actor, as set by
-@code{clutter-actor-set-opacity}.
-
-For retrieving the absolute opacity of the actor inside a paint virtual
-function, see @code{clutter-actor-get-paint-opacity}.
-
-@table @var
-@item self
-a @code{<clutter-actor>}
-
-@item ret
-the opacity of the actor
-
-@end table
-
-@end deffn
-
-@deffn Function clutter-actor-set-name  (self@tie{}@code{<clutter-actor>}) (name@tie{}@code{mchars})
-@deffnx Method set-name
-Sets the given name to @var{self}. The name can be used to identify a
-@code{<clutter-actor>}.
-
-@table @var
-@item self
-A @code{<clutter-actor>}
-
-@item name
-Textual tag to apply to actor
-
-@end table
-
-@end deffn
-
-@deffn Function clutter-actor-get-name  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{mchars})
-@deffnx Method get-name
-Retrieves the name of @var{self}.
-
-@table @var
-@item self
-A @code{<clutter-actor>}
-
-@item ret
-the name of the actor, or @samp{@code{#f}}. The returned string is owned
-by the actor and should not be modified or freed.
-
-@end table
-
-@end deffn
-
-@deffn Function clutter-actor-get-gid  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{unsigned-int32})
-@deffnx Method get-gid
-@samp{clutter_actor_get_gid} has been deprecated since version 1.8 and
-should not be used in newly-written code. The id is not used any longer.
-
-Retrieves the unique id for @var{self}.
-
-@table @var
-@item self
-A @code{<clutter-actor>}
-
-@item ret
-Globally unique value for this object instance.
-
-@end table
-
-Since 0.6
-
-@end deffn
-
-@deffn Function clutter-actor-set-clip  (self@tie{}@code{<clutter-actor>}) (xoff@tie{}@code{float}) (yoff@tie{}@code{float}) (width@tie{}@code{float}) (height@tie{}@code{float})
-@deffnx Method set-clip
-Sets clip area for @var{self}. The clip area is always computed from the
-upper left corner of the actor, even if the anchor point is set
-otherwise.
-
-@table @var
-@item self
-A @code{<clutter-actor>}
-
-@item xoff
-X offset of the clip rectangle
-
-@item yoff
-Y offset of the clip rectangle
-
-@item width
-Width of the clip rectangle
-
-@item height
-Height of the clip rectangle
-
-@end table
-
-Since 0.6
-
-@end deffn
-
-@deffn Function clutter-actor-remove-clip  (self@tie{}@code{<clutter-actor>})
-@deffnx Method remove-clip
-Removes clip area from @var{self}.
-
-@table @var
-@item self
-A @code{<clutter-actor>}
-
-@end table
-
-@end deffn
-
-@deffn Function clutter-actor-has-clip  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{bool})
-@deffnx Method has-clip
-Determines whether the actor has a clip area set or not.
-
-@table @var
-@item self
-a @code{<clutter-actor>}
-
-@item ret
-@samp{@code{#t}} if the actor has a clip area set.
-
-@end table
-
-Since 0.1.1
-
-@end deffn
-
-@deffn Function clutter-actor-get-clip  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (xoff@tie{}@code{float}) (yoff@tie{}@code{float}) (width@tie{}@code{float}) (height@tie{}@code{float})
-@deffnx Method get-clip
-Gets the clip area for @var{self}, if any is set
-
-@table @var
-@item self
-a @code{<clutter-actor>}
-
-@item xoff
-return location for the X offset of the clip rectangle, or
-@samp{@code{#f}}.
-
-@item yoff
-return location for the Y offset of the clip rectangle, or
-@samp{@code{#f}}.
-
-@item width
-return location for the width of the clip rectangle, or
-@samp{@code{#f}}.
-
-@item height
-return location for the height of the clip rectangle, or
-@samp{@code{#f}}.
-
-@end table
-
-Since 0.6
-
-@end deffn
-
-@deffn Function clutter-actor-set-parent  (self@tie{}@code{<clutter-actor>}) (parent@tie{}@code{<clutter-actor>})
-@deffnx Method set-parent
-Sets the parent of @var{self} to @var{parent}. The opposite function is
-@code{clutter-actor-unparent}.
-
-This function should not be used by applications, but by custom
-container actor subclasses.
-
-@table @var
-@item self
-A @code{<clutter-actor>}
-
-@item parent
-A new @code{<clutter-actor>} parent
-
-@end table
-
-@end deffn
-
-@deffn Function clutter-actor-get-parent  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
-@deffnx Method get-parent
-Retrieves the parent of @var{self}.
-
-@table @var
-@item self
-A @code{<clutter-actor>}
-
-@item ret
-The @code{<clutter-actor>} parent, or @samp{@code{#f}} if no parent is
-set.
-
-@end table
-
-@end deffn
-
-@deffn Function clutter-actor-reparent  (self@tie{}@code{<clutter-actor>}) (new_parent@tie{}@code{<clutter-actor>})
-@deffnx Method reparent
-This function resets the parent actor of @var{self}. It is logically
-equivalent to calling @code{clutter-actor-unparent} and
-@code{clutter-actor-set-parent}, but more efficiently implemented,
-ensures the child is not finalized when unparented, and emits the
-parent-set signal only one time.
-
-@table @var
-@item self
-a @code{<clutter-actor>}
-
-@item new-parent
-the new @code{<clutter-actor>} parent
-
-@end table
-
-Since 0.2
-
-@end deffn
-
-@deffn Function clutter-actor-unparent  (self@tie{}@code{<clutter-actor>})
-@deffnx Method unparent
-Removes the parent of @var{self}.
-
-This function should not be used in applications.
-
-This function should only be called by implementations of the
-@code{<clutter-container>} interface, or by composite actors that do not
-implicitly create their children.
-
-@table @var
-@item self
-a @code{<clutter-actor>}
-
-@end table
-
-Since 0.1.1
-
-@end deffn
-
-@deffn Function clutter-actor-contains  (self@tie{}@code{<clutter-actor>}) (descendant@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{bool})
-@deffnx Method contains
-Determines if @var{descendant} is contained inside @var{self} (either as
-an immediate child, or as a deeper descendant). If @var{self} and
-@var{descendant} point to the same actor then it will also return
-@samp{@code{#t}}.
-
-@table @var
-@item self
-A @code{<clutter-actor>}
-
-@item descendant
-A @code{<clutter-actor>}, possibly contained in @var{self}
-
-@item ret
-whether @var{descendent} is contained within @var{self}
-
-@end table
-
-Since 1.4
-
-@end deffn
-
-@deffn Function clutter-actor-raise  (self@tie{}@code{<clutter-actor>}) (below@tie{}@code{<clutter-actor>})
-@deffnx Method raise
-Puts @var{self} above @var{below}.
-
-Both actors must have the same parent, and the parent must implement the
-@code{<clutter-container>} interface
-
-This function is the equivalent of @code{clutter-container-raise-child}.
-
-@table @var
-@item self
-A @code{<clutter-actor>}
-
-@item below
-A @code{<clutter-actor>} to raise above.
-
-@end table
-
-@end deffn
-
-@deffn Function clutter-actor-lower  (self@tie{}@code{<clutter-actor>}) (above@tie{}@code{<clutter-actor>})
-@deffnx Method lower
-Puts @var{self} below @var{above}.
-
-Both actors must have the same parent, and the parent must implement the
-@code{<clutter-container>} interface.
-
-This function is the equivalent of @code{clutter-container-lower-child}.
-
-@table @var
-@item self
-A @code{<clutter-actor>}
-
-@item above
-A @code{<clutter-actor>} to lower below.
-
-@end table
-
-@end deffn
-
-@deffn Function clutter-actor-raise-top  (self@tie{}@code{<clutter-actor>})
-@deffnx Method raise-top
-Raises @var{self} to the top.
-
-This function calls @code{clutter-actor-raise} internally.
-
-@table @var
-@item self
-A @code{<clutter-actor>}
-
-@end table
-
-@end deffn
-
-@deffn Function clutter-actor-lower-bottom  (self@tie{}@code{<clutter-actor>})
-@deffnx Method lower-bottom
-Lowers @var{self} to the bottom.
-
-This function calls @code{clutter-actor-lower} internally.
-
-@table @var
-@item self
-A @code{<clutter-actor>}
-
-@end table
-
-@end deffn
-
-@deffn Function clutter-actor-get-stage  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
-@deffnx Method get-stage
-Retrieves the @code{<clutter-stage>} where @var{actor} is contained.
-
-@table @var
-@item actor
-a @code{<clutter-actor>}
-
-@item ret
-the stage containing the actor, or @samp{@code{#f}}.
-
-@end table
-
-Since 0.8
-
-@end deffn
-
-@deffn Function clutter-actor-push-internal  (self@tie{}@code{<clutter-actor>})
-@deffnx Method push-internal
-Should be used by actors implementing the @code{<clutter-container>} and
-with internal children added through @code{clutter-actor-set-parent},
-for instance:
-
-@example 
-
-  static void
-  my_actor_init (MyActor *self)
-  @{
-    self->priv = SELF_ACTOR_GET_PRIVATE (self);
-
-    clutter_actor_push_internal (CLUTTER_ACTOR (self));
-
-    /&#x002A; calling clutter_actor_set_parent() now will result in
-     &#x002A; the internal flag being set on a child of MyActor
-     &#x002A;/
-
-    /&#x002A; internal child - a background texture &#x002A;/
-    self->priv->background_tex = clutter_texture_new ();
-    clutter_actor_set_parent (self->priv->background_tex,
-                              CLUTTER_ACTOR (self));
-
-    /&#x002A; internal child - a label &#x002A;/
-    self->priv->label = clutter_text_new ();
-    clutter_actor_set_parent (self->priv->label,
-                              CLUTTER_ACTOR (self));
-
-    clutter_actor_pop_internal (CLUTTER_ACTOR (self));
-
-    /&#x002A; calling clutter_actor_set_parent() now will not result in
-     &#x002A; the internal flag being set on a child of MyActor
-     &#x002A;/
-  @}
-@end example
-
-This function will be used by Clutter to toggle an "internal child" flag
-whenever @code{clutter-actor-set-parent} is called; internal children
-are handled differently by Clutter, specifically when destroying their
-parent.
-
-Call @code{clutter-actor-pop-internal} when you finished adding internal
-children.
-
-Nested calls to @code{clutter-actor-push-internal} are allowed, but each
-one must by followed by a @code{clutter-actor-pop-internal} call.
-
-@table @var
-@item self
-a @code{<clutter-actor>}
-
-@end table
-
-Since 1.2
-
-@end deffn
-
-@deffn Function clutter-actor-pop-internal  (self@tie{}@code{<clutter-actor>})
-@deffnx Method pop-internal
-Disables the effects of @code{clutter-actor-push-internal}
-
-@table @var
-@item self
-a @code{<clutter-actor>}
-
-@end table
-
-Since 1.2
-
-@end deffn
-
 @deffn Function clutter-actor-set-depth  (self@tie{}@code{<clutter-actor>}) (depth@tie{}@code{float})
 @deffnx Method set-depth
 Sets the Z coordinate of @var{self} to @var{depth}.
@@ -1593,6 +1581,8 @@ Scales an actor with the given factors. The scaling is relative to the
 scale center and the anchor point. The scale center is unchanged by this
 function and defaults to 0,0.
 
+The @code{<"scale-x">} and @code{<"scale-y">} properties are animatable.
+
 @table @var
 @item self
 A @code{<clutter-actor>}
@@ -1614,6 +1604,8 @@ Since 0.2
 Scales an actor with the given factors around the given center point.
 The center point is specified in pixels relative to the anchor point
 (usually the top left corner of the actor).
+
+The @code{<"scale-x">} and @code{<"scale-y">} properties are animatable.
 
 @table @var
 @item self
@@ -1711,6 +1703,165 @@ a @code{<clutter-actor>}
 
 @item ret
 @samp{@code{#t}} if the actor is scaled.
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-actor-set-rotation  (self@tie{}@code{<clutter-actor>}) (axis@tie{}@code{<clutter-rotate-axis>}) (angle@tie{}@code{double}) (x@tie{}@code{float}) (y@tie{}@code{float}) (z@tie{}@code{float})
+@deffnx Method set-rotation
+Sets the rotation angle of @var{self} around the given axis.
+
+The rotation center coordinates used depend on the value of @var{axis}:
+
+@itemize 
+@item
+@item
+@item
+@end itemize
+
+@samp{CLUTTER_X_AXIS} requires @var{y} and @var{z}
+
+@samp{CLUTTER_Y_AXIS} requires @var{x} and @var{z}
+
+@samp{CLUTTER_Z_AXIS} requires @var{x} and @var{y}
+
+The rotation coordinates are relative to the anchor point of the actor,
+set using @code{clutter-actor-set-anchor-point}. If no anchor point is
+set, the upper left corner is assumed as the origin.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item axis
+the axis of rotation
+
+@item angle
+the angle of rotation
+
+@item x
+X coordinate of the rotation center
+
+@item y
+Y coordinate of the rotation center
+
+@item z
+Z coordinate of the rotation center
+
+@end table
+
+Since 0.8
+
+@end deffn
+
+@deffn Function clutter-actor-get-rotation  (self@tie{}@code{<clutter-actor>}) (axis@tie{}@code{<clutter-rotate-axis>}) @result{}@tie{} (ret@tie{}@code{double}) (x@tie{}@code{float}) (y@tie{}@code{float}) (z@tie{}@code{float})
+@deffnx Method get-rotation
+Retrieves the angle and center of rotation on the given axis, set using
+@code{clutter-actor-set-rotation}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item axis
+the axis of rotation
+
+@item x
+return value for the X coordinate of the center of rotation.
+
+@item y
+return value for the Y coordinate of the center of rotation.
+
+@item z
+return value for the Z coordinate of the center of rotation.
+
+@item ret
+the angle of rotation
+
+@end table
+
+Since 0.8
+
+@end deffn
+
+@deffn Function clutter-actor-is-rotated  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method is-rotated
+Checks whether any rotation is applied to the actor.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+@samp{@code{#t}} if the actor is rotated.
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-actor-set-anchor-point  (self@tie{}@code{<clutter-actor>}) (anchor_x@tie{}@code{float}) (anchor_y@tie{}@code{float})
+@deffnx Method set-anchor-point
+Sets an anchor point for @var{self}. The anchor point is a point in the
+coordinate space of an actor to which the actor position within its
+parent is relative; the default is (0, 0), i.e. the top-left corner of
+the actor.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item anchor-x
+X coordinate of the anchor point
+
+@item anchor-y
+Y coordinate of the anchor point
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-actor-get-anchor-point  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (anchor_x@tie{}@code{float}) (anchor_y@tie{}@code{float})
+@deffnx Method get-anchor-point
+Gets the current anchor point of the @var{actor} in pixels.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item anchor-x
+return location for the X coordinate of the anchor point.
+
+@item anchor-y
+return location for the Y coordinate of the anchor point.
+
+@end table
+
+Since 0.6
+
+@end deffn
+
+@deffn Function clutter-actor-move-anchor-point  (self@tie{}@code{<clutter-actor>}) (anchor_x@tie{}@code{float}) (anchor_y@tie{}@code{float})
+@deffnx Method move-anchor-point
+Sets an anchor point for the actor, and adjusts the actor postion so
+that the relative position of the actor toward its parent remains the
+same.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item anchor-x
+X coordinate of the anchor point
+
+@item anchor-y
+Y coordinate of the anchor point
 
 @end table
 
@@ -1830,14 +1981,14 @@ Since 0.8
 Retrieves the 'paint' visibility of an actor recursively checking for
 non visible parents.
 
-This is by definition the same as @code{clutter-actor-is-mapped}.
+This is by definition the same as @samp{CLUTTER_ACTOR_IS_MAPPED}.
 
 @table @var
 @item self
 A @code{<clutter-actor>}
 
 @item ret
-TRUE if the actor is visibile and will be painted.
+@samp{@code{#t}} if the actor is visibile and will be painted.
 
 @end table
 
@@ -1876,22 +2027,133 @@ Since 1.6
 
 @end deffn
 
-@deffn Function clutter-actor-set-anchor-point  (self@tie{}@code{<clutter-actor>}) (anchor_x@tie{}@code{float}) (anchor_y@tie{}@code{float})
-@deffnx Method set-anchor-point
-Sets an anchor point for @var{self}. The anchor point is a point in the
-coordinate space of an actor to which the actor position within its
-parent is relative; the default is (0, 0), i.e. the top-left corner of
-the actor.
+@deffn Function clutter-actor-set-content  (self@tie{}@code{<clutter-actor>}) (content@tie{}@code{<clutter-content>})
+@deffnx Method set-content
+Sets the contents of a @code{<clutter-actor>}.
 
 @table @var
 @item self
 a @code{<clutter-actor>}
 
-@item anchor-x
-X coordinate of the anchor point
+@item content
+a @code{<clutter-content>}, or @samp{@code{#f}}.
 
-@item anchor-y
-Y coordinate of the anchor point
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-get-content  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-content>})
+@deffnx Method get-content
+Retrieves the contents of @var{self}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+a pointer to the @code{<clutter-content>} instance, or @samp{@code{#f}}
+if none was set.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-set-content-gravity  (self@tie{}@code{<clutter-actor>}) (gravity@tie{}@code{<clutter-content-gravity>})
+@deffnx Method set-content-gravity
+Sets the gravity of the @code{<clutter-content>} used by @var{self}.
+
+See the description of the @code{<"content-gravity">} property for more
+information.
+
+The @code{<"content-gravity">} property is animatable.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item gravity
+the @code{<clutter-content-gravity>}
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-get-content-gravity  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-content-gravity>})
+@deffnx Method get-content-gravity
+Retrieves the content gravity as set using
+@code{clutter-actor-get-content-gravity}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+the content gravity
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-get-content-box  (self@tie{}@code{<clutter-actor>}) (box@tie{}@code{<clutter-actor-box>})
+@deffnx Method get-content-box
+Retrieves the bounding box for the @code{<clutter-content>} of
+@var{self}.
+
+The bounding box is relative to the actor's allocation.
+
+If no @code{<clutter-content>} is set for @var{self}, or if @var{self}
+has not been allocated yet, then the result is undefined.
+
+The content box is guaranteed to be, at most, as big as the allocation
+of the @code{<clutter-actor>}.
+
+If the @code{<clutter-content>} used by the actor has a preferred size,
+then it is possible to modify the content box by using the
+@code{<"content-gravity">} property.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item box
+the return location for the bounding box for the
+@code{<clutter-content>}.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-set-clip  (self@tie{}@code{<clutter-actor>}) (xoff@tie{}@code{float}) (yoff@tie{}@code{float}) (width@tie{}@code{float}) (height@tie{}@code{float})
+@deffnx Method set-clip
+Sets clip area for @var{self}. The clip area is always computed from the
+upper left corner of the actor, even if the anchor point is set
+otherwise.
+
+@table @var
+@item self
+A @code{<clutter-actor>}
+
+@item xoff
+X offset of the clip rectangle
+
+@item yoff
+Y offset of the clip rectangle
+
+@item width
+Width of the clip rectangle
+
+@item height
+Height of the clip rectangle
 
 @end table
 
@@ -1899,19 +2161,58 @@ Since 0.6
 
 @end deffn
 
-@deffn Function clutter-actor-get-anchor-point  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (anchor_x@tie{}@code{float}) (anchor_y@tie{}@code{float})
-@deffnx Method get-anchor-point
-Gets the current anchor point of the @var{actor} in pixels.
+@deffn Function clutter-actor-remove-clip  (self@tie{}@code{<clutter-actor>})
+@deffnx Method remove-clip
+Removes clip area from @var{self}.
+
+@table @var
+@item self
+A @code{<clutter-actor>}
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-actor-has-clip  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method has-clip
+Determines whether the actor has a clip area set or not.
 
 @table @var
 @item self
 a @code{<clutter-actor>}
 
-@item anchor-x
-return location for the X coordinate of the anchor point.
+@item ret
+@samp{@code{#t}} if the actor has a clip area set.
 
-@item anchor-y
-return location for the Y coordinate of the anchor point.
+@end table
+
+Since 0.1.1
+
+@end deffn
+
+@deffn Function clutter-actor-get-clip  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (xoff@tie{}@code{float}) (yoff@tie{}@code{float}) (width@tie{}@code{float}) (height@tie{}@code{float})
+@deffnx Method get-clip
+Gets the clip area for @var{self}, if any is set
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item xoff
+return location for the X offset of the clip rectangle, or
+@samp{@code{#f}}.
+
+@item yoff
+return location for the Y offset of the clip rectangle, or
+@samp{@code{#f}}.
+
+@item width
+return location for the width of the clip rectangle, or
+@samp{@code{#f}}.
+
+@item height
+return location for the height of the clip rectangle, or
+@samp{@code{#f}}.
 
 @end table
 
@@ -1919,25 +2220,739 @@ Since 0.6
 
 @end deffn
 
-@deffn Function clutter-actor-move-anchor-point  (self@tie{}@code{<clutter-actor>}) (anchor_x@tie{}@code{float}) (anchor_y@tie{}@code{float})
-@deffnx Method move-anchor-point
-Sets an anchor point for the actor, and adjusts the actor postion so
-that the relative position of the actor toward its parent remains the
-same.
+@deffn Function clutter-actor-set-opacity  (self@tie{}@code{<clutter-actor>}) (opacity@tie{}@code{unsigned-int8})
+@deffnx Method set-opacity
+Sets the actor's opacity, with zero being completely transparent and 255
+(0xff) being fully opaque.
+
+The @code{<"opacity">} property is animatable.
+
+@table @var
+@item self
+A @code{<clutter-actor>}
+
+@item opacity
+New opacity value for the actor.
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-actor-get-opacity  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{unsigned-int8})
+@deffnx Method get-opacity
+Retrieves the opacity value of an actor, as set by
+@code{clutter-actor-set-opacity}.
+
+For retrieving the absolute opacity of the actor inside a paint virtual
+function, see @code{clutter-actor-get-paint-opacity}.
 
 @table @var
 @item self
 a @code{<clutter-actor>}
 
-@item anchor-x
-X coordinate of the anchor point
-
-@item anchor-y
-Y coordinate of the anchor point
+@item ret
+the opacity of the actor
 
 @end table
 
-Since 0.6
+@end deffn
+
+@deffn Function clutter-actor-is-in-clone-paint  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method is-in-clone-paint
+Checks whether @var{self} is being currently painted by a
+@code{<clutter-clone>}
+
+This function is useful only inside the ::paint virtual function
+implementations or within handlers for the @code{<"paint">} signal
+
+This function should not be used by applications
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+@samp{@code{#t}} if the @code{<clutter-actor>} is currently being
+painted by a @code{<clutter-clone>}, and @samp{@code{#f}} otherwise
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-actor-add-child  (self@tie{}@code{<clutter-actor>}) (child@tie{}@code{<clutter-actor>})
+@deffnx Method add-child
+Adds @var{child} to the children of @var{self}.
+
+This function will acquire a reference on @var{child} that will only be
+released when calling @code{clutter-actor-remove-child}.
+
+This function will take into consideration the @code{<"depth">} of
+@var{child}, and will keep the list of children sorted.
+
+This function will emit the @code{<"actor-added">} signal on @var{self}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item child
+a @code{<clutter-actor>}
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-insert-child-above  (self@tie{}@code{<clutter-actor>}) (child@tie{}@code{<clutter-actor>}) (sibling@tie{}@code{<clutter-actor>})
+@deffnx Method insert-child-above
+Inserts @var{child} into the list of children of @var{self}, above
+another child of @var{self} or, if @var{sibling} is @samp{@code{#f}},
+above all the children of @var{self}.
+
+This function will acquire a reference on @var{child} that will only be
+released when calling @code{clutter-actor-remove-child}.
+
+This function will not take into consideration the @code{<"depth">} of
+@var{child}.
+
+This function will emit the @code{<"actor-added">} signal on @var{self}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item child
+a @code{<clutter-actor>}
+
+@item sibling
+a child of @var{self}, or @samp{@code{#f}}.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-insert-child-at-index  (self@tie{}@code{<clutter-actor>}) (child@tie{}@code{<clutter-actor>}) (index_@tie{}@code{int})
+@deffnx Method insert-child-at-index
+Inserts @var{child} into the list of children of @var{self}, using the
+given @var{index}. If @var{index} is greater than the number of children
+in @var{self}, or is less than 0, then the new child is added at the
+end.
+
+This function will acquire a reference on @var{child} that will only be
+released when calling @code{clutter-actor-remove-child}.
+
+This function will not take into consideration the @code{<"depth">} of
+@var{child}.
+
+This function will emit the @code{<"actor-added">} signal on @var{self}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item child
+a @code{<clutter-actor>}
+
+@item index
+the index
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-insert-child-below  (self@tie{}@code{<clutter-actor>}) (child@tie{}@code{<clutter-actor>}) (sibling@tie{}@code{<clutter-actor>})
+@deffnx Method insert-child-below
+Inserts @var{child} into the list of children of @var{self}, below
+another child of @var{self} or, if @var{sibling} is @samp{@code{#f}},
+below all the children of @var{self}.
+
+This function will acquire a reference on @var{child} that will only be
+released when calling @code{clutter-actor-remove-child}.
+
+This function will not take into consideration the @code{<"depth">} of
+@var{child}.
+
+This function will emit the @code{<"actor-added">} signal on @var{self}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item child
+a @code{<clutter-actor>}
+
+@item sibling
+a child of @var{self}, or @samp{@code{#f}}.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-replace-child  (self@tie{}@code{<clutter-actor>}) (old_child@tie{}@code{<clutter-actor>}) (new_child@tie{}@code{<clutter-actor>})
+@deffnx Method replace-child
+Replaces @var{old-child} with @var{new-child} in the list of children of
+@var{self}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item old-child
+the child of @var{self} to replace
+
+@item new-child
+the @code{<clutter-actor>} to replace @var{old-child}
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-remove-child  (self@tie{}@code{<clutter-actor>}) (child@tie{}@code{<clutter-actor>})
+@deffnx Method remove-child
+Removes @var{child} from the children of @var{self}.
+
+This function will release the reference added by
+@code{clutter-actor-add-child}, so if you want to keep using @var{child}
+you will have to acquire a referenced on it before calling this
+function.
+
+This function will emit the @code{<"actor-removed">} signal on
+@var{self}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item child
+a @code{<clutter-actor>}
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-remove-all-children  (self@tie{}@code{<clutter-actor>})
+@deffnx Method remove-all-children
+Removes all children of @var{self}.
+
+This function releases the reference added by inserting a child actor in
+the list of children of @var{self}.
+
+If the reference count of a child drops to zero, the child will be
+destroyed. If you want to ensure the destruction of all the children of
+@var{self}, use @code{clutter-actor-destroy-all-children}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-destroy-all-children  (self@tie{}@code{<clutter-actor>})
+@deffnx Method destroy-all-children
+Destroys all children of @var{self}.
+
+This function releases the reference added by inserting a child actor in
+the list of children of @var{self}, and ensures that the
+@code{<"destroy">} signal is emitted on each child of the actor.
+
+By default, @code{<clutter-actor>} will emit the @code{<"destroy">}
+signal when its reference count drops to 0; the default handler of the
+@code{<"destroy">} signal will destroy all the children of an actor.
+This function ensures that all children are destroyed, instead of just
+removed from @var{self}, unlike @code{clutter-actor-remove-all-children}
+which will merely release the reference and remove each child.
+
+Unless you acquired an additional reference on each child of @var{self}
+prior to calling @code{clutter-actor-remove-all-children} and want to
+reuse the actors, you should use
+@code{clutter-actor-destroy-all-children} in order to make sure that
+children are destroyed and signal handlers are disconnected even in
+cases where circular references prevent this from automatically
+happening through reference counting alone.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-get-first-child  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+@deffnx Method get-first-child
+Retrieves the first child of @var{self}.
+
+The returned pointer is only valid until the scene graph changes; it is
+not safe to modify the list of children of @var{self} while iterating
+it.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+a pointer to a @code{<clutter-actor>}, or @samp{@code{#f}}.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-get-next-sibling  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+@deffnx Method get-next-sibling
+Retrieves the sibling of @var{self} that comes after it in the list of
+children of @var{self}'s parent.
+
+The returned pointer is only valid until the scene graph changes; it is
+not safe to modify the list of children of @var{self} while iterating
+it.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+a pointer to a @code{<clutter-actor>}, or @samp{@code{#f}}.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-get-previous-sibling  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+@deffnx Method get-previous-sibling
+Retrieves the sibling of @var{self} that comes before it in the list of
+children of @var{self}'s parent.
+
+The returned pointer is only valid until the scene graph changes; it is
+not safe to modify the list of children of @var{self} while iterating
+it.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+a pointer to a @code{<clutter-actor>}, or @samp{@code{#f}}.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-get-last-child  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+@deffnx Method get-last-child
+Retrieves the last child of @var{self}.
+
+The returned pointer is only valid until the scene graph changes; it is
+not safe to modify the list of children of @var{self} while iterating
+it.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+a pointer to a @code{<clutter-actor>}, or @samp{@code{#f}}.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-get-child-at-index  (self@tie{}@code{<clutter-actor>}) (index_@tie{}@code{int}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+@deffnx Method get-child-at-index
+Retrieves the actor at the given @var{index} inside the list of children
+of @var{self}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item index
+the position in the list of children
+
+@item ret
+a pointer to a @code{<clutter-actor>}, or @samp{@code{#f}}.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-get-children  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{glist-of})
+@deffnx Method get-children
+Retrieves the list of children of @var{self}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+A newly allocated @code{<g-list>} of @code{<clutter-actor>}s. Use
+@code{g-list-free} when done.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-get-n-children  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{int})
+@deffnx Method get-n-children
+Retrieves the number of children of @var{self}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+the number of children of an actor
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-get-parent  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+@deffnx Method get-parent
+Retrieves the parent of @var{self}.
+
+@table @var
+@item self
+A @code{<clutter-actor>}
+
+@item ret
+The @code{<clutter-actor>} parent, or @samp{@code{#f}} if no parent is
+set.
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-actor-set-child-at-index  (self@tie{}@code{<clutter-actor>}) (child@tie{}@code{<clutter-actor>}) (index_@tie{}@code{int})
+@deffnx Method set-child-at-index
+Changes the index of @var{child} in the list of children of @var{self}.
+
+This function is logically equivalent to removing @var{child} and
+calling @code{clutter-actor-insert-child-at-index}, but it will not emit
+signals or change state on @var{child}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item child
+a @code{<clutter-actor>} child of @var{self}
+
+@item index
+the new index for @var{child}
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-contains  (self@tie{}@code{<clutter-actor>}) (descendant@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method contains
+Determines if @var{descendant} is contained inside @var{self} (either as
+an immediate child, or as a deeper descendant). If @var{self} and
+@var{descendant} point to the same actor then it will also return
+@samp{@code{#t}}.
+
+@table @var
+@item self
+A @code{<clutter-actor>}
+
+@item descendant
+A @code{<clutter-actor>}, possibly contained in @var{self}
+
+@item ret
+whether @var{descendent} is contained within @var{self}
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-actor-get-stage  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+@deffnx Method get-stage
+Retrieves the @code{<clutter-stage>} where @var{actor} is contained.
+
+@table @var
+@item actor
+a @code{<clutter-actor>}
+
+@item ret
+the stage containing the actor, or @samp{@code{#f}}.
+
+@end table
+
+Since 0.8
+
+@end deffn
+
+@deffn Function clutter-actor-save-easing-state  (self@tie{}@code{<clutter-actor>})
+@deffnx Method save-easing-state
+Saves the current easing state for animatable properties, and creates a
+new state with the default values for easing mode and duration.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-restore-easing-state  (self@tie{}@code{<clutter-actor>})
+@deffnx Method restore-easing-state
+Restores the easing state as it was prior to a call to
+@code{clutter-actor-save-easing-state}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-set-easing-duration  (self@tie{}@code{<clutter-actor>}) (msecs@tie{}@code{unsigned-int})
+@deffnx Method set-easing-duration
+Sets the duration of the tweening for animatable properties of
+@var{self} for the current easing state.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item msecs
+the duration of the easing, or @samp{@code{#f}}
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-get-easing-duration  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+@deffnx Method get-easing-duration
+Retrieves the duration of the tweening for animatable properties of
+@var{self} for the current easing state.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+the duration of the tweening, in milliseconds
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-set-easing-mode  (self@tie{}@code{<clutter-actor>}) (mode@tie{}@code{<clutter-animation-mode>})
+@deffnx Method set-easing-mode
+Sets the easing mode for the tweening of animatable properties of
+@var{self}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item mode
+an easing mode, excluding @samp{CLUTTER_CUSTOM_MODE}
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-get-easing-mode  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-animation-mode>})
+@deffnx Method get-easing-mode
+Retrieves the easing mode for the tweening of animatable properties of
+@var{self} for the current easing state.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+an easing mode
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-set-easing-delay  (self@tie{}@code{<clutter-actor>}) (msecs@tie{}@code{unsigned-int})
+@deffnx Method set-easing-delay
+Sets the delay that should be applied before tweening animatable
+properties.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item msecs
+the delay before the start of the tweening, in milliseconds
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-get-easing-delay  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+@deffnx Method get-easing-delay
+Retrieves the delay that should be applied when tweening animatable
+properties.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+a delay, in milliseconds
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-get-transition  (self@tie{}@code{<clutter-actor>}) (name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<clutter-transition>})
+@deffnx Method get-transition
+Retrieves the @code{<clutter-transition>} of a @code{<clutter-actor>} by
+using the transition @var{name}.
+
+Transitions created for animatable properties use the name of the
+property itself, for instance the code below:
+
+@example 
+
+  clutter_actor_set_easing_duration (actor, 1000);
+  clutter_actor_set_rotation (actor, CLUTTER_Y_AXIS, 360.0, x, y, z);
+
+  transition = clutter_actor_get_transition (actor, "rotation-angle-y");
+  g_signal_connect (transition, "completed",
+                    G_CALLBACK (on_transition_complete),
+                    actor);
+@end example
+
+will call the @code{on-transition-complete} callback when the transition
+is complete.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item name
+the name of the transition
+
+@item ret
+a @code{<clutter-transition>}, or @samp{@code{#f}} is none was found to
+match the passed name; the returned instance is owned by Clutter and it
+should not be freed.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-add-transition  (self@tie{}@code{<clutter-actor>}) (name@tie{}@code{mchars}) (transition@tie{}@code{<clutter-transition>})
+@deffnx Method add-transition
+Adds a @var{transition} to the @code{<clutter-actor>}'s list of
+animations.
+
+The @var{name} string is a per-actor unique identifier of the
+@var{transition}: only one @code{<clutter-transition>} can be associated
+to the specified @var{name}.
+
+The @var{transition} will be given the easing duration, mode, and delay
+associated to the actor's current easing state; it is possible to modify
+these values after calling @code{clutter-actor-add-transition}.
+
+The @var{transition} will be started once added.
+
+This function will take a reference on the @var{transition}.
+
+This function is usually called implicitly when modifying an animatable
+property.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item name
+the name of the transition to add
+
+@item transition
+the @code{<clutter-transition>} to add
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-remove-transition  (self@tie{}@code{<clutter-actor>}) (name@tie{}@code{mchars})
+@deffnx Method remove-transition
+Removes the transition stored inside a @code{<clutter-actor>} using
+@var{name} identifier.
+
+If the transition is currently in progress, it will be stopped.
+
+This function releases the reference acquired when the transition was
+added to the @code{<clutter-actor>}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item name
+the name of the transition to remove
+
+@end table
+
+Since 1.10
 
 @end deffn
 
@@ -1975,111 +2990,6 @@ Since 0.6
 
 @end deffn
 
-@deffn Function clutter-actor-set-shader  (self@tie{}@code{<clutter-actor>}) (shader@tie{}@code{<clutter-shader>}) @result{}@tie{} (ret@tie{}@code{bool})
-@deffnx Method set-shader
-@samp{clutter_actor_set_shader} has been deprecated since version 1.8
-and should not be used in newly-written code. Use
-@code{<clutter-shader-effect>} and @code{clutter-actor-add-effect}
-instead.
-
-Sets the @code{<clutter-shader>} to be used when rendering @var{self}.
-
-If @var{shader} is @samp{@code{#f}} this function will unset any
-currently set shader for the actor.
-
-@cartouche 
-Any @code{<clutter-effect>} applied to @var{self} will take the precedence
-over the @code{<clutter-shader>} set using this function.
-@end cartouche
-
-@table @var
-@item self
-a @code{<clutter-actor>}
-
-@item shader
-a @code{<clutter-shader>} or @samp{@code{#f}} to unset the shader.
-
-@item ret
-@samp{@code{#t}} if the shader was successfully applied or removed
-
-@end table
-
-Since 0.6
-
-@end deffn
-
-@deffn Function clutter-actor-get-shader  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-shader>})
-@deffnx Method get-shader
-@samp{clutter_actor_get_shader} has been deprecated since version 1.8
-and should not be used in newly-written code. Use
-@code{clutter-actor-get-effect} instead.
-
-Queries the currently set @code{<clutter-shader>} on @var{self}.
-
-@table @var
-@item self
-a @code{<clutter-actor>}
-
-@item ret
-The currently set @code{<clutter-shader>} or @samp{@code{#f}} if no
-shader is set.
-
-@end table
-
-Since 0.6
-
-@end deffn
-
-@deffn Function clutter-actor-set-shader-param  (self@tie{}@code{<clutter-actor>}) (param@tie{}@code{mchars}) (value@tie{}@code{<gvalue>})
-@deffnx Method set-shader-param
-@samp{clutter_actor_set_shader_param} has been deprecated since version
-1.8 and should not be used in newly-written code. Use
-@code{clutter-shader-effect-set-uniform-value} instead
-
-Sets the value for a named parameter of the shader applied to
-@var{actor}.
-
-@table @var
-@item self
-a @code{<clutter-actor>}
-
-@item param
-the name of the parameter
-
-@item value
-the value of the parameter
-
-@end table
-
-Since 1.0
-
-@end deffn
-
-@deffn Function clutter-actor-set-shader-param-int  (self@tie{}@code{<clutter-actor>}) (param@tie{}@code{mchars}) (value@tie{}@code{int})
-@deffnx Method set-shader-param-int
-@samp{clutter_actor_set_shader_param_int} has been deprecated since
-version 1.8 and should not be used in newly-written code. Use
-@code{clutter-shader-effect-set-uniform} instead
-
-Sets the value for a named int parameter of the shader applied to
-@var{actor}.
-
-@table @var
-@item self
-a @code{<clutter-actor>}
-
-@item param
-the name of the parameter
-
-@item value
-the value of the parameter
-
-@end table
-
-Since 0.8
-
-@end deffn
-
 @deffn Function clutter-actor-has-key-focus  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{bool})
 @deffnx Method has-key-focus
 Checks whether @var{self} is the @code{<clutter-actor>} that has key
@@ -2111,6 +3021,25 @@ a @code{<clutter-actor>}
 @end table
 
 Since 1.0
+
+@end deffn
+
+@deffn Function clutter-actor-has-pointer  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method has-pointer
+Checks whether an actor contains the pointer of a
+@code{<clutter-input-device>}
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+@samp{@code{#t}} if the actor contains the pointer, and @samp{@code{#f}}
+otherwise
+
+@end table
+
+Since 1.2
 
 @end deffn
 
@@ -2196,30 +3125,6 @@ Since 1.0
 
 @end deffn
 
-@deffn Function clutter-actor-is-in-clone-paint  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{bool})
-@deffnx Method is-in-clone-paint
-Checks whether @var{self} is being currently painted by a
-@code{<clutter-clone>}
-
-This function is useful only inside the ::paint virtual function
-implementations or within handlers for the @code{<"paint">} signal
-
-This function should not be used by applications
-
-@table @var
-@item self
-a @code{<clutter-actor>}
-
-@item ret
-@samp{@code{#t}} if the @code{<clutter-actor>} is currently being
-painted by a @code{<clutter-clone>}, and @samp{@code{#f}} otherwise
-
-@end table
-
-Since 1.0
-
-@end deffn
-
 @deffn Function clutter-actor-set-text-direction  (self@tie{}@code{<clutter-actor>}) (text_dir@tie{}@code{<clutter-text-direction>})
 @deffnx Method set-text-direction
 Sets the @code{<clutter-text-direction>} for an actor
@@ -2263,25 +3168,6 @@ a @code{<clutter-actor>}
 
 @item ret
 the @code{<clutter-text-direction>} for the actor
-
-@end table
-
-Since 1.2
-
-@end deffn
-
-@deffn Function clutter-actor-has-pointer  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{bool})
-@deffnx Method has-pointer
-Checks whether an actor contains the pointer of a
-@code{<clutter-input-device>}
-
-@table @var
-@item self
-a @code{<clutter-actor>}
-
-@item ret
-@samp{@code{#t}} if the actor contains the pointer, and @samp{@code{#f}}
-otherwise
 
 @end table
 
@@ -2404,6 +3290,24 @@ Since 1.4
 
 @end deffn
 
+@deffn Function clutter-actor-has-actions  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method has-actions
+Returns whether the actor has any actions applied.
+
+@table @var
+@item self
+A @code{<clutter-actor>}
+
+@item ret
+@samp{@code{#t}} if the actor has any actions, @samp{@code{#f}}
+otherwise
+
+@end table
+
+Since 1.10
+
+@end deffn
+
 @deffn Function clutter-actor-get-actions  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{glist-of})
 @deffnx Method get-actions
 Retrieves the list of actions applied to @var{self}
@@ -2500,6 +3404,24 @@ a @code{<clutter-constraint>}
 @end table
 
 Since 1.4
+
+@end deffn
+
+@deffn Function clutter-actor-has-constraints  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method has-constraints
+Returns whether the actor has any constraints applied.
+
+@table @var
+@item self
+A @code{<clutter-actor>}
+
+@item ret
+@samp{@code{#t}} if the actor has any constraints, @samp{@code{#f}}
+otherwise
+
+@end table
+
+Since 1.10
 
 @end deffn
 
@@ -2648,6 +3570,24 @@ Since 1.4
 
 @end deffn
 
+@deffn Function clutter-actor-has-effects  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method has-effects
+Returns whether the actor has any effects applied.
+
+@table @var
+@item self
+A @code{<clutter-actor>}
+
+@item ret
+@samp{@code{#t}} if the actor has any effects, @samp{@code{#f}}
+otherwise
+
+@end table
+
+Since 1.10
+
+@end deffn
+
 @deffn Function clutter-actor-get-effects  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{glist-of})
 @deffnx Method get-effects
 Retrieves the @code{<clutter-effect>}s applied on @var{self}, if any
@@ -2704,6 +3644,264 @@ Since 1.4
 
 @end deffn
 
+@deffn Function clutter-actor-push-internal  (self@tie{}@code{<clutter-actor>})
+@deffnx Method push-internal
+@samp{clutter_actor_push_internal} has been deprecated since version
+1.10 and should not be used in newly-written code. All children of an
+actor are accessible through the @code{<clutter-actor>} API, and
+@code{<clutter-actor>} implements the @code{<clutter-container>}
+interface, so this function is only useful for legacy containers
+overriding the default implementation.
+
+Should be used by actors implementing the @code{<clutter-container>} and
+with internal children added through @code{clutter-actor-set-parent},
+for instance:
+
+@example 
+
+  static void
+  my_actor_init (MyActor *self)
+  @{
+    self->priv = SELF_ACTOR_GET_PRIVATE (self);
+
+    clutter_actor_push_internal (CLUTTER_ACTOR (self));
+
+    /&#x002A; calling clutter_actor_set_parent() now will result in
+     &#x002A; the internal flag being set on a child of MyActor
+     &#x002A;/
+
+    /&#x002A; internal child - a background texture &#x002A;/
+    self->priv->background_tex = clutter_texture_new ();
+    clutter_actor_set_parent (self->priv->background_tex,
+                              CLUTTER_ACTOR (self));
+
+    /&#x002A; internal child - a label &#x002A;/
+    self->priv->label = clutter_text_new ();
+    clutter_actor_set_parent (self->priv->label,
+                              CLUTTER_ACTOR (self));
+
+    clutter_actor_pop_internal (CLUTTER_ACTOR (self));
+
+    /&#x002A; calling clutter_actor_set_parent() now will not result in
+     &#x002A; the internal flag being set on a child of MyActor
+     &#x002A;/
+  @}
+@end example
+
+This function will be used by Clutter to toggle an "internal child" flag
+whenever @code{clutter-actor-set-parent} is called; internal children
+are handled differently by Clutter, specifically when destroying their
+parent.
+
+Call @code{clutter-actor-pop-internal} when you finished adding internal
+children.
+
+Nested calls to @code{clutter-actor-push-internal} are allowed, but each
+one must by followed by a @code{clutter-actor-pop-internal} call.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-actor-pop-internal  (self@tie{}@code{<clutter-actor>})
+@deffnx Method pop-internal
+@samp{clutter_actor_pop_internal} has been deprecated since version 1.10
+and should not be used in newly-written code. All children of an actor
+are accessible through the @code{<clutter-actor>} API. This function is
+only useful for legacy containers overriding the default implementation
+of the @code{<clutter-container>} interface.
+
+Disables the effects of @code{clutter-actor-push-internal}.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-actor-set-parent  (self@tie{}@code{<clutter-actor>}) (parent@tie{}@code{<clutter-actor>})
+@deffnx Method set-parent
+@samp{clutter_actor_set_parent} has been deprecated since version 1.10
+and should not be used in newly-written code. Use
+@code{clutter-actor-add-child} instead.
+
+Sets the parent of @var{self} to @var{parent}.
+
+This function will result in @var{parent} acquiring a reference on
+@var{self}, eventually by sinking its floating reference first. The
+reference will be released by @code{clutter-actor-unparent}.
+
+This function should only be called by legacy @code{<clutter-actor>}s
+implementing the @code{<clutter-container>} interface.
+
+@table @var
+@item self
+A @code{<clutter-actor>}
+
+@item parent
+A new @code{<clutter-actor>} parent
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-actor-reparent  (self@tie{}@code{<clutter-actor>}) (new_parent@tie{}@code{<clutter-actor>})
+@deffnx Method reparent
+@samp{clutter_actor_reparent} has been deprecated since version 1.10 and
+should not be used in newly-written code. Use
+@code{clutter-actor-remove-child} and @code{clutter-actor-add-child}
+instead; remember to take a reference on the actor being removed before
+calling @code{clutter-actor-remove-child} to avoid the reference count
+dropping to zero and the actor being destroyed.
+
+Resets the parent actor of @var{self}.
+
+This function is logically equivalent to calling
+@code{clutter-actor-unparent} and @code{clutter-actor-set-parent}, but
+more efficiently implemented, as it ensures the child is not finalized
+when unparented, and emits the @code{<"parent-set">} signal only once.
+
+In reality, calling this function is less useful than it sounds, as some
+application code may rely on changes in the intermediate state between
+removal and addition of the actor from its old parent to the
+@var{new-parent}. Thus, it is strongly encouraged to avoid using this
+function in application code.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item new-parent
+the new @code{<clutter-actor>} parent
+
+@end table
+
+Since 0.2
+
+@end deffn
+
+@deffn Function clutter-actor-unparent  (self@tie{}@code{<clutter-actor>})
+@deffnx Method unparent
+@samp{clutter_actor_unparent} has been deprecated since version 1.10 and
+should not be used in newly-written code. Use
+@code{clutter-actor-remove-child} instead.
+
+Removes the parent of @var{self}.
+
+This will cause the parent of @var{self} to release the reference
+acquired when calling @code{clutter-actor-set-parent}, so if you want to
+keep @var{self} you will have to acquire a reference of your own,
+through @code{g-object-ref}.
+
+This function should only be called by legacy @code{<clutter-actor>}s
+implementing the @code{<clutter-container>} interface.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@end table
+
+Since 0.1.1
+
+@end deffn
+
+@deffn Function clutter-actor-raise  (self@tie{}@code{<clutter-actor>}) (below@tie{}@code{<clutter-actor>})
+@deffnx Method raise
+@samp{clutter_actor_raise} has been deprecated since version 1.10 and
+should not be used in newly-written code. Use
+@code{clutter-actor-set-child-above-sibling} instead.
+
+Puts @var{self} above @var{below}.
+
+Both actors must have the same parent, and the parent must implement the
+@code{<clutter-container>} interface
+
+This function calls @code{clutter-container-raise-child} internally.
+
+@table @var
+@item self
+A @code{<clutter-actor>}
+
+@item below
+A @code{<clutter-actor>} to raise above.
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-actor-lower  (self@tie{}@code{<clutter-actor>}) (above@tie{}@code{<clutter-actor>})
+@deffnx Method lower
+@samp{clutter_actor_lower} has been deprecated since version 1.10 and
+should not be used in newly-written code. Use
+@code{clutter-actor-set-child-below-sibling} instead.
+
+Puts @var{self} below @var{above}.
+
+Both actors must have the same parent, and the parent must implement the
+@code{<clutter-container>} interface.
+
+This function calls @code{clutter-container-lower-child} internally.
+
+@table @var
+@item self
+A @code{<clutter-actor>}
+
+@item above
+A @code{<clutter-actor>} to lower below.
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-actor-raise-top  (self@tie{}@code{<clutter-actor>})
+@deffnx Method raise-top
+@samp{clutter_actor_raise_top} has been deprecated since version 1.10
+and should not be used in newly-written code. Use
+@code{clutter-actor-set-child-above-sibling} with a @samp{@code{#f}}
+sibling, instead.
+
+Raises @var{self} to the top.
+
+This function calls @code{clutter-actor-raise} internally.
+
+@table @var
+@item self
+A @code{<clutter-actor>}
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-actor-lower-bottom  (self@tie{}@code{<clutter-actor>})
+@deffnx Method lower-bottom
+@samp{clutter_actor_lower_bottom} has been deprecated since version 1.10
+and should not be used in newly-written code. Use
+@code{clutter-actor-set-child-below-sibling} with a @samp{@code{#f}}
+sibling, instead.
+
+Lowers @var{self} to the bottom.
+
+This function calls @code{clutter-actor-lower} internally.
+
+@table @var
+@item self
+A @code{<clutter-actor>}
+
+@end table
+
+@end deffn
+
 @deffn Function clutter-actor-box-new  (x_1@tie{}@code{float}) (y_1@tie{}@code{float}) (x_2@tie{}@code{float}) (y_2@tie{}@code{float}) @result{}@tie{} (ret@tie{}@code{<clutter-actor-box>})
 Allocates a new @code{<clutter-actor-box>} using the passed coordinates
 for the top left and bottom right points
@@ -2728,6 +3926,56 @@ the newly allocated @code{<clutter-actor-box>}. Use
 @end table
 
 Since 1.0
+
+@end deffn
+
+@deffn Function clutter-actor-box-init  (self@tie{}@code{<clutter-actor-box>}) (x_1@tie{}@code{float}) (y_1@tie{}@code{float}) (x_2@tie{}@code{float}) (y_2@tie{}@code{float})
+Initializes @var{box} with the given coordinates.
+
+@table @var
+@item box
+a @code{<clutter-actor-box>}
+
+@item x-1
+X coordinate of the top left point
+
+@item y-1
+Y coordinate of the top left point
+
+@item x-2
+X coordinate of the bottom right point
+
+@item y-2
+Y coordinate of the bottom right point
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-actor-box-init-rect  (self@tie{}@code{<clutter-actor-box>}) (x@tie{}@code{float}) (y@tie{}@code{float}) (width@tie{}@code{float}) (height@tie{}@code{float})
+Initializes @var{box} with the given origin and size.
+
+@table @var
+@item box
+a @code{<clutter-actor-box>}
+
+@item x
+X coordinate of the origin
+
+@item y
+Y coordinate of the origin
+
+@item width
+width of the box
+
+@item height
+height of the box
+
+@end table
+
+Since 1.10
 
 @end deffn
 
@@ -3013,6 +4261,28 @@ Since 1.0
 
 @end deffn
 
+@deffn Function clutter-vertex-init  (self@tie{}@code{<clutter-vertex>}) (x@tie{}@code{float}) (y@tie{}@code{float}) (z@tie{}@code{float})
+Initializes @var{vertex} with the given coordinates.
+
+@table @var
+@item vertex
+a @code{<clutter-vertex>}
+
+@item x
+X coordinate
+
+@item y
+Y coordinate
+
+@item z
+Z coordinate
+
+@end table
+
+Since 1.10
+
+@end deffn
+
 @deffn Function clutter-vertex-equal  (self@tie{}@code{<clutter-vertex>}) (vertex_b@tie{}@code{<clutter-vertex>}) @result{}@tie{} (ret@tie{}@code{bool})
 Compares @var{vertex-a} and @var{vertex-b} for equality
 
@@ -3295,6 +4565,26 @@ A second @code{<clutter-paint-volume>} to union with @var{pv}
 @end table
 
 Since 1.6
+
+@end deffn
+
+@deffn Function clutter-paint-volume-union-box  (self@tie{}@code{<clutter-paint-volume>}) (box@tie{}@code{<clutter-actor-box>})
+Unions the 2D region represented by @var{box} to a
+@code{<clutter-paint-volume>}.
+
+This function is similar to @code{clutter-paint-volume-union}, but it is
+specific for 2D regions.
+
+@table @var
+@item pv
+a @code{<clutter-paint-volume>}
+
+@item box
+a @code{<clutter-actor-box>} to union to @var{pv}
+
+@end table
+
+Since 1.10
 
 @end deffn
 

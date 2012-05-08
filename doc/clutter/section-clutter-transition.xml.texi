@@ -1,0 +1,16 @@
+
+@c %start of fragment
+
+@node ClutterTransition
+@chapter ClutterTransition
+Transition between two values
+
+@section Overview
+@code{<clutter-transition>} is a subclass of @code{<clutter-timeline>}
+that computes the interpolation between two values, stored by a
+@code{<clutter-interval>}.
+
+@section Usage
+@include defuns-clutter-transition.xml.texi
+
+@c %end of fragment

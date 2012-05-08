@@ -73,6 +73,12 @@
   (gtype-id "CLUTTER_TYPE_STAGE_MANAGER")
 )
 
+(define-interface Content
+  (in-module "Clutter")
+  (c-name "ClutterContent")
+  (gtype-id "CLUTTER_TYPE_CONTENT")
+)
+
 (define-object Backend
   (in-module "Clutter")
   (parent "GObject")
@@ -116,6 +122,12 @@
   (gtype-id "CLUTTER_TYPE_COLORIZE_EFFECT")
 )
 
+(define-object BrightnessContrastEffect
+  (in-module "Clutter")
+  (c-name "ClutterBrightnessContrastEffect")
+  (gtype-id "CLUTTER_TYPE_BRIGHTNESS_CONTRAST_EFFECT")
+)
+
 (define-object DesaturateEffect
   (in-module "Clutter")
   (c-name "ClutterDesaturateEffect")
@@ -126,6 +138,12 @@
   (in-module "Clutter")
   (c-name "ClutterPageTurnEffect")
   (gtype-id "CLUTTER_TYPE_PAGE_TURN_EFFECT")
+)
+
+(define-object PaintNode
+  (in-module "Clutter")
+  (c-name "ClutterPaintNode")
+  (gtype-id "CLUTTER_TYPE_PAINT_NODE")
 )
 
 (define-object Settings
@@ -192,6 +210,13 @@
     '("GObjectClass*" "klass")
   )
 )
+(define-method get_children
+  (of-object "ClutterActor")
+  (c-name "clutter_actor_get_children")
+  (overrides "clutter_actor_get_children")
+  (return-type "GList*-of-ClutterActor*")
+)
+
 (define-method get_children
   (of-object "ClutterContainer")
   (c-name "clutter_container_get_children")
@@ -363,13 +388,16 @@
               "*_foreach"
               "*_valist")
 
-(ignore-glob "*_vertices"
+(ignore-glob "CLUTTER_PRIVATE_FIELD"
+             "*_vertices"
              "*_func"
              "clutter_alpha_new_full"
              "clutter_actor_get_transformation_matrix"
              "clutter_actor_animatev"
              "clutter_actor_animate_with_timelinev"
              "clutter_actor_animate_with_alphav"
+             "clutter_actor_iter_*"
+             "clutter_actor_queue_redraw_with_clip" ;; needs cairo_rectangle_int_t
              "clutter_backend_get_cogl_context"
              "clutter_binding_pool_install_action"
              "clutter_binding_pool_override_action"
@@ -385,7 +413,10 @@
              "clutter_deform_effect_set_back_material"
              "clutter_event_get_axes"
              "clutter_frame_source_*"
-             "clutter_init*"
+             "clutter_image_get_data"
+             "clutter_image_set_data"
+             "clutter_image_set_area"
+             "clutter_image_get_texture"
              "clutter_init*"
              "clutter_get_option_group"
              "clutter_get_option_group_without_init"
@@ -395,7 +426,11 @@
              "clutter_layout_manager_list_child_properties"
              "clutter_list_model*"
              "clutter_offscreen_effect_get_target"
+             "clutter_offscreen_effect_get_texture"
              "clutter_offscreen_effect_create_texture"
+             "clutter_paint_node_add_path"
+             "clutter_paint_node_add_primitive"
+             "clutter_pipeline_node_new"
              "clutter_scriptable*"
              "clutter_script_connect_signals*"
              "clutter_script_add_search_paths"
@@ -414,6 +449,7 @@
              "clutter_texture_set_cogl_material"
              "clutter_texture_get_cogl_material"
              "clutter_texture_get_pixel_format"
+             "clutter_texture_node_new"
              "clutter_timeline_do_tick"
              "clutter_timeline_list_markers"
              "clutter_timeout_pool*"
@@ -422,6 +458,10 @@
              "clutter_value_set_units"
              "clutter_value_get_fixed"
              "clutter_value_set_fixed"
+             "clutter_value_set_paint_node"
+             "clutter_value_take_paint_node"
+             "clutter_value_get_paint_node"
+             "clutter_value_dup_paint_node"
              "clutter_value_set_shader_*"
              "clutter_value_get_shader_*"
              "clutter_param_spec_fixed"

@@ -74,6 +74,32 @@ Since 0.6
 
 @end deffn
 
+@deffn Function clutter-script-load-from-resource  (self@tie{}@code{<clutter-script>}) (resource_path@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+@deffnx Method load-from-resource
+Loads the definitions from a resource file into @var{script} and merges
+with the currently loaded ones, if any.
+
+@table @var
+@item script
+a @code{<clutter-script>}
+
+@item resource-path
+the resource path of the file to parse
+
+@item error
+return location for a @code{<g-error>}, or @samp{@code{#f}}
+
+@item ret
+on error, zero is returned and @var{error} is set accordingly. On
+success, the merge id for the UI definitions is returned. You can use
+the merge id with @code{clutter-script-unmerge-objects}.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
 @deffn Function clutter-script-lookup-filename  (self@tie{}@code{<clutter-script>}) (filename@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{mchars})
 @deffnx Method lookup-filename
 Looks up @var{filename} inside the search paths of @var{script}. If

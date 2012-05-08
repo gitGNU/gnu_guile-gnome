@@ -1,0 +1,224 @@
+
+@c %start of fragment
+
+@deffn Function clutter-text-buffer-new  @result{}@tie{} (ret@tie{}@code{<clutter-text-buffer>})
+Create a new ClutterTextBuffer object.
+
+@table @var
+@item ret
+A new ClutterTextBuffer object.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-text-buffer-new-with-text  (text@tie{}@code{mchars}) (text_len@tie{}@code{ssize_t}) @result{}@tie{} (ret@tie{}@code{<clutter-text-buffer>})
+Create a new ClutterTextBuffer object with some text.
+
+@table @var
+@item text
+initial buffer text.
+
+@item text-len
+initial buffer text length, or -1 for null-terminated.
+
+@item ret
+A new ClutterTextBuffer object.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-text-buffer-set-text  (self@tie{}@code{<clutter-text-buffer>}) (chars@tie{}@code{mchars}) (n_chars@tie{}@code{int})
+@deffnx Method set-text
+Sets the text in the buffer.
+
+This is roughly equivalent to calling
+@code{clutter-text-buffer-delete-text} and
+@code{clutter-text-buffer-insert-text}.
+
+Note that @var{n-chars} is in characters, not in bytes.
+
+@table @var
+@item buffer
+a @code{<clutter-text-buffer>}
+
+@item chars
+the new text
+
+@item n-chars
+the number of characters in @var{text}, or -1
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-text-buffer-get-text  (self@tie{}@code{<clutter-text-buffer>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-text
+Retrieves the contents of the buffer.
+
+The memory pointer returned by this call will not change unless this
+object emits a signal, or is finalized.
+
+@table @var
+@item buffer
+a @code{<clutter-text-buffer>}
+
+@item ret
+a pointer to the contents of the widget as a string. This string points
+to internally allocated storage in the buffer and must not be freed,
+modified or stored.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-text-buffer-get-bytes  (self@tie{}@code{<clutter-text-buffer>}) @result{}@tie{} (ret@tie{}@code{size_t})
+@deffnx Method get-bytes
+Retrieves the length in bytes of the buffer. See
+@code{clutter-text-buffer-get-length}.
+
+@table @var
+@item buffer
+a @code{<clutter-text-buffer>}
+
+@item ret
+The byte length of the buffer.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-text-buffer-get-length  (self@tie{}@code{<clutter-text-buffer>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+@deffnx Method get-length
+Retrieves the length in characters of the buffer.
+
+@table @var
+@item buffer
+a @code{<clutter-text-buffer>}
+
+@item ret
+The number of characters in the buffer.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-text-buffer-set-max-length  (self@tie{}@code{<clutter-text-buffer>}) (max_length@tie{}@code{int})
+@deffnx Method set-max-length
+Sets the maximum allowed length of the contents of the buffer. If the
+current contents are longer than the given length, then they will be
+truncated to fit.
+
+@table @var
+@item buffer
+a @code{<clutter-text-buffer>}
+
+@item max-length
+the maximum length of the entry buffer, or 0 for no maximum. (other than
+the maximum length of entries.) The value passed in will be clamped to
+the range [ 0, @samp{CLUTTER_TEXT_BUFFER_MAX_SIZE} ].
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-text-buffer-get-max-length  (self@tie{}@code{<clutter-text-buffer>}) @result{}@tie{} (ret@tie{}@code{int})
+@deffnx Method get-max-length
+Retrieves the maximum allowed length of the text in @var{buffer}. See
+@code{clutter-text-buffer-set-max-length}.
+
+@table @var
+@item buffer
+a @code{<clutter-text-buffer>}
+
+@item ret
+the maximum allowed number of characters in
+@code{<clutter-text-buffer>}, or 0 if there is no maximum.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-text-buffer-insert-text  (self@tie{}@code{<clutter-text-buffer>}) (position@tie{}@code{unsigned-int}) (chars@tie{}@code{mchars}) (n_chars@tie{}@code{int}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+@deffnx Method insert-text
+Inserts @var{n-chars} characters of @var{chars} into the contents of the
+buffer, at position @var{position}.
+
+If @var{n-chars} is negative, then characters from chars will be
+inserted until a null-terminator is found. If @var{position} or
+@var{n-chars} are out of bounds, or the maximum buffer text length is
+exceeded, then they are coerced to sane values.
+
+Note that the position and length are in characters, not in bytes.
+
+@table @var
+@item buffer
+a @code{<clutter-text-buffer>}
+
+@item position
+the position at which to insert text.
+
+@item chars
+the text to insert into the buffer.
+
+@item n-chars
+the length of the text in characters, or -1
+
+@item ret
+The number of characters actually inserted.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-text-buffer-delete-text  (self@tie{}@code{<clutter-text-buffer>}) (position@tie{}@code{unsigned-int}) (n_chars@tie{}@code{int}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+@deffnx Method delete-text
+Deletes a sequence of characters from the buffer. @var{n-chars}
+characters are deleted starting at @var{position}. If @var{n-chars} is
+negative, then all characters until the end of the text are deleted.
+
+If @var{position} or @var{n-chars} are out of bounds, then they are
+coerced to sane values.
+
+Note that the positions are specified in characters, not bytes.
+
+@table @var
+@item buffer
+a @code{<clutter-text-buffer>}
+
+@item position
+position at which to delete text
+
+@item n-chars
+number of characters to delete
+
+@item ret
+The number of characters deleted.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+
+@c %end of fragment

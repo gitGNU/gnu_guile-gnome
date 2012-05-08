@@ -12,32 +12,4 @@
   (return-type "GType")
 )
 
-(define-function clutter_glx_texture_pixmap_new
-  (c-name "clutter_glx_texture_pixmap_new")
-  (is-constructor-of "ClutterGlxTexturePixmap")
-  (return-type "ClutterActor*")
-)
-
-(define-function clutter_glx_texture_pixmap_new_with_pixmap
-  (c-name "clutter_glx_texture_pixmap_new_with_pixmap")
-  (return-type "ClutterActor*")
-  (parameters
-    '("Pixmap" "pixmap")
-  )
-)
-
-(define-function clutter_glx_texture_pixmap_new_with_window
-  (c-name "clutter_glx_texture_pixmap_new_with_window")
-  (return-type "ClutterActor*")
-  (parameters
-    '("Window" "window")
-  )
-)
-
-(define-method using_extension
-  (of-object "ClutterGLXTexturePixmap")
-  (c-name "clutter_glx_texture_pixmap_using_extension")
-  (return-type "gboolean")
-)
-
 

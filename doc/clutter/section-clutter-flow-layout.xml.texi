@@ -34,17 +34,11 @@ area;
 the size of the columns or rows can be controlled for both minimum and
 maximum; the spacing can also be controlled in both columns and rows.
 
-(The missing figure, flow-layout-horizontal
+(The missing figure, flow-layout-image
 
 @c (title "Horizontal flow layout")
 The image shows a @code{<clutter-flow-layout>} with the
 @code{<"orientation">} propert set to @samp{CLUTTER_FLOW_HORIZONTAL}.
-
-(The missing figure, flow-layout-vertical
-
-@c (title "Vertical flow layout")
-The image shows a @code{<clutter-flow-layout>} with the
-@code{<"orientation">} propert set to @samp{CLUTTER_FLOW_VERTICAL}.
 
 @code{<clutter-flow-layout>} is available since Clutter 1.2
 

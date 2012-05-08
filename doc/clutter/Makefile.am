@@ -3,7 +3,7 @@
 
 include $(top_srcdir)/generate-docs.mk
 
-docbook_xml_wildcard = ~/src/clutter-1.8.4/doc/reference/clutter/xml/clutter-*.xml
+docbook_xml_wildcard = ~/src/clutter-1.10.4/doc/reference/clutter/xml/clutter-*.xml
 docbook_xml_files = $(filter-out %eglnative.xml %win32.xml %x11.xml %glx.xml,$(wildcard $(docbook_xml_wildcard)))
 
 wrapset_stem = clutter

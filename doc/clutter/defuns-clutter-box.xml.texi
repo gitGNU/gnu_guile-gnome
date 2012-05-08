@@ -2,6 +2,9 @@
 @c %start of fragment
 
 @deffn Function clutter-box-new  (manager@tie{}@code{<clutter-layout-manager>}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+@samp{clutter_box_new} has been deprecated since version 1.10 and should
+not be used in newly-written code. Use @code{clutter-actor-new} instead.
+
 Creates a new @code{<clutter-box>}. The children of the box will be
 layed out by the passed @var{manager}
 
@@ -14,12 +17,16 @@ the newly created @code{<clutter-box>} actor
 
 @end table
 
-Since 1.0
+Since 1.2
 
 @end deffn
 
 @deffn Function clutter-box-set-layout-manager  (self@tie{}@code{<clutter-box>}) (manager@tie{}@code{<clutter-layout-manager>})
 @deffnx Method set-layout-manager
+@samp{clutter_box_set_layout_manager} has been deprecated since version
+1.10 and should not be used in newly-written code. Use
+@code{clutter-actor-set-layout-manager} instead.
+
 Sets the @code{<clutter-layout-manager>} for @var{box}
 
 A @code{<clutter-layout-manager>} is a delegate object that controls the
@@ -40,6 +47,10 @@ Since 1.2
 
 @deffn Function clutter-box-get-layout-manager  (self@tie{}@code{<clutter-box>}) @result{}@tie{} (ret@tie{}@code{<clutter-layout-manager>})
 @deffnx Method get-layout-manager
+@samp{clutter_box_get_layout_manager} has been deprecated since version
+1.10 and should not be used in newly-written code. Use
+@code{clutter-actor-get-layout-manager} instead.
+
 Retrieves the @code{<clutter-layout-manager>} instance used by @var{box}
 
 @table @var
@@ -59,6 +70,10 @@ Since 1.2
 
 @deffn Function clutter-box-set-color  (self@tie{}@code{<clutter-box>}) (color@tie{}@code{<clutter-color>})
 @deffnx Method set-color
+@samp{clutter_box_set_color} has been deprecated since version 1.10 and
+should not be used in newly-written code. Use
+@code{clutter-actor-set-background-color} instead.
+
 Sets (or unsets) the background color for @var{box}
 
 @table @var
@@ -76,6 +91,10 @@ Since 1.2
 
 @deffn Function clutter-box-get-color  (self@tie{}@code{<clutter-box>}) (color@tie{}@code{<clutter-color>})
 @deffnx Method get-color
+@samp{clutter_box_get_color} has been deprecated since version 1.10 and
+should not be used in newly-written code. Use
+@code{clutter-actor-get-background-color} instead.
+
 Retrieves the background color of @var{box}
 
 If the @code{<"color-set">} property is set to @samp{@code{#f}} the

@@ -1,0 +1,19 @@
+
+@c %start of fragment
+
+@deffn Function clutter-image-new  @result{}@tie{} (ret@tie{}@code{<clutter-content>})
+Creates a new @code{<clutter-image>} instance.
+
+@table @var
+@item ret
+the newly created @code{<clutter-image>} instance. Use
+@code{g-object-unref} when done.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+
+@c %end of fragment

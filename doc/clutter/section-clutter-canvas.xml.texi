@@ -1,0 +1,27 @@
+
+@c %start of fragment
+
+@node ClutterCanvas
+@chapter ClutterCanvas
+Content for 2D painting
+
+@section Overview
+The @code{<clutter-canvas>} class is a @code{<clutter-content>}
+implementation that allows drawing using the Cairo API on a 2D surface.
+
+In order to draw on a @code{<clutter-canvas>}, you should connect a
+handler to the @code{<"draw">} signal; the signal will receive a
+@code{<cairo-t>} context that can be used to draw.
+@code{<clutter-canvas>} will emit the @code{<"draw">} signal when
+invalidated using @code{clutter-content-invalidate}.
+
+@example 
+@c (http://www.w3.org/2001/XInclude:include (@ (parse "text") (href "../../../../tests/interactive/test-canvas.c")) (c (% (all "(http://www.w3.org/2001/XInclude:fallback \"FIXME: MISSING XINCLUDE CONTENT\")"))))
+@end example
+
+@code{<clutter-canvas>} is available since Clutter 1.10.
+
+@section Usage
+@include defuns-clutter-canvas.xml.texi
+
+@c %end of fragment

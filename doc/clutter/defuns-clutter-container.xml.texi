@@ -3,10 +3,18 @@
 
 @deffn Function clutter-container-add-actor  (self@tie{}@code{<clutter-container>}) (actor@tie{}@code{<clutter-actor>})
 @deffnx Method add-actor
+@samp{clutter_container_add_actor} has been deprecated since version
+1.10 and should not be used in newly-written code. Use
+@code{clutter-actor-add-child} instead.
+
 Adds a @code{<clutter-actor>} to @var{container}. This function will
 emit the "actor-added" signal. The actor should be parented to
 @var{container}. You cannot add a @code{<clutter-actor>} to more than
 one @code{<clutter-container>}.
+
+This function will call @code{clutter-container-iface.add}, which is a
+deprecated virtual function. The default implementation will call
+@code{clutter-actor-add-child}.
 
 Virtual: add
 
@@ -25,10 +33,18 @@ Since 0.4
 
 @deffn Function clutter-container-remove-actor  (self@tie{}@code{<clutter-container>}) (actor@tie{}@code{<clutter-actor>})
 @deffnx Method remove-actor
+@samp{clutter_container_remove_actor} has been deprecated since version
+1.10 and should not be used in newly-written code. Use
+@code{clutter-actor-remove-child} instead.
+
 Removes @var{actor} from @var{container}. The actor should be
 unparented, so if you want to keep it around you must hold a reference
 to it yourself, using @code{g-object-ref}. When the actor has been
 removed, the "actor-removed" signal is emitted by @var{container}.
+
+This function will call @code{clutter-container-iface.remove}, which is
+a deprecated virtual function. The default implementation will call
+@code{clutter-actor-remove-child}.
 
 Virtual: remove
 
@@ -47,6 +63,10 @@ Since 0.4
 
 @deffn Function clutter-container-get-children  (self@tie{}@code{<clutter-container>}) @result{}@tie{} (ret@tie{}@code{glist-of})
 @deffnx Method get-children
+@samp{clutter_container_get_children} has been deprecated since version
+1.10 and should not be used in newly-written code. Use
+@code{clutter-actor-get-children} instead.
+
 Retrieves all the children of @var{container}.
 
 @table @var
@@ -65,7 +85,15 @@ Since 0.4
 
 @deffn Function clutter-container-raise-child  (self@tie{}@code{<clutter-container>}) (actor@tie{}@code{<clutter-actor>}) (sibling@tie{}@code{<clutter-actor>})
 @deffnx Method raise-child
+@samp{clutter_container_raise_child} has been deprecated since version
+1.10 and should not be used in newly-written code. Use
+@code{clutter-actor-set-child-above-sibling} instead.
+
 Raises @var{actor} to @var{sibling} level, in the depth ordering.
+
+This function calls the @code{clutter-container-iface.raise} virtual
+function, which has been deprecated. The default implementation will
+call @code{clutter-actor-set-child-above-sibling}.
 
 Virtual: raise
 
@@ -87,7 +115,15 @@ Since 0.6
 
 @deffn Function clutter-container-lower-child  (self@tie{}@code{<clutter-container>}) (actor@tie{}@code{<clutter-actor>}) (sibling@tie{}@code{<clutter-actor>})
 @deffnx Method lower-child
+@samp{clutter_container_lower_child} has been deprecated since version
+1.10 and should not be used in newly-written code. Use
+@code{clutter-actor-set-child-below-sibling} instead.
+
 Lowers @var{actor} to @var{sibling} level, in the depth ordering.
+
+This function calls the @code{clutter-container-iface.lower} virtual
+function, which has been deprecated. The default implementation will
+call @code{clutter-actor-set-child-below-sibling}.
 
 Virtual: lower
 
@@ -109,6 +145,12 @@ Since 0.6
 
 @deffn Function clutter-container-sort-depth-order  (self@tie{}@code{<clutter-container>})
 @deffnx Method sort-depth-order
+@samp{clutter_container_sort_depth_order} has been deprecated since
+version 1.10 and should not be used in newly-written code. The
+@code{clutter-container-iface.sort-depth-order} virtual function should
+not be used any more; the default implementation in
+@code{<clutter-container>} does not do anything.
+
 Sorts a container's children using their depth. This function should not
 be normally used by applications.
 
@@ -124,8 +166,8 @@ Since 0.6
 
 @deffn Function clutter-container-child-notify  (self@tie{}@code{<clutter-container>}) (child@tie{}@code{<clutter-actor>}) (pspec@tie{}@code{<gparam>})
 @deffnx Method child-notify
-Calls the @code{@code{child-notify}} virtual function of
-@code{<clutter-container>}. The default implementation will emit the
+Calls the @code{clutter-container-iface.child-notify} virtual function
+of @code{<clutter-container>}. The default implementation will emit the
 @code{<"child-notify">} signal.
 
 @table @var

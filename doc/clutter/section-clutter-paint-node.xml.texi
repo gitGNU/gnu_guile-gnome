@@ -1,0 +1,25 @@
+
+@c %start of fragment
+
+@node ClutterPaintNode
+@chapter ClutterPaintNode
+Paint objects
+
+@section Overview
+@code{<clutter-paint-node>} is an element in the render graph.
+
+The render graph contains all the elements that need to be painted by
+Clutter when submitting a frame to the graphics system.
+
+The render graph is distinct from the scene graph: the scene graph is
+composed by actors, which can be visible or invisible; the scene graph
+elements also respond to events. The render graph, instead, is only
+composed by nodes that will be painted.
+
+Each @code{<clutter-actor>} can submit multiple
+@code{<clutter-paint-node>}s to the render graph.
+
+@section Usage
+@include defuns-clutter-paint-node.xml.texi
+
+@c %end of fragment

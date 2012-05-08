@@ -31,6 +31,9 @@ ClutterKnot* scm_scm_to_clutter_knot (SCM scm);
 SCM scm_clutter_path_node_to_scm (ClutterPathNode *k);
 ClutterPathNode* scm_scm_to_clutter_path_node (SCM scm);
 
+SCM scm_clutter_margin_to_scm (ClutterMargin *k);
+ClutterMargin* scm_scm_to_clutter_margin (SCM scm);
+
 SCM scm_clutter_color_to_scm (ClutterColor *c);
 ClutterColor* scm_scm_to_clutter_color (SCM scm);
 

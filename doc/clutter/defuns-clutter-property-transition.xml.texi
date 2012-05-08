@@ -1,0 +1,22 @@
+
+@c %start of fragment
+
+@deffn Function clutter-property-transition-new  (property_name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<clutter-transition>})
+Creates a new @code{<clutter-property-transition>}.
+
+@table @var
+@item property-name
+a property of @var{animatable}, or @samp{@code{#f}}.
+
+@item ret
+the newly created @code{<clutter-property-transition>}. Use
+@code{g-object-unref} when done.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+
+@c %end of fragment

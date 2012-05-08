@@ -1,0 +1,63 @@
+
+@c %start of fragment
+
+@deffn Function clutter-paint-node-set-name  (self@tie{}@code{<clutter-paint-node>}) (name@tie{}@code{mchars})
+@deffnx Method set-name
+Sets a user-readable @var{name} for @var{node}.
+
+The @var{name} will be used for debugging purposes.
+
+The @var{node} will copy the passed string.
+
+@table @var
+@item node
+a @code{<clutter-paint-node>}
+
+@item name
+a string annotating the @var{node}
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-paint-node-add-child  (self@tie{}@code{<clutter-paint-node>}) (child@tie{}@code{<clutter-paint-node>})
+@deffnx Method add-child
+Adds @var{child} to the list of children of @var{node}.
+
+This function will acquire a reference on @var{child}.
+
+@table @var
+@item node
+a @code{<clutter-paint-node>}
+
+@item child
+the child @code{<clutter-paint-node>} to add
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-paint-node-add-rectangle  (self@tie{}@code{<clutter-paint-node>}) (rect@tie{}@code{<clutter-actor-box>})
+@deffnx Method add-rectangle
+Adds a rectangle region to the @var{node}, as described by the passed
+@var{rect}.
+
+@table @var
+@item node
+a @code{<clutter-paint-node>}
+
+@item rect
+a @code{<clutter-actor-box>}
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+
+@c %end of fragment

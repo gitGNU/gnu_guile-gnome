@@ -1,0 +1,25 @@
+
+@c %start of fragment
+
+@node ClutterTextBuffer
+@chapter ClutterTextBuffer
+Text buffer for ClutterText
+
+@section Overview
+The @code{<clutter-text-buffer>} class contains the actual text
+displayed in a @code{<clutter-text>} widget.
+
+A single @code{<clutter-text-buffer>} object can be shared by multiple
+@code{<clutter-text>} widgets which will then share the same text
+content, but not the cursor position, visibility attributes, icon etc.
+
+@code{<clutter-text-buffer>} may be derived from. Such a derived class
+might allow text to be stored in an alternate location, such as
+non-pageable memory, useful in the case of important passwords. Or a
+derived class could integrate with an application's concept of
+undo/redo.
+
+@section Usage
+@include defuns-clutter-text-buffer.xml.texi
+
+@c %end of fragment

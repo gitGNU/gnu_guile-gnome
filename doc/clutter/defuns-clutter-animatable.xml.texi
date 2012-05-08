@@ -1,53 +1,6 @@
 
 @c %start of fragment
 
-@deffn Function clutter-animatable-animate-property  (self@tie{}@code{<clutter-animatable>}) (animation@tie{}@code{<clutter-animation>}) (property_name@tie{}@code{mchars}) (initial_value@tie{}@code{<gvalue>}) (final_value@tie{}@code{<gvalue>}) (progress@tie{}@code{double}) (value@tie{}@code{<gvalue>}) @result{}@tie{} (ret@tie{}@code{bool})
-@deffnx Method animate-property
-@samp{clutter_animatable_animate_property} has been deprecated since
-version 1.8 and should not be used in newly-written code. Use
-@code{clutter-animatable-interpolate-value} instead
-
-Calls the @code{animate-property} virtual function for @var{animatable}.
-
-The @var{initial-value} and @var{final-value}@code{<gvalue>}s must
-contain the same type; @var{value} must have been initialized to the
-same type of @var{initial-value} and @var{final-value}.
-
-All implementation of the @code{<clutter-animatable>} interface must
-implement this function.
-
-@table @var
-@item animatable
-a @code{<clutter-animatable>}
-
-@item animation
-a @code{<clutter-animation>}
-
-@item property-name
-the name of the animated property
-
-@item initial-value
-the initial value of the animation interval
-
-@item final-value
-the final value of the animation interval
-
-@item progress
-the progress factor
-
-@item value
-return location for the animation value
-
-@item ret
-@samp{@code{#t}} if the value has been validated and can be applied to
-the @code{<clutter-animatable>}, and @samp{@code{#f}} otherwise
-
-@end table
-
-Since 1.0
-
-@end deffn
-
 @deffn Function clutter-animatable-find-property  (self@tie{}@code{<clutter-animatable>}) (property_name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gparam>})
 @deffnx Method find-property
 Finds the @code{<gparam>} for @var{property-name}

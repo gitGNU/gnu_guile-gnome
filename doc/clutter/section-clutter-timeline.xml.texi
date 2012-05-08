@@ -6,8 +6,73 @@
 A class for time-based events
 
 @section Overview
-@code{<clutter-timeline>} is a base class for managing time based events
-such as animations.
+@code{<clutter-timeline>} is a base class for managing time-based event
+that cause Clutter to redraw a stage, such as animations.
+
+Each @code{<clutter-timeline>} instance has a duration: once a timeline
+has been started, using @code{clutter-timeline-start}, it will emit a
+signal that can be used to update the state of the actors.
+
+It is important to note that @code{<clutter-timeline>} is not a generic
+API for calling closures after an interval; each Timeline is tied into
+the master clock used to drive the frame cycle. If you need to schedule
+a closure after an interval, see @code{clutter-threads-add-timeout}
+instead.
+
+Users of @code{<clutter-timeline>} should connect to the
+@code{<"new-frame">} signal, which is emitted each time a timeline is
+advanced during the maste clock iteration. The @code{<"new-frame">}
+signal provides the time elapsed since the beginning of the timeline, in
+milliseconds. A normalized progress value can be obtained by calling
+@code{clutter-timeline-get-progress}. By using
+@code{clutter-timeline-get-delta} it is possible to obtain the wallclock
+time elapsed since the last emission of the @code{<"new-frame">} signal.
+
+Initial state can be set up by using the @code{<"started">} signal,
+while final state can be set up by using the @code{<"completed">}
+signal. The @code{<clutter-timeline>} guarantees the emission of at
+least a single @code{<"new-frame">} signal, as well as the emission of
+the @code{<"completed">} signal.
+
+It is possible to connect to specific points in the timeline progress by
+adding @emph{markers} using @code{clutter-timeline-add-marker-at-time}
+and connecting to the @code{<"marker-reached">} signal.
+
+Timelines can be made to loop once they reach the end of their duration,
+by using @code{clutter-timeline-set-repeat-count}; a looping timeline
+will still emit the @code{<"completed">} signal once it reaches the end
+of its duration.
+
+Timelines have a @code{<"direction">}: the default direction is
+@samp{CLUTTER_TIMELINE_FORWARD}, and goes from 0 to the duration; it is
+possible to change the direction to @samp{CLUTTER_TIMELINE_BACKWARD},
+and have the timeline go from the duration to 0. The direction can be
+automatically reversed when reaching completion by using the
+@code{<"auto-reverse">} property.
+
+Timelines are used in the Clutter animation framework by classes like
+@code{<clutter-animation>}, @code{<clutter-animator>}, and
+@code{<clutter-state>}.
+
+@section Defining Timelines in ClutterScript
+A @code{<clutter-timeline>} can be described in @code{<clutter-script>}
+like any other object. Additionally, it is possible to define markers
+directly inside the JSON definition by using the @emph{markers} JSON
+object member, such as:
+
+@example 
+
+@{
+  "type" : "ClutterTimeline",
+  "duration" : 1000,
+  "markers" : [
+    @{ "name" : "quarter", "time" : 250 @},
+    @{ "name" : "half-time", "time" : 500 @},
+    @{ "name" : "three-quarters", "time" : 750 @}
+  ]
+@}
+ 
+@end example
 
 @section Usage
 @include defuns-clutter-timeline.xml.texi

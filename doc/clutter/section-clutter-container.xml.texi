@@ -3,17 +3,21 @@
 
 @node ClutterContainer
 @chapter ClutterContainer
-An interface for implementing container actors
+An interface for container actors
 
 @section Overview
-@code{<clutter-container>} is an interface for writing actors containing
-other @code{<clutter-actor>}s. It provides a standard API for adding,
-removing and iterating on every contained actor.
+@code{<clutter-container>} is an interface implemented by
+@code{<clutter-actor>}, and it provides some common API for notifying
+when a child actor is added or removed, as well as the infrastructure
+for accessing child properties through @code{<clutter-child-meta>}.
 
-An actor implementing @code{<clutter-container>} is
-@code{<clutter-group>}.
-
-@code{<clutter-container>} is available since Clutter 0.4
+Until Clutter 1.10, the @code{<clutter-container>} interface was also
+the public API for implementing container actors; this part of the
+interface has been deprecated: @code{<clutter-container>} has a default
+implementation which defers to @code{<clutter-actor>} the child addition
+and removal, as well as the iteration. See the documentation of
+@code{<clutter-container-iface>} for the list of virtual functions that
+should be overridden.
 
 @section Usage
 @include defuns-clutter-container.xml.texi

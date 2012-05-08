@@ -1,0 +1,90 @@
+
+@c %start of fragment
+
+@deffn Function clutter-transition-set-interval  (self@tie{}@code{<clutter-transition>}) (interval@tie{}@code{<clutter-interval>})
+@deffnx Method set-interval
+Sets the @code{<"interval">} property using @var{interval}.
+
+The @var{transition} will acquire a reference on the @var{interval},
+sinking the floating flag on it if necessary.
+
+@table @var
+@item transition
+a @code{<clutter-transition>}
+
+@item interval
+a @code{<clutter-interval>}, or @samp{@code{#f}}.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-transition-get-interval  (self@tie{}@code{<clutter-transition>}) @result{}@tie{} (ret@tie{}@code{<clutter-interval>})
+@deffnx Method get-interval
+Retrieves the interval set using @code{clutter-transition-set-interval}
+
+@table @var
+@item transition
+a @code{<clutter-transition>}
+
+@item ret
+a @code{<clutter-interval>}, or @samp{@code{#f}}; the returned interval
+is owned by the @code{<clutter-transition>} and it should not be freed
+directly.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-transition-set-animatable  (self@tie{}@code{<clutter-transition>}) (animatable@tie{}@code{<clutter-animatable>})
+@deffnx Method set-animatable
+Sets the @code{<"animatable">} property.
+
+The @var{transition} will acquire a reference to the @var{animatable}
+instance, and will call the @code{clutter-transition-class.attached}
+virtual function.
+
+If an existing @code{<clutter-animatable>} is attached to
+@var{transition}, the reference will be released, and the
+@code{clutter-transition-class.detached} virtual function will be
+called.
+
+@table @var
+@item transition
+a @code{<clutter-transition>}
+
+@item animatable
+a @code{<clutter-animatable>}, or @samp{@code{#f}}.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-transition-get-animatable  (self@tie{}@code{<clutter-transition>}) @result{}@tie{} (ret@tie{}@code{<clutter-animatable>})
+@deffnx Method get-animatable
+Retrieves the @code{<clutter-animatable>} set using
+@code{clutter-transition-set-animatable}.
+
+@table @var
+@item transition
+a @code{<clutter-transition>}
+
+@item ret
+a @code{<clutter-animatable>}, or @samp{@code{#f}}; the returned
+animatable is owned by the @code{<clutter-transition>}, and it should
+not be freed directly.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+
+@c %end of fragment

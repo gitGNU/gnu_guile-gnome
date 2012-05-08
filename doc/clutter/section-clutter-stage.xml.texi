@@ -9,12 +9,6 @@ Top level visual element to which actors are placed.
 @code{<clutter-stage>} is a top level 'window' on which child actors are
 placed and manipulated.
 
-Clutter creates a default stage upon initialization, which can be
-retrieved using @code{clutter-stage-get-default}. Clutter always
-provides the default stage, unless the backend is unable to create one.
-The stage returned by @code{clutter-stage-get-default} is guaranteed to
-always be the same.
-
 Backends might provide support for multiple stages. The support for this
 feature can be checked at run-time using the
 @code{clutter-feature-available} function and the

@@ -14,12 +14,18 @@ EXTRA_DIST = $(defs_DATA)
 
 CLUTTER_PREFIX=/opt/clutter
 CLUTTER_INC_DIR=$(CLUTTER_PREFIX)/include/clutter-$(CLUTTER_MAJORMINOR)/clutter
+
+# We include deprecated header files here so that we continue to bind
+# functions that we deprecated in the current stable release.  When the
+# next stable release comes out, there will be new compile warnings, and
+# those warnings should be added to the clutter.defs file in ../overrides/.
+#
 clutter:
 	../../../h2def.py --types \
-	   $(CLUTTER_INC_DIR)/*.h > clutter-types.defs
+	   $(CLUTTER_INC_DIR)/*.h $(CLUTTER_INC_DIR)/deprecated/*.h > clutter-types.defs
 	../../../h2def.py --procs \
 	   --with-header='(include type-ignores) (include "clutter-types.defs") (include overrides)' \
-	   $(CLUTTER_INC_DIR)/*.h > clutter.defs
+	   $(CLUTTER_INC_DIR)/*.h $(CLUTTER_INC_DIR)/deprecated/*.h > clutter.defs
 
 clutter-x11:
 	../../../h2def.py --types  --type-re='s/^CLUTTER_X11/CLUTTER_X11_TYPE/'\

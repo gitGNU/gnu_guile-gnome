@@ -1,0 +1,20 @@
+
+@c %start of fragment
+
+@node ClutterContent
+@chapter ClutterContent
+Delegate for painting the content of an actor
+
+@section Overview
+@code{<clutter-content>} is an interface to implement types responsible
+for painting the content of a @code{<clutter-actor>}.
+
+Multiple actors can use the same @code{<clutter-content>} instance, in
+order to share the resources associated with painting the same content.
+
+@code{<clutter-content>} is available since Clutter 1.10.
+
+@section Usage
+@include defuns-clutter-content.xml.texi
+
+@c %end of fragment

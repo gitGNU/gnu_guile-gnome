@@ -16,32 +16,6 @@ Since 0.4
 
 @end deffn
 
-@deffn Function clutter-backend-set-resolution  (self@tie{}@code{<clutter-backend>}) (dpi@tie{}@code{double})
-@deffnx Method set-resolution
-@samp{clutter_backend_set_resolution} is deprecated and should not be
-used in newly-written code. Use @code{<"font-dpi">} instead
-
-Sets the resolution for font handling on the screen. This is a scale
-factor between points specified in a @code{<pango-font-description>} and
-cairo units. The default value is 96, meaning that a 10 point font will
-be 13 units high. (10 * 96. / 72. = 13.3).
-
-Applications should never need to call this function.
-
-@table @var
-@item backend
-a @code{<clutter-backend>}
-
-@item dpi
-the resolution in "dots per inch" (Physical inches aren't actually
-involved; the terminology is conventional).
-
-@end table
-
-Since 0.4
-
-@end deffn
-
 @deffn Function clutter-backend-get-resolution  (self@tie{}@code{<clutter-backend>}) @result{}@tie{} (ret@tie{}@code{double})
 @deffnx Method get-resolution
 Gets the resolution for font handling on the screen.
@@ -93,50 +67,46 @@ Since 0.8
 
 @end deffn
 
-@deffn Function clutter-backend-set-font-name  (self@tie{}@code{<clutter-backend>}) (font_name@tie{}@code{mchars})
-@deffnx Method set-font-name
-@samp{clutter_backend_set_font_name} has been deprecated since version
-1.4 and should not be used in newly-written code. Use
-@code{<"font-name">} instead
+@deffn Function clutter-check-windowing-backend  (backend_type@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{bool})
+Checks the run-time name of the Clutter windowing system backend, using
+the symbolic macros like @samp{CLUTTER_WINDOWING_WIN32} or
+@samp{CLUTTER_WINDOWING_X11}.
 
-Sets the default font to be used by Clutter. The @var{font-name} string
-must either be @samp{@code{#f}}, which means that the font name from the
-default @code{<clutter-backend>} will be used; or be something that can
-be parsed by the @code{pango-font-description-from-string} function.
+This function should be used in conjuction with the compile-time macros
+inside applications and libraries that are using the platform-specific
+windowing system API, to ensure that they are running on the correct
+windowing system; for instance:
 
-@table @var
-@item backend
-a @code{<clutter-backend>}
+@example 
 
-@item font-name
-the name of the font
-
-@end table
-
-Since 1.0
-
-@end deffn
-
-@deffn Function clutter-backend-get-font-name  (self@tie{}@code{<clutter-backend>}) @result{}@tie{} (ret@tie{}@code{mchars})
-@deffnx Method get-font-name
-@samp{clutter_backend_get_font_name} has been deprecated since version
-1.4 and should not be used in newly-written code. Use
-@code{<"font-name">} instead
-
-Retrieves the default font name as set by
-@code{clutter-backend-set-font-name}.
+&#x0023;ifdef CLUTTER_WINDOWING_X11
+  if (clutter_check_windowing_backend (CLUTTER_WINDOWING_X11))
+    @{
+      /&#x002A; it is safe to use the clutter_x11_* API &#x002A;/
+    @}
+  else
+&#x0023;endif
+&#x0023;ifdef CLUTTER_WINDOWING_WIN32
+  if (clutter_check_windowing_backend (CLUTTER_WINDOWING_WIN32))
+    @{
+      /&#x002A; it is safe to use the clutter_win32_* API &#x002A;/
+    @}
+  else
+&#x0023;endif
+    g_error ("Unknown Clutter backend.");
+@end example
 
 @table @var
-@item backend
-a @code{<clutter-backend>}
+@item backend-type
+the name of the backend to check
 
 @item ret
-the font name for the backend. The returned string is owned by the
-@code{<clutter-backend>} and should never be modified or freed
+@samp{@code{#t}} if the current Clutter windowing system backend is the
+one checked, and @samp{@code{#f}} otherwise
 
 @end table
 
-Since 1.0
+Since 1.10
 
 @end deffn
 

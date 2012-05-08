@@ -243,6 +243,25 @@ Since 1.0
 
 @end deffn
 
+@deffn Function clutter-event-get-event-sequence  (self@tie{}@code{<clutter-event>}) @result{}@tie{} (ret@tie{}@code{<clutter-event-sequence*>})
+@deffnx Method get-event-sequence
+Retrieves the @code{<clutter-event-sequence>} of @var{event}.
+
+@table @var
+@item event
+a @code{<clutter-event>} of type @samp{CLUTTER_TOUCH_BEGIN},
+@samp{CLUTTER_TOUCH_UPDATE}, @samp{CLUTTER_TOUCH_END}, or
+@samp{CLUTTER_TOUCH_CANCEL}
+
+@item ret
+the event sequence, or @samp{@code{#f}}.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
 @deffn Function clutter-event-get  @result{}@tie{} (ret@tie{}@code{<clutter-event>})
 Pops an event off the event queue. Applications should not need to call
 this.
@@ -477,6 +496,23 @@ a Unicode character, or 0 if there is no corresponding character.
 
 @end deffn
 
+@deffn Function clutter-unicode-to-keysym  (wc@tie{}@code{unsigned-int32}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+Convert from a ISO10646 character to a key symbol.
+
+@table @var
+@item wc
+a ISO10646 encoded character
+
+@item ret
+the corresponding Clutter key symbol, if one exists. or, if there is no
+corresponding symbol, wc | 0x01000000
+
+@end table
+
+Since 1.10
+
+@end deffn
+
 @deffn Function clutter-event-set-related  (self@tie{}@code{<clutter-event>}) (actor@tie{}@code{<clutter-actor>})
 @deffnx Method set-related
 Sets the related actor of a crossing event
@@ -527,6 +563,49 @@ the scrolling direction
 @end table
 
 Since 1.8
+
+@end deffn
+
+@deffn Function clutter-event-get-scroll-delta  (self@tie{}@code{<clutter-event>}) @result{}@tie{} (dx@tie{}@code{double}) (dy@tie{}@code{double})
+@deffnx Method get-scroll-delta
+Retrieves the precise scrolling information of @var{event}.
+
+The @var{event} has to have a @code{<clutter-scroll-event.direction>}
+value of @samp{CLUTTER_SCROLL_SMOOTH}.
+
+@table @var
+@item event
+a @code{<clutter-event>} of type @samp{CLUTTER_SCROLL}
+
+@item dx
+return location for the delta on the horizontal axis.
+
+@item dy
+return location for the delta on the vertical axis.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-event-set-scroll-delta  (self@tie{}@code{<clutter-event>}) (dx@tie{}@code{double}) (dy@tie{}@code{double})
+@deffnx Method set-scroll-delta
+Sets the precise scrolling information of @var{event}.
+
+@table @var
+@item event
+a @code{<clutter-event>} of type @samp{CLUTTER_SCROLL}
+
+@item dx
+delta on the horizontal axis
+
+@item dy
+delta on the vertical axis
+
+@end table
+
+Since 1.10
 
 @end deffn
 

@@ -67,9 +67,11 @@ USA
 * ClutterBindConstraint:: A constraint binding the position or size of an actor
 * ClutterBinLayout:: A simple layout manager
 * ClutterBlurEffect:: A blur effect
+* ClutterBrightnessContrastEffect:: Increase/decrease brightness and/or contrast of actor.
 * ClutterBoxLayout:: A layout manager arranging children on a single line
 * ClutterBox:: A generic layout container
 * Key Bindings:: Pool for key bindings.
+* ClutterCanvas:: Content for 2D painting
 * ClutterChildMeta:: Wrapper for actors inside a container
 * ClutterCairoTexture:: Texture with Cairo integration.
 * ClutterClickAction:: Action for clickable actors
@@ -78,6 +80,7 @@ USA
 * Colors:: Color management and manipulation.
 * ClutterConstraint:: Abstract class for constraints on position or size
 * ClutterContainer:: An interface for implementing container actors
+* ClutterContent:: Delegate for painting the content of an actor
 * ClutterDeformEffect:: A base class for effects deforming the geometry of an actor
 * ClutterDesaturateEffect:: A desaturation effect
 * ClutterDeviceManager:: Maintains the list of input devices
@@ -91,6 +94,7 @@ USA
 * ClutterGestureAction:: Action for gesture gestures
 * ClutterGroup:: Actor class containing multiple children. actors.
 * ClutterInputDevice:: An input device managed by Clutter
+* ClutterImage:: Image data content
 * Value intervals:: An object holding an interval of two values.
 * ClutterLayoutManager:: Layout managers base class
 * ClutterLayoutMeta:: Wrapper for actors inside a layout manager
@@ -101,8 +105,11 @@ USA
 * ClutterModel:: A generic model implementation
 * ClutterOffscreenEffect:: Base class for effects using offscreen buffers
 * ClutterPageTurnEffect:: A page turning effect
+* Paint Nodes:: ClutterPaintNode implementations
+* ClutterPaintNode:: Paint objects
 * ClutterPathConstraint:: A constraint that follows a path
 * ClutterPath:: Paths with straight lines and bezier curves.
+* ClutterPropertyTransition:: Property transitions
 * ClutterRectangle:: An actor that displays a simple rectangle.
 * ClutterSettings:: Settings configuration
 * ClutterScriptable:: Override the UI definition parsing
@@ -116,8 +123,10 @@ USA
 * ClutterSwipeAction:: Action for swipe gestures
 * ClutterTableLayout:: A layout manager arranging children in rows and columns
 * ClutterText:: An actor for displaying and editing text.
+* ClutterTextBuffer:: Text buffer for ClutterText
 * ClutterTexture:: An actor for displaying and manipulating images.
 * ClutterTimeline:: A class for time-based events
+* ClutterTransition:: Transition between two values
 * Unit conversion:: A logical distance unit.
 * Utilities:: Misc utility functions.
 * Versioning Macros:: Versioning utility macros
@@ -152,7 +161,9 @@ USA
 @include section-clutter-blur-effect.xml.texi
 @include section-clutter-box-layout.xml.texi
 @include section-clutter-box.xml.texi
+@include section-clutter-brightness-contrast-effect.xml.texi
 @include section-clutter-cairo-texture.xml.texi
+@include section-clutter-canvas.xml.texi
 @include section-clutter-child-meta.xml.texi
 @include section-clutter-click-action.xml.texi
 @include section-clutter-clone.xml.texi
@@ -160,6 +171,7 @@ USA
 @include section-clutter-colorize-effect.xml.texi
 @include section-clutter-constraint.xml.texi
 @include section-clutter-container.xml.texi
+@include section-clutter-content.xml.texi
 @include section-clutter-deform-effect.xml.texi
 @include section-clutter-desaturate-effect.xml.texi
 @include section-clutter-device-manager.xml.texi
@@ -172,6 +184,7 @@ USA
 @include section-clutter-flow-layout.xml.texi
 @include section-clutter-gesture-action.xml.texi
 @include section-clutter-group.xml.texi
+@include section-clutter-image.xml.texi
 @include section-clutter-input-device.xml.texi
 @include section-clutter-interval.xml.texi
 @include section-clutter-layout-manager.xml.texi
@@ -183,8 +196,11 @@ USA
 @include section-clutter-model.xml.texi
 @include section-clutter-offscreen-effect.xml.texi
 @include section-clutter-page-turn-effect.xml.texi
+@include section-clutter-paint-node.xml.texi
+@include section-clutter-paint-nodes.xml.texi
 @include section-clutter-path-constraint.xml.texi
 @include section-clutter-path.xml.texi
+@include section-clutter-property-transition.xml.texi
 @include section-clutter-rectangle.xml.texi
 @include section-clutter-script.xml.texi
 @include section-clutter-scriptable.xml.texi
@@ -197,9 +213,11 @@ USA
 @include section-clutter-state.xml.texi
 @include section-clutter-swipe-action.xml.texi
 @include section-clutter-table-layout.xml.texi
+@include section-clutter-text-buffer.xml.texi
 @include section-clutter-text.xml.texi
 @include section-clutter-texture.xml.texi
 @include section-clutter-timeline.xml.texi
+@include section-clutter-transition.xml.texi
 @include section-clutter-units.xml.texi
 @include section-clutter-util.xml.texi
 @include section-clutter-version.xml.texi

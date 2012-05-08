@@ -9,6 +9,9 @@ The following symbols, if any, have not been properly documented.
 @deftp Class <clutter-animatable>
 @end deftp
 
+@defvar <clutter-event-sequence*>
+@end defvar
+
 @defvar <clutter-input-device*>
 @end defvar
 
@@ -36,6 +39,12 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-actor-get-clip-to-allocation
 @end defvar
 
+@defun clutter-actor-get-content-scaling-filters _
+@end defun
+
+@defvar clutter-actor-get-default-paint-volume
+@end defvar
+
 @defvar clutter-actor-get-fixed-position-set
 @end defvar
 
@@ -57,13 +66,25 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-actor-move-anchor-point-from-gravity
 @end defvar
 
+@defvar clutter-actor-remove-all-transitions
+@end defvar
+
 @defvar clutter-actor-remove-constraint-by-name
 @end defvar
 
 @defvar clutter-actor-set-anchor-point-from-gravity
 @end defvar
 
+@defvar clutter-actor-set-child-above-sibling
+@end defvar
+
+@defvar clutter-actor-set-child-below-sibling
+@end defvar
+
 @defvar clutter-actor-set-clip-to-allocation
+@end defvar
+
+@defvar clutter-actor-set-content-scaling-filters
 @end defvar
 
 @defvar clutter-actor-set-fixed-position-set
@@ -73,9 +94,6 @@ The following symbols, if any, have not been properly documented.
 @end defvar
 
 @defvar clutter-actor-set-scale-with-gravity
-@end defvar
-
-@defvar clutter-actor-set-shader-param-float
 @end defvar
 
 @defvar clutter-actor-set-z-rotation-from-gravity
@@ -111,76 +129,10 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-animator-property-set-interpolation
 @end defvar
 
-@defvar clutter-backend-get-double-click-distance
-@end defvar
-
-@defvar clutter-backend-get-double-click-time
-@end defvar
-
 @defun clutter-backend-get-font-options _
 @end defun
 
-@defvar clutter-backend-set-double-click-distance
-@end defvar
-
-@defvar clutter-backend-set-double-click-time
-@end defvar
-
 @defvar clutter-base-init
-@end defvar
-
-@defvar clutter-behaviour-ellipse-get-angle-end
-@end defvar
-
-@defvar clutter-behaviour-ellipse-get-angle-start
-@end defvar
-
-@defvar clutter-behaviour-ellipse-get-angle-tilt
-@end defvar
-
-@defun clutter-behaviour-ellipse-get-center _
-@end defun
-
-@defvar clutter-behaviour-ellipse-get-direction
-@end defvar
-
-@defvar clutter-behaviour-ellipse-get-height
-@end defvar
-
-@defvar clutter-behaviour-ellipse-set-angle-end
-@end defvar
-
-@defvar clutter-behaviour-ellipse-set-angle-start
-@end defvar
-
-@defvar clutter-behaviour-ellipse-set-angle-tilt
-@end defvar
-
-@defvar clutter-behaviour-ellipse-set-center
-@end defvar
-
-@defvar clutter-behaviour-ellipse-set-direction
-@end defvar
-
-@defvar clutter-behaviour-ellipse-set-height
-@end defvar
-
-@defun clutter-behaviour-opacity-get-bounds _
-@end defun
-
-@defvar clutter-behaviour-opacity-set-bounds
-@end defvar
-
-@defvar clutter-behaviour-path-new-with-description
-@end defvar
-
-@defvar clutter-behaviour-path-new-with-knots
-@end defvar
-
-@defvar clutter-behaviour-rotate-get-direction
-@end defvar
-
-@defvar clutter-behaviour-rotate-set-direction
 @end defvar
 
 @defvar clutter-bind-constraint-get-coordinate
@@ -207,6 +159,27 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-box-layout-set-use-animations
 @end defvar
 
+@defun clutter-brightness-contrast-effect-get-brightness _
+@end defun
+
+@defun clutter-brightness-contrast-effect-get-contrast _
+@end defun
+
+@defvar clutter-brightness-contrast-effect-new
+@end defvar
+
+@defvar clutter-brightness-contrast-effect-set-brightness
+@end defvar
+
+@defvar clutter-brightness-contrast-effect-set-brightness-full
+@end defvar
+
+@defvar clutter-brightness-contrast-effect-set-contrast
+@end defvar
+
+@defvar clutter-brightness-contrast-effect-set-contrast-full
+@end defvar
+
 @defvar clutter-cairo-texture-get-auto-resize
 @end defvar
 
@@ -219,6 +192,18 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-cairo-texture-set-surface-size
 @end defvar
 
+@defvar clutter-canvas-new
+@end defvar
+
+@defvar clutter-canvas-set-size
+@end defvar
+
+@defvar clutter-clip-node-new
+@end defvar
+
+@defvar clutter-color-node-new
+@end defvar
+
 @defvar clutter-container-child-get-property
 @end defvar
 
@@ -229,6 +214,12 @@ The following symbols, if any, have not been properly documented.
 @end defvar
 
 @defvar clutter-container-find-child-by-name
+@end defvar
+
+@defun clutter-content-get-preferred-size _
+@end defun
+
+@defvar clutter-content-invalidate
 @end defvar
 
 @defvar clutter-desaturate-effect-get-factor
@@ -253,9 +244,6 @@ The following symbols, if any, have not been properly documented.
 @end defun
 
 @defvar clutter-drag-action-set-drag-threshold
-@end defvar
-
-@defvar clutter-drop-action-new
 @end defvar
 
 @defvar clutter-event-get-scroll-direction
@@ -285,7 +273,10 @@ The following symbols, if any, have not been properly documented.
 @defun clutter-gesture-action-get-release-coords _ _
 @end defun
 
-@defvar clutter-gesture-action-new
+@defvar clutter-image-error-quark
+@end defvar
+
+@defvar clutter-image-new
 @end defvar
 
 @defvar clutter-input-device-get-associated-device
@@ -303,6 +294,9 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-input-device-get-device-type
 @end defvar
 
+@defvar clutter-input-device-get-grabbed-actor
+@end defvar
+
 @defvar clutter-input-device-get-pointer-actor
 @end defvar
 
@@ -310,6 +304,9 @@ The following symbols, if any, have not been properly documented.
 @end defvar
 
 @defun clutter-input-device-get-slave-devices _
+@end defun
+
+@defun clutter-input-device-keycode-to-evdev _ _
 @end defun
 
 @defvar clutter-input-device-update-from-event
@@ -360,13 +357,40 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-offscreen-effect-paint-target
 @end defvar
 
+@defvar clutter-paint-node-add-child
+@end defvar
+
+@defvar clutter-paint-node-add-rectangle
+@end defvar
+
+@defvar clutter-paint-node-add-texture-rectangle
+@end defvar
+
+@defvar clutter-paint-node-set-name
+@end defvar
+
 @defvar clutter-paint-volume-set-from-allocation
+@end defvar
+
+@defvar clutter-property-transition-get-property-name
+@end defvar
+
+@defvar clutter-property-transition-new
+@end defvar
+
+@defvar clutter-property-transition-set-property-name
 @end defvar
 
 @defvar clutter-redraw
 @end defvar
 
 @defvar clutter-script-error-quark
+@end defvar
+
+@defvar clutter-script-get-translation-domain
+@end defvar
+
+@defvar clutter-script-set-translation-domain
 @end defvar
 
 @defvar clutter-shader-effect-set-shader-source
@@ -387,9 +411,6 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-stage-manager-get-default-stage
 @end defvar
 
-@defvar clutter-stage-manager-set-default-stage
-@end defvar
-
 @defvar clutter-stage-set-motion-events-enabled
 @end defvar
 
@@ -400,9 +421,6 @@ The following symbols, if any, have not been properly documented.
 @end defvar
 
 @defvar clutter-state-key-get-target-state-name
-@end defvar
-
-@defvar clutter-swipe-action-new
 @end defvar
 
 @defvar clutter-table-layout-get-column-count
@@ -438,10 +456,49 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-table-layout-set-use-animations
 @end defvar
 
+@defvar clutter-text-buffer-delete-text
+@end defvar
+
+@defvar clutter-text-buffer-emit-deleted-text
+@end defvar
+
+@defvar clutter-text-buffer-emit-inserted-text
+@end defvar
+
+@defvar clutter-text-buffer-get-bytes
+@end defvar
+
+@defvar clutter-text-buffer-get-length
+@end defvar
+
+@defvar clutter-text-buffer-get-max-length
+@end defvar
+
+@defvar clutter-text-buffer-get-text
+@end defvar
+
+@defvar clutter-text-buffer-insert-text
+@end defvar
+
+@defvar clutter-text-buffer-new
+@end defvar
+
+@defvar clutter-text-buffer-new-with-text
+@end defvar
+
+@defvar clutter-text-buffer-set-max-length
+@end defvar
+
+@defvar clutter-text-buffer-set-text
+@end defvar
+
 @defvar clutter-text-get-font-description
 @end defvar
 
 @defvar clutter-text-get-selected-text-color
+@end defvar
+
+@defvar clutter-text-node-new
 @end defvar
 
 @defvar clutter-text-set-selected-text-color
@@ -457,6 +514,24 @@ The following symbols, if any, have not been properly documented.
 @end defvar
 
 @defvar clutter-texture-set-keep-aspect-ratio
+@end defvar
+
+@defvar clutter-transition-get-animatable
+@end defvar
+
+@defvar clutter-transition-get-interval
+@end defvar
+
+@defvar clutter-transition-get-remove-on-complete
+@end defvar
+
+@defvar clutter-transition-set-animatable
+@end defvar
+
+@defvar clutter-transition-set-interval
+@end defvar
+
+@defvar clutter-transition-set-remove-on-complete
 @end defvar
 
 

@@ -1,0 +1,47 @@
+
+@c %start of fragment
+
+@deffn Function clutter-canvas-new  @result{}@tie{} (ret@tie{}@code{<clutter-content>})
+Creates a new instance of @code{<clutter-canvas>}.
+
+You should call @code{clutter-canvas-set-size} to set the size of the
+canvas.
+
+You should call @code{clutter-content-invalidate} every time you wish to
+draw the contents of the canvas.
+
+@table @var
+@item ret
+The newly allocated instance of @code{<clutter-canvas>}. Use
+@code{g-object-unref} when done.
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-canvas-set-size  (self@tie{}@code{<clutter-canvas>}) (width@tie{}@code{int}) (height@tie{}@code{int})
+@deffnx Method set-size
+Sets the size of the @var{canvas}.
+
+This function will cause the @var{canvas} to be invalidated.
+
+@table @var
+@item canvas
+a @code{<clutter-canvas>}
+
+@item width
+the width of the canvas, in pixels
+
+@item height
+the height of the canvas, in pixels
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+
+@c %end of fragment

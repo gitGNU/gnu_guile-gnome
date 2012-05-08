@@ -1,0 +1,19 @@
+
+@c %start of fragment
+
+@node ClutterBrightnessContrastEffect
+@chapter ClutterBrightnessContrastEffect
+Increase/decrease brightness and/or contrast of actor.
+
+@section Overview
+@code{<clutter-brightness-contrast-effect>} is a sub-class of
+@code{<clutter-effect>} that changes the overall brightness of a
+@code{<clutter-actor>}.
+
+@code{<clutter-brightness-contrast-effect>} is available since Clutter
+1.10
+
+@section Usage
+@include defuns-clutter-brightness-contrast-effect.xml.texi
+
+@c %end of fragment

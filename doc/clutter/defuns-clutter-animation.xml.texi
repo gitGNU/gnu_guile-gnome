@@ -186,13 +186,15 @@ Since 1.0
 @deffnx Method set-timeline
 Sets the @code{<clutter-timeline>} used by @var{animation}.
 
+This function will take a reference on the passed @var{timeline}.
+
 @table @var
 @item animation
 a @code{<clutter-animation>}
 
 @item timeline
 a @code{<clutter-timeline>}, or @samp{@code{#f}} to unset the current
-@code{<clutter-timeline>}
+@code{<clutter-timeline>}.
 
 @end table
 
@@ -219,6 +221,11 @@ Since 1.0
 
 @deffn Function clutter-animation-set-alpha  (self@tie{}@code{<clutter-animation>}) (alpha@tie{}@code{<clutter-alpha>})
 @deffnx Method set-alpha
+@samp{clutter_animation_set_alpha} has been deprecated since version
+1.10 and should not be used in newly-written code. Use
+@code{clutter-animation-get-timeline} and
+@code{clutter-timeline-set-progress-mode} instead.
+
 Sets @var{alpha} as the @code{<clutter-alpha>} used by @var{animation}.
 
 If @var{alpha} is not @samp{@code{#f}}, the @code{<clutter-animation>}
@@ -240,6 +247,11 @@ Since 1.0
 
 @deffn Function clutter-animation-get-alpha  (self@tie{}@code{<clutter-animation>}) @result{}@tie{} (ret@tie{}@code{<clutter-alpha>})
 @deffnx Method get-alpha
+@samp{clutter_animation_get_alpha} has been deprecated since version
+1.10 and should not be used in newly-written code. Use
+@code{clutter-animation-get-timeline} and
+@code{clutter-timeline-get-progress-mode} instead.
+
 Retrieves the @code{<clutter-alpha>} used by @var{animation}.
 
 @table @var

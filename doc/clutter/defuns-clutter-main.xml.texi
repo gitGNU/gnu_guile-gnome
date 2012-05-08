@@ -23,17 +23,27 @@ The level of the mainloop.
 @end deffn
 
 @deffn Function clutter-get-debug-enabled  @result{}@tie{} (ret@tie{}@code{bool})
-Check if clutter has debugging turned on.
+@samp{clutter_get_debug_enabled} has been deprecated since version 1.10
+and should not be used in newly-written code. This function does not do
+anything.
+
+Check if Clutter has debugging enabled.
 
 @table @var
 @item ret
-TRUE if debugging is turned on, FALSE otherwise.
+@samp{@code{#f}}
 
 @end table
 
 @end deffn
 
 @deffn Function clutter-get-show-fps  @result{}@tie{} (ret@tie{}@code{bool})
+@samp{clutter_get_show_fps} has been deprecated since version 1.10 and
+should not be used in newly-written code. This function does not do
+anything. Use the environment variable or the configuration file to
+determine whether Clutter should print out the FPS counter on the
+console.
+
 Returns whether Clutter should print out the frames per second on the
 console. You can enable this setting either using the
 @samp{CLUTTER_SHOW_FPS} environment variable or passing the
@@ -50,39 +60,36 @@ Since 0.4
 @end deffn
 
 @deffn Function clutter-get-timestamp  @result{}@tie{} (ret@tie{}@code{unsigned-long})
-Returns the approximate number of microseconds passed since clutter was
+@samp{clutter_get_timestamp} has been deprecated since version 1.10 and
+should not be used in newly-written code. Use @code{<g-timer>} or
+@code{g-get-monotonic-time} for a proper timing source
+
+Returns the approximate number of microseconds passed since Clutter was
 intialised.
 
-@table @var
-@item ret
-Number of microseconds since @code{clutter-init} was called.
+This function shdould not be used by application code.
 
-@end table
+The output of this function depends on whether Clutter was configured to
+enable its debugging code paths, so it's less useful than intended.
 
-@end deffn
-
-@deffn Function clutter-get-actor-by-gid  (id_@tie{}@code{unsigned-int32}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
-@samp{clutter_get_actor_by_gid} has been deprecated since version 1.8
-and should not be used in newly-written code. The id is not used any
-longer.
-
-Retrieves the @code{<clutter-actor>} with @var{id}.
+Since Clutter 1.10, this function is an alias to
+@code{g-get-monotonic-time} if Clutter was configured to enable the
+debugging code paths.
 
 @table @var
-@item id
-a @code{<clutter-actor>} unique id.
-
 @item ret
-the actor with the passed id or @samp{@code{#f}}. The returned actor
-does not have its reference count increased.
+Number of microseconds since @code{clutter-init} was called, or zero if
+Clutter was not configured with debugging code paths.
 
 @end table
-
-Since 0.6
 
 @end deffn
 
 @deffn Function clutter-set-default-frame-rate  (frames_per_sec@tie{}@code{unsigned-int})
+@samp{clutter_set_default_frame_rate} has been deprecated since version
+1.10 and should not be used in newly-written code. This function does
+not do anything any more.
+
 Sets the default frame rate. This frame rate will be used to limit the
 number of frames drawn if Clutter is not able to synchronize with the
 vertical refresh rate of the display. When synchronization is possible,
@@ -112,56 +119,12 @@ Since 0.6
 
 @end deffn
 
-@deffn Function clutter-set-motion-events-enabled  (enable@tie{}@code{bool})
-@samp{clutter_set_motion_events_enabled} has been deprecated since
-version 1.8 and should not be used in newly-written code. Use
-@code{clutter-stage-set-motion-events-enabled} instead.
-
-Sets whether per-actor motion events should be enabled or not on all
-@code{<clutter-stage>}s managed by Clutter.
-
-If @var{enable} is @samp{@code{#f}} the following events will not work:
-
-@itemize 
-@item
-@item
-@item
-@end itemize
-
-ClutterActor::motion-event, unless on the @code{<clutter-stage>}
-
-ClutterActor::enter-event
-
-ClutterActor::leave-event
-
-@table @var
-@item enable
-@samp{@code{#t}} to enable per-actor motion events
-
-@end table
-
-Since 0.6
-
-@end deffn
-
-@deffn Function clutter-get-motion-events-enabled  @result{}@tie{} (ret@tie{}@code{bool})
-@samp{clutter_get_motion_events_enabled} has been deprecated since
-version 1.8 and should not be used in newly-written code. Use
-@code{clutter-stage-get-motion-events-enabled} instead.
-
-Gets whether the per-actor motion events are enabled.
-
-@table @var
-@item ret
-@samp{@code{#t}} if the motion events are enabled
-
-@end table
-
-Since 0.6
-
-@end deffn
-
 @deffn Function clutter-clear-glyph-cache 
+@samp{clutter_clear_glyph_cache} has been deprecated since version 1.10
+and should not be used in newly-written code. Use
+@code{clutter-get-font-map} and
+@code{cogl-pango-font-map-clear-glyph-cache} instead.
+
 Clears the internal cache of glyphs used by the Pango renderer. This
 will free up some memory and GL texture resources. The cache will be
 automatically refilled as more text is drawn.
@@ -171,6 +134,11 @@ Since 0.8
 @end deffn
 
 @deffn Function clutter-set-font-flags  (flags@tie{}@code{<clutter-font-flags>})
+@samp{clutter_set_font_flags} has been deprecated since version 1.10 and
+should not be used in newly-written code. Use
+@code{clutter-backend-set-font-options} and the
+@code{<cairo-font-option-t>} API.
+
 Sets the font quality options for subsequent text rendering operations.
 
 Using mipmapped textures will improve the quality for scaled down text
@@ -190,6 +158,11 @@ Since 1.0
 @end deffn
 
 @deffn Function clutter-get-font-flags  @result{}@tie{} (ret@tie{}@code{<clutter-font-flags>})
+@samp{clutter_get_font_flags} has been deprecated since version 1.10 and
+should not be used in newly-written code. Use
+@code{clutter-backend-get-font-options} and the
+@code{<cairo-font-options-t>} API.
+
 Gets the current font flags for rendering text. See
 @code{clutter-set-font-flags}.
 
@@ -316,8 +289,10 @@ Clutter. Pointer grabs should only be used as a last resource; using the
 @code{<"captured-event">} signal should always be the preferred way to
 intercept event delivery to reactive actors.
 
-If you wish to grab all the pointer events for a specific input device,
-you should use @code{clutter-grab-pointer-for-device}.
+This function should rarely be used.
+
+If a grab is required, you are strongly encouraged to use a specific
+input device by calling @code{clutter-input-device-grab}.
 
 @table @var
 @item actor
@@ -344,6 +319,10 @@ Since 0.6
 @end deffn
 
 @deffn Function clutter-grab-pointer-for-device  (actor@tie{}@code{<clutter-actor>}) (id_@tie{}@code{int})
+@samp{clutter_grab_pointer_for_device} has been deprecated since version
+1.10 and should not be used in newly-written code. Use
+@code{clutter-input-device-grab} instead.
+
 Grabs all the pointer events coming from the device @var{id} for
 @var{actor}.
 
@@ -364,6 +343,10 @@ Since 0.8
 @end deffn
 
 @deffn Function clutter-ungrab-pointer-for-device  (id_@tie{}@code{int})
+@samp{clutter_ungrab_pointer_for_device} has been deprecated since
+version 1.10 and should not be used in newly-written code. Use
+@code{clutter-input-device-ungrab} instead.
+
 Removes an existing grab of the pointer events for device @var{id}.
 
 @table @var

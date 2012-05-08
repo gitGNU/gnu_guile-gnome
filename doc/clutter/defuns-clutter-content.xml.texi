@@ -1,0 +1,51 @@
+
+@c %start of fragment
+
+@deffn Function clutter-content-get-preferred-size  (self@tie{}@code{<clutter-content>}) @result{}@tie{} (ret@tie{}@code{bool}) (width@tie{}@code{float}) (height@tie{}@code{float})
+@deffnx Method get-preferred-size
+Retrieves the natural size of the @var{content}, if any.
+
+The natural size of a @code{<clutter-content>} is defined as the size
+the content would have regardless of the allocation of the actor that is
+painting it, for instance the size of an image data.
+
+@table @var
+@item content
+a @code{<clutter-content>}
+
+@item width
+return location for the natural width of the content.
+
+@item height
+return location for the natural height of the content.
+
+@item ret
+@samp{@code{#t}} if the content has a preferred size, and
+@samp{@code{#f}} otherwise
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+@deffn Function clutter-content-invalidate  (self@tie{}@code{<clutter-content>})
+@deffnx Method invalidate
+Invalidates a @code{<clutter-content>}.
+
+This function should be called by @code{<clutter-content>}
+implementations when they change the way a the content should be painted
+regardless of the actor state.
+
+@table @var
+@item content
+a @code{<clutter-content>}
+
+@end table
+
+Since 1.10
+
+@end deffn
+
+
+@c %end of fragment
