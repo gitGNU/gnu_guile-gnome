@@ -1,0 +1,338 @@
+
+@c %start of fragment
+
+@deffn Function clutter-box-layout-new  @result{}@tie{} (ret@tie{}@code{<clutter-layout-manager>})
+Creates a new @code{<clutter-box-layout>} layout manager
+
+@table @var
+@item ret
+the newly created @code{<clutter-box-layout>}
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-box-layout-set-pack-start  (self@tie{}@code{<clutter-box-layout>}) (pack_start@tie{}@code{bool})
+@deffnx Method set-pack-start
+Sets whether children of @var{layout} should be layed out by appending
+them or by prepending them
+
+@table @var
+@item layout
+a @code{<clutter-box-layout>}
+
+@item pack-start
+@samp{@code{#t}} if the @var{layout} should pack children at the
+beginning of the layout
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-box-layout-get-pack-start  (self@tie{}@code{<clutter-box-layout>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-pack-start
+Retrieves the value set using @code{clutter-box-layout-set-pack-start}
+
+@table @var
+@item layout
+a @code{<clutter-box-layout>}
+
+@item ret
+@samp{@code{#t}} if the @code{<clutter-box-layout>} should pack children
+at the beginning of the layout, and @samp{@code{#f}} otherwise
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-box-layout-set-spacing  (self@tie{}@code{<clutter-box-layout>}) (spacing@tie{}@code{unsigned-int})
+@deffnx Method set-spacing
+Sets the spacing between children of @var{layout}
+
+@table @var
+@item layout
+a @code{<clutter-box-layout>}
+
+@item spacing
+the spacing between children of the layout, in pixels
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-box-layout-get-spacing  (self@tie{}@code{<clutter-box-layout>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+@deffnx Method get-spacing
+Retrieves the spacing set using @code{clutter-box-layout-set-spacing}
+
+@table @var
+@item layout
+a @code{<clutter-box-layout>}
+
+@item ret
+the spacing between children of the @code{<clutter-box-layout>}
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-box-layout-set-vertical  (self@tie{}@code{<clutter-box-layout>}) (vertical@tie{}@code{bool})
+@deffnx Method set-vertical
+Sets whether @var{layout} should arrange its children vertically
+alongside the Y axis, instead of horizontally alongside the X axis
+
+@table @var
+@item layout
+a @code{<clutter-box-layout>}
+
+@item vertical
+@samp{@code{#t}} if the layout should be vertical
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-box-layout-get-vertical  (self@tie{}@code{<clutter-box-layout>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-vertical
+Retrieves the orientation of the @var{layout} as set using the
+@code{clutter-box-layout-set-vertical} function
+
+@table @var
+@item layout
+a @code{<clutter-box-layout>}
+
+@item ret
+@samp{@code{#t}} if the @code{<clutter-box-layout>} is arranging its
+children vertically, and @samp{@code{#f}} otherwise
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-box-layout-pack  (self@tie{}@code{<clutter-box-layout>}) (actor@tie{}@code{<clutter-actor>}) (expand@tie{}@code{bool}) (x_fill@tie{}@code{bool}) (y_fill@tie{}@code{bool}) (x_align@tie{}@code{<clutter-box-alignment>}) (y_align@tie{}@code{<clutter-box-alignment>})
+@deffnx Method pack
+Packs @var{actor} inside the @code{<clutter-container>} associated to
+@var{layout} and sets the layout properties
+
+@table @var
+@item layout
+a @code{<clutter-box-layout>}
+
+@item actor
+a @code{<clutter-actor>}
+
+@item expand
+whether the @var{actor} should expand
+
+@item x-fill
+whether the @var{actor} should fill horizontally
+
+@item y-fill
+whether the @var{actor} should fill vertically
+
+@item x-align
+the horizontal alignment policy for @var{actor}
+
+@item y-align
+the vertical alignment policy for @var{actor}
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-box-layout-set-alignment  (self@tie{}@code{<clutter-box-layout>}) (actor@tie{}@code{<clutter-actor>}) (x_align@tie{}@code{<clutter-box-alignment>}) (y_align@tie{}@code{<clutter-box-alignment>})
+@deffnx Method set-alignment
+Sets the horizontal and vertical alignment policies for @var{actor}
+inside @var{layout}
+
+@table @var
+@item layout
+a @code{<clutter-box-layout>}
+
+@item actor
+a @code{<clutter-actor>} child of @var{layout}
+
+@item x-align
+Horizontal alignment policy for @var{actor}
+
+@item y-align
+Vertical alignment policy for @var{actor}
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-box-layout-get-alignment  (self@tie{}@code{<clutter-box-layout>}) (actor@tie{}@code{<clutter-actor>}) @result{}@tie{} (x_align@tie{}@code{<clutter-box-alignment>}) (y_align@tie{}@code{<clutter-box-alignment>})
+@deffnx Method get-alignment
+Retrieves the horizontal and vertical alignment policies for @var{actor}
+as set using @code{clutter-box-layout-pack} or
+@code{clutter-box-layout-set-alignment}
+
+@table @var
+@item layout
+a @code{<clutter-box-layout>}
+
+@item actor
+a @code{<clutter-actor>} child of @var{layout}
+
+@item x-align
+return location for the horizontal alignment policy.
+
+@item y-align
+return location for the vertical alignment policy.
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-box-layout-set-expand  (self@tie{}@code{<clutter-box-layout>}) (actor@tie{}@code{<clutter-actor>}) (expand@tie{}@code{bool})
+@deffnx Method set-expand
+Sets whether @var{actor} should expand inside @var{layout}
+
+@table @var
+@item layout
+a @code{<clutter-box-layout>}
+
+@item actor
+a @code{<clutter-actor>} child of @var{layout}
+
+@item expand
+whether @var{actor} should expand
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-box-layout-get-expand  (self@tie{}@code{<clutter-box-layout>}) (actor@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-expand
+Retrieves whether @var{actor} should expand inside @var{layout}
+
+@table @var
+@item layout
+a @code{<clutter-box-layout>}
+
+@item actor
+a @code{<clutter-actor>} child of @var{layout}
+
+@item ret
+@samp{@code{#t}} if the @code{<clutter-actor>} should expand,
+@samp{@code{#f}} otherwise
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-box-layout-set-fill  (self@tie{}@code{<clutter-box-layout>}) (actor@tie{}@code{<clutter-actor>}) (x_fill@tie{}@code{bool}) (y_fill@tie{}@code{bool})
+@deffnx Method set-fill
+Sets the horizontal and vertical fill policies for @var{actor} inside
+@var{layout}
+
+@table @var
+@item layout
+a @code{<clutter-box-layout>}
+
+@item actor
+a @code{<clutter-actor>} child of @var{layout}
+
+@item x-fill
+whether @var{actor} should fill horizontally the allocated space
+
+@item y-fill
+whether @var{actor} should fill vertically the allocated space
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-box-layout-get-fill  (self@tie{}@code{<clutter-box-layout>}) (actor@tie{}@code{<clutter-actor>}) @result{}@tie{} (x_fill@tie{}@code{bool}) (y_fill@tie{}@code{bool})
+@deffnx Method get-fill
+Retrieves the horizontal and vertical fill policies for @var{actor} as
+set using @code{clutter-box-layout-pack} or
+@code{clutter-box-layout-set-fill}
+
+@table @var
+@item layout
+a @code{<clutter-box-layout>}
+
+@item actor
+a @code{<clutter-actor>} child of @var{layout}
+
+@item x-fill
+return location for the horizontal fill policy.
+
+@item y-fill
+return location for the vertical fill policy.
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-box-layout-set-easing-mode  (self@tie{}@code{<clutter-box-layout>}) (mode@tie{}@code{unsigned-long})
+@deffnx Method set-easing-mode
+Sets the easing mode to be used by @var{layout} when animating changes
+in layout properties
+
+Use @code{clutter-box-layout-set-use-animations} to enable and disable
+the animations
+
+@table @var
+@item layout
+a @code{<clutter-box-layout>}
+
+@item mode
+an easing mode, either from @code{<clutter-animation-mode>} or a logical
+id from @code{clutter-alpha-register-func}
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-box-layout-get-easing-mode  (self@tie{}@code{<clutter-box-layout>}) @result{}@tie{} (ret@tie{}@code{unsigned-long})
+@deffnx Method get-easing-mode
+Retrieves the easing mode set using
+@code{clutter-box-layout-set-easing-mode}
+
+@table @var
+@item layout
+a @code{<clutter-box-layout>}
+
+@item ret
+an easing mode
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+
+@c %end of fragment

@@ -1,0 +1,306 @@
+
+@c %start of fragment
+
+@deffn Function clutter-animator-new  @result{}@tie{} (ret@tie{}@code{<clutter-animator>})
+Creates a new @code{<clutter-animator>} instance
+
+@table @var
+@item ret
+a new @code{<clutter-animator>}.
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-animator-set-key  (self@tie{}@code{<clutter-animator>}) (object@tie{}@code{<gobject>}) (property_name@tie{}@code{mchars}) (mode@tie{}@code{unsigned-int}) (progress@tie{}@code{double}) (value@tie{}@code{<gvalue>}) @result{}@tie{} (ret@tie{}@code{<clutter-animator>})
+@deffnx Method set-key
+Sets a single key in the @code{<clutter-animator>} for the
+@var{property-name} of @var{object} at @var{progress}.
+
+See also: @code{clutter-animator-set}
+
+@table @var
+@item animator
+a @code{<clutter-animator>}
+
+@item object
+a @code{<gobject>}
+
+@item property-name
+the property to specify a key for
+
+@item mode
+the id of the alpha function to use
+
+@item progress
+the normalized range at which stage of the animation this value applies
+
+@item value
+the value property_name should have at progress.
+
+@item ret
+The animator instance.
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-animator-remove-key  (self@tie{}@code{<clutter-animator>}) (object@tie{}@code{<gobject>}) (property_name@tie{}@code{mchars}) (progress@tie{}@code{double})
+@deffnx Method remove-key
+Removes all keys matching the conditions specificed in the arguments.
+
+@table @var
+@item animator
+a @code{<clutter-animator>}
+
+@item object
+a @code{<gobject>} to search for, or @samp{@code{#f}} for all.
+
+@item property-name
+a specific property name to query for, or @samp{@code{#f}} for all.
+
+@item progress
+a specific progress to search for or a negative value for all
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-animator-get-keys  (self@tie{}@code{<clutter-animator>}) (object@tie{}@code{<gobject>}) (property_name@tie{}@code{mchars}) (progress@tie{}@code{double}) @result{}@tie{} (ret@tie{}@code{glist-of})
+@deffnx Method get-keys
+Returns a list of pointers to opaque structures with accessor functions
+that describe the keys added to an animator.
+
+@table @var
+@item animator
+a @code{<clutter-animator>} instance
+
+@item object
+a @code{<gobject>} to search for, or @samp{@code{#f}} for all objects.
+
+@item property-name
+a specific property name to query for, or @samp{@code{#f}} for all
+properties.
+
+@item progress
+a specific progress to search for, or a negative value for all
+progresses
+
+@item ret
+a list of @code{<clutter-animator-key>}s; the contents of the list are
+owned by the @code{<clutter-animator>}, but you should free the returned
+list when done, using @code{g-list-free}.
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-animator-start  (self@tie{}@code{<clutter-animator>}) @result{}@tie{} (ret@tie{}@code{<clutter-timeline>})
+@deffnx Method start
+Start the ClutterAnimator, this is a thin wrapper that rewinds and
+starts the animators current timeline.
+
+@table @var
+@item animator
+a @code{<clutter-animator>}
+
+@item ret
+the @code{<clutter-timeline>} that drives the animator.
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-animator-compute-value  (self@tie{}@code{<clutter-animator>}) (object@tie{}@code{<gobject>}) (property_name@tie{}@code{mchars}) (progress@tie{}@code{double}) (value@tie{}@code{<gvalue>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method compute-value
+Compute the value for a managed property at a given progress.
+
+If the property is an ease-in property, the current value of the
+property on the object will be used as the starting point for
+computation.
+
+@table @var
+@item animator
+a @code{<clutter-animator>}
+
+@item object
+a @code{<gobject>}
+
+@item property-name
+the name of the property on object to check
+
+@item progress
+a value between 0.0 and 1.0
+
+@item value
+an initialized value to store the computed result
+
+@item ret
+@samp{@code{#t}} if the computation yields has a value, otherwise (when
+an error occurs or the progress is before any of the keys)
+@samp{@code{#f}} is returned and the @code{<gvalue>} is left untouched
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-animator-set-timeline  (self@tie{}@code{<clutter-animator>}) (timeline@tie{}@code{<clutter-timeline>})
+@deffnx Method set-timeline
+Sets an external timeline that will be used for driving the animation
+
+@table @var
+@item animator
+a @code{<clutter-animator>}
+
+@item timeline
+a @code{<clutter-timeline>}
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-animator-get-timeline  (self@tie{}@code{<clutter-animator>}) @result{}@tie{} (ret@tie{}@code{<clutter-timeline>})
+@deffnx Method get-timeline
+Get the timeline hooked up for driving the @code{<clutter-animator>}
+
+@table @var
+@item animator
+a @code{<clutter-animator>}
+
+@item ret
+the @code{<clutter-timeline>} that drives the animator.
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-animator-set-duration  (self@tie{}@code{<clutter-animator>}) (duration@tie{}@code{unsigned-int})
+@deffnx Method set-duration
+Runs the timeline of the @code{<clutter-animator>} with a duration in
+msecs as specified.
+
+@table @var
+@item animator
+a @code{<clutter-animator>}
+
+@item duration
+milliseconds a run of the animator should last.
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-animator-get-duration  (self@tie{}@code{<clutter-animator>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+@deffnx Method get-duration
+Retrieves the current duration of an animator
+
+@table @var
+@item animator
+a @code{<clutter-animator>}
+
+@item ret
+the duration of the animation, in milliseconds
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-animator-key-get-object  (self@tie{}@code{<clutter-animator-key>}) @result{}@tie{} (ret@tie{}@code{<gobject>})
+Retrieves the object a key applies to.
+
+@table @var
+@item key
+a @code{<clutter-animator-key>}
+
+@item ret
+the object an animator_key exist for.
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-animator-key-get-mode  (self@tie{}@code{<clutter-animator-key>}) @result{}@tie{} (ret@tie{}@code{unsigned-long})
+Retrieves the mode of a @code{<clutter-animator>} key, for the first key
+of a property for an object this represents the whether the animation is
+open ended and or curved for the remainding keys for the property it
+represents the easing mode.
+
+@table @var
+@item key
+a @code{<clutter-animator-key>}
+
+@item ret
+the mode of a @code{<clutter-animator-key>}
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-animator-key-get-progress  (self@tie{}@code{<clutter-animator-key>}) @result{}@tie{} (ret@tie{}@code{double})
+Retrieves the progress of an clutter_animator_key
+
+@table @var
+@item key
+a @code{<clutter-animator-key>}
+
+@item ret
+the progress defined for a @code{<clutter-animator>} key.
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-animator-key-get-value  (self@tie{}@code{<clutter-animator-key>}) (value@tie{}@code{<gvalue>}) @result{}@tie{} (ret@tie{}@code{bool})
+Retrieves a copy of the value for a @code{<clutter-animator-key>}.
+
+The passed in @code{<gvalue>} needs to be already initialized for the
+value type of the key or to a type that allow transformation from the
+value type of the key.
+
+Use @code{g-value-unset} when done.
+
+@table @var
+@item key
+a @code{<clutter-animator-key>}
+
+@item value
+a @code{<gvalue>} initialized with the correct type for the animator key
+
+@item ret
+@samp{@code{#t}} if the passed @code{<gvalue>} was successfully set, and
+@samp{@code{#f}} otherwise
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+
+@c %end of fragment

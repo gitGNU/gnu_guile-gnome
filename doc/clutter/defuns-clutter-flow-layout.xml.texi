@@ -1,0 +1,152 @@
+
+@c %start of fragment
+
+@deffn Function clutter-flow-layout-new  (orientation@tie{}@code{<clutter-flow-orientation>}) @result{}@tie{} (ret@tie{}@code{<clutter-layout-manager>})
+Creates a new @code{<clutter-flow-layout>} with the given
+@var{orientation}
+
+@table @var
+@item orientation
+the orientation of the flow layout
+
+@item ret
+the newly created @code{<clutter-flow-layout>}
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-flow-layout-set-homogeneous  (self@tie{}@code{<clutter-flow-layout>}) (homogeneous@tie{}@code{bool})
+@deffnx Method set-homogeneous
+Sets whether the @var{layout} should allocate the same space for each
+child
+
+@table @var
+@item layout
+a @code{<clutter-flow-layout>}
+
+@item homogeneous
+whether the layout should be homogeneous or not
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-flow-layout-get-homogeneous  (self@tie{}@code{<clutter-flow-layout>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-homogeneous
+Retrieves whether the @var{layout} is homogeneous
+
+@table @var
+@item layout
+a @code{<clutter-flow-layout>}
+
+@item ret
+@samp{@code{#t}} if the @code{<clutter-flow-layout>} is homogeneous
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-flow-layout-set-orientation  (self@tie{}@code{<clutter-flow-layout>}) (orientation@tie{}@code{<clutter-flow-orientation>})
+@deffnx Method set-orientation
+Sets the orientation of the flow layout
+
+The orientation controls the direction used to allocate the children:
+either horizontally or vertically. The orientation also controls the
+direction of the overflowing
+
+@table @var
+@item layout
+a @code{<clutter-flow-layout>}
+
+@item orientation
+the orientation of the layout
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-flow-layout-set-row-spacing  (self@tie{}@code{<clutter-flow-layout>}) (spacing@tie{}@code{float})
+@deffnx Method set-row-spacing
+Sets the spacing between rows, in pixels
+
+@table @var
+@item layout
+a @code{<clutter-flow-layout>}
+
+@item spacing
+the space between rows
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-flow-layout-get-row-spacing  (self@tie{}@code{<clutter-flow-layout>}) @result{}@tie{} (ret@tie{}@code{float})
+@deffnx Method get-row-spacing
+Retrieves the spacing between rows
+
+@table @var
+@item layout
+a @code{<clutter-flow-layout>}
+
+@item ret
+the spacing between rows of the @code{<clutter-flow-layout>}, in pixels
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-flow-layout-set-row-height  (self@tie{}@code{<clutter-flow-layout>}) (min_height@tie{}@code{float}) (max_height@tie{}@code{float})
+@deffnx Method set-row-height
+Sets the minimum and maximum heights that a row can have
+
+@table @var
+@item layout
+a @code{<clutter-flow-layout>}
+
+@item min-height
+the minimum height of a row
+
+@item max-height
+the maximum height of a row
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-flow-layout-get-row-height  (self@tie{}@code{<clutter-flow-layout>}) @result{}@tie{} (min_height@tie{}@code{float}) (max_height@tie{}@code{float})
+@deffnx Method get-row-height
+Retrieves the minimum and maximum row heights
+
+@table @var
+@item layout
+a @code{<clutter-flow-layout>}
+
+@item min-height
+return location for the minimum row height, or @samp{@code{#f}}.
+
+@item max-height
+return location for the maximum row height, or @samp{@code{#f}}.
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+
+@c %end of fragment

@@ -1,0 +1,17 @@
+
+@c %start of fragment
+
+@node ClutterFixedLayout
+@chapter ClutterFixedLayout
+A fixed layout manager
+
+@section Overview
+@code{<clutter-fixed-layout>} is a layout manager implementing the same
+layout policies as @code{<clutter-group>}.
+
+@code{<clutter-fixed-layout>} is available since Clutter 1.2
+
+@section Usage
+@include defuns-clutter-fixed-layout.xml.texi
+
+@c %end of fragment

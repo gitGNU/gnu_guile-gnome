@@ -1,0 +1,57 @@
+
+@c %start of fragment
+
+@node ClutterBoxLayout
+@chapter ClutterBoxLayout
+A layout manager arranging children on a single line
+
+@section Overview
+The @code{<clutter-box-layout>} is a @code{<clutter-layout-manager>}
+implementing the following layout policy:
+
+@itemize 
+@item
+@item
+@item
+@item
+@item
+@item
+@end itemize
+
+all children are arranged on a single line;
+
+the axis used is controlled by the @code{<"vertical">} boolean property;
+
+the order of the packing is determined by the @code{<"pack-start">}
+boolean property;
+
+each child will be allocated to its natural size or, if set to expand,
+the available size;
+
+if a child is set to fill on either (or both) axis, its allocation will
+match all the available size; the fill layout property only makes sense
+if the expand property is also set;
+
+if a child is set to expand but not to fill then it is possible to
+control the alignment using the X and Y alignment layout properties.
+
+(The missing figure, box-layout
+
+@c (title "Box layout")
+The image shows a @code{<clutter-box-layout>} with the
+@code{<"vertical">} property set to @samp{@code{#f}}.
+
+It is possible to control the spacing between children of a
+@code{<clutter-box-layout>} by using
+@code{clutter-box-layout-set-spacing}.
+
+In order to set the layout properties when packing an actor inside a
+@code{<clutter-box-layout>} you should use the
+@code{clutter-box-layout-pack} function.
+
+@code{<clutter-box-layout>} is available since Clutter 1.2
+
+@section Usage
+@include defuns-clutter-box-layout.xml.texi
+
+@c %end of fragment

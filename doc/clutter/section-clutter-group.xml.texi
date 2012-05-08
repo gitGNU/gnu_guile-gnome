@@ -3,7 +3,7 @@
 
 @node ClutterGroup
 @chapter ClutterGroup
-Actor class containing multiple children. actors.
+A fixed layout container
 
 @section Overview
 A @code{<clutter-group>} is an Actor which contains multiple child
@@ -12,8 +12,16 @@ operations such as scaling, rotating and clipping of the group will
 apply to the child actors.
 
 A @code{<clutter-group>}'s size is defined by the size and position of
-its children. Resize requests via the @code{<clutter-actor>} API will be
-ignored.
+its children; it will be the smallest non-negative size that covers the
+right and bottom edges of all of its children.
+
+Setting the size on a Group using @code{<clutter-actor>} methods like
+@code{clutter-actor-set-size} will override the natural size of the
+Group, however this will not affect the size of the children and they
+may still be painted outside of the allocation of the group. One way to
+constrain the visible area of a @code{<clutter-group>} to a specified
+allocation is to explicitly set the size of the @code{<clutter-group>}
+and then use the @code{<"clip-to-allocation">} property.
 
 @section Usage
 @include defuns-clutter-group.xml.texi

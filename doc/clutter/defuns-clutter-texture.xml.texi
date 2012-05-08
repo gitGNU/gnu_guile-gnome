@@ -204,7 +204,7 @@ Since 0.8
 
 @deffn Function clutter-texture-get-sync-size  (self@tie{}@code{<clutter-texture>}) @result{}@tie{} (ret@tie{}@code{bool})
 @deffnx Method get-sync-size
-Retrieves the value set with @code{clutter-texture-get-sync-size}
+Retrieves the value set with @code{clutter-texture-set-sync-size}
 
 @table @var
 @item texture

@@ -1,0 +1,56 @@
+
+@c %start of fragment
+
+@deffn Function clutter-stage-manager-get-default  @result{}@tie{} (ret@tie{}@code{<clutter-stage-manager>})
+Returns the default @code{<clutter-stage-manager>}.
+
+@table @var
+@item ret
+the default stage manager instance. The returned object is owned by
+Clutter and you should not reference or unreference it.
+
+@end table
+
+Since 0.8
+
+@end deffn
+
+@deffn Function clutter-stage-manager-list-stages  (self@tie{}@code{<clutter-stage-manager>}) @result{}@tie{} (ret@tie{}@code{gslist-of})
+@deffnx Method list-stages
+Lists all currently used stages.
+
+@table @var
+@item stage-manager
+a @code{<clutter-stage-manager>}
+
+@item ret
+a newly allocated list of @code{<clutter-stage>} objects. Use
+@code{g-slist-free} to deallocate it when done.
+
+@end table
+
+Since 0.8
+
+@end deffn
+
+@deffn Function clutter-stage-manager-peek-stages  (self@tie{}@code{<clutter-stage-manager>}) @result{}@tie{} (ret@tie{}@code{gslist-of})
+@deffnx Method peek-stages
+Lists all currently used stages.
+
+@table @var
+@item stage-manager
+a @code{<clutter-stage-manager>}
+
+@item ret
+a pointer to the internal list of @code{<clutter-stage>} objects. The
+returned list is owned by the @code{<clutter-stage-manager>} and should
+never be modified or freed.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+
+@c %end of fragment

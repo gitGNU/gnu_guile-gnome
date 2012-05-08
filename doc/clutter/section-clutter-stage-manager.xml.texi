@@ -1,0 +1,21 @@
+
+@c %start of fragment
+
+@node Stage Manager
+@chapter Stage Manager
+Maintains the list of stages
+
+@section Overview
+@code{<clutter-stage-manager>} is a singleton object, owned by Clutter,
+which maintains the list of currently active stages
+
+Every newly-created @code{<clutter-stage>} will cause the emission of
+the @code{<"stage-added">} signal; once a @code{<clutter-stage>} has
+been destroyed, the @code{<"stage-removed">} signal will be emitted
+
+@code{<clutter-stage-manager>} is available since Clutter 0.8
+
+@section Usage
+@include defuns-clutter-stage-manager.xml.texi
+
+@c %end of fragment

@@ -332,6 +332,29 @@ Since 1.0
 
 @end deffn
 
+@deffn Function clutter-animation-update  (self@tie{}@code{<clutter-animation>}) (property_name@tie{}@code{mchars}) (final@tie{}@code{<gvalue>}) @result{}@tie{} (ret@tie{}@code{<clutter-animation>})
+@deffnx Method update
+Updates the @var{final} value of the interval for @var{property-name}
+
+@table @var
+@item animation
+a @code{<clutter-animation>}
+
+@item property-name
+name of the property
+
+@item final
+The final value of the property
+
+@item ret
+The animation itself.
+
+@end table
+
+Since 1.0
+
+@end deffn
+
 @deffn Function clutter-animation-update-interval  (self@tie{}@code{<clutter-animation>}) (property_name@tie{}@code{mchars}) (interval@tie{}@code{<clutter-interval>})
 @deffnx Method update-interval
 Changes the @var{interval} for @var{property-name}. The

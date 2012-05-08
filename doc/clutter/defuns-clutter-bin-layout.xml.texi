@@ -1,0 +1,109 @@
+
+@c %start of fragment
+
+@deffn Function clutter-bin-layout-new  (x_align@tie{}@code{<clutter-bin-alignment>}) (y_align@tie{}@code{<clutter-bin-alignment>}) @result{}@tie{} (ret@tie{}@code{<clutter-layout-manager>})
+Creates a new @code{<clutter-bin-layout>} layout manager
+
+@table @var
+@item x-align
+the default alignment policy to be used on the horizontal axis
+
+@item y-align
+the default alignment policy to be used on the vertical axis
+
+@item ret
+the newly created layout manager
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-bin-layout-set-alignment  (self@tie{}@code{<clutter-bin-layout>}) (child@tie{}@code{<clutter-actor>}) (x_align@tie{}@code{<clutter-bin-alignment>}) (y_align@tie{}@code{<clutter-bin-alignment>})
+@deffnx Method set-alignment
+Sets the horizontal and vertical alignment policies to be applied to a
+@var{child} of @var{self}
+
+If @var{child} is @samp{@code{#f}} then the @var{x-align} and
+@var{y-align} values will be set as the default alignment policies
+
+@table @var
+@item self
+a @code{<clutter-bin-layout>}
+
+@item child
+a child of @var{container}.
+
+@item x-align
+the horizontal alignment policy to be used for the @var{child} inside
+@var{container}
+
+@item y-align
+the vertical aligment policy to be used on the @var{child} inside
+@var{container}
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-bin-layout-get-alignment  (self@tie{}@code{<clutter-bin-layout>}) (child@tie{}@code{<clutter-actor>}) @result{}@tie{} (x_align@tie{}@code{<clutter-bin-alignment>}) (y_align@tie{}@code{<clutter-bin-alignment>})
+@deffnx Method get-alignment
+Retrieves the horizontal and vertical alignment policies for a child of
+@var{self}
+
+If @var{child} is @samp{@code{#f}} the default alignment policies will
+be returned instead
+
+@table @var
+@item self
+a @code{<clutter-bin-layout>}
+
+@item child
+a child of @var{container}.
+
+@item x-align
+return location for the horizontal alignment policy.
+
+@item y-align
+return location for the vertical alignment policy.
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-bin-layout-add  (self@tie{}@code{<clutter-bin-layout>}) (child@tie{}@code{<clutter-actor>}) (x_align@tie{}@code{<clutter-bin-alignment>}) (y_align@tie{}@code{<clutter-bin-alignment>})
+@deffnx Method add
+Adds a @code{<clutter-actor>} to the container using @var{self} and sets
+the alignment policies for it
+
+This function is equivalent to @code{clutter-container-add-actor} and
+@code{clutter-layout-manager-child-set-property} but it does not require
+a pointer to the @code{<clutter-container>} associated to the
+@code{<clutter-bin-layout>}
+
+@table @var
+@item self
+a @code{<clutter-bin-layout>}
+
+@item child
+a @code{<clutter-actor>}
+
+@item x-align
+horizontal alignment policy for @var{child}
+
+@item y-align
+vertical alignment policy for @var{child}
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+
+@c %end of fragment

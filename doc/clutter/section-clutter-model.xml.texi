@@ -94,6 +94,32 @@ enum
 model implementation called @code{<clutter-list-model>} which has been
 optimised for insertion and look up in sorted lists.
 
+@section ClutterModel custom properties for @code{<clutter-script>}
+@code{<clutter-model>} defines a custom property "columns" for
+@code{<clutter-script>} which allows defining the column names and
+types.
+
+@c (example (@ (id "ClutterModel-script-column-example")))
+@c (title "Example of the \"columns\" custom property")
+The definition below will create a @code{<clutter-list-model>} with
+three columns: the first one with name "Name" and containing strings;
+the second one with name "Score" and containing integers; the third one
+with name "Icon" and containing @code{<clutter-texture>}s.
+
+@example 
+
+ @{
+   "type" : "ClutterListModel",
+   "id" : "teams-model",
+   "columns" : [
+     [ "Name", "gchararray" ],
+     [ "Score", "gint" ],
+     [ "Icon", "ClutterTexture" ]
+   ]
+ @}
+    
+@end example
+
 @code{<clutter-model>} is available since Clutter 0.6
 
 @section Usage

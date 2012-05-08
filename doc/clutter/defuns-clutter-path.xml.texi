@@ -40,7 +40,7 @@ Since 1.0
 
 @deffn Function clutter-path-add-move-to  (self@tie{}@code{<clutter-path>}) (x@tie{}@code{int}) (y@tie{}@code{int})
 @deffnx Method add-move-to
-Adds a @code{<clutter-path-move-to>} type node to the path. This is
+Adds a @samp{CLUTTER_PATH_MOVE_TO} type node to the path. This is
 usually used as the first node in a path. It can also be used in the
 middle of the path to cause the actor to jump to the new coordinate.
 
@@ -83,7 +83,7 @@ Since 1.0
 
 @deffn Function clutter-path-add-line-to  (self@tie{}@code{<clutter-path>}) (x@tie{}@code{int}) (y@tie{}@code{int})
 @deffnx Method add-line-to
-Adds a @code{<clutter-path-line-to>} type node to the path. This causes
+Adds a @samp{CLUTTER_PATH_LINE_TO} type node to the path. This causes
 the actor to move to the new coordinates in a straight line.
 
 @table @var
@@ -125,7 +125,7 @@ Since 1.0
 
 @deffn Function clutter-path-add-curve-to  (self@tie{}@code{<clutter-path>}) (x_1@tie{}@code{int}) (y_1@tie{}@code{int}) (x_2@tie{}@code{int}) (y_2@tie{}@code{int}) (x_3@tie{}@code{int}) (y_3@tie{}@code{int})
 @deffnx Method add-curve-to
-Adds a @code{<clutter-path-curve-to>} type node to the path. This causes
+Adds a @samp{CLUTTER_PATH_CURVE_TO} type node to the path. This causes
 the actor to follow a bezier from the last node to (@var{x-3},
 @var{y-3}) using (@var{x-1}, @var{y-1}) and (@var{x-2},@var{y-2}) as
 control points.
@@ -193,9 +193,9 @@ Since 1.0
 
 @deffn Function clutter-path-add-close  (self@tie{}@code{<clutter-path>})
 @deffnx Method add-close
-Adds a @code{<clutter-path-close>} type node to the path. This creates a
-straight line from the last node to the last
-@code{<clutter-path-move-to>} type node.
+Adds a @samp{CLUTTER_PATH_CLOSE} type node to the path. This creates a
+straight line from the last node to the last @samp{CLUTTER_PATH_MOVE_TO}
+type node.
 
 @table @var
 @item path

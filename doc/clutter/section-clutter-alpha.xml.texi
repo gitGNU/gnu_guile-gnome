@@ -40,6 +40,40 @@ API.
 (The missing figure, easing-modes
 
 @c (title "Easing modes provided by Clutter")
+@section ClutterAlpha custom properties for @code{<clutter-script>}
+@code{<clutter-alpha>} defines a custom "function" property for
+@code{<clutter-script>} which allows to reference a custom alpha
+function available in the source code. Setting the "function" property
+is equivalent to calling @code{clutter-alpha-set-func} with the
+specified function name. No user data or @code{<g-destroy-notify>} is
+available to be passed.
+
+@c (example (@ (id "ClutterAlpha-script-example")))
+@c (title "Defining a ClutterAlpha in ClutterScript")
+The following JSON fragment defines a @code{<clutter-alpha>} using a
+@code{<clutter-timeline>} with id "sine-timeline" and an alpha function
+called @code{my-sine-alpha}. The defined @code{<clutter-alpha>} instance
+can be reused in multiple @code{<clutter-behaviour>} definitions or for
+@code{<clutter-animation>} definitions.
+
+@example 
+
+ @{
+   "id" : "sine-alpha",
+   "timeline" : @{
+     "id" : "sine-timeline",
+     "duration" : 500,
+     "loop" : true
+   @},
+   "function" : "my_sine_alpha"
+ @}
+    
+@end example
+
+For the way to define the @code{<"mode">} property inside a
+ClutterScript fragment, see the corresponding section in
+@code{<clutter-animation>}.
+
 @section Usage
 @include defuns-clutter-alpha.xml.texi
 

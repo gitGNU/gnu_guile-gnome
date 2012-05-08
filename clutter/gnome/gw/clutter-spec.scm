@@ -93,6 +93,9 @@
      "ClutterStageStateEvent"
      "ClutterCrossingEvent"))
 
+  (add-type-rule! ws "ClutterBinAlignment*" '(<clutter-bin-alignment> out))
+  (add-type-rule! ws "ClutterBoxAlignment*" '(<clutter-box-alignment> out))
+
   (wrap-custom-boxed!
    "ClutterKnot" "CLUTTER_TYPE_KNOT"
    ;; wrap

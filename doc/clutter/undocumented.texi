@@ -54,6 +54,66 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-actor-set-z-rotation-from-gravity
 @end defvar
 
+@defvar clutter-animator-compute-value
+@end defvar
+
+@defvar clutter-animator-get-duration
+@end defvar
+
+@defun clutter-animator-get-keys _ _ _ _
+@end defun
+
+@defvar clutter-animator-get-timeline
+@end defvar
+
+@defvar clutter-animator-key-get-mode
+@end defvar
+
+@defvar clutter-animator-key-get-object
+@end defvar
+
+@defvar clutter-animator-key-get-progress
+@end defvar
+
+@defvar clutter-animator-key-get-property-name
+@end defvar
+
+@defun clutter-animator-key-get-property-type _
+@end defun
+
+@defvar clutter-animator-key-get-value
+@end defvar
+
+@defvar clutter-animator-new
+@end defvar
+
+@defvar clutter-animator-property-get-ease-in
+@end defvar
+
+@defvar clutter-animator-property-get-interpolation
+@end defvar
+
+@defvar clutter-animator-property-set-ease-in
+@end defvar
+
+@defvar clutter-animator-property-set-interpolation
+@end defvar
+
+@defvar clutter-animator-remove-key
+@end defvar
+
+@defvar clutter-animator-set-duration
+@end defvar
+
+@defvar clutter-animator-set-key
+@end defvar
+
+@defvar clutter-animator-set-timeline
+@end defvar
+
+@defvar clutter-animator-start
+@end defvar
+
 @defvar clutter-backend-get-double-click-distance
 @end defvar
 
@@ -126,10 +186,97 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-behaviour-rotate-set-direction
 @end defvar
 
+@defvar clutter-bin-layout-add
+@end defvar
+
+@defun clutter-bin-layout-get-alignment _ _
+@end defun
+
+@defvar clutter-bin-layout-new
+@end defvar
+
+@defvar clutter-bin-layout-set-alignment
+@end defvar
+
 @defvar clutter-binding-pool-install-closure
 @end defvar
 
 @defvar clutter-binding-pool-override-closure
+@end defvar
+
+@defvar clutter-box-get-color
+@end defvar
+
+@defvar clutter-box-get-layout-manager
+@end defvar
+
+@defun clutter-box-layout-get-alignment _ _
+@end defun
+
+@defvar clutter-box-layout-get-easing-duration
+@end defvar
+
+@defvar clutter-box-layout-get-easing-mode
+@end defvar
+
+@defvar clutter-box-layout-get-expand
+@end defvar
+
+@defun clutter-box-layout-get-fill _ _
+@end defun
+
+@defvar clutter-box-layout-get-pack-start
+@end defvar
+
+@defvar clutter-box-layout-get-spacing
+@end defvar
+
+@defvar clutter-box-layout-get-use-animations
+@end defvar
+
+@defvar clutter-box-layout-get-vertical
+@end defvar
+
+@defvar clutter-box-layout-new
+@end defvar
+
+@defvar clutter-box-layout-pack
+@end defvar
+
+@defvar clutter-box-layout-set-alignment
+@end defvar
+
+@defvar clutter-box-layout-set-easing-duration
+@end defvar
+
+@defvar clutter-box-layout-set-easing-mode
+@end defvar
+
+@defvar clutter-box-layout-set-expand
+@end defvar
+
+@defvar clutter-box-layout-set-fill
+@end defvar
+
+@defvar clutter-box-layout-set-pack-start
+@end defvar
+
+@defvar clutter-box-layout-set-spacing
+@end defvar
+
+@defvar clutter-box-layout-set-use-animations
+@end defvar
+
+@defvar clutter-box-layout-set-vertical
+@end defvar
+
+@defvar clutter-box-new
+@end defvar
+
+@defvar clutter-box-set-color
+@end defvar
+
+@defvar clutter-box-set-layout-manager
 @end defvar
 
 @defun clutter-cairo-texture-get-surface-size _
@@ -144,13 +291,139 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-container-child-set-property
 @end defvar
 
+@defvar clutter-container-destroy-child-meta
+@end defvar
+
 @defvar clutter-container-find-child-by-name
 @end defvar
+
+@defvar clutter-device-manager-get-core-device
+@end defvar
+
+@defvar clutter-device-manager-get-default
+@end defvar
+
+@defvar clutter-device-manager-get-device
+@end defvar
+
+@defun clutter-device-manager-list-devices _
+@end defun
+
+@defun clutter-device-manager-peek-devices _
+@end defun
 
 @defvar clutter-event-get-scroll-direction
 @end defvar
 
+@defvar clutter-fixed-layout-new
+@end defvar
+
+@defvar clutter-flow-layout-get-column-spacing
+@end defvar
+
+@defun clutter-flow-layout-get-column-width _
+@end defun
+
+@defvar clutter-flow-layout-get-homogeneous
+@end defvar
+
+@defvar clutter-flow-layout-get-orientation
+@end defvar
+
+@defun clutter-flow-layout-get-row-height _
+@end defun
+
+@defvar clutter-flow-layout-get-row-spacing
+@end defvar
+
+@defvar clutter-flow-layout-new
+@end defvar
+
+@defvar clutter-flow-layout-set-column-spacing
+@end defvar
+
+@defvar clutter-flow-layout-set-column-width
+@end defvar
+
+@defvar clutter-flow-layout-set-homogeneous
+@end defvar
+
+@defvar clutter-flow-layout-set-orientation
+@end defvar
+
+@defvar clutter-flow-layout-set-row-height
+@end defvar
+
+@defvar clutter-flow-layout-set-row-spacing
+@end defvar
+
+@defvar clutter-get-input-device-for-id
+@end defvar
+
+@defun clutter-input-device-get-device-coords _
+@end defun
+
+@defvar clutter-input-device-get-device-id
+@end defvar
+
+@defvar clutter-input-device-get-device-name
+@end defvar
+
 @defvar clutter-input-device-get-device-type
+@end defvar
+
+@defvar clutter-input-device-get-pointer-actor
+@end defvar
+
+@defvar clutter-input-device-get-pointer-stage
+@end defvar
+
+@defvar clutter-input-device-update-from-event
+@end defvar
+
+@defvar clutter-layout-manager-allocate
+@end defvar
+
+@defvar clutter-layout-manager-begin-animation
+@end defvar
+
+@defvar clutter-layout-manager-child-get-property
+@end defvar
+
+@defvar clutter-layout-manager-child-set-property
+@end defvar
+
+@defvar clutter-layout-manager-end-animation
+@end defvar
+
+@defvar clutter-layout-manager-find-child-property
+@end defvar
+
+@defvar clutter-layout-manager-get-animation-progress
+@end defvar
+
+@defvar clutter-layout-manager-get-child-meta
+@end defvar
+
+@defun clutter-layout-manager-get-preferred-height _ _ _
+@end defun
+
+@defun clutter-layout-manager-get-preferred-width _ _ _
+@end defun
+
+@defvar clutter-layout-manager-layout-changed
+@end defvar
+
+@defvar clutter-layout-manager-set-container
+@end defvar
+
+@defvar clutter-layout-meta-get-manager
+@end defvar
+
+@defvar clutter-media-get-subtitle-font-name
+@end defvar
+
+@defvar clutter-media-set-subtitle-font-name
 @end defvar
 
 @defvar clutter-redraw
@@ -181,6 +454,9 @@ The following symbols, if any, have not been properly documented.
 @end defvar
 
 @defvar clutter-stage-set-throttle-motion-events
+@end defvar
+
+@defvar clutter-text-get-font-description
 @end defvar
 
 @defvar clutter-texture-error-quark

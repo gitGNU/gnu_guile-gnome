@@ -9,6 +9,66 @@ Various 'global' clutter functions.
 Functions to retrieve various global Clutter resources and other utility
 functions for mainloops, events and threads
 
+@section Threading Model
+Clutter is @emph{thread-aware}: all operations performed by Clutter are
+assumed to be under the big Clutter lock, which is created when the
+threading is initialized through @code{clutter-threads-init}.
+
+@c (example (@ (id "example-Thread-Init")))
+@c (title "Thread Initialization")
+The code below shows how to correctly initialize Clutter in a
+multi-threaded environment. These operations are mandatory for
+applications that wish to use threads with Clutter.
+
+@example 
+
+int
+main (int argc, char *argv[])
+@{
+  /&#x002A; initialize GLib's threading support &#x002A;/
+  g_thread_init (NULL);
+
+  /&#x002A; initialize Clutter's threading support &#x002A;/
+  clutter_threads_init ();
+
+  /&#x002A; initialize Clutter &#x002A;/
+  clutter_init (&argc, &argv);
+
+  /&#x002A; program code &#x002A;/
+
+  /&#x002A; acquire the main lock &#x002A;/
+  clutter_threads_enter ();
+
+  /&#x002A; start the main loop &#x002A;/
+  clutter_main ();
+
+  /&#x002A; release the main lock &#x002A;/
+  clutter_threads_leave ();
+
+  /&#x002A; clean up &#x002A;/
+  return 0;
+@}
+    
+@end example
+
+This threading model has the caveat that it is only safe to call
+Clutter's API when the lock has been acquired &#x2014; which happens
+between pairs of @code{clutter-threads-enter} and
+@code{clutter-threads-leave} calls.
+
+The only safe and portable way to use the Clutter API in a
+multi-threaded environment is to never access the API from a thread that
+did not call @code{clutter-init} and @code{clutter-main}.
+
+The common pattern for using threads with Clutter is to use worker
+threads to perform blocking operations and then install idle or timeour
+sources with the result when the thread finished.
+
+Clutter provides thread-aware variants of @code{g-idle-add} and
+@code{g-timeout-add} that acquire the Clutter lock before invoking the
+provided callback: @code{clutter-threads-add-idle} and
+@code{clutter-threads-add-timeout}.
+
 @section Usage
 @include defuns-clutter-main.xml.texi
 

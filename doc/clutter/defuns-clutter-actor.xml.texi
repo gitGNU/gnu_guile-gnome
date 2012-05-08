@@ -124,11 +124,12 @@ Since 0.2
 
 @deffn Function clutter-actor-realize  (self@tie{}@code{<clutter-actor>})
 @deffnx Method realize
-Creates any underlying graphics resources needed by the actor to be
-displayed.
-
-Realization means the actor is now tied to a specific rendering context
-(that is, a specific toplevel stage).
+Realization informs the actor that it is attached to a stage. It can use
+this to allocate resources if it wanted to delay allocation until it
+would be rendered. However it is perfectly acceptable for an actor to
+create resources before being realized because Clutter only ever has a
+single rendering context so that actor is free to be moved from one
+stage to another.
 
 This function does nothing if the actor is already realized.
 
@@ -149,11 +150,12 @@ A @code{<clutter-actor>}
 
 @deffn Function clutter-actor-unrealize  (self@tie{}@code{<clutter-actor>})
 @deffnx Method unrealize
-Frees up any underlying graphics resources needed by the actor to be
-displayed.
-
-Unrealization means the actor is now independent of any specific
-rendering context (is not attached to a specific toplevel stage).
+Unrealization informs the actor that it may be being destroyed or moved
+to another stage. The actor may want to destroy any underlying graphics
+resources at this point. However it is perfectly acceptable for it to
+retain the resources until the actor is destroyed because Clutter only
+ever uses a single rendering context and all of the graphics resources
+are valid on any stage.
 
 Because mapped actors must be realized, actors may not be unrealized if
 they are mapped. This function hides the actor to be sure it isn't
@@ -308,9 +310,9 @@ A @code{<clutter-actor>}
 
 @deffn Function clutter-actor-map  (self@tie{}@code{<clutter-actor>})
 @deffnx Method map
-Sets the @code{<clutter-actor-mapped>} flag on the actor and possibly
-maps and realizes its children if they are visible. Does nothing if the
-actor is not visible.
+Sets the @samp{CLUTTER_ACTOR_MAPPED} flag on the actor and possibly maps
+and realizes its children if they are visible. Does nothing if the actor
+is not visible.
 
 Calling this is allowed in only one case: you are implementing the
 @code{<"map">} virtual function in an actor and you need to map the
@@ -333,7 +335,7 @@ Since 1.0
 
 @deffn Function clutter-actor-unmap  (self@tie{}@code{<clutter-actor>})
 @deffnx Method unmap
-Unsets the @code{<clutter-actor-mapped>} flag on the actor and possibly
+Unsets the @samp{CLUTTER_ACTOR_MAPPED} flag on the actor and possibly
 unmaps its children if they were mapped.
 
 Calling this is allowed in only one case: you are implementing the
@@ -512,6 +514,44 @@ Since 0.8
 
 @end deffn
 
+@deffn Function clutter-actor-set-request-mode  (self@tie{}@code{<clutter-actor>}) (mode@tie{}@code{<clutter-request-mode>})
+@deffnx Method set-request-mode
+Sets the geometry request mode of @var{self}.
+
+The @var{mode} determines the order for invoking
+@code{clutter-actor-get-preferred-width} and
+@code{clutter-actor-get-preferred-height}
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item mode
+the request mode
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-actor-get-request-mode  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-request-mode>})
+@deffnx Method get-request-mode
+Retrieves the geometry request mode of @var{self}
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+the request mode for the actor
+
+@end table
+
+Since 1.2
+
+@end deffn
+
 @deffn Function clutter-actor-set-geometry  (self@tie{}@code{<clutter-actor>}) (geometry@tie{}@code{<clutter-geometry>})
 @deffnx Method set-geometry
 Sets the actor's fixed position and forces its minimum and natural size,
@@ -653,6 +693,9 @@ Since 0.6
 Forces a width on an actor, causing the actor's preferred width and
 height (if any) to be ignored.
 
+If @var{width} is -1 the actor will use its preferred width request
+instead of overriding it, i.e. you can "unset" the width with -1.
+
 This function sets both the minimum and natural size of the actor.
 
 @table @var
@@ -660,7 +703,7 @@ This function sets both the minimum and natural size of the actor.
 A @code{<clutter-actor>}
 
 @item width
-Requested new width for the actor, in pixels
+Requested new width for the actor, in pixels, or -1
 
 @end table
 
@@ -704,6 +747,9 @@ the width of the actor, in pixels
 Forces a height on an actor, causing the actor's preferred width and
 height (if any) to be ignored.
 
+If @var{height} is -1 the actor will use its preferred height instead of
+overriding it, i.e. you can "unset" the height with -1.
+
 This function sets both the minimum and natural size of the actor.
 
 @table @var
@@ -711,7 +757,7 @@ This function sets both the minimum and natural size of the actor.
 A @code{<clutter-actor>}
 
 @item height
-Requested new height for the actor, in pixels
+Requested new height for the actor, in pixels, or -1
 
 @end table
 
@@ -1216,7 +1262,8 @@ Since 0.1.1
 @deffnx Method raise
 Puts @var{self} above @var{below}.
 
-Both actors must have the same parent.
+Both actors must have the same parent, and the parent must implement the
+@code{<clutter-container>} interface
 
 This function is the equivalent of @code{clutter-container-raise-child}.
 
@@ -1235,7 +1282,8 @@ A @code{<clutter-actor>} to raise above.
 @deffnx Method lower
 Puts @var{self} below @var{above}.
 
-Both actors must have the same parent.
+Both actors must have the same parent, and the parent must implement the
+@code{<clutter-container>} interface.
 
 This function is the equivalent of @code{clutter-container-lower-child}.
 
@@ -1292,6 +1340,78 @@ the stage containing the actor, or @samp{@code{#f}}.
 @end table
 
 Since 0.8
+
+@end deffn
+
+@deffn Function clutter-actor-push-internal  (self@tie{}@code{<clutter-actor>})
+@deffnx Method push-internal
+Should be used by actors implementing the @code{<clutter-container>} and
+with internal children added through @code{clutter-actor-set-parent},
+for instance:
+
+@example 
+
+  static void
+  my_actor_init (MyActor *self)
+  @{
+    self->priv = SELF_ACTOR_GET_PRIVATE (self);
+
+    clutter_actor_push_internal (CLUTTER_ACTOR (self));
+
+    /&#x002A; calling clutter_actor_set_parent() now will result in
+     &#x002A; the internal flag being set on a child of MyActor
+     &#x002A;/
+
+    /&#x002A; internal child: a background texture &#x002A;/
+    self->priv->background_tex = clutter_texture_new ();
+    clutter_actor_set_parent (self->priv->background_tex,
+                              CLUTTER_ACTOR (self));
+
+    /&#x002A; internal child: a label &#x002A;/
+    self->priv->label = clutter_text_new ();
+    clutter_actor_set_parent (self->priv->label,
+                              CLUTTER_ACTOR (self));
+
+    clutter_actor_pop_internal (CLUTTER_ACTOR (self));
+
+    /&#x002A; calling clutter_actor_set_parent() now will not result in
+     &#x002A; the internal flag being set on a child of MyActor
+     &#x002A;/
+  @}
+@end example
+
+This function will be used by Clutter to toggle an "internal child" flag
+whenever @code{clutter-actor-set-parent} is called; internal children
+are handled differently by Clutter, specifically when destroying their
+parent.
+
+Call @code{clutter-actor-pop-internal} when you finished adding internal
+children.
+
+Nested calls to @code{clutter-actor-push-internal} are allowed, but each
+one must by followed by a @code{clutter-actor-pop-internal} call.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-actor-pop-internal  (self@tie{}@code{<clutter-actor>})
+@deffnx Method pop-internal
+Disables the effects of @code{clutter-actor-pop-internal}
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@end table
+
+Since 1.2
 
 @end deffn
 
@@ -1889,6 +2009,75 @@ Since 1.0
 
 @end deffn
 
+@deffn Function clutter-actor-set-text-direction  (self@tie{}@code{<clutter-actor>}) (text_dir@tie{}@code{<clutter-text-direction>})
+@deffnx Method set-text-direction
+Sets the @code{<clutter-text-direction>} for an actor
+
+The passed text direction must not be
+@samp{CLUTTER_TEXT_DIRECTION_DEFAULT}
+
+If @var{self} implements @code{<clutter-container>} then this function
+will recurse inside all the children of @var{self} (including the
+internal ones).
+
+Composite actors not implementing @code{<clutter-container>}, or actors
+requiring special handling when the text direction changes, should
+connect to the @code{<"notify">} signal for the
+@code{<"text-direction">} property
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item text-dir
+the text direction for @var{self}
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-actor-get-text-direction  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-text-direction>})
+@deffnx Method get-text-direction
+Retrieves the value set using @code{clutter-actor-set-text-direction}
+
+If no text direction has been previously set, the default text
+direction, as returned by @code{clutter-get-default-text-direction},
+will be returned instead
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+the @code{<clutter-text-direction>} for the actor
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-actor-has-pointer  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method has-pointer
+Checks whether an actor contains the the pointer of a
+@code{<clutter-input-device>}
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+@samp{@code{#t}} if the actor contains the pointer, and @samp{@code{#f}}
+otherwise
+
+@end table
+
+Since 1.2
+
+@end deffn
+
 @deffn Function clutter-actor-box-new  (x_1@tie{}@code{float}) (y_1@tie{}@code{float}) (x_2@tie{}@code{float}) (y_2@tie{}@code{float}) @result{}@tie{} (ret@tie{}@code{<clutter-actor-box>})
 Allocates a new @code{<clutter-actor-box>} using the passed coordinates
 for the top left and bottom right points
@@ -2074,6 +2263,42 @@ Y coordinate of the point
 @end table
 
 Since 1.0
+
+@end deffn
+
+@deffn Function clutter-actor-box-clamp-to-pixel  (self@tie{}@code{<clutter-actor-box>})
+Clamps the components of @var{box} to the nearest integer
+
+@table @var
+@item box
+the @code{<clutter-actor-box>} to clamp.
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-actor-box-interpolate  (self@tie{}@code{<clutter-actor-box>}) (final@tie{}@code{<clutter-actor-box>}) (progress@tie{}@code{double}) (result@tie{}@code{<clutter-actor-box>})
+Interpolates between @var{initial} and
+@var{final}@code{<clutter-actor-box>}es using @var{progress}
+
+@table @var
+@item initial
+the initial @code{<clutter-actor-box>}
+
+@item final
+the final @code{<clutter-actor-box>}
+
+@item progress
+the interpolation progress
+
+@item result
+return location for the interpolation.
+
+@end table
+
+Since 1.2
 
 @end deffn
 

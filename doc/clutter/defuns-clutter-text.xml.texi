@@ -351,6 +351,27 @@ Since 1.0
 
 @end deffn
 
+@deffn Function clutter-text-set-font-description  (self@tie{}@code{<clutter-text>}) (font_desc@tie{}@code{<pango-font-description>})
+@deffnx Method set-font-description
+Sets @var{font-desc} as the font description for a @code{<clutter-text>}
+
+The @code{<pango-font-description>} is copied by the
+@code{<clutter-text>} actor so you can safely call
+@code{pango-font-description-free} on it after calling this function.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item font-desc
+a @code{<pango-font-description>}
+
+@end table
+
+Since 1.2
+
+@end deffn
+
 @deffn Function clutter-text-set-password-char  (self@tie{}@code{<clutter-text>}) (wc@tie{}@code{unsigned-int32})
 @deffnx Method set-password-char
 Sets the character to use in place of the actual text in a password text
@@ -478,9 +499,11 @@ Retrieves the alignment of a @code{<clutter-text>}, as set by
 a @code{<clutter-text>}
 
 @item ret
-a @code{<pango-alignment>} Since 1.0
+a @code{<pango-alignment>}
 
 @end table
+
+Since 1.0
 
 @end deffn
 
@@ -945,7 +968,7 @@ Since 1.0
 @deffn Function clutter-text-get-chars  (self@tie{}@code{<clutter-text>}) (start_pos@tie{}@code{ssize_t}) (end_pos@tie{}@code{ssize_t}) @result{}@tie{} (ret@tie{}@code{mchars})
 @deffnx Method get-chars
 Retrieves the contents of the @code{<clutter-text>} actor between
-@var{start-pos} and @var{end-pos}.
+@var{start-pos} and @var{end-pos}, but not including @var{end-pos}.
 
 The positions are specified in characters, not in bytes.
 
@@ -1214,7 +1237,7 @@ Since 1.0
 
 @end deffn
 
-@deffn Function clutter-text-set-preedit-string  (self@tie{}@code{<clutter-text>}) (preedit_str@tie{}@code{mchars}) (preedit_attr@tie{}@code{<pango-attr-list>}) (cursor_position@tie{}@code{unsigned-int})
+@deffn Function clutter-text-set-preedit-string  (self@tie{}@code{<clutter-text>}) (preedit_str@tie{}@code{mchars}) (preedit_attrs@tie{}@code{<pango-attr-list>}) (cursor_pos@tie{}@code{unsigned-int})
 @deffnx Method set-preedit-string
 Sets, or unsets, the pre-edit string. This function is useful for input
 methods to display a string (with eventual specific Pango attributes)
@@ -1231,6 +1254,12 @@ a @code{<clutter-text>}
 
 @item preedit-str
 the pre-edit string, or @samp{@code{#f}} to unset it.
+
+@item preedit-attrs
+the pre-edit string attributes.
+
+@item cursor-pos
+the cursor position for the pre-edit string
 
 @end table
 

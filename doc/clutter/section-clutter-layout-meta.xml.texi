@@ -1,0 +1,21 @@
+
+@c %start of fragment
+
+@node ClutterLayoutMeta
+@chapter ClutterLayoutMeta
+Wrapper for actors inside a layout manager
+
+@section Overview
+@code{<clutter-layout-meta>} is a wrapper object created by
+@code{<clutter-layout-manager>} implementations in order to store
+child-specific data and properties.
+
+A @code{<clutter-layout-meta>} wraps a @code{<clutter-actor>} inside a
+@code{<clutter-container>} using a @code{<clutter-layout-manager>}.
+
+@code{<clutter-layout-meta>} is available since Clutter 1.2
+
+@section Usage
+@include defuns-clutter-layout-meta.xml.texi
+
+@c %end of fragment

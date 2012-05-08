@@ -112,9 +112,75 @@ Since 0.4
 @end deffn
 
 @deffn Function clutter-x11-has-composite-extension  @result{}@tie{} (ret@tie{}@code{bool})
+Retrieves whether Clutter is running on an X11 server with the
+XComposite extension
+
+@table @var
+@item ret
+@samp{@code{#t}} if the XComposite extension is available
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-x11-set-use-argb-visual  (use_argb@tie{}@code{bool})
+Sets whether the Clutter X11 backend should request ARGB visuals by
+default or not.
+
+By default, Clutter requests RGB visuals.
+
+@cartouche 
+If no ARGB visuals are found, the X11 backend will fall back to
+requesting a RGB visual instead.
+@end cartouche
+
+ARGB visuals are required for the @code{<"use-alpha">} property to work.
+
+@cartouche 
+This function can only be called once, and before @code{clutter-init} is
+called.
+@end cartouche
+
+@table @var
+@item use-argb
+@samp{@code{#t}} if ARGB visuals should be requested by default
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-x11-get-use-argb-visual  @result{}@tie{} (ret@tie{}@code{bool})
+Retrieves whether the Clutter X11 backend is using ARGB visuals by
+default
+
+@table @var
+@item ret
+@samp{@code{#t}} if ARGB visuals are queried by default
+
+@end table
+
+Since 1.2
+
 @end deffn
 
 @deffn Function clutter-x11-get-input-devices  @result{}@tie{} (ret@tie{}@code{gslist-of})
+@samp{clutter_x11_get_input_devices} has been deprecated since version
+1.2 and should not be used in newly-written code. Use
+@code{clutter-device-manager-peek-devices} instead
+
+Retrieves a pointer to the list of input devices
+
+@table @var
+@item ret
+a pointer to the internal list of input devices; the returned list is
+owned by Clutter and should not be modified or freed
+
+@end table
+
+Since 0.8
+
 @end deffn
 
 @deffn Function clutter-x11-has-xinput  @result{}@tie{} (ret@tie{}@code{bool})
@@ -134,16 +200,21 @@ Since 0.8
 @deffn Function clutter-x11-enable-xinput 
 Enables the use of the XInput extension if present on connected XServer
 and support built into Clutter. XInput allows for multiple pointing
-devices to be used. This must be called before @code{clutter-init}.
+devices to be used.
 
-You should use @code{<clutter-x11-has-xinput>} to see if support was
-enabled.
+This function must be called before @code{clutter-init}.
+
+Since XInput might not be supported by the X server, you might want to
+use @code{clutter-x11-has-xinput} to see if support was enabled.
 
 Since 0.8
 
 @end deffn
 
 @deffn Function clutter-x11-texture-pixmap-new  @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+Creates a new @code{<clutter-x11-texture-pixmap>} which can be used to
+display the contents of an X11 Pixmap inside a Clutter scene graph
+
 @table @var
 @item ret
 A new @code{<clutter-x11-texture-pixmap>}

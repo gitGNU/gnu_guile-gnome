@@ -31,6 +31,12 @@
   (gtype-id "CLUTTER_TYPE_UNITS")
 )
 
+(define-boxed AnimatorKey
+  (in-module "Clutter")
+  (c-name "ClutterAnimatorKey")
+  (gtype-id "CLUTTER_TYPE_ANIMATOR_KEY")
+)
+
 (define-interface Animatable
   (in-module "Clutter")
   (c-name "ClutterAnimatable")
@@ -78,6 +84,18 @@
   (return-type "ClutterAnimationMode")
 )
 
+(define-method get_keys
+  (of-object "ClutterAnimator")
+  (c-name "clutter_animator_get_keys")
+  (overrides "clutter_animator_get_keys")
+  (return-type "GList*-of-ClutterAnimatorKey*")
+  (parameters
+    '("GObject*" "object")
+    '("const-gchar*" "property_name")
+    '("gdouble" "progress")
+  )
+)
+
 (define-function clutter_binding_pool_get_for_class
   (c-name "clutter_binding_pool_get_for_class")
   (overrides "clutter_binding_pool_get_for_class")
@@ -98,6 +116,20 @@
   (c-name "clutter_behaviour_get_actors")
   (overrides "clutter_behaviour_get_actors")
   (return-type "GSList*-of-ClutterActor*")
+)
+
+(define-method list_devices
+  (of-object "ClutterDeviceManager")
+  (c-name "clutter_device_manager_list_devices")
+  (overrides "clutter_device_manager_list_devices")
+  (return-type "GSList*-of-ClutterInputDevice*")
+)
+
+(define-method peek_devices
+  (of-object "ClutterDeviceManager")
+  (c-name "clutter_device_manager_peek_devices")
+  (overrides "clutter_device_manager_peek_devices")
+  (return-type "const-GSList*-of-ClutterInputDevice*")
 )
 
 (define-method get_nodes
@@ -239,6 +271,7 @@
              "clutter_actor_animate_with_alphav"
              "clutter_binding_pool_install_action"
              "clutter_binding_pool_override_action"
+             "clutter_box_packv"
              "clutter_color_hash"
              "clutter_color_equal"
              "clutter_param_spec_color"
@@ -253,6 +286,7 @@
              ;;"clutter_main*" ;; fixme: do i need to do something special with clutter-main?
              "clutter_threads*"
              "clutter_model*"
+             "clutter_layout_manager_list_child_properties"
              "clutter_list_model*"
              "clutter_scriptable*"
              "clutter_script_connect_signals*"

@@ -51,6 +51,90 @@ function call which will take care of setting up and tearing down a
 @code{<clutter-animation>} instance and animate an actor between its
 current state and the specified final state.
 
+@section Defining ClutterAnimationMode inside ClutterScript
+When defining a @code{<clutter-animation>} inside a ClutterScript file
+or string the @code{<"mode">} can be defined either using the
+@code{<clutter-animation-mode>} enumeration values through their "nick"
+(the short string used inside @code{<g-enum-value>}), their numeric id,
+or using the following strings:
+
+@table @var
+@item easeInCubic, easeOutCubic, easeInOutCubic
+
+@c %start of fragment
+
+
+@c %end of fragment
+@item easeInQuart, easeOutQuart, easeInOutQuart
+
+@c %start of fragment
+
+
+@c %end of fragment
+@item easeInQuint, easeOutQuint, easeInOutQuint
+
+@c %start of fragment
+
+
+@c %end of fragment
+@item easeInSine, easeOutSine, easeInOutSine
+
+@c %start of fragment
+
+
+@c %end of fragment
+@item easeInExpo, easeOutExpo, easeInOutExpo
+
+@c %start of fragment
+
+
+@c %end of fragment
+@item easeInCirc, easeOutCirc, easeInOutCirc
+
+@c %start of fragment
+
+
+@c %end of fragment
+@item easeInElastic, easeOutElastic, easeInOutElastic
+
+@c %start of fragment
+
+
+@c %end of fragment
+@item easeInBack, easeOutBack, easeInOutBack
+
+@c %start of fragment
+
+
+@c %end of fragment
+@item easeInBounce, easeOutBounce, easeInOutBounce
+
+@c %start of fragment
+
+
+@c %end of fragment
+@end table
+
+Corresponding to the quadratic easing modes
+
+Corresponding to the cubic easing modes
+
+Corresponding to the quartic easing modes
+
+Corresponding to the quintic easing modes
+
+Corresponding to the sine easing modes
+
+Corresponding to the exponential easing modes
+
+Corresponding to the circular easing modes
+
+Corresponding to the overshooting elastic easing modes
+
+Corresponding to the overshooting cubic easing modes
+
+Corresponding to the bouncing easing modes
+
 @code{<clutter-animation>} is available since Clutter 1.0
 
 @section Usage

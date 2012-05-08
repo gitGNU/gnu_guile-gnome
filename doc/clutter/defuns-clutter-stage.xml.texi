@@ -325,6 +325,97 @@ Since 0.6
 
 @end deffn
 
+@deffn Function clutter-stage-set-use-alpha  (self@tie{}@code{<clutter-stage>}) (use_alpha@tie{}@code{bool})
+@deffnx Method set-use-alpha
+Sets whether the @var{stage} should honour the @code{<"opacity">} and
+the alpha channel of the @code{<"color">}
+
+@table @var
+@item stage
+a @code{<clutter-stage>}
+
+@item use-alpha
+whether the stage should honour the opacity or the alpha channel of the
+stage color
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-stage-get-use-alpha  (self@tie{}@code{<clutter-stage>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-use-alpha
+Retrieves the value set using @code{clutter-stage-set-use-alpha}
+
+@table @var
+@item stage
+a @code{<clutter-stage>}
+
+@item ret
+@samp{@code{#t}} if the stage should honour the opacity and the alpha
+channel of the stage color
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-stage-set-minimum-size  (self@tie{}@code{<clutter-stage>}) (width@tie{}@code{unsigned-int}) (height@tie{}@code{unsigned-int})
+@deffnx Method set-minimum-size
+Sets the minimum size for a stage window, if the default backend uses
+@code{<clutter-stage>} inside a window
+
+This is a convenience function, and it is equivalent to setting the
+@code{<"min-width">} and @code{<"min-height">} on @var{stage}
+
+If the current size of @var{stage} is smaller than the minimum size, the
+@var{stage} will be resized to the new @var{width} and @var{height}
+
+This function has no effect if @var{stage} is fullscreen
+
+@table @var
+@item stage
+a @code{<clutter-stage>}
+
+@item width
+width, in pixels
+
+@item height
+height, in pixels
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-stage-get-minimum-size  (self@tie{}@code{<clutter-stage>}) @result{}@tie{} (width@tie{}@code{unsigned-int}) (height@tie{}@code{unsigned-int})
+@deffnx Method get-minimum-size
+Retrieves the minimum size for a stage window as set using
+@code{clutter-stage-set-minimum-size}.
+
+The returned size may not correspond to the actual minimum size and it
+is specific to the @code{<clutter-stage>} implementation inside the
+Clutter backend
+
+@table @var
+@item stage
+a @code{<clutter-stage>}
+
+@item width
+return location for the minimum width, in pixels, or @samp{@code{#f}}.
+
+@item height
+return location for the minimum height, in pixels, or @samp{@code{#f}}.
+
+@end table
+
+Since 1.2
+
+@end deffn
+
 @deffn Function clutter-stage-set-perspective  (self@tie{}@code{<clutter-stage>}) (perspective@tie{}@code{<clutter-perspective>})
 @deffnx Method set-perspective
 Sets the stage perspective.

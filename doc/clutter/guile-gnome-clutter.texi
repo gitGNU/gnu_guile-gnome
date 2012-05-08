@@ -56,6 +56,7 @@ USA
 
 * ClutterActor:: Base abstract class for all visual stage actors.
 * ClutterAnimatable:: Interface for animatable classes.
+* ClutterAnimator:: 
 * Implicit Animations:: Simple implicit animations.
 * ClutterAlpha:: A class for calculating an alpha value as a function of time.
 * ClutterBackend:: Backend abstraction
@@ -66,16 +67,25 @@ USA
 * ClutterBehaviourRotate:: A behaviour controlling rotation
 * ClutterBehaviourScale:: A behaviour controlling scale
 * ClutterBehaviour:: Class for providing behaviours to actors
+* ClutterBinLayout:: 
+* ClutterBoxLayout:: 
+* ClutterBox:: 
 * Key Bindings:: Pool for key bindings.
 * ClutterChildMeta:: Wrapper for actors inside a container
 * ClutterCairoTexture:: Texture with Cairo integration.
 * ClutterClone:: An actor that displays a clone of a source actor.
 * Colors:: Color management and manipulation.
 * ClutterContainer:: An interface for implementing container actors
+* ClutterDeviceManager:: 
 * Events:: User and window system events
-* GL Features:: Query GL features at runtime
+* Features:: Query GL features at runtime
+* ClutterFixedLayout:: 
+* ClutterFlowLayout:: 
 * ClutterGroup:: Actor class containing multiple children. actors.
+* ClutterInputDevice:: 
 * Value intervals:: An object holding an interval of two values.
+* ClutterLayoutManager:: 
+* ClutterLayoutMeta:: 
 * ClutterListModel:: List model implementation
 * General:: Various 'global' clutter functions.
 * ClutterMedia:: An interface for controlling playback of media data.
@@ -86,7 +96,8 @@ USA
 * ClutterScore:: Controller for multiple timelines
 * ClutterScriptable:: Override the UI definition parsing
 * ClutterScript:: Loads a scene from UI definition data
-* ClutterShader:: Programmable pipeline abstraction
+* Shaders:: Programmable pipeline abstraction
+* Stage Manager:: 
 * ClutterStage:: Top level visual element to which actors are placed.
 * ClutterText:: An actor for displaying and editing text.
 * ClutterTexture:: An actor for displaying and manipulating images.
@@ -114,6 +125,7 @@ USA
 @include section-clutter-alpha.xml.texi
 @include section-clutter-animatable.xml.texi
 @include section-clutter-animation.xml.texi
+@include section-clutter-animator.xml.texi
 @include section-clutter-backend.xml.texi
 @include section-clutter-behaviour-depth.xml.texi
 @include section-clutter-behaviour-ellipse.xml.texi
@@ -122,16 +134,25 @@ USA
 @include section-clutter-behaviour-rotate.xml.texi
 @include section-clutter-behaviour-scale.xml.texi
 @include section-clutter-behaviour.xml.texi
+@include section-clutter-bin-layout.xml.texi
 @include section-clutter-binding-pool.xml.texi
-@include section-clutter-child-meta.xml.texi
+@include section-clutter-box-layout.xml.texi
+@include section-clutter-box.xml.texi
 @include section-clutter-cairo-texture.xml.texi
+@include section-clutter-child-meta.xml.texi
 @include section-clutter-clone.xml.texi
 @include section-clutter-color.xml.texi
 @include section-clutter-container.xml.texi
+@include section-clutter-device-manager.xml.texi
 @include section-clutter-event.xml.texi
 @include section-clutter-feature.xml.texi
+@include section-clutter-fixed-layout.xml.texi
+@include section-clutter-flow-layout.xml.texi
 @include section-clutter-group.xml.texi
+@include section-clutter-input-device.xml.texi
 @include section-clutter-interval.xml.texi
+@include section-clutter-layout-manager.xml.texi
+@include section-clutter-layout-meta.xml.texi
 @include section-clutter-list-model.xml.texi
 @include section-clutter-main.xml.texi
 @include section-clutter-media.xml.texi
@@ -140,9 +161,10 @@ USA
 @include section-clutter-path.xml.texi
 @include section-clutter-rectangle.xml.texi
 @include section-clutter-score.xml.texi
-@include section-clutter-scriptable.xml.texi
 @include section-clutter-script.xml.texi
+@include section-clutter-scriptable.xml.texi
 @include section-clutter-shader.xml.texi
+@include section-clutter-stage-manager.xml.texi
 @include section-clutter-stage.xml.texi
 @include section-clutter-text.xml.texi
 @include section-clutter-texture.xml.texi

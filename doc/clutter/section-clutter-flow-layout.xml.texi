@@ -1,0 +1,54 @@
+
+@c %start of fragment
+
+@node ClutterFlowLayout
+@chapter ClutterFlowLayout
+A reflowing layout manager
+
+@section Overview
+@code{<clutter-flow-layout>} is a layout manager which implements the
+following policy:
+
+@itemize 
+@item
+@item
+@item
+@item
+@end itemize
+
+the preferred natural size depends on the value of the
+@code{<"orientation">} property; the layout will try to maintain all its
+children on a single row or column;
+
+if either the width or the height allocated are smaller than the
+preferred ones, the layout will wrap; in this case, the preferred height
+or width, respectively, will take into account the amount of columns and
+rows;
+
+each line (either column or row) in reflowing will have the size of the
+biggest cell on that line; if the @code{<"homogeneous">} property is set
+to @samp{@code{#f}} the actor will be allocated within that area, and if
+set to @samp{@code{#t}} instead the actor will be given exactly that
+area;
+
+the size of the columns or rows can be controlled for both minimum and
+maximum; the spacing can also be controlled in both columns and rows.
+
+(The missing figure, flow-layout-horizontal
+
+@c (title "Horizontal flow layout")
+The image shows a @code{<clutter-flow-layout>} with the
+@code{<"orientation">} propert set to @samp{CLUTTER_FLOW_HORIZONTAL}.
+
+(The missing figure, flow-layout-vertical
+
+@c (title "Vertical flow layout")
+The image shows a @code{<clutter-flow-layout>} with the
+@code{<"orientation">} propert set to @samp{CLUTTER_FLOW_VERTICAL}.
+
+@code{<clutter-flow-layout>} is available since Clutter 1.2
+
+@section Usage
+@include defuns-clutter-flow-layout.xml.texi
+
+@c %end of fragment

@@ -1,8 +1,8 @@
 
 @c %start of fragment
 
-@node ClutterShader
-@chapter ClutterShader
+@node Shaders
+@chapter Shaders
 Programmable pipeline abstraction
 
 @section Overview

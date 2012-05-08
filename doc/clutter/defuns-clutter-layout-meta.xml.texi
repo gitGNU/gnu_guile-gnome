@@ -1,0 +1,22 @@
+
+@c %start of fragment
+
+@deffn Function clutter-layout-meta-get-manager  (self@tie{}@code{<clutter-layout-meta>}) @result{}@tie{} (ret@tie{}@code{<clutter-layout-manager>})
+@deffnx Method get-manager
+Retrieves the actor wrapped by @var{data}
+
+@table @var
+@item data
+a @code{<clutter-layout-meta>}
+
+@item ret
+a @code{<clutter-layout-manager>}.
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+
+@c %end of fragment

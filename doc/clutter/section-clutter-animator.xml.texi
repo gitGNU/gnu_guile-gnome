@@ -1,0 +1,101 @@
+
+@c %start of fragment
+
+@node ClutterAnimator
+@chapter ClutterAnimator
+Multi-actor tweener
+
+@section Overview
+@code{<clutter-animator>} is an object providing declarative animations
+for @code{<gobject>} properties belonging to one or more
+@code{<gobject>}s to @code{<clutter-intervals>}.
+
+@code{<clutter-animator>} is used to build and describe complex
+animations in terms of "key frames". @code{<clutter-animator>} is meant
+to be used through the @code{<clutter-script>} definition format, but it
+comes with a convenience C API.
+
+@section Key Frames
+Every animation handled by a @code{<clutter-animator>} can be described
+in terms of "key frames". For each @code{<gobject>} property there can
+be multiple key frames, each one defined by the end value for the
+property to be computed starting from the current value to a specific
+point in time, using a given easing mode.
+
+The point in time is defined using a value representing the progress in
+the normalized interval of [ 0, 1 ]. This maps the value returned by
+@code{clutter-timeline-get-duration}.
+
+@c (title "Key Frames")
+In the image above the duration of the animation is represented by the
+blue line. Each key frame is the white dot, along with its progress. The
+red line represents the computed function of time given the easing mode.
+
+@section ClutterAnimator description for @code{<clutter-script>}
+@code{<clutter-animator>} defines a custom "properties" property which
+allows describing the key frames for objects.
+
+The "properties" property has the following syntax:
+
+@example 
+
+ @{
+   "properties" : [
+     @{
+       "object" : <id of an object>,
+       "name" : <name of the property>,
+       "ease-in" : <boolean>,
+       "interpolation" : <ClutterInterpolation value>,
+       "keys" : [
+         [ <progress>, <easing mode>, <final value> ]
+       ]
+   ]
+ @}
+    
+@end example
+
+@c (example (@ (id "ClutterAnimator-script-example")))
+@c (title "ClutterAnimator definition")
+The following JSON fragment defines a @code{<clutter-animator>} with the
+duration of 1 second and operating on the x and y properties of a
+@code{<clutter-actor>} named "rect-01", with two frames for each
+property. The first frame will linearly move the actor from its current
+position to the 100, 100 position in 20 percent of the duration of the
+animation; the second will using a cubic easing to move the actor to the
+200, 200 coordinates.
+
+@example 
+
+ @{
+   "type" : "ClutterAnimator",
+   "duration" : 1000,
+   "properties" : [
+     @{
+       "object" : "rect-01",
+       "name" : "x",
+       "ease-in" : true,
+       "keys" : [
+         [ 0.2, "linear",       100.0 ],
+         [ 1.0, "easeOutCubic", 200.0 ]
+       ]
+     @},
+     @{
+       "object" : "rect-01",
+       "name" : "y",
+       "ease-in" : true,
+       "keys" : [
+         [ 0.2, "linear",       100.0 ],
+         [ 1.0, "easeOutCubic", 200.0 ]
+       ]
+     @}
+   ]
+ @}
+    
+@end example
+
+@code{<clutter-animator>} is available since Clutter 1.2
+
+@section Usage
+@include defuns-clutter-animator.xml.texi
+
+@c %end of fragment

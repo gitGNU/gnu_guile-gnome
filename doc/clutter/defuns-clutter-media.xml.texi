@@ -105,6 +105,42 @@ Since 1.0
 
 @end deffn
 
+@deffn Function clutter-media-set-subtitle-uri  (self@tie{}@code{<clutter-media>}) (uri@tie{}@code{mchars})
+@deffnx Method set-subtitle-uri
+Sets the location of a subtitle file to display while playing
+@var{media}.
+
+@table @var
+@item media
+a @code{<clutter-media>}
+
+@item uri
+the URI of a subtitle file
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-media-get-subtitle-uri  (self@tie{}@code{<clutter-media>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-subtitle-uri
+Retrieves the URI of the subtitle file in use.
+
+@table @var
+@item media
+a @code{<clutter-media>}
+
+@item ret
+the URI of the subtitle file. Use @code{g-free} to free the returned
+string
+
+@end table
+
+Since 1.2
+
+@end deffn
+
 @deffn Function clutter-media-set-audio-volume  (self@tie{}@code{<clutter-media>}) (volume@tie{}@code{double})
 @deffnx Method set-audio-volume
 Sets the playback volume of @var{media} to @var{volume}.

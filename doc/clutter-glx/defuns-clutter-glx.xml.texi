@@ -2,6 +2,8 @@
 @c %start of fragment
 
 @deffn Function clutter-glx-texture-pixmap-new  @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+Creates a new, empty @code{<clutter-glx-texture-pixmap>}
+
 @table @var
 @item ret
 A new @code{<clutter-glx-texture-pixmap>}

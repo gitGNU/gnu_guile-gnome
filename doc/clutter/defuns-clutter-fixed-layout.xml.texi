@@ -1,0 +1,18 @@
+
+@c %start of fragment
+
+@deffn Function clutter-fixed-layout-new  @result{}@tie{} (ret@tie{}@code{<clutter-layout-manager>})
+Creates a new @code{<clutter-fixed-layout>}
+
+@table @var
+@item ret
+the newly created @code{<clutter-fixed-layout>}
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+
+@c %end of fragment

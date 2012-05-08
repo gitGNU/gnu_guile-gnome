@@ -17,10 +17,9 @@ space. The actor is positioned relative to top left corner of it parent
 with the childs origin being its anchor point (also top left by
 default).
 
-The actors 2D surface is contained inside its bounding box, described by
-the @code{<clutter-actor-box>} structure:
-
-(The missing figure, actor-box
+@section Actor bounding box and transformations
+Any actor's 2D surface is contained inside its bounding box, as
+described by the @code{<clutter-actor-box>} structure:
 
 @c (title "Bounding box of an Actor")
 The actor box represents the untransformed area occupied by an actor.
@@ -31,8 +30,8 @@ to any child actors. Also applied to all actors by the
 @code{<clutter-stage>} is a perspective transformation. API is provided
 for both tranformed and untransformed actor geometry information.
 
-The 'modelview' transform matrix for the actor is constructed from the
-actor settings by the following order of operations:
+The GL 'modelview' transform matrix for the actor is constructed from
+the actor settings by the following order of operations:
 
 @enumerate 
 @item
@@ -67,8 +66,8 @@ various size and position accessors, like @code{clutter-actor-set-x} or
 @code{clutter-actor-set-width}; or it can have a preferred width and
 height, which then allows a layout manager to implicitly size and
 position it by "allocating" an area for an actor. This allows for actors
-to be manipulate in both a fixed or static parent container (i.e.
-children of @code{<clutter-group>}) and a more automatic or dynamic
+to be manipulated in both a fixed (or static) parent container (i.e.
+children of @code{<clutter-group>}) and a more automatic (or dynamic)
 layout based parent container.
 
 When accessing the position and size of an actor, the simple accessors
@@ -80,6 +79,7 @@ Depending on whether you are querying an actor or implementing a layout
 manager, you should either use the simple accessors or use the size
 negotiation API.
 
+@section Event Handling
 Clutter actors are also able to receive input events and react to them.
 Events are handled in the following ways:
 
@@ -124,14 +124,40 @@ returning @samp{@code{#t}} (meaning "event handled").
 
 Pointer events will 'pass through' non reactive overlapping actors.
 
-(The missing figure, event-flow
-
 @c (title "Event flow in Clutter")
 Every '?' box in the diagram above is an entry point for application
 code.
 
+@section Implementing a ClutterActor
 For implementing a new custom actor class, please read the corresponding
 section of the API reference.
+
+@section ClutterActor custom properties for @code{<clutter-script>}
+@code{<clutter-actor>} defines a custom "rotation" property which allows
+a short-hand description of the rotations to be applied to an actor.
+
+The syntax of the "rotation" property is the following:
+
+@example 
+
+"rotation" : [
+  @{ "<axis>" : [ <angle>, [ <center> ] ] @}
+]
+    
+@end example
+
+where the @emph{axis} is the name of an enumeration value of type
+@code{<clutter-rotate-axis>} and @emph{angle} is a floating point value
+representing the rotation angle on the given axis, in degrees.
+
+The @emph{center} array is optional, and if present it must contain the
+center of rotation as described by two coordinates: Y and Z for
+"x-axis"; X and Z for "y-axis"; and X and Y for "z-axis".
+
+@code{<clutter-actor>} will also parse every positional and dimensional
+property defined as a string through @code{clutter-units-from-string};
+you should read the documentation for the @code{<clutter-units>} parser
+format for the valid units and syntax.
 
 @section Usage
 @include defuns-clutter-actor.xml.texi

@@ -42,6 +42,11 @@
   (return-type "Window")
 )
 
+(define-function clutter_x11_get_visual_info
+  (c-name "clutter_x11_get_visual_info")
+  (return-type "XVisualInfo*")
+)
+
 (define-function clutter_x11_set_display
   (c-name "clutter_x11_set_display")
   (return-type "none")
@@ -50,17 +55,17 @@
   )
 )
 
-(define-function clutter_x11_get_stage_window
-  (c-name "clutter_x11_get_stage_window")
-  (return-type "Window")
+(define-function clutter_x11_get_stage_visual
+  (c-name "clutter_x11_get_stage_visual")
+  (return-type "XVisualInfo*")
   (parameters
     '("ClutterStage*" "stage")
   )
 )
 
-(define-function clutter_x11_get_stage_visual
-  (c-name "clutter_x11_get_stage_visual")
-  (return-type "XVisualInfo*")
+(define-function clutter_x11_get_stage_window
+  (c-name "clutter_x11_get_stage_window")
+  (return-type "Window")
   (parameters
     '("ClutterStage*" "stage")
   )
@@ -136,6 +141,19 @@
 
 (define-function clutter_x11_has_composite_extension
   (c-name "clutter_x11_has_composite_extension")
+  (return-type "gboolean")
+)
+
+(define-function clutter_x11_set_use_argb_visual
+  (c-name "clutter_x11_set_use_argb_visual")
+  (return-type "none")
+  (parameters
+    '("gboolean" "use_argb")
+  )
+)
+
+(define-function clutter_x11_get_use_argb_visual
+  (c-name "clutter_x11_get_use_argb_visual")
   (return-type "gboolean")
 )
 

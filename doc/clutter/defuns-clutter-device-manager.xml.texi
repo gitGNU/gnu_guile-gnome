@@ -1,0 +1,92 @@
+
+@c %start of fragment
+
+@deffn Function clutter-device-manager-list-devices  (self@tie{}@code{<clutter-device-manager>}) @result{}@tie{} (ret@tie{}@code{gslist-of})
+@deffnx Method list-devices
+Lists all currently registered input devices
+
+@table @var
+@item device-manager
+a @code{<clutter-device-manager>}
+
+@item ret
+a newly allocated list of @code{<clutter-input-device>} objects. Use
+@code{g-slist-free} to deallocate it when done.
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-device-manager-peek-devices  (self@tie{}@code{<clutter-device-manager>}) @result{}@tie{} (ret@tie{}@code{gslist-of})
+@deffnx Method peek-devices
+Lists all currently registered input devices
+
+@table @var
+@item device-manager
+a @code{<clutter-device-manager>}
+
+@item ret
+a pointer to the internal list of @code{<clutter-input-device>} objects.
+The returned list is owned by the @code{<clutter-device-manager>} and
+should never be modified or freed.
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-device-manager-get-device  (self@tie{}@code{<clutter-device-manager>}) (device_id@tie{}@code{int}) @result{}@tie{} (ret@tie{}@code{<clutter-input-device*>})
+@deffnx Method get-device
+Retrieves the @code{<clutter-input-device>} with the given
+@var{device-id}
+
+@table @var
+@item device-manager
+a @code{<clutter-device-manager>}
+
+@item device-id
+the integer id of a device
+
+@item ret
+a @code{<clutter-input-device>} or @samp{@code{#f}}. The returned device
+is owned by the @code{<clutter-device-manager>} and should never be
+modified or freed.
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+@deffn Function clutter-get-input-device-for-id  (id@tie{}@code{int}) @result{}@tie{} (ret@tie{}@code{<clutter-input-device*>})
+Retrieves the @code{<clutter-input-device>} from its @var{id}. This is a
+convenience wrapper for @code{clutter-device-manager-get-device} and it
+is functionally equivalent to:
+
+@example 
+
+  ClutterDeviceManager *manager;
+  ClutterInputDevice *device;
+
+  manager = clutter_device_manager_get_default ();
+  device = clutter_device_manager_get_device (manager, id);
+@end example
+
+@table @var
+@item id
+the unique id for a device
+
+@item ret
+a @code{<clutter-input-device>}, or @samp{@code{#f}}.
+
+@end table
+
+Since 0.8
+
+@end deffn
+
+
+@c %end of fragment

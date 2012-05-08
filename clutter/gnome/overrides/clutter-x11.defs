@@ -49,6 +49,7 @@
              "clutter_x11_get_current_event_time"
              "clutter_x11_get_default_display"
              "clutter_x11_get_stage_visual"
+             "clutter_x11_get_visual_info"
              "clutter_x11_add_filter"
              "clutter_x11_remove_filter"
              )

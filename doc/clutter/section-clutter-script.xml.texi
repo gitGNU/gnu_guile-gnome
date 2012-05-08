@@ -69,8 +69,8 @@ buffer:
   "angle-end"   : 360.0,
   "axis"        : "z-axis",
   "alpha"       : @{
-    "timeline" : @{ "duration" : 4000, "fps" : 60, "loop" : true @},
-    "function" : "sine"
+    "timeline" : @{ "duration" : 4000, "loop" : true @},
+    "mode"     : "easeInSine"
   @}
 @}
 @end example
@@ -89,8 +89,32 @@ definition of an actor, the "behaviour" member can be used:
 @end example
 
 A @code{<clutter-alpha>} belonging to a @code{<clutter-behaviour>} can
-only be defined implicitely. A @code{<clutter-timeline>} belonging to a
-@code{<clutter-alpha>} can be either defined implicitely or explicitely.
+only be defined implicitly like in the example above, or explicitly by
+setting the "alpha" property to point to a previously defined
+@code{<clutter-alpha>}, e.g.:
+
+@example 
+
+@{
+  "id"          : "rotate-behaviour",
+  "type"        : "ClutterBehaviourRotate",
+  "angle-start" : 0.0,
+  "angle-end"   : 360.0,
+  "axis"        : "z-axis",
+  "alpha"       : @{
+    "id"       : "rotate-alpha",
+    "type"     : "ClutterAlpha",
+    "timeline" : @{
+      "id"       : "rotate-timeline",
+      "type      : "ClutterTimeline",
+      "duration" : 4000,
+      "loop"     : true
+    @},
+    "function" : "custom_sine_alpha"
+  @}
+@}
+@end example
+
 Implicitely defined @code{<clutter-alpha>}s and
 @code{<clutter-timeline>}s can omit the @c (varname "id") member, as
 well as the @c (varname "type") member, but will not be available using

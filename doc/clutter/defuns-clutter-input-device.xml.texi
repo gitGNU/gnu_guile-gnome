@@ -1,0 +1,21 @@
+
+@c %start of fragment
+
+@deffn Function clutter-input-device-get-device-id  (self@tie{}@code{<clutter-input-device*>}) @result{}@tie{} (ret@tie{}@code{int})
+Retrieves the unique identifier of @var{device}
+
+@table @var
+@item device
+a @code{<clutter-input-device>}
+
+@item ret
+the identifier of the device
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+
+@c %end of fragment

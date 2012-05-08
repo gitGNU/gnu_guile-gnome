@@ -114,6 +114,31 @@ Since 0.6
 
 @end deffn
 
+@deffn Function clutter-container-create-child-meta  (self@tie{}@code{<clutter-container>}) (actor@tie{}@code{<clutter-actor>})
+@deffnx Method create-child-meta
+Creates the @code{<clutter-child-meta>} wrapping @var{actor} inside the
+@var{container}, if the @code{<"child-meta-type">} class member is not
+set to @samp{G_TYPE_INVALID}.
+
+This function is only useful when adding a @code{<clutter-actor>} to a
+@code{<clutter-container>} implementation outside of the
+@code{<clutter-container>}::@code{add} virtual function implementation.
+
+Applications should not call this function.
+
+@table @var
+@item container
+a @code{<clutter-container>}
+
+@item actor
+a @code{<clutter-actor>}
+
+@end table
+
+Since 1.2
+
+@end deffn
+
 @deffn Function clutter-container-get-child-meta  (self@tie{}@code{<clutter-container>}) (actor@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-child-meta>})
 @deffnx Method get-child-meta
 Retrieves the @code{<clutter-child-meta>} which contains the data about

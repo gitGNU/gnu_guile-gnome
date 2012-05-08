@@ -1,0 +1,31 @@
+
+@c %start of fragment
+
+@deffn Function clutter-layout-manager-allocate  (self@tie{}@code{<clutter-layout-manager>}) (container@tie{}@code{<clutter-container>}) (allocation@tie{}@code{<clutter-actor-box>}) (flags@tie{}@code{<clutter-allocation-flags>})
+@deffnx Method allocate
+Allocates the children of @var{container} given an area
+
+See also @code{clutter-actor-allocate}
+
+@table @var
+@item manager
+a @code{<clutter-layout-manager>}
+
+@item container
+the @code{<clutter-container>} using @var{manager}
+
+@item allocation
+the @code{<clutter-actor-box>} containing the allocated area of
+@var{container}
+
+@item flags
+the allocation flags
+
+@end table
+
+Since 1.2
+
+@end deffn
+
+
+@c %end of fragment

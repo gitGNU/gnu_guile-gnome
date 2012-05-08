@@ -1,12 +1,19 @@
 
 @c %start of fragment
 
-@node GL Features
-@chapter GL Features
-Query GL features at runtime
+@node Features
+@chapter Features
+Run-time detection of Clutter features
 
 @section Overview
-Functions to query available GL features ay runtime
+Parts of Clutter depend on the underlying platform, including the
+capabilities of the backend used and the OpenGL features exposed through
+the Clutter and COGL API.
+
+It is possible to ask whether Clutter has support for specific features
+at run-time.
+
+See also @code{cogl-get-features} and @code{<cogl-feature-flags>}
 
 @section Usage
 @include defuns-clutter-feature.xml.texi

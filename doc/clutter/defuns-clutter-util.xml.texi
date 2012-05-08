@@ -2,6 +2,9 @@
 @c %start of fragment
 
 @deffn Function clutter-util-next-p2  (a@tie{}@code{int}) @result{}@tie{} (ret@tie{}@code{int})
+@samp{clutter_util_next_p2} is deprecated and should not be used in
+newly-written code. 1.2
+
 Calculates the nearest power of two, greater than or equal to @var{a}.
 
 @table @var

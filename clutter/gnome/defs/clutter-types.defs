@@ -10,6 +10,7 @@
     '("realized" "CLUTTER_ACTOR_REALIZED")
     '("reactive" "CLUTTER_ACTOR_REACTIVE")
     '("visible" "CLUTTER_ACTOR_VISIBLE")
+    '("no-layout" "CLUTTER_ACTOR_NO_LAYOUT")
   )
 )
 
@@ -20,6 +21,50 @@
   (values
     '("llocation-none" "CLUTTER_ALLOCATION_NONE")
     '("bsolute-origin-changed" "CLUTTER_ABSOLUTE_ORIGIN_CHANGED")
+  )
+)
+
+(define-flags RedrawFlags
+  (in-module "Clutter")
+  (c-name "ClutterRedrawFlags")
+  (gtype-id "CLUTTER_TYPE_REDRAW_FLAGS")
+  (values
+    '("box" "CLUTTER_REDRAW_CLIPPED_TO_BOX")
+    '("allocation" "CLUTTER_REDRAW_CLIPPED_TO_ALLOCATION")
+  )
+)
+
+(define-enum Interpolation
+  (in-module "Clutter")
+  (c-name "ClutterInterpolation")
+  (gtype-id "CLUTTER_TYPE_INTERPOLATION")
+  (values
+    '("linear" "CLUTTER_INTERPOLATION_LINEAR")
+    '("cubic" "CLUTTER_INTERPOLATION_CUBIC")
+  )
+)
+
+(define-enum BinAlignment
+  (in-module "Clutter")
+  (c-name "ClutterBinAlignment")
+  (gtype-id "CLUTTER_TYPE_BIN_ALIGNMENT")
+  (values
+    '("fixed" "CLUTTER_BIN_ALIGNMENT_FIXED")
+    '("fill" "CLUTTER_BIN_ALIGNMENT_FILL")
+    '("start" "CLUTTER_BIN_ALIGNMENT_START")
+    '("end" "CLUTTER_BIN_ALIGNMENT_END")
+    '("center" "CLUTTER_BIN_ALIGNMENT_CENTER")
+  )
+)
+
+(define-enum BoxAlignment
+  (in-module "Clutter")
+  (c-name "ClutterBoxAlignment")
+  (gtype-id "CLUTTER_TYPE_BOX_ALIGNMENT")
+  (values
+    '("start" "CLUTTER_BOX_ALIGNMENT_START")
+    '("end" "CLUTTER_BOX_ALIGNMENT_END")
+    '("center" "CLUTTER_BOX_ALIGNMENT_CENTER")
   )
 )
 
@@ -103,18 +148,6 @@
   )
 )
 
-(define-enum InputDeviceType
-  (in-module "Clutter")
-  (c-name "ClutterInputDeviceType")
-  (gtype-id "CLUTTER_TYPE_INPUT_DEVICE_TYPE")
-  (values
-    '("pointer-device" "CLUTTER_POINTER_DEVICE")
-    '("keyboard-device" "CLUTTER_KEYBOARD_DEVICE")
-    '("extension-device" "CLUTTER_EXTENSION_DEVICE")
-    '("n-device-types" "CLUTTER_N_DEVICE_TYPES")
-  )
-)
-
 (define-flags FeatureFlags
   (in-module "Clutter")
   (c-name "ClutterFeatureFlags")
@@ -130,6 +163,29 @@
     '("shaders-glsl" "CLUTTER_FEATURE_SHADERS_GLSL")
     '("offscreen" "CLUTTER_FEATURE_OFFSCREEN")
     '("stage-multiple" "CLUTTER_FEATURE_STAGE_MULTIPLE")
+    '("swap-events" "CLUTTER_FEATURE_SWAP_EVENTS")
+  )
+)
+
+(define-enum FlowOrientation
+  (in-module "Clutter")
+  (c-name "ClutterFlowOrientation")
+  (gtype-id "CLUTTER_TYPE_FLOW_ORIENTATION")
+  (values
+    '("horizontal" "CLUTTER_FLOW_HORIZONTAL")
+    '("vertical" "CLUTTER_FLOW_VERTICAL")
+  )
+)
+
+(define-enum InputDeviceType
+  (in-module "Clutter")
+  (c-name "ClutterInputDeviceType")
+  (gtype-id "CLUTTER_TYPE_INPUT_DEVICE_TYPE")
+  (values
+    '("pointer-device" "CLUTTER_POINTER_DEVICE")
+    '("keyboard-device" "CLUTTER_KEYBOARD_DEVICE")
+    '("extension-device" "CLUTTER_EXTENSION_DEVICE")
+    '("n-device-types" "CLUTTER_N_DEVICE_TYPES")
   )
 )
 
@@ -338,6 +394,17 @@
   )
 )
 
+(define-enum TextDirection
+  (in-module "Clutter")
+  (c-name "ClutterTextDirection")
+  (gtype-id "CLUTTER_TYPE_TEXT_DIRECTION")
+  (values
+    '("default" "CLUTTER_TEXT_DIRECTION_DEFAULT")
+    '("ltr" "CLUTTER_TEXT_DIRECTION_LTR")
+    '("rtl" "CLUTTER_TEXT_DIRECTION_RTL")
+  )
+)
+
 (define-enum UnitType
   (in-module "Clutter")
   (c-name "ClutterUnitType")
@@ -347,6 +414,7 @@
     '("em" "CLUTTER_UNIT_EM")
     '("mm" "CLUTTER_UNIT_MM")
     '("point" "CLUTTER_UNIT_POINT")
+    '("cm" "CLUTTER_UNIT_CM")
   )
 )
 
@@ -371,6 +439,13 @@
   (parent "GObject")
   (c-name "ClutterAnimation")
   (gtype-id "CLUTTER_TYPE_ANIMATION")
+)
+
+(define-object Animator
+  (in-module "Clutter")
+  (parent "GObject")
+  (c-name "ClutterAnimator")
+  (gtype-id "CLUTTER_TYPE_ANIMATOR")
 )
 
 (define-object Backend
@@ -429,6 +504,13 @@
   (gtype-id "CLUTTER_TYPE_BEHAVIOUR_SCALE")
 )
 
+(define-object Box
+  (in-module "Clutter")
+  (parent "ClutterActor")
+  (c-name "ClutterBox")
+  (gtype-id "CLUTTER_TYPE_BOX")
+)
+
 (define-object ChildMeta
   (in-module "Clutter")
   (parent "GObject")
@@ -443,6 +525,13 @@
   (gtype-id "CLUTTER_TYPE_CLONE")
 )
 
+(define-object DeviceManager
+  (in-module "Clutter")
+  (parent "GObject")
+  (c-name "ClutterDeviceManager")
+  (gtype-id "CLUTTER_TYPE_DEVICE_MANAGER")
+)
+
 (define-object Group
   (in-module "Clutter")
   (parent "ClutterActor")
@@ -455,6 +544,48 @@
   (parent "GInitiallyUnowned")
   (c-name "ClutterInterval")
   (gtype-id "CLUTTER_TYPE_INTERVAL")
+)
+
+(define-object LayoutManager
+  (in-module "Clutter")
+  (parent "GInitiallyUnowned")
+  (c-name "ClutterLayoutManager")
+  (gtype-id "CLUTTER_TYPE_LAYOUT_MANAGER")
+)
+
+(define-object FlowLayout
+  (in-module "Clutter")
+  (parent "ClutterLayoutManager")
+  (c-name "ClutterFlowLayout")
+  (gtype-id "CLUTTER_TYPE_FLOW_LAYOUT")
+)
+
+(define-object FixedLayout
+  (in-module "Clutter")
+  (parent "ClutterLayoutManager")
+  (c-name "ClutterFixedLayout")
+  (gtype-id "CLUTTER_TYPE_FIXED_LAYOUT")
+)
+
+(define-object BoxLayout
+  (in-module "Clutter")
+  (parent "ClutterLayoutManager")
+  (c-name "ClutterBoxLayout")
+  (gtype-id "CLUTTER_TYPE_BOX_LAYOUT")
+)
+
+(define-object BinLayout
+  (in-module "Clutter")
+  (parent "ClutterLayoutManager")
+  (c-name "ClutterBinLayout")
+  (gtype-id "CLUTTER_TYPE_BIN_LAYOUT")
+)
+
+(define-object LayoutMeta
+  (in-module "Clutter")
+  (parent "ClutterChildMeta")
+  (c-name "ClutterLayoutMeta")
+  (gtype-id "CLUTTER_TYPE_LAYOUT_META")
 )
 
 (define-object Model

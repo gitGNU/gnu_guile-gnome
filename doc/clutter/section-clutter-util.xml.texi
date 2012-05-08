@@ -3,10 +3,10 @@
 
 @node Utilities
 @chapter Utilities
-Misc utility functions.
+Utility functions
 
 @section Overview
-Various misc utilility functions.
+Various miscellaneous utilility functions.
 
 @section Usage
 @include defuns-clutter-util.xml.texi

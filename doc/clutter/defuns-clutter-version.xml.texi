@@ -1,5 +1,32 @@
 
 @c %start of fragment
 
+@deffn Function clutter-check-version  (major@tie{}@code{unsigned-int}) (minor@tie{}@code{unsigned-int}) (micro@tie{}@code{unsigned-int}) @result{}@tie{} (ret@tie{}@code{bool})
+Run-time version check, to check the version the Clutter library that an
+application is currently linked against
+
+This is the run-time equivalent of the compile-time
+@samp{CLUTTER_CHECK_VERSION} pre-processor macro
+
+@table @var
+@item major
+major version, like 1 in 1.2.3
+
+@item minor
+minor version, like 2 in 1.2.3
+
+@item micro
+micro version, like 3 in 1.2.3
+
+@item ret
+@samp{@code{#t}} if the version of the Clutter library is greater than
+(@var{major}, @var{minor}, @var{micro}), and @samp{@code{#f}} otherwise
+
+@end table
+
+Since 1.2
+
+@end deffn
+
 
 @c %end of fragment

@@ -1,0 +1,18 @@
+
+@c %start of fragment
+
+@node ClutterInputDevice
+@chapter ClutterInputDevice
+An input device managed by Clutter
+
+@section Overview
+@code{<clutter-input-device>} represents an input device known to
+Clutter.
+
+The @code{<clutter-input-device>} class holds the state of the device,
+but its contents are usually defined by the Clutter backend in use.
+
+@section Usage
+@include defuns-clutter-input-device.xml.texi
+
+@c %end of fragment

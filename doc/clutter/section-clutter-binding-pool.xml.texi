@@ -66,9 +66,10 @@ The actor should then override the @code{<"key-press-event">} and use
    &#x002A; mask of the key event. the returned value can be directly
    &#x002A; used to signal that the actor has handled the event.
    &#x002A;/
-  return clutter_binding_pool_activate (pool, G_OBJECT (actor),
+  return clutter_binding_pool_activate (pool,
                                         key_event->keyval,
-                                        key_event->modifier_state);
+                                        key_event->modifier_state,
+                                        G_OBJECT (actor));
 @end example
 
 The @code{clutter-binding-pool-activate} function will return
