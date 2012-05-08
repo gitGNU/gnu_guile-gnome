@@ -270,6 +270,12 @@ def clean_func(buf):
     pat = re.compile(r"""\w+_AVAILABLE_IN_\d+_\d+""", re.MULTILINE) 
     buf=pat.sub('',buf)
 
+    # API deprecation markers
+    pat = re.compile(r"""\w+_DEPRECATED_IN_\d+_\d+_FOR\s*\([^\n]+\)\s*\n""", re.MULTILINE) 
+    buf=pat.sub('',buf)
+    pat = re.compile(r"""\w+_DEPRECATED_IN_\d+_\d+""", re.MULTILINE) 
+    buf=pat.sub('',buf)
+
     #multiple whitespace
     pat = re.compile(r"""\s+""", re.MULTILINE) 
     buf=pat.sub(' ',buf)
