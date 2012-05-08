@@ -266,6 +266,10 @@ def clean_func(buf):
     pat = re.compile(r"""^(typedef|struct|enum)(\s|.|\n)*?;\s*""", re.MULTILINE) 
     buf=pat.sub('',buf)
 
+    # API availability markers
+    pat = re.compile(r"""\w+_AVAILABLE_IN_\d+_\d+""", re.MULTILINE) 
+    buf=pat.sub('',buf)
+
     #multiple whitespace
     pat = re.compile(r"""\s+""", re.MULTILINE) 
     buf=pat.sub(' ',buf)
