@@ -64,13 +64,6 @@ USA
 * Implicit Animations:: Simple implicit animations.
 * ClutterAlpha:: A class for calculating an alpha value as a function of time.
 * ClutterBackend:: Backend abstraction
-* ClutterBehaviourDepth:: A behaviour controlling the Z position
-* ClutterBehaviourEllipse:: A behaviour interpolating position along an ellipse
-* ClutterBehaviourOpacity:: Behaviour controlling the opacity
-* ClutterBehaviourPath:: A behaviour interpolating position along a path
-* ClutterBehaviourRotate:: A behaviour controlling rotation
-* ClutterBehaviourScale:: A behaviour controlling scale
-* ClutterBehaviour:: Class for providing behaviours to actors
 * ClutterBindConstraint:: A constraint binding the position or size of an actor
 * ClutterBinLayout:: A simple layout manager
 * ClutterBlurEffect:: A blur effect
@@ -112,7 +105,6 @@ USA
 * ClutterPath:: Paths with straight lines and bezier curves.
 * ClutterRectangle:: An actor that displays a simple rectangle.
 * ClutterSettings:: Settings configuration
-* ClutterScore:: Controller for multiple timelines
 * ClutterScriptable:: Override the UI definition parsing
 * ClutterScript:: Loads a scene from UI definition data
 * ClutterShaderEffect:: Base class for shader effects
@@ -154,13 +146,6 @@ USA
 @include section-clutter-animation.xml.texi
 @include section-clutter-animator.xml.texi
 @include section-clutter-backend.xml.texi
-@include section-clutter-behaviour-depth.xml.texi
-@include section-clutter-behaviour-ellipse.xml.texi
-@include section-clutter-behaviour-opacity.xml.texi
-@include section-clutter-behaviour-path.xml.texi
-@include section-clutter-behaviour-rotate.xml.texi
-@include section-clutter-behaviour-scale.xml.texi
-@include section-clutter-behaviour.xml.texi
 @include section-clutter-bin-layout.xml.texi
 @include section-clutter-bind-constraint.xml.texi
 @include section-clutter-binding-pool.xml.texi
@@ -201,7 +186,6 @@ USA
 @include section-clutter-path-constraint.xml.texi
 @include section-clutter-path.xml.texi
 @include section-clutter-rectangle.xml.texi
-@include section-clutter-score.xml.texi
 @include section-clutter-script.xml.texi
 @include section-clutter-scriptable.xml.texi
 @include section-clutter-settings.xml.texi
