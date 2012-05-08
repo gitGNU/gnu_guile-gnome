@@ -16,14 +16,14 @@ Since 1.4
 
 @deffn Function clutter-drag-action-set-drag-handle  (self@tie{}@code{<clutter-drag-action>}) (handle@tie{}@code{<clutter-actor>})
 @deffnx Method set-drag-handle
-Sets the actor to be used as the drag handle
+Sets the actor to be used as the drag handle.
 
 @table @var
 @item action
 a @code{<clutter-drag-action>}
 
 @item handle
-a @code{<clutter-actor>}
+a @code{<clutter-actor>}, or @samp{@code{#f}} to unset.
 
 @end table
 

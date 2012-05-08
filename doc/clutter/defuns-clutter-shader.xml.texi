@@ -2,6 +2,10 @@
 @c %start of fragment
 
 @deffn Function clutter-shader-new  @result{}@tie{} (ret@tie{}@code{<clutter-shader>})
+@samp{clutter_shader_new} has been deprecated since version 1.8 and
+should not be used in newly-written code. Use
+@code{<clutter-shader-effect>} instead.
+
 Create a new @code{<clutter-shader>} instance.
 
 @table @var
@@ -16,6 +20,10 @@ Since 0.6
 
 @deffn Function clutter-shader-set-vertex-source  (self@tie{}@code{<clutter-shader>}) (data@tie{}@code{mchars}) (length@tie{}@code{ssize_t})
 @deffnx Method set-vertex-source
+@samp{clutter_shader_set_vertex_source} has been deprecated since
+version 1.8 and should not be used in newly-written code. Use
+@code{<clutter-shader-effect>} instead.
+
 Sets the GLSL source code to be used by a @code{<clutter-shader>} for
 the vertex program.
 
@@ -37,6 +45,10 @@ Since 0.6
 
 @deffn Function clutter-shader-get-vertex-source  (self@tie{}@code{<clutter-shader>}) @result{}@tie{} (ret@tie{}@code{mchars})
 @deffnx Method get-vertex-source
+@samp{clutter_shader_get_vertex_source} has been deprecated since
+version 1.8 and should not be used in newly-written code. Use
+@code{<clutter-shader-effect>} instead.
+
 Query the current GLSL vertex source set on @var{shader}.
 
 @table @var
@@ -56,6 +68,10 @@ Since 0.6
 
 @deffn Function clutter-shader-set-fragment-source  (self@tie{}@code{<clutter-shader>}) (data@tie{}@code{mchars}) (length@tie{}@code{ssize_t})
 @deffnx Method set-fragment-source
+@samp{clutter_shader_set_fragment_source} has been deprecated since
+version 1.8 and should not be used in newly-written code. Use
+@code{<clutter-shader-effect>} instead.
+
 Sets the GLSL source code to be used by a @code{<clutter-shader>} for
 the fragment program.
 
@@ -77,6 +93,10 @@ Since 0.6
 
 @deffn Function clutter-shader-get-fragment-source  (self@tie{}@code{<clutter-shader>}) @result{}@tie{} (ret@tie{}@code{mchars})
 @deffnx Method get-fragment-source
+@samp{clutter_shader_get_fragment_source} has been deprecated since
+version 1.8 and should not be used in newly-written code. Use
+@code{<clutter-shader-effect>} instead.
+
 Query the current GLSL fragment source set on @var{shader}.
 
 @table @var
@@ -96,6 +116,10 @@ Since 0.6
 
 @deffn Function clutter-shader-compile  (self@tie{}@code{<clutter-shader>}) @result{}@tie{} (ret@tie{}@code{bool})
 @deffnx Method compile
+@samp{clutter_shader_compile} has been deprecated since version 1.8 and
+should not be used in newly-written code. Use
+@code{<clutter-shader-effect>} instead.
+
 Compiles and links GLSL sources set for vertex and fragment shaders for
 a @code{<clutter-shader>}. If the compilation fails and a
 @code{<g-error>} return location is provided the error will contain the
@@ -119,6 +143,10 @@ Since 0.8
 
 @deffn Function clutter-shader-release  (self@tie{}@code{<clutter-shader>})
 @deffnx Method release
+@samp{clutter_shader_release} has been deprecated since version 1.8 and
+should not be used in newly-written code. Use
+@code{<clutter-shader-effect>} instead.
+
 Frees up any GL context resources held by the shader.
 
 @table @var
@@ -133,6 +161,10 @@ Since 0.6
 
 @deffn Function clutter-shader-is-compiled  (self@tie{}@code{<clutter-shader>}) @result{}@tie{} (ret@tie{}@code{bool})
 @deffnx Method is-compiled
+@samp{clutter_shader_is_compiled} has been deprecated since version 1.8
+and should not be used in newly-written code. Use
+@code{<clutter-shader-effect>} instead.
+
 Checks whether @var{shader} is is currently compiled, linked and bound
 to the GL context.
 
@@ -151,6 +183,10 @@ Since 0.8
 
 @deffn Function clutter-shader-set-is-enabled  (self@tie{}@code{<clutter-shader>}) (enabled@tie{}@code{bool})
 @deffnx Method set-is-enabled
+@samp{clutter_shader_set_is_enabled} has been deprecated since version
+1.8 and should not be used in newly-written code. Use
+@code{<clutter-shader-effect>} instead.
+
 Enables a shader. This function will attempt to compile and link the
 shader, if it isn't already.
 
@@ -172,6 +208,10 @@ Since 0.6
 
 @deffn Function clutter-shader-get-is-enabled  (self@tie{}@code{<clutter-shader>}) @result{}@tie{} (ret@tie{}@code{bool})
 @deffnx Method get-is-enabled
+@samp{clutter_shader_get_is_enabled} has been deprecated since version
+1.8 and should not be used in newly-written code. Use
+@code{<clutter-shader-effect>} instead.
+
 Checks whether @var{shader} is enabled.
 
 @table @var
@@ -189,6 +229,10 @@ Since 0.6
 
 @deffn Function clutter-shader-set-uniform  (self@tie{}@code{<clutter-shader>}) (name@tie{}@code{mchars}) (value@tie{}@code{<gvalue>})
 @deffnx Method set-uniform
+@samp{clutter_shader_set_uniform} has been deprecated since version 1.8
+and should not be used in newly-written code. Use
+@code{<clutter-shader-effect>} instead.
+
 Sets a user configurable variable in the GLSL shader programs attached
 to a @code{<clutter-shader>}.
 

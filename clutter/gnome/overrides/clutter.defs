@@ -384,9 +384,11 @@
              "clutter_actor_animatev"
              "clutter_actor_animate_with_timelinev"
              "clutter_actor_animate_with_alphav"
+             "clutter_backend_get_cogl_context"
              "clutter_binding_pool_install_action"
              "clutter_binding_pool_override_action"
              "clutter_box_packv"
+             "clutter_cairo_texture_invalidate_rectangle" ;; needs cairo_rectangle_int_t
              "clutter_color_hash"
              "clutter_color_equal"
              "clutter_param_spec_color"
@@ -416,6 +418,7 @@
              "clutter_shader_get_cogl_vertex_shader"
              "clutter_shader_effect_get_shader"
              "clutter_shader_effect_get_program"
+             "clutter_stage_get_redraw_clip_bounds" ;; needs cairo_rectangle_int_t
              "clutter_stage_read_pixels"
              "clutter_texture_set_from_rgb_data"
              "clutter_texture_set_from_yuv_data"

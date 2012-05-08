@@ -91,16 +91,17 @@ Since 1.4
 
 @deffn Function clutter-state-set-key  (self@tie{}@code{<clutter-state>}) (source_state_name@tie{}@code{mchars}) (target_state_name@tie{}@code{mchars}) (object@tie{}@code{<gobject>}) (property_name@tie{}@code{mchars}) (mode@tie{}@code{unsigned-int}) (value@tie{}@code{<gvalue>}) (pre_delay@tie{}@code{double}) (post_delay@tie{}@code{double}) @result{}@tie{} (ret@tie{}@code{<clutter-state>})
 @deffnx Method set-key
-Sets one specific end key for a state_name, object, property_name
-combination.
+Sets one specific end key for a state name, @var{object},
+@var{property-name} combination.
 
 @table @var
 @item state
 a @code{<clutter-state>} instance.
 
 @item source-state-name
-the source transition to specify transition for or NULL to specify the
-default fallback when a more specific source_state doesn't exist.
+the source transition to specify transition for, or @samp{@code{#f}} to
+specify the default fallback when a more specific source state doesn't
+exist.
 
 @item target-state-name
 the name of the transition to set a key value for.

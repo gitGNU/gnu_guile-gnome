@@ -30,6 +30,26 @@ a @code{<clutter-event-type>}
 
 @end deffn
 
+@deffn Function clutter-event-set-coords  (self@tie{}@code{<clutter-event>}) (x@tie{}@code{float}) (y@tie{}@code{float})
+@deffnx Method set-coords
+Sets the coordinates of the @var{event}.
+
+@table @var
+@item event
+a @code{<clutter-event>}
+
+@item x
+the X coordinate of the event
+
+@item y
+the Y coordinate of the event
+
+@end table
+
+Since 1.8
+
+@end deffn
+
 @deffn Function clutter-event-get-coords  (self@tie{}@code{<clutter-event>}) @result{}@tie{} (x@tie{}@code{float}) (y@tie{}@code{float})
 @deffnx Method get-coords
 Retrieves the coordinates of @var{event} and puts them into @var{x} and
@@ -51,6 +71,23 @@ Since 0.4
 
 @end deffn
 
+@deffn Function clutter-event-set-state  (self@tie{}@code{<clutter-event>}) (state@tie{}@code{<clutter-modifier-type>})
+@deffnx Method set-state
+Sets the modifier state of the event.
+
+@table @var
+@item event
+a @code{<clutter-event>}
+
+@item state
+the modifier state to set
+
+@end table
+
+Since 1.8
+
+@end deffn
+
 @deffn Function clutter-event-get-state  (self@tie{}@code{<clutter-event>}) @result{}@tie{} (ret@tie{}@code{<clutter-modifier-type>})
 @deffnx Method get-state
 Retrieves the modifier state of the event.
@@ -68,6 +105,23 @@ Since 0.4
 
 @end deffn
 
+@deffn Function clutter-event-set-time  (self@tie{}@code{<clutter-event>}) (time_@tie{}@code{unsigned-int32})
+@deffnx Method set-time
+Sets the time of the event.
+
+@table @var
+@item event
+a @code{<clutter-event>}
+
+@item time
+the time of the event
+
+@end table
+
+Since 1.8
+
+@end deffn
+
 @deffn Function clutter-event-get-time  (self@tie{}@code{<clutter-event>}) @result{}@tie{} (ret@tie{}@code{unsigned-int32})
 @deffnx Method get-time
 Retrieves the time of the event.
@@ -82,6 +136,23 @@ the time of the event, or @samp{CLUTTER_CURRENT_TIME}
 @end table
 
 Since 0.4
+
+@end deffn
+
+@deffn Function clutter-event-set-source  (self@tie{}@code{<clutter-event>}) (actor@tie{}@code{<clutter-actor>})
+@deffnx Method set-source
+Sets the source @code{<clutter-actor>} of @var{event}.
+
+@table @var
+@item event
+a @code{<clutter-event>}
+
+@item actor
+a @code{<clutter-actor>}, or @samp{@code{#f}}.
+
+@end table
+
+Since 1.8
 
 @end deffn
 
@@ -103,6 +174,23 @@ Since 0.6
 
 @end deffn
 
+@deffn Function clutter-event-set-stage  (self@tie{}@code{<clutter-event>}) (stage@tie{}@code{<clutter-stage>})
+@deffnx Method set-stage
+Sets the source @code{<clutter-stage>} of the event.
+
+@table @var
+@item event
+a @code{<clutter-event>}
+
+@item stage
+a @code{<clutter-stage>}, or @samp{@code{#f}}.
+
+@end table
+
+Since 1.8
+
+@end deffn
+
 @deffn Function clutter-event-get-stage  (self@tie{}@code{<clutter-event>}) @result{}@tie{} (ret@tie{}@code{<clutter-stage>})
 @deffnx Method get-stage
 Retrieves the source @code{<clutter-stage>} the event originated for, or
@@ -118,6 +206,23 @@ a @code{<clutter-stage>}.
 @end table
 
 Since 0.8
+
+@end deffn
+
+@deffn Function clutter-event-set-flags  (self@tie{}@code{<clutter-event>}) (flags@tie{}@code{<clutter-event-flags>})
+@deffnx Method set-flags
+Sets the @code{<clutter-event-flags>} of @var{event}
+
+@table @var
+@item event
+a @code{<clutter-event>}
+
+@item flags
+a binary OR of @code{<clutter-event-flags>} values
+
+@end table
+
+Since 1.8
 
 @end deffn
 
@@ -197,6 +302,24 @@ Since 0.4
 
 @end deffn
 
+@deffn Function clutter-event-set-button  (self@tie{}@code{<clutter-event>}) (button@tie{}@code{unsigned-int32})
+@deffnx Method set-button
+Sets the button number of @var{event}
+
+@table @var
+@item event
+a @code{<clutter-event>} or type @samp{CLUTTER_BUTTON_PRESS} or of type
+@samp{CLUTTER_BUTTON_RELEASE}
+
+@item button
+the button number
+
+@end table
+
+Since 1.8
+
+@end deffn
+
 @deffn Function clutter-event-get-button  (self@tie{}@code{<clutter-event>}) @result{}@tie{} (ret@tie{}@code{unsigned-int32})
 @deffnx Method get-button
 Retrieves the button number of @var{event}
@@ -233,6 +356,24 @@ Since 1.0
 
 @end deffn
 
+@deffn Function clutter-event-set-key-symbol  (self@tie{}@code{<clutter-event>}) (key_sym@tie{}@code{unsigned-int})
+@deffnx Method set-key-symbol
+Sets the key symbol of @var{event}.
+
+@table @var
+@item event
+a @code{<clutter-event>} of type @samp{CLUTTER_KEY_PRESS} or
+@samp{CLUTTER_KEY_RELEASE}
+
+@item key-sym
+the key symbol representing the key
+
+@end table
+
+Since 1.8
+
+@end deffn
+
 @deffn Function clutter-event-get-key-symbol  (self@tie{}@code{<clutter-event>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
 @deffnx Method get-key-symbol
 Retrieves the key symbol of @var{event}
@@ -248,6 +389,24 @@ the key symbol representing the key
 @end table
 
 Since 1.0
+
+@end deffn
+
+@deffn Function clutter-event-set-key-code  (self@tie{}@code{<clutter-event>}) (key_code@tie{}@code{unsigned-int16})
+@deffnx Method set-key-code
+Sets the keycode of the @var{event}.
+
+@table @var
+@item event
+a @code{<clutter-event>} of type @samp{CLUTTER_KEY_PRESS} or
+@samp{CLUTTER_KEY_RELEASE}
+
+@item key-code
+the keycode representing the key
+
+@end table
+
+Since 1.8
 
 @end deffn
 
@@ -269,13 +428,32 @@ Since 1.0
 
 @end deffn
 
+@deffn Function clutter-event-set-key-unicode  (self@tie{}@code{<clutter-event>}) (key_unicode@tie{}@code{unsigned-int32})
+@deffnx Method set-key-unicode
+Sets the Unicode value of @var{event}.
+
+@table @var
+@item event
+a @code{<clutter-event>} of type @samp{CLUTTER_KEY_PRESS} or
+@samp{CLUTTER_KEY_RELEASE}
+
+@item key-unicode
+the Unicode value representing the key
+
+@end table
+
+Since 1.8
+
+@end deffn
+
 @deffn Function clutter-event-get-key-unicode  (self@tie{}@code{<clutter-event>}) @result{}@tie{} (ret@tie{}@code{unsigned-int32})
 @deffnx Method get-key-unicode
 Retrieves the unicode value for the key that caused @var{keyev}.
 
 @table @var
 @item event
-A @code{<clutter-key-event>}
+a @code{<clutter-event>} of type @samp{CLUTTER_KEY_PRESS} or
+@samp{CLUTTER_KEY_RELEASE}
 
 @item ret
 The unicode value representing the key
@@ -285,8 +463,8 @@ The unicode value representing the key
 @end deffn
 
 @deffn Function clutter-keysym-to-unicode  (keyval@tie{}@code{unsigned-int}) @result{}@tie{} (ret@tie{}@code{unsigned-int32})
-Convert from a Clutter key symbol to the corresponding ISO10646
-(Unicode) character.
+Converts @var{keyval} from a Clutter key symbol to the corresponding
+ISO10646 (Unicode) character.
 
 @table @var
 @item keyval
@@ -296,6 +474,24 @@ a key symbol
 a Unicode character, or 0 if there is no corresponding character.
 
 @end table
+
+@end deffn
+
+@deffn Function clutter-event-set-related  (self@tie{}@code{<clutter-event>}) (actor@tie{}@code{<clutter-actor>})
+@deffnx Method set-related
+Sets the related actor of a crossing event
+
+@table @var
+@item event
+a @code{<clutter-event>} of type @samp{CLUTTER_ENTER} or
+@samp{CLUTTER_LEAVE}
+
+@item actor
+a @code{<clutter-actor>} or @samp{@code{#f}}.
+
+@end table
+
+Since 1.8
 
 @end deffn
 
@@ -317,6 +513,23 @@ Since 1.0
 
 @end deffn
 
+@deffn Function clutter-event-set-scroll-direction  (self@tie{}@code{<clutter-event>}) (direction@tie{}@code{<clutter-scroll-direction>})
+@deffnx Method set-scroll-direction
+Sets the direction of the scrolling of @var{event}
+
+@table @var
+@item event
+a @code{<clutter-event>}
+
+@item direction
+the scrolling direction
+
+@end table
+
+Since 1.8
+
+@end deffn
+
 @deffn Function clutter-event-set-device  (self@tie{}@code{<clutter-event>}) (device@tie{}@code{<clutter-input-device*>})
 @deffnx Method set-device
 Sets the device for @var{event}.
@@ -326,7 +539,7 @@ Sets the device for @var{event}.
 a @code{<clutter-event>}
 
 @item device
-a @code{<clutter-input-device>}
+a @code{<clutter-input-device>}, or @samp{@code{#f}}.
 
 @end table
 
@@ -353,6 +566,48 @@ unreferenced.
 @end table
 
 Since 1.0
+
+@end deffn
+
+@deffn Function clutter-event-set-source-device  (self@tie{}@code{<clutter-event>}) (device@tie{}@code{<clutter-input-device*>})
+@deffnx Method set-source-device
+Sets the source @code{<clutter-input-device>} for @var{event}.
+
+The @code{<clutter-event>} must have been created using
+@code{clutter-event-new}.
+
+@table @var
+@item event
+a @code{<clutter-event>}
+
+@item device
+a @code{<clutter-input-device>}.
+
+@end table
+
+Since 1.8
+
+@end deffn
+
+@deffn Function clutter-event-get-source-device  (self@tie{}@code{<clutter-event>}) @result{}@tie{} (ret@tie{}@code{<clutter-input-device*>})
+@deffnx Method get-source-device
+Retrieves the hardware device that originated the event.
+
+If you need the virtual device, use @code{clutter-event-get-device}.
+
+If no hardware device originated this event, this function will return
+the same device as @code{clutter-event-get-device}.
+
+@table @var
+@item event
+a @code{<clutter-event>}
+
+@item ret
+a pointer to a @code{<clutter-input-device>} or @samp{@code{#f}}.
+
+@end table
+
+Since 1.6
 
 @end deffn
 
@@ -386,28 +641,6 @@ the @code{<clutter-input-device-type>} for the device, if any is set
 @end table
 
 Since 1.0
-
-@end deffn
-
-@deffn Function clutter-event-get-source-device  (self@tie{}@code{<clutter-event>}) @result{}@tie{} (ret@tie{}@code{<clutter-input-device*>})
-@deffnx Method get-source-device
-Retrieves the hardware device that originated the event.
-
-If you need the virtual device, use @code{clutter-event-get-device}.
-
-If no hardware device originated this event, this function will return
-the same device as @code{clutter-event-get-device}.
-
-@table @var
-@item event
-a @code{<clutter-event>}
-
-@item ret
-a pointer to a @code{<clutter-input-device>} or @samp{@code{#f}}.
-
-@end table
-
-Since 1.6
 
 @end deffn
 

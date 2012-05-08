@@ -12,7 +12,7 @@ This manual is for @code{(gnome clutter)} (version @value{VERSION}, updated
 
 Copyright 2006,2007,2008 OpenedHand LTD
 
-Copyright 2009,2010,2011 Intel Corporation
+Copyright 2009,2010,2011,2012 Intel Corporation
 
 @quotation 
 Permission is granted to copy, distribute and/or modify this document
@@ -89,11 +89,13 @@ USA
 * ClutterDesaturateEffect:: A desaturation effect
 * ClutterDeviceManager:: Maintains the list of input devices
 * ClutterDragAction:: Action enabling dragging on actors
+* ClutterDropAction:: An action for drop targets
 * ClutterEffect:: Base class for actor effects
 * Events:: User and window system events
 * Features:: Query GL features at runtime
 * ClutterFixedLayout:: A fixed layout manager
 * ClutterFlowLayout:: A reflowing layout manager
+* ClutterGestureAction:: Action for gesture gestures
 * ClutterGroup:: Actor class containing multiple children. actors.
 * ClutterInputDevice:: An input device managed by Clutter
 * Value intervals:: An object holding an interval of two values.
@@ -119,6 +121,7 @@ USA
 * ClutterSnapConstraint:: A constraint snapping two actors together
 * ClutterStage:: Top level visual element to which actors are placed.
 * ClutterState:: State machine with animated transitions
+* ClutterSwipeAction:: Action for swipe gestures
 * ClutterTableLayout:: A layout manager arranging children in rows and columns
 * ClutterText:: An actor for displaying and editing text.
 * ClutterTexture:: An actor for displaying and manipulating images.
@@ -176,11 +179,13 @@ USA
 @include section-clutter-desaturate-effect.xml.texi
 @include section-clutter-device-manager.xml.texi
 @include section-clutter-drag-action.xml.texi
+@include section-clutter-drop-action.xml.texi
 @include section-clutter-effect.xml.texi
 @include section-clutter-event.xml.texi
 @include section-clutter-feature.xml.texi
 @include section-clutter-fixed-layout.xml.texi
 @include section-clutter-flow-layout.xml.texi
+@include section-clutter-gesture-action.xml.texi
 @include section-clutter-group.xml.texi
 @include section-clutter-input-device.xml.texi
 @include section-clutter-interval.xml.texi
@@ -206,6 +211,7 @@ USA
 @include section-clutter-stage-manager.xml.texi
 @include section-clutter-stage.xml.texi
 @include section-clutter-state.xml.texi
+@include section-clutter-swipe-action.xml.texi
 @include section-clutter-table-layout.xml.texi
 @include section-clutter-text.xml.texi
 @include section-clutter-texture.xml.texi

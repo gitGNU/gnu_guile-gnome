@@ -34,6 +34,12 @@ Since 0.8
 @end deffn
 
 @deffn Function clutter-texture-new-from-actor  (actor@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+@samp{clutter_texture_new_from_actor} has been deprecated since version
+1.8 and should not be used in newly-written code. Use the
+@code{<clutter-offscreen-effect>} and @code{<clutter-shader-effect>}
+directly on the intended @code{<clutter-actor>} to replace the
+functionality of this function.
+
 Creates a new @code{<clutter-texture>} object with its source a
 prexisting actor (and associated children). The textures content will
 contain 'live' redirected output of the actors scene.

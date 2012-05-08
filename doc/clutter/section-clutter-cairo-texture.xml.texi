@@ -11,43 +11,27 @@ displays the contents of a Cairo context. The
 @code{<clutter-cairo-texture>} actor will create a Cairo image surface
 which will then be uploaded to a GL texture when needed.
 
-@code{<clutter-cairo-texture>} will provide a @code{<cairo-t>} context
-by using the @code{clutter-cairo-texture-create} and
-@code{clutter-cairo-texture-create-region} functions; you can use the
-Cairo API to draw on the context and then call @code{cairo-destroy} when
-done.
-
-As soon as the context is destroyed with @code{cairo-destroy}, the
-contents of the surface will be uploaded into the
-@code{<clutter-cairo-texture>} actor:
-
-@example 
-
-  cairo_t *cr;
-
-  cr = clutter_cairo_texture_create (CLUTTER_CAIRO_TEXTURE (texture));
-
-  /&#x002A; draw on the context &#x002A;/
-
-  cairo_destroy (cr);
-@end example
-
-Although a new @code{<cairo-t>} is created each time you call
-@code{clutter-cairo-texture-create} or
-@code{clutter-cairo-texture-create-region}, it uses the same
-@code{<cairo-surface-t>} each time. You can call
-@code{clutter-cairo-texture-clear} to erase the contents between calls.
-
-@c (warning)
-
-Note that you should never use the code above inside the
-@code{<"paint">} or @code{<"pick">} virtual functions or signal handlers
-because it will lead to performance degradation.
-
 Since @code{<clutter-cairo-texture>} uses a Cairo image surface
 internally all the drawing operations will be performed in software and
 not using hardware acceleration. This can lead to performance
 degradation if the contents of the texture change frequently.
+
+In order to use a @code{<clutter-cairo-texture>} you should connect to
+the @code{<"draw">} signal; the signal is emitted each time the
+@code{<clutter-cairo-texture>} has been told to invalidate its contents,
+by using @code{clutter-cairo-texture-invalidate-rectangle} or its sister
+function, @code{clutter-cairo-texture-invalidate}.
+
+Each callback to the @code{<"draw">} signal will receive a
+@code{<cairo-t>} context which can be used for drawing; the Cairo
+context is owned by the @code{<clutter-cairo-texture>} and should not be
+destroyed explicitly.
+
+@c (example (@ (id "cairo-texture-example")))
+@c (title "A simple ClutterCairoTexture canvas")
+@example 
+@c (http://www.w3.org/2001/XInclude:include (@ (parse "text") (href "../../../../tests/interactive/test-cairo-clock.c")) (c (% (all "(http://www.w3.org/2001/XInclude:fallback \"FIXME: MISSING XINCLUDE CONTENT\")"))))
+@end example
 
 @code{<clutter-cairo-texture>} is available since Clutter 1.0.
 

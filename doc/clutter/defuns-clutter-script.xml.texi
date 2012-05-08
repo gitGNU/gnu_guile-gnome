@@ -172,6 +172,59 @@ Since 0.8.2
 
 @end deffn
 
+@deffn Function clutter-script-add-states  (self@tie{}@code{<clutter-script>}) (name@tie{}@code{mchars}) (state@tie{}@code{<clutter-state>})
+@deffnx Method add-states
+Associates a @code{<clutter-state>} to the @code{<clutter-script>}
+instance using the given name.
+
+The @code{<clutter-script>} instance will use @var{state} to resolve
+target states when connecting signal handlers.
+
+The @code{<clutter-script>} instance will take a reference on the
+@code{<clutter-state>} passed to this function.
+
+@table @var
+@item script
+a @code{<clutter-script>}
+
+@item name
+a name for the @var{state}, or @samp{@code{#f}} to set the default
+@code{<clutter-state>}.
+
+@item state
+a @code{<clutter-state>}
+
+@end table
+
+Since 1.8
+
+@end deffn
+
+@deffn Function clutter-script-get-states  (self@tie{}@code{<clutter-script>}) (name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<clutter-state>})
+@deffnx Method get-states
+Retrieves the @code{<clutter-state>} for the given @var{state-name}.
+
+If @var{name} is @samp{@code{#f}}, this function will return the default
+@code{<clutter-state>} instance.
+
+@table @var
+@item script
+a @code{<clutter-script>}
+
+@item name
+the name of the @code{<clutter-state>}, or @samp{@code{#f}}.
+
+@item ret
+a pointer to the @code{<clutter-state>} for the given name. The
+@code{<clutter-state>} is owned by the @code{<clutter-script>} instance
+and it should not be unreferenced.
+
+@end table
+
+Since 1.8
+
+@end deffn
+
 @deffn Function clutter-script-get-type-from-name  (self@tie{}@code{<clutter-script>}) (type_name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gtype>})
 @deffnx Method get-type-from-name
 Looks up a type by name, using the virtual function that

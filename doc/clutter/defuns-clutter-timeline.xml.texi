@@ -180,7 +180,7 @@ Since 0.6
 Sets whether @var{timeline} should reverse the direction after the
 emission of the @code{<"completed">} signal.
 
-Setting the @code{<"reverse">} property to @samp{@code{#t}} is the
+Setting the @code{<"auto-reverse">} property to @samp{@code{#t}} is the
 equivalent of connecting a callback to the @code{<"completed">} signal
 and changing the direction of the timeline from that callback; for
 instance, this code:

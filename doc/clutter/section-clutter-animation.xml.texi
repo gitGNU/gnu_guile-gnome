@@ -43,8 +43,8 @@ interpolated.
 @code{<clutter-behaviour>}s because the former can only control
 @code{<gobject>} properties of a single @code{<gobject>} instance, while
 the latter can control multiple properties using accessor functions
-inside the @code{<"alpha-notify">} virtual function, and can control
-multiple @code{<clutter-actor>}s as well.
+inside the @code{<clutter-behaviour>}@code{alpha-notify} virtual
+function, and can control multiple @code{<clutter-actor>}s as well.
 
 For convenience, it is possible to use the @code{clutter-actor-animate}
 function call which will take care of setting up and tearing down a
@@ -134,6 +134,12 @@ Corresponding to the overshooting elastic easing modes
 Corresponding to the overshooting cubic easing modes
 
 Corresponding to the bouncing easing modes
+
+@c (example (@ (id "example-clutter-animation")))
+@c (title "Tweening using " (code "clutter-actor-animate"))
+@example 
+@c (http://www.w3.org/2001/XInclude:include (@ (parse "text") (href "../../../../tests/interactive/test-easing.c")) (c (% (all "(http://www.w3.org/2001/XInclude:fallback \"FIXME: MISSING XINCLUDE CONTENT\")"))))
+@end example
 
 @code{<clutter-animation>} is available since Clutter 1.0
 

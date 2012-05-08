@@ -505,7 +505,9 @@ Since 1.6
 
 @deffn Function clutter-stage-set-perspective  (self@tie{}@code{<clutter-stage>}) (perspective@tie{}@code{<clutter-perspective>})
 @deffnx Method set-perspective
-Sets the stage perspective.
+Sets the stage perspective. Using this function is not recommended
+because it will disable Clutter's attempts to generate an appropriate
+perspective based on the size of the stage.
 
 @table @var
 @item stage
@@ -721,7 +723,7 @@ Retrieves the current depth cueing settings from the stage.
 the @code{<clutter-stage>}
 
 @item fog
-return location for a @code{<clutter-fog>} structure
+return location for a @code{<clutter-fog>} structure.
 
 @end table
 

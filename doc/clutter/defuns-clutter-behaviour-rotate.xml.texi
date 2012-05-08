@@ -118,10 +118,10 @@ Retrieves the rotation boundaries of the rotate behaviour.
 a @code{<clutter-behaviour-rotate>}
 
 @item angle-start
-return value for the initial angle
+return value for the initial angle.
 
 @item angle-end
-return value for the final angle
+return value for the final angle.
 
 @end table
 

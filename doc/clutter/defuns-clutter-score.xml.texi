@@ -2,6 +2,9 @@
 @c %start of fragment
 
 @deffn Function clutter-score-new  @result{}@tie{} (ret@tie{}@code{<clutter-score>})
+@samp{clutter_score_new} is deprecated and should not be used in
+newly-written code.
+
 Creates a new @code{<clutter-score>}. A @code{<clutter-score>} is an
 object that can hold multiple @code{<clutter-timeline>}s in a sequential
 order.
@@ -19,6 +22,9 @@ Since 0.6
 
 @deffn Function clutter-score-set-loop  (self@tie{}@code{<clutter-score>}) (loop@tie{}@code{bool})
 @deffnx Method set-loop
+@samp{clutter_score_set_loop} is deprecated and should not be used in
+newly-written code.
+
 Sets whether @var{score} should loop. A looping @code{<clutter-score>}
 will start from its initial state after the ::complete signal has been
 fired.
@@ -38,6 +44,9 @@ Since 0.6
 
 @deffn Function clutter-score-get-loop  (self@tie{}@code{<clutter-score>}) @result{}@tie{} (ret@tie{}@code{bool})
 @deffnx Method get-loop
+@samp{clutter_score_get_loop} is deprecated and should not be used in
+newly-written code.
+
 Gets whether @var{score} is looping
 
 @table @var
@@ -55,6 +64,9 @@ Since 0.6
 
 @deffn Function clutter-score-append  (self@tie{}@code{<clutter-score>}) (parent@tie{}@code{<clutter-timeline>}) (timeline@tie{}@code{<clutter-timeline>}) @result{}@tie{} (ret@tie{}@code{unsigned-long})
 @deffnx Method append
+@samp{clutter_score_append} is deprecated and should not be used in
+newly-written code.
+
 Appends a timeline to another one existing in the score; the newly
 appended timeline will be started when @var{parent} is complete.
 
@@ -86,6 +98,9 @@ Since 0.6
 
 @deffn Function clutter-score-append-at-marker  (self@tie{}@code{<clutter-score>}) (parent@tie{}@code{<clutter-timeline>}) (marker_name@tie{}@code{mchars}) (timeline@tie{}@code{<clutter-timeline>}) @result{}@tie{} (ret@tie{}@code{unsigned-long})
 @deffnx Method append-at-marker
+@samp{clutter_score_append_at_marker} is deprecated and should not be
+used in newly-written code.
+
 Appends @var{timeline} at the given @var{marker-name} on the
 @var{parent}@code{<clutter-timeline>}.
 
@@ -120,6 +135,9 @@ Since 0.8
 
 @deffn Function clutter-score-remove  (self@tie{}@code{<clutter-score>}) (id_@tie{}@code{unsigned-long})
 @deffnx Method remove
+@samp{clutter_score_remove} is deprecated and should not be used in
+newly-written code.
+
 Removes the @code{<clutter-timeline>} with the given id inside
 @var{score}. If the timeline has other timelines attached to it, those
 are removed as well.
@@ -139,6 +157,9 @@ Since 0.6
 
 @deffn Function clutter-score-remove-all  (self@tie{}@code{<clutter-score>})
 @deffnx Method remove-all
+@samp{clutter_score_remove_all} is deprecated and should not be used in
+newly-written code.
+
 Removes all the timelines inside @var{score}.
 
 @table @var
@@ -153,6 +174,9 @@ Since 0.6
 
 @deffn Function clutter-score-get-timeline  (self@tie{}@code{<clutter-score>}) (id_@tie{}@code{unsigned-long}) @result{}@tie{} (ret@tie{}@code{<clutter-timeline>})
 @deffnx Method get-timeline
+@samp{clutter_score_get_timeline} is deprecated and should not be used
+in newly-written code.
+
 Retrieves the @code{<clutter-timeline>} for @var{id} inside @var{score}.
 
 @table @var
@@ -174,6 +198,9 @@ Since 0.6
 
 @deffn Function clutter-score-list-timelines  (self@tie{}@code{<clutter-score>}) @result{}@tie{} (ret@tie{}@code{gslist-of})
 @deffnx Method list-timelines
+@samp{clutter_score_list_timelines} is deprecated and should not be used
+in newly-written code.
+
 Retrieves a list of all the @code{<clutter-timelines>} managed by
 @var{score}.
 
@@ -195,6 +222,9 @@ Since 0.6
 
 @deffn Function clutter-score-start  (self@tie{}@code{<clutter-score>})
 @deffnx Method start
+@samp{clutter_score_start} is deprecated and should not be used in
+newly-written code.
+
 Starts the score.
 
 @table @var
@@ -209,6 +239,9 @@ Since 0.6
 
 @deffn Function clutter-score-pause  (self@tie{}@code{<clutter-score>})
 @deffnx Method pause
+@samp{clutter_score_pause} is deprecated and should not be used in
+newly-written code.
+
 Pauses a playing score @var{score}.
 
 @table @var
@@ -223,6 +256,9 @@ Since 0.6
 
 @deffn Function clutter-score-stop  (self@tie{}@code{<clutter-score>})
 @deffnx Method stop
+@samp{clutter_score_stop} is deprecated and should not be used in
+newly-written code.
+
 Stops and rewinds a playing @code{<clutter-score>} instance.
 
 @table @var
@@ -237,6 +273,9 @@ Since 0.6
 
 @deffn Function clutter-score-is-playing  (self@tie{}@code{<clutter-score>}) @result{}@tie{} (ret@tie{}@code{bool})
 @deffnx Method is-playing
+@samp{clutter_score_is_playing} is deprecated and should not be used in
+newly-written code.
+
 Query state of a @code{<clutter-score>} instance.
 
 @table @var
@@ -254,6 +293,9 @@ Since 0.6
 
 @deffn Function clutter-score-rewind  (self@tie{}@code{<clutter-score>})
 @deffnx Method rewind
+@samp{clutter_score_rewind} is deprecated and should not be used in
+newly-written code.
+
 Rewinds a @code{<clutter-score>} to its initial state.
 
 @table @var

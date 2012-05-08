@@ -53,7 +53,7 @@ This function is equivalent to calling @code{clutter-text-new},
 
 @table @var
 @item font-name
-a string with a font description
+a string with a font description.
 
 @item text
 the contents of the actor
@@ -99,6 +99,7 @@ markup, and it is logically equivalent to:
 
 @example 
 
+  /&#x002A; the order is important &#x002A;/
   clutter_text_set_text (CLUTTER_TEXT (actor), markup);
   clutter_text_set_use_markup (CLUTTER_TEXT (actor), TRUE);
 @end example
@@ -132,13 +133,16 @@ If you need a copy of the contents for manipulating, either use
 
 Which will return a newly allocated string.
 
+If the @code{<clutter-text>} actor is empty, this function will return
+an empty string, and not @samp{@code{#f}}.
+
 @table @var
 @item self
 a @code{<clutter-text>}
 
 @item ret
 the contents of the actor. The returned string is owned by the
-@code{<clutter-text>} actor and should never be modified or freed
+@code{<clutter-text>} actor and should never be modified or freed.
 
 @end table
 
@@ -829,7 +833,7 @@ Sets whether the @code{<clutter-text>} actor should be editable.
 
 An editable @code{<clutter-text>} with key focus set using
 @code{clutter-actor-grab-key-focus} or
-@code{clutter-stage-take-key-focus} will receive key events and will
+@code{clutter-stage-set-key-focus} will receive key events and will
 update its contents accordingly.
 
 @table @var
@@ -1023,7 +1027,7 @@ Retrieves the color of the cursor of a @code{<clutter-text>} actor.
 a @code{<clutter-text>}
 
 @item color
-return location for a @code{<clutter-color>}
+return location for a @code{<clutter-color>}.
 
 @end table
 
@@ -1266,6 +1270,27 @@ the cursor position for the pre-edit string
 @end table
 
 Since 1.2
+
+@end deffn
+
+@deffn Function clutter-text-get-layout-offsets  (self@tie{}@code{<clutter-text>}) @result{}@tie{} (x@tie{}@code{int}) (y@tie{}@code{int})
+@deffnx Method get-layout-offsets
+Obtains the coordinates where the @code{<clutter-text>} will draw the
+@code{<pango-layout>} representing the text.
+
+@table @var
+@item self
+a @code{<clutter-text>}
+
+@item x
+location to store X offset of layout, or @samp{@code{#f}}.
+
+@item y
+location to store Y offset of layout, or @samp{@code{#f}}.
+
+@end table
+
+Since 1.7
 
 @end deffn
 

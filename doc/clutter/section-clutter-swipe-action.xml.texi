@@ -1,0 +1,16 @@
+
+@c %start of fragment
+
+@node ClutterSwipeAction
+@chapter ClutterSwipeAction
+Action for swipe gestures
+
+@section Overview
+@code{<clutter-swipe-action>} is a sub-class of
+@code{<clutter-gesture-action>} that implements the logic for
+recognizing swipe gestures.
+
+@section Usage
+@include defuns-clutter-swipe-action.xml.texi
+
+@c %end of fragment

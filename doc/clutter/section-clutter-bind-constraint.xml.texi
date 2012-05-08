@@ -58,6 +58,19 @@ clutter_actor_animate (rect[2], CLUTTER_EASE_OUT_CUBIC, 250,
                        NULL);
 @end example
 
+@c (example (@ (id "bind-constraint-example")))
+@c (title "Animating the offset property of ClutterBindConstraint")
+@example 
+@c (http://www.w3.org/2001/XInclude:include (@ (parse "text") (href "../../../../tests/interactive/test-constraints.c")) (c (% (all "(http://www.w3.org/2001/XInclude:fallback \"FIXME: MISSING XINCLUDE CONTENT\")"))))
+@end example
+
+The example above creates eight rectangles and binds them to a rectangle
+positioned in the center of the stage; when the user presses the center
+rectangle, the @code{<"offset">} property is animated through the
+@code{clutter-actor-animate} function to lay out the eight rectangles
+around the center one. Pressing one of the outer rectangles will animate
+the offset back to 0.
+
 @code{<clutter-bind-constraint>} is available since Clutter 1.4
 
 @section Usage

@@ -48,10 +48,33 @@ Since 1.6
 
 @end deffn
 
+@deffn Function clutter-click-action-get-coords  (self@tie{}@code{<clutter-click-action>}) @result{}@tie{} (press_x@tie{}@code{float}) (press_y@tie{}@code{float})
+@deffnx Method get-coords
+Retrieves the screen coordinates of the button press.
+
+@table @var
+@item action
+a @code{<clutter-click-action>}
+
+@item press-x
+return location for the X coordinate, or @samp{@code{#f}}.
+
+@item press-y
+return location for the Y coordinate, or @samp{@code{#f}}.
+
+@end table
+
+Since 1.8
+
+@end deffn
+
 @deffn Function clutter-click-action-release  (self@tie{}@code{<clutter-click-action>})
 @deffnx Method release
 Emulates a release of the pointer button, which ungrabs the pointer and
 unsets the @code{<"pressed">} state.
+
+This function will also cancel the long press gesture if one was
+initiated.
 
 This function is useful to break a grab, for instance after a certain
 amount of time has passed.

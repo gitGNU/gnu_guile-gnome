@@ -18,8 +18,42 @@ actor without sub-classing the actor itself and overriding the
 @code{<"paint">} virtual function.
 
 @section Implementing a ClutterEffect
-Creating a sub-class of @code{<clutter-effect>} requires the
-implementation of two virtual functions:
+Creating a sub-class of @code{<clutter-effect>} requires overriding the
+‘paint’ method. The implementation of the function should look
+something like this:
+
+@example 
+
+void effect_paint (ClutterEffect *effect, ClutterEffectPaintFlags flags)
+@{
+  /&#x002A; Set up initialisation of the paint such as binding a
+     CoglOffscreen or other operations &#x002A;/
+
+  /&#x002A; Chain to the next item in the paint sequence. This will either call
+     ‘paint’ on the next effect or just paint the actor if this is
+     the last effect. &#x002A;/
+  ClutterActor *actor =
+    clutter_actor_meta_get_actor (CLUTTER_ACTOR_META (effect));
+  clutter_actor_continue_paint (actor);
+
+  /&#x002A; perform any cleanup of state, such as popping the
+     CoglOffscreen &#x002A;/
+@}
+  
+@end example
+
+The effect can optionally avoid calling
+@code{clutter-actor-continue-paint} to skip any further stages of the
+paint sequence. This is useful for example if the effect contains a
+cached image of the actor. In that case it can optimise painting by
+avoiding the actor paint and instead painting the cached image. The
+@samp{CLUTTER_EFFECT_PAINT_ACTOR_DIRTY} flag is useful in this case.
+Clutter will set this flag when a redraw has been queued on the actor
+since it was last painted. The effect can use this information to decide
+if the cached image is still valid.
+
+The ‘paint’ virtual was added in Clutter 1.8. Prior to that there
+were two separate functions as follows.
 
 @itemize 
 @item
@@ -32,27 +66,29 @@ implementation of two virtual functions:
 
 @end itemize
 
-The @code{@code{pre-paint}} function should be used to set up the
+The @code{@code{pre-paint}} function was used to set up the
 @code{<clutter-effect>} right before the @code{<clutter-actor>}'s paint
 sequence. This function can fail, and return @samp{@code{#f}}; in that
 case, no @code{@code{post-paint}} invocation will follow.
 
-The @code{@code{post-paint}} function is called after the
+The @code{@code{post-paint}} function was called after the
 @code{<clutter-actor>}'s paint sequence.
 
-The @code{@code{pre-paint}} phase could be seen as a custom handler to
-the @code{<"paint">} signal, while the @code{@code{post-paint}} phase
-could be seen as a custom handler to the @code{<"paint">} signal
-connected using @code{g-signal-connect-after}.
+With these two functions it is not possible to skip the rest of the
+paint sequence. The default implementation of the ‘paint’ virtual
+calls @code{pre-paint}, @code{clutter-actor-continue-paint} and then
+@code{post-paint} so that existing actors that aren't using the paint
+virtual will continue to work. New actors using the paint virtual do not
+need to implement pre or post paint.
 
 @c (example (@ (id "ClutterEffect-example")))
 @c (title "A simple ClutterEffect implementation")
 The example below creates two rectangles: one will be painted "behind"
 the actor, while another will be painted "on top" of the actor. The
 @code{@code{set-actor}} implementation will create the two materials
-used for the two different rectangles; the @code{@code{pre-paint}}
-function will paint the first material using @code{cogl-rectangle},
-while the @code{@code{post-paint}} phase will paint the second material.
+used for the two different rectangles; the @code{@code{paint}} function
+will paint the first material using @code{cogl-rectangle}, before
+continuing and then it will paint paint the second material after.
 
 @example 
 
@@ -105,14 +141,10 @@ while the @code{@code{post-paint}} phase will paint the second material.
  @}
 
  static gboolean
- my_effect_pre_paint (ClutterEffect *effect)
+ my_effect_paint (ClutterEffect *effect)
  @{
    MyEffect *self = MY_EFFECT (effect);
    gfloat width, height;
-
-   /&#x002A; If we were disabled we don't need to paint anything &#x002A;/
-   if (!clutter_actor_meta_get_enabled (CLUTTER_ACTOR_META (effect)))
-     return FALSE;
 
    clutter_actor_get_size (self->actor, &width, &height);
 
@@ -120,16 +152,8 @@ while the @code{@code{post-paint}} phase will paint the second material.
    cogl_set_source (self->rect_1);
    cogl_rectangle (0, 0, width / 2, height / 2);
 
-   return TRUE;
- @}
-
- static void
- my_effect_post_paint (ClutterEffect *effect)
- @{
-   MyEffect *self = MY_EFFECT (effect);
-   gfloat width, height;
-
-   clutter_actor_get_size (self->actor, &width, &height);
+   /&#x002A; Continue to the rest of the paint sequence &#x002A;/
+   clutter_actor_continue_paint (self->actor);
 
    /&#x002A; Paint the second rectangle in the lower right quadrant &#x002A;/
    cogl_set_source (self->rect_2);
@@ -143,8 +167,7 @@ while the @code{@code{post-paint}} phase will paint the second material.
 
    meta_class->set_actor = my_effect_set_actor;
 
-   klass->pre_paint = my_effect_pre_paint;
-   klass->post_paint = my_effect_post_paint;
+   klass->paint = my_effect_paint;
  @}
     
 @end example

@@ -147,6 +147,51 @@ signal connection flags @samp{G_CONNECT_AFTER} and
 for calling @code{g-signal-connect-object} instead of
 @code{g-signal-connect}.
 
+Signals can also be directly attached to a specific state defined inside
+a @code{<clutter-state>} instance, for instance:
+
+@example 
+
+  ...
+  "signals" : [
+    @{
+      "name" : "enter-event",
+      "states" : "button-states",
+      "target-state" : "hover"
+    @},
+    @{
+      "name" : "leave-event",
+      "states" : "button-states",
+      "target-state" : "base"
+    @},
+    @{
+      "name" : "button-press-event",
+      "states" : "button-states",
+      "target-state" : "active",
+    @},
+    @{
+      "name" : "key-press-event",
+      "states" : "button-states",
+      "target-state" : "key-focus",
+      "warp" : true
+    @}
+  ],
+  ...
+@end example
+
+The "states" key defines the @code{<clutter-state>} instance to be used
+to resolve the "target-state" key; it can be either a script id for a
+@code{<clutter-state>} built by the same @code{<clutter-script>}
+instance, or to a @code{<clutter-state>} built in code and associated to
+the @code{<clutter-script>} instance through the
+@code{clutter-script-add-states} function. If no "states" key is
+present, then the default @code{<clutter-state>} associated to the
+@code{<clutter-script>} instance will be used; the default
+@code{<clutter-state>} can be set using @code{clutter-script-add-states}
+using a @samp{@code{#f}} name. The "warp" key can be used to warp to a
+specific state instead of animating to it. State changes on signal
+emission will not affect the signal emission chain.
+
 Clutter reserves the following names, so classes defining properties
 through the usual GObject registration process should avoid using these
 names to avoid collisions:

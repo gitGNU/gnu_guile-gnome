@@ -14,6 +14,16 @@
   )
 )
 
+(define-flags OffscreenRedirect
+  (in-module "Clutter")
+  (c-name "ClutterOffscreenRedirect")
+  (gtype-id "CLUTTER_TYPE_OFFSCREEN_REDIRECT")
+  (values
+    '("utomatic-for-opacity" "CLUTTER_OFFSCREEN_REDIRECT_AUTOMATIC_FOR_OPACITY")
+    '("lways" "CLUTTER_OFFSCREEN_REDIRECT_ALWAYS")
+  )
+)
+
 (define-flags AllocationFlags
   (in-module "Clutter")
   (c-name "ClutterAllocationFlags")
@@ -82,6 +92,17 @@
   )
 )
 
+(define-enum LongPressState
+  (in-module "Clutter")
+  (c-name "ClutterLongPressState")
+  (gtype-id "CLUTTER_TYPE_LONG_PRESS_STATE")
+  (values
+    '("query" "CLUTTER_LONG_PRESS_QUERY")
+    '("activate" "CLUTTER_LONG_PRESS_ACTIVATE")
+    '("cancel" "CLUTTER_LONG_PRESS_CANCEL")
+  )
+)
+
 (define-enum StaticColor
   (in-module "Clutter")
   (c-name "ClutterStaticColor")
@@ -143,6 +164,15 @@
     '("axis-none" "CLUTTER_DRAG_AXIS_NONE")
     '("x-axis" "CLUTTER_DRAG_X_AXIS")
     '("y-axis" "CLUTTER_DRAG_Y_AXIS")
+  )
+)
+
+(define-flags EffectPaintFlags
+  (in-module "Clutter")
+  (c-name "ClutterEffectPaintFlags")
+  (gtype-id "CLUTTER_TYPE_EFFECT_PAINT_FLAGS")
+  (values
+    '("y" "CLUTTER_EFFECT_PAINT_ACTOR_DIRTY")
   )
 )
 
@@ -347,6 +377,18 @@
   )
 )
 
+(define-flags SwipeDirection
+  (in-module "Clutter")
+  (c-name "ClutterSwipeDirection")
+  (gtype-id "CLUTTER_TYPE_SWIPE_DIRECTION")
+  (values
+    '("up" "CLUTTER_SWIPE_DIRECTION_UP")
+    '("down" "CLUTTER_SWIPE_DIRECTION_DOWN")
+    '("left" "CLUTTER_SWIPE_DIRECTION_LEFT")
+    '("right" "CLUTTER_SWIPE_DIRECTION_RIGHT")
+  )
+)
+
 (define-enum TableAlignment
   (in-module "Clutter")
   (c-name "ClutterTableAlignment")
@@ -528,24 +570,38 @@
   (c-name "ClutterModifierType")
   (gtype-id "CLUTTER_TYPE_MODIFIER_TYPE")
   (values
-    '("shift-mask" "CLUTTER_SHIFT_MASK")
-    '("lock-mask" "CLUTTER_LOCK_MASK")
-    '("control-mask" "CLUTTER_CONTROL_MASK")
-    '("mod1-mask" "CLUTTER_MOD1_MASK")
-    '("mod2-mask" "CLUTTER_MOD2_MASK")
-    '("mod3-mask" "CLUTTER_MOD3_MASK")
-    '("mod4-mask" "CLUTTER_MOD4_MASK")
-    '("mod5-mask" "CLUTTER_MOD5_MASK")
-    '("button1-mask" "CLUTTER_BUTTON1_MASK")
-    '("button2-mask" "CLUTTER_BUTTON2_MASK")
-    '("button3-mask" "CLUTTER_BUTTON3_MASK")
-    '("button4-mask" "CLUTTER_BUTTON4_MASK")
-    '("button5-mask" "CLUTTER_BUTTON5_MASK")
-    '("super-mask" "CLUTTER_SUPER_MASK")
-    '("hyper-mask" "CLUTTER_HYPER_MASK")
-    '("meta-mask" "CLUTTER_META_MASK")
-    '("release-mask" "CLUTTER_RELEASE_MASK")
-    '("modifier-mask" "CLUTTER_MODIFIER_MASK")
+    '("clutter-shift-mask" "CLUTTER_SHIFT_MASK")
+    '("clutter-lock-mask" "CLUTTER_LOCK_MASK")
+    '("clutter-control-mask" "CLUTTER_CONTROL_MASK")
+    '("clutter-mod1-mask" "CLUTTER_MOD1_MASK")
+    '("clutter-mod2-mask" "CLUTTER_MOD2_MASK")
+    '("clutter-mod3-mask" "CLUTTER_MOD3_MASK")
+    '("clutter-mod4-mask" "CLUTTER_MOD4_MASK")
+    '("clutter-mod5-mask" "CLUTTER_MOD5_MASK")
+    '("clutter-button1-mask" "CLUTTER_BUTTON1_MASK")
+    '("clutter-button2-mask" "CLUTTER_BUTTON2_MASK")
+    '("clutter-button3-mask" "CLUTTER_BUTTON3_MASK")
+    '("clutter-button4-mask" "CLUTTER_BUTTON4_MASK")
+    '("clutter-button5-mask" "CLUTTER_BUTTON5_MASK")
+    '("#ifndef" "#ifndef")
+    '("clutter-modifier-reserved-14-mask" "CLUTTER_MODIFIER_RESERVED_14_MASK")
+    '("clutter-modifier-reserved-15-mask" "CLUTTER_MODIFIER_RESERVED_15_MASK")
+    '("clutter-modifier-reserved-16-mask" "CLUTTER_MODIFIER_RESERVED_16_MASK")
+    '("clutter-modifier-reserved-17-mask" "CLUTTER_MODIFIER_RESERVED_17_MASK")
+    '("clutter-modifier-reserved-18-mask" "CLUTTER_MODIFIER_RESERVED_18_MASK")
+    '("clutter-modifier-reserved-19-mask" "CLUTTER_MODIFIER_RESERVED_19_MASK")
+    '("clutter-modifier-reserved-20-mask" "CLUTTER_MODIFIER_RESERVED_20_MASK")
+    '("clutter-modifier-reserved-21-mask" "CLUTTER_MODIFIER_RESERVED_21_MASK")
+    '("clutter-modifier-reserved-22-mask" "CLUTTER_MODIFIER_RESERVED_22_MASK")
+    '("clutter-modifier-reserved-23-mask" "CLUTTER_MODIFIER_RESERVED_23_MASK")
+    '("clutter-modifier-reserved-24-mask" "CLUTTER_MODIFIER_RESERVED_24_MASK")
+    '("clutter-modifier-reserved-25-mask" "CLUTTER_MODIFIER_RESERVED_25_MASK")
+    '("#endif" "#endif")
+    '("clutter-hyper-mask" "CLUTTER_HYPER_MASK")
+    '("clutter-meta-mask" "CLUTTER_META_MASK")
+    '("#ifndef" "#ifndef")
+    '("#endif" "#endif")
+    '("clutter-modifier-mask" "CLUTTER_MODIFIER_MASK")
   )
 )
 
@@ -704,11 +760,25 @@
   (gtype-id "CLUTTER_TYPE_DRAG_ACTION")
 )
 
+(define-object DropAction
+  (in-module "Clutter")
+  (parent "ClutterAction")
+  (c-name "ClutterDropAction")
+  (gtype-id "CLUTTER_TYPE_DROP_ACTION")
+)
+
 (define-object Effect
   (in-module "Clutter")
   (parent "ClutterActorMeta")
   (c-name "ClutterEffect")
   (gtype-id "CLUTTER_TYPE_EFFECT")
+)
+
+(define-object GestureAction
+  (in-module "Clutter")
+  (parent "ClutterAction")
+  (c-name "ClutterGestureAction")
+  (gtype-id "CLUTTER_TYPE_GESTURE_ACTION")
 )
 
 (define-object Group
@@ -856,6 +926,13 @@
   (parent "GObject")
   (c-name "ClutterState")
   (gtype-id "CLUTTER_TYPE_STATE")
+)
+
+(define-object SwipeAction
+  (in-module "Clutter")
+  (parent "ClutterGestureAction")
+  (c-name "ClutterSwipeAction")
+  (gtype-id "CLUTTER_TYPE_SWIPE_ACTION")
 )
 
 (define-object TableLayout

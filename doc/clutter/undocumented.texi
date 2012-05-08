@@ -39,6 +39,9 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-actor-get-fixed-position-set
 @end defvar
 
+@defvar clutter-actor-get-offscreen-redirect
+@end defvar
+
 @defvar clutter-actor-get-paint-volume
 @end defvar
 
@@ -66,6 +69,9 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-actor-set-fixed-position-set
 @end defvar
 
+@defvar clutter-actor-set-offscreen-redirect
+@end defvar
+
 @defvar clutter-actor-set-scale-with-gravity
 @end defvar
 
@@ -82,6 +88,9 @@ The following symbols, if any, have not been properly documented.
 @end defvar
 
 @defvar clutter-animatable-get-initial-state
+@end defvar
+
+@defvar clutter-animatable-interpolate-value
 @end defvar
 
 @defvar clutter-animator-key-get-property-name
@@ -198,8 +207,14 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-box-layout-set-use-animations
 @end defvar
 
+@defvar clutter-cairo-texture-get-auto-resize
+@end defvar
+
 @defun clutter-cairo-texture-get-surface-size _
 @end defun
+
+@defvar clutter-cairo-texture-set-auto-resize
+@end defvar
 
 @defvar clutter-cairo-texture-set-surface-size
 @end defvar
@@ -240,6 +255,9 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-drag-action-set-drag-threshold
 @end defvar
 
+@defvar clutter-drop-action-new
+@end defvar
+
 @defvar clutter-event-get-scroll-direction
 @end defvar
 
@@ -256,6 +274,18 @@ The following symbols, if any, have not been properly documented.
 @end defvar
 
 @defvar clutter-flow-layout-set-column-width
+@end defvar
+
+@defun clutter-gesture-action-get-motion-coords _ _
+@end defun
+
+@defun clutter-gesture-action-get-press-coords _ _
+@end defun
+
+@defun clutter-gesture-action-get-release-coords _ _
+@end defun
+
+@defvar clutter-gesture-action-new
 @end defvar
 
 @defvar clutter-input-device-get-associated-device
@@ -324,25 +354,13 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-media-set-subtitle-font-name
 @end defvar
 
+@defun clutter-offscreen-effect-get-target-size _
+@end defun
+
 @defvar clutter-offscreen-effect-paint-target
 @end defvar
 
 @defvar clutter-paint-volume-set-from-allocation
-@end defvar
-
-@defvar clutter-path-constraint-get-offset
-@end defvar
-
-@defvar clutter-path-constraint-get-path
-@end defvar
-
-@defvar clutter-path-constraint-new
-@end defvar
-
-@defvar clutter-path-constraint-set-offset
-@end defvar
-
-@defvar clutter-path-constraint-set-path
 @end defvar
 
 @defvar clutter-redraw
@@ -360,25 +378,7 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-shader-error-quark
 @end defvar
 
-@defun clutter-snap-constraint-get-edges _
-@end defun
-
-@defvar clutter-snap-constraint-get-offset
-@end defvar
-
-@defvar clutter-snap-constraint-get-source
-@end defvar
-
-@defvar clutter-snap-constraint-new
-@end defvar
-
-@defvar clutter-snap-constraint-set-edges
-@end defvar
-
-@defvar clutter-snap-constraint-set-offset
-@end defvar
-
-@defvar clutter-snap-constraint-set-source
+@defvar clutter-stage-get-motion-events-enabled
 @end defvar
 
 @defvar clutter-stage-get-throttle-motion-events
@@ -390,6 +390,9 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-stage-manager-set-default-stage
 @end defvar
 
+@defvar clutter-stage-set-motion-events-enabled
+@end defvar
+
 @defvar clutter-stage-set-throttle-motion-events
 @end defvar
 
@@ -397,6 +400,9 @@ The following symbols, if any, have not been properly documented.
 @end defvar
 
 @defvar clutter-state-key-get-target-state-name
+@end defvar
+
+@defvar clutter-swipe-action-new
 @end defvar
 
 @defvar clutter-table-layout-get-column-count
@@ -433,6 +439,12 @@ The following symbols, if any, have not been properly documented.
 @end defvar
 
 @defvar clutter-text-get-font-description
+@end defvar
+
+@defvar clutter-text-get-selected-text-color
+@end defvar
+
+@defvar clutter-text-set-selected-text-color
 @end defvar
 
 @defvar clutter-texture-error-quark

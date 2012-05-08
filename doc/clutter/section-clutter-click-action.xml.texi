@@ -25,6 +25,51 @@ to the @code{<"clicked">} signal:
   g_signal_connect (action, "clicked", G_CALLBACK (on_clicked), NULL);
 @end example
 
+@code{<clutter-click-action>} also supports long press gestures: a long
+press is activated if the pointer remains pressed within a certain
+threshold (as defined by the @code{<"long-press-threshold">} property)
+for a minimum amount of time (as the defined by the
+@code{<"long-press-duration">} property). The @code{<"long-press">}
+signal is emitted multiple times, using different
+@code{<clutter-long-press-state>} values; to handle long presses you
+should connect to the @code{<"long-press">} signal and handle the
+different states:
+
+@example 
+
+  static gboolean
+  on_long_press (ClutterClickAction    *action,
+                 ClutterActor          *actor,
+                 ClutterLongPressState  state)
+  @{
+    switch (state)
+      @{
+      case CLUTTER_LONG_PRESS_QUERY:
+        /&#x002A; return TRUE if the actor should support long press
+         &#x002A; gestures, and FALSE otherwise; this state will be
+         &#x002A; emitted on button presses
+         &#x002A;/
+        return TRUE;
+
+      case CLUTTER_LONG_PRESS_ACTIVATE:
+        /&#x002A; this state is emitted if the minimum duration has
+         &#x002A; been reached without the gesture being cancelled.
+         &#x002A; the return value is not used
+         &#x002A;/
+        return TRUE;
+
+      case CLUTTER_LONG_PRESS_CANCEL:
+        /&#x002A; this state is emitted if the long press was cancelled;
+         &#x002A; for instance, the pointer went outside the actor or the
+         &#x002A; allowed threshold, or the button was released before
+         &#x002A; the minimum duration was reached. the return value is
+         &#x002A; not used
+         &#x002A;/
+        return FALSE;
+      @}
+  @}
+@end example
+
 @code{<clutter-click-action>} is available since Clutter 1.4
 
 @section Usage

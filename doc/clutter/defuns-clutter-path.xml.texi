@@ -339,7 +339,7 @@ a @code{<clutter-path>}
 the node number to retrieve
 
 @item node
-a location to store a copy of the node
+a location to store a copy of the node.
 
 @end table
 
@@ -513,7 +513,7 @@ a @code{<clutter-path>}
 a position along the path as a fraction of its length
 
 @item position
-location to store the position
+location to store the position.
 
 @item ret
 index of the node used to calculate the position.

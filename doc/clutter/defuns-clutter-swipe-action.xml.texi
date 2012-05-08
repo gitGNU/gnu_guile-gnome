@@ -1,0 +1,18 @@
+
+@c %start of fragment
+
+@deffn Function clutter-swipe-action-new  @result{}@tie{} (ret@tie{}@code{<clutter-action>})
+Creates a new @code{<clutter-swipe-action>} instance
+
+@table @var
+@item ret
+the newly created @code{<clutter-swipe-action>}
+
+@end table
+
+Since 1.8
+
+@end deffn
+
+
+@c %end of fragment

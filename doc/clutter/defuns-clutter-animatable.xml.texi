@@ -3,6 +3,10 @@
 
 @deffn Function clutter-animatable-animate-property  (self@tie{}@code{<clutter-animatable>}) (animation@tie{}@code{<clutter-animation>}) (property_name@tie{}@code{mchars}) (initial_value@tie{}@code{<gvalue>}) (final_value@tie{}@code{<gvalue>}) (progress@tie{}@code{double}) (value@tie{}@code{<gvalue>}) @result{}@tie{} (ret@tie{}@code{bool})
 @deffnx Method animate-property
+@samp{clutter_animatable_animate_property} has been deprecated since
+version 1.8 and should not be used in newly-written code. Use
+@code{clutter-animatable-interpolate-value} instead
+
 Calls the @code{animate-property} virtual function for @var{animatable}.
 
 The @var{initial-value} and @var{final-value}@code{<gvalue>}s must

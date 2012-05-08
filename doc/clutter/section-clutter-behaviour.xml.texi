@@ -44,6 +44,11 @@ controlled by the behaviour.
 
 @code{<clutter-behaviour>} is available since Clutter 0.2.
 
+@code{<clutter-behaviour>} and its sub-classes have been deprecated
+since Clutter 1.6. You should see the migration guide for more
+information on migrating code from using the @code{<clutter-behaviour>}
+API to the animation framework API.
+
 @section Usage
 @include defuns-clutter-behaviour.xml.texi
 

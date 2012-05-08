@@ -311,7 +311,7 @@ ownership of the passed @code{<clutter-interval>}. For more information
 about animations, see @code{clutter-actor-animate}.
 
 If you need to update the interval instance use
-@code{clutter-animation-update-property} instead.
+@code{clutter-animation-update-interval} instead.
 
 @table @var
 @item animation

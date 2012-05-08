@@ -1,0 +1,21 @@
+
+@c %start of fragment
+
+@deffn Function clutter-drop-action-new  @result{}@tie{} (ret@tie{}@code{<clutter-action>})
+Creates a new @code{<clutter-drop-action>}.
+
+Use @code{clutter-actor-add-action} to add the action to a
+@code{<clutter-actor>}.
+
+@table @var
+@item ret
+the newly created @code{<clutter-drop-action>}
+
+@end table
+
+Since 1.8
+
+@end deffn
+
+
+@c %end of fragment

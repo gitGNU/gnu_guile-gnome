@@ -6,8 +6,8 @@
 Base class for shader effects
 
 @section Overview
-@code{<clutter-shader-effect>} is an abstract class that implements all
-the plumbing for creating @code{<clutter-effect>}s using GLSL shaders.
+@code{<clutter-shader-effect>} is a class that implements all the
+plumbing for creating @code{<clutter-effect>}s using GLSL shaders.
 
 @code{<clutter-shader-effect>} creates an offscreen buffer and then
 applies the GLSL shader (after checking whether the compilation and

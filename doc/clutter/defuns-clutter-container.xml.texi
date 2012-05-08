@@ -77,7 +77,7 @@ a @code{<clutter-container>}
 the actor to raise
 
 @item sibling
-the sibling to raise to, or @samp{@code{#f}} to raise to the top
+the sibling to raise to, or @samp{@code{#f}} to raise to the top.
 
 @end table
 
@@ -99,7 +99,7 @@ a @code{<clutter-container>}
 the actor to raise
 
 @item sibling
-the sibling to lower to, or @samp{@code{#f}} to lower to the bottom
+the sibling to lower to, or @samp{@code{#f}} to lower to the bottom.
 
 @end table
 

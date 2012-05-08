@@ -23,6 +23,11 @@ Since 1.0
 
 @deffn Function clutter-cairo-texture-create  (self@tie{}@code{<clutter-cairo-texture>}) @result{}@tie{} (ret@tie{}@code{cairo-t})
 @deffnx Method create
+@samp{clutter_cairo_texture_create} has been deprecated since version
+1.8 and should not be used in newly-written code. Use the
+@code{<"draw">} signal and the @code{clutter-cairo-texture-invalidate}
+function to obtain a Cairo context for 2D drawing.
+
 Creates a new Cairo context for the @var{cairo} texture. It is similar
 to using @code{clutter-cairo-texture-create-region} with @var{x-offset}
 and @var{y-offset} of 0, @var{width} equal to the @var{cairo} texture
@@ -50,6 +55,12 @@ Since 1.0
 
 @deffn Function clutter-cairo-texture-create-region  (self@tie{}@code{<clutter-cairo-texture>}) (x_offset@tie{}@code{int}) (y_offset@tie{}@code{int}) (width@tie{}@code{int}) (height@tie{}@code{int}) @result{}@tie{} (ret@tie{}@code{cairo-t})
 @deffnx Method create-region
+@samp{clutter_cairo_texture_create_region} has been deprecated since
+version 1.8 and should not be used in newly-written code. Use the
+@code{<"draw">} signal and
+@code{clutter-cairo-texture-invalidate-rectangle} to obtain a clipped
+Cairo context for 2D drawing.
+
 Creates a new Cairo context that will updat the region defined by
 @var{x-offset}, @var{y-offset}, @var{width} and @var{height}.
 
@@ -84,11 +95,32 @@ Since 1.0
 
 @end deffn
 
+@deffn Function clutter-cairo-texture-invalidate  (self@tie{}@code{<clutter-cairo-texture>})
+@deffnx Method invalidate
+Invalidates the whole surface of a @code{<clutter-cairo-texture>}.
+
+This function will cause the @code{<"draw">} signal to be emitted.
+
+See also: @code{clutter-cairo-texture-invalidate-rectangle}
+
+@table @var
+@item self
+a @code{<clutter-cairo-texture>}
+
+@end table
+
+Since 1.8
+
+@end deffn
+
 @deffn Function clutter-cairo-texture-clear  (self@tie{}@code{<clutter-cairo-texture>})
 @deffnx Method clear
 Clears @var{self}'s internal drawing surface, so that the next upload
 will replace the previous contents of the @code{<clutter-cairo-texture>}
 rather than adding to it.
+
+Calling this function from within a @code{<"draw">} signal handler will
+clear the invalidated area.
 
 @table @var
 @item self
@@ -102,7 +134,16 @@ Since 1.0
 
 @deffn Function clutter-cairo-set-source-color  (cr@tie{}@code{cairo-t}) (color@tie{}@code{<clutter-color>})
 Utility function for setting the source color of @var{cr} using a
-@code{<clutter-color>}.
+@code{<clutter-color>}. This function is the equivalent of:
+
+@example 
+
+  cairo_set_source_rgba (cr,
+                         color->red / 255.0,
+                         color->green / 255.0,
+                         color->blue / 255.0,
+                         color->alpha / 255.0);
+@end example
 
 @table @var
 @item cr

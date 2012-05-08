@@ -38,7 +38,12 @@ Since 0.2
 
 @deffn Function clutter-media-set-playing  (self@tie{}@code{<clutter-media>}) (playing@tie{}@code{bool})
 @deffnx Method set-playing
-Starts or stops playing of @var{media}.
+Starts or stops playing of @var{media}. The implementation might be
+asynchronous, so the way to know whether the actual playing state of the
+@var{media} is to use the @code{<"notify">} signal on the
+@code{<"playing">} property and then retrieve the current state with
+@code{clutter-media-get-playing}. ClutterGstVideoTexture in clutter-gst
+is an example of such an asynchronous implementation.
 
 @table @var
 @item media
