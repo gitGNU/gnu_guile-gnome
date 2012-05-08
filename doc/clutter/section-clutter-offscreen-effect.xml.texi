@@ -1,0 +1,46 @@
+
+@c %start of fragment
+
+@node ClutterOffscreenEffect
+@chapter ClutterOffscreenEffect
+Base class for effects using offscreen buffers
+
+@section Overview
+@code{<clutter-offscreen-effect>} is an abstract class that can be used
+by @code{<clutter-effect>} sub-classes requiring access to an offscreen
+buffer.
+
+Some effects, like the fragment shader based effects, can only use GL
+textures, and in order to apply those effects to any kind of actor they
+require that all drawing operations are applied to an offscreen
+framebuffer that gets redirected to a texture.
+
+@code{<clutter-offscreen-effect>} provides all the heavy-lifting for
+creating the offscreen framebuffer, the redirection and the final paint
+of the texture on the desired stage.
+
+@section Implementing a ClutterOffscreenEffect
+Creating a sub-class of @code{<clutter-offscreen-effect>} requires, in
+case of overriding the @code{<clutter-effect>} virtual functions, to
+chain up to the @code{<clutter-offscreen-effect>}'s implementation.
+
+On top of the @code{<clutter-effect>}'s virtual functions,
+@code{<clutter-offscreen-effect>} also provides a
+@code{@code{paint-target}} function, which encapsulates the effective
+painting of the texture that contains the result of the offscreen
+redirection.
+
+The size of the target material is defined to be as big as the
+transformed size of the @code{<clutter-actor>} using the offscreen
+effect. Sub-classes of @code{<clutter-offscreen-effect>} can change the
+texture creation code to provide bigger textures by overriding the
+@code{@code{create-texture}} virtual function; no chain up to the
+@code{<clutter-offscreen-effect>} implementation is required in this
+case.
+
+@code{<clutter-offscreen-effect>} is available since Clutter 1.4
+
+@section Usage
+@include defuns-clutter-offscreen-effect.xml.texi
+
+@c %end of fragment

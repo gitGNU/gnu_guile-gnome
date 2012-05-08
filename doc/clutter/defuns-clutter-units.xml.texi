@@ -6,7 +6,7 @@ Stores a value in centimeters inside @var{units}
 
 @table @var
 @item units
-a @code{<clutter-units>}
+a @code{<clutter-units>}.
 
 @item cm
 centimeters
@@ -23,7 +23,7 @@ returned by @code{clutter-backend-get-font-name}
 
 @table @var
 @item units
-a @code{<clutter-units>}
+a @code{<clutter-units>}.
 
 @item em
 em
@@ -39,10 +39,10 @@ Stores a value in em inside @var{units} using @var{font-name}
 
 @table @var
 @item units
-a @code{<clutter-units>}
+a @code{<clutter-units>}.
 
 @item font-name
-the font name and size
+the font name and size.
 
 @item em
 em
@@ -58,7 +58,7 @@ Stores a value in millimiters inside @var{units}
 
 @table @var
 @item units
-a @code{<clutter-units>}
+a @code{<clutter-units>}.
 
 @item mm
 millimeters
@@ -74,7 +74,7 @@ Stores a value in pixels inside @var{units}
 
 @table @var
 @item units
-a @code{<clutter-units>}
+a @code{<clutter-units>}.
 
 @item px
 pixels
@@ -90,7 +90,7 @@ Stores a value in typographic points inside @var{units}
 
 @table @var
 @item units
-a @code{<clutter-units>}
+a @code{<clutter-units>}.
 
 @item pt
 typographic points
@@ -185,13 +185,11 @@ While these are not:
   omg!1!ponies
 @end example
 
-@cartouche 
 If no unit is specified, pixels are assumed.
-@end cartouche
 
 @table @var
 @item units
-a @code{<clutter-units>}
+a @code{<clutter-units>}.
 
 @item str
 the string to convert

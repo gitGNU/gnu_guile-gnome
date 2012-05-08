@@ -42,12 +42,12 @@ The "properties" property has the following syntax:
  @{
    "properties" : [
      @{
-       "object" : <id of an object>,
-       "name" : <name of the property>,
-       "ease-in" : <boolean>,
-       "interpolation" : <ClutterInterpolation value>,
+       "object" : &lt;id of an object>,
+       "name" : &lt;name of the property>,
+       "ease-in" : &lt;boolean>,
+       "interpolation" : &lt;#ClutterInterpolation value>,
        "keys" : [
-         [ <progress>, <easing mode>, <final value> ]
+         [ &lt;progress>, &lt;easing mode>, &lt;final value> ]
        ]
    ]
  @}

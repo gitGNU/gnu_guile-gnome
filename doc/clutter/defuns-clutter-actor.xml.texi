@@ -162,21 +162,7 @@ they are mapped. This function hides the actor to be sure it isn't
 mapped, an application-visible side effect that you may not be
 expecting.
 
-This function should not really be in the public API, because there
-isn't a good reason to call it. ClutterActor will already unrealize
-things for you when it's important to do so.
-
-If you were using @code{clutter-actor-unrealize} in a dispose
-implementation, then don't, just chain up to ClutterActor's dispose.
-
-If you were using @code{clutter-actor-unrealize} to implement
-unrealizing children of your container, then don't, ClutterActor will
-already take care of that.
-
-If you were using @code{clutter-actor-unrealize} to re-realize to create
-your resources in a different way, then use
-@code{-clutter-actor-rerealize} (inside Clutter) or just call your code
-that recreates your resources directly (outside Clutter).
+This function should not be called by application code.
 
 @table @var
 @item self
@@ -193,7 +179,14 @@ Renders the actor to display.
 This function should not be called directly by applications. Call
 @code{clutter-actor-queue-redraw} to queue paints, instead.
 
-This function will emit the @code{<"paint">} signal.
+This function is context-aware, and will either cause a regular paint or
+a pick paint.
+
+This function will emit the @code{<"paint">} signal or the
+@code{<"pick">} signal, depending on the context.
+
+This function does not paint the actor if the actor is set to 0, unless
+it is performing a pick paint.
 
 @table @var
 @item self
@@ -216,6 +209,10 @@ This function will not do anything if @var{self} is not visible, or if
 the actor is inside an invisible part of the scenegraph.
 
 Also be aware that painting is a NOP for actors with an opacity of 0
+
+When you are implementing a custom actor you must queue a redraw
+whenever some private state changes that will affect painting or picking
+of your actor.
 
 @table @var
 @item self
@@ -315,10 +312,10 @@ and realizes its children if they are visible. Does nothing if the actor
 is not visible.
 
 Calling this is allowed in only one case: you are implementing the
-@code{<"map">} virtual function in an actor and you need to map the
-children of that actor. It is not necessary to call this if you
-implement @code{<clutter-container>} because the default implementation
-will automatically map children of containers.
+@code{<clutter-actor>}@code{@code{map}} virtual function in an actor and
+you need to map the children of that actor. It is not necessary to call
+this if you implement @code{<clutter-container>} because the default
+implementation will automatically map children of containers.
 
 When overriding map, it is mandatory to chain up to the parent
 implementation.
@@ -339,10 +336,10 @@ Unsets the @samp{CLUTTER_ACTOR_MAPPED} flag on the actor and possibly
 unmaps its children if they were mapped.
 
 Calling this is allowed in only one case: you are implementing the
-@code{<"unmap">} virtual function in an actor and you need to unmap the
-children of that actor. It is not necessary to call this if you
-implement @code{<clutter-container>} because the default implementation
-will automatically unmap children of containers.
+@code{<clutter-actor>}@code{@code{unmap}} virtual function in an actor
+and you need to unmap the children of that actor. It is not necessary to
+call this if you implement @code{<clutter-container>} because the
+default implementation will automatically unmap children of containers.
 
 When overriding unmap, it is mandatory to chain up to the parent
 implementation.
@@ -382,6 +379,50 @@ flags that control the allocation
 @end table
 
 Since 0.8
+
+@end deffn
+
+@deffn Function clutter-actor-allocate-align-fill  (self@tie{}@code{<clutter-actor>}) (box@tie{}@code{<clutter-actor-box>}) (x_align@tie{}@code{double}) (y_align@tie{}@code{double}) (x_fill@tie{}@code{bool}) (y_fill@tie{}@code{bool}) (flags@tie{}@code{<clutter-allocation-flags>})
+@deffnx Method allocate-align-fill
+Allocates @var{self} by taking into consideration the available
+allocation area; an alignment factor on either axis; and whether the
+actor should fill the allocation on either axis.
+
+The @var{box} should contain the available allocation width and height;
+if the x1 and y1 members of @code{<clutter-actor-box>} are not set to 0,
+the allocation will be offset by their value.
+
+This function takes into consideration the geometry request specified by
+the @code{<"request-mode">} property, and the text direction.
+
+This function is useful for fluid layout managers, like
+@code{<clutter-bin-layout>} or @code{<clutter-table-layout>}
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item box
+a @code{<clutter-actor-box>}, containing the available width and height
+
+@item x-align
+the horizontal alignment, between 0 and 1
+
+@item y-align
+the vertical alignment, between 0 and 1
+
+@item x-fill
+whether the actor should fill horizontally
+
+@item y-fill
+whether the actor should fill vertically
+
+@item flags
+allocation flags to be passed to @code{clutter-actor-allocate}
+
+@end table
+
+Since 1.4
 
 @end deffn
 
@@ -549,6 +590,31 @@ the request mode for the actor
 @end table
 
 Since 1.2
+
+@end deffn
+
+@deffn Function clutter-actor-has-allocation  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method has-allocation
+Checks if the actor has an up-to-date allocation assigned to it. This
+means that the actor should have an allocation: it's visible and has a
+parent. It also means that there is no outstanding relayout request in
+progress for the actor or its children (There might be other outstanding
+layout requests in progress that will cause the actor to get a new
+allocation when the stage is laid out, however).
+
+If this function returns @samp{@code{#f}}, then the actor will normally
+be allocated before it is next drawn on the screen.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+@samp{@code{#t}} if the actor has an up-to-date allocation
+
+@end table
+
+Since 1.4
 
 @end deffn
 
@@ -1258,6 +1324,29 @@ Since 0.1.1
 
 @end deffn
 
+@deffn Function clutter-actor-contains  (self@tie{}@code{<clutter-actor>}) (descendant@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method contains
+Determines if @var{descendant} is contained inside @var{self} (either as
+an immediate child, or as a deeper descendant). If @var{self} and
+@var{descendant} point to the same actor then it will also return
+@samp{@code{#t}}.
+
+@table @var
+@item self
+A @code{<clutter-actor>}
+
+@item descendant
+A @code{<clutter-actor>}, possibly contained in @var{self}
+
+@item ret
+whether @var{descendent} is contained within @var{self}
+
+@end table
+
+Since 1.4
+
+@end deffn
+
 @deffn Function clutter-actor-raise  (self@tie{}@code{<clutter-actor>}) (below@tie{}@code{<clutter-actor>})
 @deffnx Method raise
 Puts @var{self} above @var{below}.
@@ -1362,12 +1451,12 @@ for instance:
      &#x002A; the internal flag being set on a child of MyActor
      &#x002A;/
 
-    /&#x002A; internal child: a background texture &#x002A;/
+    /&#x002A; internal child - a background texture &#x002A;/
     self->priv->background_tex = clutter_texture_new ();
     clutter_actor_set_parent (self->priv->background_tex,
                               CLUTTER_ACTOR (self));
 
-    /&#x002A; internal child: a label &#x002A;/
+    /&#x002A; internal child - a label &#x002A;/
     self->priv->label = clutter_text_new ();
     clutter_actor_set_parent (self->priv->label,
                               CLUTTER_ACTOR (self));
@@ -1593,10 +1682,10 @@ The conversion should not be expected to be pixel-perfect due to the
 nature of the operation. In general the error grows when the skewing of
 the actor rectangle on screen increases.
 
-Note: This function is fairly computationally intensive.
+This function can be computationally intensive.
 
-Note: This function only works when the allocation is up-to-date, i.e.
-inside of @code{paint}
+This function only works when the allocation is up-to-date, i.e. inside
+of @code{paint}.
 
 @table @var
 @item self
@@ -1888,6 +1977,25 @@ Since 0.8
 
 @end deffn
 
+@deffn Function clutter-actor-has-key-focus  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method has-key-focus
+Checks whether @var{self} is the @code{<clutter-actor>} that has key
+focus
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+@samp{@code{#t}} if the actor has key focus, and @samp{@code{#f}}
+otherwise
+
+@end table
+
+Since 1.4
+
+@end deffn
+
 @deffn Function clutter-actor-grab-key-focus  (self@tie{}@code{<clutter-actor>})
 @deffnx Method grab-key-focus
 Sets the key focus of the @code{<clutter-stage>} including @var{self} to
@@ -1947,7 +2055,7 @@ a @code{<clutter-actor>}
 
 @item ret
 the newly created @code{<pango-context>}. Use @code{g-object-unref} on
-the returned value to deallocate its resources
+the returned value to deallocate its resources.
 
 @end table
 
@@ -1977,7 +2085,7 @@ a @code{<clutter-actor>}
 
 @item ret
 the newly created @code{<pango-layout>}. Use @code{g-object-unref} when
-done
+done.
 
 @end table
 
@@ -2061,7 +2169,7 @@ Since 1.2
 
 @deffn Function clutter-actor-has-pointer  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{bool})
 @deffnx Method has-pointer
-Checks whether an actor contains the the pointer of a
+Checks whether an actor contains the pointer of a
 @code{<clutter-input-device>}
 
 @table @var
@@ -2075,6 +2183,421 @@ otherwise
 @end table
 
 Since 1.2
+
+@end deffn
+
+@deffn Function clutter-actor-get-accessible  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{<atk-object>})
+@deffnx Method get-accessible
+Returns the accessible object that describes the actor to an assistive
+technology.
+
+If no class-specific @code{<atk-object>} implementation is available for
+the actor instance in question, it will inherit an @code{<atk-object>}
+implementation from the first ancestor class for which such an
+implementation is defined.
+
+The documentation of the
+@uref{http://developer.gnome.org/doc/API/2.0/atk/index.html,ATK} library
+contains more information about accessible objects and their uses.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+the @code{<atk-object>} associated with @var{actor}.
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-actor-add-action  (self@tie{}@code{<clutter-actor>}) (action@tie{}@code{<clutter-action>})
+@deffnx Method add-action
+Adds @var{action} to the list of actions applied to @var{self}
+
+A @code{<clutter-action>} can only belong to one actor at a time
+
+The @code{<clutter-actor>} will hold a reference on @var{action} until
+either @code{clutter-actor-remove-action} or
+@code{clutter-actor-clear-actions} is called
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item action
+a @code{<clutter-action>}
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-actor-add-action-with-name  (self@tie{}@code{<clutter-actor>}) (name@tie{}@code{mchars}) (action@tie{}@code{<clutter-action>})
+@deffnx Method add-action-with-name
+A convenience function for setting the name of a @code{<clutter-action>}
+while adding it to the list of actions applied to @var{self}
+
+This function is the logical equivalent of:
+
+@example 
+
+  clutter_actor_meta_set_name (CLUTTER_ACTOR_META (action), name);
+  clutter_actor_add_action (self, action);
+@end example
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item name
+the name to set on the action
+
+@item action
+a @code{<clutter-action>}
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-actor-remove-action  (self@tie{}@code{<clutter-actor>}) (action@tie{}@code{<clutter-action>})
+@deffnx Method remove-action
+Removes @var{action} from the list of actions applied to @var{self}
+
+The reference held by @var{self} on the @code{<clutter-action>} will be
+released
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item action
+a @code{<clutter-action>}
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-actor-remove-action-by-name  (self@tie{}@code{<clutter-actor>}) (name@tie{}@code{mchars})
+@deffnx Method remove-action-by-name
+Removes the @code{<clutter-action>} with the given name from the list of
+actions applied to @var{self}
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item name
+the name of the action to remove
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-actor-get-actions  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{glist-of})
+@deffnx Method get-actions
+Retrieves the list of actions applied to @var{self}
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+a copy of the list of @code{<clutter-action>}s. The contents of the list
+are owned by the @code{<clutter-actor>}. Use @code{g-list-free} to free
+the resources allocated by the returned @code{<g-list>}.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-actor-get-action  (self@tie{}@code{<clutter-actor>}) (name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<clutter-action>})
+@deffnx Method get-action
+Retrieves the @code{<clutter-action>} with the given name in the list of
+actions applied to @var{self}
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item name
+the name of the action to retrieve
+
+@item ret
+a @code{<clutter-action>} for the given name, or @samp{@code{#f}}. The
+returned @code{<clutter-action>} is owned by the actor and it should not
+be unreferenced directly.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-actor-clear-actions  (self@tie{}@code{<clutter-actor>})
+@deffnx Method clear-actions
+Clears the list of actions applied to @var{self}
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-actor-add-constraint  (self@tie{}@code{<clutter-actor>}) (constraint@tie{}@code{<clutter-constraint>})
+@deffnx Method add-constraint
+Adds @var{constraint} to the list of @code{<clutter-constraint>}s
+applied to @var{self}
+
+The @code{<clutter-actor>} will hold a reference on the @var{constraint}
+until either @code{clutter-actor-remove-constraint} or
+@code{clutter-actor-clear-constraints} is called.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item constraint
+a @code{<clutter-constraint>}
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-actor-remove-constraint  (self@tie{}@code{<clutter-actor>}) (constraint@tie{}@code{<clutter-constraint>})
+@deffnx Method remove-constraint
+Removes @var{constraint} from the list of constraints applied to
+@var{self}
+
+The reference held by @var{self} on the @code{<clutter-constraint>} will
+be released
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item constraint
+a @code{<clutter-constraint>}
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-actor-get-constraints  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{glist-of})
+@deffnx Method get-constraints
+Retrieves the list of constraints applied to @var{self}
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+a copy of the list of @code{<clutter-constraint>}s. The contents of the
+list are owned by the @code{<clutter-actor>}. Use @code{g-list-free} to
+free the resources allocated by the returned @code{<g-list>}.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-actor-get-constraint  (self@tie{}@code{<clutter-actor>}) (name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<clutter-constraint>})
+@deffnx Method get-constraint
+Retrieves the @code{<clutter-constraint>} with the given name in the
+list of constraints applied to @var{self}
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item name
+the name of the constraint to retrieve
+
+@item ret
+a @code{<clutter-constraint>} for the given name, or @samp{@code{#f}}.
+The returned @code{<clutter-constraint>} is owned by the actor and it
+should not be unreferenced directly.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-actor-clear-constraints  (self@tie{}@code{<clutter-actor>})
+@deffnx Method clear-constraints
+Clears the list of constraints applied to @var{self}
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-actor-add-effect  (self@tie{}@code{<clutter-actor>}) (effect@tie{}@code{<clutter-effect>})
+@deffnx Method add-effect
+Adds @var{effect} to the list of @code{<clutter-effect>}s applied to
+@var{self}
+
+The @code{<clutter-actor>} will hold a reference on the @var{effect}
+until either @code{clutter-actor-remove-effect} or
+@code{clutter-actor-clear-effects} is called.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item effect
+a @code{<clutter-effect>}
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-actor-add-effect-with-name  (self@tie{}@code{<clutter-actor>}) (name@tie{}@code{mchars}) (effect@tie{}@code{<clutter-effect>})
+@deffnx Method add-effect-with-name
+A convenience function for setting the name of a @code{<clutter-effect>}
+while adding it to the list of effectss applied to @var{self}
+
+This function is the logical equivalent of:
+
+@example 
+
+  clutter_actor_meta_set_name (CLUTTER_ACTOR_META (effect), name);
+  clutter_actor_add_effect (self, effect);
+@end example
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item name
+the name to set on the effect
+
+@item effect
+a @code{<clutter-effect>}
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-actor-remove-effect  (self@tie{}@code{<clutter-actor>}) (effect@tie{}@code{<clutter-effect>})
+@deffnx Method remove-effect
+Removes @var{effect} from the list of effects applied to @var{self}
+
+The reference held by @var{self} on the @code{<clutter-effect>} will be
+released
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item effect
+a @code{<clutter-effect>}
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-actor-remove-effect-by-name  (self@tie{}@code{<clutter-actor>}) (name@tie{}@code{mchars})
+@deffnx Method remove-effect-by-name
+Removes the @code{<clutter-effect>} with the given name from the list of
+effects applied to @var{self}
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item name
+the name of the effect to remove
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-actor-get-effects  (self@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{glist-of})
+@deffnx Method get-effects
+Retrieves the @code{<clutter-effect>}s applied on @var{self}, if any
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item ret
+a list of @code{<clutter-effect>}s, or @samp{@code{#f}}. The elements of
+the returned list are owned by Clutter and they should not be freed. You
+should free the returned list using @code{g-list-free} when done.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-actor-get-effect  (self@tie{}@code{<clutter-actor>}) (name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<clutter-effect>})
+@deffnx Method get-effect
+Retrieves the @code{<clutter-effect>} with the given name in the list of
+effects applied to @var{self}
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item name
+the name of the effect to retrieve
+
+@item ret
+a @code{<clutter-effect>} for the given name, or @samp{@code{#f}}. The
+returned @code{<clutter-effect>} is owned by the actor and it should not
+be unreferenced directly.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-actor-clear-effects  (self@tie{}@code{<clutter-actor>})
+@deffnx Method clear-effects
+Clears the list of effects applied to @var{self}
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@end table
+
+Since 1.4
 
 @end deffn
 
@@ -2342,6 +2865,47 @@ a @code{<clutter-vertex>}
 @end table
 
 Since 1.0
+
+@end deffn
+
+@deffn Function clutter-geometry-union  (self@tie{}@code{<clutter-geometry>}) (geometry_b@tie{}@code{<clutter-geometry>}) (result@tie{}@code{<clutter-geometry>})
+Find the union of two rectangles represented as
+@code{<clutter-geometry>}.
+
+@table @var
+@item geometry-a
+a @code{<clutter-geometry>}
+
+@item geometry-b
+another @code{<clutter-geometry>}
+
+@item result
+location to store the result.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-geometry-intersects  (self@tie{}@code{<clutter-geometry>}) (geometry1@tie{}@code{<clutter-geometry>}) @result{}@tie{} (ret@tie{}@code{bool})
+Determines if @var{geometry0} and geometry1 intersect returning
+@samp{@code{#t}} if they do else @samp{@code{#f}}.
+
+@table @var
+@item geometry0
+The first geometry to test
+
+@item geometry1
+The second geometry to test
+
+@item ret
+@samp{@code{#t}} of @var{geometry0} and geometry1 intersect else
+@samp{@code{#f}}.
+
+@end table
+
+Since 1.4
 
 @end deffn
 

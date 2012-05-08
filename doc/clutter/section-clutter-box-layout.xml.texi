@@ -16,6 +16,7 @@ implementing the following layout policy:
 @item
 @item
 @item
+@item
 @end itemize
 
 all children are arranged on a single line;
@@ -34,6 +35,9 @@ if the expand property is also set;
 
 if a child is set to expand but not to fill then it is possible to
 control the alignment using the X and Y alignment layout properties.
+
+if the @code{<"homogeneous">} boolean property is set, then all widgets
+will get the same size, ignoring expand settings and the preferred sizes
 
 (The missing figure, box-layout
 

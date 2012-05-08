@@ -1,0 +1,89 @@
+
+@c %start of fragment
+
+@deffn Function clutter-drag-action-new  @result{}@tie{} (ret@tie{}@code{<clutter-action>})
+Creates a new @code{<clutter-drag-action>} instance
+
+@table @var
+@item ret
+the newly created @code{<clutter-drag-action>}
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-drag-action-set-drag-handle  (self@tie{}@code{<clutter-drag-action>}) (handle@tie{}@code{<clutter-actor>})
+@deffnx Method set-drag-handle
+Sets the actor to be used as the drag handle
+
+@table @var
+@item action
+a @code{<clutter-drag-handle>}
+
+@item handle
+a @code{<clutter-actor>}
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-drag-action-get-drag-handle  (self@tie{}@code{<clutter-drag-action>}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+@deffnx Method get-drag-handle
+Retrieves the drag handle set by
+@code{clutter-drag-action-set-drag-handle}
+
+@table @var
+@item action
+a @code{<clutter-drag-action>}
+
+@item ret
+a @code{<clutter-actor>}, used as the drag handle, or @samp{@code{#f}}
+if none was set.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-drag-action-set-drag-axis  (self@tie{}@code{<clutter-drag-action>}) (axis@tie{}@code{<clutter-drag-axis>})
+@deffnx Method set-drag-axis
+Restricts the dragging action to a specific axis
+
+@table @var
+@item action
+a @code{<clutter-drag-action>}
+
+@item axis
+the axis to constraint the dragging to
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-drag-action-get-drag-axis  (self@tie{}@code{<clutter-drag-action>}) @result{}@tie{} (ret@tie{}@code{<clutter-drag-axis>})
+@deffnx Method get-drag-axis
+Retrieves the axis constraint set by
+@code{clutter-drag-action-set-drag-axis}
+
+@table @var
+@item action
+a @code{<clutter-drag-action>}
+
+@item ret
+the axis constraint
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+
+@c %end of fragment

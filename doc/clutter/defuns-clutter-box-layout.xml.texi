@@ -122,6 +122,41 @@ Since 1.2
 
 @end deffn
 
+@deffn Function clutter-box-layout-set-homogeneous  (self@tie{}@code{<clutter-box-layout>}) (homogeneous@tie{}@code{bool})
+@deffnx Method set-homogeneous
+Sets whether the size of @var{layout} children should be homogeneous
+
+@table @var
+@item layout
+a @code{<clutter-box-layout>}
+
+@item homogeneous
+@samp{@code{#t}} if the layout should be homogeneous
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-box-layout-get-homogeneous  (self@tie{}@code{<clutter-box-layout>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-homogeneous
+Retrieves if the children sizes are allocated homogeneously.
+
+@table @var
+@item layout
+a @code{<clutter-box-layout>}
+
+@item ret
+@samp{@code{#t}} if the @code{<clutter-box-layout>} is arranging its
+children homogeneously, and @samp{@code{#f}} otherwise
+
+@end table
+
+Since 1.4
+
+@end deffn
+
 @deffn Function clutter-box-layout-pack  (self@tie{}@code{<clutter-box-layout>}) (actor@tie{}@code{<clutter-actor>}) (expand@tie{}@code{bool}) (x_fill@tie{}@code{bool}) (y_fill@tie{}@code{bool}) (x_align@tie{}@code{<clutter-box-alignment>}) (y_align@tie{}@code{<clutter-box-alignment>})
 @deffnx Method pack
 Packs @var{actor} inside the @code{<clutter-container>} associated to

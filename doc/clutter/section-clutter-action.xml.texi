@@ -1,0 +1,25 @@
+
+@c %start of fragment
+
+@node ClutterAction
+@chapter ClutterAction
+Abstract class for event-related logic
+
+@section Overview
+@code{<clutter-action>} is an abstract base class for event-related
+actions that modify the user interaction of a @code{<clutter-actor>},
+just like @code{<clutter-constraint>} is an abstract class for modifiers
+of an actor's position or size.
+
+Implementations of @code{<clutter-action>} are associated to an actor
+and can provide behavioral changes when dealing with user input - for
+instance drag and drop capabilities, or scrolling, or panning - by using
+the various event-related signals provided by @code{<clutter-actor>}
+itself.
+
+@code{<clutter-action>} is available since Clutter 1.4
+
+@section Usage
+@include defuns-clutter-action.xml.texi
+
+@c %end of fragment

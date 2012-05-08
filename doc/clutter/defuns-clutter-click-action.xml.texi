@@ -1,0 +1,53 @@
+
+@c %start of fragment
+
+@deffn Function clutter-click-action-new  @result{}@tie{} (ret@tie{}@code{<clutter-action>})
+Creates a new @code{<clutter-click-action>} instance
+
+@table @var
+@item ret
+the newly created @code{<clutter-click-action>}
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-click-action-get-button  (self@tie{}@code{<clutter-click-action>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+@deffnx Method get-button
+Retrieves the button that was pressed.
+
+@table @var
+@item action
+a @code{<clutter-click-action>}
+
+@item ret
+the button value
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-click-action-release  (self@tie{}@code{<clutter-click-action>})
+@deffnx Method release
+Emulates a release of the pointer button, which ungrabs the pointer and
+unsets the @code{<"pressed">} state.
+
+This function is useful to break a grab, for instance after a certain
+amount of time has passed.
+
+@table @var
+@item action
+a @code{<clutter-click-action>}
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+
+@c %end of fragment

@@ -1,0 +1,96 @@
+
+@c %start of fragment
+
+@deffn Function clutter-actor-meta-set-name  (self@tie{}@code{<clutter-actor-meta>}) (name@tie{}@code{mchars})
+@deffnx Method set-name
+Sets the name of @var{meta}
+
+The name can be used to identify the @code{<clutter-actor-meta>}
+instance
+
+@table @var
+@item meta
+a @code{<clutter-actor-meta>}
+
+@item name
+the name of @var{meta}
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-actor-meta-get-name  (self@tie{}@code{<clutter-actor-meta>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-name
+Retrieves the name set using @code{clutter-actor-meta-set-name}
+
+@table @var
+@item meta
+a @code{<clutter-actor-meta>}
+
+@item ret
+the name of the @code{<clutter-actor-meta>} instance, or
+@samp{@code{#f}} if none was set. The returned string is owned by the
+@code{<clutter-actor-meta>} instance and it should not be modified or
+freed.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-actor-meta-set-enabled  (self@tie{}@code{<clutter-actor-meta>}) (is_enabled@tie{}@code{bool})
+@deffnx Method set-enabled
+Sets whether @var{meta} should be enabled or not
+
+@table @var
+@item meta
+a @code{<clutter-actor-meta>}
+
+@item is-enabled
+whether @var{meta} is enabled
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-actor-meta-get-enabled  (self@tie{}@code{<clutter-actor-meta>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-enabled
+Retrieves whether @var{meta} is enabled
+
+@table @var
+@item meta
+a @code{<clutter-actor-meta>}
+
+@item ret
+@samp{@code{#t}} if the @code{<clutter-actor-meta>} instance is enabled
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-actor-meta-get-actor  (self@tie{}@code{<clutter-actor-meta>}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+@deffnx Method get-actor
+Retrieves a pointer to the @code{<clutter-actor>} that owns @var{meta}
+
+@table @var
+@item meta
+a @code{<clutter-actor-meta>}
+
+@item ret
+a pointer to a @code{<clutter-actor>} or @samp{@code{#f}}.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+
+@c %end of fragment

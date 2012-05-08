@@ -31,10 +31,9 @@ To visualize the effects of different alpha functions on a
 @c (title "Effects of alpha functions on a path")
 The actors position between the path's end points directly correlates to
 the @code{<clutter-alpha>}'s current alpha value driving the behaviour.
-With the @code{<clutter-alpha>}'s function set to
-@samp{CLUTTER_ALPHA_RAMP_INC} the actor will follow the path at a
-constant velocity, but when changing to @samp{CLUTTER_ALPHA_SINE_INC}
-the actor initially accelerates before quickly decelerating.
+With the @code{<clutter-alpha>}'s function set to a linear ramp the
+actor will follow the path at a constant velocity, but when changing to
+a sine wave the actor initially accelerates before quickly decelerating.
 
 In order to implement a new behaviour you should subclass
 @code{<clutter-behaviour>} and override the "alpha_notify" virtual

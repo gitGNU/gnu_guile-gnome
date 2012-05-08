@@ -18,7 +18,7 @@ blue component of the color, between 0 and 255
 alpha component of the color, between 0 and 255
 
 @item ret
-the newly allocated color. Use @code{clutter-color-free} when done
+the newly allocated color. Use @code{clutter-color-free} when done.
 
 @end table
 
@@ -66,7 +66,7 @@ respectively.
 a @code{<clutter-color>}
 
 @item ret
-a newly-allocated text string
+a newly-allocated text string.
 
 @end table
 
@@ -106,13 +106,13 @@ The @var{hue} value is in the 0 .. 360 range. The @var{luminance} and
 a @code{<clutter-color>}
 
 @item hue
-return location for the hue value or @samp{@code{#f}}
+return location for the hue value or @samp{@code{#f}}.
 
 @item luminance
-return location for the luminance value or @samp{@code{#f}}
+return location for the luminance value or @samp{@code{#f}}.
 
 @item saturation
-return location for the saturation value or @samp{@code{#f}}
+return location for the saturation value or @samp{@code{#f}}.
 
 @end table
 
@@ -265,7 +265,7 @@ Gets the @code{<clutter-color>} contained in @var{value}.
 a @code{<gvalue>} initialized to @code{<clutter-type-color>}
 
 @item ret
-the colors inside the passed @code{<gvalue>}
+the color inside the passed @code{<gvalue>}.
 
 @end table
 

@@ -165,24 +165,6 @@ Since 1.2
 
 @end deffn
 
-@deffn Function clutter-x11-get-input-devices  @result{}@tie{} (ret@tie{}@code{gslist-of})
-@samp{clutter_x11_get_input_devices} has been deprecated since version
-1.2 and should not be used in newly-written code. Use
-@code{clutter-device-manager-peek-devices} instead
-
-Retrieves a pointer to the list of input devices
-
-@table @var
-@item ret
-a pointer to the internal list of input devices; the returned list is
-owned by Clutter and should not be modified or freed
-
-@end table
-
-Since 0.8
-
-@end deffn
-
 @deffn Function clutter-x11-has-xinput  @result{}@tie{} (ret@tie{}@code{bool})
 Gets whether Clutter has XInput support.
 
@@ -211,17 +193,20 @@ Since 0.8
 
 @end deffn
 
-@deffn Function clutter-x11-texture-pixmap-new  @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
-Creates a new @code{<clutter-x11-texture-pixmap>} which can be used to
-display the contents of an X11 Pixmap inside a Clutter scene graph
+@deffn Function clutter-x11-event-get-key-group  (event@tie{}@code{<clutter-event>}) @result{}@tie{} (ret@tie{}@code{int})
+Retrieves the group for the modifiers set in @var{event}
 
 @table @var
+@item event
+a @code{<clutter-event>} of type @samp{CLUTTER_KEY_PRESS} or
+@samp{CLUTTER_KEY_RELEASE}
+
 @item ret
-A new @code{<clutter-x11-texture-pixmap>}
+the group id
 
 @end table
 
-Since 0.8
+Since 1.4
 
 @end deffn
 

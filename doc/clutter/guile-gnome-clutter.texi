@@ -12,7 +12,7 @@ This manual is for @code{(gnome clutter)} (version @value{VERSION}, updated
 
 Copyright 2006,2007,2008 OpenedHand LTD
 
-Copyright 2009 Intel Corporation
+Copyright 2009,2010 Intel Corporation
 
 @quotation 
 Permission is granted to copy, distribute and/or modify this document
@@ -41,6 +41,7 @@ USA
 @title Guile-GNOME: Clutter
 @subtitle version @value{VERSION}, updated @value{UPDATED}
 @author Matthew Allum and OpenedHand LTD
+@author Intel Corporation
 @page 
 @vskip 0pt plus 1filll
 @insertcopying 
@@ -54,9 +55,12 @@ USA
 @menu
 * Overview::               About Clutter and its Guile bindings.
 
+* ClutterAction:: Abstract class for event-related logic
+* ClutterActorMeta:: Base class of actor modifiers
 * ClutterActor:: Base abstract class for all visual stage actors.
+* ClutterAlignConstraint:: A constraint aligning the position of an actor
 * ClutterAnimatable:: Interface for animatable classes.
-* ClutterAnimator:: 
+* ClutterAnimator:: Multi-actor tweener
 * Implicit Animations:: Simple implicit animations.
 * ClutterAlpha:: A class for calculating an alpha value as a function of time.
 * ClutterBackend:: Backend abstraction
@@ -67,38 +71,53 @@ USA
 * ClutterBehaviourRotate:: A behaviour controlling rotation
 * ClutterBehaviourScale:: A behaviour controlling scale
 * ClutterBehaviour:: Class for providing behaviours to actors
-* ClutterBinLayout:: 
-* ClutterBoxLayout:: 
-* ClutterBox:: 
+* ClutterBindConstraint:: A constraint binding the position or size of an actor
+* ClutterBinLayout:: A simple layout manager
+* ClutterBlurEffect:: A blur effect
+* ClutterBoxLayout:: A layout manager arranging children on a single line
+* ClutterBox:: A generic layout container
 * Key Bindings:: Pool for key bindings.
 * ClutterChildMeta:: Wrapper for actors inside a container
 * ClutterCairoTexture:: Texture with Cairo integration.
+* ClutterClickAction:: Action for clickable actors
 * ClutterClone:: An actor that displays a clone of a source actor.
+* ClutterColorizeEffect:: A colorization effect
 * Colors:: Color management and manipulation.
+* ClutterConstraint:: Abstract class for constraints on position or size
 * ClutterContainer:: An interface for implementing container actors
-* ClutterDeviceManager:: 
+* ClutterDeformEffect:: A base class for effects deforming the geometry of an actor
+* ClutterDesaturateEffect:: A desaturation effect
+* ClutterDeviceManager:: Maintains the list of input devices
+* ClutterDragAction:: Action enabling dragging on actors
+* ClutterEffect:: Base class for actor effects
 * Events:: User and window system events
 * Features:: Query GL features at runtime
-* ClutterFixedLayout:: 
-* ClutterFlowLayout:: 
+* ClutterFixedLayout:: A fixed layout manager
+* ClutterFlowLayout:: A reflowing layout manager
 * ClutterGroup:: Actor class containing multiple children. actors.
-* ClutterInputDevice:: 
+* ClutterInputDevice:: An input device managed by Clutter
 * Value intervals:: An object holding an interval of two values.
-* ClutterLayoutManager:: 
-* ClutterLayoutMeta:: 
+* ClutterLayoutManager:: Layout managers base class
+* ClutterLayoutMeta:: Wrapper for actors inside a layout manager
 * ClutterListModel:: List model implementation
 * General:: Various 'global' clutter functions.
 * ClutterMedia:: An interface for controlling playback of media data.
 * ClutterModelIter:: Iterates through a model
 * ClutterModel:: A generic model implementation
+* ClutterOffscreenEffect:: Base class for effects using offscreen buffers
+* ClutterPageTurnEffect:: A page turning effect
 * ClutterPath:: Paths with straight lines and bezier curves.
 * ClutterRectangle:: An actor that displays a simple rectangle.
+* ClutterSettings:: Settings configuration
 * ClutterScore:: Controller for multiple timelines
 * ClutterScriptable:: Override the UI definition parsing
 * ClutterScript:: Loads a scene from UI definition data
+* ClutterShaderEffect:: Base class for shader effects
 * Shaders:: Programmable pipeline abstraction
-* Stage Manager:: 
+* Stage Manager:: Maintains the list of stages
 * ClutterStage:: Top level visual element to which actors are placed.
+* ClutterState:: State machine with animated transitions
+* ClutterTableLayout:: A layout manager arranging children in rows and columns
 * ClutterText:: An actor for displaying and editing text.
 * ClutterTexture:: An actor for displaying and manipulating images.
 * ClutterTimeline:: A class for time-based events
@@ -121,7 +140,10 @@ USA
 
 @include overview.texi
 
+@include section-clutter-action.xml.texi
+@include section-clutter-actor-meta.xml.texi
 @include section-clutter-actor.xml.texi
+@include section-clutter-align-constraint.xml.texi
 @include section-clutter-alpha.xml.texi
 @include section-clutter-animatable.xml.texi
 @include section-clutter-animation.xml.texi
@@ -135,15 +157,24 @@ USA
 @include section-clutter-behaviour-scale.xml.texi
 @include section-clutter-behaviour.xml.texi
 @include section-clutter-bin-layout.xml.texi
+@include section-clutter-bind-constraint.xml.texi
 @include section-clutter-binding-pool.xml.texi
+@include section-clutter-blur-effect.xml.texi
 @include section-clutter-box-layout.xml.texi
 @include section-clutter-box.xml.texi
 @include section-clutter-cairo-texture.xml.texi
 @include section-clutter-child-meta.xml.texi
+@include section-clutter-click-action.xml.texi
 @include section-clutter-clone.xml.texi
 @include section-clutter-color.xml.texi
+@include section-clutter-colorize-effect.xml.texi
+@include section-clutter-constraint.xml.texi
 @include section-clutter-container.xml.texi
+@include section-clutter-deform-effect.xml.texi
+@include section-clutter-desaturate-effect.xml.texi
 @include section-clutter-device-manager.xml.texi
+@include section-clutter-drag-action.xml.texi
+@include section-clutter-effect.xml.texi
 @include section-clutter-event.xml.texi
 @include section-clutter-feature.xml.texi
 @include section-clutter-fixed-layout.xml.texi
@@ -158,14 +189,20 @@ USA
 @include section-clutter-media.xml.texi
 @include section-clutter-model-iter.xml.texi
 @include section-clutter-model.xml.texi
+@include section-clutter-offscreen-effect.xml.texi
+@include section-clutter-page-turn-effect.xml.texi
 @include section-clutter-path.xml.texi
 @include section-clutter-rectangle.xml.texi
 @include section-clutter-score.xml.texi
 @include section-clutter-script.xml.texi
 @include section-clutter-scriptable.xml.texi
+@include section-clutter-settings.xml.texi
+@include section-clutter-shader-effect.xml.texi
 @include section-clutter-shader.xml.texi
 @include section-clutter-stage-manager.xml.texi
 @include section-clutter-stage.xml.texi
+@include section-clutter-state.xml.texi
+@include section-clutter-table-layout.xml.texi
 @include section-clutter-text.xml.texi
 @include section-clutter-texture.xml.texi
 @include section-clutter-timeline.xml.texi

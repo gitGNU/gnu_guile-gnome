@@ -1,0 +1,19 @@
+
+@c %start of fragment
+
+@deffn Function clutter-settings-get-default  @result{}@tie{} (ret@tie{}@code{<clutter-settings>})
+Retrieves the singleton instance of @code{<clutter-settings>}
+
+@table @var
+@item ret
+the instance of @code{<clutter-settings>}. The returned object is owned
+by Clutter and it should not be unreferenced directly.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+
+@c %end of fragment

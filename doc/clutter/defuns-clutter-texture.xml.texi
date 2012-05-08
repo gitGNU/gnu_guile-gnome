@@ -283,7 +283,7 @@ Since 1.0
 
 @deffn Function clutter-texture-get-load-async  (self@tie{}@code{<clutter-texture>}) @result{}@tie{} (ret@tie{}@code{bool})
 @deffnx Method get-load-async
-Retrieves the value set using @code{clutter-texture-get-load-async}
+Retrieves the value set using @code{clutter-texture-set-load-async}
 
 @table @var
 @item texture
@@ -362,6 +362,50 @@ filename
 @end table
 
 Since 1.0
+
+@end deffn
+
+@deffn Function clutter-texture-get-pick-with-alpha  (self@tie{}@code{<clutter-texture>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-pick-with-alpha
+Retrieves the value set by @code{clutter-texture-set-load-data-async}
+
+@table @var
+@item texture
+a @code{<clutter-texture>}
+
+@item ret
+@samp{@code{#t}} if the @code{<clutter-texture>} should define its shape
+using the alpha channel when picking.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-texture-set-pick-with-alpha  (self@tie{}@code{<clutter-texture>}) (pick_with_alpha@tie{}@code{bool})
+@deffnx Method set-pick-with-alpha
+Sets whether @var{texture} should have it's shape defined by the alpha
+channel when picking.
+
+Be aware that this is a bit more costly than the default picking due to
+the texture lookup, extra test against the alpha value and the fact that
+it will also interrupt the batching of geometry done internally.
+
+Also there is currently no control over the threshold used to determine
+what value of alpha is considered pickable, and so only fully opaque
+parts of the texture will react to picking.
+
+@table @var
+@item texture
+a @code{<clutter-texture>}
+
+@item pick-with-alpha
+@samp{@code{#t}} if the alpha channel should affect the picking shape
+
+@end table
+
+Since 1.4
 
 @end deffn
 

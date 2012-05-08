@@ -3,7 +3,7 @@
 
 @node ClutterAlpha
 @chapter ClutterAlpha
-A class for calculating an alpha value as a function of time.
+A class for calculating a value as a function of time
 
 @section Overview
 @code{<clutter-alpha>} is a class for calculating an floating point
@@ -58,16 +58,16 @@ can be reused in multiple @code{<clutter-behaviour>} definitions or for
 
 @example 
 
- @{
-   "id" : "sine-alpha",
-   "timeline" : @{
-     "id" : "sine-timeline",
-     "duration" : 500,
-     "loop" : true
-   @},
-   "function" : "my_sine_alpha"
- @}
-    
+@{
+  "id" : "sine-alpha",
+  "timeline" : @{
+    "id" : "sine-timeline",
+    "duration" : 500,
+    "loop" : true
+  @},
+  "function" : "my_sine_alpha"
+@}
+   
 @end example
 
 For the way to define the @code{<"mode">} property inside a

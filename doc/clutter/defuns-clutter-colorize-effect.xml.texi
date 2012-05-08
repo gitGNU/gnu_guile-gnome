@@ -1,0 +1,56 @@
+
+@c %start of fragment
+
+@deffn Function clutter-colorize-effect-new  (self@tie{}@code{<clutter-color>}) @result{}@tie{} (ret@tie{}@code{<clutter-effect>})
+Creates a new @code{<clutter-colorize-effect>} to be used with
+@code{clutter-actor-add-effect}
+
+@table @var
+@item tint
+the color to be used
+
+@item ret
+the newly created @code{<clutter-colorize-effect>} or @samp{@code{#f}}
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-colorize-effect-set-tint  (self@tie{}@code{<clutter-colorize-effect>}) (tint@tie{}@code{<clutter-color>})
+@deffnx Method set-tint
+Sets the tint to be used when colorizing
+
+@table @var
+@item effect
+a @code{<clutter-colorize-effect>}
+
+@item tint
+the color to be used
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-colorize-effect-get-tint  (self@tie{}@code{<clutter-colorize-effect>}) (tint@tie{}@code{<clutter-color>})
+@deffnx Method get-tint
+Retrieves the tint used by @var{effect}
+
+@table @var
+@item effect
+a @code{<clutter-colorize-effect>}
+
+@item tint
+return location for the color used.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+
+@c %end of fragment

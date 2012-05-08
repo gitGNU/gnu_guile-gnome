@@ -113,7 +113,9 @@ starts the animators current timeline.
 a @code{<clutter-animator>}
 
 @item ret
-the @code{<clutter-timeline>} that drives the animator.
+the @code{<clutter-timeline>} that drives the animator. The returned
+timeline is owned by the @code{<clutter-animator>} and it should not be
+unreferenced.
 
 @end table
 

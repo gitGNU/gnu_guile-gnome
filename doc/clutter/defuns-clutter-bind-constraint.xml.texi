@@ -1,0 +1,98 @@
+
+@c %start of fragment
+
+@deffn Function clutter-bind-constraint-new  (source@tie{}@code{<clutter-actor>}) (coordinate@tie{}@code{<clutter-bind-coordinate>}) (offset@tie{}@code{float}) @result{}@tie{} (ret@tie{}@code{<clutter-constraint>})
+Creates a new constraint, binding a @code{<clutter-actor>}'s position to
+the given @var{coordinate} of the position of @var{source}
+
+@table @var
+@item source
+the @code{<clutter-actor>} to use as the source of the binding, or
+@samp{@code{#f}}.
+
+@item coordinate
+the coordinate to bind
+
+@item offset
+the offset to apply to the binding, in pixels
+
+@item ret
+the newly created @code{<clutter-bind-constraint>}
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-bind-constraint-set-source  (self@tie{}@code{<clutter-bind-constraint>}) (source@tie{}@code{<clutter-actor>})
+@deffnx Method set-source
+Sets the source @code{<clutter-actor>} for the constraint
+
+@table @var
+@item constraint
+a @code{<clutter-bind-constraint>}
+
+@item source
+a @code{<clutter-actor>}, or @samp{@code{#f}} to unset the source.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-bind-constraint-get-source  (self@tie{}@code{<clutter-bind-constraint>}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+@deffnx Method get-source
+Retrieves the @code{<clutter-actor>} set using
+@code{clutter-bind-constraint-set-source}
+
+@table @var
+@item constraint
+a @code{<clutter-bind-constraint>}
+
+@item ret
+a pointer to the source actor.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-bind-constraint-set-offset  (self@tie{}@code{<clutter-bind-constraint>}) (offset@tie{}@code{float})
+@deffnx Method set-offset
+Sets the offset to be applied to the constraint
+
+@table @var
+@item constraint
+a @code{<clutter-bind-constraint>}
+
+@item offset
+the offset to apply, in pixels
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-bind-constraint-get-offset  (self@tie{}@code{<clutter-bind-constraint>}) @result{}@tie{} (ret@tie{}@code{float})
+@deffnx Method get-offset
+Retrieves the offset set using @code{clutter-bind-constraint-set-offset}
+
+@table @var
+@item constraint
+a @code{<clutter-bind-constraint>}
+
+@item ret
+the offset, in pixels
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+
+@c %end of fragment

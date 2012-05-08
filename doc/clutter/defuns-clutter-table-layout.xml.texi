@@ -1,0 +1,253 @@
+
+@c %start of fragment
+
+@deffn Function clutter-table-layout-new  @result{}@tie{} (ret@tie{}@code{<clutter-layout-manager>})
+Creates a new @code{<clutter-table-layout>} layout manager
+
+@table @var
+@item ret
+the newly created @code{<clutter-table-layout>}
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-table-layout-get-row-count  (self@tie{}@code{<clutter-table-layout>}) @result{}@tie{} (ret@tie{}@code{int})
+@deffnx Method get-row-count
+Retrieve the current number rows in the @var{layout}
+
+@table @var
+@item layout
+A @code{<clutter-table-layout>}
+
+@item ret
+the number of rows
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-table-layout-pack  (self@tie{}@code{<clutter-table-layout>}) (actor@tie{}@code{<clutter-actor>}) (column@tie{}@code{int}) (row@tie{}@code{int})
+@deffnx Method pack
+Packs @var{actor} inside the @code{<clutter-container>} associated to
+@var{layout} at the given row and column.
+
+@table @var
+@item layout
+a @code{<clutter-table-layout>}
+
+@item actor
+a @code{<clutter-actor>}
+
+@item column
+the column the @var{actor} should be put, or -1 to append
+
+@item row
+the row the @var{actor} should be put, or -1 to append
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-table-layout-set-alignment  (self@tie{}@code{<clutter-table-layout>}) (actor@tie{}@code{<clutter-actor>}) (x_align@tie{}@code{<clutter-table-alignment>}) (y_align@tie{}@code{<clutter-table-alignment>})
+@deffnx Method set-alignment
+Sets the horizontal and vertical alignment policies for @var{actor}
+inside @var{layout}
+
+@table @var
+@item layout
+a @code{<clutter-table-layout>}
+
+@item actor
+a @code{<clutter-actor>} child of @var{layout}
+
+@item x-align
+Horizontal alignment policy for @var{actor}
+
+@item y-align
+Vertical alignment policy for @var{actor}
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-table-layout-get-alignment  (self@tie{}@code{<clutter-table-layout>}) (actor@tie{}@code{<clutter-actor>}) @result{}@tie{} (x_align@tie{}@code{<clutter-table-alignment>}) (y_align@tie{}@code{<clutter-table-alignment>})
+@deffnx Method get-alignment
+Retrieves the horizontal and vertical alignment policies for @var{actor}
+as set using @code{clutter-table-layout-pack} or
+@code{clutter-table-layout-set-alignment}.
+
+@table @var
+@item layout
+a @code{<clutter-table-layout>}
+
+@item actor
+a @code{<clutter-actor>} child of @var{layout}
+
+@item x-align
+return location for the horizontal alignment policy.
+
+@item y-align
+return location for the vertical alignment policy.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-table-layout-set-expand  (self@tie{}@code{<clutter-table-layout>}) (actor@tie{}@code{<clutter-actor>}) (x_expand@tie{}@code{bool}) (y_expand@tie{}@code{bool})
+@deffnx Method set-expand
+Sets the horizontal and vertical expand policies for @var{actor} inside
+@var{layout}
+
+@table @var
+@item layout
+a @code{<clutter-table-layout>}
+
+@item actor
+a @code{<clutter-actor>} child of @var{layout}
+
+@item x-expand
+whether @var{actor} should allocate extra space horizontally
+
+@item y-expand
+whether @var{actor} should allocate extra space vertically
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-table-layout-get-expand  (self@tie{}@code{<clutter-table-layout>}) (actor@tie{}@code{<clutter-actor>}) @result{}@tie{} (x_expand@tie{}@code{bool}) (y_expand@tie{}@code{bool})
+@deffnx Method get-expand
+Retrieves the horizontal and vertical expand policies for @var{actor} as
+set using @code{clutter-table-layout-pack} or
+@code{clutter-table-layout-set-expand}
+
+@table @var
+@item layout
+a @code{<clutter-table-layout>}
+
+@item actor
+a @code{<clutter-actor>} child of @var{layout}
+
+@item x-expand
+return location for the horizontal expand policy.
+
+@item y-expand
+return location for the vertical expand policy.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-table-layout-set-fill  (self@tie{}@code{<clutter-table-layout>}) (actor@tie{}@code{<clutter-actor>}) (x_fill@tie{}@code{bool}) (y_fill@tie{}@code{bool})
+@deffnx Method set-fill
+Sets the horizontal and vertical fill policies for @var{actor} inside
+@var{layout}
+
+@table @var
+@item layout
+a @code{<clutter-table-layout>}
+
+@item actor
+a @code{<clutter-actor>} child of @var{layout}
+
+@item x-fill
+whether @var{actor} should fill horizontally the allocated space
+
+@item y-fill
+whether @var{actor} should fill vertically the allocated space
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-table-layout-get-fill  (self@tie{}@code{<clutter-table-layout>}) (actor@tie{}@code{<clutter-actor>}) @result{}@tie{} (x_fill@tie{}@code{bool}) (y_fill@tie{}@code{bool})
+@deffnx Method get-fill
+Retrieves the horizontal and vertical fill policies for @var{actor} as
+set using @code{clutter-table-layout-pack} or
+@code{clutter-table-layout-set-fill}
+
+@table @var
+@item layout
+a @code{<clutter-table-layout>}
+
+@item actor
+a @code{<clutter-actor>} child of @var{layout}
+
+@item x-fill
+return location for the horizontal fill policy.
+
+@item y-fill
+return location for the vertical fill policy.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-table-layout-get-span  (self@tie{}@code{<clutter-table-layout>}) (actor@tie{}@code{<clutter-actor>}) @result{}@tie{} (column_span@tie{}@code{int}) (row_span@tie{}@code{int})
+@deffnx Method get-span
+Retrieves the row and column span for @var{actor} as set using
+@code{clutter-table-layout-pack} or @code{clutter-table-layout-set-span}
+
+@table @var
+@item layout
+a @code{<clutter-table-layout>}
+
+@item actor
+a @code{<clutter-actor>} child of @var{layout}
+
+@item column-span
+return location for the col span.
+
+@item row-span
+return location for the row span.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-table-layout-set-span  (self@tie{}@code{<clutter-table-layout>}) (actor@tie{}@code{<clutter-actor>}) (column_span@tie{}@code{int}) (row_span@tie{}@code{int})
+@deffnx Method set-span
+Sets the row and column span for @var{actor} inside @var{layout}
+
+@table @var
+@item layout
+a @code{<clutter-table-layout>}
+
+@item actor
+a @code{<clutter-actor>} child of @var{layout}
+
+@item column-span
+Column span for @var{actor}
+
+@item row-span
+Row span for @var{actor}
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+
+@c %end of fragment

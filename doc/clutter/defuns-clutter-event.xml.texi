@@ -40,10 +40,10 @@ Retrieves the coordinates of @var{event} and puts them into @var{x} and
 a @code{<clutter-event>}
 
 @item x
-return location for the X coordinate
+return location for the X coordinate, or @samp{@code{#f}}.
 
 @item y
-return location for the Y coordinate
+return location for the Y coordinate, or @samp{@code{#f}}.
 
 @end table
 
@@ -329,7 +329,9 @@ should be cast to the platform-specific implementation.
 a @code{<clutter-event>}
 
 @item ret
-the @code{<clutter-input-device>} or @samp{@code{#f}}
+the @code{<clutter-input-device>} or @samp{@code{#f}}. The returned
+device is owned by the @code{<clutter-event>} and it should not be
+unreferenced.
 
 @end table
 

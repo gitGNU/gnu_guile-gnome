@@ -1,0 +1,30 @@
+
+@c %start of fragment
+
+@node ClutterDeformEffect
+@chapter ClutterDeformEffect
+A base class for effects deforming the geometry of an actor
+
+@section Overview
+@code{<clutter-deform-effect>} is an abstract class providing all the
+plumbing for creating effects that result in the deformation of an
+actor's geometry.
+
+@code{<clutter-deform-effect>} uses offscreen buffers to render the
+contents of a @code{<clutter-actor>} and then the Cogl vertex buffers
+API to submit the geomtry to the GPU.
+
+@section Implementing ClutterDeformEffect
+Sub-classes of @code{<clutter-deform-effect>} should override the
+@code{@code{deform-vertex}} virtual function; this function is called on
+every vertex that needs to be deformed by the effect. Each passed vertex
+is an in-out parameter that initially contains the position of the
+vertex and should be modified according to a specific deformation
+algorithm.
+
+@code{<clutter-deform-effect>} is available since Clutter 1.4
+
+@section Usage
+@include defuns-clutter-deform-effect.xml.texi
+
+@c %end of fragment

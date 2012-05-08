@@ -35,7 +35,7 @@ Creates a copy of @var{interval}.
 a @code{<clutter-interval>}
 
 @item ret
-the newly created @code{<clutter-interval>}
+the newly created @code{<clutter-interval>}.
 
 @end table
 
@@ -91,7 +91,7 @@ The passed @code{<gvalue>} must be initialized to the value held by the
 a @code{<clutter-interval>}
 
 @item value
-a @code{<gvalue>}
+a @code{<gvalue>}.
 
 @end table
 
@@ -148,7 +148,7 @@ The passed @code{<gvalue>} must be initialized to the value held by the
 a @code{<clutter-interval>}
 
 @item value
-a @code{<gvalue>}
+a @code{<gvalue>}.
 
 @end table
 
@@ -167,30 +167,6 @@ a @code{<clutter-interval>}
 @item ret
 the final value of the interval. The value is owned by the
 @code{<clutter-interval>} and it should not be modified or freed.
-
-@end table
-
-Since 1.0
-
-@end deffn
-
-@deffn Function clutter-interval-compute-value  (self@tie{}@code{<clutter-interval>}) (factor@tie{}@code{double}) (value@tie{}@code{<gvalue>}) @result{}@tie{} (ret@tie{}@code{bool})
-@deffnx Method compute-value
-Computes the value between the @var{interval} boundaries given the
-progress @var{factor} and puts it into @var{value}.
-
-@table @var
-@item interval
-a @code{<clutter-interval>}
-
-@item factor
-the progress factor, between 0 and 1
-
-@item value
-return location for an initialized @code{<gvalue>}
-
-@item ret
-@samp{@code{#t}} if the operation was successful
 
 @end table
 
@@ -217,6 +193,59 @@ a @code{<gparam>}
 @end table
 
 Since 1.0
+
+@end deffn
+
+@deffn Function clutter-interval-compute-value  (self@tie{}@code{<clutter-interval>}) (factor@tie{}@code{double}) (value@tie{}@code{<gvalue>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method compute-value
+Computes the value between the @var{interval} boundaries given the
+progress @var{factor} and copies it into @var{value}.
+
+@table @var
+@item interval
+a @code{<clutter-interval>}
+
+@item factor
+the progress factor, between 0 and 1
+
+@item value
+return location for an initialized @code{<gvalue>}.
+
+@item ret
+@samp{@code{#t}} if the operation was successful
+
+@end table
+
+Since 1.0
+
+@end deffn
+
+@deffn Function clutter-interval-compute  (self@tie{}@code{<clutter-interval>}) (factor@tie{}@code{double}) @result{}@tie{} (ret@tie{}@code{<gvalue>})
+@deffnx Method compute
+Computes the value between the @var{interval} boundaries given the
+progress @var{factor}
+
+Unlike @code{clutter-interval-compute-value}, this function will return
+a const pointer to the computed value
+
+You should use this function if you immediately pass the computed value
+to another function that makes a copy of it, like
+@code{g-object-set-property}
+
+@table @var
+@item interval
+a @code{<clutter-interval>}
+
+@item factor
+the progress factor, between 0 and 1
+
+@item ret
+a pointer to the computed value, or @samp{@code{#f}} if the computation
+was not successfull.
+
+@end table
+
+Since 1.4
 
 @end deffn
 

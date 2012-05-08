@@ -1,0 +1,17 @@
+
+@c %start of fragment
+
+@node ClutterBlurEffect
+@chapter ClutterBlurEffect
+A blur effect
+
+@section Overview
+@code{<clutter-blur-effect>} is a sub-class of @code{<clutter-effect>}
+that allows blurring a actor and its contents.
+
+@code{<clutter-blur-effect>} is available since Clutter 1.4
+
+@section Usage
+@include defuns-clutter-blur-effect.xml.texi
+
+@c %end of fragment

@@ -1,0 +1,33 @@
+
+@c %start of fragment
+
+@node ClutterClickAction
+@chapter ClutterClickAction
+Action for clickable actors
+
+@section Overview
+@code{<clutter-click-action>} is a sub-class of @code{<clutter-action>}
+that implements the logic for clickable actors, by using the low level
+events of @code{<clutter-actor>}, such as @code{<"button-press-event">}
+and @code{<"button-release-event">}, to synthesize the high level
+@code{<"clicked">} signal.
+
+To use @code{<clutter-click-action>} you just need to apply it to a
+@code{<clutter-actor>} using @code{clutter-actor-add-action} and connect
+to the @code{<"clicked">} signal:
+
+@example 
+
+  ClutterAction *action = clutter_click_action_new ();
+
+  clutter_actor_add_action (actor, action);
+
+  g_signal_connect (action, "clicked", G_CALLBACK (on_clicked), NULL);
+@end example
+
+@code{<clutter-click-action>} is available since Clutter 1.4
+
+@section Usage
+@include defuns-clutter-click-action.xml.texi
+
+@c %end of fragment

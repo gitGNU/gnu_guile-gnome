@@ -1,0 +1,18 @@
+
+@c %start of fragment
+
+@node ClutterAlignConstraint
+@chapter ClutterAlignConstraint
+A constraint aligning the position of an actor
+
+@section Overview
+@code{<clutter-align-constraint>} is a @code{<clutter-constraint>} that
+aligns the position of the @code{<clutter-actor>} to which it is applied
+to the size of another @code{<clutter-actor>} using an alignment factor
+
+@code{<clutter-align-constraint>} is available since Clutter 1.4
+
+@section Usage
+@include defuns-clutter-align-constraint.xml.texi
+
+@c %end of fragment

@@ -9,9 +9,14 @@ degrees. Angles greated than 360 degrees get clamped to the canonical
 interval <0, 360); if @var{start} is equal to @var{end}, the behaviour
 will rotate by exacly 360 degrees.
 
+If @var{alpha} is not @samp{@code{#f}}, the @code{<clutter-behaviour>}
+will take ownership of the @code{<clutter-alpha>} instance. In the case
+when @var{alpha} is @samp{@code{#f}}, it can be set later with
+@code{clutter-behaviour-set-alpha}.
+
 @table @var
 @item alpha
-a @code{<clutter-alpha>}, or @samp{@code{#f}}
+a @code{<clutter-alpha>} instance, or @samp{@code{#f}}.
 
 @item x
 x coordinace of the center

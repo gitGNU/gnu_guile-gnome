@@ -162,6 +162,14 @@
   (return-type "Time")
 )
 
+(define-function clutter_x11_event_get_key_group
+  (c-name "clutter_x11_event_get_key_group")
+  (return-type "gint")
+  (parameters
+    '("const-ClutterEvent*" "event")
+  )
+)
+
 
 
 ;; From /opt/clutter/include/clutter-1.0/clutter/x11/clutter-x11-texture-pixmap.h
@@ -190,6 +198,15 @@
   (return-type "ClutterActor*")
   (parameters
     '("Window" "window")
+  )
+)
+
+(define-method set_automatic
+  (of-object "ClutterX11TexturePixmap")
+  (c-name "clutter_x11_texture_pixmap_set_automatic")
+  (return-type "none")
+  (parameters
+    '("gboolean" "setting")
   )
 )
 
@@ -227,15 +244,6 @@
     '("gint" "y")
     '("gint" "width")
     '("gint" "height")
-  )
-)
-
-(define-method set_automatic
-  (of-object "ClutterX11TexturePixmap")
-  (c-name "clutter_x11_texture_pixmap_set_automatic")
-  (return-type "none")
-  (parameters
-    '("gboolean" "setting")
   )
 )
 

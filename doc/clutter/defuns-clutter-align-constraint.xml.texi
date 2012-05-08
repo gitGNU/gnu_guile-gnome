@@ -1,0 +1,108 @@
+
+@c %start of fragment
+
+@deffn Function clutter-align-constraint-new  (source@tie{}@code{<clutter-actor>}) (axis@tie{}@code{<clutter-align-axis>}) (factor@tie{}@code{float}) @result{}@tie{} (ret@tie{}@code{<clutter-constraint>})
+Creates a new constraint, aligning a @code{<clutter-actor>}'s position
+with regards of the size of the actor to @var{source}, with the given
+alignment @var{factor}
+
+@table @var
+@item source
+the @code{<clutter-actor>} to use as the source of the alignment, or
+@samp{@code{#f}}.
+
+@item axis
+the axis to be used to compute the alignment
+
+@item factor
+the alignment factor, between 0.0 and 1.0
+
+@item ret
+the newly created @code{<clutter-align-constraint>}
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-align-constraint-set-source  (self@tie{}@code{<clutter-align-constraint>}) (source@tie{}@code{<clutter-actor>})
+@deffnx Method set-source
+Sets the source of the alignment constraint
+
+@table @var
+@item align
+a @code{<clutter-align-constraint>}
+
+@item source
+a @code{<clutter-actor>}, or @samp{@code{#f}} to unset the source.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-align-constraint-get-source  (self@tie{}@code{<clutter-align-constraint>}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+@deffnx Method get-source
+Retrieves the source of the alignment
+
+@table @var
+@item align
+a @code{<clutter-align-constraint>}
+
+@item ret
+the @code{<clutter-actor>} used as the source of the alignment.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-align-constraint-set-factor  (self@tie{}@code{<clutter-align-constraint>}) (factor@tie{}@code{float})
+@deffnx Method set-factor
+Sets the alignment factor of the constraint
+
+The factor depends on the @code{<"align-axis">} property and it is a
+value between 0.0 (meaning left, when @code{<"align-axis">} is set to
+@samp{CLUTTER_ALIGN_X_AXIS}; or meaning top, when @code{<"align-axis">}
+is set to @samp{CLUTTER_ALIGN_Y_AXIS}) and 1.0 (meaning right, when
+@code{<"align-axis">} is set to @samp{CLUTTER_ALIGN_X_AXIS}; or meaning
+bottom, when @code{<"align-axis">} is set to
+@samp{CLUTTER_ALIGN_Y_AXIS}). A value of 0.5 aligns in the middle in
+either cases
+
+@table @var
+@item align
+a @code{<clutter-align-constraint>}
+
+@item factor
+the alignment factor, between 0.0 and 1.0
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-align-constraint-get-factor  (self@tie{}@code{<clutter-align-constraint>}) @result{}@tie{} (ret@tie{}@code{float})
+@deffnx Method get-factor
+Retrieves the factor set using
+@code{clutter-align-constraint-set-factor}
+
+@table @var
+@item align
+a @code{<clutter-align-constraint>}
+
+@item ret
+the alignment factor
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+
+@c %end of fragment

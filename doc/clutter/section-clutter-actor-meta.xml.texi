@@ -1,0 +1,24 @@
+
+@c %start of fragment
+
+@node ClutterActorMeta
+@chapter ClutterActorMeta
+Base class of actor modifiers
+
+@section Overview
+@code{<clutter-actor-meta>} is an abstract class providing a common API
+for modifiers of @code{<clutter-actor>} behaviour, appearance or layout.
+
+A @code{<clutter-actor-meta>} can only be owned by a single
+@code{<clutter-actor>} at any time.
+
+Every sub-class of @code{<clutter-actor-meta>} should check if the
+@code{<"enabled">} property is set to @samp{@code{#t}} before applying
+any kind of modification.
+
+@code{<clutter-actor-meta>} is available since Clutter 1.4
+
+@section Usage
+@include defuns-clutter-actor-meta.xml.texi
+
+@c %end of fragment

@@ -32,8 +32,8 @@ specify the path property directly as a string. For example:
 
 @cartouche 
 If the alpha function is a periodic function, i.e. it returns to
-0 after reaching @samp{CLUTTER_ALPHA_MAX_ALPHA}, then the actors will walk
-the path back to the starting @code{<clutter-knot>}.
+0.0 after reaching 1.0, then the actors will walk the path back to the
+starting @code{<clutter-knot>}.
 @end cartouche
 
 @code{<clutter-behaviour-path>} is available since Clutter 0.2

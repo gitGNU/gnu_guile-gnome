@@ -1,0 +1,131 @@
+
+@c %start of fragment
+
+@deffn Function clutter-page-turn-effect-new  (period@tie{}@code{double}) (angle@tie{}@code{double}) (radius@tie{}@code{float}) @result{}@tie{} (ret@tie{}@code{<clutter-effect>})
+Creates a new @code{<clutter-page-turn-effect>} instance with the given
+parameters
+
+@table @var
+@item period
+the period of the page curl, between 0.0 and 1.0
+
+@item angle
+the angle of the page curl, between 0.0 and 360.0
+
+@item radius
+the radius of the page curl, in pixels
+
+@item ret
+the newly created @code{<clutter-page-turn-effect>}
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-page-turn-effect-set-period  (self@tie{}@code{<clutter-page-turn-effect>}) (period@tie{}@code{double})
+@deffnx Method set-period
+Sets the period of the page curling, between 0.0 (no curling) and 1.0
+(fully curled)
+
+@table @var
+@item effect
+a @code{<clutter-page-turn-effect>}
+
+@item period
+the period of the page curl, between 0.0 and 1.0
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-page-turn-effect-get-period  (self@tie{}@code{<clutter-page-turn-effect>}) @result{}@tie{} (ret@tie{}@code{double})
+@deffnx Method get-period
+Retrieves the value set using @code{clutter-page-turn-effect-get-period}
+
+@table @var
+@item effect
+a @code{<clutter-page-turn-effect>}
+
+@item ret
+the period of the page curling
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-page-turn-effect-set-angle  (self@tie{}@code{<clutter-page-turn-effect>}) (angle@tie{}@code{double})
+@deffnx Method set-angle
+Sets the angle of the page curling, in degrees
+
+@table @var
+@item effect
+@code{<clutter-page-turn-effect>}
+
+@item angle
+the angle of the page curl, in degrees
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-page-turn-effect-get-angle  (self@tie{}@code{<clutter-page-turn-effect>}) @result{}@tie{} (ret@tie{}@code{double})
+@deffnx Method get-angle
+Retrieves the value set using @code{clutter-page-turn-effect-get-angle}
+
+@table @var
+@item effect
+a @code{<clutter-page-turn-effect>}:
+
+@item ret
+the angle of the page curling
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-page-turn-effect-set-radius  (self@tie{}@code{<clutter-page-turn-effect>}) (radius@tie{}@code{float})
+@deffnx Method set-radius
+Sets the radius of the page curling
+
+@table @var
+@item effect
+a @code{<clutter-page-turn-effect>}:
+
+@item radius
+the radius of the page curling, in pixels
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-page-turn-effect-get-radius  (self@tie{}@code{<clutter-page-turn-effect>}) @result{}@tie{} (ret@tie{}@code{float})
+@deffnx Method get-radius
+Retrieves the value set using @code{clutter-page-turn-effect-set-radius}
+
+@table @var
+@item effect
+a @code{<clutter-page-turn-effect>}
+
+@item ret
+the radius of the page curling
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+
+@c %end of fragment

@@ -44,5 +44,45 @@ Since 1.0
 
 @end deffn
 
+@deffn Function clutter-animatable-find-property  (self@tie{}@code{<clutter-animatable>}) (property_name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<gparam>})
+@deffnx Method find-property
+Finds the @code{<gparam>} for @var{property-name}
+
+@table @var
+@item animatable
+a @code{<clutter-animatable>}
+
+@item property-name
+the name of the animatable property to find
+
+@item ret
+The @code{<gparam>} for the given property or @samp{@code{#f}}.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-animatable-set-final-state  (self@tie{}@code{<clutter-animatable>}) (property_name@tie{}@code{mchars}) (value@tie{}@code{<gvalue>})
+@deffnx Method set-final-state
+Sets the current state of @var{property-name} to @var{value}
+
+@table @var
+@item animatable
+a @code{<clutter-animatable>}
+
+@item property-name
+the name of the animatable property to set
+
+@item value
+the value of the animatable property to set
+
+@end table
+
+Since 1.4
+
+@end deffn
+
 
 @c %end of fragment

@@ -1,0 +1,19 @@
+
+@c %start of fragment
+
+@deffn Function clutter-x11-texture-pixmap-new  @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+Creates a new @code{<clutter-x11-texture-pixmap>} which can be used to
+display the contents of an X11 Pixmap inside a Clutter scene graph
+
+@table @var
+@item ret
+A new @code{<clutter-x11-texture-pixmap>}
+
+@end table
+
+Since 0.8
+
+@end deffn
+
+
+@c %end of fragment

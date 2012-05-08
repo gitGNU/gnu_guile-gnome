@@ -32,11 +32,12 @@
   #:use-module (gnome gw support defs)
   #:use-module (gnome gw support gobject)
   #:use-module (gnome gw cairo-spec)
+  #:use-module (gnome gw atk-spec)
   #:use-module (gnome gw pango-spec))
 
 (define-class <clutter-wrapset> (<gobject-wrapset-base>)
   #:id 'gnome-clutter
-  #:dependencies '(standard gnome-glib gnome-gobject gnome-cairo gnome-pango))
+  #:dependencies '(standard gnome-glib gnome-gobject gnome-cairo gnome-atk gnome-pango))
 
 (define-method (initializations-cg (self <clutter-wrapset>) err)
   (list
@@ -95,6 +96,7 @@
 
   (add-type-rule! ws "ClutterBinAlignment*" '(<clutter-bin-alignment> out))
   (add-type-rule! ws "ClutterBoxAlignment*" '(<clutter-box-alignment> out))
+  (add-type-rule! ws "ClutterTableAlignment*" '(<clutter-table-alignment> out))
 
   (wrap-custom-boxed!
    "ClutterKnot" "CLUTTER_TYPE_KNOT"

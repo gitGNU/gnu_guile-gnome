@@ -1,0 +1,53 @@
+
+@c %start of fragment
+
+@node ClutterConstraint
+@chapter ClutterConstraint
+Abstract class for constraints on position or size
+
+@section Overview
+@code{<clutter-constraint>} is a base abstract class for modifiers of a
+@code{<clutter-actor>} position or size.
+
+A @code{<clutter-constraint>} sub-class should contain the logic for
+modifying the position or size of the @code{<clutter-actor>} to which it
+is applied, by updating the actor's allocation. Each
+@code{<clutter-constraint>} can change the allocation of the actor to
+which they are applied by overriding the @code{@code{update-allocation}}
+virtual function.
+
+@section Implemting a ClutterConstraint
+Creating a sub-class of @code{<clutter-constraint>} requires the
+implementation of the @code{@code{update-allocation}} virtual function.
+
+The @code{@code{update-allocation}} virtual function is called during
+the allocation sequence of a @code{<clutter-actor>}, and allows any
+@code{<clutter-constraint>} attached to that actor to modify the
+allocation before it is passed to the @code{@code{allocate}}
+implementation.
+
+The @code{<clutter-actor-box>} passed to the
+@code{@code{update-allocation}} implementation contains the original
+allocation of the @code{<clutter-actor>}, plus the eventual
+modifications applied by the other @code{<clutter-constraint>}s.
+
+Constraints are queried in the same order as they were applied using
+@code{clutter-actor-add-constraint} or
+@code{clutter-actor-add-constraint-with-name}.
+
+It is not necessary for a @code{<clutter-constraint>} sub-class to chain
+up to the parent's implementation.
+
+If a @code{<clutter-constraint>} is parametrized - i.e. if it contains
+properties that affect the way the constraint is implemented - it should
+call @code{clutter-actor-queue-relayout} on the actor to which it is
+attached to whenever any parameter is changed. The actor to which it is
+attached can be recovered at any point using
+@code{clutter-actor-meta-get-actor}.
+
+@code{<clutter-constraint>} is available since Clutter 1.4
+
+@section Usage
+@include defuns-clutter-constraint.xml.texi
+
+@c %end of fragment

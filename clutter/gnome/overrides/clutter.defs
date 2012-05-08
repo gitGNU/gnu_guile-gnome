@@ -37,6 +37,12 @@
   (gtype-id "CLUTTER_TYPE_ANIMATOR_KEY")
 )
 
+(define-boxed StateKey
+  (in-module "Clutter")
+  (c-name "ClutterStateKey")
+  (gtype-id "(clutter_state_key_get_type ())")
+)
+
 (define-interface Animatable
   (in-module "Clutter")
   (c-name "ClutterAnimatable")
@@ -65,6 +71,63 @@
   (in-module "Clutter")
   (c-name "ClutterBindingPool")
   (gtype-id "CLUTTER_TYPE_BINDING_POOL")
+)
+
+(define-object AlignConstraint
+  (in-module "Clutter")
+  (c-name "ClutterAlignConstraint")
+  (gtype-id "CLUTTER_TYPE_ALIGN_CONSTRAINT")
+)
+
+(define-object BindConstraint
+  (in-module "Clutter")
+  (c-name "ClutterBindConstraint")
+  (gtype-id "CLUTTER_TYPE_BIND_CONSTRAINT")
+)
+
+(define-object ColorizeEffect
+  (in-module "Clutter")
+  (c-name "ClutterColorizeEffect")
+  (gtype-id "CLUTTER_TYPE_COLORIZE_EFFECT")
+)
+
+(define-object DesaturateEffect
+  (in-module "Clutter")
+  (c-name "ClutterDesaturateEffect")
+  (gtype-id "CLUTTER_TYPE_DESATURATE_EFFECT")
+)
+
+(define-object PageTurnEffect
+  (in-module "Clutter")
+  (c-name "ClutterPageTurnEffect")
+  (gtype-id "CLUTTER_TYPE_PAGE_TURN_EFFECT")
+)
+
+(define-object Settings
+  (in-module "Clutter")
+  (c-name "ClutterSettings")
+  (gtype-id "CLUTTER_TYPE_SETTINGS")
+)
+
+(define-method get_actions
+  (of-object "ClutterActor")
+  (c-name "clutter_actor_get_actions")
+  (overrides "clutter_actor_get_actions")
+  (return-type "GList*-of-ClutterAction*")
+  )
+
+(define-method get_constraints
+  (of-object "ClutterActor")
+  (c-name "clutter_actor_get_constraints")
+  (overrides "clutter_actor_get_constraints")
+  (return-type "GList*-of-ClutterConstraint*")
+)
+
+(define-method get_effects
+  (of-object "ClutterActor")
+  (c-name "clutter_actor_get_effects")
+  (overrides "clutter_actor_get_effects")
+  (return-type "GList*-of-ClutterEffect*")
 )
 
 (define-method set_mode
@@ -146,18 +209,31 @@
   (return-type "GList*-of-GObject*")
 )
 
-(define-method peek_stages
-  (of-object "ClutterStageManager")
-  (c-name "clutter_stage_manager_peek_stages")
-  (overrides "clutter_stage_manager_peek_stages")
-  (return-type "const-GSList*-of-ClutterStage*")
-)
-
 (define-method list_timelines
   (of-object "ClutterScore")
   (c-name "clutter_score_list_timelines")
   (overrides "clutter_score_list_timelines")
   (return-type "GSList*-of-ClutterTimeline*")
+)
+
+(define-method get_states
+  (of-object "ClutterState")
+  (c-name "clutter_state_get_states")
+  (overrides "clutter_state_get_states")
+  (return-type "GList*-of-const-gchar*")
+)
+
+(define-method get_keys
+  (of-object "ClutterState")
+  (c-name "clutter_state_get_keys")
+  (overrides "clutter_state_get_keys")
+  (return-type "GList*-of-ClutterStateKey*")
+  (parameters
+    '("const-gchar*" "source_state_name")
+    '("const-gchar*" "target_state_name")
+    '("GObject*" "object")
+    '("const-gchar*" "property_name")
+  )
 )
 
 (define-function clutter_units_from_pixels
@@ -242,6 +318,13 @@
   (return-type "GSList*-of-ClutterStage*")
 )
 
+(define-method peek_stages
+  (of-object "ClutterStageManager")
+  (c-name "clutter_stage_manager_peek_stages")
+  (overrides "clutter_stage_manager_peek_stages")
+  (return-type "const-GSList*-of-ClutterStage*")
+)
+
 (define-function clutter_color_from_string
   (c-name "_wrap_clutter_color_from_string")
   (overrides "clutter_color_from_string")
@@ -278,6 +361,8 @@
              "clutter_container_foreach_with_internals"
              "clutter_container_class_find_child_property"
              "clutter_container_class_list_child_properties"
+             "clutter_deform_effect_get_back_material"
+             "clutter_deform_effect_set_back_material"
              "clutter_frame_source_*"
              "clutter_init*"
              "clutter_init*"
@@ -288,12 +373,16 @@
              "clutter_model*"
              "clutter_layout_manager_list_child_properties"
              "clutter_list_model*"
+             "clutter_offscreen_effect_get_target"
+             "clutter_offscreen_effect_create_texture"
              "clutter_scriptable*"
              "clutter_script_connect_signals*"
              "clutter_script_add_search_paths"
              "clutter_shader_get_cogl_program"
              "clutter_shader_get_cogl_fragment_shader"
              "clutter_shader_get_cogl_vertex_shader"
+             "clutter_shader_effect_get_shader"
+             "clutter_shader_effect_get_program"
              "clutter_stage_read_pixels"
              "clutter_texture_set_from_rgb_data"
              "clutter_texture_set_from_yuv_data"
@@ -314,4 +403,5 @@
              "clutter_value_set_shader_*"
              "clutter_value_get_shader_*"
              "clutter_param_spec_fixed"
+             "clutter_util_next_p2"
              )

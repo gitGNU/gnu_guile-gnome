@@ -133,6 +133,8 @@ by @code{clutter-alpha-set-mode} or by @code{<clutter-animation>}.
 
 The logical id is always greater than @samp{CLUTTER_ANIMATION_LAST}.
 
+Rename to: clutter_alpha_register_func
+
 @table @var
 @item closure
 a @code{<gclosure>}

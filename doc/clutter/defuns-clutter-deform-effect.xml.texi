@@ -1,0 +1,65 @@
+
+@c %start of fragment
+
+@deffn Function clutter-deform-effect-set-n-tiles  (self@tie{}@code{<clutter-deform-effect>}) (x_tiles@tie{}@code{unsigned-int}) (y_tiles@tie{}@code{unsigned-int})
+@deffnx Method set-n-tiles
+Sets the number of horizontal and vertical tiles to be used when
+applying the effect
+
+More tiles allow a finer grained deformation at the expenses of
+computation
+
+@table @var
+@item effect
+a @code{<clutter-deform-effect>}
+
+@item x-tiles
+number of horizontal tiles
+
+@item y-tiles
+number of vertical tiles
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-deform-effect-get-n-tiles  (self@tie{}@code{<clutter-deform-effect>}) @result{}@tie{} (x_tiles@tie{}@code{unsigned-int}) (y_tiles@tie{}@code{unsigned-int})
+@deffnx Method get-n-tiles
+Retrieves the number of horizontal and vertical tiles used to sub-divide
+the actor's geometry during the effect
+
+@table @var
+@item effect
+a @code{<clutter-deform-effect>}
+
+@item x-tiles
+return location for the number of horizontal tiles, or @samp{@code{#f}}.
+
+@item y-tiles
+return location for the number of vertical tiles, or @samp{@code{#f}}.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-deform-effect-invalidate  (self@tie{}@code{<clutter-deform-effect>})
+@deffnx Method invalidate
+Invalidates the @var{effect}'s vertices and, if it is associated to an
+actor, it will queue a redraw
+
+@table @var
+@item effect
+a @code{<clutter-deform-effect>}
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+
+@c %end of fragment

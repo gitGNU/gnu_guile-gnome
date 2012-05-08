@@ -325,7 +325,7 @@ function, like:
 a @code{<clutter-text>}
 
 @item font-name
-a font name, or @samp{@code{#f}} to set the default font name
+a font name, or @samp{@code{#f}} to set the default font name.
 
 @end table
 
@@ -739,12 +739,12 @@ Since 1.0
 @deffn Function clutter-text-set-single-line-mode  (self@tie{}@code{<clutter-text>}) (single_line@tie{}@code{bool})
 @deffnx Method set-single-line-mode
 Sets whether a @code{<clutter-text>} actor should be in single line mode
-or not.
+or not. Only editable @code{<clutter-text>}s can be in single line mode.
 
 A text actor in single line mode will not wrap text and will clip the
-the visible area to the predefined size. The contents of the text actor
-will scroll to display the end of the text if its length is bigger than
-the allocated width.
+visible area to the predefined size. The contents of the text actor will
+scroll to display the end of the text if its length is bigger than the
+allocated width.
 
 When setting the single line mode the @code{<"activatable">} property is
 also set as a side effect. Instead of entering a new line character, the
@@ -788,7 +788,9 @@ Sets whether the contents of the @code{<clutter-text>} actor contains
 markup in Pango's text markup language.
 
 Setting @code{<"use-markup">} on an editable @code{<clutter-text>} will
-make the actor discard any markup.
+not have any effect except hiding the markup.
+
+See also @code{<"use-markup">}.
 
 @table @var
 @item self
@@ -1220,13 +1222,13 @@ a @code{<clutter-text>}
 position in characters
 
 @item x
-return location for the X coordinate, or @samp{@code{#f}}
+return location for the X coordinate, or @samp{@code{#f}}.
 
 @item y
-return location for the Y coordinate, or @samp{@code{#f}}
+return location for the Y coordinate, or @samp{@code{#f}}.
 
 @item line-height
-return location for the line height, or @samp{@code{#f}}
+return location for the line height, or @samp{@code{#f}}.
 
 @item ret
 @samp{@code{#t}} if the conversion was successful

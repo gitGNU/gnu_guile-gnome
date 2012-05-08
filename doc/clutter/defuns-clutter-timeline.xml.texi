@@ -31,7 +31,7 @@ be started and will not be positioned to the current position of
 @code{<clutter-timeline>} to duplicate.
 
 @item ret
-a new @code{<clutter-timeline>}, cloned from @var{timeline}
+a new @code{<clutter-timeline>}, cloned from @var{timeline}.
 
 @end table
 

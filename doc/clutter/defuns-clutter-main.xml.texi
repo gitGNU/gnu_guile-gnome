@@ -224,6 +224,21 @@ Since 1.2
 
 @end deffn
 
+@deffn Function clutter-get-accessibility-enabled  @result{}@tie{} (ret@tie{}@code{bool})
+Returns whether Clutter has accessibility support enabled. As least, a
+value of TRUE means that there are a proper AtkUtil implementation
+available
+
+@table @var
+@item ret
+@samp{@code{#t}} if Clutter has accessibility support enabled
+
+@end table
+
+Since 1.4
+
+@end deffn
+
 @deffn Function clutter-get-keyboard-grab  @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
 Queries the current keyboard grab of clutter.
 

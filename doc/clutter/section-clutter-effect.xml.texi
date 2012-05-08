@@ -1,0 +1,157 @@
+
+@c %start of fragment
+
+@node ClutterEffect
+@chapter ClutterEffect
+Base class for actor effects
+
+@section Overview
+The @code{<clutter-effect>} class provides a default type and API for
+creating effects for generic actors.
+
+Effects are a @code{<clutter-actor-meta>} sub-class that modify the way
+an actor is painted in a way that is not part of the actor's
+implementation.
+
+Effects should be the preferred way to affect the paint sequence of an
+actor without sub-classing the actor itself and overriding the
+@code{<"paint">} virtual function.
+
+@section Implementing a ClutterEffect
+Creating a sub-class of @code{<clutter-effect>} requires the
+implementation of two virtual functions:
+
+@itemize 
+@item
+@code{@code{pre-paint}}, which is called before painting the
+@code{<clutter-actor>}.
+
+@item
+@code{@code{post-paint}}, which is called after painting the
+@code{<clutter-actor>}.
+
+@end itemize
+
+The @code{@code{pre-paint}} function should be used to set up the
+@code{<clutter-effect>} right before the @code{<clutter-actor>}'s paint
+sequence. This function can fail, and return @samp{@code{#f}}; in that
+case, no @code{@code{post-paint}} invocation will follow.
+
+The @code{@code{post-paint}} function is called after the
+@code{<clutter-actor>}'s paint sequence.
+
+The @code{@code{pre-paint}} phase could be seen as a custom handler to
+the @code{<"paint">} signal, while the @code{@code{post-paint}} phase
+could be seen as a custom handler to the @code{<"paint">} signal
+connected using @code{g-signal-connect-after}.
+
+@c (example (@ (id "ClutterEffect-example")))
+@c (title "A simple ClutterEffect implementation")
+The example below creates two rectangles: one will be painted "behind"
+the actor, while another will be painted "on top" of the actor. The
+@code{@code{set-actor}} implementation will create the two materials
+used for the two different rectangles; the @code{@code{pre-paint}}
+function will paint the first material using @code{cogl-rectangle},
+while the @code{@code{post-paint}} phase will paint the second material.
+
+@example 
+
+ typedef struct @{
+   ClutterEffect parent_instance;
+
+   CoglHandle rect_1;
+   CoglHandle rect_2;
+ @} MyEffect;
+
+ typedef struct _ClutterEffectClass MyEffectClass;
+
+ G_DEFINE_TYPE (MyEffect, my_effect, CLUTTER_TYPE_EFFECT);
+
+ static void
+ my_effect_set_actor (ClutterActorMeta *meta,
+                      ClutterActor     *actor)
+ @{
+   MyEffect *self = MY_EFFECT (meta);
+
+   /&#x002A; Clear the previous state &#x002A;/
+   if (self->rect_1)
+     @{
+       cogl_handle_unref (self->rect_1);
+       self->rect_1 = NULL;
+     @}
+
+   if (self->rect_2)
+     @{
+       cogl_handle_unref (self->rect_2);
+       self->rect_2 = NULL;
+     @}
+
+   /&#x002A; Maintain a pointer to the actor &#x002A;
+   self->actor = actor;
+
+   /&#x002A; If we've been detached by the actor then we should
+    &#x002A; just bail out here
+    &#x002A;/
+   if (self->actor == NULL)
+     return;
+
+   /&#x002A; Create a red material &#x002A;/
+   self->rect_1 = cogl_material_new ();
+   cogl_material_set_color4f (self->rect_1, 1.0, 0.0, 0.0, 1.0);
+
+   /&#x002A; Create a green material &#x002A;/
+   self->rect_2 = cogl_material_new ();
+   cogl_material_set_color4f (self->rect_2, 0.0, 1.0, 0.0, 1.0);
+ @}
+
+ static gboolean
+ my_effect_pre_paint (ClutterEffect *effect)
+ @{
+   MyEffect *self = MY_EFFECT (effect);
+   gfloat width, height;
+
+   /&#x002A; If we were disabled we don't need to paint anything &#x002A;/
+   if (!clutter_actor_meta_get_enabled (CLUTTER_ACTOR_META (effect)))
+     return FALSE;
+
+   clutter_actor_get_size (self->actor, &width, &height);
+
+   /&#x002A; Paint the first rectangle in the upper left quadrant &#x002A;/
+   cogl_set_source (self->rect_1);
+   cogl_rectangle (0, 0, width / 2, height / 2);
+
+   return TRUE;
+ @}
+
+ static void
+ my_effect_post_paint (ClutterEffect *effect)
+ @{
+   MyEffect *self = MY_EFFECT (effect);
+   gfloat width, height;
+
+   clutter_actor_get_size (self->actor, &width, &height);
+
+   /&#x002A; Paint the second rectangle in the lower right quadrant &#x002A;/
+   cogl_set_source (self->rect_2);
+   cogl_rectangle (width / 2, height / 2, width, height);
+ @}
+
+ static void
+ my_effect_class_init (MyEffectClass *klass)
+ @{
+   ClutterActorMetaClas *meta_class = CLUTTER_ACTOR_META_CLASS (klass);
+
+   meta_class->set_actor = my_effect_set_actor;
+
+   klass->pre_paint = my_effect_pre_paint;
+   klass->post_paint = my_effect_post_paint;
+ @}
+    
+@end example
+
+@code{<clutter-effect>} is available since Clutter 1.4
+
+@section Usage
+@include defuns-clutter-effect.xml.texi
+
+@c %end of fragment

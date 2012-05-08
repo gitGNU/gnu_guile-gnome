@@ -47,7 +47,9 @@ Retrieves the @code{<clutter-layout-manager>} instance used by @var{box}
 a @code{<clutter-box>}
 
 @item ret
-a @code{<clutter-layout-manager>}
+a @code{<clutter-layout-manager>}. The returned
+@code{<clutter-layout-manager>} is owned by the @code{<clutter-box>} and
+it should not be unreferenced.
 
 @end table
 

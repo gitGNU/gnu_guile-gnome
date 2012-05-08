@@ -159,6 +159,75 @@ property defined as a string through @code{clutter-units-from-string};
 you should read the documentation for the @code{<clutter-units>} parser
 format for the valid units and syntax.
 
+@section Custom animatable properties
+@code{<clutter-actor>} allows accessing properties of
+@code{<clutter-action>} and @code{<clutter-constraint>} instances
+associated to an actor instance for animation purposes.
+
+In order to access a specific @code{<clutter-action>} or a
+@code{<clutter-constraint>} property it is necessary to set the
+@code{<"name">} property on the given action or constraint.
+
+The property can be accessed using the following syntax:
+
+@example 
+
+@@<section>.<meta-name>.<property-name>
+    
+@end example
+
+The initial @emph{@@} is mandatory.
+
+The @emph{section} fragment can be one between "actions", "constraints"
+and "effects".
+
+The @emph{meta-name} fragment is the name of the action or constraint,
+as specified by the @code{<"name">} property.
+
+The @emph{property-name} fragment is the name of the action or
+constraint property to be animated.
+
+@c (example (@ (id "example-ClutterActor-animating-meta")))
+@c (title "Animating a constraint property")
+The example below animates a @code{<clutter-bind-constraint>} applied to
+an actor using @code{clutter-actor-animate}. The @emph{rect} has a
+binding constraint for the @emph{origin} actor, and in its initial state
+is fully transparent and overlapping the actor to which is bound to.
+
+@example 
+
+constraint = clutter_bind_constraint_new (origin, CLUTTER_BIND_X, 0.0);
+clutter_actor_meta_set_name (CLUTTER_ACTOR_META (constraint), "bind-x");
+clutter_actor_add_constraint (rect, constraint);
+
+constraint = clutter_bind_constraint_new (origin, CLUTTER_BIND_Y, 0.0);
+clutter_actor_meta_set_name (CLUTTER_ACTOR_META (constraint), "bind-y");
+clutter_actor_add_constraint (rect, constraint);
+
+clutter_actor_set_reactive (rect, TRUE);
+clutter_actor_set_opacity (rect, 0);
+
+g_signal_connect (rect, "button-press-event",
+                  G_CALLBACK (on_button_press),
+                  NULL);
+    
+@end example
+
+On button press, the rectangle "slides" from behind the actor to which
+is bound to, using the @code{<"offset">} property and the
+@code{<"opacity">} property.
+
+@example 
+
+float new_offset = clutter_actor_get_width (origin) + h_padding;
+
+clutter_actor_animate (rect, CLUTTER_EASE_OUT_CUBIC, 500,
+                       "opacity", 255,
+                       "@@constraints.bind-x.offset", new_offset,
+                       NULL);
+    
+@end example
+
 @section Usage
 @include defuns-clutter-actor.xml.texi
 

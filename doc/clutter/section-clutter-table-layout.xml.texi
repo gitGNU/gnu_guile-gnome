@@ -1,0 +1,59 @@
+
+@c %start of fragment
+
+@node ClutterTableLayout
+@chapter ClutterTableLayout
+A layout manager arranging children in rows and columns
+
+@section Overview
+The @code{<clutter-table-layout>} is a @code{<clutter-layout-manager>}
+implementing the following layout policy:
+
+@itemize 
+@item
+@item
+@item
+@item
+@item
+@item
+@end itemize
+
+children are arranged in a table
+
+each child specifies the specific row and column cell to appear;
+
+a child can also set a span, and this way, take more than one cell both
+horizontally and vertically;
+
+each child will be allocated to its natural size or, if set to expand,
+the available size;
+
+if a child is set to fill on either (or both) axis, its allocation will
+match all the available size; the fill layout property only makes sense
+if the expand property is also set;
+
+if a child is set to expand but not to fill then it is possible to
+control the alignment using the horizontal and vertical alignment layout
+properties.
+
+It is possible to control the spacing between children of a
+@code{<clutter-table-layout>} by using
+@code{clutter-table-layout-set-row-spacing} and
+@code{clutter-table-layout-set-column-spacing}.
+
+In order to set the layout properties when packing an actor inside a
+@code{<clutter-table-layout>} you should use the
+@code{clutter-table-layout-pack} function.
+
+A @code{<clutter-table-layout>} can use animations to transition between
+different values of the layout management properties; the easing mode
+and duration used for the animations are controlled by the
+@code{<"easing-mode">} and @code{<"easing-duration">} properties and
+their accessor functions.
+
+@code{<clutter-table-layout>} is available since Clutter 1.4
+
+@section Usage
+@include defuns-clutter-table-layout.xml.texi
+
+@c %end of fragment

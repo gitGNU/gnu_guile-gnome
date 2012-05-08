@@ -1,0 +1,19 @@
+
+@c %start of fragment
+
+@node ClutterState
+@chapter ClutterState
+State machine with animated transitions
+
+@section Overview
+@code{<clutter-state>} is an object controlling the tweening of
+properties on multiple actors between a set of named states.
+@code{<clutter-state-key>}s define how the properties are animated. If
+the source_state_name for a key is NULL it is used for transition to the
+target state unless a specific key exists for transitioning from the
+current state to the requested state.
+
+@section Usage
+@include defuns-clutter-state.xml.texi
+
+@c %end of fragment

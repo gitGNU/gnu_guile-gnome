@@ -8,9 +8,14 @@ along the nodes of a path, described by @var{path}.
 This will claim the floating reference on the @code{<clutter-path>} so
 you do not need to unref if it.
 
+If @var{alpha} is not @samp{@code{#f}}, the @code{<clutter-behaviour>}
+will take ownership of the @code{<clutter-alpha>} instance. In the case
+when @var{alpha} is @samp{@code{#f}}, it can be set later with
+@code{clutter-behaviour-set-alpha}.
+
 @table @var
 @item alpha
-a @code{<clutter-alpha>}, or @samp{@code{#f}}
+a @code{<clutter-alpha>} instance, or @samp{@code{#f}}.
 
 @item path
 a @code{<clutter-path>} or @samp{@code{#f}} for an empty path

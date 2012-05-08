@@ -1,0 +1,88 @@
+
+@c %start of fragment
+
+@node ClutterShaderEffect
+@chapter ClutterShaderEffect
+Base class for shader effects
+
+@section Overview
+@code{<clutter-shader-effect>} is an abstract class that implements all
+the plumbing for creating @code{<clutter-effect>}s using GLSL shaders.
+
+@code{<clutter-shader-effect>} creates an offscreen buffer and then
+applies the GLSL shader (after checking whether the compilation and
+linking were successfull) to the buffer before painting it on screen.
+
+@section Implementing a ClutterShaderEffect
+Creating a sub-class of @code{<clutter-shader-effect>} requires the
+overriding of the @code{@code{pre-paint}} virtual function from the
+@code{<clutter-effect>} class.
+
+The @code{@code{pre-paint}} should set the shader's source and
+eventually set the uniforms. The sub-class should call
+@code{clutter-shader-effect-set-shader-source} to set the shader source
+code, and @code{clutter-shader-effect-set-uniform-value} or
+@code{clutter-shader-effect-set-uniform} to set the values of the shader
+uniforms, if any; the sub-class should then chain up to the
+@code{<clutter-shader-effect>} implementation.
+
+@c (example (@ (id "ClutterShaderEffect-example-uniforms")))
+@c (title "Setting uniforms on a ClutterShaderEffect")
+The example below shows a typical implementation of the
+@code{@code{pre-paint}} phase of a @code{<clutter-shader-effect>}
+sub-class.
+
+@example 
+
+ static gboolean
+ my_effect_pre_paint (ClutterEffect *effect)
+ @{
+   MyEffect *self = MY_EFFECT (effect);
+   ClutterShaderEffect *shader = CLUTTER_SHADER_EFFECT (effect);
+   ClutterEffectClass *parent_class;
+   gfloat component_r, component_g, component_b;
+
+   /&#x002A; if the effect is not enabled we can bail out now &#x002A;/
+   if (!clutter_actor_meta_get_enabled (CLUTTER_ACTOR_META (effect)))
+     return FALSE;
+
+   /&#x002A; this function is a no-op after the first call &#x002A;/
+   clutter_shader_effect_set_shader_source (shader, shader_source);
+
+   /&#x002A; the "tex" uniform is declared in the shader as:
+    &#x002A;
+    &#x002A;   uniform int tex;
+    &#x002A;
+    &#x002A; and it is passed a constant value of 0
+    &#x002A;/
+   clutter_shader_effect_set_uniform (shader, "tex", G_TYPE_INT, 1, 0);
+
+   /&#x002A; the "component" uniform is declared in the shader as:
+    &#x002A;
+    &#x002A;   uniform vec3 component;
+    &#x002A;
+    &#x002A; and it's defined to contain the normalized components
+    &#x002A; of a ClutterColor
+    &#x002A;/
+   component_r = self->color.red   / 255.0f;
+   component_g = self->color.green / 255.0f;
+   component_b = self->color.blue  / 255.0f;
+   clutter_shader_effect_set_uniform (shader, "component",
+                                      G_TYPE_FLOAT, 3,
+                                      component_r,
+                                      component_g,
+                                      component_b);
+
+   /&#x002A; chain up to the parent's implementation &#x002A;/
+   parent_class = CLUTTER_EFFECT_CLASS (my_effect_parent_class);
+   return parent_class->pre_paint (effect);
+ @}
+    
+@end example
+
+@code{<clutter-shader-effect>} is available since Clutter 1.4
+
+@section Usage
+@include defuns-clutter-shader-effect.xml.texi
+
+@c %end of fragment

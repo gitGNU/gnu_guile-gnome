@@ -1,0 +1,16 @@
+
+@c %start of fragment
+
+@node ClutterPageTurnEffect
+@chapter ClutterPageTurnEffect
+A page turning effect
+
+@section Overview
+A simple page turning effect
+
+@code{<clutter-page-turn-effect>} is available since Clutter 1.4
+
+@section Usage
+@include defuns-clutter-page-turn-effect.xml.texi
+
+@c %end of fragment

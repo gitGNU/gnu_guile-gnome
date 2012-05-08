@@ -7,9 +7,14 @@ Creates a new @code{<clutter-behaviour-opacity>} object, driven by
 it change in the interval between @var{opacity-start} and
 @var{opacity-end}.
 
+If @var{alpha} is not @samp{@code{#f}}, the @code{<clutter-behaviour>}
+will take ownership of the @code{<clutter-alpha>} instance. In the case
+when @var{alpha} is @samp{@code{#f}}, it can be set later with
+@code{clutter-behaviour-set-alpha}.
+
 @table @var
 @item alpha
-a @code{<clutter-alpha>} instance, or @samp{@code{#f}}
+a @code{<clutter-alpha>} instance, or @samp{@code{#f}}.
 
 @item opacity-start
 minimum level of opacity

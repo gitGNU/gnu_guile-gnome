@@ -1,0 +1,17 @@
+
+@c %start of fragment
+
+@node ClutterColorizeEffect
+@chapter ClutterColorizeEffect
+A colorization effect
+
+@section Overview
+@code{<clutter-colorize-effect>} is a sub-class of
+@code{<clutter-effect>} that colorizes an actor with the given tint.
+
+@code{<clutter-colorize-effect>} is available since Clutter 1.4
+
+@section Usage
+@include defuns-clutter-colorize-effect.xml.texi
+
+@c %end of fragment

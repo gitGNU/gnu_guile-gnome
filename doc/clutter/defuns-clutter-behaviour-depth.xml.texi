@@ -6,9 +6,14 @@ Creates a new @code{<clutter-behaviour-depth>} which can be used to
 control the ClutterActor:depth property of a set of
 @code{<clutter-actor>}s.
 
+If @var{alpha} is not @samp{@code{#f}}, the @code{<clutter-behaviour>}
+will take ownership of the @code{<clutter-alpha>} instance. In the case
+when @var{alpha} is @samp{@code{#f}}, it can be set later with
+@code{clutter-behaviour-set-alpha}.
+
 @table @var
 @item alpha
-a @code{<clutter-alpha>} or @samp{@code{#f}}
+a @code{<clutter-alpha>} instance, or @samp{@code{#f}}.
 
 @item depth-start
 initial value of the depth
@@ -54,10 +59,10 @@ Gets the boundaries of the @var{behaviour}
 a @code{<clutter-behaviour-depth>}
 
 @item depth-start
-return location for the initial depth value, or @samp{@code{#f}}
+return location for the initial depth value, or @samp{@code{#f}}.
 
 @item depth-end
-return location for the final depth value, or @samp{@code{#f}}
+return location for the final depth value, or @samp{@code{#f}}.
 
 @end table
 

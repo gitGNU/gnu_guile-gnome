@@ -34,6 +34,16 @@
   )
 )
 
+(define-enum AlignAxis
+  (in-module "Clutter")
+  (c-name "ClutterAlignAxis")
+  (gtype-id "CLUTTER_TYPE_ALIGN_AXIS")
+  (values
+    '("x-axis" "CLUTTER_ALIGN_X_AXIS")
+    '("y-axis" "CLUTTER_ALIGN_Y_AXIS")
+  )
+)
+
 (define-enum Interpolation
   (in-module "Clutter")
   (c-name "ClutterInterpolation")
@@ -41,6 +51,18 @@
   (values
     '("linear" "CLUTTER_INTERPOLATION_LINEAR")
     '("cubic" "CLUTTER_INTERPOLATION_CUBIC")
+  )
+)
+
+(define-enum BindCoordinate
+  (in-module "Clutter")
+  (c-name "ClutterBindCoordinate")
+  (gtype-id "CLUTTER_TYPE_BIND_COORDINATE")
+  (values
+    '("x" "CLUTTER_BIND_X")
+    '("y" "CLUTTER_BIND_Y")
+    '("width" "CLUTTER_BIND_WIDTH")
+    '("height" "CLUTTER_BIND_HEIGHT")
   )
 )
 
@@ -65,6 +87,17 @@
     '("start" "CLUTTER_BOX_ALIGNMENT_START")
     '("end" "CLUTTER_BOX_ALIGNMENT_END")
     '("center" "CLUTTER_BOX_ALIGNMENT_CENTER")
+  )
+)
+
+(define-enum DragAxis
+  (in-module "Clutter")
+  (c-name "ClutterDragAxis")
+  (gtype-id "CLUTTER_TYPE_DRAG_AXIS")
+  (values
+    '("axis-none" "CLUTTER_DRAG_AXIS_NONE")
+    '("x-axis" "CLUTTER_DRAG_X_AXIS")
+    '("y-axis" "CLUTTER_DRAG_Y_AXIS")
   )
 )
 
@@ -250,6 +283,17 @@
   )
 )
 
+(define-enum TableAlignment
+  (in-module "Clutter")
+  (c-name "ClutterTableAlignment")
+  (gtype-id "CLUTTER_TYPE_TABLE_ALIGNMENT")
+  (values
+    '("start" "CLUTTER_TABLE_ALIGNMENT_START")
+    '("center" "CLUTTER_TABLE_ALIGNMENT_CENTER")
+    '("end" "CLUTTER_TABLE_ALIGNMENT_END")
+  )
+)
+
 (define-enum TextureError
   (in-module "Clutter")
   (c-name "ClutterTextureError")
@@ -405,6 +449,16 @@
   )
 )
 
+(define-enum ShaderType
+  (in-module "Clutter")
+  (c-name "ClutterShaderType")
+  (gtype-id "CLUTTER_TYPE_SHADER_TYPE")
+  (values
+    '("vertex-shader" "CLUTTER_VERTEX_SHADER")
+    '("fragment-shader" "CLUTTER_FRAGMENT_SHADER")
+  )
+)
+
 (define-enum UnitType
   (in-module "Clutter")
   (c-name "ClutterUnitType")
@@ -425,6 +479,20 @@
   (parent "GInitiallyUnowned")
   (c-name "ClutterActor")
   (gtype-id "CLUTTER_TYPE_ACTOR")
+)
+
+(define-object ActorMeta
+  (in-module "Clutter")
+  (parent "GInitiallyUnowned")
+  (c-name "ClutterActorMeta")
+  (gtype-id "CLUTTER_TYPE_ACTOR_META")
+)
+
+(define-object Action
+  (in-module "Clutter")
+  (parent "ClutterActorMeta")
+  (c-name "ClutterAction")
+  (gtype-id "CLUTTER_TYPE_ACTION")
 )
 
 (define-object Alpha
@@ -518,6 +586,13 @@
   (gtype-id "CLUTTER_TYPE_CHILD_META")
 )
 
+(define-object ClickAction
+  (in-module "Clutter")
+  (parent "ClutterAction")
+  (c-name "ClutterClickAction")
+  (gtype-id "CLUTTER_TYPE_CLICK_ACTION")
+)
+
 (define-object Clone
   (in-module "Clutter")
   (parent "ClutterActor")
@@ -525,11 +600,32 @@
   (gtype-id "CLUTTER_TYPE_CLONE")
 )
 
+(define-object Constraint
+  (in-module "Clutter")
+  (parent "ClutterActorMeta")
+  (c-name "ClutterConstraint")
+  (gtype-id "CLUTTER_TYPE_CONSTRAINT")
+)
+
 (define-object DeviceManager
   (in-module "Clutter")
   (parent "GObject")
   (c-name "ClutterDeviceManager")
   (gtype-id "CLUTTER_TYPE_DEVICE_MANAGER")
+)
+
+(define-object DragAction
+  (in-module "Clutter")
+  (parent "ClutterAction")
+  (c-name "ClutterDragAction")
+  (gtype-id "CLUTTER_TYPE_DRAG_ACTION")
+)
+
+(define-object Effect
+  (in-module "Clutter")
+  (parent "ClutterActorMeta")
+  (c-name "ClutterEffect")
+  (gtype-id "CLUTTER_TYPE_EFFECT")
 )
 
 (define-object Group
@@ -609,6 +705,20 @@
   (gtype-id "CLUTTER_TYPE_MODEL_ITER")
 )
 
+(define-object OffscreenEffect
+  (in-module "Clutter")
+  (parent "ClutterEffect")
+  (c-name "ClutterOffscreenEffect")
+  (gtype-id "CLUTTER_TYPE_OFFSCREEN_EFFECT")
+)
+
+(define-object DeformEffect
+  (in-module "Clutter")
+  (parent "ClutterOffscreenEffect")
+  (c-name "ClutterDeformEffect")
+  (gtype-id "CLUTTER_TYPE_DEFORM_EFFECT")
+)
+
 (define-object Path
   (in-module "Clutter")
   (parent "GInitiallyUnowned")
@@ -644,11 +754,32 @@
   (gtype-id "CLUTTER_TYPE_SHADER")
 )
 
+(define-object ShaderEffect
+  (in-module "Clutter")
+  (parent "ClutterOffscreenEffect")
+  (c-name "ClutterShaderEffect")
+  (gtype-id "CLUTTER_TYPE_SHADER_EFFECT")
+)
+
 (define-object Stage
   (in-module "Clutter")
   (parent "ClutterGroup")
   (c-name "ClutterStage")
   (gtype-id "CLUTTER_TYPE_STAGE")
+)
+
+(define-object State
+  (in-module "Clutter")
+  (parent "GObject")
+  (c-name "ClutterState")
+  (gtype-id "CLUTTER_TYPE_STATE")
+)
+
+(define-object TableLayout
+  (in-module "Clutter")
+  (parent "ClutterLayoutManager")
+  (c-name "ClutterTableLayout")
+  (gtype-id "CLUTTER_TYPE_TABLE_LAYOUT")
 )
 
 (define-object Text

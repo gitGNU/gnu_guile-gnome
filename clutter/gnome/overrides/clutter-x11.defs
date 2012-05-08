@@ -25,12 +25,6 @@
 ;;
 ;;; Code:
 
-(define-function get_input_devices
-  (c-name "clutter_x11_get_input_devices")
-  (overrides "clutter_x11_get_input_devices")
-  (return-type "GSList*-of-ClutterInputDevice*")
-)
-
 (ignore-glob  "*_get_type"
               "_*"
               "*_ref"
@@ -48,6 +42,7 @@
              "clutter_x11_handle_event"
              "clutter_x11_get_current_event_time"
              "clutter_x11_get_default_display"
+             "clutter_x11_get_input_devices"
              "clutter_x11_get_stage_visual"
              "clutter_x11_get_visual_info"
              "clutter_x11_add_filter"

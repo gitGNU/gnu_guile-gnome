@@ -9,9 +9,14 @@ will be clamped to the canonical interval <0, 360), if angle_start ==
 angle_end, the behaviour will carry out a single rotation of 360
 degrees.
 
+If @var{alpha} is not @samp{@code{#f}}, the @code{<clutter-behaviour>}
+will take ownership of the @code{<clutter-alpha>} instance. In the case
+when @var{alpha} is @samp{@code{#f}}, it can be set later with
+@code{clutter-behaviour-set-alpha}.
+
 @table @var
 @item alpha
-a @code{<clutter-alpha>}, or @samp{@code{#f}}
+a @code{<clutter-alpha>} instance, or @samp{@code{#f}}.
 
 @item axis
 the rotation axis
@@ -144,13 +149,13 @@ Retrieves the center of rotation set using
 a @code{<clutter-behaviour-rotate>}
 
 @item x
-return location for the X center of rotation
+return location for the X center of rotation.
 
 @item y
-return location for the Y center of rotation
+return location for the Y center of rotation.
 
 @item z
-return location for the Z center of rotation
+return location for the Z center of rotation.
 
 @end table
 

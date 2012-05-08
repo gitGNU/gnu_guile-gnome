@@ -1,0 +1,42 @@
+
+@c %start of fragment
+
+@node ClutterDragAction
+@chapter ClutterDragAction
+Action enabling dragging on actors
+
+@section Overview
+@code{<clutter-drag-action>} is a sub-class of @code{<clutter-action>}
+that implements all the necessary logic for dragging actors.
+
+The simplest usage of @code{<clutter-drag-action>} consists in adding it
+to a @code{<clutter-actor>} and setting it as reactive; for instance,
+the following code:
+
+@example 
+
+  clutter_actor_add_action (actor, clutter_drag_action_new ());
+  clutter_actor_set_reactive (actor, TRUE);
+@end example
+
+will automatically result in the actor moving to follow the pointer
+whenever the pointer's button is pressed over the actor and moved across
+the stage.
+
+The @code{<clutter-drag-action>} will signal the begin and the end of a
+dragging through the @code{<"drag-begin">} and @code{<"drag-end">}
+signals, respectively. Each pointer motion during a drag will also
+result in the @code{<"drag-motion">} signal to be emitted.
+
+It is also possible to set another @code{<clutter-actor>} as the dragged
+actor by calling @code{clutter-drag-action-set-drag-handle} from within
+a handle of the @code{<"drag-begin">} signal. The drag handle must be
+parented and exist between the emission of @code{<"drag-begin">} and
+@code{<"drag-end">}.
+
+@code{<clutter-drag-action>} is available since Clutter 1.4
+
+@section Usage
+@include defuns-clutter-drag-action.xml.texi
+
+@c %end of fragment

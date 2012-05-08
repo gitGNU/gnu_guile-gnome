@@ -1,0 +1,21 @@
+
+@c %start of fragment
+
+@node ClutterX11TexturePixmap
+@chapter ClutterX11TexturePixmap
+A texture which displays the content of an X Pixmap.
+
+@section Overview
+@code{<clutter-x11-texture-pixmap>} is a class for displaying the
+content of an X Pixmap as a ClutterActor. Used together with the X
+Composite extension, it allows to display the content of X Windows
+inside Clutter.
+
+The class uses the GLX_EXT_texture_from_pixmap OpenGL extension
+(http://people.freedesktop.org/~davidr/GLX_EXT_texture_from_pixmap.txt)
+if available
+
+@section Usage
+@include defuns-clutter-x11-texture-pixmap.xml.texi
+
+@c %end of fragment

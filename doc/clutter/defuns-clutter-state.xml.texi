@@ -1,0 +1,492 @@
+
+@c %start of fragment
+
+@deffn Function clutter-state-new  @result{}@tie{} (ret@tie{}@code{<clutter-state>})
+Creates a new @code{<clutter-state>}
+
+@table @var
+@item ret
+the newly create @code{<clutter-state>} instance
+
+@end table
+
+@end deffn
+
+@deffn Function clutter-state-set-state  (self@tie{}@code{<clutter-state>}) (target_state_name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<clutter-timeline>})
+@deffnx Method set-state
+Change the current state of @code{<clutter-state>} to
+@var{target-state-name}
+
+The state will animate during its transition, see
+@code{<clutter-state-warp-to-state>} for animation-free state switching.
+
+@table @var
+@item state
+a @code{<clutter-state>}
+
+@item target-state-name
+the state to transition to
+
+@item ret
+the @code{<clutter-timeline>} that drives the state transition. The
+returned timeline is owned by the @code{<clutter-state>} and it should
+not be unreferenced.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-state-get-state  (self@tie{}@code{<clutter-state>}) @result{}@tie{} (ret@tie{}@code{mchars})
+@deffnx Method get-state
+Queries the currently set target state.
+
+During a transition this function will return the target of the
+transition.
+
+This function is useful when called from handlers of the
+@code{<"completed">} signal.
+
+@table @var
+@item state
+a @code{<clutter-state>}
+
+@item ret
+a string containing the target state. The returned string is owned by
+the @code{<clutter-state>} and should not be modified or freed
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-state-warp-to-state  (self@tie{}@code{<clutter-state>}) (target_state_name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<clutter-timeline>})
+@deffnx Method warp-to-state
+Change the current state of @code{<clutter-state>} to
+@var{target-state-name}
+
+Change to the specified target state immediately with no animation.
+
+@table @var
+@item state
+a @code{<clutter-state>}
+
+@item target-state-name
+the state to transition to
+
+@item ret
+the @code{<clutter-timeline>} that drives the state transition. The
+returned timeline is owned by the @code{<clutter-state>} and it should
+not be unreferenced.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-state-set-key  (self@tie{}@code{<clutter-state>}) (source_state_name@tie{}@code{mchars}) (target_state_name@tie{}@code{mchars}) (object@tie{}@code{<gobject>}) (property_name@tie{}@code{mchars}) (mode@tie{}@code{unsigned-int}) (value@tie{}@code{<gvalue>}) (pre_delay@tie{}@code{double}) (post_delay@tie{}@code{double}) @result{}@tie{} (ret@tie{}@code{<clutter-state>})
+@deffnx Method set-key
+Sets one specific end key for a state_name, object, property_name
+combination.
+
+@table @var
+@item state
+a @code{<clutter-state>} instance.
+
+@item source-state-name
+the source transition to specify transition for or NULL to specify the
+default fallback when a more specific source_state doesn't exist.
+
+@item target-state-name
+the name of the transition to set a key value for.
+
+@item object
+the @code{<gobject>} to set a key for
+
+@item property-name
+the property to set a key for
+
+@item mode
+the id of the alpha function to use
+
+@item value
+the value for property_name of object in state_name
+
+@item pre-delay
+relative time of the transition to be idle in the beginning of the
+transition
+
+@item post-delay
+relative time of the transition to be idle in the end of the transition
+
+@item ret
+the @code{<clutter-state>} instance, allowing chaining of multiple
+calls.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-state-set-duration  (self@tie{}@code{<clutter-state>}) (source_state_name@tie{}@code{mchars}) (target_state_name@tie{}@code{mchars}) (duration@tie{}@code{unsigned-int})
+@deffnx Method set-duration
+Sets the duration of a transition.
+
+If both state names are @samp{@code{#f}} the default duration for
+@var{state} is set.
+
+If only @var{target-state-name} is specified, the passed @var{duration}
+becomes the default duration for transitions to the target state.
+
+If both states names are specified, the passed @var{duration} only
+applies to the specified transition.
+
+@table @var
+@item state
+a @code{<clutter-state>}
+
+@item source-state-name
+the name of the source state, or @samp{@code{#f}}.
+
+@item target-state-name
+the name of the target state, or @samp{@code{#f}}.
+
+@item duration
+the duration of the transition, in milliseconds
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-state-get-duration  (self@tie{}@code{<clutter-state>}) (source_state_name@tie{}@code{mchars}) (target_state_name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+@deffnx Method get-duration
+Queries the duration used for transitions between a source and target
+state pair
+
+The semantics for the query are the same as the semantics used for
+setting the duration with @code{clutter-state-set-duration}
+
+@table @var
+@item state
+a @code{<clutter-state>}
+
+@item source-state-name
+the name of the source state to get the duration of, or
+@samp{@code{#f}}.
+
+@item target-state-name
+the name of the source state to get the duration of, or
+@samp{@code{#f}}.
+
+@item ret
+the duration, in milliseconds
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-state-get-states  (self@tie{}@code{<clutter-state>}) @result{}@tie{} (ret@tie{}@code{glist-of})
+@deffnx Method get-states
+Gets a list of all the state names managed by this
+@code{<clutter-state>}.
+
+@table @var
+@item state
+a @code{<clutter-state>} instance.
+
+@item ret
+a newly allocated @code{<g-list>} of state names. The contents of the
+returned @code{<g-list>} are owned by the @code{<clutter-state>} and
+should not be modified or freed. Use @code{g-list-free} to free the
+resources allocated by the returned list when done using it.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-state-get-keys  (self@tie{}@code{<clutter-state>}) (source_state_name@tie{}@code{mchars}) (target_state_name@tie{}@code{mchars}) (object@tie{}@code{<gobject>}) (property_name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{glist-of})
+@deffnx Method get-keys
+Returns a list of pointers to opaque structures with accessor functions
+that describe the keys added to an animator.
+
+@table @var
+@item state
+a @code{<clutter-state>} instance.
+
+@item source-state-name
+the source transition name to query, or @samp{@code{#f}} for all source
+states.
+
+@item target-state-name
+the target transition name to query, or @samp{@code{#f}} for all target
+states.
+
+@item object
+the specific object instance to list keys for, or @samp{@code{#f}} for
+all managed objects.
+
+@item property-name
+the property name to search for, or @samp{@code{#f}} for all properties.
+
+@item ret
+a newly allocated @code{<g-list>} of @code{<clutter-state-key>}s. The
+contents of the returned list are owned by the @code{<clutter-state>}
+and should not be modified or freed. Use @code{g-list-free} to free the
+resources allocated by the returned list when done using it.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-state-remove-key  (self@tie{}@code{<clutter-state>}) (source_state_name@tie{}@code{mchars}) (target_state_name@tie{}@code{mchars}) (object@tie{}@code{<gobject>}) (property_name@tie{}@code{mchars})
+@deffnx Method remove-key
+Removes all keys matching the search criteria passed in arguments.
+
+@table @var
+@item state
+a @code{<clutter-state>} instance.
+
+@item source-state-name
+the source state name to query, or @samp{@code{#f}} for all source
+states.
+
+@item target-state-name
+the target state name to query, or @samp{@code{#f}} for all target
+states.
+
+@item object
+the specific object instance to list keys for, or @samp{@code{#f}} for
+all managed objects.
+
+@item property-name
+the property name to search for, or @samp{@code{#f}} for all properties.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-state-get-timeline  (self@tie{}@code{<clutter-state>}) @result{}@tie{} (ret@tie{}@code{<clutter-timeline>})
+@deffnx Method get-timeline
+Gets the timeline driving the @code{<clutter-state>}
+
+@table @var
+@item state
+a @code{<clutter-state>}
+
+@item ret
+the @code{<clutter-timeline>} that drives the state change animations.
+The returned timeline is owned by the @code{<clutter-state>} and it
+should not be unreferenced directly.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-state-set-animator  (self@tie{}@code{<clutter-state>}) (source_state_name@tie{}@code{mchars}) (target_state_name@tie{}@code{mchars}) (animator@tie{}@code{<clutter-animator>})
+@deffnx Method set-animator
+Specifies a @code{<clutter-animator>} to be used when transitioning
+between the two named states.
+
+The @var{animator} allows specifying a transition between the state that
+is more elaborate than the basic transitions allowed by the tweening of
+properties defined in the @code{<clutter-state>} keys.
+
+If @var{animator} is @samp{@code{#f}} it will unset an existing
+animator.
+
+@code{<clutter-state>} will take a reference on the passed
+@var{animator}, if any
+
+@table @var
+@item state
+a @code{<clutter-state>} instance.
+
+@item source-state-name
+the name of a source state
+
+@item target-state-name
+the name of a target state
+
+@item animator
+a @code{<clutter-animator>} instance, or @samp{@code{#f}} to unset an
+existing @code{<clutter-animator>}.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-state-get-animator  (self@tie{}@code{<clutter-state>}) (source_state_name@tie{}@code{mchars}) (target_state_name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<clutter-animator>})
+@deffnx Method get-animator
+Retrieves the @code{<clutter-animator>} that is being used for
+transitioning between the two states, if any has been set
+
+@table @var
+@item state
+a @code{<clutter-state>} instance.
+
+@item source-state-name
+the name of a source state
+
+@item target-state-name
+the name of a target state
+
+@item ret
+a @code{<clutter-animator>} instance, or @samp{@code{#f}}.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-state-key-get-object  (self@tie{}@code{<clutter-state-key>}) @result{}@tie{} (ret@tie{}@code{<gobject>})
+Retrieves the object instance this @code{<clutter-state-key>} applies
+to.
+
+@table @var
+@item state-key
+a @code{<clutter-state-key>}
+
+@item ret
+the object this state key applies to.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-state-key-get-property-name  (self@tie{}@code{<clutter-state-key>}) @result{}@tie{} (ret@tie{}@code{mchars})
+Retrieves the name of the property this @code{<clutter-state-key>}
+applies to
+
+@table @var
+@item state-key
+a @code{<clutter-state-key>}
+
+@item ret
+the name of the property. The returned string is owned by the
+@code{<clutter-state-key>} and should never be modified or freed
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-state-key-get-mode  (self@tie{}@code{<clutter-state-key>}) @result{}@tie{} (ret@tie{}@code{unsigned-long})
+Retrieves the easing mode used for @var{state-key}.
+
+@table @var
+@item state-key
+a @code{<clutter-state-key>}
+
+@item ret
+the mode of a @code{<clutter-state-key>}
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-state-key-get-value  (self@tie{}@code{<clutter-state-key>}) (value@tie{}@code{<gvalue>}) @result{}@tie{} (ret@tie{}@code{bool})
+Retrieves a copy of the value for a @code{<clutter-state-key>}.
+
+The @code{<gvalue>} needs to be already initialized for the value type
+of the property or to a type that allow transformation from the value
+type of the key.
+
+Use @code{g-value-unset} when done.
+
+@table @var
+@item state-key
+a @code{<clutter-state-key>}
+
+@item value
+a @code{<gvalue>} initialized with the correct type for the
+@var{state-key}
+
+@item ret
+@samp{@code{#t}} if the value was successfully retrieved, and
+@samp{@code{#f}} otherwise
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-state-key-get-property-type  (self@tie{}@code{<clutter-state-key>}) @result{}@tie{} (ret@tie{}@code{<gtype>})
+Retrieves the @code{<g-type>} of the property a key applies to
+
+You can use this type to initialize the @code{<gvalue>} to pass to
+@code{clutter-state-key-get-value}
+
+@table @var
+@item key
+a @code{<clutter-state-key>}
+
+@item ret
+the @code{<g-type>} of the property
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-state-key-get-pre-delay  (self@tie{}@code{<clutter-state-key>}) @result{}@tie{} (ret@tie{}@code{double})
+Retrieves the pause before transitioning starts as a fraction of the
+total transition time.
+
+@table @var
+@item state-key
+a @code{<clutter-state-key>}
+
+@item ret
+the pre delay used before starting the transition.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+@deffn Function clutter-state-key-get-post-delay  (self@tie{}@code{<clutter-state-key>}) @result{}@tie{} (ret@tie{}@code{double})
+Retrieves the duration of the pause after transitioning is complete as a
+fraction of the total transition time.
+
+@table @var
+@item state-key
+a @code{<clutter-state-key>}
+
+@item ret
+the post delay, used after doing the transition.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
+
+@c %end of fragment

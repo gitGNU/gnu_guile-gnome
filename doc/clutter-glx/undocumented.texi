@@ -15,6 +15,9 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-glx-texture-pixmap-using-extension
 @end defvar
 
+@defvar clutter-x11-texture-pixmap-new
+@end defvar
+
 @defvar clutter-x11-texture-pixmap-new-with-pixmap
 @end defvar
 

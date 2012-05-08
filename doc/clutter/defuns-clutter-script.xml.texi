@@ -66,7 +66,7 @@ return location for a @code{<g-error>}, or @samp{@code{#f}}
 @item ret
 on error, zero is returned and @var{error} is set accordingly. On
 success, the merge id for the UI definitions is returned. You can use
-the merge id with @code{clutter-script-unmerge}.
+the merge id with @code{clutter-script-unmerge-objects}.
 
 @end table
 
@@ -109,8 +109,8 @@ a @code{<clutter-script>}
 the name of the object to retrieve
 
 @item ret
-: (transfer none): the named object, or @samp{@code{#f}} if no object
-with the given name was available
+the named object, or @samp{@code{#f}} if no object with the given name
+was available.
 
 @end table
 
@@ -164,7 +164,7 @@ a @code{<clutter-script>}
 @item ret
 a list of @code{<gobject>}s, or @samp{@code{#f}}. The objects are owned
 by the @code{<clutter-script>} instance. Use @code{g-list-free} on the
-returned value when done.
+returned list when done.
 
 @end table
 

@@ -4,9 +4,14 @@
 @deffn Function clutter-behaviour-scale-new  (alpha@tie{}@code{<clutter-alpha>}) (x_scale_start@tie{}@code{double}) (y_scale_start@tie{}@code{double}) (x_scale_end@tie{}@code{double}) (y_scale_end@tie{}@code{double}) @result{}@tie{} (ret@tie{}@code{<clutter-behaviour>})
 Creates a new @code{<clutter-behaviour-scale>} instance.
 
+If @var{alpha} is not @samp{@code{#f}}, the @code{<clutter-behaviour>}
+will take ownership of the @code{<clutter-alpha>} instance. In the case
+when @var{alpha} is @samp{@code{#f}}, it can be set later with
+@code{clutter-behaviour-set-alpha}.
+
 @table @var
 @item alpha
-a @code{<clutter-alpha>}
+a @code{<clutter-alpha>} instance, or @samp{@code{#f}}.
 
 @item x-scale-start
 initial scale factor on the X axis
@@ -65,19 +70,19 @@ a @code{<clutter-behaviour-scale>}
 
 @item x-scale-start
 return location for the initial scale factor on the X axis, or
-@samp{@code{#f}}
+@samp{@code{#f}}.
 
 @item y-scale-start
 return location for the initial scale factor on the Y axis, or
-@samp{@code{#f}}
+@samp{@code{#f}}.
 
 @item x-scale-end
 return location for the final scale factor on the X axis, or
-@samp{@code{#f}}
+@samp{@code{#f}}.
 
 @item y-scale-end
 return location for the final scale factor on the Y axis, or
-@samp{@code{#f}}
+@samp{@code{#f}}.
 
 @end table
 

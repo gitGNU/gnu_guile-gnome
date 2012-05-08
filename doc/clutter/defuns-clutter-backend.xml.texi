@@ -18,6 +18,9 @@ Since 0.4
 
 @deffn Function clutter-backend-set-resolution  (self@tie{}@code{<clutter-backend>}) (dpi@tie{}@code{double})
 @deffnx Method set-resolution
+@samp{clutter_backend_set_resolution} is deprecated and should not be
+used in newly-written code. Use @code{<"font-dpi">} instead
+
 Sets the resolution for font handling on the screen. This is a scale
 factor between points specified in a @code{<pango-font-description>} and
 cairo units. The default value is 96, meaning that a 10 point font will
@@ -41,8 +44,16 @@ Since 0.4
 
 @deffn Function clutter-backend-get-resolution  (self@tie{}@code{<clutter-backend>}) @result{}@tie{} (ret@tie{}@code{double})
 @deffnx Method get-resolution
-Gets the resolution for font handling on the screen; see
-@code{clutter-backend-set-resolution} for full details.
+Gets the resolution for font handling on the screen.
+
+The resolution is a scale factor between points specified in a
+@code{<pango-font-description>} and cairo units. The default value is
+96.0, meaning that a 10 point font will be 13 units high (10 * 96. / 72.
+= 13.3).
+
+Clutter will set the resolution using the current backend when
+initializing; the resolution is also stored in the @code{<"font-dpi">}
+property.
 
 @table @var
 @item backend
@@ -84,6 +95,10 @@ Since 0.8
 
 @deffn Function clutter-backend-set-font-name  (self@tie{}@code{<clutter-backend>}) (font_name@tie{}@code{mchars})
 @deffnx Method set-font-name
+@samp{clutter_backend_set_font_name} has been deprecated since version
+1.4 and should not be used in newly-written code. Use
+@code{<"font-name">} instead
+
 Sets the default font to be used by Clutter. The @var{font-name} string
 must either be @samp{@code{#f}}, which means that the font name from the
 default @code{<clutter-backend>} will be used; or be something that can
@@ -104,6 +119,10 @@ Since 1.0
 
 @deffn Function clutter-backend-get-font-name  (self@tie{}@code{<clutter-backend>}) @result{}@tie{} (ret@tie{}@code{mchars})
 @deffnx Method get-font-name
+@samp{clutter_backend_get_font_name} has been deprecated since version
+1.4 and should not be used in newly-written code. Use
+@code{<"font-name">} instead
+
 Retrieves the default font name as set by
 @code{clutter-backend-set-font-name}.
 

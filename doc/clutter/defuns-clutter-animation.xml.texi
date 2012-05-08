@@ -105,7 +105,7 @@ Since 1.0
 
 @end deffn
 
-@deffn Function clutter-animation-set-duration  (self@tie{}@code{<clutter-animation>}) (msecs@tie{}@code{int})
+@deffn Function clutter-animation-set-duration  (self@tie{}@code{<clutter-animation>}) (msecs@tie{}@code{unsigned-int})
 @deffnx Method set-duration
 Sets the duration of @var{animation} in milliseconds.
 
@@ -453,6 +453,26 @@ a @code{<clutter-animation>}, or @samp{@code{#f}}.
 @end table
 
 Since 1.0
+
+@end deffn
+
+@deffn Function clutter-actor-detach-animation  (self@tie{}@code{<clutter-actor>})
+@deffnx Method detach-animation
+Detaches the @code{<clutter-animation>} used by @var{actor}, if
+@code{clutter-actor-animate} has been called on @var{actor}.
+
+Once the animation has been detached, it loses a reference. If it was
+the only reference then the @code{<clutter-animation>} becomes invalid.
+
+The @code{<"completed">} signal will not be emitted.
+
+@table @var
+@item actor
+a @code{<clutter-actor>}
+
+@end table
+
+Since 1.4
 
 @end deffn
 
