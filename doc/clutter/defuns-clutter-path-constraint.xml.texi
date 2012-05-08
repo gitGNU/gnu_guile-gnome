@@ -1,0 +1,103 @@
+
+@c %start of fragment
+
+@deffn Function clutter-path-constraint-new  (self@tie{}@code{<clutter-path>}) (offset@tie{}@code{float}) @result{}@tie{} (ret@tie{}@code{<clutter-constraint>})
+@deffnx Method constraint-new
+Creates a new @code{<clutter-path-constraint>} with the given @var{path}
+and @var{offset}
+
+@table @var
+@item path
+a @code{<clutter-path>}, or @samp{@code{#f}}.
+
+@item offset
+the offset along the @code{<clutter-path>}
+
+@item ret
+the newly created @code{<clutter-path-constraint>}.
+
+@end table
+
+Since 1.6
+
+@end deffn
+
+@deffn Function clutter-path-constraint-set-path  (self@tie{}@code{<clutter-path-constraint>}) (path@tie{}@code{<clutter-path>})
+@deffnx Method set-path
+Sets the @var{path} to be followed by the
+@code{<clutter-path-constraint>}.
+
+The @var{constraint} will take ownership of the @code{<clutter-path>}
+passed to this function.
+
+@table @var
+@item constraint
+a @code{<clutter-path-constraint>}
+
+@item path
+a @code{<clutter-path>}.
+
+@end table
+
+Since 1.6
+
+@end deffn
+
+@deffn Function clutter-path-constraint-get-path  (self@tie{}@code{<clutter-path-constraint>}) @result{}@tie{} (ret@tie{}@code{<clutter-path>})
+@deffnx Method get-path
+Retrieves a pointer to the @code{<clutter-path>} used by
+@var{constraint}.
+
+@table @var
+@item constraint
+a @code{<clutter-path-constraint>}
+
+@item ret
+the @code{<clutter-path>} used by the @code{<clutter-path-constraint>},
+or @samp{@code{#f}}. The returned @code{<clutter-path>} is owned by the
+constraint and it should not be unreferenced.
+
+@end table
+
+Since 1.6
+
+@end deffn
+
+@deffn Function clutter-path-constraint-set-offset  (self@tie{}@code{<clutter-path-constraint>}) (offset@tie{}@code{float})
+@deffnx Method set-offset
+Sets the offset along the @code{<clutter-path>} used by
+@var{constraint}.
+
+@table @var
+@item constraint
+a @code{<clutter-path-constraint>}
+
+@item offset
+the offset along the path
+
+@end table
+
+Since 1.6
+
+@end deffn
+
+@deffn Function clutter-path-constraint-get-offset  (self@tie{}@code{<clutter-path-constraint>}) @result{}@tie{} (ret@tie{}@code{float})
+@deffnx Method get-offset
+Retrieves the offset along the @code{<clutter-path>} used by
+@var{constraint}.
+
+@table @var
+@item constraint
+a @code{<clutter-path-constraint>}
+
+@item ret
+the offset
+
+@end table
+
+Since 1.6
+
+@end deffn
+
+
+@c %end of fragment

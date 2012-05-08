@@ -317,6 +317,23 @@ Since 1.0
 
 @end deffn
 
+@deffn Function clutter-event-set-device  (self@tie{}@code{<clutter-event>}) (device@tie{}@code{<clutter-input-device*>})
+@deffnx Method set-device
+Sets the device for @var{event}.
+
+@table @var
+@item event
+a @code{<clutter-event>}
+
+@item device
+a @code{<clutter-input-device>}
+
+@end table
+
+Since 1.6
+
+@end deffn
+
 @deffn Function clutter-event-get-device  (self@tie{}@code{<clutter-event>}) @result{}@tie{} (ret@tie{}@code{<clutter-input-device*>})
 @deffnx Method get-device
 Retrieves the @code{<clutter-input-device>} for the event.
@@ -369,6 +386,28 @@ the @code{<clutter-input-device-type>} for the device, if any is set
 @end table
 
 Since 1.0
+
+@end deffn
+
+@deffn Function clutter-event-get-source-device  (self@tie{}@code{<clutter-event>}) @result{}@tie{} (ret@tie{}@code{<clutter-input-device*>})
+@deffnx Method get-source-device
+Retrieves the hardware device that originated the event.
+
+If you need the virtual device, use @code{clutter-event-get-device}.
+
+If no hardware device originated this event, this function will return
+the same device as @code{clutter-event-get-device}.
+
+@table @var
+@item event
+a @code{<clutter-event>}
+
+@item ret
+a pointer to a @code{<clutter-input-device>} or @samp{@code{#f}}.
+
+@end table
+
+Since 1.6
 
 @end deffn
 

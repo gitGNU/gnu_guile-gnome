@@ -2,6 +2,9 @@
 @c %start of fragment
 
 @deffn Function clutter-behaviour-depth-new  (alpha@tie{}@code{<clutter-alpha>}) (depth_start@tie{}@code{int}) (depth_end@tie{}@code{int}) @result{}@tie{} (ret@tie{}@code{<clutter-behaviour>})
+@samp{clutter_behaviour_depth_new} is deprecated and should not be used
+in newly-written code. 1.6
+
 Creates a new @code{<clutter-behaviour-depth>} which can be used to
 control the ClutterActor:depth property of a set of
 @code{<clutter-actor>}s.
@@ -22,7 +25,7 @@ initial value of the depth
 final value of the depth
 
 @item ret
-the newly created behaviour
+the newly created behaviour.
 
 @end table
 
@@ -32,6 +35,9 @@ Since 0.4
 
 @deffn Function clutter-behaviour-depth-set-bounds  (self@tie{}@code{<clutter-behaviour-depth>}) (depth_start@tie{}@code{int}) (depth_end@tie{}@code{int})
 @deffnx Method set-bounds
+@samp{clutter_behaviour_depth_set_bounds} is deprecated and should not
+be used in newly-written code. 1.6
+
 Sets the boundaries of the @var{behaviour}.
 
 @table @var
@@ -52,6 +58,9 @@ Since 0.6
 
 @deffn Function clutter-behaviour-depth-get-bounds  (self@tie{}@code{<clutter-behaviour-depth>}) @result{}@tie{} (depth_start@tie{}@code{int}) (depth_end@tie{}@code{int})
 @deffnx Method get-bounds
+@samp{clutter_behaviour_depth_get_bounds} is deprecated and should not
+be used in newly-written code. 1.6
+
 Gets the boundaries of the @var{behaviour}
 
 @table @var

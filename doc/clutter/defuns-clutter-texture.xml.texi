@@ -91,7 +91,7 @@ the source actor in a bounding group sized large enough to contain any
 child tranformations.
 
 Uploading pixel data to the texture (e.g by using
-@code{clutter-actor-set-from-file}) will destroy the offscreen texture
+@code{clutter-texture-set-from-file}) will destroy the offscreen texture
 data and end redirection.
 
 @code{cogl-texture-get-data} with the handle returned by

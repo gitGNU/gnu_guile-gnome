@@ -31,6 +31,23 @@ Since 1.4
 
 @end deffn
 
+@deffn Function clutter-click-action-get-state  (self@tie{}@code{<clutter-click-action>}) @result{}@tie{} (ret@tie{}@code{<clutter-modifier-type>})
+@deffnx Method get-state
+Retrieves the modifier state of the click action.
+
+@table @var
+@item action
+a @code{<clutter-click-action>}
+
+@item ret
+the modifier state parameter, or 0
+
+@end table
+
+Since 1.6
+
+@end deffn
+
 @deffn Function clutter-click-action-release  (self@tie{}@code{<clutter-click-action>})
 @deffnx Method release
 Emulates a release of the pointer button, which ungrabs the pointer and

@@ -97,14 +97,18 @@ optimised for insertion and look up in sorted lists.
 @section ClutterModel custom properties for @code{<clutter-script>}
 @code{<clutter-model>} defines a custom property "columns" for
 @code{<clutter-script>} which allows defining the column names and
-types.
+types. It also defines a custom "rows" property which allows filling the
+@code{<clutter-model>} with some data.
 
-@c (example (@ (id "ClutterModel-script-column-example")))
-@c (title "Example of the \"columns\" custom property")
+@c (example (@ (id "ClutterModel-script-example")))
+@c (title "Example of the \"columns\" and \"rows\" custom properties")
 The definition below will create a @code{<clutter-list-model>} with
 three columns: the first one with name "Name" and containing strings;
 the second one with name "Score" and containing integers; the third one
-with name "Icon" and containing @code{<clutter-texture>}s.
+with name "Icon" and containing @code{<clutter-texture>}s. The model is
+filled with three rows. A row can be defined either with an array that
+holds all columns of a row, or an object that holds "column-name" :
+"column-value" pairs.
 
 @example 
 
@@ -115,6 +119,11 @@ with name "Icon" and containing @code{<clutter-texture>}s.
      [ "Name", "gchararray" ],
      [ "Score", "gint" ],
      [ "Icon", "ClutterTexture" ]
+   ],
+   "rows" : [
+     [ "Team 1", 42, @{ "type" : "ClutterTexture", "filename" : "team1.png" @} ],
+     [ "Team 2", 23, "team2-icon-script-id" ],
+     @{ "Name" : "Team 3", "Icon" : "team3-icon-script-id" @}
    ]
  @}
     

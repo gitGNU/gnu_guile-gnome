@@ -22,7 +22,8 @@ Gets the stage for a particular X window.
 an X Window ID
 
 @item ret
-The stage or NULL if a stage does not exist for the window.
+A @code{<clutter-stage>}, or% NULL if a stage does not exist for the
+window.
 
 @end table
 

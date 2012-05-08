@@ -36,7 +36,7 @@ Retrieves the color of @var{rectangle}.
 a @code{<clutter-rectangle>}
 
 @item color
-return location for a @code{<clutter-color>}
+return location for a @code{<clutter-color>}.
 
 @end table
 
@@ -67,7 +67,7 @@ Gets the color of the border used by @var{rectangle} and places it into
 a @code{<clutter-rectangle>}
 
 @item color
-return location for a @code{<clutter-color>}
+return location for a @code{<clutter-color>}.
 
 @end table
 

@@ -260,7 +260,7 @@ Retrieves the text color as set by @code{clutter-text-set-color}.
 a @code{<clutter-text>}
 
 @item color
-return location for a @code{<clutter-color>}
+return location for a @code{<clutter-color>}.
 
 @end table
 
@@ -1061,7 +1061,7 @@ Retrieves the color of the selection of a @code{<clutter-text>} actor.
 a @code{<clutter-text>}
 
 @item color
-return location for a @code{<clutter-color>}
+return location for a @code{<clutter-color>}.
 
 @end table
 

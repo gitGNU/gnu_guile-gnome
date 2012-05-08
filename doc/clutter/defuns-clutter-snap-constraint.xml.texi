@@ -1,0 +1,146 @@
+
+@c %start of fragment
+
+@deffn Function clutter-snap-constraint-new  (source@tie{}@code{<clutter-actor>}) (from_edge@tie{}@code{<clutter-snap-edge>}) (to_edge@tie{}@code{<clutter-snap-edge>}) (offset@tie{}@code{float}) @result{}@tie{} (ret@tie{}@code{<clutter-constraint>})
+Creates a new @code{<clutter-snap-constraint>} that will snap a
+@code{<clutter-actor>} to the @var{edge} of @var{source}, with the given
+@var{offset}.
+
+@table @var
+@item source
+the @code{<clutter-actor>} to use as the source of the constraint, or
+@samp{@code{#f}}.
+
+@item from-edge
+the edge of the actor to use in the constraint
+
+@item to-edge
+the edge of @var{source} to use in the constraint
+
+@item offset
+the offset to apply to the constraint, in pixels
+
+@item ret
+the newly created @code{<clutter-snap-constraint>}
+
+@end table
+
+Since 1.6
+
+@end deffn
+
+@deffn Function clutter-snap-constraint-set-source  (self@tie{}@code{<clutter-snap-constraint>}) (source@tie{}@code{<clutter-actor>})
+@deffnx Method set-source
+Sets the source @code{<clutter-actor>} for the constraint
+
+@table @var
+@item constraint
+a @code{<clutter-snap-constraint>}
+
+@item source
+a @code{<clutter-actor>}, or @samp{@code{#f}} to unset the source.
+
+@end table
+
+Since 1.6
+
+@end deffn
+
+@deffn Function clutter-snap-constraint-get-source  (self@tie{}@code{<clutter-snap-constraint>}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+@deffnx Method get-source
+Retrieves the @code{<clutter-actor>} set using
+@code{clutter-snap-constraint-set-source}
+
+@table @var
+@item constraint
+a @code{<clutter-snap-constraint>}
+
+@item ret
+a pointer to the source actor.
+
+@end table
+
+Since 1.6
+
+@end deffn
+
+@deffn Function clutter-snap-constraint-set-edges  (self@tie{}@code{<clutter-snap-constraint>}) (from_edge@tie{}@code{<clutter-snap-edge>}) (to_edge@tie{}@code{<clutter-snap-edge>})
+@deffnx Method set-edges
+Sets the edges to be used by the @var{constraint}
+
+The @var{from-edge} is the edge on the @code{<clutter-actor>} to which
+@var{constraint} has been added. The @var{to-edge} is the edge of the
+@code{<clutter-actor>} inside the @code{<"source">} property.
+
+@table @var
+@item constraint
+a @code{<clutter-snap-constraint>}
+
+@item from-edge
+the edge on the actor
+
+@item to-edge
+the edge on the source
+
+@end table
+
+Since 1.6
+
+@end deffn
+
+@deffn Function clutter-snap-constraint-get-edges  (self@tie{}@code{<clutter-snap-constraint>}) @result{}@tie{} (from_edge@tie{}@code{<clutter-snap-edge>}) (to_edge@tie{}@code{<clutter-snap-edge>})
+@deffnx Method get-edges
+Retrieves the edges used by the @var{constraint}
+
+@table @var
+@item constraint
+a @code{<clutter-snap-constraint>}
+
+@item from-edge
+return location for the actor's edge, or @samp{@code{#f}}.
+
+@item to-edge
+return location for the source's edge, or @samp{@code{#f}}.
+
+@end table
+
+Since 1.6
+
+@end deffn
+
+@deffn Function clutter-snap-constraint-set-offset  (self@tie{}@code{<clutter-snap-constraint>}) (offset@tie{}@code{float})
+@deffnx Method set-offset
+Sets the offset to be applied to the constraint
+
+@table @var
+@item constraint
+a @code{<clutter-snap-constraint>}
+
+@item offset
+the offset to apply, in pixels
+
+@end table
+
+Since 1.6
+
+@end deffn
+
+@deffn Function clutter-snap-constraint-get-offset  (self@tie{}@code{<clutter-snap-constraint>}) @result{}@tie{} (ret@tie{}@code{float})
+@deffnx Method get-offset
+Retrieves the offset set using @code{clutter-snap-constraint-set-offset}
+
+@table @var
+@item constraint
+a @code{<clutter-snap-constraint>}
+
+@item ret
+the offset, in pixels
+
+@end table
+
+Since 1.6
+
+@end deffn
+
+
+@c %end of fragment

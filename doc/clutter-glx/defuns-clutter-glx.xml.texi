@@ -2,6 +2,10 @@
 @c %start of fragment
 
 @deffn Function clutter-glx-texture-pixmap-new  @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+@samp{clutter_glx_texture_pixmap_new} has been deprecated since version
+1.6 and should not be used in newly-written code. Use
+@code{clutter-x11-texture-pixmap-new} instead
+
 Creates a new, empty @code{<clutter-glx-texture-pixmap>}
 
 @table @var

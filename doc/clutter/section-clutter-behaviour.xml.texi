@@ -42,7 +42,7 @@ value from the @code{<clutter-alpha>} instance bound to the behaviour
 and apply it to the desiderd property (or properties) of every actor
 controlled by the behaviour.
 
-@code{<clutter-behaviour>} is available since Clutter 0.2
+@code{<clutter-behaviour>} is available since Clutter 0.2.
 
 @section Usage
 @include defuns-clutter-behaviour.xml.texi

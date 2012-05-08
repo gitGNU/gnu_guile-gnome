@@ -3,7 +3,7 @@
 
 @node ClutterBehaviourOpacity
 @chapter ClutterBehaviourOpacity
-Behaviour controlling the opacity
+A behaviour controlling opacity
 
 @section Overview
 @code{<clutter-behaviour-opacity>} controls the opacity of a set of

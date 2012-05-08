@@ -43,6 +43,12 @@
   (gtype-id "(clutter_state_key_get_type ())")
 )
 
+(define-boxed PaintVolume
+  (in-module "Clutter")
+  (c-name "ClutterPaintVolume")
+  (gtype-id "CLUTTER_TYPE_PAINT_VOLUME")
+)
+
 (define-interface Animatable
   (in-module "Clutter")
   (c-name "ClutterAnimatable")
@@ -67,6 +73,13 @@
   (gtype-id "CLUTTER_TYPE_STAGE_MANAGER")
 )
 
+(define-object Backend
+  (in-module "Clutter")
+  (parent "GObject")
+  (c-name "ClutterBackend")
+  (gtype-id "CLUTTER_TYPE_BACKEND")
+)
+
 (define-object ClutterBindingPool
   (in-module "Clutter")
   (c-name "ClutterBindingPool")
@@ -83,6 +96,18 @@
   (in-module "Clutter")
   (c-name "ClutterBindConstraint")
   (gtype-id "CLUTTER_TYPE_BIND_CONSTRAINT")
+)
+
+(define-object PathConstraint
+  (in-module "Clutter")
+  (c-name "ClutterPathConstraint")
+  (gtype-id "CLUTTER_TYPE_PATH_CONSTRAINT")
+)
+
+(define-object SnapConstraint
+  (in-module "Clutter")
+  (c-name "ClutterSnapConstraint")
+  (gtype-id "CLUTTER_TYPE_SNAP_CONSTRAINT")
 )
 
 (define-object ColorizeEffect
@@ -193,6 +218,13 @@
   (c-name "clutter_device_manager_peek_devices")
   (overrides "clutter_device_manager_peek_devices")
   (return-type "const-GSList*-of-ClutterInputDevice*")
+)
+
+(define-method get_slave_devices
+  (of-object "ClutterInputDevice")
+  (c-name "clutter_input_device_get_slave_devices")
+  (overrides "clutter_input_device_get_slave_devices")
+  (return-type "GList*-of-ClutterInputDevice*")
 )
 
 (define-method get_nodes
@@ -363,6 +395,7 @@
              "clutter_container_class_list_child_properties"
              "clutter_deform_effect_get_back_material"
              "clutter_deform_effect_set_back_material"
+             "clutter_event_get_axes"
              "clutter_frame_source_*"
              "clutter_init*"
              "clutter_init*"

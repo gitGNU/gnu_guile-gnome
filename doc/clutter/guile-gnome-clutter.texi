@@ -12,7 +12,7 @@ This manual is for @code{(gnome clutter)} (version @value{VERSION}, updated
 
 Copyright 2006,2007,2008 OpenedHand LTD
 
-Copyright 2009,2010 Intel Corporation
+Copyright 2009,2010,2011 Intel Corporation
 
 @quotation 
 Permission is granted to copy, distribute and/or modify this document
@@ -106,6 +106,7 @@ USA
 * ClutterModel:: A generic model implementation
 * ClutterOffscreenEffect:: Base class for effects using offscreen buffers
 * ClutterPageTurnEffect:: A page turning effect
+* ClutterPathConstraint:: A constraint that follows a path
 * ClutterPath:: Paths with straight lines and bezier curves.
 * ClutterRectangle:: An actor that displays a simple rectangle.
 * ClutterSettings:: Settings configuration
@@ -115,6 +116,7 @@ USA
 * ClutterShaderEffect:: Base class for shader effects
 * Shaders:: Programmable pipeline abstraction
 * Stage Manager:: Maintains the list of stages
+* ClutterSnapConstraint:: A constraint snapping two actors together
 * ClutterStage:: Top level visual element to which actors are placed.
 * ClutterState:: State machine with animated transitions
 * ClutterTableLayout:: A layout manager arranging children in rows and columns
@@ -191,6 +193,7 @@ USA
 @include section-clutter-model.xml.texi
 @include section-clutter-offscreen-effect.xml.texi
 @include section-clutter-page-turn-effect.xml.texi
+@include section-clutter-path-constraint.xml.texi
 @include section-clutter-path.xml.texi
 @include section-clutter-rectangle.xml.texi
 @include section-clutter-score.xml.texi
@@ -199,6 +202,7 @@ USA
 @include section-clutter-settings.xml.texi
 @include section-clutter-shader-effect.xml.texi
 @include section-clutter-shader.xml.texi
+@include section-clutter-snap-constraint.xml.texi
 @include section-clutter-stage-manager.xml.texi
 @include section-clutter-stage.xml.texi
 @include section-clutter-state.xml.texi

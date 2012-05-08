@@ -20,7 +20,7 @@ Sets the actor to be used as the drag handle
 
 @table @var
 @item action
-a @code{<clutter-drag-handle>}
+a @code{<clutter-drag-action>}
 
 @item handle
 a @code{<clutter-actor>}

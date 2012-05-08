@@ -8,6 +8,8 @@ emit the "actor-added" signal. The actor should be parented to
 @var{container}. You cannot add a @code{<clutter-actor>} to more than
 one @code{<clutter-container>}.
 
+Virtual: add
+
 @table @var
 @item container
 a @code{<clutter-container>}
@@ -27,6 +29,8 @@ Removes @var{actor} from @var{container}. The actor should be
 unparented, so if you want to keep it around you must hold a reference
 to it yourself, using @code{g-object-ref}. When the actor has been
 removed, the "actor-removed" signal is emitted by @var{container}.
+
+Virtual: remove
 
 @table @var
 @item container
@@ -63,6 +67,8 @@ Since 0.4
 @deffnx Method raise-child
 Raises @var{actor} to @var{sibling} level, in the depth ordering.
 
+Virtual: raise
+
 @table @var
 @item container
 a @code{<clutter-container>}
@@ -82,6 +88,8 @@ Since 0.6
 @deffn Function clutter-container-lower-child  (self@tie{}@code{<clutter-container>}) (actor@tie{}@code{<clutter-actor>}) (sibling@tie{}@code{<clutter-actor>})
 @deffnx Method lower-child
 Lowers @var{actor} to @var{sibling} level, in the depth ordering.
+
+Virtual: lower
 
 @table @var
 @item container
@@ -111,6 +119,28 @@ a @code{<clutter-container>}
 @end table
 
 Since 0.6
+
+@end deffn
+
+@deffn Function clutter-container-child-notify  (self@tie{}@code{<clutter-container>}) (child@tie{}@code{<clutter-actor>}) (pspec@tie{}@code{<gparam>})
+@deffnx Method child-notify
+Calls the @code{@code{child-notify}} virtual function of
+@code{<clutter-container>}. The default implementation will emit the
+@code{<"child-notify">} signal.
+
+@table @var
+@item container
+a @code{<clutter-container>}
+
+@item child
+a @code{<clutter-actor>}
+
+@item pspec
+a @code{<gparam>}
+
+@end table
+
+Since 1.6
 
 @end deffn
 

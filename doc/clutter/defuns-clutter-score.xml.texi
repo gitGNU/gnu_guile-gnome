@@ -118,7 +118,7 @@ Since 0.8
 
 @end deffn
 
-@deffn Function clutter-score-remove  (self@tie{}@code{<clutter-score>}) (id@tie{}@code{unsigned-long})
+@deffn Function clutter-score-remove  (self@tie{}@code{<clutter-score>}) (id_@tie{}@code{unsigned-long})
 @deffnx Method remove
 Removes the @code{<clutter-timeline>} with the given id inside
 @var{score}. If the timeline has other timelines attached to it, those
@@ -151,7 +151,7 @@ Since 0.6
 
 @end deffn
 
-@deffn Function clutter-score-get-timeline  (self@tie{}@code{<clutter-score>}) (id@tie{}@code{unsigned-long}) @result{}@tie{} (ret@tie{}@code{<clutter-timeline>})
+@deffn Function clutter-score-get-timeline  (self@tie{}@code{<clutter-score>}) (id_@tie{}@code{unsigned-long}) @result{}@tie{} (ret@tie{}@code{<clutter-timeline>})
 @deffnx Method get-timeline
 Retrieves the @code{<clutter-timeline>} for @var{id} inside @var{score}.
 

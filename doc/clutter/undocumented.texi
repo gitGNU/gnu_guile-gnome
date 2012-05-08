@@ -39,25 +39,16 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-actor-get-fixed-position-set
 @end defvar
 
+@defvar clutter-actor-get-paint-volume
+@end defvar
+
+@defvar clutter-actor-get-transformed-paint-volume
+@end defvar
+
 @defun clutter-actor-get-transformed-position _
 @end defun
 
 @defvar clutter-actor-get-z-rotation-gravity
-@end defvar
-
-@defvar clutter-actor-meta-get-actor
-@end defvar
-
-@defvar clutter-actor-meta-get-enabled
-@end defvar
-
-@defvar clutter-actor-meta-get-name
-@end defvar
-
-@defvar clutter-actor-meta-set-enabled
-@end defvar
-
-@defvar clutter-actor-meta-set-name
 @end defvar
 
 @defvar clutter-actor-move-anchor-point-from-gravity
@@ -87,22 +78,7 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-align-constraint-get-align-axis
 @end defvar
 
-@defvar clutter-align-constraint-get-factor
-@end defvar
-
-@defvar clutter-align-constraint-get-source
-@end defvar
-
-@defvar clutter-align-constraint-new
-@end defvar
-
 @defvar clutter-align-constraint-set-align-axis
-@end defvar
-
-@defvar clutter-align-constraint-set-factor
-@end defvar
-
-@defvar clutter-align-constraint-set-source
 @end defvar
 
 @defvar clutter-animatable-get-initial-state
@@ -201,31 +177,13 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-bind-constraint-get-coordinate
 @end defvar
 
-@defvar clutter-bind-constraint-get-offset
-@end defvar
-
-@defvar clutter-bind-constraint-get-source
-@end defvar
-
-@defvar clutter-bind-constraint-new
-@end defvar
-
 @defvar clutter-bind-constraint-set-coordinate
-@end defvar
-
-@defvar clutter-bind-constraint-set-offset
-@end defvar
-
-@defvar clutter-bind-constraint-set-source
 @end defvar
 
 @defvar clutter-binding-pool-install-closure
 @end defvar
 
 @defvar clutter-binding-pool-override-closure
-@end defvar
-
-@defvar clutter-blur-effect-new
 @end defvar
 
 @defvar clutter-box-layout-get-easing-duration
@@ -246,24 +204,6 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-cairo-texture-set-surface-size
 @end defvar
 
-@defvar clutter-click-action-get-button
-@end defvar
-
-@defvar clutter-click-action-new
-@end defvar
-
-@defvar clutter-click-action-release
-@end defvar
-
-@defvar clutter-colorize-effect-get-tint
-@end defvar
-
-@defvar clutter-colorize-effect-new
-@end defvar
-
-@defvar clutter-colorize-effect-set-tint
-@end defvar
-
 @defvar clutter-container-child-get-property
 @end defvar
 
@@ -276,19 +216,7 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-container-find-child-by-name
 @end defvar
 
-@defun clutter-deform-effect-get-n-tiles _
-@end defun
-
-@defvar clutter-deform-effect-invalidate
-@end defvar
-
-@defvar clutter-deform-effect-set-n-tiles
-@end defvar
-
 @defvar clutter-desaturate-effect-get-factor
-@end defvar
-
-@defvar clutter-desaturate-effect-new
 @end defvar
 
 @defvar clutter-desaturate-effect-set-factor
@@ -300,12 +228,6 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-device-manager-get-default
 @end defvar
 
-@defvar clutter-drag-action-get-drag-axis
-@end defvar
-
-@defvar clutter-drag-action-get-drag-handle
-@end defvar
-
 @defun clutter-drag-action-get-drag-threshold _
 @end defun
 
@@ -314,15 +236,6 @@ The following symbols, if any, have not been properly documented.
 
 @defun clutter-drag-action-get-press-coords _
 @end defun
-
-@defvar clutter-drag-action-new
-@end defvar
-
-@defvar clutter-drag-action-set-drag-axis
-@end defvar
-
-@defvar clutter-drag-action-set-drag-handle
-@end defvar
 
 @defvar clutter-drag-action-set-drag-threshold
 @end defvar
@@ -345,8 +258,14 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-flow-layout-set-column-width
 @end defvar
 
+@defvar clutter-input-device-get-associated-device
+@end defvar
+
 @defun clutter-input-device-get-device-coords _
 @end defun
+
+@defvar clutter-input-device-get-device-mode
+@end defvar
 
 @defvar clutter-input-device-get-device-name
 @end defvar
@@ -359,6 +278,9 @@ The following symbols, if any, have not been properly documented.
 
 @defvar clutter-input-device-get-pointer-stage
 @end defvar
+
+@defun clutter-input-device-get-slave-devices _
+@end defun
 
 @defvar clutter-input-device-update-from-event
 @end defvar
@@ -405,34 +327,28 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-offscreen-effect-paint-target
 @end defvar
 
-@defvar clutter-page-turn-effect-get-angle
+@defvar clutter-paint-volume-set-from-allocation
 @end defvar
 
-@defvar clutter-page-turn-effect-get-period
+@defvar clutter-path-constraint-get-offset
 @end defvar
 
-@defvar clutter-page-turn-effect-get-radius
+@defvar clutter-path-constraint-get-path
 @end defvar
 
-@defvar clutter-page-turn-effect-new
+@defvar clutter-path-constraint-new
 @end defvar
 
-@defvar clutter-page-turn-effect-set-angle
+@defvar clutter-path-constraint-set-offset
 @end defvar
 
-@defvar clutter-page-turn-effect-set-period
-@end defvar
-
-@defvar clutter-page-turn-effect-set-radius
+@defvar clutter-path-constraint-set-path
 @end defvar
 
 @defvar clutter-redraw
 @end defvar
 
 @defvar clutter-script-error-quark
-@end defvar
-
-@defvar clutter-settings-get-default
 @end defvar
 
 @defvar clutter-shader-effect-set-shader-source
@@ -442,6 +358,27 @@ The following symbols, if any, have not been properly documented.
 @end defvar
 
 @defvar clutter-shader-error-quark
+@end defvar
+
+@defun clutter-snap-constraint-get-edges _
+@end defun
+
+@defvar clutter-snap-constraint-get-offset
+@end defvar
+
+@defvar clutter-snap-constraint-get-source
+@end defvar
+
+@defvar clutter-snap-constraint-new
+@end defvar
+
+@defvar clutter-snap-constraint-set-edges
+@end defvar
+
+@defvar clutter-snap-constraint-set-offset
+@end defvar
+
+@defvar clutter-snap-constraint-set-source
 @end defvar
 
 @defvar clutter-stage-get-throttle-motion-events
@@ -456,74 +393,11 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-stage-set-throttle-motion-events
 @end defvar
 
-@defvar clutter-state-get-animator
-@end defvar
-
-@defvar clutter-state-get-duration
-@end defvar
-
-@defun clutter-state-get-keys _ _ _ _ _
-@end defun
-
-@defvar clutter-state-get-state
-@end defvar
-
-@defun clutter-state-get-states _
-@end defun
-
-@defvar clutter-state-get-timeline
-@end defvar
-
-@defvar clutter-state-key-get-mode
-@end defvar
-
-@defvar clutter-state-key-get-object
-@end defvar
-
-@defvar clutter-state-key-get-post-delay
-@end defvar
-
-@defvar clutter-state-key-get-pre-delay
-@end defvar
-
-@defvar clutter-state-key-get-property-name
-@end defvar
-
-@defun clutter-state-key-get-property-type _
-@end defun
-
 @defvar clutter-state-key-get-source-state-name
 @end defvar
 
 @defvar clutter-state-key-get-target-state-name
 @end defvar
-
-@defvar clutter-state-key-get-value
-@end defvar
-
-@defvar clutter-state-new
-@end defvar
-
-@defvar clutter-state-remove-key
-@end defvar
-
-@defvar clutter-state-set-animator
-@end defvar
-
-@defvar clutter-state-set-duration
-@end defvar
-
-@defvar clutter-state-set-key
-@end defvar
-
-@defvar clutter-state-set-state
-@end defvar
-
-@defvar clutter-state-warp-to-state
-@end defvar
-
-@defun clutter-table-layout-get-alignment _ _
-@end defun
 
 @defvar clutter-table-layout-get-column-count
 @end defvar
@@ -537,31 +411,10 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-table-layout-get-easing-mode
 @end defvar
 
-@defun clutter-table-layout-get-expand _ _
-@end defun
-
-@defun clutter-table-layout-get-fill _ _
-@end defun
-
-@defvar clutter-table-layout-get-row-count
-@end defvar
-
 @defvar clutter-table-layout-get-row-spacing
 @end defvar
 
-@defun clutter-table-layout-get-span _ _
-@end defun
-
 @defvar clutter-table-layout-get-use-animations
-@end defvar
-
-@defvar clutter-table-layout-new
-@end defvar
-
-@defvar clutter-table-layout-pack
-@end defvar
-
-@defvar clutter-table-layout-set-alignment
 @end defvar
 
 @defvar clutter-table-layout-set-column-spacing
@@ -573,16 +426,7 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-table-layout-set-easing-mode
 @end defvar
 
-@defvar clutter-table-layout-set-expand
-@end defvar
-
-@defvar clutter-table-layout-set-fill
-@end defvar
-
 @defvar clutter-table-layout-set-row-spacing
-@end defvar
-
-@defvar clutter-table-layout-set-span
 @end defvar
 
 @defvar clutter-table-layout-set-use-animations

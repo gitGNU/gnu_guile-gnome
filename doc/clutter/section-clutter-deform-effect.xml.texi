@@ -12,7 +12,7 @@ actor's geometry.
 
 @code{<clutter-deform-effect>} uses offscreen buffers to render the
 contents of a @code{<clutter-actor>} and then the Cogl vertex buffers
-API to submit the geomtry to the GPU.
+API to submit the geometry to the GPU.
 
 @section Implementing ClutterDeformEffect
 Sub-classes of @code{<clutter-deform-effect>} should override the

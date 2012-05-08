@@ -1,0 +1,19 @@
+
+@c %start of fragment
+
+@node ClutterSnapConstraint
+@chapter ClutterSnapConstraint
+A constraint snapping two actors together
+
+@section Overview
+@code{<clutter-snap-constraint>} is a constraint the snaps the edges of
+two actors together, expanding the actor's allocation if necessary.
+
+An offset can be applied to the constraint, to provide spacing.
+
+@code{<clutter-snap-constraint>} is available since Clutter 1.6
+
+@section Usage
+@include defuns-clutter-snap-constraint.xml.texi
+
+@c %end of fragment

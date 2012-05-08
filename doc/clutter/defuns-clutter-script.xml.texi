@@ -40,7 +40,7 @@ return location for a @code{<g-error>}, or @samp{@code{#f}}
 @item ret
 on error, zero is returned and @var{error} is set accordingly. On
 success, the merge id for the UI definitions is returned. You can use
-the merge id with @code{clutter-script-unmerge}.
+the merge id with @code{clutter-script-unmerge-objects}.
 
 @end table
 

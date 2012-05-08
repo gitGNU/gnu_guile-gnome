@@ -17,5 +17,199 @@ Since 1.0
 
 @end deffn
 
+@deffn Function clutter-input-device-get-has-cursor  (self@tie{}@code{<clutter-input-device*>}) @result{}@tie{} (ret@tie{}@code{bool})
+Retrieves whether @var{device} has a pointer that follows the device
+motion.
+
+@table @var
+@item device
+a @code{<clutter-input-device>}
+
+@item ret
+@samp{@code{#t}} if the device has a cursor
+
+@end table
+
+Since 1.6
+
+@end deffn
+
+@deffn Function clutter-input-device-set-enabled  (self@tie{}@code{<clutter-input-device*>}) (enabled@tie{}@code{bool})
+Enables or disables a @code{<clutter-input-device>}.
+
+Only devices with a @code{<"device-mode">} property set to
+@samp{CLUTTER_INPUT_MODE_SLAVE} or @samp{CLUTTER_INPUT_MODE_FLOATING}
+can be disabled.
+
+@table @var
+@item device
+a @code{<clutter-input-device>}
+
+@item enabled
+@samp{@code{#t}} to enable the @var{device}
+
+@end table
+
+Since 1.6
+
+@end deffn
+
+@deffn Function clutter-input-device-get-enabled  (self@tie{}@code{<clutter-input-device*>}) @result{}@tie{} (ret@tie{}@code{bool})
+Retrieves whether @var{device} is enabled.
+
+@table @var
+@item device
+a @code{<clutter-input-device>}
+
+@item ret
+@samp{@code{#t}} if the device is enabled
+
+@end table
+
+Since 1.6
+
+@end deffn
+
+@deffn Function clutter-input-device-get-n-keys  (self@tie{}@code{<clutter-input-device*>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+Retrieves the number of keys registered for @var{device}.
+
+@table @var
+@item device
+a @code{<clutter-input-device>}
+
+@item ret
+the number of registered keys
+
+@end table
+
+Since 1.6
+
+@end deffn
+
+@deffn Function clutter-input-device-set-key  (self@tie{}@code{<clutter-input-device*>}) (index_@tie{}@code{unsigned-int}) (keyval@tie{}@code{unsigned-int}) (modifiers@tie{}@code{<clutter-modifier-type>})
+Sets the keyval and modifiers at the given @var{index} for @var{device}.
+
+Clutter will use the keyval and modifiers set when filling out an event
+coming from the same input device.
+
+@table @var
+@item device
+a @code{<clutter-input-device>}
+
+@item index
+the index of the key
+
+@item keyval
+the keyval
+
+@item modifiers
+a bitmask of modifiers
+
+@end table
+
+Since 1.6
+
+@end deffn
+
+@deffn Function clutter-input-device-get-key  (self@tie{}@code{<clutter-input-device*>}) (index_@tie{}@code{unsigned-int}) @result{}@tie{} (ret@tie{}@code{bool}) (keyval@tie{}@code{unsigned-int}) (modifiers@tie{}@code{<clutter-modifier-type>})
+Retrieves the key set using @code{clutter-input-device-set-key}
+
+@table @var
+@item device
+a @code{<clutter-input-device>}
+
+@item index
+the index of the key
+
+@item keyval
+return location for the keyval at @var{index}.
+
+@item modifiers
+return location for the modifiers at @var{index}.
+
+@item ret
+@samp{@code{#t}} if a key was set at the given index
+
+@end table
+
+Since 1.6
+
+@end deffn
+
+@deffn Function clutter-input-device-get-n-axes  (self@tie{}@code{<clutter-input-device*>}) @result{}@tie{} (ret@tie{}@code{unsigned-int})
+Retrieves the number of axes available on @var{device}.
+
+@table @var
+@item device
+a @code{<clutter-input-device>}
+
+@item ret
+the number of axes on the device
+
+@end table
+
+Since 1.6
+
+@end deffn
+
+@deffn Function clutter-input-device-get-axis  (self@tie{}@code{<clutter-input-device*>}) (index_@tie{}@code{unsigned-int}) @result{}@tie{} (ret@tie{}@code{<clutter-input-axis>})
+Retrieves the type of axis on @var{device} at the given index.
+
+@table @var
+@item device
+a @code{<clutter-input-device>}
+
+@item index
+the index of the axis
+
+@item ret
+the axis type
+
+@end table
+
+Since 1.6
+
+@end deffn
+
+@deffn Function clutter-input-device-get-axis-value  (self@tie{}@code{<clutter-input-device*>}) (axis@tie{}@code{<clutter-input-axis>}) @result{}@tie{} (ret@tie{}@code{bool}) (axes@tie{}@code{double}) (value@tie{}@code{double})
+Extracts the value of the given @var{axis} of a
+@code{<clutter-input-device>} from an array of axis values.
+
+An example of typical usage for this function is:
+
+@example 
+
+  ClutterInputDevice *device = clutter_event_get_device (event);
+  gdouble *axes = clutter_event_get_axes (event, NULL);
+  gdouble pressure_value = 0;
+
+  clutter_input_device_get_axis_value (device, axes,
+                                       CLUTTER_INPUT_AXIS_PRESSURE,
+                                       &pressure_value);
+@end example
+
+@table @var
+@item device
+a @code{<clutter-input-device>}
+
+@item axes
+an array of axes values, typically coming from
+@code{clutter-event-get-axes}.
+
+@item axis
+the axis to extract
+
+@item value
+return location for the axis value.
+
+@item ret
+@samp{@code{#t}} if the value was set, and @samp{@code{#f}} otherwise
+
+@end table
+
+Since 1.6
+
+@end deffn
+
 
 @c %end of fragment

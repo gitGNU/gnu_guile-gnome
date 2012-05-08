@@ -97,6 +97,8 @@
   (add-type-rule! ws "ClutterBinAlignment*" '(<clutter-bin-alignment> out))
   (add-type-rule! ws "ClutterBoxAlignment*" '(<clutter-box-alignment> out))
   (add-type-rule! ws "ClutterTableAlignment*" '(<clutter-table-alignment> out))
+  (add-type-rule! ws "ClutterModifierType*" '(<clutter-modifier-type> out))
+  (add-type-rule! ws "ClutterSnapEdge*" '(<clutter-snap-edge> out))
 
   (wrap-custom-boxed!
    "ClutterKnot" "CLUTTER_TYPE_KNOT"

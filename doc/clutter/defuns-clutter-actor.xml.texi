@@ -1310,9 +1310,11 @@ Since 0.2
 @deffnx Method unparent
 Removes the parent of @var{self}.
 
-This function should not be used in applications. It should be called by
-implementations of container actors, to dissociate a child from the
-container.
+This function should not be used in applications.
+
+This function should only be called by implementations of the
+@code{<clutter-container>} interface, or by composite actors that do not
+implicitly create their children.
 
 @table @var
 @item self
@@ -1492,7 +1494,7 @@ Since 1.2
 
 @deffn Function clutter-actor-pop-internal  (self@tie{}@code{<clutter-actor>})
 @deffnx Method pop-internal
-Disables the effects of @code{clutter-actor-pop-internal}
+Disables the effects of @code{clutter-actor-push-internal}
 
 @table @var
 @item self
@@ -1795,6 +1797,37 @@ Since 0.8.4
 
 @end deffn
 
+@deffn Function clutter-actor-get-paint-box  (self@tie{}@code{<clutter-actor>}) (box@tie{}@code{<clutter-actor-box>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-paint-box
+Retrieves the paint volume of the passed @code{<clutter-actor>}, and
+transforms it into a 2D bounding box in stage coordinates.
+
+This function is useful to determine the on screen area occupied by the
+actor. The box is only an approximation and may often be considerably
+larger due to the optimizations used to calculate the box. The box is
+never smaller though, so it can reliably be used for culling.
+
+There are times when a 2D paint box can't be determined, e.g. because
+the actor isn't yet parented under a stage or because the actor is
+unable to determine a paint volume.
+
+@table @var
+@item self
+a @code{<clutter-actor>}
+
+@item box
+return location for a @code{<clutter-actor-box>}.
+
+@item ret
+@samp{@code{#t}} if a 2D paint box could be determined, else
+@samp{@code{#f}}.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
 @deffn Function clutter-actor-set-anchor-point  (self@tie{}@code{<clutter-actor>}) (anchor_x@tie{}@code{float}) (anchor_y@tie{}@code{float})
 @deffnx Method set-anchor-point
 Sets an anchor point for @var{self}. The anchor point is a point in the
@@ -1898,8 +1931,13 @@ Since 0.6
 @deffnx Method set-shader
 Sets the @code{<clutter-shader>} to be used when rendering @var{self}.
 
-If @var{shader} is @samp{@code{#f}} it will unset any currently set
-shader for the actor.
+If @var{shader} is @samp{@code{#f}} this function will unset any
+currently set shader for the actor.
+
+@cartouche 
+Any @code{<clutter-effect>} applied to @var{self} will take the precedence
+over the @code{<clutter-shader>} set using this function.
+@end cartouche
 
 @table @var
 @item self
@@ -1909,7 +1947,7 @@ a @code{<clutter-actor>}
 a @code{<clutter-shader>} or @samp{@code{#f}} to unset the shader.
 
 @item ret
-@samp{@code{#t}} if the shader was successfully applied
+@samp{@code{#t}} if the shader was successfully applied or removed
 
 @end table
 
@@ -2711,6 +2749,26 @@ Since 1.0
 
 @end deffn
 
+@deffn Function clutter-actor-box-set-origin  (self@tie{}@code{<clutter-actor-box>}) (x@tie{}@code{float}) (y@tie{}@code{float})
+Changes the origin of @var{box}, maintaining the size of the
+@code{<clutter-actor-box>}.
+
+@table @var
+@item box
+a @code{<clutter-actor-box>}
+
+@item x
+the X coordinate of the new origin
+
+@item y
+the Y coordinate of the new origin
+
+@end table
+
+Since 1.6
+
+@end deffn
+
 @deffn Function clutter-actor-box-get-origin  (self@tie{}@code{<clutter-actor-box>}) @result{}@tie{} (x@tie{}@code{float}) (y@tie{}@code{float})
 Retrieves the origin of @var{box}
 
@@ -2727,6 +2785,26 @@ return location for the Y coordinate, or @samp{@code{#f}}.
 @end table
 
 Since 1.0
+
+@end deffn
+
+@deffn Function clutter-actor-box-set-size  (self@tie{}@code{<clutter-actor-box>}) (width@tie{}@code{float}) (height@tie{}@code{float})
+Sets the size of @var{box}, maintaining the origin of the
+@code{<clutter-actor-box>}.
+
+@table @var
+@item box
+a @code{<clutter-actor-box>}
+
+@item width
+the new width
+
+@item height
+the new height
+
+@end table
+
+Since 1.6
 
 @end deffn
 
@@ -2825,6 +2903,27 @@ Since 1.2
 
 @end deffn
 
+@deffn Function clutter-actor-box-union  (self@tie{}@code{<clutter-actor-box>}) (b@tie{}@code{<clutter-actor-box>}) (result@tie{}@code{<clutter-actor-box>})
+Unions the two boxes @var{a} and @var{b} and stores the result in
+@var{result}.
+
+@table @var
+@item a
+(in) the first @code{<clutter-actor-box>}
+
+@item b
+the second @code{<clutter-actor-box>}.
+
+@item result
+the @code{<clutter-actor-box>} representing a union of @var{a} and
+@var{b}.
+
+@end table
+
+Since 1.4
+
+@end deffn
+
 @deffn Function clutter-vertex-new  (x@tie{}@code{float}) (y@tie{}@code{float}) (z@tie{}@code{float}) @result{}@tie{} (ret@tie{}@code{<clutter-vertex>})
 Creates a new @code{<clutter-vertex>} for the point in 3D space
 identified by the 3 coordinates @var{x}, @var{y}, @var{z}
@@ -2906,6 +3005,159 @@ The second geometry to test
 @end table
 
 Since 1.4
+
+@end deffn
+
+@deffn Function clutter-paint-volume-set-origin  (self@tie{}@code{<clutter-paint-volume>}) (origin@tie{}@code{<clutter-vertex>})
+Sets the origin of the paint volume.
+
+The origin is defined as the X, Y and Z coordinates of the top-left
+corner of an actor's paint volume, in actor coordinates.
+
+The default is origin is assumed at: (0, 0, 0)
+
+@table @var
+@item pv
+a @code{<clutter-paint-volume>}
+
+@item origin
+a @code{<clutter-vertex>}
+
+@end table
+
+Since 1.6
+
+@end deffn
+
+@deffn Function clutter-paint-volume-get-origin  (self@tie{}@code{<clutter-paint-volume>}) (vertex@tie{}@code{<clutter-vertex>})
+Retrieves the origin of the @code{<clutter-paint-volume>}.
+
+@table @var
+@item pv
+a @code{<clutter-paint-volume>}
+
+@item vertex
+the return location for a @code{<clutter-vertex>}.
+
+@end table
+
+Since 1.6
+
+@end deffn
+
+@deffn Function clutter-paint-volume-set-width  (self@tie{}@code{<clutter-paint-volume>}) (width@tie{}@code{float})
+Sets the width of the paint volume.
+
+@table @var
+@item pv
+a @code{<clutter-paint-volume>}
+
+@item width
+the width of the paint volume, in pixels
+
+@end table
+
+Since 1.6
+
+@end deffn
+
+@deffn Function clutter-paint-volume-get-width  (self@tie{}@code{<clutter-paint-volume>}) @result{}@tie{} (ret@tie{}@code{float})
+Retrieves the width set using @code{clutter-paint-volume-get-width}
+
+@table @var
+@item pv
+a @code{<clutter-paint-volume>}
+
+@item ret
+the width, in pixels
+
+@end table
+
+Since 1.6
+
+@end deffn
+
+@deffn Function clutter-paint-volume-set-height  (self@tie{}@code{<clutter-paint-volume>}) (height@tie{}@code{float})
+Sets the height of the paint volume.
+
+@table @var
+@item pv
+a @code{<clutter-paint-volume>}
+
+@item height
+the height of the paint volume, in pixels
+
+@end table
+
+Since 1.6
+
+@end deffn
+
+@deffn Function clutter-paint-volume-get-height  (self@tie{}@code{<clutter-paint-volume>}) @result{}@tie{} (ret@tie{}@code{float})
+Retrieves the height of the paint volume set using
+@code{clutter-paint-volume-get-height}
+
+@table @var
+@item pv
+a @code{<clutter-paint-volume>}
+
+@item ret
+the height of the paint volume, in pixels
+
+@end table
+
+Since 1.6
+
+@end deffn
+
+@deffn Function clutter-paint-volume-set-depth  (self@tie{}@code{<clutter-paint-volume>}) (depth@tie{}@code{float})
+Sets the depth of the paint volume.
+
+@table @var
+@item pv
+a @code{<clutter-paint-volume>}
+
+@item depth
+the depth of the paint volume, in pixels
+
+@end table
+
+Since 1.6
+
+@end deffn
+
+@deffn Function clutter-paint-volume-get-depth  (self@tie{}@code{<clutter-paint-volume>}) @result{}@tie{} (ret@tie{}@code{float})
+Retrieves the depth of the paint volume set using
+@code{clutter-paint-volume-get-depth}
+
+@table @var
+@item pv
+a @code{<clutter-paint-volume>}
+
+@item ret
+the depth
+
+@end table
+
+Since 1.6
+
+@end deffn
+
+@deffn Function clutter-paint-volume-union  (self@tie{}@code{<clutter-paint-volume>}) (another_pv@tie{}@code{<clutter-paint-volume>})
+Updates the geometry of @var{pv} to be the union bounding box that
+encompases @var{pv} and @var{another-pv}.
+
+@table @var
+@item pv
+The first @code{<clutter-paint-volume>} and destination for resulting
+union
+
+@item another-pv
+A second @code{<clutter-paint-volume>} to union with @var{pv}
+
+@end table
+
+Since 1.6
 
 @end deffn
 

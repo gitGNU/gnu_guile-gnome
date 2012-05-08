@@ -61,7 +61,7 @@ Since 1.2
 
 @end deffn
 
-@deffn Function clutter-get-input-device-for-id  (id@tie{}@code{int}) @result{}@tie{} (ret@tie{}@code{<clutter-input-device*>})
+@deffn Function clutter-get-input-device-for-id  (id_@tie{}@code{int}) @result{}@tie{} (ret@tie{}@code{<clutter-input-device*>})
 Retrieves the @code{<clutter-input-device>} from its @var{id}. This is a
 convenience wrapper for @code{clutter-device-manager-get-device} and it
 is functionally equivalent to:

@@ -2,6 +2,9 @@
 @c %start of fragment
 
 @deffn Function clutter-behaviour-ellipse-new  (alpha@tie{}@code{<clutter-alpha>}) (x@tie{}@code{int}) (y@tie{}@code{int}) (width@tie{}@code{int}) (height@tie{}@code{int}) (direction@tie{}@code{<clutter-rotate-direction>}) (start@tie{}@code{double}) (end@tie{}@code{double}) @result{}@tie{} (ret@tie{}@code{<clutter-behaviour>})
+@samp{clutter_behaviour_ellipse_new} is deprecated and should not be
+used in newly-written code.
+
 Creates a behaviour that drives actors along an elliptical path with
 given center, width and height; the movement starts at @var{start}
 degrees (with 0 corresponding to 12 o'clock) and ends at @var{end}
@@ -50,6 +53,9 @@ Since 0.4
 
 @deffn Function clutter-behaviour-ellipse-set-width  (self@tie{}@code{<clutter-behaviour-ellipse>}) (width@tie{}@code{int})
 @deffnx Method set-width
+@samp{clutter_behaviour_ellipse_set_width} is deprecated and should not
+be used in newly-written code.
+
 Sets the width of the elliptical path.
 
 @table @var
@@ -67,6 +73,9 @@ Since 0.4
 
 @deffn Function clutter-behaviour-ellipse-get-width  (self@tie{}@code{<clutter-behaviour-ellipse>}) @result{}@tie{} (ret@tie{}@code{int})
 @deffnx Method get-width
+@samp{clutter_behaviour_ellipse_get_width} is deprecated and should not
+be used in newly-written code.
+
 Gets the width of the elliptical path.
 
 @table @var
@@ -84,6 +93,9 @@ Since 0.4
 
 @deffn Function clutter-behaviour-ellipse-set-tilt  (self@tie{}@code{<clutter-behaviour-ellipse>}) (angle_tilt_x@tie{}@code{double}) (angle_tilt_y@tie{}@code{double}) (angle_tilt_z@tie{}@code{double})
 @deffnx Method set-tilt
+@samp{clutter_behaviour_ellipse_set_tilt} is deprecated and should not
+be used in newly-written code.
+
 Sets the angles at which the ellipse should be tilted around it's
 center.
 
@@ -108,6 +120,9 @@ Since 0.4
 
 @deffn Function clutter-behaviour-ellipse-get-tilt  (self@tie{}@code{<clutter-behaviour-ellipse>}) @result{}@tie{} (angle_tilt_x@tie{}@code{double}) (angle_tilt_y@tie{}@code{double}) (angle_tilt_z@tie{}@code{double})
 @deffnx Method get-tilt
+@samp{clutter_behaviour_ellipse_get_tilt} is deprecated and should not
+be used in newly-written code.
+
 Gets the tilt of the ellipse around the center in Y axis.
 
 @table @var

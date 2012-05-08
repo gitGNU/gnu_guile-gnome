@@ -1,20 +1,6 @@
 ;; -*- scheme -*-
 (include type-ignores) (include "clutter-x11-types.defs") (include overrides)
 
-;; From /opt/clutter/include/clutter-1.0/clutter/x11/clutter-x11-enum-types.h
-
-(define-function clutter_x11_filter_return_get_type
-  (c-name "clutter_x11_filter_return_get_type")
-  (return-type "GType")
-)
-
-(define-function clutter_x11_xinput_event_types_get_type
-  (c-name "clutter_x11_xinput_event_types_get_type")
-  (return-type "GType")
-)
-
-
-
 ;; From /opt/clutter/include/clutter-1.0/clutter/x11/clutter-x11.h
 
 (define-function clutter_x11_trap_x_errors

@@ -19,13 +19,13 @@ License along with this program.  If not, see
 ]])
 
 AC_PREREQ(2.52)
-AC_INIT(guile-clutter, 1.4.0)
+AC_INIT(guile-clutter, 1.6.0)
 AC_CONFIG_AUX_DIR([build-aux])
 AC_COPYRIGHT(GUILE_CLUTTER_CONFIGURE_COPYRIGHT)
 AM_CONFIG_HEADER(config.h)
 AM_INIT_AUTOMAKE(-Wno-portability -Wno-syntax)
 
-AC_SUBST(VERSION,1.4.0)
+AC_SUBST(VERSION,1.6.0)
 
 # Meaning of the API version
 # --------------------------
@@ -113,7 +113,7 @@ AC_SUBST(GUILE_GLIB_LIBS)
 # Check for clutter
 
 CLUTTER_MAJORMINOR=1.0
-CLUTTER_MINIMUM_VERSION=1.4
+CLUTTER_MINIMUM_VERSION=1.6
 AC_SUBST(CLUTTER_MAJORMINOR)
 
 PKG_CHECK_MODULES(CLUTTER, clutter-$CLUTTER_MAJORMINOR > $CLUTTER_MINIMUM_VERSION guile-cairo)

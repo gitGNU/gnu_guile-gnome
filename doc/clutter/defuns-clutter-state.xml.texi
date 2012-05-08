@@ -15,10 +15,13 @@ the newly create @code{<clutter-state>} instance
 @deffn Function clutter-state-set-state  (self@tie{}@code{<clutter-state>}) (target_state_name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<clutter-timeline>})
 @deffnx Method set-state
 Change the current state of @code{<clutter-state>} to
-@var{target-state-name}
+@var{target-state-name}.
 
 The state will animate during its transition, see
 @code{<clutter-state-warp-to-state>} for animation-free state switching.
+
+Setting a @samp{@code{#f}} state will stop the current animation and
+unset the current state, but keys will be left intact.
 
 @table @var
 @item state
@@ -64,10 +67,9 @@ Since 1.4
 
 @deffn Function clutter-state-warp-to-state  (self@tie{}@code{<clutter-state>}) (target_state_name@tie{}@code{mchars}) @result{}@tie{} (ret@tie{}@code{<clutter-timeline>})
 @deffnx Method warp-to-state
-Change the current state of @code{<clutter-state>} to
-@var{target-state-name}
-
 Change to the specified target state immediately with no animation.
+
+See @code{clutter-state-set-state}.
 
 @table @var
 @item state

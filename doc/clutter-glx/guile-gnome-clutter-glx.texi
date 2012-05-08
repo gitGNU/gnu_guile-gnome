@@ -12,7 +12,7 @@ This manual is for @code{(gnome clutter-glx)} (version @value{VERSION}, updated
 
 Copyright 2006,2007,2008 OpenedHand LTD
 
-Copyright 2009,2010 Intel Corporation
+Copyright 2009,2010,2011 Intel Corporation
 
 @quotation 
 Permission is granted to copy, distribute and/or modify this document

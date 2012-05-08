@@ -175,6 +175,78 @@ Since 0.6
 
 @end deffn
 
+@deffn Function clutter-timeline-set-auto-reverse  (self@tie{}@code{<clutter-timeline>}) (reverse@tie{}@code{bool})
+@deffnx Method set-auto-reverse
+Sets whether @var{timeline} should reverse the direction after the
+emission of the @code{<"completed">} signal.
+
+Setting the @code{<"reverse">} property to @samp{@code{#t}} is the
+equivalent of connecting a callback to the @code{<"completed">} signal
+and changing the direction of the timeline from that callback; for
+instance, this code:
+
+@example 
+
+static void
+reverse_timeline (ClutterTimeline *timeline)
+@{
+  ClutterTimelineDirection dir = clutter_timeline_get_direction (timeline);
+
+  if (dir == CLUTTER_TIMELINE_FORWARD)
+    dir = CLUTTER_TIMELINE_BACKWARD;
+  else
+    dir = CLUTTER_TIMELINE_FORWARD;
+
+  clutter_timeline_set_direction (timeline, dir);
+@}
+...
+  timeline = clutter_timeline_new (1000);
+  clutter_timeline_set_loop (timeline);
+  g_signal_connect (timeline, "completed",
+                    G_CALLBACK (reverse_timeline),
+                    NULL);
+@end example
+
+can be effectively replaced by:
+
+@example 
+
+  timeline = clutter_timeline_new (1000);
+  clutter_timeline_set_loop (timeline);
+  clutter_timeline_set_auto_reverse (timeline);
+@end example
+
+@table @var
+@item timeline
+a @code{<clutter-timeline>}
+
+@item reverse
+@samp{@code{#t}} if the @var{timeline} should reverse the direction
+
+@end table
+
+Since 1.6
+
+@end deffn
+
+@deffn Function clutter-timeline-get-auto-reverse  (self@tie{}@code{<clutter-timeline>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-auto-reverse
+Retrieves the value set by @code{clutter-timeline-set-auto-reverse}.
+
+@table @var
+@item timeline
+a @code{<clutter-timeline>}
+
+@item ret
+@samp{@code{#t}} if the timeline should automatically reverse, and
+@samp{@code{#f}} otherwise
+
+@end table
+
+Since 1.6
+
+@end deffn
+
 @deffn Function clutter-timeline-start  (self@tie{}@code{<clutter-timeline>})
 @deffnx Method start
 Starts the @code{<clutter-timeline>} playing.

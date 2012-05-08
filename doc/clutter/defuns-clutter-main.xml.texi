@@ -61,12 +61,12 @@ Number of microseconds since @code{clutter-init} was called.
 
 @end deffn
 
-@deffn Function clutter-get-actor-by-gid  (id@tie{}@code{unsigned-int32}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
+@deffn Function clutter-get-actor-by-gid  (id_@tie{}@code{unsigned-int32}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
 Retrieves the @code{<clutter-actor>} with @var{id}.
 
 @table @var
 @item id
-a @code{<clutter-actor>} ID.
+a @code{<clutter-actor>} unique id.
 
 @item ret
 the actor with the passed id or @samp{@code{#f}}. The returned actor
@@ -331,7 +331,7 @@ Since 0.6
 
 @end deffn
 
-@deffn Function clutter-grab-pointer-for-device  (actor@tie{}@code{<clutter-actor>}) (id@tie{}@code{int})
+@deffn Function clutter-grab-pointer-for-device  (actor@tie{}@code{<clutter-actor>}) (id_@tie{}@code{int})
 Grabs all the pointer events coming from the device @var{id} for
 @var{actor}.
 
@@ -351,7 +351,7 @@ Since 0.8
 
 @end deffn
 
-@deffn Function clutter-ungrab-pointer-for-device  (id@tie{}@code{int})
+@deffn Function clutter-ungrab-pointer-for-device  (id_@tie{}@code{int})
 Removes an existing grab of the pointer events for device @var{id}.
 
 @table @var
@@ -365,8 +365,13 @@ Since 0.8
 @end deffn
 
 @deffn Function clutter-do-event  (event@tie{}@code{<clutter-event>})
-Processes an event. This function should never be called by
-applications.
+Processes an event.
+
+The @var{event} must be a valid @code{<clutter-event>} and have a
+@code{<clutter-stage>} associated to it.
+
+This function is only useful when embedding Clutter inside another
+toolkit, and it should never be called by applications.
 
 @table @var
 @item event

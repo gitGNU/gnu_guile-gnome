@@ -13,6 +13,157 @@ the source_state_name for a key is NULL it is used for transition to the
 target state unless a specific key exists for transitioning from the
 current state to the requested state.
 
+@c (example (@ (id "ClutterState-example")))
+@c (title "A ClutterState example")
+The following example defines a "base" and a "hover" state in a
+@code{<clutter-state>} instance.
+
+@example 
+
+ClutterState *state = clutter_state_new ();
+ClutterColor color = @{ 0, @};
+
+/&#x002A; transition from any state to the "base" state &#x002A;/
+clutter_color_from_string (&color, "rgb(255, 0, 0)");
+clutter_state_set (state, NULL, "base",
+                   actor, "color", CLUTTER_LINEAR, &color,
+                   actor, "scale-x", CLUTTER_EASE_IN_BOUNCE, 1.0,
+                   actor, "scale-y", CLUTTER_EASE_IN_BOUNCE, 1.0,
+                   NULL);
+
+/&#x002A; transition from the "base" state to the "hover" state &#x002A;/
+clutter_color_from_string (&color, "rgb(0, 0, 255)");
+clutter_state_set (state, "base", "hover",
+                   actor, "color", CLUTTER_LINEAR, &color,
+                   actor, "scale-x", CLUTTER_EASE_OUT_BOUNCE, 1.7,
+                   actor, "scale-y", CLUTTER_EASE_OUT_BOUNCE, 1.7,
+                   NULL);
+
+/&#x002A; the default duration of any transition &#x002A;/
+clutter_state_set_duration (state, NULL, NULL, 500);
+
+/&#x002A; set "base" as the initial state &#x002A;/
+clutter_state_warp_to_state (state, "base");
+  
+@end example
+
+The actor then uses the @code{<clutter-state>} to animate through the
+two states using callbacks for the @code{<"enter-event">} and
+@code{<"leave-event">} signals.
+
+@example 
+
+static gboolean
+on_enter (ClutterActor *actor,
+          ClutterEvent *event,
+          ClutterState *state)
+@{
+  clutter_state_set_state (state, "hover");
+
+  return TRUE;
+@}
+
+static gboolean
+on_leave (ClutterActor *actor,
+          ClutterEvent *event,
+          ClutterState *state)
+@{
+  clutter_state_set_state (state, "base");
+
+  return TRUE;
+@}
+  
+@end example
+
+@section ClutterState description for @code{<clutter-script>}
+@code{<clutter-state>} defines a custom @emph{transitions} property
+which allows describing the states.
+
+The @emph{transitions} property has the following syntax:
+
+@example 
+
+@{
+  "transitions" : [
+    @{
+      "source" : "<source-state>",
+      "target" : "<target-state>",
+      "duration" : <milliseconds>,
+      "keys" : [
+        [
+          "<object-id>",
+          "<property-name>",
+          "<easing-mode>",
+          "<final-value>",
+        ],
+        [
+          "<object-id>",
+          "<property-name>",
+          "<easing-mode>",
+          "<final-value>",
+          <pre-delay>,
+          <post-delay>
+        ],
+        ...
+      ]
+    @},
+    @{
+      "source" : "<source-state>",
+      "target" : "<target-state>",
+      "duration" : <milliseconds>,
+      "animator" : "<animator-definition>"
+    @},
+    ...
+  ]
+@}
+    
+@end example
+
+Each element of the @emph{transitions} array follows the same rules as
+@code{clutter-state-set-key}.
+
+The @emph{source} and @emph{target} values control the source and target
+state of the transition. The @emph{key} and @emph{animator} are mutually
+exclusive. The @emph{pre-delay} and @emph{post-delay} values are
+optional.
+
+@c (example (@ (id "ClutterState-script-example")))
+@c (title "ClutterState definition")
+The example below is a translation into a @code{<clutter-script>}
+definition of the code in the example above.
+
+@example 
+
+@{
+  "id" : "button-state",
+  "type" : "ClutterState",
+  "duration" : 500,
+  "transitions" : [
+    @{
+      "source" : "*",
+      "target" : "base",
+      "keys" : [
+        [ "button", "color", "linear", "rgb(255, 0, 0)" ],
+        [ "button", "scale-x", "easeInBounce", 1.0 ],
+        [ "button", "scale-y", "easeInBounce", 1.0 ]
+      ]
+    @},
+    @{
+      "source" : "base",
+      "target" : "hover",
+      "keys" : [
+        [ "button", "color", "linear", "rgb(0, 0, 255)" ],
+        [ "button", "scale-x", "easeOutBounce", 1.7 ],
+        [ "button", "scale-y", "easeOutBounce", 1.7 ]
+      ]
+    @}
+  ]
+@}
+    
+@end example
+
+@code{<clutter-state>} is available since Clutter 1.4.
+
 @section Usage
 @include defuns-clutter-state.xml.texi
 

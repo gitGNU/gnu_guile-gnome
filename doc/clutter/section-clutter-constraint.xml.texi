@@ -16,7 +16,96 @@ is applied, by updating the actor's allocation. Each
 which they are applied by overriding the @code{@code{update-allocation}}
 virtual function.
 
-@section Implemting a ClutterConstraint
+@section Using Constraints
+Constraints can be used with fixed layout managers, like
+@code{<clutter-fixed-layout>}, or with actors implicitly using a fixed
+layout manager, like @code{<clutter-group>} and @code{<clutter-stage>}.
+
+Constraints provide a way to build user interfaces by using relations
+between @code{<clutter-actor>}s, without explicit fixed positioning and
+sizing, similarly to how fluid layout managers like
+@code{<clutter-box-layout>} and @code{<clutter-table-layout>} lay out
+their children.
+
+Constraints are attached to a @code{<clutter-actor>}, and are available
+for inspection using @code{clutter-actor-get-constraints}.
+
+Clutter provides different implementation of the
+@code{<clutter-constraint>} abstract class, for instance:
+
+@table @var
+@item <clutter-bind-constraint>
+this constraint binds the X, Y, width or height of an actor to the
+corresponding position or size of a source actor; it can also apply an
+offset.
+
+@item <clutter-snap-constraint>
+this constraint "snaps" together the edges of two
+@code{<clutter-actor>}s; if an actor uses two constraints on both its
+horizontal or vertical edges then it can also expand to fit the empty
+space.
+
+@end table
+
+@c (example (@ (id "ClutterConstraint-usage-example")) (para "(The missing figure, " "constraints-example"))
+@c (title "Usage of constraints")
+The example below uses various @code{<clutter-constraint>}s to lay out
+three actors on a resizable stage. Only the central actor has an
+explicit size, and no actor has an explicit position.
+
+@enumerate 
+@item
+The @code{<clutter-rectangle>} with @code{<"name">}@emph{layerA} is
+explicitly sized to 100 pixels by 25 pixels, and it's added to the
+@code{<clutter-stage>};
+
+@item
+two @code{<clutter-align-constraint>}s are used to anchor @emph{layerA}
+to the center of the stage, by using 0.5 as the alignment
+@code{<"factor">} on both the X and Y axis.
+
+@item
+the @code{<clutter-rectangle>} with @code{<"name">}@emph{layerB} is
+added to the @code{<clutter-stage>} with no explicit size;
+
+@item
+the @code{<"x">} and @code{<"width">} of @emph{layerB} are bound to the
+same properties of @emph{layerA} using two
+@code{<clutter-bind-constraint>} objects, thus keeping @emph{layerB}
+aligned to @emph{layerA};
+
+@item
+the top edge of @emph{layerB} is snapped together with the bottom edge
+of @emph{layerA}; the bottom edge of @emph{layerB} is also snapped
+together with the bottom edge of the @code{<clutter-stage>}; an offset
+is given to the two @code{<clutter-snap-constraint>}s to allow for some
+padding; since @emph{layerB} is snapped between two different
+@code{<clutter-actor>}s, its height is stretched to match the gap;
+
+@item
+the @code{<clutter-rectangle>} with @code{<"name">}@emph{layerC} mirrors
+@emph{layerB}, snapping the top edge of the @code{<clutter-stage>} to
+the top edge of @emph{layerC} and the top edge of @emph{layerA} to the
+bottom edge of @emph{layerC};
+
+@end enumerate
+
+@c (title "Constraints")
+@example 
+@c (http://www.w3.org/2001/XInclude:include (@ (parse "text") (href "../../../../tests/interactive/test-snap-constraint.c")) (c (% (all "(http://www.w3.org/2001/XInclude:fallback \"FIXME: MISSING XINCLUDE CONTENT\")"))))
+@end example
+
+You can try resizing interactively the @code{<clutter-stage>} and verify
+that the three @code{<clutter-actor>}s maintain the same position and
+size relative to each other, and to the @code{<clutter-stage>}.
+
+It's important to note that Clutter does not avoid loops or competing
+constraints; if two or more @code{<clutter-constraint>}s are operating
+on the same positional or dimensional attributes of an actor, or if the
+constraints on two different actors depend on each other, then the
+behavior is undefined.
+
+@section Implementing a ClutterConstraint
 Creating a sub-class of @code{<clutter-constraint>} requires the
 implementation of the @code{@code{update-allocation}} virtual function.
 

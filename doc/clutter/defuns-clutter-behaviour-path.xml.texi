@@ -2,6 +2,9 @@
 @c %start of fragment
 
 @deffn Function clutter-behaviour-path-new  (alpha@tie{}@code{<clutter-alpha>}) (path@tie{}@code{<clutter-path>}) @result{}@tie{} (ret@tie{}@code{<clutter-behaviour>})
+@samp{clutter_behaviour_path_new} is deprecated and should not be used
+in newly-written code. 1.6
+
 Creates a new path behaviour. You can use this behaviour to drive actors
 along the nodes of a path, described by @var{path}.
 
@@ -21,7 +24,7 @@ a @code{<clutter-alpha>} instance, or @samp{@code{#f}}.
 a @code{<clutter-path>} or @samp{@code{#f}} for an empty path
 
 @item ret
-a @code{<clutter-behaviour>}
+a @code{<clutter-behaviour>}.
 
 @end table
 
@@ -31,6 +34,9 @@ Since 0.2
 
 @deffn Function clutter-behaviour-path-set-path  (self@tie{}@code{<clutter-behaviour-path>}) (path@tie{}@code{<clutter-path>})
 @deffnx Method set-path
+@samp{clutter_behaviour_path_set_path} is deprecated and should not be
+used in newly-written code. 1.6
+
 Change the path that the actors will follow. This will take the floating
 reference on the @code{<clutter-path>} so you do not need to unref it.
 
@@ -49,6 +55,9 @@ Since 1.0
 
 @deffn Function clutter-behaviour-path-get-path  (self@tie{}@code{<clutter-behaviour-path>}) @result{}@tie{} (ret@tie{}@code{<clutter-path>})
 @deffnx Method get-path
+@samp{clutter_behaviour_path_get_path} is deprecated and should not be
+used in newly-written code. 1.6
+
 Get the current path of the behaviour
 
 @table @var

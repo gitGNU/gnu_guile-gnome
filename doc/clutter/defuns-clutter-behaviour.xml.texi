@@ -3,6 +3,9 @@
 
 @deffn Function clutter-behaviour-apply  (self@tie{}@code{<clutter-behaviour>}) (actor@tie{}@code{<clutter-actor>})
 @deffnx Method apply
+@samp{clutter_behaviour_apply} is deprecated and should not be used in
+newly-written code.
+
 Applies @var{behave} to @var{actor}. This function adds a reference on
 the actor.
 
@@ -21,6 +24,9 @@ Since 0.2
 
 @deffn Function clutter-behaviour-remove  (self@tie{}@code{<clutter-behaviour>}) (actor@tie{}@code{<clutter-actor>})
 @deffnx Method remove
+@samp{clutter_behaviour_remove} is deprecated and should not be used in
+newly-written code.
+
 Removes @var{actor} from the list of @code{<clutter-actor>}s to which
 @var{behave} applies. This function removes a reference on the actor.
 
@@ -39,6 +45,9 @@ Since 0.2
 
 @deffn Function clutter-behaviour-remove-all  (self@tie{}@code{<clutter-behaviour>})
 @deffnx Method remove-all
+@samp{clutter_behaviour_remove_all} is deprecated and should not be used
+in newly-written code.
+
 Removes every actor from the list that @var{behave} holds.
 
 @table @var
@@ -53,6 +62,9 @@ Since 0.4
 
 @deffn Function clutter-behaviour-is-applied  (self@tie{}@code{<clutter-behaviour>}) (actor@tie{}@code{<clutter-actor>}) @result{}@tie{} (ret@tie{}@code{bool})
 @deffnx Method is-applied
+@samp{clutter_behaviour_is_applied} is deprecated and should not be used
+in newly-written code.
+
 Check if @var{behave} applied to @var{actor}.
 
 @table @var
@@ -73,6 +85,9 @@ Since 0.4
 
 @deffn Function clutter-behaviour-get-actors  (self@tie{}@code{<clutter-behaviour>}) @result{}@tie{} (ret@tie{}@code{gslist-of})
 @deffnx Method get-actors
+@samp{clutter_behaviour_get_actors} is deprecated and should not be used
+in newly-written code.
+
 Retrieves all the actors to which @var{behave} applies. It is not
 recommended for derived classes to use this in there alpha notify method
 but use @code{<clutter-behaviour-actors-foreach>} as it avoids alot of
@@ -94,6 +109,9 @@ Since 0.2
 
 @deffn Function clutter-behaviour-get-n-actors  (self@tie{}@code{<clutter-behaviour>}) @result{}@tie{} (ret@tie{}@code{int})
 @deffnx Method get-n-actors
+@samp{clutter_behaviour_get_n_actors} is deprecated and should not be
+used in newly-written code.
+
 Gets the number of actors this behaviour is applied too.
 
 @table @var
@@ -111,6 +129,9 @@ Since 0.2
 
 @deffn Function clutter-behaviour-get-nth-actor  (self@tie{}@code{<clutter-behaviour>}) (index_@tie{}@code{int}) @result{}@tie{} (ret@tie{}@code{<clutter-actor>})
 @deffnx Method get-nth-actor
+@samp{clutter_behaviour_get_nth_actor} is deprecated and should not be
+used in newly-written code.
+
 Gets an actor the behaviour was applied to referenced by index num.
 
 @table @var
@@ -131,6 +152,9 @@ Since 0.2
 
 @deffn Function clutter-behaviour-get-alpha  (self@tie{}@code{<clutter-behaviour>}) @result{}@tie{} (ret@tie{}@code{<clutter-alpha>})
 @deffnx Method get-alpha
+@samp{clutter_behaviour_get_alpha} is deprecated and should not be used
+in newly-written code.
+
 Retrieves the @code{<clutter-alpha>} object bound to @var{behave}.
 
 @table @var
@@ -149,6 +173,9 @@ Since 0.2
 
 @deffn Function clutter-behaviour-set-alpha  (self@tie{}@code{<clutter-behaviour>}) (alpha@tie{}@code{<clutter-alpha>})
 @deffnx Method set-alpha
+@samp{clutter_behaviour_set_alpha} is deprecated and should not be used
+in newly-written code.
+
 Binds @var{alpha} to a @code{<clutter-behaviour>}. The
 @code{<clutter-alpha>} object is what makes a behaviour work: for each
 tick of the timeline used by @code{<clutter-alpha>} a new value of the

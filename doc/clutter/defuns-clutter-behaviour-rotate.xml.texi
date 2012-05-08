@@ -2,6 +2,9 @@
 @c %start of fragment
 
 @deffn Function clutter-behaviour-rotate-new  (alpha@tie{}@code{<clutter-alpha>}) (axis@tie{}@code{<clutter-rotate-axis>}) (direction@tie{}@code{<clutter-rotate-direction>}) (angle_start@tie{}@code{double}) (angle_end@tie{}@code{double}) @result{}@tie{} (ret@tie{}@code{<clutter-behaviour>})
+@samp{clutter_behaviour_rotate_new} is deprecated and should not be used
+in newly-written code.
+
 Creates a new @code{<clutter-behaviour-rotate>}. This behaviour will
 rotate actors bound to it on @var{axis}, following @var{direction},
 between @var{angle-start} and @var{angle-end}. Angles >= 360 degrees
@@ -41,6 +44,9 @@ Since 0.4
 
 @deffn Function clutter-behaviour-rotate-set-axis  (self@tie{}@code{<clutter-behaviour-rotate>}) (axis@tie{}@code{<clutter-rotate-axis>})
 @deffnx Method set-axis
+@samp{clutter_behaviour_rotate_set_axis} is deprecated and should not be
+used in newly-written code.
+
 Sets the axis used by the rotate behaviour.
 
 @table @var
@@ -58,6 +64,9 @@ Since 0.4
 
 @deffn Function clutter-behaviour-rotate-get-axis  (self@tie{}@code{<clutter-behaviour-rotate>}) @result{}@tie{} (ret@tie{}@code{<clutter-rotate-axis>})
 @deffnx Method get-axis
+@samp{clutter_behaviour_rotate_get_axis} is deprecated and should not be
+used in newly-written code.
+
 Retrieves the @code{<clutter-rotate-axis>} used by the rotate behaviour.
 
 @table @var
@@ -75,6 +84,9 @@ Since 0.4
 
 @deffn Function clutter-behaviour-rotate-set-bounds  (self@tie{}@code{<clutter-behaviour-rotate>}) (angle_start@tie{}@code{double}) (angle_end@tie{}@code{double})
 @deffnx Method set-bounds
+@samp{clutter_behaviour_rotate_set_bounds} is deprecated and should not
+be used in newly-written code.
+
 Sets the initial and final angles of a rotation behaviour; angles >= 360
 degrees get clamped to the canonical interval <0, 360).
 
@@ -96,6 +108,9 @@ Since 0.4
 
 @deffn Function clutter-behaviour-rotate-get-bounds  (self@tie{}@code{<clutter-behaviour-rotate>}) @result{}@tie{} (angle_start@tie{}@code{double}) (angle_end@tie{}@code{double})
 @deffnx Method get-bounds
+@samp{clutter_behaviour_rotate_get_bounds} is deprecated and should not
+be used in newly-written code.
+
 Retrieves the rotation boundaries of the rotate behaviour.
 
 @table @var
@@ -116,6 +131,9 @@ Since 0.4
 
 @deffn Function clutter-behaviour-rotate-set-center  (self@tie{}@code{<clutter-behaviour-rotate>}) (x@tie{}@code{int}) (y@tie{}@code{int}) (z@tie{}@code{int})
 @deffnx Method set-center
+@samp{clutter_behaviour_rotate_set_center} is deprecated and should not
+be used in newly-written code.
+
 Sets the center of rotation. The coordinates are relative to the plane
 normal to the rotation axis set with
 @code{clutter-behaviour-rotate-set-axis}.
@@ -141,6 +159,9 @@ Since 0.4
 
 @deffn Function clutter-behaviour-rotate-get-center  (self@tie{}@code{<clutter-behaviour-rotate>}) @result{}@tie{} (x@tie{}@code{int}) (y@tie{}@code{int}) (z@tie{}@code{int})
 @deffnx Method get-center
+@samp{clutter_behaviour_rotate_get_center} is deprecated and should not
+be used in newly-written code.
+
 Retrieves the center of rotation set using
 @code{clutter-behaviour-rotate-set-center}.
 

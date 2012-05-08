@@ -23,7 +23,7 @@ Creates a new, non-default stage. A non-default stage is a new top-level
 actor which can be used as another container. It works exactly like the
 default stage, but while @code{clutter-stage-get-default} will always
 return the same instance, you will have to keep a pointer to any
-@code{<clutter-stage>} returned by @code{clutter-stage-create}.
+@code{<clutter-stage>} returned by @code{clutter-stage-new}.
 
 The ability to support multiple stages depends on the current backend.
 Use @code{clutter-feature-available} and
@@ -84,7 +84,7 @@ Retrieves the stage color.
 A @code{<clutter-stage>}
 
 @item color
-return location for a @code{<clutter-color>}
+return location for a @code{<clutter-color>}.
 
 @end table
 
@@ -462,6 +462,44 @@ cycle, and @samp{@code{#f}} otherwise
 @end table
 
 Since 1.4
+
+@end deffn
+
+@deffn Function clutter-stage-set-accept-focus  (self@tie{}@code{<clutter-stage>}) (accept_focus@tie{}@code{bool})
+@deffnx Method set-accept-focus
+Sets whether the @var{stage} should accept the key focus when shown.
+
+This function should be called before showing @var{stage} using
+@code{clutter-actor-show}.
+
+@table @var
+@item stage
+a @code{<clutter-stage>}
+
+@item accept-focus
+@samp{@code{#t}} to accept focus on show
+
+@end table
+
+Since 1.6
+
+@end deffn
+
+@deffn Function clutter-stage-get-accept-focus  (self@tie{}@code{<clutter-stage>}) @result{}@tie{} (ret@tie{}@code{bool})
+@deffnx Method get-accept-focus
+Retrieves the value set with @code{clutter-stage-set-accept-focus}.
+
+@table @var
+@item stage
+a @code{<clutter-stage>}
+
+@item ret
+@samp{@code{#t}} if the @code{<clutter-stage>} should accept focus, and
+@samp{@code{#f}} otherwise
+
+@end table
+
+Since 1.6
 
 @end deffn
 
