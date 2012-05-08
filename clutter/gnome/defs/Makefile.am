@@ -18,7 +18,7 @@ clutter:
 	../../../h2def.py --types \
 	   $(CLUTTER_INC_DIR)/*.h > clutter-types.defs
 	../../../h2def.py --procs \
-	   --with-header='(include "clutter-types.defs") (include overrides)' \
+	   --with-header='(include type-ignores) (include "clutter-types.defs") (include overrides)' \
 	   $(CLUTTER_INC_DIR)/*.h > clutter.defs
 
 clutter-x11:

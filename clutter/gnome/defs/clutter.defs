@@ -1,5 +1,5 @@
 ;; -*- scheme -*-
-(include "clutter-types.defs") (include overrides)
+(include type-ignores) (include "clutter-types.defs") (include overrides)
 
 ;; From /opt/clutter/include/clutter-1.0/clutter/clutter-action.h
 
