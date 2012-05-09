@@ -1,5 +1,5 @@
 ;; guile-gnome
-;; Copyright (C) 2008 Free Software Foundation, Inc.
+;; Copyright (C) 2008, 2012 Free Software Foundation, Inc.
 
 ;; This program is free software; you can redistribute it and/or    
 ;; modify it under the terms of the GNU General Public License as   
@@ -27,7 +27,43 @@
 ;;; Code:
 
 (define-module (gnome clutter)
+  #:use-module (oop goops)
+  #:use-module (gnome gobject)
   #:use-module (gnome gw clutter)
-  #:use-module (gnome gw support modules))
+  #:use-module (gnome gw support modules)
+  #:export (clutter-interval-new
+            clutter-interval-set-initial
+            clutter-interval-set-final
+            clutter-interval-set-interval
+            clutter-interval-get-initial
+            clutter-interval-get-final
+            clutter-interval-get-interval))
 
 (re-export-modules (gnome gw clutter))
+
+(define (clutter-interval-new type from to)
+  (clutter-interval-new-with-values type
+                                    (make type #:value from)
+                                    (make type #:value to)))
+
+(define (clutter-interval-set-initial interval val)
+  (let ((type (clutter-interval-get-value-type interval)))
+    (clutter-interval-set-initial-value interval (make type #:value val))))
+
+(define (clutter-interval-set-final interval val)
+  (let ((type (clutter-interval-get-value-type interval)))
+    (clutter-interval-set-final-value interval (make type #:value val))))
+
+(define (clutter-interval-set-interval interval initial final)
+  (clutter-interval-set-initial interval initial)
+  (clutter-interval-set-final interval final))
+
+(define (clutter-interval-get-initial interval)
+  (gvalue->scm (clutter-interval-get-initial-value interval)))
+
+(define (clutter-interval-get-final interval)
+  (gvalue->scm (clutter-interval-get-final-value interval)))
+
+(define (clutter-interval-get-interval interval)
+  (values (clutter-interval-get-initial interval)
+          (clutter-interval-get-final interval)))
