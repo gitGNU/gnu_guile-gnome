@@ -245,6 +245,20 @@
   (return-type "GList*-of-ClutterInputDevice*")
 )
 
+(define-method get_initial_value
+  (of-object "ClutterInterval")
+  (c-name "clutter_interval_peek_initial_value")
+  (overrides "clutter_interval_get_initial_value")
+  (return-type "const-GValue*")
+)
+
+(define-method get_final_value
+  (of-object "ClutterInterval")
+  (c-name "clutter_interval_peek_final_value")
+  (overrides "clutter_interval_get_final_value")
+  (return-type "const-GValue*")
+)
+
 (define-method get_nodes
   (of-object "ClutterPath")
   (c-name "clutter_path_get_nodes")
@@ -418,6 +432,8 @@
              "clutter_image_set_area"
              "clutter_image_get_texture"
              "clutter_init*"
+             "clutter_interval_peek_*"
+             "clutter_interval_compute_value"
              "clutter_get_option_group"
              "clutter_get_option_group_without_init"
              ;;"clutter_main*" ;; fixme: do i need to do something special with clutter-main?
