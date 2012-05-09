@@ -39,8 +39,8 @@ exec guile -e main -s $0 "$@"
   #t)
 
 (define (prep-stage)
-  (set! *stage* (clutter-stage-get-default))
-  (set-color *stage* (pk (clutter-color-from-string "DarkSlateGrey")))
+  (set! *stage* (clutter-stage-new))
+  (set-background-color *stage* (pk (clutter-color-from-string "DarkSlateGrey")))
   (set-size *stage* 800 600)
   (set-title *stage* "My First Clutter Application")
   (connect *stage* 'key-press-event
@@ -60,19 +60,19 @@ exec guile -e main -s $0 "$@"
       (let-values (((w h) (get-size l)))
         (pk w h)
         (set-position l (- sw w 50) (- sh h))
-        (add-actor *stage* l)
+        (add-child *stage* l)
         (values sw (- sh h)))))
 
   (define (make-cursor sw sh)
-    (let* ((c (make <clutter-rectangle>
-                #:color *color* #:width 20 #:height (pk (- (get-height *stage*) sh))
+    (let* ((c (make <clutter-actor>
+                #:background-color *color* #:width 20 #:height (pk (- (get-height *stage*) sh))
                 #:x (- sw 50) #:y sh #:opacity #xdd)))
       (save-easing-state c)
       (set-easing-duration c 800) ; milliseconds
       (set-opacity c 0)
       (set-repeat-count (get-transition c "opacity") -1)
       (restore-easing-state c)
-      (add-actor *stage* c)
+      (add-child *stage* c)
       (values sw sh)))
 
   (fold-pack (get-width *stage*) (get-height *stage*)
@@ -83,6 +83,6 @@ exec guile -e main -s $0 "$@"
   (let ((message (if (pair? (cdr args)) (cadr args) "Hello from Guile-Clutter!")))
     (prep-stage)
     (show-message message)
-    (show-all *stage*)
+    (show *stage*)
     (g-main-loop-run *loop*)
     (exit 0)))
