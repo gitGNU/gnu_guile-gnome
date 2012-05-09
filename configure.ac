@@ -134,7 +134,6 @@ clutter/gnome/gw/Makefile
 clutter/gnome/Makefile
 clutter/gnome/overrides/Makefile
 clutter/gnome/defs/Makefile
-examples/Makefile
 doc/Makefile
 doc/clutter-glx/Makefile
 doc/clutter/Makefile
