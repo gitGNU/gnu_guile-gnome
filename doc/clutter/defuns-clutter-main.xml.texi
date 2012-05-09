@@ -22,89 +22,6 @@ The level of the mainloop.
 
 @end deffn
 
-@deffn Function clutter-get-debug-enabled  @result{}@tie{} (ret@tie{}@code{bool})
-@samp{clutter_get_debug_enabled} has been deprecated since version 1.10
-and should not be used in newly-written code. This function does not do
-anything.
-
-Check if Clutter has debugging enabled.
-
-@table @var
-@item ret
-@samp{@code{#f}}
-
-@end table
-
-@end deffn
-
-@deffn Function clutter-get-show-fps  @result{}@tie{} (ret@tie{}@code{bool})
-@samp{clutter_get_show_fps} has been deprecated since version 1.10 and
-should not be used in newly-written code. This function does not do
-anything. Use the environment variable or the configuration file to
-determine whether Clutter should print out the FPS counter on the
-console.
-
-Returns whether Clutter should print out the frames per second on the
-console. You can enable this setting either using the
-@samp{CLUTTER_SHOW_FPS} environment variable or passing the
-@samp{--clutter-show-fps} command line argument. *
-
-@table @var
-@item ret
-@samp{@code{#t}} if Clutter should show the FPS.
-
-@end table
-
-Since 0.4
-
-@end deffn
-
-@deffn Function clutter-get-timestamp  @result{}@tie{} (ret@tie{}@code{unsigned-long})
-@samp{clutter_get_timestamp} has been deprecated since version 1.10 and
-should not be used in newly-written code. Use @code{<g-timer>} or
-@code{g-get-monotonic-time} for a proper timing source
-
-Returns the approximate number of microseconds passed since Clutter was
-intialised.
-
-This function shdould not be used by application code.
-
-The output of this function depends on whether Clutter was configured to
-enable its debugging code paths, so it's less useful than intended.
-
-Since Clutter 1.10, this function is an alias to
-@code{g-get-monotonic-time} if Clutter was configured to enable the
-debugging code paths.
-
-@table @var
-@item ret
-Number of microseconds since @code{clutter-init} was called, or zero if
-Clutter was not configured with debugging code paths.
-
-@end table
-
-@end deffn
-
-@deffn Function clutter-set-default-frame-rate  (frames_per_sec@tie{}@code{unsigned-int})
-@samp{clutter_set_default_frame_rate} has been deprecated since version
-1.10 and should not be used in newly-written code. This function does
-not do anything any more.
-
-Sets the default frame rate. This frame rate will be used to limit the
-number of frames drawn if Clutter is not able to synchronize with the
-vertical refresh rate of the display. When synchronization is possible,
-this value is ignored.
-
-@table @var
-@item frames-per-sec
-the new default frame rate
-
-@end table
-
-Since 0.6
-
-@end deffn
-
 @deffn Function clutter-get-default-frame-rate  @result{}@tie{} (ret@tie{}@code{unsigned-int})
 Retrieves the default frame rate. See
 @code{clutter-set-default-frame-rate}.
@@ -116,63 +33,6 @@ the default frame rate
 @end table
 
 Since 0.6
-
-@end deffn
-
-@deffn Function clutter-clear-glyph-cache 
-@samp{clutter_clear_glyph_cache} has been deprecated since version 1.10
-and should not be used in newly-written code. Use
-@code{clutter-get-font-map} and
-@code{cogl-pango-font-map-clear-glyph-cache} instead.
-
-Clears the internal cache of glyphs used by the Pango renderer. This
-will free up some memory and GL texture resources. The cache will be
-automatically refilled as more text is drawn.
-
-Since 0.8
-
-@end deffn
-
-@deffn Function clutter-set-font-flags  (flags@tie{}@code{<clutter-font-flags>})
-@samp{clutter_set_font_flags} has been deprecated since version 1.10 and
-should not be used in newly-written code. Use
-@code{clutter-backend-set-font-options} and the
-@code{<cairo-font-option-t>} API.
-
-Sets the font quality options for subsequent text rendering operations.
-
-Using mipmapped textures will improve the quality for scaled down text
-but will use more texture memory.
-
-Enabling hinting improves text quality for static text but may introduce
-some artifacts if the text is animated.
-
-@table @var
-@item flags
-The new flags
-
-@end table
-
-Since 1.0
-
-@end deffn
-
-@deffn Function clutter-get-font-flags  @result{}@tie{} (ret@tie{}@code{<clutter-font-flags>})
-@samp{clutter_get_font_flags} has been deprecated since version 1.10 and
-should not be used in newly-written code. Use
-@code{clutter-backend-get-font-options} and the
-@code{<cairo-font-options-t>} API.
-
-Gets the current font flags for rendering text. See
-@code{clutter-set-font-flags}.
-
-@table @var
-@item ret
-The font flags
-
-@end table
-
-Since 1.0
 
 @end deffn
 
@@ -315,47 +175,6 @@ Since 0.6
 Removes an existing grab of the pointer.
 
 Since 0.6
-
-@end deffn
-
-@deffn Function clutter-grab-pointer-for-device  (actor@tie{}@code{<clutter-actor>}) (id_@tie{}@code{int})
-@samp{clutter_grab_pointer_for_device} has been deprecated since version
-1.10 and should not be used in newly-written code. Use
-@code{clutter-input-device-grab} instead.
-
-Grabs all the pointer events coming from the device @var{id} for
-@var{actor}.
-
-If @var{id} is -1 then this function is equivalent to
-@code{clutter-grab-pointer}.
-
-@table @var
-@item actor
-a @code{<clutter-actor>}
-
-@item id
-a device id, or -1
-
-@end table
-
-Since 0.8
-
-@end deffn
-
-@deffn Function clutter-ungrab-pointer-for-device  (id_@tie{}@code{int})
-@samp{clutter_ungrab_pointer_for_device} has been deprecated since
-version 1.10 and should not be used in newly-written code. Use
-@code{clutter-input-device-ungrab} instead.
-
-Removes an existing grab of the pointer events for device @var{id}.
-
-@table @var
-@item id
-a device id
-
-@end table
-
-Since 0.8
 
 @end deffn
 

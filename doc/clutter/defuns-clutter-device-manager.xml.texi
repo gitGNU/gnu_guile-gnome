@@ -61,36 +61,5 @@ Since 1.2
 
 @end deffn
 
-@deffn Function clutter-get-input-device-for-id  (id_@tie{}@code{int}) @result{}@tie{} (ret@tie{}@code{<clutter-input-device*>})
-@samp{clutter_get_input_device_for_id} has been deprecated since version
-1.10 and should not be used in newly-written code. Use
-@code{clutter-device-manager-get-device} instead.
-
-Retrieves the @code{<clutter-input-device>} from its @var{id}. This is a
-convenience wrapper for @code{clutter-device-manager-get-device} and it
-is functionally equivalent to:
-
-@example 
-
-  ClutterDeviceManager *manager;
-  ClutterInputDevice *device;
-
-  manager = clutter_device_manager_get_default ();
-  device = clutter_device_manager_get_device (manager, id);
-@end example
-
-@table @var
-@item id
-the unique id for a device
-
-@item ret
-a @code{<clutter-input-device>}, or @samp{@code{#f}}.
-
-@end table
-
-Since 0.8
-
-@end deffn
-
 
 @c %end of fragment

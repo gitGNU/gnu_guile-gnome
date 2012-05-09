@@ -50,10 +50,6 @@ SCM scm_clutter_perspective_to_scm (ClutterPerspective *x);
 ClutterPerspective* scm_scm_to_clutter_perspective (SCM scm);
 SCM wrap_clutter_stage_get_perspective (ClutterStage *stage);
 
-SCM scm_clutter_fog_to_scm (ClutterFog *x);
-ClutterFog* scm_scm_to_clutter_fog (SCM scm);
-SCM wrap_clutter_stage_get_fog (ClutterStage *stage);
-
 SCM _wrap_clutter_color_from_string (const char *name);
 
 ClutterUnits* wrap_clutter_units_from_pixels (gint px);

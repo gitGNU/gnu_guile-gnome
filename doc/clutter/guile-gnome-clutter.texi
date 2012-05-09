@@ -69,7 +69,6 @@ USA
 * ClutterBlurEffect:: A blur effect
 * ClutterBrightnessContrastEffect:: Increase/decrease brightness and/or contrast of actor.
 * ClutterBoxLayout:: A layout manager arranging children on a single line
-* ClutterBox:: A generic layout container
 * Key Bindings:: Pool for key bindings.
 * ClutterCanvas:: Content for 2D painting
 * ClutterChildMeta:: Wrapper for actors inside a container
@@ -92,7 +91,6 @@ USA
 * ClutterFixedLayout:: A fixed layout manager
 * ClutterFlowLayout:: A reflowing layout manager
 * ClutterGestureAction:: Action for gesture gestures
-* ClutterGroup:: Actor class containing multiple children. actors.
 * ClutterInputDevice:: An input device managed by Clutter
 * ClutterImage:: Image data content
 * Value intervals:: An object holding an interval of two values.
@@ -110,7 +108,6 @@ USA
 * ClutterPathConstraint:: A constraint that follows a path
 * ClutterPath:: Paths with straight lines and bezier curves.
 * ClutterPropertyTransition:: Property transitions
-* ClutterRectangle:: An actor that displays a simple rectangle.
 * ClutterSettings:: Settings configuration
 * ClutterScriptable:: Override the UI definition parsing
 * ClutterScript:: Loads a scene from UI definition data
@@ -160,7 +157,6 @@ USA
 @include section-clutter-binding-pool.xml.texi
 @include section-clutter-blur-effect.xml.texi
 @include section-clutter-box-layout.xml.texi
-@include section-clutter-box.xml.texi
 @include section-clutter-brightness-contrast-effect.xml.texi
 @include section-clutter-cairo-texture.xml.texi
 @include section-clutter-canvas.xml.texi
@@ -183,7 +179,6 @@ USA
 @include section-clutter-fixed-layout.xml.texi
 @include section-clutter-flow-layout.xml.texi
 @include section-clutter-gesture-action.xml.texi
-@include section-clutter-group.xml.texi
 @include section-clutter-image.xml.texi
 @include section-clutter-input-device.xml.texi
 @include section-clutter-interval.xml.texi
@@ -201,7 +196,6 @@ USA
 @include section-clutter-path-constraint.xml.texi
 @include section-clutter-path.xml.texi
 @include section-clutter-property-transition.xml.texi
-@include section-clutter-rectangle.xml.texi
 @include section-clutter-script.xml.texi
 @include section-clutter-scriptable.xml.texi
 @include section-clutter-settings.xml.texi

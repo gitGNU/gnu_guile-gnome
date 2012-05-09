@@ -242,30 +242,6 @@ wrap_clutter_stage_get_perspective (ClutterStage* stage)
 }
 
 SCM
-scm_clutter_fog_to_scm (ClutterFog *x)
-{
-    return scm_cons (scm_from_double (x->z_near),
-                     scm_from_double (x->z_far));
-}
-
-ClutterFog*
-scm_scm_to_clutter_fog (SCM scm)
-{
-    ClutterFog ret;
-    ret.z_near = scm_to_double (scm_car (scm));
-    ret.z_far = scm_to_double (scm_cdr (scm));
-    return g_boxed_copy (CLUTTER_TYPE_FOG, &ret);
-}
-
-SCM
-wrap_clutter_stage_get_fog (ClutterStage* stage)
-{
-    ClutterFog p;
-    clutter_stage_get_fog (stage, &p);
-    return scm_clutter_fog_to_scm (&p);
-}
-
-SCM
 _wrap_clutter_color_from_string (const char *name)
 {
     ClutterColor parsed;

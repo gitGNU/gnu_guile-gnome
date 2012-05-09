@@ -5,6 +5,28 @@
 @chapter Undocumented
 The following symbols, if any, have not been properly documented.
 
+@section (gnome clutter)
+@defun clutter-interval-get-final interval
+@end defun
+
+@defun clutter-interval-get-initial interval
+@end defun
+
+@defun clutter-interval-get-interval interval
+@end defun
+
+@defun clutter-interval-new type from to
+@end defun
+
+@defun clutter-interval-set-final interval val
+@end defun
+
+@defun clutter-interval-set-initial interval val
+@end defun
+
+@defun clutter-interval-set-interval interval initial final
+@end defun
+
 @section (gnome gw clutter)
 @deftp Class <clutter-animatable>
 @end deftp
@@ -192,18 +214,6 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-cairo-texture-set-surface-size
 @end defvar
 
-@defvar clutter-canvas-new
-@end defvar
-
-@defvar clutter-canvas-set-size
-@end defvar
-
-@defvar clutter-clip-node-new
-@end defvar
-
-@defvar clutter-color-node-new
-@end defvar
-
 @defvar clutter-container-child-get-property
 @end defvar
 
@@ -214,12 +224,6 @@ The following symbols, if any, have not been properly documented.
 @end defvar
 
 @defvar clutter-container-find-child-by-name
-@end defvar
-
-@defun clutter-content-get-preferred-size _
-@end defun
-
-@defvar clutter-content-invalidate
 @end defvar
 
 @defvar clutter-desaturate-effect-get-factor
@@ -276,9 +280,6 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-image-error-quark
 @end defvar
 
-@defvar clutter-image-new
-@end defvar
-
 @defvar clutter-input-device-get-associated-device
 @end defvar
 
@@ -310,6 +311,9 @@ The following symbols, if any, have not been properly documented.
 @end defun
 
 @defvar clutter-input-device-update-from-event
+@end defvar
+
+@defvar clutter-knot-equal
 @end defvar
 
 @defvar clutter-layout-manager-begin-animation
@@ -357,16 +361,7 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-offscreen-effect-paint-target
 @end defvar
 
-@defvar clutter-paint-node-add-child
-@end defvar
-
-@defvar clutter-paint-node-add-rectangle
-@end defvar
-
 @defvar clutter-paint-node-add-texture-rectangle
-@end defvar
-
-@defvar clutter-paint-node-set-name
 @end defvar
 
 @defvar clutter-paint-volume-set-from-allocation
@@ -375,13 +370,7 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-property-transition-get-property-name
 @end defvar
 
-@defvar clutter-property-transition-new
-@end defvar
-
 @defvar clutter-property-transition-set-property-name
-@end defvar
-
-@defvar clutter-redraw
 @end defvar
 
 @defvar clutter-script-error-quark
@@ -456,49 +445,16 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-table-layout-set-use-animations
 @end defvar
 
-@defvar clutter-text-buffer-delete-text
-@end defvar
-
 @defvar clutter-text-buffer-emit-deleted-text
 @end defvar
 
 @defvar clutter-text-buffer-emit-inserted-text
 @end defvar
 
-@defvar clutter-text-buffer-get-bytes
-@end defvar
-
-@defvar clutter-text-buffer-get-length
-@end defvar
-
-@defvar clutter-text-buffer-get-max-length
-@end defvar
-
-@defvar clutter-text-buffer-get-text
-@end defvar
-
-@defvar clutter-text-buffer-insert-text
-@end defvar
-
-@defvar clutter-text-buffer-new
-@end defvar
-
-@defvar clutter-text-buffer-new-with-text
-@end defvar
-
-@defvar clutter-text-buffer-set-max-length
-@end defvar
-
-@defvar clutter-text-buffer-set-text
-@end defvar
-
 @defvar clutter-text-get-font-description
 @end defvar
 
 @defvar clutter-text-get-selected-text-color
-@end defvar
-
-@defvar clutter-text-node-new
 @end defvar
 
 @defvar clutter-text-set-selected-text-color
@@ -516,19 +472,7 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-texture-set-keep-aspect-ratio
 @end defvar
 
-@defvar clutter-transition-get-animatable
-@end defvar
-
-@defvar clutter-transition-get-interval
-@end defvar
-
 @defvar clutter-transition-get-remove-on-complete
-@end defvar
-
-@defvar clutter-transition-set-animatable
-@end defvar
-
-@defvar clutter-transition-set-interval
 @end defvar
 
 @defvar clutter-transition-set-remove-on-complete

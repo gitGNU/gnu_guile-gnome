@@ -150,13 +150,6 @@
    (list c-var " = scm_scm_to_clutter_vertex (" scm-var ");\n"))
 
   (wrap-custom-boxed!
-   "ClutterFog" "CLUTTER_TYPE_FOG"
-   ;; wrap
-   (list scm-var " = " c-var " ? scm_clutter_fog_to_scm (" c-var ") : SCM_BOOL_F;\n")
-   ;; unwrap
-   (list c-var " = scm_scm_to_clutter_fog (" scm-var ");\n"))
-
-  (wrap-custom-boxed!
    "ClutterPerspective" "CLUTTER_TYPE_PERSPECTIVE"
    ;; wrap
    (list scm-var " = " c-var " ? scm_clutter_perspective_to_scm (" c-var ") : SCM_BOOL_F;\n")

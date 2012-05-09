@@ -1,6 +1,12 @@
 (ignore-types "ClutterRedrawFlags"
               "ClutterShaderError"
 
+              ;; Deprecated in 1.9.4.
+              "ClutterBox"
+              "ClutterGroup"
+              "ClutterRectangle"
+              "ClutterFog"
+
               ;; Deprecated in 1.7.6.
               "ClutterScore"
 

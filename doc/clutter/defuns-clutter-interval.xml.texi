@@ -80,7 +80,7 @@ Since 1.0
 
 @end deffn
 
-@deffn Function clutter-interval-get-initial-value  (self@tie{}@code{<clutter-interval>}) (value@tie{}@code{<gvalue>})
+@deffn Function clutter-interval-get-initial-value  (self@tie{}@code{<clutter-interval>}) @result{}@tie{} (ret@tie{}@code{<gvalue>})
 @deffnx Method get-initial-value
 Retrieves the initial value of @var{interval} and copies it into
 @var{value}.
@@ -94,24 +94,6 @@ a @code{<clutter-interval>}
 
 @item value
 a @code{<gvalue>}.
-
-@end table
-
-Since 1.0
-
-@end deffn
-
-@deffn Function clutter-interval-peek-initial-value  (self@tie{}@code{<clutter-interval>}) @result{}@tie{} (ret@tie{}@code{<gvalue>})
-@deffnx Method peek-initial-value
-Gets the pointer to the initial value of @var{interval}
-
-@table @var
-@item interval
-a @code{<clutter-interval>}
-
-@item ret
-the initial value of the interval. The value is owned by the
-@code{<clutter-interval>} and it should not be modified or freed.
 
 @end table
 
@@ -139,7 +121,7 @@ Since 1.0
 
 @end deffn
 
-@deffn Function clutter-interval-get-final-value  (self@tie{}@code{<clutter-interval>}) (value@tie{}@code{<gvalue>})
+@deffn Function clutter-interval-get-final-value  (self@tie{}@code{<clutter-interval>}) @result{}@tie{} (ret@tie{}@code{<gvalue>})
 @deffnx Method get-final-value
 Retrieves the final value of @var{interval} and copies it into
 @var{value}.
@@ -153,24 +135,6 @@ a @code{<clutter-interval>}
 
 @item value
 a @code{<gvalue>}.
-
-@end table
-
-Since 1.0
-
-@end deffn
-
-@deffn Function clutter-interval-peek-final-value  (self@tie{}@code{<clutter-interval>}) @result{}@tie{} (ret@tie{}@code{<gvalue>})
-@deffnx Method peek-final-value
-Gets the pointer to the final value of @var{interval}
-
-@table @var
-@item interval
-a @code{<clutter-interval>}
-
-@item ret
-the final value of the interval. The value is owned by the
-@code{<clutter-interval>} and it should not be modified or freed.
 
 @end table
 
@@ -193,30 +157,6 @@ a @code{<gparam>}
 @item ret
 @samp{@code{#t}} if the @code{<clutter-interval>} is valid,
 @samp{@code{#f}} otherwise
-
-@end table
-
-Since 1.0
-
-@end deffn
-
-@deffn Function clutter-interval-compute-value  (self@tie{}@code{<clutter-interval>}) (factor@tie{}@code{double}) (value@tie{}@code{<gvalue>}) @result{}@tie{} (ret@tie{}@code{bool})
-@deffnx Method compute-value
-Computes the value between the @var{interval} boundaries given the
-progress @var{factor} and copies it into @var{value}.
-
-@table @var
-@item interval
-a @code{<clutter-interval>}
-
-@item factor
-the progress factor, between 0 and 1
-
-@item value
-return location for an initialized @code{<gvalue>}.
-
-@item ret
-@samp{@code{#t}} if the operation was successful
 
 @end table
 
