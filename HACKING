@@ -1,15 +1,22 @@
 guile-clutter HACKING
-Copyright (C) 2004,2006,2009 Free Software Foundation, Inc.
-See the end for copying conditions of this file.
-Last updated 13 August 2006.
+Copyright (C) 2004,2006,2009,2012 Free Software Foundation, Inc.
 
+Copying and distribution of this file, with or without modification, are
+permitted in any medium without royalty provided the copyright notice
+and this notice are preserved.
+
+Last updated 9 May 2012.
+==
 
 The canonical source for guile-clutter is the guile-gnome git archive,
 which can be retrieved as:
 
    $ git clone git://git.sv.gnu.org/guile-gnome.git
 
-Check out the `clutter' branch.
+Check out the `clutter' branch:
+
+   $ cd clutter
+   $ git checkout -b clutter origin/clutter
 
 After hacking, commit your changes locally, then run git format-patch
 origin/clutter.  Attach those patches to a message to the
@@ -25,10 +32,3 @@ Guile-gnome currently requires copyright assignment to the FSF.  If you
 have not signed a copyright assignment form for guile-gnome, you will
 need to do so. Please contact me at wingo@pobox.com for more
 information.
-
-
-Copyright (C) 2006,2009 Free Software Foundation, Inc.
-
-Copying and distribution of this file, with or without modification, are
-permitted in any medium without royalty provided the copyright notice
-and this notice are preserved.

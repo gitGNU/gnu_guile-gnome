@@ -1,30 +1,53 @@
-guile-clutter README
-Copyright (C) 2008,2011 Free Software Foundation, Inc.
-See the end for copying conditions of this file.
-Last updated 9 December 2011.
+Guile-Clutter README
+Copyright (C) 2008,2011,2012 Free Software Foundation, Inc.
+
+Copying and distribution of this file, with or without modification, are
+permitted in any medium without royalty provided the copyright notice
+and this notice are preserved.
+
+Last updated 9 May 2012.
 
 
-About guile-clutter
+About Guile-Clutter
 ===================
 
-guile-clutter is a Guile wrapper for clutter. It is a part of GNU
-guile-gnome.
+Guile-Clutter is a Guile wrapper for Clutter.  It is a part of GNU
+Guile-GNOME.
 
 
 Build dependencies
 ==================
 
-Guile-Clutter requires Clutter 0.8 development packages.
+Guile-Clutter requires Clutter 1.10 development packages.
 
-guile-gnome-clutter depends on guile-gnome-glib, which is commonly
-distributed with the `guile-gnome-platform' tarball.  See
-http://gnu.org/s/guile-gnome/, for more.
+Guile-Clutter depends on some parts of Guile-GNOME: the GLib, ATK,
+Pango, and Cairo wrapsets.  These are commonly distributed with the
+`guile-gnome-platform' tarball.  The Guile-GNOME platform tarball itself
+depends on G-Wrap and Guile-Cairo.  See http://gnu.org/s/guile-gnome/,
+for more information.
 
 
-Copying guile-clutter
+About Deprecation
+=================
+
+Clutter 1.10 is part of the 1.0 stable API series.  However, Clutter
+does deprecate various aspects of its API from time to time, within a
+stable series.  In particular, the animation API has changed a lot: from
+ClutterBehaviour, to ClutterAnimation, to the new implicit animations
+and ClutterTransition API.
+
+Since you are writing new code, using the new API is the right thing to
+do.  To that end, we have removed all API that was deprecated in Clutter
+1.10 or earlier.  Clutter itself is undergoing some fairly large changes
+in preparation for a new 2.0 stable series, possibly by early 2013.
+There will be more deprecations in the future, though we will probably
+not remove any more API from within the Guile-Clutter 1.x series.
+
+
+Copying Guile-Clutter
 =====================
 
-Distribution of guile-clutter is under the GPL.  See the COPYING file
+Distribution of Guile-Clutter is under the GPL.  See the COPYING file
 for more information.
 
 
@@ -45,13 +68,3 @@ Install using the standard autotools incantation:
 If you are building from git, you will need to run ./autogen.sh first.
 
 You can run without installing, just run './dev-environ guile'.
-
-
-Copying this file
-=================
-
-Copyright (C) 2008,2011 Free Software Foundation, Inc.
-
-Copying and distribution of this file, with or without modification, are
-permitted in any medium without royalty provided the copyright notice
-and this notice are preserved.
