@@ -43,7 +43,6 @@
   (list
    (next-method)
    "clutter_init (NULL, NULL);\n"
-   ;;; fixme: add sinkfunc for GInitiallyUnowned
    ))
 
 (define-class <clutter-event-type> (<gobject-classed-pointer-type>))
