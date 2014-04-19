@@ -147,10 +147,10 @@ scm_scm_to_clutter_margin (SCM scm)
 {
     ClutterMargin ret;
     
-    ret.left = scm_to_uint8 (scm_car (scm));
-    ret.right = scm_to_uint8 (scm_cadr (scm));
-    ret.top = scm_to_uint8 (scm_caddr (scm));
-    ret.bottom = scm_to_uint8 (scm_cadddr (scm));
+    ret.left = scm_to_double (scm_car (scm));
+    ret.right = scm_to_double (scm_cadr (scm));
+    ret.top = scm_to_double (scm_caddr (scm));
+    ret.bottom = scm_to_double (scm_cadddr (scm));
 
     return clutter_margin_copy (&ret);
 }
