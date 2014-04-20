@@ -1,11 +1,11 @@
 Guile-Clutter README
-Copyright (C) 2008,2011,2012 Free Software Foundation, Inc.
+Copyright (C) 2008,2011,2012,2014 Free Software Foundation, Inc.
 
 Copying and distribution of this file, with or without modification, are
 permitted in any medium without royalty provided the copyright notice
 and this notice are preserved.
 
-Last updated 9 May 2012.
+Last updated 20 April 2014.
 
 
 About Guile-Clutter
@@ -18,7 +18,7 @@ Guile-GNOME.
 Build dependencies
 ==================
 
-Guile-Clutter requires Clutter 1.10 development packages.
+Guile-Clutter requires Clutter 1.12 development packages.
 
 Guile-Clutter depends on some parts of Guile-GNOME: the GLib, ATK,
 Pango, and Cairo wrapsets.  These are commonly distributed with the
@@ -30,7 +30,7 @@ for more information.
 About Deprecation
 =================
 
-Clutter 1.10 is part of the 1.0 stable API series.  However, Clutter
+Clutter 1.12 is part of the 1.0 stable API series.  However, Clutter
 does deprecate various aspects of its API from time to time, within a
 stable series.  In particular, the animation API has changed a lot: from
 ClutterBehaviour, to ClutterAnimation, to the new implicit animations
@@ -38,8 +38,8 @@ and ClutterTransition API.
 
 Since you are writing new code, using the new API is the right thing to
 do.  To that end, we have removed all API that was deprecated in Clutter
-1.10 or earlier.  Clutter itself is undergoing some fairly large changes
-in preparation for a new 2.0 stable series, possibly by early 2013.
+1.12 or earlier.  Clutter itself is undergoing some fairly large changes
+in preparation for a new 2.0 stable series, possibly by early 2015.
 There will be more deprecations in the future, though we will probably
 not remove any more API from within the Guile-Clutter 1.x series.
 

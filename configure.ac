@@ -1,6 +1,6 @@
 define(GUILE_CLUTTER_CONFIGURE_COPYRIGHT,[[
 
-Copyright (C) 2011,2012  Free Software Foundation, Inc.
+Copyright (C) 2011,2012,2014  Free Software Foundation, Inc.
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Lesser General Public License as
@@ -19,13 +19,13 @@ License along with this program.  If not, see
 ]])
 
 AC_PREREQ(2.52)
-AC_INIT(guile-clutter, 1.10.0)
+AC_INIT(guile-clutter, 1.12.2)
 AC_CONFIG_AUX_DIR([build-aux])
 AC_COPYRIGHT(GUILE_CLUTTER_CONFIGURE_COPYRIGHT)
 AM_CONFIG_HEADER(config.h)
 AM_INIT_AUTOMAKE(-Wno-portability -Wno-syntax)
 
-AC_SUBST(VERSION,1.10.0)
+AC_SUBST(VERSION,1.12.2)
 
 # Meaning of the API version
 # --------------------------
@@ -80,7 +80,7 @@ AC_HELP_STRING([--disable-deprecated],[Disable wrapping of functions deprecated 
 # Check for Guile
 #
 GUILE_EFFECTIVE_VERSION=no
-all_versions="2.2 2.0 1.10"
+all_versions="2.2 2.0"
 for v in $all_versions; do
   if test $GUILE_EFFECTIVE_VERSION = no; then
     AC_MSG_NOTICE([checking for Guile $v.x])
@@ -113,7 +113,7 @@ AC_SUBST(GUILE_GLIB_LIBS)
 # Check for clutter
 
 CLUTTER_MAJORMINOR=1.0
-CLUTTER_MINIMUM_VERSION=1.10
+CLUTTER_MINIMUM_VERSION=1.12
 AC_SUBST(CLUTTER_MAJORMINOR)
 
 PKG_CHECK_MODULES(CLUTTER, clutter-$CLUTTER_MAJORMINOR > $CLUTTER_MINIMUM_VERSION guile-cairo)
