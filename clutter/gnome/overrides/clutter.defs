@@ -1,6 +1,6 @@
 ;; -*- scheme -*-
 ;; guile-gnome
-;; Copyright (C) 2008, 2012 Free Software Foundation, Inc.
+;; Copyright (C) 2008,2012,2014 Free Software Foundation, Inc.
 
 ;; This program is free software; you can redistribute it and/or    
 ;; modify it under the terms of the GNU General Public License as   
@@ -173,35 +173,6 @@
   (return-type "GList*-of-ClutterEffect*")
 )
 
-(define-method set_mode
-  (of-object "ClutterAlpha")
-  (c-name "clutter_alpha_set_mode")
-  (overrides "clutter_alpha_set_mode")
-  (return-type "none")
-  (parameters
-    '("ClutterAnimationMode" "mode")
-  )
-)
-
-(define-method get_mode
-  (of-object "ClutterAlpha")
-  (c-name "clutter_alpha_get_mode")
-  (overrides "clutter_alpha_get_mode")
-  (return-type "ClutterAnimationMode")
-)
-
-(define-method get_keys
-  (of-object "ClutterAnimator")
-  (c-name "clutter_animator_get_keys")
-  (overrides "clutter_animator_get_keys")
-  (return-type "GList*-of-ClutterAnimatorKey*")
-  (parameters
-    '("GObject*" "object")
-    '("const-gchar*" "property_name")
-    '("gdouble" "progress")
-  )
-)
-
 (define-function clutter_binding_pool_get_for_class
   (c-name "clutter_binding_pool_get_for_class")
   (overrides "clutter_binding_pool_get_for_class")
@@ -264,26 +235,6 @@
   (c-name "clutter_script_list_objects")
   (overrides "clutter_script_list_objects")
   (return-type "GList*-of-GObject*")
-)
-
-(define-method get_states
-  (of-object "ClutterState")
-  (c-name "clutter_state_get_states")
-  (overrides "clutter_state_get_states")
-  (return-type "GList*-of-const-gchar*")
-)
-
-(define-method get_keys
-  (of-object "ClutterState")
-  (c-name "clutter_state_get_keys")
-  (overrides "clutter_state_get_keys")
-  (return-type "GList*-of-ClutterStateKey*")
-  (parameters
-    '("const-gchar*" "source_state_name")
-    '("const-gchar*" "target_state_name")
-    '("GObject*" "object")
-    '("const-gchar*" "property_name")
-  )
 )
 
 (define-function clutter_units_from_pixels
@@ -467,8 +418,7 @@
              "clutter_value_set_shader_*"
              "clutter_value_get_shader_*"
              "clutter_param_spec_fixed"
-             "clutter_util_next_p2"
-             )
+             "clutter_util_next_p2")
 
 ;; Deprecated in 1.8 or before.
 ;;
@@ -569,8 +519,7 @@
         "clutter_shader_set_uniform"
         "clutter_shader_set_vertex_source"
         "clutter_stage_manager_set_default_stage"
-        "clutter_texture_new_from_actor"
-        )
+        "clutter_texture_new_from_actor")
 
 ;; Deprecated in 1.10.
 ;;
@@ -635,3 +584,202 @@
         "clutter_timeline_get_loop"
         "clutter_timeline_set_loop"
         "clutter_ungrab_pointer_for_device")
+
+;; Deprecated in 1.12
+;;
+(ignore "clutter_actor_animate"
+	"clutter_actor_animate_with_timeline"
+	"clutter_actor_animate_with_timelinev"
+	"clutter_actor_animatev"
+	"clutter_actor_detach_animation"
+	"clutter_actor_get_allocation_geometry"
+	"clutter_actor_get_anchor_point"
+	"clutter_actor_get_anchor_point_gravity"
+	"clutter_actor_get_animation"
+	"clutter_actor_get_depth"
+	"clutter_actor_get_rotation"
+	"clutter_actor_get_scale_center"
+	"clutter_actor_get_scale_gravity"
+	"clutter_actor_get_transformation_matrix"
+	"clutter_actor_get_z_rotation_gravity"
+	"clutter_actor_move_anchor_point"
+	"clutter_actor_move_anchor_point_from_gravity"
+	"clutter_actor_set_anchor_point"
+	"clutter_actor_set_anchor_point_from_gravity"
+	"clutter_actor_set_depth"
+	"clutter_actor_set_rotation"
+	"clutter_actor_set_scale_full"
+	"clutter_actor_set_scale_with_gravity"
+	"clutter_actor_set_z_rotation_from_gravity"
+	"clutter_alpha_get_alpha"
+	"clutter_alpha_get_mode"
+	"clutter_alpha_get_timeline"
+	"clutter_alpha_get_type"
+	"clutter_alpha_new"
+	;; "clutter_alpha_new_full" in ignore-glob already
+	"clutter_alpha_new_with_func"
+	"clutter_alpha_register_closure"
+	"clutter_alpha_register_func"
+	"clutter_alpha_set_closure"
+	"clutter_alpha_set_func"
+	"clutter_alpha_set_mode"
+	"clutter_alpha_set_timeline"
+	"clutter_animation_bind"
+	"clutter_animation_bind_interval"
+	"clutter_animation_completed"
+	"clutter_animation_get_duration"
+	"clutter_animation_get_interval"
+	"clutter_animation_get_loop"
+	"clutter_animation_get_mode"
+	"clutter_animation_get_object"
+	"clutter_animation_get_timeline"
+	"clutter_animation_get_type"
+	"clutter_animation_has_property"
+	"clutter_animation_new"
+	"clutter_animation_set_duration"
+	"clutter_animation_set_loop"
+	"clutter_animation_set_mode"
+	"clutter_animation_set_object"
+	"clutter_animation_set_timeline"
+	"clutter_animation_unbind_property"
+	"clutter_animation_update"
+	"clutter_animation_update_interval"
+	"clutter_animator_compute_value"
+	"clutter_animator_get_duration"
+	"clutter_animator_get_keys"
+	"clutter_animator_get_timeline"
+	"clutter_animator_get_type"
+	"clutter_animator_key_get_mode"
+	"clutter_animator_key_get_object"
+	"clutter_animator_key_get_progress"
+	"clutter_animator_key_get_property_name"
+	"clutter_animator_key_get_property_type"
+	"clutter_animator_key_get_type"
+	"clutter_animator_key_get_value"
+	"clutter_animator_new"
+	"clutter_animator_property_get_ease_in"
+	"clutter_animator_property_get_interpolation"
+	"clutter_animator_property_set_ease_in"
+	"clutter_animator_property_set_interpolation"
+	"clutter_animator_remove_key"
+	"clutter_animator_set"
+	"clutter_animator_set_duration"
+	"clutter_animator_set_key"
+	"clutter_animator_set_timeline"
+	"clutter_animator_start"
+	"clutter_bin_layout_add"
+	"clutter_bin_layout_get_alignment"
+	"clutter_bin_layout_set_alignment"
+	"clutter_box_layout_get_alignment"
+	"clutter_box_layout_get_easing_duration"
+	"clutter_box_layout_get_easing_mode"
+	"clutter_box_layout_get_expand"
+	"clutter_box_layout_get_fill"
+	"clutter_box_layout_get_orientation"
+	"clutter_box_layout_get_use_animations"
+	"clutter_box_layout_get_vertical"
+	"clutter_box_layout_set_alignment"
+	"clutter_box_layout_set_easing_duration"
+	"clutter_box_layout_set_easing_mode"
+	"clutter_box_layout_set_expand"
+	"clutter_box_layout_set_fill"
+	"clutter_box_layout_set_orientation"
+	"clutter_box_layout_set_use_animations"
+	"clutter_box_layout_set_vertical"
+	"clutter_cairo_texture_clear"
+	"clutter_cairo_texture_get_auto_resize"
+	"clutter_cairo_texture_get_surface_size"
+	"clutter_cairo_texture_get_type"
+	"clutter_cairo_texture_invalidate"
+	"clutter_cairo_texture_invalidate_rectangle"
+	"clutter_cairo_texture_new"
+	"clutter_cairo_texture_set_auto_resize"
+	"clutter_cairo_texture_set_surface_size"
+	"clutter_input_device_get_device_coords"
+	"clutter_layout_manager_begin_animation"
+	"clutter_layout_manager_end_animation"
+	"clutter_layout_manager_get_animation_progress"
+	"clutter_media_get_audio_volume"
+	"clutter_media_get_buffer_fill"
+	"clutter_media_get_can_seek"
+	"clutter_media_get_duration"
+	"clutter_media_get_playing"
+	"clutter_media_get_progress"
+	"clutter_media_get_subtitle_font_name"
+	"clutter_media_get_subtitle_uri"
+	"clutter_media_get_type"
+	"clutter_media_get_uri"
+	"clutter_media_set_audio_volume"
+	"clutter_media_set_filename"
+	"clutter_media_set_playing"
+	"clutter_media_set_progress"
+	"clutter_media_set_subtitle_font_name"
+	"clutter_media_set_subtitle_uri"
+	"clutter_media_set_uri"
+	"clutter_script_add_states"
+	"clutter_script_get_states"
+	"clutter_state_get_animator"
+	"clutter_state_get_duration"
+	"clutter_state_get_keys"
+	"clutter_state_get_state"
+	"clutter_state_get_states"
+	"clutter_state_get_timeline"
+	"clutter_state_get_type"
+	"clutter_state_key_get_mode"
+	"clutter_state_key_get_object"
+	"clutter_state_key_get_post_delay"
+	"clutter_state_key_get_pre_delay"
+	"clutter_state_key_get_property_name"
+	"clutter_state_key_get_property_type"
+	"clutter_state_key_get_source_state_name"
+	"clutter_state_key_get_target_state_name"
+	"clutter_state_key_get_type"
+	"clutter_state_key_get_value"
+	"clutter_state_new"
+	"clutter_state_remove_key"
+	"clutter_state_set"
+	"clutter_state_set_animator"
+	"clutter_state_set_duration"
+	"clutter_state_set_key"
+	"clutter_state_set_state"
+	"clutter_state_warp_to_state"
+	"clutter_table_layout_get_alignment"
+	"clutter_table_layout_get_easing_duration"
+	"clutter_table_layout_get_easing_mode"
+	"clutter_table_layout_get_expand"
+	"clutter_table_layout_get_fill"
+	"clutter_table_layout_get_use_animations"
+	"clutter_table_layout_set_alignment"
+	"clutter_table_layout_set_easing_duration"
+	"clutter_table_layout_set_easing_mode"
+	"clutter_table_layout_set_expand"
+	"clutter_table_layout_set_fill"
+	"clutter_table_layout_set_use_animations"
+	"clutter_texture_get_base_size"
+	"clutter_texture_get_cogl_material"
+	"clutter_texture_get_cogl_texture"
+	"clutter_texture_get_filter_quality"
+	"clutter_texture_get_keep_aspect_ratio"
+	"clutter_texture_get_load_async"
+	"clutter_texture_get_load_data_async"
+	"clutter_texture_get_max_tile_waste"
+	"clutter_texture_get_pick_with_alpha"
+	"clutter_texture_get_pixel_format"
+	"clutter_texture_get_repeat"
+	"clutter_texture_get_sync_size"
+	"clutter_texture_new"
+	"clutter_texture_new_from_file"
+	"clutter_texture_set_area_from_rgb_data"
+	"clutter_texture_set_cogl_material"
+	"clutter_texture_set_cogl_texture"
+	"clutter_texture_set_filter_quality"
+	"clutter_texture_set_from_file"
+	"clutter_texture_set_from_rgb_data"
+	"clutter_texture_set_keep_aspect_ratio"
+	"clutter_texture_set_load_async"
+	"clutter_texture_set_load_data_async"
+	"clutter_texture_set_pick_with_alpha"
+	"clutter_texture_set_repeat"
+	"clutter_texture_set_sync_size"
+	"clutter_threads_enter"
+	"clutter_threads_leave")

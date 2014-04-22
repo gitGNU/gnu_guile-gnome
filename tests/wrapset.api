@@ -102,6 +102,9 @@
      (clutter-actor-apply-transform-to-point
        procedure
        (arity 0 0 #t))
+     (clutter-actor-box-alloc
+       procedure
+       (arity 0 0 #t))
      (clutter-actor-box-clamp-to-pixel
        procedure
        (arity 0 0 #t))
@@ -172,9 +175,6 @@
      (clutter-actor-destroy-all-children
        procedure
        (arity 0 0 #t))
-     (clutter-actor-detach-animation
-       procedure
-       (arity 0 0 #t))
      (clutter-actor-event procedure (arity 0 0 #t))
      (clutter-actor-get-accessible
        procedure
@@ -186,18 +186,6 @@
        procedure
        (arity 1 0 #f))
      (clutter-actor-get-allocation-box
-       procedure
-       (arity 0 0 #t))
-     (clutter-actor-get-allocation-geometry
-       procedure
-       (arity 0 0 #t))
-     (clutter-actor-get-anchor-point
-       procedure
-       (arity 1 0 #f))
-     (clutter-actor-get-anchor-point-gravity
-       procedure
-       (arity 0 0 #t))
-     (clutter-actor-get-animation
        procedure
        (arity 0 0 #t))
      (clutter-actor-get-background-color
@@ -228,13 +216,13 @@
      (clutter-actor-get-content-gravity
        procedure
        (arity 0 0 #t))
+     (clutter-actor-get-content-repeat
+       procedure
+       (arity 0 0 #t))
      (clutter-actor-get-content-scaling-filters
        procedure
        (arity 1 0 #f))
      (clutter-actor-get-default-paint-volume
-       procedure
-       (arity 0 0 #t))
-     (clutter-actor-get-depth
        procedure
        (arity 0 0 #t))
      (clutter-actor-get-easing-delay
@@ -316,6 +304,12 @@
      (clutter-actor-get-parent
        procedure
        (arity 0 0 #t))
+     (clutter-actor-get-pivot-point
+       procedure
+       (arity 1 0 #f))
+     (clutter-actor-get-pivot-point-z
+       procedure
+       (arity 0 0 #t))
      (clutter-actor-get-position
        procedure
        (arity 1 0 #f))
@@ -337,16 +331,13 @@
      (clutter-actor-get-request-mode
        procedure
        (arity 0 0 #t))
-     (clutter-actor-get-rotation
+     (clutter-actor-get-rotation-angle
        procedure
-       (arity 2 0 #f))
+       (arity 0 0 #t))
      (clutter-actor-get-scale
        procedure
        (arity 1 0 #f))
-     (clutter-actor-get-scale-center
-       procedure
-       (arity 1 0 #f))
-     (clutter-actor-get-scale-gravity
+     (clutter-actor-get-scale-z
        procedure
        (arity 0 0 #t))
      (clutter-actor-get-size procedure (arity 1 0 #f))
@@ -368,6 +359,9 @@
      (clutter-actor-get-transition
        procedure
        (arity 0 0 #t))
+     (clutter-actor-get-translation
+       procedure
+       (arity 1 0 #f))
      (clutter-actor-get-width
        procedure
        (arity 0 0 #t))
@@ -375,11 +369,17 @@
      (clutter-actor-get-x-align
        procedure
        (arity 0 0 #t))
+     (clutter-actor-get-x-expand
+       procedure
+       (arity 0 0 #t))
      (clutter-actor-get-y procedure (arity 0 0 #t))
      (clutter-actor-get-y-align
        procedure
        (arity 0 0 #t))
-     (clutter-actor-get-z-rotation-gravity
+     (clutter-actor-get-y-expand
+       procedure
+       (arity 0 0 #t))
+     (clutter-actor-get-z-position
        procedure
        (arity 0 0 #t))
      (clutter-actor-grab-key-focus
@@ -442,13 +442,10 @@
      (clutter-actor-meta-set-name
        procedure
        (arity 0 0 #t))
-     (clutter-actor-move-anchor-point
-       procedure
-       (arity 0 0 #t))
-     (clutter-actor-move-anchor-point-from-gravity
-       procedure
-       (arity 0 0 #t))
      (clutter-actor-move-by procedure (arity 0 0 #t))
+     (clutter-actor-needs-expand
+       procedure
+       (arity 0 0 #t))
      (clutter-actor-new procedure (arity 0 0 #t))
      (clutter-actor-paint procedure (arity 0 0 #t))
      (clutter-actor-queue-redraw
@@ -503,12 +500,6 @@
      (clutter-actor-set-allocation
        procedure
        (arity 0 0 #t))
-     (clutter-actor-set-anchor-point
-       procedure
-       (arity 0 0 #t))
-     (clutter-actor-set-anchor-point-from-gravity
-       procedure
-       (arity 0 0 #t))
      (clutter-actor-set-background-color
        procedure
        (arity 0 0 #t))
@@ -531,10 +522,10 @@
      (clutter-actor-set-content-gravity
        procedure
        (arity 0 0 #t))
-     (clutter-actor-set-content-scaling-filters
+     (clutter-actor-set-content-repeat
        procedure
        (arity 0 0 #t))
-     (clutter-actor-set-depth
+     (clutter-actor-set-content-scaling-filters
        procedure
        (arity 0 0 #t))
      (clutter-actor-set-easing-delay
@@ -580,6 +571,12 @@
      (clutter-actor-set-opacity
        procedure
        (arity 0 0 #t))
+     (clutter-actor-set-pivot-point
+       procedure
+       (arity 0 0 #t))
+     (clutter-actor-set-pivot-point-z
+       procedure
+       (arity 0 0 #t))
      (clutter-actor-set-position
        procedure
        (arity 0 0 #t))
@@ -589,20 +586,20 @@
      (clutter-actor-set-request-mode
        procedure
        (arity 0 0 #t))
-     (clutter-actor-set-rotation
+     (clutter-actor-set-rotation-angle
        procedure
        (arity 0 0 #t))
      (clutter-actor-set-scale
        procedure
        (arity 0 0 #t))
-     (clutter-actor-set-scale-full
-       procedure
-       (arity 0 0 #t))
-     (clutter-actor-set-scale-with-gravity
+     (clutter-actor-set-scale-z
        procedure
        (arity 0 0 #t))
      (clutter-actor-set-size procedure (arity 0 0 #t))
      (clutter-actor-set-text-direction
+       procedure
+       (arity 0 0 #t))
+     (clutter-actor-set-translation
        procedure
        (arity 0 0 #t))
      (clutter-actor-set-width
@@ -612,11 +609,17 @@
      (clutter-actor-set-x-align
        procedure
        (arity 0 0 #t))
+     (clutter-actor-set-x-expand
+       procedure
+       (arity 0 0 #t))
      (clutter-actor-set-y procedure (arity 0 0 #t))
      (clutter-actor-set-y-align
        procedure
        (arity 0 0 #t))
-     (clutter-actor-set-z-rotation-from-gravity
+     (clutter-actor-set-y-expand
+       procedure
+       (arity 0 0 #t))
+     (clutter-actor-set-z-position
        procedure
        (arity 0 0 #t))
      (clutter-actor-should-pick-paint
@@ -654,24 +657,6 @@
      (clutter-align-constraint-set-source
        procedure
        (arity 0 0 #t))
-     (clutter-alpha-get-alpha
-       procedure
-       (arity 0 0 #t))
-     (clutter-alpha-get-mode procedure (arity 0 0 #t))
-     (clutter-alpha-get-timeline
-       procedure
-       (arity 0 0 #t))
-     (clutter-alpha-new procedure (arity 0 0 #t))
-     (clutter-alpha-register-closure
-       procedure
-       (arity 0 0 #t))
-     (clutter-alpha-set-closure
-       procedure
-       (arity 0 0 #t))
-     (clutter-alpha-set-mode procedure (arity 0 0 #t))
-     (clutter-alpha-set-timeline
-       procedure
-       (arity 0 0 #t))
      (clutter-animatable-find-property
        procedure
        (arity 0 0 #t))
@@ -684,133 +669,17 @@
      (clutter-animatable-set-final-state
        procedure
        (arity 0 0 #t))
-     (clutter-animation-bind procedure (arity 0 0 #t))
-     (clutter-animation-bind-interval
-       procedure
-       (arity 0 0 #t))
-     (clutter-animation-completed
-       procedure
-       (arity 0 0 #t))
-     (clutter-animation-get-duration
-       procedure
-       (arity 0 0 #t))
-     (clutter-animation-get-interval
-       procedure
-       (arity 0 0 #t))
-     (clutter-animation-get-loop
-       procedure
-       (arity 0 0 #t))
-     (clutter-animation-get-mode
-       procedure
-       (arity 0 0 #t))
-     (clutter-animation-get-object
-       procedure
-       (arity 0 0 #t))
-     (clutter-animation-get-timeline
-       procedure
-       (arity 0 0 #t))
-     (clutter-animation-has-property
-       procedure
-       (arity 0 0 #t))
-     (clutter-animation-new procedure (arity 0 0 #t))
-     (clutter-animation-set-duration
-       procedure
-       (arity 0 0 #t))
-     (clutter-animation-set-loop
-       procedure
-       (arity 0 0 #t))
-     (clutter-animation-set-mode
-       procedure
-       (arity 0 0 #t))
-     (clutter-animation-set-object
-       procedure
-       (arity 0 0 #t))
-     (clutter-animation-set-timeline
-       procedure
-       (arity 0 0 #t))
-     (clutter-animation-unbind-property
-       procedure
-       (arity 0 0 #t))
-     (clutter-animation-update
-       procedure
-       (arity 0 0 #t))
-     (clutter-animation-update-interval
-       procedure
-       (arity 0 0 #t))
-     (clutter-animator-compute-value
-       procedure
-       (arity 0 0 #t))
-     (clutter-animator-get-duration
-       procedure
-       (arity 0 0 #t))
-     (clutter-animator-get-keys
-       procedure
-       (arity 4 0 #f))
-     (clutter-animator-get-timeline
-       procedure
-       (arity 0 0 #t))
-     (clutter-animator-key-get-mode
-       procedure
-       (arity 0 0 #t))
-     (clutter-animator-key-get-object
-       procedure
-       (arity 0 0 #t))
-     (clutter-animator-key-get-progress
-       procedure
-       (arity 0 0 #t))
-     (clutter-animator-key-get-property-name
-       procedure
-       (arity 0 0 #t))
-     (clutter-animator-key-get-property-type
-       procedure
-       (arity 1 0 #f))
-     (clutter-animator-key-get-value
-       procedure
-       (arity 0 0 #t))
-     (clutter-animator-new procedure (arity 0 0 #t))
-     (clutter-animator-property-get-ease-in
-       procedure
-       (arity 0 0 #t))
-     (clutter-animator-property-get-interpolation
-       procedure
-       (arity 0 0 #t))
-     (clutter-animator-property-set-ease-in
-       procedure
-       (arity 0 0 #t))
-     (clutter-animator-property-set-interpolation
-       procedure
-       (arity 0 0 #t))
-     (clutter-animator-remove-key
-       procedure
-       (arity 0 0 #t))
-     (clutter-animator-set-duration
-       procedure
-       (arity 0 0 #t))
-     (clutter-animator-set-key
-       procedure
-       (arity 0 0 #t))
-     (clutter-animator-set-timeline
-       procedure
-       (arity 0 0 #t))
-     (clutter-animator-start procedure (arity 0 0 #t))
      (clutter-backend-get-font-options
        procedure
-       (arity 1 0 #f))
+       (arity 0 0 #t))
      (clutter-backend-get-resolution
        procedure
        (arity 0 0 #t))
      (clutter-backend-set-font-options
        procedure
-       (arity 2 0 #f))
-     (clutter-base-init procedure (arity 0 0 #t))
-     (clutter-bin-layout-add procedure (arity 0 0 #t))
-     (clutter-bin-layout-get-alignment
-       procedure
-       (arity 2 0 #f))
-     (clutter-bin-layout-new procedure (arity 0 0 #t))
-     (clutter-bin-layout-set-alignment
-       procedure
        (arity 0 0 #t))
+     (clutter-base-init procedure (arity 0 0 #t))
+     (clutter-bin-layout-new procedure (arity 0 0 #t))
      (clutter-bind-constraint-get-coordinate
        procedure
        (arity 0 0 #t))
@@ -865,21 +734,6 @@
      (clutter-blur-effect-new
        procedure
        (arity 0 0 #t))
-     (clutter-box-layout-get-alignment
-       procedure
-       (arity 2 0 #f))
-     (clutter-box-layout-get-easing-duration
-       procedure
-       (arity 0 0 #t))
-     (clutter-box-layout-get-easing-mode
-       procedure
-       (arity 0 0 #t))
-     (clutter-box-layout-get-expand
-       procedure
-       (arity 0 0 #t))
-     (clutter-box-layout-get-fill
-       procedure
-       (arity 2 0 #f))
      (clutter-box-layout-get-homogeneous
        procedure
        (arity 0 0 #t))
@@ -889,29 +743,8 @@
      (clutter-box-layout-get-spacing
        procedure
        (arity 0 0 #t))
-     (clutter-box-layout-get-use-animations
-       procedure
-       (arity 0 0 #t))
-     (clutter-box-layout-get-vertical
-       procedure
-       (arity 0 0 #t))
      (clutter-box-layout-new procedure (arity 0 0 #t))
      (clutter-box-layout-pack
-       procedure
-       (arity 0 0 #t))
-     (clutter-box-layout-set-alignment
-       procedure
-       (arity 0 0 #t))
-     (clutter-box-layout-set-easing-duration
-       procedure
-       (arity 0 0 #t))
-     (clutter-box-layout-set-easing-mode
-       procedure
-       (arity 0 0 #t))
-     (clutter-box-layout-set-expand
-       procedure
-       (arity 0 0 #t))
-     (clutter-box-layout-set-fill
        procedure
        (arity 0 0 #t))
      (clutter-box-layout-set-homogeneous
@@ -921,12 +754,6 @@
        procedure
        (arity 0 0 #t))
      (clutter-box-layout-set-spacing
-       procedure
-       (arity 0 0 #t))
-     (clutter-box-layout-set-use-animations
-       procedure
-       (arity 0 0 #t))
-     (clutter-box-layout-set-vertical
        procedure
        (arity 0 0 #t))
      (clutter-brightness-contrast-effect-get-brightness
@@ -950,28 +777,8 @@
      (clutter-brightness-contrast-effect-set-contrast-full
        procedure
        (arity 0 0 #t))
+     (clutter-cairo-clear procedure (arity 0 0 #t))
      (clutter-cairo-set-source-color
-       procedure
-       (arity 2 0 #f))
-     (clutter-cairo-texture-clear
-       procedure
-       (arity 0 0 #t))
-     (clutter-cairo-texture-get-auto-resize
-       procedure
-       (arity 0 0 #t))
-     (clutter-cairo-texture-get-surface-size
-       procedure
-       (arity 1 0 #f))
-     (clutter-cairo-texture-invalidate
-       procedure
-       (arity 0 0 #t))
-     (clutter-cairo-texture-new
-       procedure
-       (arity 0 0 #t))
-     (clutter-cairo-texture-set-auto-resize
-       procedure
-       (arity 0 0 #t))
-     (clutter-cairo-texture-set-surface-size
        procedure
        (arity 0 0 #t))
      (clutter-canvas-new procedure (arity 0 0 #t))
@@ -1012,6 +819,7 @@
        procedure
        (arity 0 0 #t))
      (clutter-color-add procedure (arity 0 0 #t))
+     (clutter-color-alloc procedure (arity 0 0 #t))
      (clutter-color-darken procedure (arity 0 0 #t))
      (clutter-color-from-hls procedure (arity 0 0 #t))
      (clutter-color-from-pixel
@@ -1023,6 +831,7 @@
      (clutter-color-get-static
        procedure
        (arity 0 0 #t))
+     (clutter-color-init procedure (arity 0 0 #t))
      (clutter-color-interpolate
        procedure
        (arity 0 0 #t))
@@ -1140,6 +949,9 @@
        procedure
        (arity 0 0 #t))
      (clutter-event-get procedure (arity 0 0 #t))
+     (clutter-event-get-angle
+       procedure
+       (arity 0 0 #t))
      (clutter-event-get-button
        procedure
        (arity 0 0 #t))
@@ -1158,6 +970,9 @@
      (clutter-event-get-device-type
        procedure
        (arity 0 0 #t))
+     (clutter-event-get-distance
+       procedure
+       (arity 0 0 #t))
      (clutter-event-get-event-sequence
        procedure
        (arity 0 0 #t))
@@ -1171,6 +986,9 @@
        procedure
        (arity 0 0 #t))
      (clutter-event-get-key-unicode
+       procedure
+       (arity 0 0 #t))
+     (clutter-event-get-position
        procedure
        (arity 0 0 #t))
      (clutter-event-get-related
@@ -1195,6 +1013,15 @@
        procedure
        (arity 0 0 #t))
      (clutter-event-get-time procedure (arity 0 0 #t))
+     (clutter-event-has-control-modifier
+       procedure
+       (arity 0 0 #t))
+     (clutter-event-has-shift-modifier
+       procedure
+       (arity 0 0 #t))
+     (clutter-event-is-pointer-emulated
+       procedure
+       (arity 0 0 #t))
      (clutter-event-new procedure (arity 0 0 #t))
      (clutter-event-peek procedure (arity 0 0 #t))
      (clutter-event-put procedure (arity 0 0 #t))
@@ -1295,16 +1122,40 @@
        procedure
        (arity 0 0 #t))
      (clutter-geometry-union procedure (arity 0 0 #t))
+     (clutter-gesture-action-cancel
+       procedure
+       (arity 0 0 #t))
+     (clutter-gesture-action-get-device
+       procedure
+       (arity 0 0 #t))
      (clutter-gesture-action-get-motion-coords
        procedure
        (arity 2 0 #f))
+     (clutter-gesture-action-get-motion-delta
+       procedure
+       (arity 2 0 #f))
+     (clutter-gesture-action-get-n-current-points
+       procedure
+       (arity 0 0 #t))
+     (clutter-gesture-action-get-n-touch-points
+       procedure
+       (arity 0 0 #t))
      (clutter-gesture-action-get-press-coords
        procedure
        (arity 2 0 #f))
      (clutter-gesture-action-get-release-coords
        procedure
        (arity 2 0 #f))
+     (clutter-gesture-action-get-sequence
+       procedure
+       (arity 0 0 #t))
+     (clutter-gesture-action-get-velocity
+       procedure
+       (arity 2 0 #f))
      (clutter-gesture-action-new
+       procedure
+       (arity 0 0 #t))
+     (clutter-gesture-action-set-n-touch-points
        procedure
        (arity 0 0 #t))
      (clutter-get-accessibility-enabled
@@ -1335,6 +1186,57 @@
      (clutter-get-script-id procedure (arity 0 0 #t))
      (clutter-grab-keyboard procedure (arity 0 0 #t))
      (clutter-grab-pointer procedure (arity 0 0 #t))
+     (clutter-grid-layout-attach
+       procedure
+       (arity 0 0 #t))
+     (clutter-grid-layout-attach-next-to
+       procedure
+       (arity 0 0 #t))
+     (clutter-grid-layout-get-child-at
+       procedure
+       (arity 0 0 #t))
+     (clutter-grid-layout-get-column-homogeneous
+       procedure
+       (arity 0 0 #t))
+     (clutter-grid-layout-get-column-spacing
+       procedure
+       (arity 0 0 #t))
+     (clutter-grid-layout-get-orientation
+       procedure
+       (arity 0 0 #t))
+     (clutter-grid-layout-get-row-homogeneous
+       procedure
+       (arity 0 0 #t))
+     (clutter-grid-layout-get-row-spacing
+       procedure
+       (arity 0 0 #t))
+     (clutter-grid-layout-insert-column
+       procedure
+       (arity 0 0 #t))
+     (clutter-grid-layout-insert-next-to
+       procedure
+       (arity 0 0 #t))
+     (clutter-grid-layout-insert-row
+       procedure
+       (arity 0 0 #t))
+     (clutter-grid-layout-new
+       procedure
+       (arity 0 0 #t))
+     (clutter-grid-layout-set-column-homogeneous
+       procedure
+       (arity 0 0 #t))
+     (clutter-grid-layout-set-column-spacing
+       procedure
+       (arity 0 0 #t))
+     (clutter-grid-layout-set-orientation
+       procedure
+       (arity 0 0 #t))
+     (clutter-grid-layout-set-row-homogeneous
+       procedure
+       (arity 0 0 #t))
+     (clutter-grid-layout-set-row-spacing
+       procedure
+       (arity 0 0 #t))
      (clutter-image-error-quark
        procedure
        (arity 0 0 #t))
@@ -1348,9 +1250,9 @@
      (clutter-input-device-get-axis-value
        procedure
        (arity 2 0 #f))
-     (clutter-input-device-get-device-coords
+     (clutter-input-device-get-coords
        procedure
-       (arity 1 0 #f))
+       (arity 0 0 #t))
      (clutter-input-device-get-device-id
        procedure
        (arity 0 0 #t))
@@ -1396,6 +1298,15 @@
      (clutter-input-device-keycode-to-evdev
        procedure
        (arity 2 0 #f))
+     (clutter-input-device-sequence-get-grabbed-actor
+       procedure
+       (arity 0 0 #t))
+     (clutter-input-device-sequence-grab
+       procedure
+       (arity 0 0 #t))
+     (clutter-input-device-sequence-ungrab
+       procedure
+       (arity 0 0 #t))
      (clutter-input-device-set-enabled
        procedure
        (arity 0 0 #t))
@@ -1421,6 +1332,9 @@
      (clutter-interval-get-value-type
        procedure
        (arity 1 0 #f))
+     (clutter-interval-is-valid
+       procedure
+       (arity 0 0 #t))
      (clutter-interval-new-with-values
        procedure
        (arity 3 0 #f))
@@ -1433,14 +1347,26 @@
      (clutter-interval-validate
        procedure
        (arity 0 0 #t))
+     (clutter-keyframe-transition-clear
+       procedure
+       (arity 0 0 #t))
+     (clutter-keyframe-transition-get-n-key-frames
+       procedure
+       (arity 0 0 #t))
+     (clutter-keyframe-transition-new
+       procedure
+       (arity 0 0 #t))
+     (clutter-keyframe-transition-set-key-frame
+       procedure
+       (arity 0 0 #t))
+     (clutter-keyframe-transition-set-values
+       procedure
+       (arity 0 0 #t))
      (clutter-keysym-to-unicode
        procedure
        (arity 0 0 #t))
      (clutter-knot-equal procedure (arity 0 0 #t))
      (clutter-layout-manager-allocate
-       procedure
-       (arity 0 0 #t))
-     (clutter-layout-manager-begin-animation
        procedure
        (arity 0 0 #t))
      (clutter-layout-manager-child-get-property
@@ -1449,13 +1375,7 @@
      (clutter-layout-manager-child-set-property
        procedure
        (arity 0 0 #t))
-     (clutter-layout-manager-end-animation
-       procedure
-       (arity 0 0 #t))
      (clutter-layout-manager-find-child-property
-       procedure
-       (arity 0 0 #t))
-     (clutter-layout-manager-get-animation-progress
        procedure
        (arity 0 0 #t))
      (clutter-layout-manager-get-child-meta
@@ -1480,50 +1400,6 @@
      (clutter-main-level procedure (arity 0 0 #t))
      (clutter-main-quit procedure (arity 0 0 #t))
      (clutter-margin-new procedure (arity 0 0 #t))
-     (clutter-media-get-audio-volume
-       procedure
-       (arity 0 0 #t))
-     (clutter-media-get-buffer-fill
-       procedure
-       (arity 0 0 #t))
-     (clutter-media-get-can-seek
-       procedure
-       (arity 0 0 #t))
-     (clutter-media-get-duration
-       procedure
-       (arity 0 0 #t))
-     (clutter-media-get-playing
-       procedure
-       (arity 0 0 #t))
-     (clutter-media-get-progress
-       procedure
-       (arity 0 0 #t))
-     (clutter-media-get-subtitle-font-name
-       procedure
-       (arity 0 0 #t))
-     (clutter-media-get-subtitle-uri
-       procedure
-       (arity 0 0 #t))
-     (clutter-media-get-uri procedure (arity 0 0 #t))
-     (clutter-media-set-audio-volume
-       procedure
-       (arity 0 0 #t))
-     (clutter-media-set-filename
-       procedure
-       (arity 0 0 #t))
-     (clutter-media-set-playing
-       procedure
-       (arity 0 0 #t))
-     (clutter-media-set-progress
-       procedure
-       (arity 0 0 #t))
-     (clutter-media-set-subtitle-font-name
-       procedure
-       (arity 0 0 #t))
-     (clutter-media-set-subtitle-uri
-       procedure
-       (arity 0 0 #t))
-     (clutter-media-set-uri procedure (arity 0 0 #t))
      (clutter-offscreen-effect-get-target-size
        procedure
        (arity 1 0 #f))
@@ -1594,6 +1470,37 @@
        procedure
        (arity 0 0 #t))
      (clutter-paint-volume-union-box
+       procedure
+       (arity 0 0 #t))
+     (clutter-pan-action-get-acceleration-factor
+       procedure
+       (arity 0 0 #t))
+     (clutter-pan-action-get-deceleration
+       procedure
+       (arity 0 0 #t))
+     (clutter-pan-action-get-interpolate
+       procedure
+       (arity 0 0 #t))
+     (clutter-pan-action-get-interpolated-coords
+       procedure
+       (arity 1 0 #f))
+     (clutter-pan-action-get-interpolated-delta
+       procedure
+       (arity 1 0 #f))
+     (clutter-pan-action-get-pan-axis
+       procedure
+       (arity 0 0 #t))
+     (clutter-pan-action-new procedure (arity 0 0 #t))
+     (clutter-pan-action-set-acceleration-factor
+       procedure
+       (arity 0 0 #t))
+     (clutter-pan-action-set-deceleration
+       procedure
+       (arity 0 0 #t))
+     (clutter-pan-action-set-interpolate
+       procedure
+       (arity 0 0 #t))
+     (clutter-pan-action-set-pan-axis
        procedure
        (arity 0 0 #t))
      (clutter-path-add-cairo-path
@@ -1673,7 +1580,12 @@
        (arity 0 0 #t))
      (clutter-path-to-cairo-path
        procedure
-       (arity 2 0 #f))
+       (arity 0 0 #t))
+     (clutter-point-alloc procedure (arity 0 0 #t))
+     (clutter-point-distance procedure (arity 2 0 #f))
+     (clutter-point-equals procedure (arity 0 0 #t))
+     (clutter-point-init procedure (arity 0 0 #t))
+     (clutter-point-zero procedure (arity 0 0 #t))
      (clutter-property-transition-get-property-name
        procedure
        (arity 0 0 #t))
@@ -1683,7 +1595,7 @@
      (clutter-property-transition-set-property-name
        procedure
        (arity 0 0 #t))
-     (clutter-script-add-states
+     (clutter-rotate-action-new
        procedure
        (arity 0 0 #t))
      (clutter-script-ensure-objects
@@ -1693,9 +1605,6 @@
        procedure
        (arity 0 0 #t))
      (clutter-script-get-object
-       procedure
-       (arity 0 0 #t))
-     (clutter-script-get-states
        procedure
        (arity 0 0 #t))
      (clutter-script-get-translation-domain
@@ -1726,6 +1635,18 @@
      (clutter-script-unmerge-objects
        procedure
        (arity 0 0 #t))
+     (clutter-scroll-actor-get-scroll-mode
+       procedure
+       (arity 0 0 #t))
+     (clutter-scroll-actor-new
+       procedure
+       (arity 0 0 #t))
+     (clutter-scroll-actor-scroll-to-point
+       procedure
+       (arity 0 0 #t))
+     (clutter-scroll-actor-set-scroll-mode
+       procedure
+       (arity 0 0 #t))
      (clutter-settings-get-default
        procedure
        (arity 0 0 #t))
@@ -1741,6 +1662,9 @@
      (clutter-shader-error-quark
        procedure
        (arity 0 0 #t))
+     (clutter-size-alloc procedure (arity 0 0 #t))
+     (clutter-size-equals procedure (arity 0 0 #t))
+     (clutter-size-init procedure (arity 0 0 #t))
      (clutter-snap-constraint-get-edges
        procedure
        (arity 1 0 #f))
@@ -1860,90 +1784,15 @@
      (clutter-stage-show-cursor
        procedure
        (arity 0 0 #t))
-     (clutter-state-get-animator
-       procedure
-       (arity 0 0 #t))
-     (clutter-state-get-duration
-       procedure
-       (arity 0 0 #t))
-     (clutter-state-get-keys procedure (arity 5 0 #f))
-     (clutter-state-get-state
-       procedure
-       (arity 0 0 #t))
-     (clutter-state-get-states
-       procedure
-       (arity 1 0 #f))
-     (clutter-state-get-timeline
-       procedure
-       (arity 0 0 #t))
-     (clutter-state-key-get-mode
-       procedure
-       (arity 0 0 #t))
-     (clutter-state-key-get-object
-       procedure
-       (arity 0 0 #t))
-     (clutter-state-key-get-post-delay
-       procedure
-       (arity 0 0 #t))
-     (clutter-state-key-get-pre-delay
-       procedure
-       (arity 0 0 #t))
-     (clutter-state-key-get-property-name
-       procedure
-       (arity 0 0 #t))
-     (clutter-state-key-get-property-type
-       procedure
-       (arity 1 0 #f))
-     (clutter-state-key-get-source-state-name
-       procedure
-       (arity 0 0 #t))
-     (clutter-state-key-get-target-state-name
-       procedure
-       (arity 0 0 #t))
-     (clutter-state-key-get-value
-       procedure
-       (arity 0 0 #t))
-     (clutter-state-new procedure (arity 0 0 #t))
-     (clutter-state-remove-key
-       procedure
-       (arity 0 0 #t))
-     (clutter-state-set-animator
-       procedure
-       (arity 0 0 #t))
-     (clutter-state-set-duration
-       procedure
-       (arity 0 0 #t))
-     (clutter-state-set-key procedure (arity 0 0 #t))
-     (clutter-state-set-state
-       procedure
-       (arity 0 0 #t))
-     (clutter-state-warp-to-state
-       procedure
-       (arity 0 0 #t))
      (clutter-swipe-action-new
        procedure
        (arity 0 0 #t))
-     (clutter-table-layout-get-alignment
-       procedure
-       (arity 2 0 #f))
      (clutter-table-layout-get-column-count
        procedure
        (arity 0 0 #t))
      (clutter-table-layout-get-column-spacing
        procedure
        (arity 0 0 #t))
-     (clutter-table-layout-get-easing-duration
-       procedure
-       (arity 0 0 #t))
-     (clutter-table-layout-get-easing-mode
-       procedure
-       (arity 0 0 #t))
-     (clutter-table-layout-get-expand
-       procedure
-       (arity 2 0 #f))
-     (clutter-table-layout-get-fill
-       procedure
-       (arity 2 0 #f))
      (clutter-table-layout-get-row-count
        procedure
        (arity 0 0 #t))
@@ -1953,40 +1802,19 @@
      (clutter-table-layout-get-span
        procedure
        (arity 2 0 #f))
-     (clutter-table-layout-get-use-animations
-       procedure
-       (arity 0 0 #t))
      (clutter-table-layout-new
        procedure
        (arity 0 0 #t))
      (clutter-table-layout-pack
        procedure
        (arity 0 0 #t))
-     (clutter-table-layout-set-alignment
-       procedure
-       (arity 0 0 #t))
      (clutter-table-layout-set-column-spacing
-       procedure
-       (arity 0 0 #t))
-     (clutter-table-layout-set-easing-duration
-       procedure
-       (arity 0 0 #t))
-     (clutter-table-layout-set-easing-mode
-       procedure
-       (arity 0 0 #t))
-     (clutter-table-layout-set-expand
-       procedure
-       (arity 0 0 #t))
-     (clutter-table-layout-set-fill
        procedure
        (arity 0 0 #t))
      (clutter-table-layout-set-row-spacing
        procedure
        (arity 0 0 #t))
      (clutter-table-layout-set-span
-       procedure
-       (arity 0 0 #t))
-     (clutter-table-layout-set-use-animations
        procedure
        (arity 0 0 #t))
      (clutter-text-activate procedure (arity 0 0 #t))
@@ -2220,61 +2048,6 @@
      (clutter-texture-error-quark
        procedure
        (arity 0 0 #t))
-     (clutter-texture-get-base-size
-       procedure
-       (arity 1 0 #f))
-     (clutter-texture-get-filter-quality
-       procedure
-       (arity 0 0 #t))
-     (clutter-texture-get-keep-aspect-ratio
-       procedure
-       (arity 0 0 #t))
-     (clutter-texture-get-load-async
-       procedure
-       (arity 0 0 #t))
-     (clutter-texture-get-load-data-async
-       procedure
-       (arity 0 0 #t))
-     (clutter-texture-get-max-tile-waste
-       procedure
-       (arity 0 0 #t))
-     (clutter-texture-get-pick-with-alpha
-       procedure
-       (arity 0 0 #t))
-     (clutter-texture-get-repeat
-       procedure
-       (arity 1 0 #f))
-     (clutter-texture-get-sync-size
-       procedure
-       (arity 0 0 #t))
-     (clutter-texture-new procedure (arity 0 0 #t))
-     (clutter-texture-new-from-file
-       procedure
-       (arity 1 0 #f))
-     (clutter-texture-set-filter-quality
-       procedure
-       (arity 0 0 #t))
-     (clutter-texture-set-from-file
-       procedure
-       (arity 2 0 #f))
-     (clutter-texture-set-keep-aspect-ratio
-       procedure
-       (arity 0 0 #t))
-     (clutter-texture-set-load-async
-       procedure
-       (arity 0 0 #t))
-     (clutter-texture-set-load-data-async
-       procedure
-       (arity 0 0 #t))
-     (clutter-texture-set-pick-with-alpha
-       procedure
-       (arity 0 0 #t))
-     (clutter-texture-set-repeat
-       procedure
-       (arity 0 0 #t))
-     (clutter-texture-set-sync-size
-       procedure
-       (arity 0 0 #t))
      (clutter-timeline-add-marker-at-time
        procedure
        (arity 0 0 #t))
@@ -2285,6 +2058,9 @@
        procedure
        (arity 0 0 #t))
      (clutter-timeline-get-auto-reverse
+       procedure
+       (arity 0 0 #t))
+     (clutter-timeline-get-cubic-bezier-progress
        procedure
        (arity 0 0 #t))
      (clutter-timeline-get-current-repeat
@@ -2334,6 +2110,9 @@
      (clutter-timeline-set-auto-reverse
        procedure
        (arity 0 0 #t))
+     (clutter-timeline-set-cubic-bezier-progress
+       procedure
+       (arity 0 0 #t))
      (clutter-timeline-set-delay
        procedure
        (arity 0 0 #t))
@@ -2349,6 +2128,9 @@
      (clutter-timeline-set-repeat-count
        procedure
        (arity 0 0 #t))
+     (clutter-timeline-set-step-progress
+       procedure
+       (arity 0 0 #t))
      (clutter-timeline-skip procedure (arity 0 0 #t))
      (clutter-timeline-start procedure (arity 0 0 #t))
      (clutter-timeline-stop procedure (arity 0 0 #t))
@@ -2361,13 +2143,31 @@
      (clutter-transition-get-remove-on-complete
        procedure
        (arity 0 0 #t))
+     (clutter-transition-group-add-transition
+       procedure
+       (arity 0 0 #t))
+     (clutter-transition-group-new
+       procedure
+       (arity 0 0 #t))
+     (clutter-transition-group-remove-all
+       procedure
+       (arity 0 0 #t))
+     (clutter-transition-group-remove-transition
+       procedure
+       (arity 0 0 #t))
      (clutter-transition-set-animatable
+       procedure
+       (arity 0 0 #t))
+     (clutter-transition-set-from-value
        procedure
        (arity 0 0 #t))
      (clutter-transition-set-interval
        procedure
        (arity 0 0 #t))
      (clutter-transition-set-remove-on-complete
+       procedure
+       (arity 0 0 #t))
+     (clutter-transition-set-to-value
        procedure
        (arity 0 0 #t))
      (clutter-ungrab-keyboard
@@ -2408,9 +2208,25 @@
      (clutter-value-set-color
        procedure
        (arity 0 0 #t))
+     (clutter-vertex-alloc procedure (arity 0 0 #t))
      (clutter-vertex-equal procedure (arity 0 0 #t))
      (clutter-vertex-init procedure (arity 0 0 #t))
-     (clutter-vertex-new procedure (arity 0 0 #t))))
+     (clutter-vertex-new procedure (arity 0 0 #t))
+     (clutter-zoom-action-get-focal-point
+       procedure
+       (arity 0 0 #t))
+     (clutter-zoom-action-get-transformed-focal-point
+       procedure
+       (arity 0 0 #t))
+     (clutter-zoom-action-get-zoom-axis
+       procedure
+       (arity 0 0 #t))
+     (clutter-zoom-action-new
+       procedure
+       (arity 0 0 #t))
+     (clutter-zoom-action-set-zoom-axis
+       procedure
+       (arity 0 0 #t))))
   ((gnome gw generics)
    (uses-interfaces (gnome gobject generics))
    (typed-exports)))
