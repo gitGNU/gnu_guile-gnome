@@ -1,5 +1,5 @@
 /* guile-gnome
- * Copyright (C) 2008 Free Software Foundation, Inc.
+ * Copyright (C) 2008,2012,2014 Free Software Foundation, Inc.
  *
  * clutter-support.h:
  *
@@ -58,3 +58,12 @@ ClutterUnits* wrap_clutter_units_from_em_for_font (const gchar *font_name, gfloa
 ClutterUnits* wrap_clutter_units_from_mm (gfloat mm);
 ClutterUnits* wrap_clutter_units_from_pt (gfloat pt);
 ClutterUnits* wrap_clutter_units_from_string (const gchar *str);
+
+
+/* Since 1.12 */
+
+SCM scm_clutter_point_to_scm (ClutterPoint *k);
+ClutterPoint* scm_scm_to_clutter_point (SCM scm);
+
+SCM scm_clutter_size_to_scm (ClutterSize *k);
+ClutterSize* scm_scm_to_clutter_size (SCM scm);

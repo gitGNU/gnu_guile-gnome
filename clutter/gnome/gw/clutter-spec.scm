@@ -1,5 +1,5 @@
 ;; guile-gnome
-;; Copyright (C) 2008,2012 Free Software Foundation, Inc.
+;; Copyright (C) 2008,2012,2014 Free Software Foundation, Inc.
 
 ;; This program is free software; you can redistribute it and/or    
 ;; modify it under the terms of the GNU General Public License as   
@@ -155,6 +155,20 @@
    (list scm-var " = " c-var " ? scm_clutter_perspective_to_scm (" c-var ") : SCM_BOOL_F;\n")
    ;; unwrap
    (list c-var " = scm_scm_to_clutter_perspective (" scm-var ");\n"))
+
+  (wrap-custom-boxed!
+   "ClutterPoint" "CLUTTER_TYPE_POINT"
+   ;; wrap
+   (list scm-var " = " c-var " ? scm_clutter_point_to_scm (" c-var ") : SCM_BOOL_F;\n")
+   ;; unwrap
+   (list c-var " = scm_scm_to_clutter_point (" scm-var ");\n"))
+
+  (wrap-custom-boxed!
+   "ClutterSize" "CLUTTER_TYPE_SIZE"
+   ;; wrap
+   (list scm-var " = " c-var " ? scm_clutter_size_to_scm (" c-var ") : SCM_BOOL_F;\n")
+   ;; unwrap
+   (list c-var " = scm_scm_to_clutter_size (" scm-var ");\n"))
 
   (wrap-opaque-pointer! ws "ClutterInputDevice*")
 

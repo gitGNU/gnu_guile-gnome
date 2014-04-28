@@ -1,5 +1,5 @@
 /* guile-gnome
- * Copyright (C) 2008 Free Software Foundation, Inc.
+ * Copyright (C) 2008,2012,2014 Free Software Foundation, Inc.
  *
  * clutter-support.c: Support routines for the clutter wrapper
  *
@@ -297,4 +297,43 @@ wrap_clutter_units_from_string (const gchar *str)
   ClutterUnits units;
   clutter_units_from_string (&units, str);
   return clutter_units_copy (&units);
+}
+
+
+/* Since 1.12 */
+
+SCM
+scm_clutter_point_to_scm (ClutterPoint *c)
+{
+    return scm_list_2 (scm_from_double (c->x),
+                       scm_from_double (c->y));
+}
+
+ClutterPoint*
+scm_scm_to_clutter_point (SCM scm)
+{
+    ClutterPoint ret;
+
+    ret.x = scm_to_double (scm_car (scm));
+    ret.y = scm_to_double (scm_cadr (scm));
+
+    return clutter_point_copy (&ret);
+}
+
+SCM
+scm_clutter_size_to_scm (ClutterSize *c)
+{
+    return scm_list_2 (scm_from_double (c->width),
+                       scm_from_double (c->height));
+}
+
+ClutterSize*
+scm_scm_to_clutter_size (SCM scm)
+{
+    ClutterSize ret;
+
+    ret.width = scm_to_double (scm_car (scm));
+    ret.height = scm_to_double (scm_cadr (scm));
+
+    return clutter_size_copy (&ret);
 }
