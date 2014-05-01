@@ -337,3 +337,25 @@ scm_scm_to_clutter_size (SCM scm)
 
     return clutter_size_copy (&ret);
 }
+
+SCM
+scm_clutter_rect_to_scm (ClutterRect *rect)
+{
+  return scm_list_4 (scm_from_double (rect->origin.x),
+		     scm_from_double (rect->origin.y),
+		     scm_from_double (rect->size.width),
+		     scm_from_double (rect->size.height));
+}
+
+ClutterRect*
+scm_scm_to_clutter_rect (SCM scm)
+{
+  ClutterRect ret;
+
+  ret.origin.x = scm_to_double (scm_car (scm));
+  ret.origin.y = scm_to_double (scm_cadr (scm));
+  ret.size.width = scm_to_double (scm_caddr (scm));
+  ret.size.height = scm_to_double (scm_cadddr (scm));
+
+  return clutter_rect_copy (&ret);
+};

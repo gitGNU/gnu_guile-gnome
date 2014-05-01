@@ -67,3 +67,6 @@ ClutterPoint* scm_scm_to_clutter_point (SCM scm);
 
 SCM scm_clutter_size_to_scm (ClutterSize *k);
 ClutterSize* scm_scm_to_clutter_size (SCM scm);
+
+SCM scm_clutter_rect_to_scm (ClutterRect *rect);
+ClutterRect* scm_scm_to_clutter_rect (SCM scm);

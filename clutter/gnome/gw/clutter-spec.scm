@@ -170,6 +170,13 @@
    ;; unwrap
    (list c-var " = scm_scm_to_clutter_size (" scm-var ");\n"))
 
+  (wrap-custom-boxed!
+   "ClutterRect" "CLUTTER_TYPE_RECT"
+   ;; wrap
+   (list scm-var " = " c-var " ? scm_clutter_rect_to_scm (" c-var ") : SCM_BOOL_F;\n")
+   ;; unwrap
+   (list c-var " = scm_scm_to_clutter_rect (" scm-var ");\n"))
+
   (wrap-opaque-pointer! ws "ClutterInputDevice*")
 
   (wrap-opaque-pointer! ws "ClutterEventSequence*")
