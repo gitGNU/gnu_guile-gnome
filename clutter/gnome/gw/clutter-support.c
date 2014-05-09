@@ -358,4 +358,51 @@ scm_scm_to_clutter_rect (SCM scm)
   ret.size.height = scm_to_double (scm_cadddr (scm));
 
   return clutter_rect_copy (&ret);
-};
+}
+
+SCM
+scm_clutter_matrix_to_scm (ClutterMatrix *m)
+{
+  return scm_list_n (scm_from_double (m->xx), /* column 0 */
+		     scm_from_double (m->yx),
+		     scm_from_double (m->zx),
+		     scm_from_double (m->wx),
+		     scm_from_double (m->xy), /* column 1 */
+		     scm_from_double (m->yy),
+		     scm_from_double (m->zy),
+		     scm_from_double (m->wy),
+		     scm_from_double (m->xz), /* column 2 */
+		     scm_from_double (m->yz),
+		     scm_from_double (m->zz),
+		     scm_from_double (m->wz),
+		     scm_from_double (m->xw), /* column 3 */
+		     scm_from_double (m->yw),
+		     scm_from_double (m->zw),
+		     scm_from_double (m->ww),
+		     SCM_UNDEFINED);
+}
+
+ClutterMatrix*
+scm_scm_to_clutter_matrix (SCM scm)
+{
+  ClutterMatrix ret;
+
+  ret.xx = scm_to_double (scm_list_ref (scm, scm_from_int (0)));
+  ret.yx = scm_to_double (scm_list_ref (scm, scm_from_int (1)));
+  ret.zx = scm_to_double (scm_list_ref (scm, scm_from_int (2)));
+  ret.wx = scm_to_double (scm_list_ref (scm, scm_from_int (3)));
+  ret.xy = scm_to_double (scm_list_ref (scm, scm_from_int (4)));
+  ret.yy = scm_to_double (scm_list_ref (scm, scm_from_int (5)));
+  ret.zy = scm_to_double (scm_list_ref (scm, scm_from_int (6)));
+  ret.wy = scm_to_double (scm_list_ref (scm, scm_from_int (7)));
+  ret.xz = scm_to_double (scm_list_ref (scm, scm_from_int (8)));
+  ret.yz = scm_to_double (scm_list_ref (scm, scm_from_int (9)));
+  ret.zz = scm_to_double (scm_list_ref (scm, scm_from_int (10)));
+  ret.wz = scm_to_double (scm_list_ref (scm, scm_from_int (11)));
+  ret.xw = scm_to_double (scm_list_ref (scm, scm_from_int (12)));
+  ret.yw = scm_to_double (scm_list_ref (scm, scm_from_int (13)));
+  ret.zw = scm_to_double (scm_list_ref (scm, scm_from_int (14)));
+  ret.ww = scm_to_double (scm_list_ref (scm, scm_from_int (15)));
+
+  return g_boxed_copy (clutter_matrix_get_type (), &ret);
+}
