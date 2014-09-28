@@ -11,15 +11,15 @@ or a complete scenegraph from external definition data in forms of
 string buffers or files.
 
 The UI definition format is JSON, the JavaScript Object Notation as
-described by RFC 4627. @code{<clutter-script>} can load a JSON data
-stream, parse it and build all the objects defined into it. Each object
+described by RFC 4627.  @code{<clutter-script>} can load a JSON data
+stream, parse it and build all the objects defined into it.  Each object
 must have an "id" and a "type" properties defining the name to be used
 to retrieve it from @code{<clutter-script>} with
 @code{clutter-script-get-object}, and the class type to be instanciated.
 Every other attribute will be mapped to the class properties.
 
 A @code{<clutter-script>} holds a reference on every object it creates
-from the definition data, except for the stage. Every non-actor object
+from the definition data, except for the stage.  Every non-actor object
 will be finalized when the @code{<clutter-script>} instance holding it
 will be finalized, so they need to be referenced using
 @code{g-object-ref} in order for them to survive.
@@ -33,7 +33,7 @@ A simple object might be defined as:
   "type"   : "ClutterRectangle",
   "width"  : 100,
   "height" : 100,
-  "color"  : "&num;ff0000ff"
+  "color"  : "#ff0000ff"
 @}
 @end example
 
@@ -48,7 +48,7 @@ ClutterActor *red_button;
 red_button = CLUTTER_ACTOR (clutter_script_get_object (script, "red-button"));
 @end example
 
-and then manipulated with the Clutter API. For every object created
+and then manipulated with the Clutter API.  For every object created
 using ClutterScript it is possible to check the id by calling
 @code{clutter-get-script-id}.
 
@@ -184,12 +184,12 @@ to resolve the "target-state" key; it can be either a script id for a
 @code{<clutter-state>} built by the same @code{<clutter-script>}
 instance, or to a @code{<clutter-state>} built in code and associated to
 the @code{<clutter-script>} instance through the
-@code{clutter-script-add-states} function. If no "states" key is
+@code{clutter-script-add-states} function.  If no "states" key is
 present, then the default @code{<clutter-state>} associated to the
 @code{<clutter-script>} instance will be used; the default
 @code{<clutter-state>} can be set using @code{clutter-script-add-states}
-using a @samp{@code{#f}} name. The "warp" key can be used to warp to a
-specific state instead of animating to it. State changes on signal
+using a @samp{@code{#f}} name.  The "warp" key can be used to warp to a
+specific state instead of animating to it.  State changes on signal
 emission will not affect the signal emission chain.
 
 Clutter reserves the following names, so classes defining properties

@@ -15,21 +15,21 @@ linking were successfull) to the buffer before painting it on screen.
 
 @section Implementing a ClutterShaderEffect
 Creating a sub-class of @code{<clutter-shader-effect>} requires the
-overriding of the @code{@code{paint-target}} virtual function from the
-@code{<clutter-offscreen-effect>} class as well as the
-@code{@code{get-static-shader-source}} virtual from the
+overriding of the @code{clutter-offscreen-effect-class.paint-target}
+virtual function from the @code{<clutter-offscreen-effect>} class as
+well as the @code{@code{get-static-shader-source}} virtual from the
 @code{<clutter-shader-effect>} class.
 
-The @code{@code{get-static-shader-source}} function should return a copy
-of the shader source to use. This function is only called once per
-subclass of @code{<clutter-shader-effect>} regardless of how many
-instances of the effect are created. The source for the shader is
-typically stored in a static const string which is returned from this
+The @code{clutter-shader-effect-class.get-static-shader-source} function
+should return a copy of the shader source to use.  This function is only
+called once per subclass of @code{<clutter-shader-effect>} regardless of
+how many instances of the effect are created.  The source for the shader
+is typically stored in a static const string which is returned from this
 function via @code{g-strdup}.
 
 The @code{@code{paint-target}} should set the shader's uniforms if any.
 This is done by calling @code{clutter-shader-effect-set-uniform-value}
-or @code{clutter-shader-effect-set-uniform}. The sub-class should then
+or @code{clutter-shader-effect-set-uniform}.  The sub-class should then
 chain up to the @code{<clutter-shader-effect>} implementation.
 
 @c (example (@ (id "ClutterShaderEffect-example-uniforms")))

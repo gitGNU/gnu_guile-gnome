@@ -10,8 +10,8 @@ A constraint that follows a path
 the allocation of the @code{<clutter-actor>} to which it has been
 applied using a @code{<clutter-path>}.
 
-By setting the @code{<"offset">} property it is possible to control how
-far along the path the @code{<clutter-actor>} should be.
+By setting the @code{<“offset”>} property it is possible to control
+how far along the path the @code{<clutter-actor>} should be.
 
 ClutterPathConstraint is available since Clutter 1.6.
 

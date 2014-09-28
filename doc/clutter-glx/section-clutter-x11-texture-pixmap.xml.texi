@@ -7,7 +7,7 @@ A texture which displays the content of an X Pixmap.
 
 @section Overview
 @code{<clutter-x11-texture-pixmap>} is a class for displaying the
-content of an X Pixmap as a ClutterActor. Used together with the X
+content of an X Pixmap as a ClutterActor.  Used together with the X
 Composite extension, it allows to display the content of X Windows
 inside Clutter.
 

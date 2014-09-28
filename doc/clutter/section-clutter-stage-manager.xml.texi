@@ -10,8 +10,8 @@ Maintains the list of stages
 which maintains the list of currently active stages
 
 Every newly-created @code{<clutter-stage>} will cause the emission of
-the @code{<"stage-added">} signal; once a @code{<clutter-stage>} has
-been destroyed, the @code{<"stage-removed">} signal will be emitted
+the @code{<“stage-added”>} signal; once a @code{<clutter-stage>} has
+been destroyed, the @code{<“stage-removed”>} signal will be emitted
 
 @code{<clutter-stage-manager>} is available since Clutter 0.8
 

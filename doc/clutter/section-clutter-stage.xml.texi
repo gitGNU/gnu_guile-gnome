@@ -9,17 +9,17 @@ Top level visual element to which actors are placed.
 @code{<clutter-stage>} is a top level 'window' on which child actors are
 placed and manipulated.
 
-Backends might provide support for multiple stages. The support for this
-feature can be checked at run-time using the
+Backends might provide support for multiple stages.  The support for
+this feature can be checked at run-time using the
 @code{clutter-feature-available} function and the
-@samp{CLUTTER_FEATURE_STAGE_MULTIPLE} flag. If the backend used supports
-multiple stages, new @code{<clutter-stage>} instances can be created
-using @code{clutter-stage-new}. These stages must be managed by the
-developer using @code{clutter-actor-destroy}, which will take care of
-destroying all the actors contained inside them.
+@samp{CLUTTER_FEATURE_STAGE_MULTIPLE} flag.  If the backend used
+supports multiple stages, new @code{<clutter-stage>} instances can be
+created using @code{clutter-stage-new}.  These stages must be managed by
+the developer using @code{clutter-actor-destroy}, which will take care
+of destroying all the actors contained inside them.
 
 @code{<clutter-stage>} is a proxy actor, wrapping the backend-specific
-implementation of the windowing system. It is possible to subclass
+implementation of the windowing system.  It is possible to subclass
 @code{<clutter-stage>}, as long as every overridden virtual function
 chains up to the parent class corresponding function.
 

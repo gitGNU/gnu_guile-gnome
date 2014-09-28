@@ -22,8 +22,6 @@ for each layer there are horizontal and vertical alignment policies.
 
 @end itemize
 
-(The missing figure, bin-layout
-
 @c (title "Bin layout")
 The image shows a @code{<clutter-bin-layout>} with three layers: a
 background @code{<clutter-cairo-texture>}, set to fill on both the X and
@@ -33,39 +31,8 @@ axis; and a @code{<clutter-rectangle>}, set to
 
 @c (example (@ (id "example-clutter-bin-layout")))
 @c (title "How to pack actors inside a BinLayout")
-The following code shows how to build a composite actor with a texture
-and a background, and add controls overlayed on top. The background is
-set to fill the whole allocation, whilst the texture is centered; there
-is a control in the top right corner and a label in the bottom, filling
-out the whole allocated width.
-
 @example 
-
- ClutterLayoutManager *manager;
- ClutterActor *box;
-
- /&#x002A; create the layout first &#x002A;/
- layout = clutter_bin_layout_new (CLUTTER_BIN_ALIGNMENT_CENTER,
-                                  CLUTTER_BIN_ALIGNMENT_CENTER);
- box = clutter_box_new (layout); /&#x002A; then the container &#x002A;/
-
- /&#x002A; we can use the layout object to add actors &#x002A;/
- clutter_bin_layout_add (CLUTTER_BIN_LAYOUT (layout), background,
-                         CLUTTER_BIN_ALIGNMENT_FILL,
-                         CLUTTER_BIN_ALIGNMENT_FILL);
- clutter_bin_layout_add (CLUTTER_BIN_LAYOUT (layout), icon,
-                         CLUTTER_BIN_ALIGNMENT_CENTER,
-                         CLUTTER_BIN_ALIGNMENT_CENTER);
-
- /&#x002A; align to the bottom left &#x002A;/
- clutter_bin_layout_add (CLUTTER_BIN_LAYOUT (layout), label,
-                         CLUTTER_BIN_ALIGNMENT_START,
-                         CLUTTER_BIN_ALIGNMENT_END);
- /&#x002A; align to the top right &#x002A;/
- clutter_bin_layout_add (CLUTTER_BIN_LAYOUT (layout), button,
-                         CLUTTER_BIN_ALIGNMENT_END,
-                         CLUTTER_BIN_ALIGNMENT_START);
- 
+@c (http://www.w3.org/2001/XInclude:include (@ (parse "text") (href "../../../../examples/bin-layout.c")) (c (% (all "(http://www.w3.org/2001/XInclude:fallback \"FIXME: MISSING XINCLUDE CONTENT\")"))))
 @end example
 
 @code{<clutter-bin-layout>} is available since Clutter 1.2

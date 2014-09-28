@@ -26,17 +26,17 @@ chain up to the @code{<clutter-offscreen-effect>}'s implementation.
 
 On top of the @code{<clutter-effect>}'s virtual functions,
 @code{<clutter-offscreen-effect>} also provides a
-@code{@code{paint-target}} function, which encapsulates the effective
-painting of the texture that contains the result of the offscreen
-redirection.
+@code{clutter-offscreen-effect-class.paint-target} function, which
+encapsulates the effective painting of the texture that contains the
+result of the offscreen redirection.
 
 The size of the target material is defined to be as big as the
 transformed size of the @code{<clutter-actor>} using the offscreen
-effect. Sub-classes of @code{<clutter-offscreen-effect>} can change the
+effect.  Sub-classes of @code{<clutter-offscreen-effect>} can change the
 texture creation code to provide bigger textures by overriding the
-@code{@code{create-texture}} virtual function; no chain up to the
-@code{<clutter-offscreen-effect>} implementation is required in this
-case.
+@code{clutter-offscreen-effect-class.create-texture} virtual function;
+no chain up to the @code{<clutter-offscreen-effect>} implementation is
+required in this case.
 
 @code{<clutter-offscreen-effect>} is available since Clutter 1.4
 

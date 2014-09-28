@@ -15,7 +15,7 @@ Until Clutter 1.10, the @code{<clutter-container>} interface was also
 the public API for implementing container actors; this part of the
 interface has been deprecated: @code{<clutter-container>} has a default
 implementation which defers to @code{<clutter-actor>} the child addition
-and removal, as well as the iteration. See the documentation of
+and removal, as well as the iteration.  See the documentation of
 @code{<clutter-container-iface>} for the list of virtual functions that
 should be overridden.
 

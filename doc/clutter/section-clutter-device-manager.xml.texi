@@ -10,7 +10,7 @@ Maintains the list of input devices
 which maintains the list of @code{<clutter-input-device>}s.
 
 Depending on the backend used by Clutter it is possible to use the
-@code{<"device-added">} and @code{<"device-removed">} to monitor
+@code{<“device-added”>} and @code{<“device-removed”>} to monitor
 addition and removal of devices.
 
 @code{<clutter-device-manager>} is available since Clutter 1.2

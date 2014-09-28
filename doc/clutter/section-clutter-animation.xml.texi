@@ -16,7 +16,7 @@ interpolate the property between the initial and final values of the
 interval.
 
 The duration of the animation is set using
-@code{clutter-animation-set-duration}. The easing mode of the animation
+@code{clutter-animation-set-duration}.  The easing mode of the animation
 is set using @code{clutter-animation-set-mode}.
 
 If you want to control the animation you should retrieve the
@@ -25,11 +25,11 @@ and then use @code{<clutter-timeline>} functions like
 @code{clutter-timeline-start}, @code{clutter-timeline-pause} or
 @code{clutter-timeline-stop}.
 
-A @code{<clutter-animation>} will emit the @code{<"completed">} signal
-when the @code{<clutter-timeline>} used by the animation is completed;
-unlike @code{<clutter-timeline>}, though, the @code{<"completed">} will
-not be emitted if @code{<"loop">} is set to @samp{@code{#t}} - that is,
-a looping animation never completes.
+A @code{<clutter-animation>} will emit the @code{<“completed”>}
+signal when the @code{<clutter-timeline>} used by the animation is
+completed; unlike @code{<clutter-timeline>}, though, the
+@code{<“completed”>} will not be emitted if @code{<“loop”>} is
+set to @samp{@code{#t}} - that is, a looping animation never completes.
 
 If your animation depends on user control you can force its completion
 using @code{clutter-animation-completed}.
@@ -53,7 +53,7 @@ current state and the specified final state.
 
 @section Defining ClutterAnimationMode inside ClutterScript
 When defining a @code{<clutter-animation>} inside a ClutterScript file
-or string the @code{<"mode">} can be defined either using the
+or string the @code{<“mode”>} can be defined either using the
 @code{<clutter-animation-mode>} enumeration values through their "nick"
 (the short string used inside @code{<g-enum-value>}), their numeric id,
 or using the following strings:
@@ -141,7 +141,9 @@ Corresponding to the bouncing easing modes
 @c (http://www.w3.org/2001/XInclude:include (@ (parse "text") (href "../../../../tests/interactive/test-easing.c")) (c (% (all "(http://www.w3.org/2001/XInclude:fallback \"FIXME: MISSING XINCLUDE CONTENT\")"))))
 @end example
 
-@code{<clutter-animation>} is available since Clutter 1.0
+@code{<clutter-animation>} is available since Clutter 1.0.
+
+@code{<clutter-animation>} has been deprecated in Clutter 1.12.
 
 @section Usage
 @include defuns-clutter-animation.xml.texi

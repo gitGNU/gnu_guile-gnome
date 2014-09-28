@@ -8,7 +8,7 @@ State machine with animated transitions
 @section Overview
 @code{<clutter-state>} is an object controlling the tweening of
 properties on multiple actors between a set of named states.
-@code{<clutter-state-key>}s define how the properties are animated. If
+@code{<clutter-state-key>}s define how the properties are animated.  If
 the source_state_name for a key is NULL it is used for transition to the
 target state unless a specific key exists for transitioning from the
 current state to the requested state.
@@ -48,8 +48,8 @@ clutter_state_warp_to_state (state, "base");
 @end example
 
 The actor then uses the @code{<clutter-state>} to animate through the
-two states using callbacks for the @code{<"enter-event">} and
-@code{<"leave-event">} signals.
+two states using callbacks for the @code{<“enter-event”>} and
+@code{<“leave-event”>} signals.
 
 @example 
 
@@ -123,9 +123,9 @@ Each element of the @emph{transitions} array follows the same rules as
 @code{clutter-state-set-key}.
 
 The @emph{source} and @emph{target} values control the source and target
-state of the transition. The @emph{key} and @emph{animator} are mutually
-exclusive. The @emph{pre-delay} and @emph{post-delay} values are
-optional.
+state of the transition.  The @emph{key} and @emph{animator} are
+mutually exclusive.  The @emph{pre-delay} and @emph{post-delay} values
+are optional.
 
 @c (example (@ (id "ClutterState-script-example")))
 @c (title "ClutterState definition")
@@ -163,6 +163,8 @@ definition of the code in the example above.
 @end example
 
 @code{<clutter-state>} is available since Clutter 1.4.
+
+@code{<clutter-state>} has been deprecated in Clutter 1.12.
 
 @section Usage
 @include defuns-clutter-state.xml.texi

@@ -12,7 +12,7 @@ a node in the graph.
 
 @section Actor transformations
 Each actor can be transformed using methods like
-@code{clutter-actor-set-scale} or @code{clutter-actor-set-rotation}. The
+@code{clutter-actor-set-scale} or @code{clutter-actor-set-rotation}.  The
 order in which the transformations are applied is decided by Clutter and
 it is the following:
 
@@ -26,29 +26,30 @@ it is the following:
 @item
 @end enumerate
 
-translation by the origin of the @code{<"allocation">};
+translation by the origin of the @code{<“allocation”>};
 
-translation by the actor's @code{<"depth">};
+translation by the actor's @code{<“depth”>};
 
-scaling by the @code{<"scale-x">} and @code{<"scale-y">} factors;
+scaling by the @code{<“scale-x”>} and @code{<“scale-y”>}
+factors;
 
-rotation around the @code{<"rotation-z-angle">} and
-@code{<"rotation-z-center">};
+rotation around the @code{<“rotation-angle-x”>} and
+@code{<“rotation-center-x”>};
 
-rotation around the @code{<"rotation-y-angle">} and
-@code{<"rotation-y-center">};
+rotation around the @code{<“rotation-angle-y”>} and
+@code{<“rotation-center-y”>};
 
-rotation around the @code{<"rotation-x-angle">} and
-@code{<"rotation-x-center">};
+rotation around the @code{<“rotation-angle-z”>} and
+@code{<“rotation-center-z”>};
 
-negative translation by the @code{<"anchor-x">} and @code{<"anchor-y">}
-point.
+negative translation by the @code{<“anchor-x”>} and
+@code{<“anchor-y”>} point.
 
 @section Modifying an actor's geometry
-Each actor has a bounding box, called @code{<"allocation">} which is
+Each actor has a bounding box, called @code{<“allocation”>} which is
 either set by its parent or explicitly through the
 @code{clutter-actor-set-position} and @code{clutter-actor-set-size}
-methods. Each actor also has an implicit preferred size.
+methods.  Each actor also has an implicit preferred size.
 
 An actor’s preferred size can be defined by any subclass by overriding
 the @code{clutter-actor-class.get-preferred-width} and the
@@ -93,22 +94,23 @@ using @code{clutter-actor-destroy}.
 @end example
 
 Children can be inserted at a given index, or above and below another
-child actor. The order of insertion determines the order of the children
-when iterating over them. Iterating over children is performed by using
-@code{clutter-actor-get-first-child},
+child actor.  The order of insertion determines the order of the
+children when iterating over them.  Iterating over children is performed
+by using @code{clutter-actor-get-first-child},
 @code{clutter-actor-get-previous-sibling},
 @code{clutter-actor-get-next-sibling}, and
-@code{clutter-actor-get-last-child}. It is also possible to retrieve a
+@code{clutter-actor-get-last-child}.  It is also possible to retrieve a
 list of children by using @code{clutter-actor-get-children}, as well as
 retrieving a specific child at a given index by using
 @code{clutter-actor-get-child-at-index}.
 
 If you need to track additions of children to a @code{<clutter-actor>},
-use the @code{<"actor-added">} signal; similarly, to track removals of
-children from a ClutterActor, use the @code{<"actor-removed">} signal.
+use the @code{<“actor-added”>} signal; similarly, to track removals
+of children from a ClutterActor, use the @code{<“actor-removed”>}
+signal.
 
 @example 
-@c (http://www.w3.org/2001/XInclude:include (@ (parse "text") (href "../../../../tests/interactive/test-actor.c")) (c (% (all "(http://www.w3.org/2001/XInclude:fallback \"FIXME: MISSING XINCLUDE CONTENT\")"))))
+@c (http://www.w3.org/2001/XInclude:include (@ (parse "text") (href "../../../../examples/basic-actor.c")) (c (% (all "(http://www.w3.org/2001/XInclude:fallback \"FIXME: MISSING XINCLUDE CONTENT\")"))))
 @end example
 
 @c (title "Actors")
@@ -122,7 +124,7 @@ There are three ways to paint an actor:
 @end itemize
 
 set a delegate @code{<clutter-content>} as the value for the
-@code{<"content">} property of the actor;
+@code{<“content”>} property of the actor;
 
 subclass @code{<clutter-actor>} and override the
 @code{clutter-actor-class.paint-node} virtual function;
@@ -132,10 +134,10 @@ subclass @code{<clutter-actor>} and override the
 
 @c (title "Setting the Content property")
 A @code{<clutter-content>} is a delegate object that takes over the
-painting operation of one, or more actors. The @code{<clutter-content>}
-painting will be performed on top of the @code{<"background-color">} of
-the actor, and before calling the @code{clutter-actor-class.paint-node}
-virtual function.
+painting operation of one, or more actors.  The @code{<clutter-content>}
+painting will be performed on top of the @code{<“background-color”>}
+of the actor, and before calling the
+@code{clutter-actor-class.paint-node} virtual function.
 
 @example 
 
@@ -152,13 +154,14 @@ clutter_actor_set_content (actor, image_content);
 
 @c (title "Overriding the paint_node virtual function")
 The @code{clutter-actor-class.paint-node} virtual function is invoked
-whenever an actor needs to be painted. The implementation of the virtual
-function must only paint the contents of the actor itself, and not the
-contents of its children, if the actor has any.
+whenever an actor needs to be painted.  The implementation of the
+virtual function must only paint the contents of the actor itself, and
+not the contents of its children, if the actor has any.
 
 The @code{<clutter-paint-node>} passed to the virtual function is the
 local root of the render tree; any node added to it will be rendered at
-the correct position, as defined by the actor's @code{<"allocation">}.
+the correct position, as defined by the actor's
+@code{<“allocation”>}.
 
 @example 
 
@@ -189,33 +192,33 @@ my_actor_paint_node (ClutterActor     *actor,
 
 @c (title "Overriding the paint virtual function")
 The @code{clutter-actor-class.paint} virtual function is invoked when
-the @code{<"paint">} signal is emitted, and after the other signal
-handlers have been invoked. Overriding the paint virtual function gives
+the @code{<“paint”>} signal is emitted, and after the other signal
+handlers have been invoked.  Overriding the paint virtual function gives
 total control to the paint sequence of the actor itself, including the
 children of the actor, if any.
 
 It is strongly discouraged to override the
 @code{clutter-actor-class.paint} virtual function, as well as connecting
-to the @code{<"paint">} signal. These hooks into the paint sequence are
-considered legacy, and will be removed when the Clutter API changes.
+to the @code{<“paint”>} signal.  These hooks into the paint sequence
+are considered legacy, and will be removed when the Clutter API changes.
 
 @section Handling events on an actor
 A @code{<clutter-actor>} can receive and handle input device events, for
 instance pointer events and key events, as long as its
-@code{<"reactive">} property is set to @samp{@code{#t}}.
+@code{<“reactive”>} property is set to @samp{@code{#t}}.
 
 Once an actor has been determined to be the source of an event, Clutter
 will traverse the scene graph from the top-level actor towards the event
-source, emitting the @code{<"captured-event">} signal on each ancestor
-until it reaches the source; this phase is also called @emph{the capture
-phase}. If the event propagation was not stopped, the graph is walked
-backwards, from the source actor to the top-level, and the
-@code{<"event">} signal, along with other event signals if needed, is
-emitted; this phase is also called @emph{the bubble phase}. At any point
-of the signal emission, signal handlers can stop the propagation through
-the scene graph by returning @samp{CLUTTER_EVENT_STOP}; otherwise, they
-can continue the propagation by returning
-@samp{CLUTTER_EVENT_PROPAGATE}.
+source, emitting the @code{<“captured-event”>} signal on each
+ancestor until it reaches the source; this phase is also called
+@emph{the capture phase}.  If the event propagation was not stopped, the
+graph is walked backwards, from the source actor to the top-level, and
+the @code{<“event”>} signal, along with other event signals if
+needed, is emitted; this phase is also called @emph{the bubble phase}.
+At any point of the signal emission, signal handlers can stop the
+propagation through the scene graph by returning
+@samp{CLUTTER_EVENT_STOP}; otherwise, they can continue the propagation
+by returning @samp{CLUTTER_EVENT_PROPAGATE}.
 
 @section Animation
 Animation is a core concept of modern user interfaces; Clutter provides
@@ -227,13 +230,16 @@ from your application code.
 The implicit animation model of Clutter assumes that all the changes in
 an actor state should be gradual and asynchronous; Clutter will
 automatically transition an actor's property change between the current
-state and the desired one without manual intervention.
+state and the desired one without manual intervention, if the property
+is defined to be animatable in its documentation.
 
 By default, in the 1.0 API series, the transition happens with a
 duration of zero milliseconds, and the implicit animation is an opt in
-feature to retain backwards compatibility. In order to enable implicit
-animations, it is necessary to change the easing state of an actor by
-using @code{clutter-actor-save-easing-state}:
+feature to retain backwards compatibility.
+
+Implicit animations depend on the current easing state; in order to use
+the default easing state for an actor you should call the
+@code{clutter-actor-save-easing-state} function:
 
 @example 
 
@@ -273,6 +279,9 @@ default easing mode of @samp{CLUTTER_EASE_OUT_CUBIC}, unless you call
 @code{clutter-actor-set-easing-duration} after changing the easing state
 of the actor.
 
+Changing the easing state will affect all the following property
+transitions, but will not affect existing transitions.
+
 It is important to note that if you modify the state on an animatable
 property while a transition is in flight, the transition's final value
 will be updated, as well as its duration and progress mode by using the
@@ -281,19 +290,22 @@ current easing state; for instance, in the following example:
 @example 
 
 clutter_actor_save_easing_state (actor);
+clutter_actor_set_easing_duration (actor, 1000);
 clutter_actor_set_x (actor, 200);
 clutter_actor_restore_easing_state (actor);
 
 clutter_actor_save_easing_state (actor);
+clutter_actor_set_easing_duration (actor, 500);
 clutter_actor_set_x (actor, 100);
 clutter_actor_restore_easing_state (actor);
     
 @end example
 
 the first call to @code{clutter-actor-set-x} will begin a transition of
-the @code{<"x">} property to the value of 200; the second call to
+the @code{<“x”>} property from the current value to the value of 200
+over a duration of one second; the second call to
 @code{clutter-actor-set-x} will change the transition's final value to
-100.
+100 and the duration to 500 milliseconds.
 
 It is possible to retrieve the @code{<clutter-transition>} used by the
 animatable properties by using @code{clutter-actor-get-transition} and
@@ -302,7 +314,7 @@ using the property name as the transition name.
 @c (title "Explicit animations")
 The explicit animation model supported by Clutter requires that you
 create a @code{<clutter-transition>} object, and set the initial and
-final values. The transition will not start unless you add it to the
+final values.  The transition will not start unless you add it to the
 @code{<clutter-actor>}.
 
 @example 
@@ -313,16 +325,22 @@ transition = clutter_property_transition_new ("opacity");
 clutter_timeline_set_duration (CLUTTER_TIMELINE (transition), 3000);
 clutter_timeline_set_repeat_count (CLUTTER_TIMELINE (transition), 2);
 clutter_timeline_set_auto_reverse (CLUTTER_TIMELINE (transition), TRUE);
-clutter_transition_set_interval (transition, clutter_interval_new (G_TYPE_UINT, 255, 0));
+clutter_transition_set_from (transition, G_TYPE_UINT, 255);
+clutter_transition_set_to (transition, G_TYPE_UINT, 0);
 
 clutter_actor_add_transition (actor, "animate-opacity", transition);
     
 @end example
 
-The example above will animate the @code{<"opacity">} property of an
+The example above will animate the @code{<“opacity”>} property of an
 actor between fully opaque and fully transparent, and back, over a span
-of 3 seconds. The animation does not begin until it is added to the
+of 3 seconds.  The animation does not begin until it is added to the
 actor.
+
+The explicit animation API applies to all @code{<gobject>} properties,
+as well as the custom properties defined through the
+@code{<clutter-animatable>} interface, regardless of whether they are
+defined as implicitly animatable or not.
 
 The explicit animation API should also be used when using custom
 animatable properties for @code{<clutter-action>},
@@ -342,8 +360,8 @@ ClutterInterval *interval;
 transition = clutter_property_transition_new ("opacity");
 
 /&#x002A; we want to animate the opacity between 0 and 255 &#x002A;/
-internal = clutter_interval_new (G_TYPE_UINT, 0, 255);
-clutter_transition_set_interval (transition, interval);
+clutter_transition_set_from (transition, G_TYPE_UINT, 0);
+clutter_transition_set_to (transition, G_TYPE_UINT, 255);
 
 /&#x002A; over a one second duration, running an infinite amount of times &#x002A;/
 clutter_timeline_set_duration (CLUTTER_TIMELINE (transition), 1000);
@@ -365,21 +383,21 @@ clutter_actor_add_transition (actor, "opacityAnimation", transition);
 
 @section Implementing an actor
 Careful consideration should be given when deciding to implement a
-@code{<clutter-actor>} sub-class. It is generally recommended to
+@code{<clutter-actor>} sub-class.  It is generally recommended to
 implement a sub-class of @code{<clutter-actor>} only for actors that
 should be used as leaf nodes of a scene graph.
 
 If your actor should be painted in a custom way, you should override the
-@code{<"paint">} signal class handler. You can either opt to chain up to
-the parent class implementation or decide to fully override the default
-paint implementation; Clutter will set up the transformations and clip
-regions prior to emitting the @code{<"paint">} signal.
+@code{<“paint”>} signal class handler.  You can either opt to chain
+up to the parent class implementation or decide to fully override the
+default paint implementation; Clutter will set up the transformations
+and clip regions prior to emitting the @code{<“paint”>} signal.
 
 By overriding the @code{clutter-actor-class.get-preferred-width} and
 @code{clutter-actor-class.get-preferred-height} virtual functions it is
 possible to change or provide the preferred size of an actor; similarly,
 by overriding the @code{clutter-actor-class.allocate} virtual function
-it is possible to control the layout of the children of an actor. Make
+it is possible to control the layout of the children of an actor.  Make
 sure to always chain up to the parent implementation of the
 @code{clutter-actor-class.allocate} virtual function.
 
@@ -408,6 +426,22 @@ The @emph{center} array is optional, and if present it must contain the
 center of rotation as described by two coordinates: Y and Z for
 "x-axis"; X and Z for "y-axis"; and X and Y for "z-axis".
 
+@code{<clutter-actor>} also defines a scriptable "margin" property which
+follows the CSS "margin" shorthand.
+
+@example 
+
+// 4 values
+"margin" : [ <top>, <right>, <bottom> <left> ]
+// 3 values
+"margin" : [ <top>, <left/right>, <bottom> ]
+// 2 values
+"margin" : [ <top/bottom>, <left/right> ]
+// 1 value
+"margin" : [ <top/right/bottom/left> ]
+    
+@end example
+
 @code{<clutter-actor>} will also parse every positional and dimensional
 property defined as a string through @code{clutter-units-from-string};
 you should read the documentation for the @code{<clutter-units>} parser
@@ -421,7 +455,7 @@ for animation purposes.
 
 In order to access a specific @code{<clutter-action>} or a
 @code{<clutter-constraint>} property it is necessary to set the
-@code{<"name">} property on the given action or constraint.
+@code{<“name”>} property on the given action or constraint.
 
 The property can be accessed using the following syntax:
 
@@ -437,13 +471,13 @@ The @emph{section} fragment can be one between "actions", "constraints"
 and "effects".
 
 The @emph{meta-name} fragment is the name of the action or constraint,
-as specified by the @code{<"name">} property.
+as specified by the @code{<“name”>} property.
 
 The @emph{property-name} fragment is the name of the action or
 constraint property to be animated.
 
 The example below animates a @code{<clutter-bind-constraint>} applied to
-an actor using @code{clutter-actor-animate}. The @emph{rect} has a
+an actor using @code{clutter-actor-animate}.  The @emph{rect} has a
 binding constraint for the @emph{origin} actor, and in its initial state
 is overlapping the actor to which is bound to.
 
@@ -466,7 +500,8 @@ g_signal_connect (origin, "button-press-event",
 @end example
 
 On button press, the rectangle "slides" from behind the actor to which
-is bound to, using the @code{<"offset">} property to achieve the effect:
+is bound to, using the @code{<“offset”>} property to achieve the
+effect:
 
 @example 
 
@@ -476,7 +511,6 @@ on_button_press (ClutterActor *origin,
                  ClutterActor *rect)
 @{
   ClutterTransition *transition;
-  ClutterInterval *interval;
 
   /&#x002A; the offset that we want to apply; this will make the actor
    &#x002A; slide in from behind the origin and rest at the right of
@@ -501,8 +535,8 @@ on_button_press (ClutterActor *origin,
   clutter_timeline_set_duration (CLUTTER_TIMELINE (transition), 500);
 
   /&#x002A; create the interval with the initial and final values &#x002A;/
-  interval = clutter_interval_new (G_TYPE_FLOAT, 0, new_offset);
-  clutter_transition_set_interval (transition, interval);
+  clutter_transition_set_from (transition, G_TYPE_FLOAT, 0.f);
+  clutter_transition_set_to (transition, G_TYPE_FLOAT, new_offset);
 
   /&#x002A; add the transition to the actor; this causes the animation
    &#x002A; to start. the name "offsetAnimation" can be used to retrieve

@@ -10,7 +10,7 @@ Clutter depends on some settings to perform operations like detecting
 multiple button press events, or font options to render text.
 
 Usually, Clutter will strive to use the platform's settings in order to
-be as much integrated as possible. It is, however, possible to change
+be as much integrated as possible.  It is, however, possible to change
 these settings on a per-application basis, by using the
 @code{<clutter-settings>} singleton object and setting its properties.
 It is also possible, for toolkit developers, to retrieve the settings

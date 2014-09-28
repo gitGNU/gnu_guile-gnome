@@ -52,9 +52,9 @@ Iterating through the model consists of retrieving a new
 forward or backwards, repectively.
 
 A valid @code{<clutter-model-iter>} represents the position between two
-rows in the model. For example, the "first" iterator represents the gap
+rows in the model.  For example, the "first" iterator represents the gap
 immediately before the first row, and the "last" iterator represents the
-gap immediately after the last row. In an empty sequence, the first and
+gap immediately after the last row.  In an empty sequence, the first and
 last iterators are the same.
 
 Iterating a @code{<clutter-model>}:
@@ -90,23 +90,23 @@ enum
 @}
 @end example
 
-@code{<clutter-model>} is an abstract class. Clutter provides a list
+@code{<clutter-model>} is an abstract class.  Clutter provides a list
 model implementation called @code{<clutter-list-model>} which has been
 optimised for insertion and look up in sorted lists.
 
 @section ClutterModel custom properties for @code{<clutter-script>}
 @code{<clutter-model>} defines a custom property "columns" for
 @code{<clutter-script>} which allows defining the column names and
-types. It also defines a custom "rows" property which allows filling the
-@code{<clutter-model>} with some data.
+types.  It also defines a custom "rows" property which allows filling
+the @code{<clutter-model>} with some data.
 
 @c (example (@ (id "ClutterModel-script-example")))
 @c (title "Example of the \"columns\" and \"rows\" custom properties")
 The definition below will create a @code{<clutter-list-model>} with
 three columns: the first one with name "Name" and containing strings;
 the second one with name "Score" and containing integers; the third one
-with name "Icon" and containing @code{<clutter-texture>}s. The model is
-filled with three rows. A row can be defined either with an array that
+with name "Icon" and containing @code{<clutter-texture>}s.  The model is
+filled with three rows.  A row can be defined either with an array that
 holds all columns of a row, or an object that holds "column-name" :
 "column-value" pairs.
 

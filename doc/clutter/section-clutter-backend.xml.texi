@@ -6,7 +6,7 @@
 Backend abstraction
 
 @section Overview
-Clutter can be compiled against different backends. Each backend has to
+Clutter can be compiled against different backends.  Each backend has to
 implement a set of functions, in order to be used by Clutter.
 
 @code{<clutter-backend>} is the base class abstracting the various

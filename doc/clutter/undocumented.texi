@@ -52,13 +52,13 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-actor-apply-transform-to-point
 @end defvar
 
-@defvar clutter-actor-get-allocation-geometry
-@end defvar
-
-@defvar clutter-actor-get-anchor-point-gravity
+@defvar clutter-actor-box-alloc
 @end defvar
 
 @defvar clutter-actor-get-clip-to-allocation
+@end defvar
+
+@defvar clutter-actor-get-content-repeat
 @end defvar
 
 @defun clutter-actor-get-content-scaling-filters _
@@ -76,25 +76,43 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-actor-get-paint-volume
 @end defvar
 
+@defun clutter-actor-get-pivot-point _
+@end defun
+
+@defvar clutter-actor-get-pivot-point-z
+@end defvar
+
+@defvar clutter-actor-get-rotation-angle
+@end defvar
+
+@defvar clutter-actor-get-scale-z
+@end defvar
+
 @defvar clutter-actor-get-transformed-paint-volume
 @end defvar
 
 @defun clutter-actor-get-transformed-position _
 @end defun
 
-@defvar clutter-actor-get-z-rotation-gravity
+@defun clutter-actor-get-translation _
+@end defun
+
+@defvar clutter-actor-get-x-expand
 @end defvar
 
-@defvar clutter-actor-move-anchor-point-from-gravity
+@defvar clutter-actor-get-y-expand
+@end defvar
+
+@defvar clutter-actor-get-z-position
+@end defvar
+
+@defvar clutter-actor-needs-expand
 @end defvar
 
 @defvar clutter-actor-remove-all-transitions
 @end defvar
 
 @defvar clutter-actor-remove-constraint-by-name
-@end defvar
-
-@defvar clutter-actor-set-anchor-point-from-gravity
 @end defvar
 
 @defvar clutter-actor-set-child-above-sibling
@@ -106,6 +124,9 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-actor-set-clip-to-allocation
 @end defvar
 
+@defvar clutter-actor-set-content-repeat
+@end defvar
+
 @defvar clutter-actor-set-content-scaling-filters
 @end defvar
 
@@ -115,10 +136,28 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-actor-set-offscreen-redirect
 @end defvar
 
-@defvar clutter-actor-set-scale-with-gravity
+@defvar clutter-actor-set-pivot-point
 @end defvar
 
-@defvar clutter-actor-set-z-rotation-from-gravity
+@defvar clutter-actor-set-pivot-point-z
+@end defvar
+
+@defvar clutter-actor-set-rotation-angle
+@end defvar
+
+@defvar clutter-actor-set-scale-z
+@end defvar
+
+@defvar clutter-actor-set-translation
+@end defvar
+
+@defvar clutter-actor-set-x-expand
+@end defvar
+
+@defvar clutter-actor-set-y-expand
+@end defvar
+
+@defvar clutter-actor-set-z-position
 @end defvar
 
 @defvar clutter-align-constraint-get-align-axis
@@ -133,26 +172,8 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-animatable-interpolate-value
 @end defvar
 
-@defvar clutter-animator-key-get-property-name
+@defvar clutter-backend-get-font-options
 @end defvar
-
-@defun clutter-animator-key-get-property-type _
-@end defun
-
-@defvar clutter-animator-property-get-ease-in
-@end defvar
-
-@defvar clutter-animator-property-get-interpolation
-@end defvar
-
-@defvar clutter-animator-property-set-ease-in
-@end defvar
-
-@defvar clutter-animator-property-set-interpolation
-@end defvar
-
-@defun clutter-backend-get-font-options _
-@end defun
 
 @defvar clutter-base-init
 @end defvar
@@ -167,18 +188,6 @@ The following symbols, if any, have not been properly documented.
 @end defvar
 
 @defvar clutter-binding-pool-override-closure
-@end defvar
-
-@defvar clutter-box-layout-get-easing-duration
-@end defvar
-
-@defvar clutter-box-layout-get-use-animations
-@end defvar
-
-@defvar clutter-box-layout-set-easing-duration
-@end defvar
-
-@defvar clutter-box-layout-set-use-animations
 @end defvar
 
 @defun clutter-brightness-contrast-effect-get-brightness _
@@ -202,16 +211,13 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-brightness-contrast-effect-set-contrast-full
 @end defvar
 
-@defvar clutter-cairo-texture-get-auto-resize
+@defvar clutter-cairo-clear
 @end defvar
 
-@defun clutter-cairo-texture-get-surface-size _
-@end defun
-
-@defvar clutter-cairo-texture-set-auto-resize
+@defvar clutter-color-alloc
 @end defvar
 
-@defvar clutter-cairo-texture-set-surface-size
+@defvar clutter-color-init
 @end defvar
 
 @defvar clutter-container-child-get-property
@@ -250,7 +256,25 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-drag-action-set-drag-threshold
 @end defvar
 
+@defvar clutter-event-get-angle
+@end defvar
+
+@defvar clutter-event-get-distance
+@end defvar
+
+@defvar clutter-event-get-position
+@end defvar
+
 @defvar clutter-event-get-scroll-direction
+@end defvar
+
+@defvar clutter-event-has-control-modifier
+@end defvar
+
+@defvar clutter-event-has-shift-modifier
+@end defvar
+
+@defvar clutter-event-is-pointer-emulated
 @end defvar
 
 @defvar clutter-flow-layout-get-column-spacing
@@ -268,8 +292,23 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-flow-layout-set-column-width
 @end defvar
 
+@defvar clutter-gesture-action-cancel
+@end defvar
+
+@defvar clutter-gesture-action-get-device
+@end defvar
+
 @defun clutter-gesture-action-get-motion-coords _ _
 @end defun
+
+@defun clutter-gesture-action-get-motion-delta _ _
+@end defun
+
+@defvar clutter-gesture-action-get-n-current-points
+@end defvar
+
+@defvar clutter-gesture-action-get-n-touch-points
+@end defvar
 
 @defun clutter-gesture-action-get-press-coords _ _
 @end defun
@@ -277,14 +316,74 @@ The following symbols, if any, have not been properly documented.
 @defun clutter-gesture-action-get-release-coords _ _
 @end defun
 
+@defvar clutter-gesture-action-get-sequence
+@end defvar
+
+@defun clutter-gesture-action-get-velocity _ _
+@end defun
+
+@defvar clutter-gesture-action-set-n-touch-points
+@end defvar
+
+@defvar clutter-grid-layout-attach
+@end defvar
+
+@defvar clutter-grid-layout-attach-next-to
+@end defvar
+
+@defvar clutter-grid-layout-get-child-at
+@end defvar
+
+@defvar clutter-grid-layout-get-column-homogeneous
+@end defvar
+
+@defvar clutter-grid-layout-get-column-spacing
+@end defvar
+
+@defvar clutter-grid-layout-get-orientation
+@end defvar
+
+@defvar clutter-grid-layout-get-row-homogeneous
+@end defvar
+
+@defvar clutter-grid-layout-get-row-spacing
+@end defvar
+
+@defvar clutter-grid-layout-insert-column
+@end defvar
+
+@defvar clutter-grid-layout-insert-next-to
+@end defvar
+
+@defvar clutter-grid-layout-insert-row
+@end defvar
+
+@defvar clutter-grid-layout-new
+@end defvar
+
+@defvar clutter-grid-layout-set-column-homogeneous
+@end defvar
+
+@defvar clutter-grid-layout-set-column-spacing
+@end defvar
+
+@defvar clutter-grid-layout-set-orientation
+@end defvar
+
+@defvar clutter-grid-layout-set-row-homogeneous
+@end defvar
+
+@defvar clutter-grid-layout-set-row-spacing
+@end defvar
+
 @defvar clutter-image-error-quark
 @end defvar
 
 @defvar clutter-input-device-get-associated-device
 @end defvar
 
-@defun clutter-input-device-get-device-coords _
-@end defun
+@defvar clutter-input-device-get-coords
+@end defvar
 
 @defvar clutter-input-device-get-device-mode
 @end defvar
@@ -310,13 +409,37 @@ The following symbols, if any, have not been properly documented.
 @defun clutter-input-device-keycode-to-evdev _ _
 @end defun
 
+@defvar clutter-input-device-sequence-get-grabbed-actor
+@end defvar
+
+@defvar clutter-input-device-sequence-grab
+@end defvar
+
+@defvar clutter-input-device-sequence-ungrab
+@end defvar
+
 @defvar clutter-input-device-update-from-event
 @end defvar
 
-@defvar clutter-knot-equal
+@defvar clutter-interval-is-valid
 @end defvar
 
-@defvar clutter-layout-manager-begin-animation
+@defvar clutter-keyframe-transition-clear
+@end defvar
+
+@defvar clutter-keyframe-transition-get-n-key-frames
+@end defvar
+
+@defvar clutter-keyframe-transition-new
+@end defvar
+
+@defvar clutter-keyframe-transition-set-key-frame
+@end defvar
+
+@defvar clutter-keyframe-transition-set-values
+@end defvar
+
+@defvar clutter-knot-equal
 @end defvar
 
 @defvar clutter-layout-manager-child-get-property
@@ -325,13 +448,7 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-layout-manager-child-set-property
 @end defvar
 
-@defvar clutter-layout-manager-end-animation
-@end defvar
-
 @defvar clutter-layout-manager-find-child-property
-@end defvar
-
-@defvar clutter-layout-manager-get-animation-progress
 @end defvar
 
 @defvar clutter-layout-manager-get-child-meta
@@ -349,12 +466,6 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-layout-manager-set-container
 @end defvar
 
-@defvar clutter-media-get-subtitle-font-name
-@end defvar
-
-@defvar clutter-media-set-subtitle-font-name
-@end defvar
-
 @defun clutter-offscreen-effect-get-target-size _
 @end defun
 
@@ -367,10 +478,61 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-paint-volume-set-from-allocation
 @end defvar
 
+@defvar clutter-pan-action-get-acceleration-factor
+@end defvar
+
+@defvar clutter-pan-action-get-deceleration
+@end defvar
+
+@defvar clutter-pan-action-get-interpolate
+@end defvar
+
+@defun clutter-pan-action-get-interpolated-coords _
+@end defun
+
+@defun clutter-pan-action-get-interpolated-delta _
+@end defun
+
+@defvar clutter-pan-action-get-pan-axis
+@end defvar
+
+@defvar clutter-pan-action-new
+@end defvar
+
+@defvar clutter-pan-action-set-acceleration-factor
+@end defvar
+
+@defvar clutter-pan-action-set-deceleration
+@end defvar
+
+@defvar clutter-pan-action-set-interpolate
+@end defvar
+
+@defvar clutter-pan-action-set-pan-axis
+@end defvar
+
+@defvar clutter-point-alloc
+@end defvar
+
+@defun clutter-point-distance _ _
+@end defun
+
+@defvar clutter-point-equals
+@end defvar
+
+@defvar clutter-point-init
+@end defvar
+
+@defvar clutter-point-zero
+@end defvar
+
 @defvar clutter-property-transition-get-property-name
 @end defvar
 
 @defvar clutter-property-transition-set-property-name
+@end defvar
+
+@defvar clutter-rotate-action-new
 @end defvar
 
 @defvar clutter-script-error-quark
@@ -382,6 +544,18 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-script-set-translation-domain
 @end defvar
 
+@defvar clutter-scroll-actor-get-scroll-mode
+@end defvar
+
+@defvar clutter-scroll-actor-new
+@end defvar
+
+@defvar clutter-scroll-actor-scroll-to-point
+@end defvar
+
+@defvar clutter-scroll-actor-set-scroll-mode
+@end defvar
+
 @defvar clutter-shader-effect-set-shader-source
 @end defvar
 
@@ -389,6 +563,15 @@ The following symbols, if any, have not been properly documented.
 @end defvar
 
 @defvar clutter-shader-error-quark
+@end defvar
+
+@defvar clutter-size-alloc
+@end defvar
+
+@defvar clutter-size-equals
+@end defvar
+
+@defvar clutter-size-init
 @end defvar
 
 @defvar clutter-stage-get-motion-events-enabled
@@ -406,43 +589,19 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-stage-set-throttle-motion-events
 @end defvar
 
-@defvar clutter-state-key-get-source-state-name
-@end defvar
-
-@defvar clutter-state-key-get-target-state-name
-@end defvar
-
 @defvar clutter-table-layout-get-column-count
 @end defvar
 
 @defvar clutter-table-layout-get-column-spacing
 @end defvar
 
-@defvar clutter-table-layout-get-easing-duration
-@end defvar
-
-@defvar clutter-table-layout-get-easing-mode
-@end defvar
-
 @defvar clutter-table-layout-get-row-spacing
-@end defvar
-
-@defvar clutter-table-layout-get-use-animations
 @end defvar
 
 @defvar clutter-table-layout-set-column-spacing
 @end defvar
 
-@defvar clutter-table-layout-set-easing-duration
-@end defvar
-
-@defvar clutter-table-layout-set-easing-mode
-@end defvar
-
 @defvar clutter-table-layout-set-row-spacing
-@end defvar
-
-@defvar clutter-table-layout-set-use-animations
 @end defvar
 
 @defvar clutter-text-buffer-emit-deleted-text
@@ -463,19 +622,55 @@ The following symbols, if any, have not been properly documented.
 @defvar clutter-texture-error-quark
 @end defvar
 
-@defvar clutter-texture-get-filter-quality
+@defvar clutter-timeline-get-cubic-bezier-progress
 @end defvar
 
-@defvar clutter-texture-get-keep-aspect-ratio
+@defvar clutter-timeline-set-cubic-bezier-progress
 @end defvar
 
-@defvar clutter-texture-set-keep-aspect-ratio
+@defvar clutter-timeline-set-step-progress
 @end defvar
 
 @defvar clutter-transition-get-remove-on-complete
 @end defvar
 
+@defvar clutter-transition-group-add-transition
+@end defvar
+
+@defvar clutter-transition-group-new
+@end defvar
+
+@defvar clutter-transition-group-remove-all
+@end defvar
+
+@defvar clutter-transition-group-remove-transition
+@end defvar
+
+@defvar clutter-transition-set-from-value
+@end defvar
+
 @defvar clutter-transition-set-remove-on-complete
+@end defvar
+
+@defvar clutter-transition-set-to-value
+@end defvar
+
+@defvar clutter-vertex-alloc
+@end defvar
+
+@defvar clutter-zoom-action-get-focal-point
+@end defvar
+
+@defvar clutter-zoom-action-get-transformed-focal-point
+@end defvar
+
+@defvar clutter-zoom-action-get-zoom-axis
+@end defvar
+
+@defvar clutter-zoom-action-new
+@end defvar
+
+@defvar clutter-zoom-action-set-zoom-axis
 @end defvar
 
 

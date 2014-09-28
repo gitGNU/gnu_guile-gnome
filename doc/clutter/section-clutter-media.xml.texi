@@ -15,6 +15,8 @@ a uniform API for applications.
 
 @code{<clutter-media>} is available since Clutter 0.2
 
+@code{<clutter-media>} is deprecated since Clutter 1.12
+
 @section Usage
 @include defuns-clutter-media.xml.texi
 

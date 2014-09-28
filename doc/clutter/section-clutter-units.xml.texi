@@ -8,12 +8,12 @@ A logical distance unit
 @section Overview
 @code{<clutter-units>} is a structure holding a logical distance value
 along with its type, expressed as a value of the
-@code{<clutter-unit-type>} enumeration. It is possible to use
+@code{<clutter-unit-type>} enumeration.  It is possible to use
 @code{<clutter-units>} to store a position or a size in units different
 than pixels, and convert them whenever needed (for instance inside the
-@code{<clutter-actor>}::@code{allocate} virtual function, or inside the
-@code{<clutter-actor>}::@code{get-preferred-width} and
-@code{<clutter-actor>}::@code{get-preferred-height} virtual functions.
+@code{clutter-actor-class.allocate} virtual function, or inside the
+@code{clutter-actor-class.get-preferred-width} and
+@code{clutter-actor-class.get-preferred-height} virtual functions.
 
 In order to register a @code{<clutter-units>} property, the
 @code{<clutter-param-spec-units>}@code{<gparam>} sub-class should be

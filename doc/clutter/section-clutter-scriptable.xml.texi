@@ -7,7 +7,7 @@ Override the UI definition parsing
 
 @section Overview
 The @code{<clutter-scriptable-iface>} interface exposes the UI
-definition parsing process to external classes. By implementing this
+definition parsing process to external classes.  By implementing this
 interface, a class can override the UI definition parsing and transform
 complex data types into GObject properties, or allow custom properties.
 

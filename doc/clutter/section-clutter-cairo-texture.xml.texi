@@ -7,22 +7,22 @@ Texture with Cairo integration
 
 @section Overview
 @code{<clutter-cairo-texture>} is a @code{<clutter-texture>} that
-displays the contents of a Cairo context. The
+displays the contents of a Cairo context.  The
 @code{<clutter-cairo-texture>} actor will create a Cairo image surface
 which will then be uploaded to a GL texture when needed.
 
 Since @code{<clutter-cairo-texture>} uses a Cairo image surface
 internally all the drawing operations will be performed in software and
-not using hardware acceleration. This can lead to performance
+not using hardware acceleration.  This can lead to performance
 degradation if the contents of the texture change frequently.
 
 In order to use a @code{<clutter-cairo-texture>} you should connect to
-the @code{<"draw">} signal; the signal is emitted each time the
+the @code{<“draw”>} signal; the signal is emitted each time the
 @code{<clutter-cairo-texture>} has been told to invalidate its contents,
 by using @code{clutter-cairo-texture-invalidate-rectangle} or its sister
 function, @code{clutter-cairo-texture-invalidate}.
 
-Each callback to the @code{<"draw">} signal will receive a
+Each callback to the @code{<“draw”>} signal will receive a
 @code{<cairo-t>} context which can be used for drawing; the Cairo
 context is owned by the @code{<clutter-cairo-texture>} and should not be
 destroyed explicitly.
@@ -34,6 +34,8 @@ destroyed explicitly.
 @end example
 
 @code{<clutter-cairo-texture>} is available since Clutter 1.0.
+
+@code{<clutter-cairo-texture>} is deprecated since Clutter 1.12.
 
 @section Usage
 @include defuns-clutter-cairo-texture.xml.texi

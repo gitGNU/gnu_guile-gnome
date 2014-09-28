@@ -48,10 +48,8 @@ In order to set the layout properties when packing an actor inside a
 A @code{<clutter-table-layout>} can use animations to transition between
 different values of the layout management properties; the easing mode
 and duration used for the animations are controlled by the
-@code{<"easing-mode">} and @code{<"easing-duration">} properties and
-their accessor functions.
-
-(The missing figure, table-layout-image
+@code{<“easing-mode”>} and @code{<“easing-duration”>} properties
+and their accessor functions.
 
 @c (title "Table layout")
 The image shows a @code{<clutter-table-layout>}.

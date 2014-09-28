@@ -9,13 +9,6 @@ A class for calculating a value as a function of time
 @code{<clutter-alpha>} is a class for calculating an floating point
 value dependent only on the position of a @code{<clutter-timeline>}.
 
-@c (warning "For newly written code, it is recommended to use the\n"
-(code "<\"progress-mode\">") " property of " (code "<clutter-timeline>")
-", or the\n" (code "clutter-timeline-set-progress-func") " function
-instead of " (code "<clutter-alpha>") ".\nThe " (code "<clutter-alpha>")
-" class will be deprecated in the future, and will not\nbe available any
-more in the next major version of Clutter.")
-
 A @code{<clutter-alpha>} binds a @code{<clutter-timeline>} to a progress
 function which translates the time T into an adimensional factor alpha.
 The factor can then be used to drive a @code{<clutter-behaviour>}, which
@@ -44,24 +37,21 @@ function by using the appropriate functions of the
 instance, and it is internally used by the @code{<clutter-animation>}
 API.
 
-(The missing figure, easing-modes
-
-@c (title "Easing modes provided by Clutter")
 @section ClutterAlpha custom properties for @code{<clutter-script>}
 @code{<clutter-alpha>} defines a custom "function" property for
 @code{<clutter-script>} which allows to reference a custom alpha
-function available in the source code. Setting the "function" property
+function available in the source code.  Setting the "function" property
 is equivalent to calling @code{clutter-alpha-set-func} with the
-specified function name. No user data or @code{<g-destroy-notify>} is
+specified function name.  No user data or @code{<g-destroy-notify>} is
 available to be passed.
 
 @c (example (@ (id "ClutterAlpha-script-example")))
 @c (title "Defining a ClutterAlpha in ClutterScript")
 The following JSON fragment defines a @code{<clutter-alpha>} using a
 @code{<clutter-timeline>} with id "sine-timeline" and an alpha function
-called @code{my-sine-alpha}. The defined @code{<clutter-alpha>} instance
-can be reused in multiple @code{<clutter-behaviour>} definitions or for
-@code{<clutter-animation>} definitions.
+called @code{my-sine-alpha}.  The defined @code{<clutter-alpha>}
+instance can be reused in multiple @code{<clutter-behaviour>}
+definitions or for @code{<clutter-animation>} definitions.
 
 @example 
 
@@ -77,9 +67,14 @@ can be reused in multiple @code{<clutter-behaviour>} definitions or for
    
 @end example
 
-For the way to define the @code{<"mode">} property inside a
+For the way to define the @code{<“mode”>} property inside a
 ClutterScript fragment, see the corresponding section in
 @code{<clutter-animation>}.
+
+@code{<clutter-alpha>} is available since Clutter 0.2.
+
+@code{<clutter-alpha>} is deprecated since Clutter 1.12; use
+@code{<clutter-timeline>} and the @code{<“progress-mode”>} property.
 
 @section Usage
 @include defuns-clutter-alpha.xml.texi

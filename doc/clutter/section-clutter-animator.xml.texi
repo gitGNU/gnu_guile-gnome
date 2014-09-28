@@ -11,25 +11,26 @@ for @code{<gobject>} properties belonging to one or more
 @code{<gobject>}s to @code{<clutter-intervals>}.
 
 @code{<clutter-animator>} is used to build and describe complex
-animations in terms of "key frames". @code{<clutter-animator>} is meant
+animations in terms of "key frames".  @code{<clutter-animator>} is meant
 to be used through the @code{<clutter-script>} definition format, but it
 comes with a convenience C API.
 
 @section Key Frames
 Every animation handled by a @code{<clutter-animator>} can be described
-in terms of "key frames". For each @code{<gobject>} property there can
+in terms of "key frames".  For each @code{<gobject>} property there can
 be multiple key frames, each one defined by the end value for the
 property to be computed starting from the current value to a specific
 point in time, using a given easing mode.
 
 The point in time is defined using a value representing the progress in
-the normalized interval of [ 0, 1 ]. This maps the value returned by
+the normalized interval of [ 0, 1 ].  This maps the value returned by
 @code{clutter-timeline-get-duration}.
 
 @c (title "Key Frames")
 In the image above the duration of the animation is represented by the
-blue line. Each key frame is the white dot, along with its progress. The
-red line represents the computed function of time given the easing mode.
+blue line.  Each key frame is the white dot, along with its progress.
+The red line represents the computed function of time given the easing
+mode.
 
 @section ClutterAnimator description for @code{<clutter-script>}
 @code{<clutter-animator>} defines a custom "properties" property which
@@ -42,12 +43,12 @@ The "properties" property has the following syntax:
  @{
    "properties" : [
      @{
-       "object" : &lt;id of an object>,
-       "name" : &lt;name of the property>,
-       "ease-in" : &lt;boolean>,
-       "interpolation" : &lt;#ClutterInterpolation value>,
+       "object" : <id of an object>,
+       "name" : <name of the property>,
+       "ease-in" : <boolean>,
+       "interpolation" : <#ClutterInterpolation value>,
        "keys" : [
-         [ &lt;progress>, &lt;easing mode>, &lt;final value> ]
+         [ <progress>, <easing mode>, <final value> ]
        ]
    ]
  @}
@@ -59,7 +60,7 @@ The "properties" property has the following syntax:
 The following JSON fragment defines a @code{<clutter-animator>} with the
 duration of 1 second and operating on the x and y properties of a
 @code{<clutter-actor>} named "rect-01", with two frames for each
-property. The first frame will linearly move the actor from its current
+property.  The first frame will linearly move the actor from its current
 position to the 100, 100 position in 20 percent of the duration of the
 animation; the second will using a cubic easing to move the actor to the
 200, 200 coordinates.
@@ -94,6 +95,8 @@ animation; the second will using a cubic easing to move the actor to the
 @end example
 
 @code{<clutter-animator>} is available since Clutter 1.2
+
+@code{<clutter-animator>} has been deprecated in Clutter 1.12
 
 @section Usage
 @include defuns-clutter-animator.xml.texi

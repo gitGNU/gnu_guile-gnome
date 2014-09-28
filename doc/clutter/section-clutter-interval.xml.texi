@@ -7,11 +7,11 @@ An object holding an interval of two values
 
 @section Overview
 @code{<clutter-interval>} is a simple object that can hold two values
-defining an interval. @code{<clutter-interval>} can hold any value that
+defining an interval.  @code{<clutter-interval>} can hold any value that
 can be enclosed inside a @code{<gvalue>}.
 
 Once a @code{<clutter-interval>} for a specific @code{<g-type>} has been
-instantiated the @code{<"value-type">} property cannot be changed
+instantiated the @code{<“value-type”>} property cannot be changed
 anymore.
 
 @code{<clutter-interval>} starts with a floating reference; this means

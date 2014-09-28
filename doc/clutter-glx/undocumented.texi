@@ -6,6 +6,9 @@
 The following symbols, if any, have not been properly documented.
 
 @section (gnome gw clutter-glx)
+@defvar clutter-x11-event-sequence-get-touch-detail
+@end defvar
+
 @defvar clutter-x11-texture-pixmap-new-with-pixmap
 @end defvar
 

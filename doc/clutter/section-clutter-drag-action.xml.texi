@@ -24,24 +24,25 @@ whenever the pointer's button is pressed over the actor and moved across
 the stage.
 
 The @code{<clutter-drag-action>} will signal the begin and the end of a
-dragging through the @code{<"drag-begin">} and @code{<"drag-end">}
-signals, respectively. Each pointer motion during a drag will also
-result in the @code{<"drag-motion">} signal to be emitted.
+dragging through the @code{<“drag-begin”>} and
+@code{<“drag-end”>} signals, respectively.  Each pointer motion
+during a drag will also result in the @code{<“drag-motion”>} signal
+to be emitted.
 
 It is also possible to set another @code{<clutter-actor>} as the dragged
 actor by calling @code{clutter-drag-action-set-drag-handle} from within
-a handle of the @code{<"drag-begin">} signal. The drag handle must be
-parented and exist between the emission of @code{<"drag-begin">} and
-@code{<"drag-end">}.
+a handle of the @code{<“drag-begin”>} signal.  The drag handle must
+be parented and exist between the emission of @code{<“drag-begin”>}
+and @code{<“drag-end”>}.
 
 @c (example (@ (id "drag-action-example")))
 @c (title "A simple draggable actor")
 @example 
-@c (http://www.w3.org/2001/XInclude:include (@ (parse "text") (href "../../../../tests/interactive/test-drag.c")) (c (% (all "(http://www.w3.org/2001/XInclude:fallback \"FIXME: MISSING XINCLUDE CONTENT\")"))))
+@c (http://www.w3.org/2001/XInclude:include (@ (parse "text") (href "../../../../examples/drag-action.c")) (c (% (all "(http://www.w3.org/2001/XInclude:fallback \"FIXME: MISSING XINCLUDE CONTENT\")"))))
 @end example
 
 The example program above allows dragging the rectangle around the stage
-using a @code{<clutter-drag-action>}. When pressing the @c (keycap
+using a @code{<clutter-drag-action>}.  When pressing the @c (keycap
 "Shift") key the actor that is going to be dragged is a separate
 rectangle, and when the drag ends, the original rectangle will be
 animated to the final coordinates.

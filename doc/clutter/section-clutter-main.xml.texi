@@ -17,7 +17,7 @@ threading is initialized through @code{clutter-init}.
 @c (example (@ (id "example-Thread-Init")))
 @c (title "Thread Initialization")
 The code below shows how to correctly initialize Clutter in a
-multi-threaded environment. These operations are mandatory for
+multi-threaded environment.  These operations are mandatory for
 applications that wish to use threads with Clutter.
 
 @example 
@@ -69,7 +69,7 @@ operation, and perform UI updates using the main loop.
 @c (example (@ (id "worker-thread-example")))
 @c (title "A worker thread example")
 @example 
-@c (http://www.w3.org/2001/XInclude:include (@ (parse "text") (href "../../../../tests/interactive/test-thread.c")) (c (% (all "(http://www.w3.org/2001/XInclude:fallback \"FIXME: MISSING XINCLUDE CONTENT\")"))))
+@c (http://www.w3.org/2001/XInclude:include (@ (parse "text") (href "../../../../examples/threads.c")) (c (% (all "(http://www.w3.org/2001/XInclude:fallback \"FIXME: MISSING XINCLUDE CONTENT\")"))))
 @end example
 
 @section Usage

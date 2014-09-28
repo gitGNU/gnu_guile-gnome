@@ -13,7 +13,7 @@ at run time.
 Clutter adds version information to both API deprecations and additions;
 by definining the macros @samp{CLUTTER_VERSION_MIN_REQUIRED} and
 @samp{CLUTTER_VERSION_MAX_ALLOWED}, you can specify the range of Clutter
-versions whose API you want to use. Functions that were deprecated
+versions whose API you want to use.  Functions that were deprecated
 before, or introduced after, this range will trigger compiler warnings.
 For instance, if we define the following symbols:
 

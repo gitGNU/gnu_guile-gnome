@@ -8,10 +8,10 @@ Action for gesture gestures
 @section Overview
 @code{<clutter-gesture-action>} is a sub-class of
 @code{<clutter-action>} that implements the logic for recognizing
-gesture gestures. It listens for low level events such as
+gesture gestures.  It listens for low level events such as
 @code{<clutter-button-event>} and @code{<clutter-motion-event>} on the
-stage to raise the @code{<"gesture-begin">},
-@code{<"gesture-progress">}, and * @code{<"gesture-end">} signals.
+stage to raise the @code{<“gesture-begin”>},
+@code{<“gesture-progress”>}, and @code{<“gesture-end”>} signals.
 
 To use @code{<clutter-gesture-action>} you just need to apply it to a
 @code{<clutter-actor>} using @code{clutter-actor-add-action} and connect
@@ -27,6 +27,42 @@ to the signals:
   g_signal_connect (action, "gesture-progress", G_CALLBACK (on_gesture_progress), NULL);
   g_signal_connect (action, "gesture-end", G_CALLBACK (on_gesture_end), NULL);
 @end example
+
+@section Creating Gesture actions
+A @code{<clutter-gesture-action>} provides four separate states that can
+be used to recognize or ignore gestures when writing a new action class:
+
+@example 
+
+  Prepare -> Cancel
+  Prepare -> Begin -> Cancel
+  Prepare -> Begin -> End
+  Prepare -> Begin -> Progress -> Cancel
+  Prepare -> Begin -> Progress -> End
+
+  
+@end example
+
+Each @code{<clutter-gesture-action>} starts in the "prepare" state, and
+calls the @code{clutter-gesture-action-class.gesture-prepare} virtual
+function; this state can be used to reset the internal state of a
+@code{<clutter-gesture-action>} subclass, but it can also immediately
+cancel a gesture without going through the rest of the states.
+
+The "begin" state follows the "prepare" state, and calls the
+@code{clutter-gesture-action-class.gesture-begin} virtual function.  This
+state signals the start of a gesture recognizing process.  From the
+"begin" state the gesture recognition process can successfully end, by
+going to the "end" state; it can continue in the "progress" state, in
+case of a continuous gesture; or it can be terminated, by moving to the
+"cancel" state.
+
+In case of continuous gestures, the @code{<clutter-gesture-action>} will
+use the "progress" state, calling the
+@code{clutter-gesture-action-class.gesture-progress} virtual function;
+the "progress" state will continue until the end of the gesture, in
+which case the "end" state will be reached, or until the gesture is
+cancelled, in which case the "cancel" gesture will be used instead.
 
 @section Usage
 @include defuns-clutter-gesture-action.xml.texi

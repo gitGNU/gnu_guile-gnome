@@ -17,8 +17,8 @@ following policy:
 @end itemize
 
 the preferred natural size depends on the value of the
-@code{<"orientation">} property; the layout will try to maintain all its
-children on a single row or column;
+@code{<“orientation”>} property; the layout will try to maintain all
+its children on a single row or column;
 
 if either the width or the height allocated are smaller than the
 preferred ones, the layout will wrap; in this case, the preferred height
@@ -26,19 +26,22 @@ or width, respectively, will take into account the amount of columns and
 rows;
 
 each line (either column or row) in reflowing will have the size of the
-biggest cell on that line; if the @code{<"homogeneous">} property is set
-to @samp{@code{#f}} the actor will be allocated within that area, and if
-set to @samp{@code{#t}} instead the actor will be given exactly that
-area;
+biggest cell on that line; if the @code{<“homogeneous”>} property is
+set to @samp{@code{#f}} the actor will be allocated within that area,
+and if set to @samp{@code{#t}} instead the actor will be given exactly
+that area;
 
 the size of the columns or rows can be controlled for both minimum and
 maximum; the spacing can also be controlled in both columns and rows.
 
-(The missing figure, flow-layout-image
-
 @c (title "Horizontal flow layout")
 The image shows a @code{<clutter-flow-layout>} with the
-@code{<"orientation">} propert set to @samp{CLUTTER_FLOW_HORIZONTAL}.
+@code{<“orientation”>} propert set to
+@samp{CLUTTER_FLOW_HORIZONTAL}.
+
+@example 
+@c (http://www.w3.org/2001/XInclude:include (@ (parse "text") (href "../../../../examples/flow-layout.c")) (c (% (all "(http://www.w3.org/2001/XInclude:fallback \"FIXME: MISSING XINCLUDE CONTENT\")"))))
+@end example
 
 @code{<clutter-flow-layout>} is available since Clutter 1.2
 

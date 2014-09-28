@@ -8,8 +8,8 @@ A desaturation effect
 @section Overview
 @code{<clutter-desaturate-effect>} is a sub-class of
 @code{<clutter-effect>} that desaturates the color of an actor and its
-contents. The strenght of the desaturation effect is controllable and
-animatable through the @code{<"factor">} property.
+contents.  The strenght of the desaturation effect is controllable and
+animatable through the @code{<“factor”>} property.
 
 @code{<clutter-desaturate-effect>} is available since Clutter 1.4
 

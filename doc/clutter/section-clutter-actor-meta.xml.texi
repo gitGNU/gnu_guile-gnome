@@ -13,8 +13,8 @@ A @code{<clutter-actor-meta>} can only be owned by a single
 @code{<clutter-actor>} at any time.
 
 Every sub-class of @code{<clutter-actor-meta>} should check if the
-@code{<"enabled">} property is set to @samp{@code{#t}} before applying
-any kind of modification.
+@code{<“enabled”>} property is set to @samp{@code{#t}} before
+applying any kind of modification.
 
 @code{<clutter-actor-meta>} is available since Clutter 1.4
 

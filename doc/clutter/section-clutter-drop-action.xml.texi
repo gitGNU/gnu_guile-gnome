@@ -13,7 +13,7 @@ area or when a dragged actor is released (or "dropped") on the target
 area.
 
 A trivial use of @code{<clutter-drop-action>} consists in connecting to
-the @code{<"drop">} signal and handling the drop from there, for
+the @code{<“drop”>} signal and handling the drop from there, for
 instance:
 
 @example 
@@ -24,16 +24,16 @@ instance:
   clutter_actor_add_action (an_actor, action);
 @end example
 
-The @code{<"can-drop">} can be used to control whether the
-@code{<"drop">} signal is going to be emitted; returning
-@samp{@code{#f}} from a handler connected to the @code{<"can-drop">}
-signal will cause the @code{<"drop">} signal to be skipped when the
+The @code{<“can-drop”>} can be used to control whether the
+@code{<“drop”>} signal is going to be emitted; returning
+@samp{@code{#f}} from a handler connected to the @code{<“can-drop”>}
+signal will cause the @code{<“drop”>} signal to be skipped when the
 input device button is released.
 
 @c (example (@ (id "drop-action-example")))
 @c (title "Drop targets")
 @example 
-@c (http://www.w3.org/2001/XInclude:include (@ (parse "text") (href "../../../../tests/interactive/test-drop.c")) (c (% (all "(http://www.w3.org/2001/XInclude:fallback \"FIXME: MISSING XINCLUDE CONTENT\")"))))
+@c (http://www.w3.org/2001/XInclude:include (@ (parse "text") (href "../../../../examples/drop-action.c")) (c (% (all "(http://www.w3.org/2001/XInclude:fallback \"FIXME: MISSING XINCLUDE CONTENT\")"))))
 @end example
 
 It's important to note that @code{<clutter-drop-action>} will only work

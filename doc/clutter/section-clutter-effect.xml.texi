@@ -15,11 +15,11 @@ implementation.
 
 Effects should be the preferred way to affect the paint sequence of an
 actor without sub-classing the actor itself and overriding the
-@code{<"paint">} virtual function.
+@code{clutter-actor-class.paint}_ virtual function.
 
 @section Implementing a ClutterEffect
 Creating a sub-class of @code{<clutter-effect>} requires overriding the
-‘paint’ method. The implementation of the function should look
+‘paint’ method.  The implementation of the function should look
 something like this:
 
 @example 
@@ -44,15 +44,15 @@ void effect_paint (ClutterEffect *effect, ClutterEffectPaintFlags flags)
 
 The effect can optionally avoid calling
 @code{clutter-actor-continue-paint} to skip any further stages of the
-paint sequence. This is useful for example if the effect contains a
-cached image of the actor. In that case it can optimise painting by
-avoiding the actor paint and instead painting the cached image. The
+paint sequence.  This is useful for example if the effect contains a
+cached image of the actor.  In that case it can optimise painting by
+avoiding the actor paint and instead painting the cached image.  The
 @samp{CLUTTER_EFFECT_PAINT_ACTOR_DIRTY} flag is useful in this case.
 Clutter will set this flag when a redraw has been queued on the actor
-since it was last painted. The effect can use this information to decide
-if the cached image is still valid.
+since it was last painted.  The effect can use this information to
+decide if the cached image is still valid.
 
-The ‘paint’ virtual was added in Clutter 1.8. Prior to that there
+The ‘paint’ virtual was added in Clutter 1.8.  Prior to that there
 were two separate functions as follows.
 
 @itemize 
@@ -68,27 +68,30 @@ were two separate functions as follows.
 
 The @code{@code{pre-paint}} function was used to set up the
 @code{<clutter-effect>} right before the @code{<clutter-actor>}'s paint
-sequence. This function can fail, and return @samp{@code{#f}}; in that
+sequence.  This function can fail, and return @samp{@code{#f}}; in that
 case, no @code{@code{post-paint}} invocation will follow.
 
 The @code{@code{post-paint}} function was called after the
 @code{<clutter-actor>}'s paint sequence.
 
 With these two functions it is not possible to skip the rest of the
-paint sequence. The default implementation of the ‘paint’ virtual
-calls @code{pre-paint}, @code{clutter-actor-continue-paint} and then
-@code{post-paint} so that existing actors that aren't using the paint
-virtual will continue to work. New actors using the paint virtual do not
-need to implement pre or post paint.
+paint sequence.  The default implementation of the ‘paint’ virtual
+calls @code{clutter-effect-class.pre-paint},
+@code{clutter-actor-continue-paint} and then
+@code{clutter-effect-class.post-paint} so that existing actors that
+aren't using the @code{clutter-effect-class.paint} virtual will continue
+to work.  New effects using the @code{clutter-effect-class.paint}
+virtual do not need to implement pre or post paint.
 
 @c (example (@ (id "ClutterEffect-example")))
 @c (title "A simple ClutterEffect implementation")
 The example below creates two rectangles: one will be painted "behind"
-the actor, while another will be painted "on top" of the actor. The
-@code{@code{set-actor}} implementation will create the two materials
-used for the two different rectangles; the @code{@code{paint}} function
-will paint the first material using @code{cogl-rectangle}, before
-continuing and then it will paint paint the second material after.
+the actor, while another will be painted "on top" of the actor.  The
+@code{clutter-actor-meta-class.set-actor} implementation will create the
+two materials used for the two different rectangles; the
+@code{clutter-effect-class.paint} implementation will paint the first
+material using @code{cogl-rectangle}, before continuing and then it will
+paint paint the second material after.
 
 @example 
 

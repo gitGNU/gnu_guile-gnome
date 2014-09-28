@@ -16,42 +16,33 @@ implementing the following layout policy:
 @item
 @item
 @item
-@item
 @end itemize
 
 all children are arranged on a single line;
 
-the axis used is controlled by the @code{<"vertical">} boolean property;
+the axis used is controlled by the @code{<“orientation”>} property;
 
-the order of the packing is determined by the @code{<"pack-start">}
+the order of the packing is determined by the @code{<“pack-start”>}
 boolean property;
 
-each child will be allocated to its natural size or, if set to expand,
-the available size;
+each child will be allocated to its natural size or, if
+@code{<“x-expand”>}/@code{<“y-expand”>} is set, the available
+size;
 
-if a child is set to fill on either (or both) axis, its allocation will
-match all the available size; the fill layout property only makes sense
-if the expand property is also set;
+honours the @code{<clutter-actor>}'s @code{<“x-align”>} and
+@code{<“y-align”>} properties to fill the available size;
 
-if a child is set to expand but not to fill then it is possible to
-control the alignment using the X and Y alignment layout properties.
-
-if the @code{<"homogeneous">} boolean property is set, then all widgets
-will get the same size, ignoring expand settings and the preferred sizes
-
-(The missing figure, box-layout
+if the @code{<“homogeneous”>} boolean property is set, then all
+widgets will get the same size, ignoring expand settings and the
+preferred sizes
 
 @c (title "Box layout")
 The image shows a @code{<clutter-box-layout>} with the
-@code{<"vertical">} property set to @samp{@code{#f}}.
+@code{<“vertical”>} property set to @samp{@code{#f}}.
 
 It is possible to control the spacing between children of a
 @code{<clutter-box-layout>} by using
 @code{clutter-box-layout-set-spacing}.
-
-In order to set the layout properties when packing an actor inside a
-@code{<clutter-box-layout>} you should use the
-@code{clutter-box-layout-pack} function.
 
 @code{<clutter-box-layout>} is available since Clutter 1.2
 

@@ -13,7 +13,7 @@ Clutter when submitting a frame to the graphics system.
 
 The render graph is distinct from the scene graph: the scene graph is
 composed by actors, which can be visible or invisible; the scene graph
-elements also respond to events. The render graph, instead, is only
+elements also respond to events.  The render graph, instead, is only
 composed by nodes that will be painted.
 
 Each @code{<clutter-actor>} can submit multiple

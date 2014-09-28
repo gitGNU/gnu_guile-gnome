@@ -7,7 +7,7 @@ Programmable pipeline abstraction
 
 @section Overview
 @code{<clutter-shader>} is an object providing an abstraction over the
-OpenGL programmable pipeline. By using @code{<clutter-shader>}s is
+OpenGL programmable pipeline.  By using @code{<clutter-shader>}s is
 possible to override the drawing pipeline by using small programs also
 known as "shaders".
 

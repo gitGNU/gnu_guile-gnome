@@ -11,10 +11,10 @@ Abstract class for constraints on position or size
 
 A @code{<clutter-constraint>} sub-class should contain the logic for
 modifying the position or size of the @code{<clutter-actor>} to which it
-is applied, by updating the actor's allocation. Each
+is applied, by updating the actor's allocation.  Each
 @code{<clutter-constraint>} can change the allocation of the actor to
-which they are applied by overriding the @code{@code{update-allocation}}
-virtual function.
+which they are applied by overriding the
+@code{clutter-constraint-class.update-allocation} virtual function.
 
 @section Using Constraints
 Constraints can be used with fixed layout managers, like
@@ -50,27 +50,27 @@ space.
 @c (example (@ (id "ClutterConstraint-usage-example")) (para "(The missing figure, " "constraints-example"))
 @c (title "Usage of constraints")
 The example below uses various @code{<clutter-constraint>}s to lay out
-three actors on a resizable stage. Only the central actor has an
+three actors on a resizable stage.  Only the central actor has an
 explicit size, and no actor has an explicit position.
 
 @enumerate 
 @item
-The @code{<clutter-rectangle>} with @code{<"name">}@emph{layerA} is
+The @code{<clutter-rectangle>} with @code{<“name”>}@emph{layerA} is
 explicitly sized to 100 pixels by 25 pixels, and it's added to the
 @code{<clutter-stage>};
 
 @item
 two @code{<clutter-align-constraint>}s are used to anchor @emph{layerA}
 to the center of the stage, by using 0.5 as the alignment
-@code{<"factor">} on both the X and Y axis.
+@code{<“factor”>} on both the X and Y axis.
 
 @item
-the @code{<clutter-rectangle>} with @code{<"name">}@emph{layerB} is
+the @code{<clutter-rectangle>} with @code{<“name”>}@emph{layerB} is
 added to the @code{<clutter-stage>} with no explicit size;
 
 @item
-the @code{<"x">} and @code{<"width">} of @emph{layerB} are bound to the
-same properties of @emph{layerA} using two
+the @code{<“x”>} and @code{<“width”>} of @emph{layerB} are bound
+to the same properties of @emph{layerA} using two
 @code{<clutter-bind-constraint>} objects, thus keeping @emph{layerB}
 aligned to @emph{layerA};
 
@@ -83,16 +83,16 @@ padding; since @emph{layerB} is snapped between two different
 @code{<clutter-actor>}s, its height is stretched to match the gap;
 
 @item
-the @code{<clutter-rectangle>} with @code{<"name">}@emph{layerC} mirrors
-@emph{layerB}, snapping the top edge of the @code{<clutter-stage>} to
-the top edge of @emph{layerC} and the top edge of @emph{layerA} to the
-bottom edge of @emph{layerC};
+the @code{<clutter-rectangle>} with @code{<“name”>}@emph{layerC}
+mirrors @emph{layerB}, snapping the top edge of the
+@code{<clutter-stage>} to the top edge of @emph{layerC} and the top edge
+of @emph{layerA} to the bottom edge of @emph{layerC};
 
 @end enumerate
 
 @c (title "Constraints")
 @example 
-@c (http://www.w3.org/2001/XInclude:include (@ (parse "text") (href "../../../../tests/interactive/test-snap-constraint.c")) (c (% (all "(http://www.w3.org/2001/XInclude:fallback \"FIXME: MISSING XINCLUDE CONTENT\")"))))
+@c (http://www.w3.org/2001/XInclude:include (@ (parse "text") (href "../../../../examples/constraints.c")) (c (% (all "(http://www.w3.org/2001/XInclude:fallback \"FIXME: MISSING XINCLUDE CONTENT\")"))))
 @end example
 
 You can try resizing interactively the @code{<clutter-stage>} and verify
@@ -127,10 +127,10 @@ Constraints are queried in the same order as they were applied using
 It is not necessary for a @code{<clutter-constraint>} sub-class to chain
 up to the parent's implementation.
 
-If a @code{<clutter-constraint>} is parametrized - i.e. if it contains
+If a @code{<clutter-constraint>} is parametrized - i.e.  if it contains
 properties that affect the way the constraint is implemented - it should
 call @code{clutter-actor-queue-relayout} on the actor to which it is
-attached to whenever any parameter is changed. The actor to which it is
+attached to whenever any parameter is changed.  The actor to which it is
 attached can be recovered at any point using
 @code{clutter-actor-meta-get-actor}.
 

@@ -11,17 +11,17 @@ Interface for animatable classes
 animate a property.
 
 Each @code{<clutter-animatable>} should implement the
-@code{animate-property} virtual function of the interface to compute the
-animation state between two values of an interval depending on a
-progress factor, expressed as a floating point value.
+@code{clutter-animatable-iface.interpolate-property} virtual function of
+the interface to compute the animation state between two values of an
+interval depending on a progress factor, expressed as a floating point
+value.
 
 If a @code{<clutter-animatable>} is animated by a
 @code{<clutter-animation>} instance, the @code{<clutter-animation>} will
-call @code{clutter-animatable-animate-property} passing the name of the
-currently animated property; the initial and final values of the
-animation interval; the progress factor. The @code{<clutter-animatable>}
-implementation should return the computed value for the animated
-property.
+call @code{clutter-animatable-interpolate-property} passing the name of
+the currently animated property; the values interval; and the progress
+factor.  The @code{<clutter-animatable>} implementation should return
+the computed value for the animated property.
 
 @code{<clutter-animatable>} is available since Clutter 1.0
 
