@@ -87,6 +87,14 @@
     '("ease-in-bounce" "CLUTTER_EASE_IN_BOUNCE")
     '("ease-out-bounce" "CLUTTER_EASE_OUT_BOUNCE")
     '("ease-in-out-bounce" "CLUTTER_EASE_IN_OUT_BOUNCE")
+    '("steps" "CLUTTER_STEPS")
+    '("step-start" "CLUTTER_STEP_START")
+    '("step-end" "CLUTTER_STEP_END")
+    '("cubic-bezier" "CLUTTER_CUBIC_BEZIER")
+    '("ease" "CLUTTER_EASE")
+    '("ease-in" "CLUTTER_EASE_IN")
+    '("ease-out" "CLUTTER_EASE_OUT")
+    '("ease-in-out" "CLUTTER_EASE_IN_OUT")
     '("animation-last" "CLUTTER_ANIMATION_LAST")
   )
 )
@@ -471,6 +479,8 @@
     '("xtilt" "CLUTTER_INPUT_AXIS_XTILT")
     '("ytilt" "CLUTTER_INPUT_AXIS_YTILT")
     '("wheel" "CLUTTER_INPUT_AXIS_WHEEL")
+    '("distance" "CLUTTER_INPUT_AXIS_DISTANCE")
+    '("last" "CLUTTER_INPUT_AXIS_LAST")
   )
 )
 
@@ -506,6 +516,17 @@
     '("down" "CLUTTER_SWIPE_DIRECTION_DOWN")
     '("left" "CLUTTER_SWIPE_DIRECTION_LEFT")
     '("right" "CLUTTER_SWIPE_DIRECTION_RIGHT")
+  )
+)
+
+(define-enum PanAxis
+  (in-module "Clutter")
+  (c-name "ClutterPanAxis")
+  (gtype-id "CLUTTER_TYPE_PAN_AXIS")
+  (values
+    '("axis-none" "CLUTTER_PAN_AXIS_NONE")
+    '("x-axis" "CLUTTER_PAN_X_AXIS")
+    '("y-axis" "CLUTTER_PAN_Y_AXIS")
   )
 )
 
@@ -631,6 +652,73 @@
     '("linear" "CLUTTER_SCALING_FILTER_LINEAR")
     '("nearest" "CLUTTER_SCALING_FILTER_NEAREST")
     '("trilinear" "CLUTTER_SCALING_FILTER_TRILINEAR")
+  )
+)
+
+(define-enum Orientation
+  (in-module "Clutter")
+  (c-name "ClutterOrientation")
+  (gtype-id "CLUTTER_TYPE_ORIENTATION")
+  (values
+    '("horizontal" "CLUTTER_ORIENTATION_HORIZONTAL")
+    '("vertical" "CLUTTER_ORIENTATION_VERTICAL")
+  )
+)
+
+(define-flags ScrollMode
+  (in-module "Clutter")
+  (c-name "ClutterScrollMode")
+  (gtype-id "CLUTTER_TYPE_SCROLL_MODE")
+  (values
+    '("none" "CLUTTER_SCROLL_NONE")
+    '("horizontally" "CLUTTER_SCROLL_HORIZONTALLY")
+    '("vertically" "CLUTTER_SCROLL_VERTICALLY")
+    '("both" "CLUTTER_SCROLL_BOTH")
+  )
+)
+
+(define-enum GridPosition
+  (in-module "Clutter")
+  (c-name "ClutterGridPosition")
+  (gtype-id "CLUTTER_TYPE_GRID_POSITION")
+  (values
+    '("left" "CLUTTER_GRID_POSITION_LEFT")
+    '("right" "CLUTTER_GRID_POSITION_RIGHT")
+    '("top" "CLUTTER_GRID_POSITION_TOP")
+    '("bottom" "CLUTTER_GRID_POSITION_BOTTOM")
+  )
+)
+
+(define-flags ContentRepeat
+  (in-module "Clutter")
+  (c-name "ClutterContentRepeat")
+  (gtype-id "CLUTTER_TYPE_CONTENT_REPEAT")
+  (values
+    '("none" "CLUTTER_REPEAT_NONE")
+    '("x-axis" "CLUTTER_REPEAT_X_AXIS")
+    '("y-axis" "CLUTTER_REPEAT_Y_AXIS")
+    '("both" "CLUTTER_REPEAT_BOTH")
+  )
+)
+
+(define-enum StepMode
+  (in-module "Clutter")
+  (c-name "ClutterStepMode")
+  (gtype-id "CLUTTER_TYPE_STEP_MODE")
+  (values
+    '("start" "CLUTTER_STEP_MODE_START")
+    '("end" "CLUTTER_STEP_MODE_END")
+  )
+)
+
+(define-enum ZoomAxis
+  (in-module "Clutter")
+  (c-name "ClutterZoomAxis")
+  (gtype-id "CLUTTER_TYPE_ZOOM_AXIS")
+  (values
+    '("x-axis" "CLUTTER_ZOOM_X_AXIS")
+    '("y-axis" "CLUTTER_ZOOM_Y_AXIS")
+    '("both" "CLUTTER_ZOOM_BOTH")
   )
 )
 
@@ -887,6 +975,13 @@
   (gtype-id "CLUTTER_TYPE_LAYOUT_MANAGER")
 )
 
+(define-object GridLayout
+  (in-module "Clutter")
+  (parent "ClutterLayoutManager")
+  (c-name "ClutterGridLayout")
+  (gtype-id "CLUTTER_TYPE_GRID_LAYOUT")
+)
+
 (define-object FlowLayout
   (in-module "Clutter")
   (parent "ClutterLayoutManager")
@@ -957,6 +1052,13 @@
   (gtype-id "CLUTTER_TYPE_DEFORM_EFFECT")
 )
 
+(define-object PanAction
+  (in-module "Clutter")
+  (parent "ClutterGestureAction")
+  (c-name "ClutterPanAction")
+  (gtype-id "CLUTTER_TYPE_PAN_ACTION")
+)
+
 (define-object Path
   (in-module "Clutter")
   (parent "GInitiallyUnowned")
@@ -971,6 +1073,13 @@
   (gtype-id "CLUTTER_TYPE_RECTANGLE")
 )
 
+(define-object RotateAction
+  (in-module "Clutter")
+  (parent "ClutterGestureAction")
+  (c-name "ClutterRotateAction")
+  (gtype-id "CLUTTER_TYPE_ROTATE_ACTION")
+)
+
 (define-object Score
   (in-module "Clutter")
   (parent "GObject")
@@ -983,6 +1092,13 @@
   (parent "GObject")
   (c-name "ClutterScript")
   (gtype-id "CLUTTER_TYPE_SCRIPT")
+)
+
+(define-object ScrollActor
+  (in-module "Clutter")
+  (parent "ClutterActor")
+  (c-name "ClutterScrollActor")
+  (gtype-id "CLUTTER_TYPE_SCROLL_ACTOR")
 )
 
 (define-object Shader
@@ -1074,5 +1190,26 @@
   (parent "ClutterTransition")
   (c-name "ClutterPropertyTransition")
   (gtype-id "CLUTTER_TYPE_PROPERTY_TRANSITION")
+)
+
+(define-object KeyframeTransition
+  (in-module "Clutter")
+  (parent "ClutterPropertyTransition")
+  (c-name "ClutterKeyframeTransition")
+  (gtype-id "CLUTTER_TYPE_KEYFRAME_TRANSITION")
+)
+
+(define-object TransitionGroup
+  (in-module "Clutter")
+  (parent "ClutterTransition")
+  (c-name "ClutterTransitionGroup")
+  (gtype-id "CLUTTER_TYPE_TRANSITION_GROUP")
+)
+
+(define-object ZoomAction
+  (in-module "Clutter")
+  (parent "ClutterGestureAction")
+  (c-name "ClutterZoomAction")
+  (gtype-id "CLUTTER_TYPE_ZOOM_ACTION")
 )
 

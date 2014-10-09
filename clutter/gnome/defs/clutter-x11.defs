@@ -143,6 +143,14 @@
   )
 )
 
+(define-function clutter_x11_event_sequence_get_touch_detail
+  (c-name "clutter_x11_event_sequence_get_touch_detail")
+  (return-type "guint")
+  (parameters
+    '("const-ClutterEventSequence*" "sequence")
+  )
+)
+
 
 
 ;; From /opt/clutter/include/clutter-1.0/clutter/x11/clutter-x11-texture-pixmap.h
