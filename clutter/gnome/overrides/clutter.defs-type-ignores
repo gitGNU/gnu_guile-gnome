@@ -26,6 +26,7 @@
 ;;; Code:
 
 (ignore-types "ClutterRedrawFlags"
+	      "ClutterShader"		;; Use ClutterShaderEffect instead
               "ClutterShaderError"
 
               ;; Deprecated in 1.9.4.
@@ -50,7 +51,10 @@
               "ClutterBehaviourScale"
 
 	      ;; Deprecated in 1.12
+	      "ClutterAlpha"
+	      "ClutterAnimation"
+	      "ClutterAnimatorKey"
 	      "ClutterAnimator"
-	      "ClutterCairoTexture" ;; Use ClutterCanvas instead
+	      "ClutterCairoTexture"	;; Use ClutterCanvas instead
 	      "ClutterState"
 	      "ClutterStateKey")
