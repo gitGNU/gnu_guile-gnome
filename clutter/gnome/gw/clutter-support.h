@@ -73,3 +73,7 @@ ClutterRect* scm_scm_to_clutter_rect (SCM scm);
 
 SCM scm_clutter_matrix_to_scm (ClutterMatrix *m);
 ClutterMatrix* scm_scm_to_clutter_matrix (SCM scm);
+
+gboolean _wrap_clutter_image_set_data (ClutterImage *image, guchar *data,
+				       CoglPixelFormat pixel_format, guint width, guint height,
+				       guint row_stride, GError **error);

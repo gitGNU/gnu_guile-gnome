@@ -61,12 +61,6 @@
   (gtype-id "CLUTTER_TYPE_CONTAINER")
 )
 
-(define-interface Media
-  (in-module "Clutter")
-  (c-name "ClutterMedia")
-  (gtype-id "CLUTTER_TYPE_MEDIA")
-)
-
 (define-interface StageManager
   (in-module "Clutter")
   (c-name "ClutterStageManager")
@@ -202,6 +196,19 @@
   (return-type "const-GSList*-of-ClutterInputDevice*")
 )
 
+(define-method set_data
+  (of-object "ClutterImage")
+  (c-name "_wrap_clutter_image_set_data")
+  (overrides "clutter_image_set_data")
+  (return-type "gboolean")
+  (parameters
+   '("guchar*" "data")
+   '("CoglPixelFormat" "pixel_format")
+   '("guint" "width")
+   '("guint" "height")
+   '("guint" "row_stride")
+   '("GError**" "error")))
+
 (define-method get_slave_devices
   (of-object "ClutterInputDevice")
   (c-name "clutter_input_device_get_slave_devices")
@@ -226,7 +233,7 @@
 (define-method get_nodes
   (of-object "ClutterPath")
   (c-name "clutter_path_get_nodes")
-    (overrides "clutter_path_get_nodes")
+  (overrides "clutter_path_get_nodes")
   (return-type "GSList*-of-ClutterPathNode*")
 )
 
@@ -364,20 +371,21 @@
              "clutter_deform_effect_set_back_material"
              "clutter_event_get_axes"
              "clutter_frame_source_*"
-             "clutter_image_get_data"
-             "clutter_image_set_data"
+             ;; "clutter_image_set_data" this 1 must be wrapped [>= 1.12]
              "clutter_image_set_area"
+             "clutter_image_set_bytes"
              "clutter_image_get_texture"
              "clutter_init*"
              "clutter_interval_peek_*"
              "clutter_interval_compute_value"
              "clutter_get_option_group"
              "clutter_get_option_group_without_init"
-             ;;"clutter_main*" ;; fixme: do i need to do something special with clutter-main?
+	     ;;"clutter_main*" ;; fixme: do i need to do something special with clutter-main?
              "clutter_threads*"
              "clutter_model*"
              "clutter_layout_manager_list_child_properties"
              "clutter_list_model*"
+	     "clutter_matrix_init_from_array" ;; needs a special wrapper
              "clutter_offscreen_effect_get_target"
              "clutter_offscreen_effect_get_texture"
              "clutter_offscreen_effect_create_texture"
@@ -508,6 +516,7 @@
         "clutter_score_start"
         "clutter_score_stop"
         "clutter_shader_compile"
+	"clutter_shader_error_quark"
         "clutter_shader_get_fragment_source"
         "clutter_shader_get_is_enabled"
         "clutter_shader_get_vertex_source"
@@ -670,22 +679,23 @@
 	"clutter_bin_layout_add"
 	"clutter_bin_layout_get_alignment"
 	"clutter_bin_layout_set_alignment"
-	"clutter_box_layout_get_alignment"
-	"clutter_box_layout_get_easing_duration"
-	"clutter_box_layout_get_easing_mode"
-	"clutter_box_layout_get_expand"
-	"clutter_box_layout_get_fill"
-	"clutter_box_layout_get_orientation"
-	"clutter_box_layout_get_use_animations"
+
+	"clutter_box_layout_pack"
+	"clutter_box_layout_set_vertical"
 	"clutter_box_layout_get_vertical"
 	"clutter_box_layout_set_alignment"
-	"clutter_box_layout_set_easing_duration"
-	"clutter_box_layout_set_easing_mode"
+	"clutter_box_layout_get_alignment"
 	"clutter_box_layout_set_expand"
+	"clutter_box_layout_get_expand"
 	"clutter_box_layout_set_fill"
-	"clutter_box_layout_set_orientation"
+	"clutter_box_layout_get_fill"
 	"clutter_box_layout_set_use_animations"
-	"clutter_box_layout_set_vertical"
+	"clutter_box_layout_get_use_animations"
+	"clutter_box_layout_set_easing_duration"
+	"clutter_box_layout_get_easing_duration"
+	"clutter_box_layout_set_easing_mode"
+	"clutter_box_layout_get_easing_mode"
+
 	"clutter_cairo_texture_clear"
 	"clutter_cairo_texture_get_auto_resize"
 	"clutter_cairo_texture_get_surface_size"

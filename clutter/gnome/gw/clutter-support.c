@@ -406,3 +406,17 @@ scm_scm_to_clutter_matrix (SCM scm)
 
   return g_boxed_copy (clutter_matrix_get_type (), &ret);
 }
+
+gboolean
+_wrap_clutter_image_set_data (ClutterImage *image,
+			      guchar *data,
+			      CoglPixelFormat pixel_format,
+			      guint width,
+			      guint height,
+			      guint row_stride,
+			      GError **error)
+{
+  return clutter_image_set_data (image,
+				 (const guint8 *)data,
+				 pixel_format, width, height, row_stride, error);
+}
