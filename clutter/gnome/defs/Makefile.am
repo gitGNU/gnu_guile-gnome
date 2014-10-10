@@ -8,7 +8,8 @@ defs_DATA = 					\
 	clutter-x11.defs			\
 	clutter-x11-types.defs			\
 	clutter-glx.defs			\
-	clutter-glx-types.defs
+	clutter-glx-types.defs			\
+	cogl-types.defs
 
 EXTRA_DIST = $(defs_DATA)
 
@@ -19,12 +20,13 @@ CLUTTER_INC_DIR=$(CLUTTER_PREFIX)/include/clutter-$(CLUTTER_MAJORMINOR)/clutter
 # functions that we deprecated in the current stable release.  When the
 # next stable release comes out, there will be new compile warnings, and
 # those warnings should be added to the clutter.defs file in ../overrides/.
-#
+
 clutter:
+	../../../h2def.py --types ../gw/cogl-support.h > cogl-types.defs
 	../../../h2def.py --types \
 	   $(CLUTTER_INC_DIR)/*.h $(CLUTTER_INC_DIR)/deprecated/*.h > clutter-types.defs
 	../../../h2def.py --procs \
-	   --with-header='(include type-ignores) (include "clutter-types.defs") (include overrides)' \
+	   --with-header='(include type-ignores) (include "cogl-types.defs") (include "clutter-types.defs") (include overrides)' \
 	   $(CLUTTER_INC_DIR)/*.h $(CLUTTER_INC_DIR)/deprecated/*.h > clutter.defs
 
 clutter-x11:
