@@ -251,6 +251,14 @@ _wrap_clutter_color_from_string (const char *name)
         return SCM_BOOL_F;
 }
 
+SCM
+wrap_clutter_actor_get_background_color (ClutterActor* actor) 
+{
+    ClutterColor color;
+    clutter_actor_get_background_color (actor, &color);
+    return scm_clutter_color_to_scm (&color);
+}
+
 ClutterUnits*
 wrap_clutter_units_from_pixels (gint px)
 {

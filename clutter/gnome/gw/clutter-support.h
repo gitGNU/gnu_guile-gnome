@@ -51,6 +51,7 @@ ClutterPerspective* scm_scm_to_clutter_perspective (SCM scm);
 SCM wrap_clutter_stage_get_perspective (ClutterStage *stage);
 
 SCM _wrap_clutter_color_from_string (const char *name);
+SCM wrap_clutter_actor_get_background_color (ClutterActor* actor);
 
 ClutterUnits* wrap_clutter_units_from_pixels (gint px);
 ClutterUnits* wrap_clutter_units_from_em (gfloat em);

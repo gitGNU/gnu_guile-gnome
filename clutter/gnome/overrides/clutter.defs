@@ -334,6 +334,13 @@
   (parameters
    '("const-char*" "name")))
 
+(define-method get_background_color
+  (of-object "ClutterActor")
+  (c-name "wrap_clutter_actor_get_background_color")
+  (overrides "clutter_actor_get_background_color")
+  (return-type "SCM")
+  (leave-guile-mode #f))
+
 (ignore-glob  "*_get_type"
               "_*"
               "*_ref"
