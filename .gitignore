@@ -18,6 +18,8 @@ autom4te.cache/
 *.log
 *.la
 *.lo
+*.trs
+*.html
 /build-aux/compile
 /build-aux/config.guess
 /build-aux/config.sub
@@ -40,5 +42,3 @@ autom4te.cache/
 /doc/clutter-glx/guile-gnome-clutter-glx.info
 /doc/clutter-glx/version.texi
 /doc/clutter/guile-gnome-clutter.info-3
-/doc/clutter-glx/guile-gnome-clutter-glx.html
-/doc/clutter/guile-gnome-clutter.html
