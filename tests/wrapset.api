@@ -194,6 +194,9 @@
      (clutter-actor-get-child-at-index
        procedure
        (arity 0 0 #t))
+     (clutter-actor-get-child-transform
+       procedure
+       (arity 0 0 #t))
      (clutter-actor-get-children
        procedure
        (arity 1 0 #f))
@@ -345,6 +348,9 @@
        procedure
        (arity 0 0 #t))
      (clutter-actor-get-text-direction
+       procedure
+       (arity 0 0 #t))
+     (clutter-actor-get-transform
        procedure
        (arity 0 0 #t))
      (clutter-actor-get-transformed-paint-volume
@@ -512,6 +518,9 @@
      (clutter-actor-set-child-below-sibling
        procedure
        (arity 0 0 #t))
+     (clutter-actor-set-child-transform
+       procedure
+       (arity 0 0 #t))
      (clutter-actor-set-clip procedure (arity 0 0 #t))
      (clutter-actor-set-clip-to-allocation
        procedure
@@ -597,6 +606,9 @@
        (arity 0 0 #t))
      (clutter-actor-set-size procedure (arity 0 0 #t))
      (clutter-actor-set-text-direction
+       procedure
+       (arity 0 0 #t))
+     (clutter-actor-set-transform
        procedure
        (arity 0 0 #t))
      (clutter-actor-set-translation
@@ -737,6 +749,9 @@
      (clutter-box-layout-get-homogeneous
        procedure
        (arity 0 0 #t))
+     (clutter-box-layout-get-orientation
+       procedure
+       (arity 0 0 #t))
      (clutter-box-layout-get-pack-start
        procedure
        (arity 0 0 #t))
@@ -744,10 +759,10 @@
        procedure
        (arity 0 0 #t))
      (clutter-box-layout-new procedure (arity 0 0 #t))
-     (clutter-box-layout-pack
+     (clutter-box-layout-set-homogeneous
        procedure
        (arity 0 0 #t))
-     (clutter-box-layout-set-homogeneous
+     (clutter-box-layout-set-orientation
        procedure
        (arity 0 0 #t))
      (clutter-box-layout-set-pack-start
@@ -915,6 +930,9 @@
        procedure
        (arity 1 0 #f))
      (clutter-do-event procedure (arity 0 0 #t))
+     (clutter-drag-action-get-drag-area
+       procedure
+       (arity 0 0 #t))
      (clutter-drag-action-get-drag-axis
        procedure
        (arity 0 0 #t))
@@ -931,6 +949,9 @@
        procedure
        (arity 1 0 #f))
      (clutter-drag-action-new
+       procedure
+       (arity 0 0 #t))
+     (clutter-drag-action-set-drag-area
        procedure
        (arity 0 0 #t))
      (clutter-drag-action-set-drag-axis
@@ -1241,6 +1262,7 @@
        procedure
        (arity 0 0 #t))
      (clutter-image-new procedure (arity 0 0 #t))
+     (clutter-image-set-data procedure (arity 6 0 #f))
      (clutter-input-device-get-associated-device
        procedure
        (arity 0 0 #t))
@@ -1400,6 +1422,13 @@
      (clutter-main-level procedure (arity 0 0 #t))
      (clutter-main-quit procedure (arity 0 0 #t))
      (clutter-margin-new procedure (arity 0 0 #t))
+     (clutter-matrix-alloc procedure (arity 0 0 #t))
+     (clutter-matrix-init-from-matrix
+       procedure
+       (arity 0 0 #t))
+     (clutter-matrix-init-identity
+       procedure
+       (arity 0 0 #t))
      (clutter-offscreen-effect-get-target-size
        procedure
        (arity 1 0 #f))
@@ -1595,6 +1624,35 @@
      (clutter-property-transition-set-property-name
        procedure
        (arity 0 0 #t))
+     (clutter-rect-alloc procedure (arity 0 0 #t))
+     (clutter-rect-clamp-to-pixel
+       procedure
+       (arity 0 0 #t))
+     (clutter-rect-contains-point
+       procedure
+       (arity 0 0 #t))
+     (clutter-rect-contains-rect
+       procedure
+       (arity 0 0 #t))
+     (clutter-rect-equals procedure (arity 0 0 #t))
+     (clutter-rect-get-center
+       procedure
+       (arity 0 0 #t))
+     (clutter-rect-get-height
+       procedure
+       (arity 0 0 #t))
+     (clutter-rect-get-width procedure (arity 0 0 #t))
+     (clutter-rect-get-x procedure (arity 0 0 #t))
+     (clutter-rect-get-y procedure (arity 0 0 #t))
+     (clutter-rect-init procedure (arity 0 0 #t))
+     (clutter-rect-inset procedure (arity 0 0 #t))
+     (clutter-rect-intersection
+       procedure
+       (arity 0 0 #t))
+     (clutter-rect-normalize procedure (arity 0 0 #t))
+     (clutter-rect-offset procedure (arity 0 0 #t))
+     (clutter-rect-union procedure (arity 0 0 #t))
+     (clutter-rect-zero procedure (arity 0 0 #t))
      (clutter-rotate-action-new
        procedure
        (arity 0 0 #t))
@@ -1644,6 +1702,9 @@
      (clutter-scroll-actor-scroll-to-point
        procedure
        (arity 0 0 #t))
+     (clutter-scroll-actor-scroll-to-rect
+       procedure
+       (arity 0 0 #t))
      (clutter-scroll-actor-set-scroll-mode
        procedure
        (arity 0 0 #t))
@@ -1657,9 +1718,6 @@
        procedure
        (arity 0 0 #t))
      (clutter-shader-effect-set-uniform-value
-       procedure
-       (arity 0 0 #t))
-     (clutter-shader-error-quark
        procedure
        (arity 0 0 #t))
      (clutter-size-alloc procedure (arity 0 0 #t))
