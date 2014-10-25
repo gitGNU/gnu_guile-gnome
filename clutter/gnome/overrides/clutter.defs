@@ -153,6 +153,20 @@
   (return-type "GList*-of-ClutterAction*")
   )
 
+(define-method get_background_color
+  (of-object "ClutterActor")
+  (c-name "wrap_clutter_actor_get_background_color")
+  (overrides "clutter_actor_get_background_color")
+  (return-type "SCM")
+  (leave-guile-mode #f))
+
+(define-method get_children
+  (of-object "ClutterActor")
+  (c-name "clutter_actor_get_children")
+  (overrides "clutter_actor_get_children")
+  (return-type "GList*-of-ClutterActor*")
+)
+
 (define-method get_constraints
   (of-object "ClutterActor")
   (c-name "clutter_actor_get_constraints")
@@ -167,20 +181,12 @@
   (return-type "GList*-of-ClutterEffect*")
 )
 
-(define-function clutter_binding_pool_get_for_class
-  (c-name "clutter_binding_pool_get_for_class")
-  (overrides "clutter_binding_pool_get_for_class")
-  (return-type "ClutterBindingPool*")
-  (parameters
-    '("GObjectClass*" "klass")
-  )
-)
-(define-method get_children
+(define-method get_margin
   (of-object "ClutterActor")
-  (c-name "clutter_actor_get_children")
-  (overrides "clutter_actor_get_children")
-  (return-type "GList*-of-ClutterActor*")
-)
+  (c-name "wrap_clutter_actor_get_margin")
+  (overrides "clutter_actor_get_margin")
+  (return-type "SCM")
+  (leave-guile-mode #f))
 
 (define-method list_devices
   (of-object "ClutterDeviceManager")
@@ -244,6 +250,44 @@
   (return-type "GList*-of-GObject*")
 )
 
+(define-method get_perspective
+  (of-object "ClutterStage")
+  (c-name "wrap_clutter_stage_get_perspective")
+  (overrides "clutter_stage_get_perspective")
+  (return-type "SCM")
+  (leave-guile-mode #f))
+
+(define-method list_timelines
+  (of-object "ClutterStageManager")
+  (c-name "clutter_stage_manager_list_stages")
+  (overrides "clutter_stage_manager_list_stages")
+  (return-type "GSList*-of-ClutterStage*")
+)
+
+(define-method peek_stages
+  (of-object "ClutterStageManager")
+  (c-name "clutter_stage_manager_peek_stages")
+  (overrides "clutter_stage_manager_peek_stages")
+  (return-type "const-GSList*-of-ClutterStage*")
+)
+
+(define-function clutter_binding_pool_get_for_class
+  (c-name "clutter_binding_pool_get_for_class")
+  (overrides "clutter_binding_pool_get_for_class")
+  (return-type "ClutterBindingPool*")
+  (parameters
+    '("GObjectClass*" "klass")
+  )
+)
+
+(define-function clutter_color_from_string
+  (c-name "_wrap_clutter_color_from_string")
+  (overrides "clutter_color_from_string")
+  (return-type "SCM")
+  (leave-guile-mode #f)
+  (parameters
+   '("const-char*" "name")))
+
 (define-function clutter_units_from_pixels
   (return-type "ClutterUnits*")
   (c-name "wrap_clutter_units_from_pixels")
@@ -305,41 +349,6 @@
   )
 )
 
-(define-method get_perspective
-  (of-object "ClutterStage")
-  (c-name "wrap_clutter_stage_get_perspective")
-  (overrides "clutter_stage_get_perspective")
-  (return-type "SCM")
-  (leave-guile-mode #f))
-
-(define-method list_timelines
-  (of-object "ClutterStageManager")
-  (c-name "clutter_stage_manager_list_stages")
-  (overrides "clutter_stage_manager_list_stages")
-  (return-type "GSList*-of-ClutterStage*")
-)
-
-(define-method peek_stages
-  (of-object "ClutterStageManager")
-  (c-name "clutter_stage_manager_peek_stages")
-  (overrides "clutter_stage_manager_peek_stages")
-  (return-type "const-GSList*-of-ClutterStage*")
-)
-
-(define-function clutter_color_from_string
-  (c-name "_wrap_clutter_color_from_string")
-  (overrides "clutter_color_from_string")
-  (return-type "SCM")
-  (leave-guile-mode #f)
-  (parameters
-   '("const-char*" "name")))
-
-(define-method get_background_color
-  (of-object "ClutterActor")
-  (c-name "wrap_clutter_actor_get_background_color")
-  (overrides "clutter_actor_get_background_color")
-  (return-type "SCM")
-  (leave-guile-mode #f))
 
 (ignore-glob  "*_get_type"
               "_*"

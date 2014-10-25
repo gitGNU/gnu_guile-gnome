@@ -33,6 +33,7 @@ ClutterPathNode* scm_scm_to_clutter_path_node (SCM scm);
 
 SCM scm_clutter_margin_to_scm (ClutterMargin *k);
 ClutterMargin* scm_scm_to_clutter_margin (SCM scm);
+SCM wrap_clutter_actor_get_margin (ClutterActor* actor);
 
 SCM scm_clutter_color_to_scm (ClutterColor *c);
 ClutterColor* scm_scm_to_clutter_color (SCM scm);

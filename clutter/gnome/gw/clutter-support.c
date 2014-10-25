@@ -156,6 +156,14 @@ scm_scm_to_clutter_margin (SCM scm)
 }
 
 SCM
+wrap_clutter_actor_get_margin (ClutterActor* actor)
+{
+    ClutterMargin margin;
+    clutter_actor_get_margin (actor, &margin);
+    return scm_clutter_margin_to_scm (&margin);
+}
+
+SCM
 scm_clutter_actor_box_to_scm (ClutterActorBox *a)
 {
     return scm_list_4 (scm_from_double (a->x1),
@@ -252,7 +260,7 @@ _wrap_clutter_color_from_string (const char *name)
 }
 
 SCM
-wrap_clutter_actor_get_background_color (ClutterActor* actor) 
+wrap_clutter_actor_get_background_color (ClutterActor* actor)
 {
     ClutterColor color;
     clutter_actor_get_background_color (actor, &color);
