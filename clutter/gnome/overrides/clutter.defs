@@ -160,6 +160,13 @@
   (return-type "SCM")
   (leave-guile-mode #f))
 
+(define-method get_color
+  (of-object "ClutterText")
+  (c-name "wrap_clutter_text_get_color")
+  (overrides "clutter_text_get_color")
+  (return-type "SCM")
+  (leave-guile-mode #f))
+
 (define-method get_children
   (of-object "ClutterActor")
   (c-name "clutter_actor_get_children")

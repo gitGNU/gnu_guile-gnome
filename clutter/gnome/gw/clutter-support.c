@@ -267,6 +267,14 @@ wrap_clutter_actor_get_background_color (ClutterActor* actor)
     return scm_clutter_color_to_scm (&color);
 }
 
+SCM
+wrap_clutter_text_get_color (ClutterText* text)
+{
+    ClutterColor color;
+    clutter_text_get_color (text, &color);
+    return scm_clutter_color_to_scm (&color);
+}
+
 ClutterUnits*
 wrap_clutter_units_from_pixels (gint px)
 {
