@@ -70,7 +70,7 @@ exec guile -e main -s $0 "$@"
                 #:x (- sw 50) #:y sh))
            (t (make <clutter-property-transition>
                 #:duration 800 ; milliseconds
-                #:loop #t
+                #:repeat-count -1
                 #:property-name "opacity"
                 #:interval (clutter-interval-new <guint> #xdd #x0)
                 #:animatable c)))
