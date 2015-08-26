@@ -5,6 +5,11 @@ Makefile
 *.tar.gz*
 aclocal.m4
 autom4te.cache/
+m4/libtool.m4
+m4/ltoptions.m4
+m4/ltsugar.m4
+m4/ltversion.m4
+m4/lt~obsolete.m4
 /config.h
 /config.h.in
 /config.log
@@ -31,7 +36,7 @@ autom4te.cache/
 /build-aux/test-driver
 /build-aux/texinfo.tex
 /INSTALL
-/config.h.in~
+*~
 /clutter/gnome/gw/clutter-glx.scm
 /clutter/gnome/gw/clutter.scm
 /libtool

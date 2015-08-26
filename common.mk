@@ -36,7 +36,7 @@ GUILE_FLAGS =
 
 SUFFIXES = .x .doc
 
-GUILE_SNARF_CFLAGS = $(DEFS) $(AM_CFLAGS) $(GUILE_CFLAGS) $(G_WRAP_CFLAGS)
+GUILE_SNARF_CFLAGS = $(DEFS) $(AM_CFLAGS) $(GUILE_GNOME_CFLAGS) $(G_WRAP_CFLAGS)
 
 PKG_PATH = $(shell echo $(AG_PACKAGES:%=$(top_srcdir)/%) $(srcdir) | sed 's, ,:,g')
 @MK@ifneq ($(top_srcdir),$(top_builddir))
