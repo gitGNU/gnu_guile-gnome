@@ -42,7 +42,7 @@
 (define-method (initializations-cg (self <clutter-wrapset>) err)
   (list
    (next-method)
-   "clutter_init (NULL, NULL);\n"
+   "if (clutter_init (NULL, NULL) != CLUTTER_INIT_SUCCESS) exit(1);\n"
    ))
 
 (define-class <clutter-event-type> (<gobject-classed-pointer-type>))
