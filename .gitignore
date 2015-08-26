@@ -37,6 +37,7 @@ m4/lt~obsolete.m4
 /build-aux/texinfo.tex
 /INSTALL
 *~
+meta/guile-clutter-1.0.pc
 /clutter/gnome/gw/clutter-glx.scm
 /clutter/gnome/gw/clutter.scm
 /libtool

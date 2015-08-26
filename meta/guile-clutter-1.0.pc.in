@@ -1,0 +1,9 @@
+# Package Information for pkg-config
+
+prefix=@prefix@
+
+module_directory=@GUILE_GNOME_DIR@/gnome
+
+Name: Guile-Clutter
+Description: Guile-Clutter bindings
+Version: @VERSION@

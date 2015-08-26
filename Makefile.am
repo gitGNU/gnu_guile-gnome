@@ -19,6 +19,8 @@
 #### along with Guile-Clutter.  If not, see <http://www.gnu.org/licenses/>.
 ####
 
+pkgconfigdir=$(libdir)/pkgconfig
+pkgconfig_DATA=meta/guile-clutter-1.0.pc
 
 SUBDIRS = \
 	clutter \
@@ -35,8 +37,14 @@ EXTRA_DIST = \
 	NEWS				\
 	README				\
 	dev-environ.in			\
+	meta/guile-clutter-1.0.pc.in	\
 	$(wildcard m4/*)		\
 	$(wildcard examples/*)
+
+CLEANFILES = \
+	meta/guile-clutter-1.0.pc
+# $(GOBJECTS)
+# $(bin_SCRIPTS)
 
 dist-gzip: distdir
 	$(AMTAR) --format=ustar -chf - $(distdir) | GZIP=$(GZIP_ENV) gzip -c >$(distdir).tar.gz

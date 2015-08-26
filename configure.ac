@@ -84,6 +84,7 @@ AC_SUBST(G_WRAP_MODULE_DIR,
 AC_SUBST(G_WRAP_LIB_DIR,
   `echo $G_WRAP_MODULE_DIR | sed -e 's|share/guile|lib|'`)
 
+
 # we need guile-cairo >= 1.10.0 but it hasn't been released yet, so we
 # need to trust the user having installed guile-cairo from the source
 # PKG_CHECK_MODULES(GUILE_CAIRO, guile-cairo >= 1.10.0)
@@ -143,6 +144,7 @@ AC_CONFIG_FILES(Makefile
 	clutter/gnome/Makefile
 	clutter/gnome/overrides/Makefile
 	clutter/gnome/defs/Makefile
+	meta/guile-clutter-1.0.pc
 	doc/Makefile
 	doc/clutter-glx/Makefile
 	doc/clutter/Makefile
