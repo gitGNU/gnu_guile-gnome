@@ -27,7 +27,7 @@ License along with this program.  If not, see
 AC_PREREQ(2.61)
 
 AC_INIT([guile-clutter],
-  [1.12.2],
+  [1.10.0],
   [guile-gtk-general at gnu.org])
 
 AC_CONFIG_AUX_DIR([build-aux])
@@ -123,6 +123,13 @@ GUILE_GNOME_MODULE_REQUIRED([gnome gw atk])
 GUILE_GNOME_MODULE_REQUIRED([gnome gw atk-spec])
 GUILE_GNOME_MODULE_REQUIRED([gnome gw pango])
 GUILE_GNOME_MODULE_REQUIRED([gnome gw pango-spec])
+
+COGL_MAJORMINOR=1.0
+COGL_MINIMUM_VERSION=1.12.2
+AC_SUBST(COGL_MAJORMINOR)
+
+PKG_CHECK_MODULES(COGL,
+  cogl-$COGL_MAJORMINOR >= $COGL_MINIMUM_VERSION)
 
 CLUTTER_MAJORMINOR=1.0
 CLUTTER_MINIMUM_VERSION=1.12.2
