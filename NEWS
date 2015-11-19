@@ -1,11 +1,63 @@
 guile-clutter NEWS --- history of user-visible changes.
-Copyright (C) 2008 Free Software Foundation, Inc.
+Copyright (C) 2008, 2015 Free Software Foundation, Inc.
 See the end for copying conditions of this file.
-Last updated 11 Jul 2008.
+Last updated 18 Nov 2015.
 
 
-guile-clutter is a Guile binding for the Clutter graphics library. It is
-part of GNU guile-gnome.
+Guile-Clutter is a Guile wrapper for the ultra-hip GNOME Clutter
+library! Clutter is a Scene Graph based canvas working in Retained
+Mode. Every object on the scene is usually a 2D surface inside a 3D
+space.
+
+Guile-Clutter brings the power of Guile Scheme to your Clutter
+applications:
+
+	(cons 'guile 'clutter)
+
+
+  Note: of the available backend, we currently only support X11. See
+  Guile-Clutter-GLX documentation for details.
+
+Guile-Clutter is part of GNU Guile-Gnome.
+
+
+Guile-Clutter 1.12.2 - David Pirotte, 2015-11-18
+================================================
+
+* Changes since 1.10.0
+
+The primary objectives, working towards this release, were (a) to
+remove all code specific to the support of Guile versions prior to
+Guile 2, (b) removing all Guile deprecated calls, and then (c) wrap
+Clutter 1.12 of course :)!
+
+	Dependencies
+
+	- Guile-Clutter now requires Guile 2.0, allows Guile 2.2
+	- Requires Guile-Gnome >= 2.16.3
+
+	Clutter specific
+
+	- Removing types deprecated in Clutter 1.12.
+	- Custom bindings added for: ClutterMatrix, ClutterRect, ClutterPoint,
+	  ClutterSize and ClutterMargin.
+	- CoglPixelFormat must become visible from guile-clutter [special patch].
+	- Fixing and/or adding special wrappers for: clutter_text_get_color,
+	  clutter_actor_get_background_color, clutter_image_set_data,
+	  clutter_actor_get_margin.
+	- Updating wrapset.api for Clutter 1.12.
+	- Call to clutter_init fixed.
+	- Example based upon deprecated functionality removed.
+	- Hello-transition.scm example fixed.
+
+	Other changes
+
+	- Pkg-config support added
+	- Autotool chain improvements
+	- Make check, make distcheck fixed
+	- LICENSE file added
+
+Happy Guile-Clutter Hacking!
 
 
 guile-clutter 0.8.0 - Andy Wingo, 2008-07-11
