@@ -27,7 +27,7 @@ License along with this program.  If not, see
 AC_PREREQ(2.61)
 
 AC_INIT([guile-clutter],
-  [1.12.2],
+  [1.14.7-dev],
   [guile-gtk-general at gnu.org])
 
 AC_CONFIG_AUX_DIR([build-aux])
