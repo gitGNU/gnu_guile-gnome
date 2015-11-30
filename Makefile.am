@@ -55,6 +55,7 @@ dist dist-all: distdir
 	$(am__remove_distdir)
 
 distclean-local:
+	rm -f Makefile
 	rm -f Makefile.in
 	rm -f aclocal.m4
 	rm -rf autom4te.cache
@@ -62,7 +63,15 @@ distclean-local:
 	rm -f configure
 	rm -f *~
 	rm -f guile-clutter-*.tar.gz
+	rm -f gnome/Makefile
+	rm -f gnome/Makefile.in
+	rm -f gnome/defs/Makefile
+	rm -f gnome/defs/Makefile.in
+	rm -f gnome/overrides/Makefile
+	rm -f gnome/overrides/Makefile.in
 	rm -f doc/Makefile.in
+	rm -f doc/Makefile
+	rm -f doc/clutter/Makefile
 	rm -f doc/clutter/Makefile.in
 	rm -f doc/clutter/stamp-vti
 	rm -f doc/clutter/*.aux doc/clutter/*.cp doc/clutter/*.cps
@@ -71,6 +80,7 @@ distclean-local:
 	rm -f doc/clutter/*.vr
 	rm -f doc/clutter/guile-gnome-clutter.info*
 	rm -f doc/clutter/guile-gnome-clutter.pdf
+	rm -f doc/clutter-glx/Makefile
 	rm -f doc/clutter-glx/Makefile.in
 	rm -f doc/clutter-glx/stamp-vti
 	rm -f doc/clutter-glx/*.aux doc/clutter-glx/*.cp doc/clutter-glx/*.cps
@@ -80,3 +90,5 @@ distclean-local:
 	rm -f guile-gnome-clutter-glx.info*
 	rm -f guile-gnome-clutter-glx.pdf
 	rm -f clutter/*~
+	rm -f tests/Makefile
+	rm -f tests/Makefile.in
