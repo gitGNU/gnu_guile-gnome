@@ -1,3 +1,25 @@
+
+####
+#### Copyright (C) 2007, 2015 Free Software Foundation, Inc.
+
+#### This file is part of Guile-Clutter.
+#### A Guile-Clutter of Really Important Procedures.
+
+#### Guile-Clutter is free software: you can redistribute it and/or
+#### modify it under the terms of the GNU General Public License as
+#### published by the Free Software Foundation, either version 3 of
+#### the License, or (at your option) any later version.
+
+#### Guile-Clutter is distributed in the hope that it will be useful, but
+#### WITHOUT ANY WARRANTY; without even the implied warranty of
+#### MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+#### General Public License for more details.
+
+#### You should have received a copy of the GNU General Public License
+#### along with Guile-Clutter.  If not, see <http://www.gnu.org/licenses/>.
+####
+
+
 include $(top_srcdir)/common.mk
 
 defsdir = $(guilemoduledir)/defs
@@ -21,8 +43,11 @@ CLUTTER_INC_DIR=$(CLUTTER_PREFIX)/include/clutter-$(CLUTTER_MAJORMINOR)/clutter
 # next stable release comes out, there will be new compile warnings, and
 # those warnings should be added to the clutter.defs file in ../overrides/.
 
+# we keep copy of the below target in case we need to run it in the
+# future, but so far we only need COGL_TYPE_PIXEL_FORMAT, which is in
+# cogl-types.defs already.
+#	../../../h2def.py --types ../gw/cogl-support.h > cogl-types.defs
 clutter:
-	../../../h2def.py --types ../gw/cogl-support.h > cogl-types.defs
 	../../../h2def.py --types \
 	   $(CLUTTER_INC_DIR)/*.h $(CLUTTER_INC_DIR)/deprecated/*.h > clutter-types.defs
 	../../../h2def.py --procs \
