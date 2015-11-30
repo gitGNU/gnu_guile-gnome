@@ -1,5 +1,5 @@
 /* guile-gnome
- * Copyright (C) 2008,2012,2014 Free Software Foundation, Inc.
+ * Copyright (C) 2008,2012,2014,2015 Free Software Foundation, Inc.
  *
  * clutter-support.h:
  *
@@ -81,3 +81,12 @@ ClutterMatrix* scm_scm_to_clutter_matrix (SCM scm);
 gboolean _wrap_clutter_image_set_data (ClutterImage *image, guchar *data,
 				       CoglPixelFormat pixel_format, guint width, guint height,
 				       guint row_stride, GError **error);
+
+void _wrap_clutter_scroll_actor_scroll_to_point (ClutterScrollActor *scroll,
+						 float x,
+						 float y);
+void _wrap_clutter_scroll_actor_scroll_to_rect (ClutterScrollActor *scroll,
+						float x,
+						float y,
+						float width,
+						float height);

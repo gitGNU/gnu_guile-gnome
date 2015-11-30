@@ -1,6 +1,7 @@
 ;; -*- scheme -*-
-;; guile-gnome
-;; Copyright (C) 2008,2012,2014 Free Software Foundation, Inc.
+
+;; Guile-Clutter
+;; Copyright (C) 2008,2012,2014,2015 Free Software Foundation, Inc.
 
 ;; This program is free software; you can redistribute it and/or    
 ;; modify it under the terms of the GNU General Public License as   
@@ -277,6 +278,26 @@
   (overrides "clutter_stage_manager_peek_stages")
   (return-type "const-GSList*-of-ClutterStage*")
 )
+
+(define-method scroll_to_point
+  (of-object "ClutterScrollActor")
+  (c-name "_wrap_clutter_scroll_actor_scroll_to_point")
+  (overrides "clutter_scroll_actor_scroll_to_point")
+  (return-type "none")
+  (parameters
+   '("float" "x")
+   '("float" "y")))
+
+(define-method scroll_to_rect
+  (of-object "ClutterScrollActor")
+  (c-name "_wrap_clutter_scroll_actor_scroll_to_rect")
+  (overrides "clutter_scroll_actor_scroll_to_rect")
+  (return-type "none")
+  (parameters
+   '("float" "x")
+   '("float" "y")
+   '("float" "width")
+   '("float" "height")))
 
 (define-function clutter_binding_pool_get_for_class
   (c-name "clutter_binding_pool_get_for_class")

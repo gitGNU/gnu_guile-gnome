@@ -1,5 +1,5 @@
 /* guile-gnome
- * Copyright (C) 2008,2012,2014 Free Software Foundation, Inc.
+ * Copyright (C) 2008,2012,2014,2015 Free Software Foundation, Inc.
  *
  * clutter-support.c: Support routines for the clutter wrapper
  *
@@ -443,4 +443,34 @@ _wrap_clutter_image_set_data (ClutterImage *image,
   return clutter_image_set_data (image,
 				 (const guint8 *)data,
 				 pixel_format, width, height, row_stride, error);
+}
+
+void
+_wrap_clutter_scroll_actor_scroll_to_point (ClutterScrollActor *scroll,
+					    float x,
+					    float y)
+{
+  ClutterPoint p;
+
+  p.x = x;
+  p.y = y;
+
+  return clutter_scroll_actor_scroll_to_point (scroll, &p);
+}
+
+void
+_wrap_clutter_scroll_actor_scroll_to_rect (ClutterScrollActor *scroll,
+					   float x,
+					   float y,
+					   float width,
+					   float height)
+{
+  ClutterRect r;
+
+  r.origin.x = x;
+  r.origin.y = y;
+  r.size.width = width;
+  r.size.height = height;
+
+  return clutter_scroll_actor_scroll_to_rect (scroll, &r);
 }
