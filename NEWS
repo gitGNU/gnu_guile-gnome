@@ -21,6 +21,29 @@ applications:
 Guile-Clutter is part of GNU Guile-Gnome.
 
 
+Guile-Clutter 1.12.2.1 - David Pirotte, 2015-12-08
+==================================================
+
+* Changes since 1.12.2
+
+The primary objectives, working towards this release, were (a) to
+remove all code specific to the support of Guile versions prior to
+Guile 2, (b) removing all Guile deprecated calls, and then (c) wrap
+Clutter 1.12 of course :)!
+
+  Dependencies
+  ------------
+
+    - Requires Guile-Gnome >= 2.16.4
+
+  Clutter specific
+  ----------------
+
+    - fix - we only need 1 cogl type
+    - fixing scroll_to_point, scroll_to_rect
+    - make distclean - removing some more files
+
+
 Guile-Clutter 1.12.2 - David Pirotte, 2015-11-18
 ================================================
 
