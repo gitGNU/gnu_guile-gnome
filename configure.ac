@@ -27,7 +27,7 @@ License along with this program.  If not, see
 AC_PREREQ(2.61)
 
 AC_INIT([guile-clutter],
-  [1.14.6-dev],
+  [1.12.2.1],
   [guile-gtk-general at gnu.org])
 
 AC_CONFIG_AUX_DIR([build-aux])
@@ -90,7 +90,7 @@ AC_SUBST(G_WRAP_LIB_DIR,
 # PKG_CHECK_MODULES(GUILE_CAIRO, guile-cairo >= 1.10.0)
 PKG_CHECK_MODULES(GUILE_CAIRO, guile-cairo)
 
-GUILE_GNOME_PROGS([2.16.3])
+GUILE_GNOME_PROGS([2.16.4])
 GUILE_GNOME_FLAGS
 GUILE_GNOME_INST_DIR
 GUILE_GNOME_LIBS_PATH
